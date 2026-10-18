@@ -1,29 +1,32 @@
 @import "tailwindcss";
 
+/* Ensure dark: variant only applies when .dark class is on the DOM, not via OS media query */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
   :root {
-    /* Brand Palette: Direct from HumanizeText Brand Identity Specification */
-    --brand-deep: #0F3D2E;       /* Deep Green */
-    --brand-mint: #34D399;       /* Mint Green */
-    --brand-light-mint: #CFF9E5; /* Light Mint */
-    --brand-soft-white: #F8FEFA; /* Soft White */
+    /* Brand Reference Tokens */
+    --brand-deep: #0F3D2E;
+    --brand-mint: #34D399;
+    --brand-light-mint: #CFF9E5;
+    --brand-soft-white: #F8FEFA;
 
-    /* Semantic Light Theme */
-    --bg-primary: #F8FEFA;
+    /* Semantic Light Theme: Crisp, high-contrast, clean */
+    --bg-primary: #FAFCFA;
     --bg-surface: #FFFFFF;
-    --bg-subtle: #F0FAF4;
-    --border-subtle: #E1F3EA;
-    --border-strong: #C4EAD6;
-    --text-primary: #0F3D2E;
-    --text-secondary: #235643;
-    --text-muted: #628879;
+    --bg-subtle: #F2F7F4;
+    --border-subtle: #E2ECE5;
+    --border-strong: #C8DBD1;
+    --text-primary: #0F291E;       /* Deep rich obsidian-green for razor-sharp legibility */
+    --text-secondary: #2E453B;
+    --text-muted: #5E7A6E;
 
-    --accent: #34D399;
-    --accent-hover: #10B981;
+    --accent: #10B981;             /* Vibrant Emerald in light mode for AA/AAA contrast */
+    --accent-hover: #059669;
     --accent-deep: #0F3D2E;
-    --accent-light: #CFF9E5;
+    --accent-light: #E6F7F0;
     --accent-border: #A7F3D0;
-    --accent-contrast: #072B1F;
+    --accent-contrast: #FFFFFF;
 
     --warning-bg: #FEF3C7;
     --warning-text: #92400E;
@@ -31,39 +34,39 @@
     --error-bg: #FEE2E2;
     --error-text: #991B1B;
     --error-border: #FCA5A5;
-    --code-bg: #EAF7F0;
+    --code-bg: #EAF5EE;
   }
 
   .dark {
-    /* Semantic Dark Theme: Deepest Pine Forest Black & Luminous Emerald */
+    /* Semantic Dark Theme: Sleek Graphite/Obsidian Neutral Dark (NOT swamp green!) */
     --brand-deep: #0F3D2E;
     --brand-mint: #34D399;
     --brand-light-mint: #CFF9E5;
     --brand-soft-white: #F8FEFA;
 
-    --bg-primary: #061711;
-    --bg-surface: #0B241B;
-    --bg-subtle: #0F3326;
-    --border-subtle: #174534;
-    --border-strong: #235F48;
-    --text-primary: #F8FEFA;
-    --text-secondary: #CFF9E5;
-    --text-muted: #85B8A1;
+    --bg-primary: #0C0F0E;         /* Ultra-sleek neutral obsidian */
+    --bg-surface: #141816;         /* Refined dark slate surface */
+    --bg-subtle: #1C221F;          /* Elevated subtle graphite for inputs & toolbars */
+    --border-subtle: #242D28;      /* Clean dark border */
+    --border-strong: #333F39;
+    --text-primary: #F9FAFB;       /* Crisp clean white */
+    --text-secondary: #CBD5E1;     /* Soft readable slate */
+    --text-muted: #828F88;         /* Neutral muted text */
 
-    --accent: #34D399;
+    --accent: #34D399;             /* Vibrant mint green accent */
     --accent-hover: #6EE7B7;
     --accent-deep: #0F3D2E;
-    --accent-light: #103B2C;
-    --accent-border: #1E664B;
-    --accent-contrast: #061711;
+    --accent-light: rgba(52, 211, 153, 0.12);
+    --accent-border: rgba(52, 211, 153, 0.28);
+    --accent-contrast: #0C0F0E;
 
-    --warning-bg: #2E2310;
+    --warning-bg: #291F0E;
     --warning-text: #FBBF24;
-    --warning-border: #5E4314;
-    --error-bg: #2E1515;
+    --warning-border: #4D3812;
+    --error-bg: #281414;
     --error-text: #F87171;
-    --error-border: #5F2222;
-    --code-bg: #0F3326;
+    --error-border: #4E1E1E;
+    --code-bg: #1C221F;
   }
 
   body {
@@ -97,44 +100,50 @@
 /* Background Flowing Forms & Ribbons Pattern Utilities */
 .bg-brand-mesh {
   background-image: 
-    radial-gradient(circle at 10% 20%, rgba(52, 211, 153, 0.12) 0%, transparent 40%),
-    radial-gradient(circle at 90% 80%, rgba(15, 61, 46, 0.08) 0%, transparent 45%);
+    radial-gradient(circle at 10% 20%, rgba(52, 211, 153, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(15, 61, 46, 0.05) 0%, transparent 45%);
 }
 
 .dark .bg-brand-mesh {
   background-image: 
-    radial-gradient(circle at 20% 15%, rgba(52, 211, 153, 0.15) 0%, transparent 45%),
-    radial-gradient(circle at 85% 75%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+    radial-gradient(circle at 20% 15%, rgba(52, 211, 153, 0.1) 0%, transparent 45%),
+    radial-gradient(circle at 85% 75%, rgba(16, 185, 129, 0.06) 0%, transparent 50%);
 }
 
 /* Pill Action Button Specification */
 .btn-brand-pill {
   border-radius: 9999px;
-  background: linear-gradient(135deg, #34D399 0%, #10B981 100%);
-  color: #072B1F;
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: #FFFFFF;
   font-weight: 700;
-  box-shadow: 0 4px 14px -2px rgba(52, 211, 153, 0.35);
+  box-shadow: 0 4px 14px -2px rgba(16, 185, 129, 0.35);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-brand-pill:hover {
-  background: linear-gradient(135deg, #4ade80 0%, #34D399 100%);
-  box-shadow: 0 6px 20px -2px rgba(52, 211, 153, 0.5);
+  background: linear-gradient(135deg, #34D399 0%, #10B981 100%);
+  box-shadow: 0 6px 20px -2px rgba(16, 185, 129, 0.5);
   transform: translateY(-1px);
 }
 
 .dark .btn-brand-pill {
-  color: #061711;
-  box-shadow: 0 4px 18px -2px rgba(52, 211, 153, 0.45);
+  background: linear-gradient(135deg, #34D399 0%, #10B981 100%);
+  color: #0C0F0E;
+  box-shadow: 0 4px 18px -2px rgba(52, 211, 153, 0.35);
+}
+
+.dark .btn-brand-pill:hover {
+  background: linear-gradient(135deg, #6EE7B7 0%, #34D399 100%);
+  box-shadow: 0 6px 22px -2px rgba(52, 211, 153, 0.55);
 }
 
 /* Glassmorphic card styling */
 .glass-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
-  box-shadow: 0 8px 30px rgba(15, 61, 46, 0.04);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03);
 }
 
 .dark .glass-card {
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
 }

@@ -175,7 +175,7 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
         </div>
 
         <h1 className="text-3xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-4xl md:text-5xl">
-          Make Your Text Sound <span className="text-[#34D399]">More Human</span>
+          Make Your Text Sound <span className="text-[#059669] dark:text-[#34D399]">More Human</span>
         </h1>
         <p className="mx-auto mt-3 max-w-2xl text-base text-[var(--text-secondary)]">
           Transform AI-generated content into natural, authentic and engaging writing.

@@ -15,7 +15,7 @@ export const FlowingWavesBackground: React.FC<FlowingWavesBackgroundProps> = ({
       aria-hidden="true"
     >
       <svg
-        className="absolute top-0 right-0 w-full h-[600px] md:h-[750px] opacity-70 dark:opacity-40 transition-opacity duration-700"
+        className="absolute top-0 right-0 w-full h-[600px] md:h-[750px] opacity-30 dark:opacity-15 transition-opacity duration-700"
         viewBox="0 0 1440 800"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

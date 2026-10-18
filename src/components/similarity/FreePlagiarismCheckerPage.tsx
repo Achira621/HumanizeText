@@ -156,7 +156,7 @@ export const FreePlagiarismCheckerPage: React.FC<FreePlagiarismCheckerPageProps>
         </div>
 
         <h1 className="text-3xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-4xl md:text-5xl">
-          Free Online <span className="text-[#34D399]">Plagiarism Checker</span>
+          Free Online <span className="text-[#059669] dark:text-[#34D399]">Plagiarism Checker</span>
         </h1>
         <p className="mx-auto mt-3 max-w-3xl text-base text-[var(--text-secondary)]">
           Compare documents for verbatim overlap and matching passages with complete data sovereignty.

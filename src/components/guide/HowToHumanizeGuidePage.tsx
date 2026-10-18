@@ -93,7 +93,7 @@ export const HowToHumanizeGuidePage: React.FC<HowToHumanizeGuidePageProps> = ({
         </div>
 
         <h1 className="text-3xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-4xl md:text-5xl">
-          How to Humanize <span className="text-[#34D399]">AI-Assisted Writing</span>
+          How to Humanize <span className="text-[#059669] dark:text-[#34D399]">AI-Assisted Writing</span>
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-[var(--text-secondary)]">
           A practical, comprehensive guide to editing AI drafts. Learn how to master sentence

@@ -154,7 +154,7 @@ export const FreeParaphrasingToolPage: React.FC<FreeParaphrasingToolPageProps> =
         </div>
 
         <h1 className="text-3xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-4xl md:text-5xl">
-          Free <span className="text-[#34D399]">Paraphrasing Tool</span>
+          Free <span className="text-[#059669] dark:text-[#34D399]">Paraphrasing Tool</span>
         </h1>
         <p className="mx-auto mt-3 max-w-2xl text-base text-[var(--text-secondary)]">
           Rephrase complex sentences, clarify arguments, and protect citations against mosaic plagiarism.

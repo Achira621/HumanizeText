@@ -125,12 +125,12 @@ export const HumanizeLogo: React.FC<HumanizeLogoProps> = ({
       <div className={`flex flex-col items-center text-center ${className}`}>
         {LogoMarkSvg}
         <div className={`mt-3 font-extrabold tracking-tight ${textSizeClasses}`}>
-          <span className="text-[#0F3D2E] dark:text-[#F8FEFA] transition-colors">humanize</span>
-          <span className="text-[#34D399]">Text</span>
+          <span className="text-[var(--text-primary)] transition-colors">humanize</span>
+          <span className="text-[#059669] dark:text-[#34D399]">Text</span>
         </div>
         {showTagline && (
           <span
-            className={`mt-1 font-semibold uppercase tracking-[0.25em] text-[#575961] dark:text-[#A0A5B2] ${taglineSizeClasses}`}
+            className={`mt-1 font-semibold uppercase tracking-[0.25em] text-[var(--text-muted)] ${taglineSizeClasses}`}
           >
             Write Like A Human
           </span>
@@ -145,12 +145,12 @@ export const HumanizeLogo: React.FC<HumanizeLogoProps> = ({
       {LogoMarkSvg}
       <div className="flex flex-col">
         <div className={`font-extrabold leading-none tracking-tight ${textSizeClasses}`}>
-          <span className="text-[#0F3D2E] dark:text-[#F8FEFA] transition-colors">humanize</span>
-          <span className="text-[#34D399]">Text</span>
+          <span className="text-[var(--text-primary)] transition-colors">humanize</span>
+          <span className="text-[#059669] dark:text-[#34D399]">Text</span>
         </div>
         {showTagline && (
           <span
-            className={`mt-1 font-semibold uppercase tracking-[0.22em] text-[#575961] dark:text-[#94A3B8] ${taglineSizeClasses}`}
+            className={`mt-1 font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)] ${taglineSizeClasses}`}
           >
             Write Like A Human
           </span>
