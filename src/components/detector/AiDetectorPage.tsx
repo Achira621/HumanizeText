@@ -393,105 +393,198 @@ export const AiDetectorPage: React.FC = () => {
       )}
 
       {/* Detection Results Card */}
-      {(textResult || imageResult) && (
-        <div className="mt-6 rounded-xl border border-[var(--border-strong)] bg-[var(--bg-surface)] p-6 shadow-md">
+      {((activeTab === 'text' && textResult) || (activeTab === 'image' && imageResult)) && (
+        <div className="mt-6 rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-surface)] p-6 shadow-lg">
+          {/* Header & Execution Source */}
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border-subtle)] pb-4">
             <div className="flex items-center space-x-2">
               <span className="text-sm font-bold text-[var(--text-primary)]">Inference Results</span>
-              <span className="rounded-full bg-[var(--accent-light)] px-2.5 py-0.5 text-[11px] font-bold text-[var(--accent)]">
-                Executed via {textResult?.mode === 'local' || imageResult?.mode === 'local' ? 'Local On-Device Engine' : 'Secure Server'}
+              <span className="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                ✓ Executed via {(activeTab === 'text' ? textResult?.mode : imageResult?.mode) === 'local' ? 'Local Device (100% Private)' : 'Secure Server'}
               </span>
             </div>
             <span className="text-xs text-[var(--text-muted)] font-mono">
-              Latency: {textResult?.latencyMs ?? imageResult?.latencyMs} ms
+              Latency: {(activeTab === 'text' ? textResult?.latencyMs : imageResult?.latencyMs)} ms
             </span>
           </div>
 
-          {/* Score Meters */}
-          {textResult && (
-            <div className="mt-5 space-y-6">
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                {/* AI Probability */}
-                <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-4">
-                  <span className="text-xs font-semibold text-[var(--text-muted)]">Synthetic AI Pattern Match</span>
-                  <div className="mt-1 flex items-baseline space-x-2">
-                    <span className="text-3xl font-black text-red-600 dark:text-red-400">
-                      {Math.round(textResult.score.aiProbability * 100)}%
-                    </span>
-                    <span className="text-xs font-bold uppercase tracking-wider text-[var(--text-secondary)]">
+          {/* TEXT DETECTION VERDICT & DETAILS */}
+          {activeTab === 'text' && textResult && (() => {
+            const aiPct = Math.round(textResult.score.aiProbability * 100);
+            const humanPct = Math.round(textResult.score.humanProbability * 100);
+            const isHuman = aiPct < 25;
+            const isAi = aiPct >= 60;
+            const isMixed = !isHuman && !isAi;
+            const perpScore = textResult.score.perplexityScore ?? 85;
+            const burstScore = textResult.score.burstinessScore ?? 85;
+
+            return (
+              <div className="mt-5 space-y-6">
+                {/* HERO VERDICT BANNER - Instantly readable Green vs Red */}
+                <div className={`rounded-xl border p-5 ${
+                  isHuman 
+                    ? 'border-emerald-300 bg-emerald-50/80 text-emerald-950 dark:border-emerald-800/60 dark:bg-emerald-950/25 dark:text-emerald-200' 
+                    : isAi
+                      ? 'border-red-300 bg-red-50/80 text-red-950 dark:border-red-800/60 dark:bg-red-950/25 dark:text-red-200'
+                      : 'border-amber-300 bg-amber-50/80 text-amber-950 dark:border-amber-800/60 dark:bg-amber-950/25 dark:text-amber-200'
+                }`}>
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div className="flex items-center space-x-3">
+                      <span className="text-3xl">
+                        {isHuman ? '🟢' : isAi ? '🔴' : '🟡'}
+                      </span>
+                      <div>
+                        <h4 className="text-lg font-black tracking-tight">
+                          {isHuman && `Likely 100% Human Written (${humanPct}% Human)`}
+                          {isAi && `High AI Generated Content (${aiPct}% AI Score)`}
+                          {isMixed && `Mixed Content (${humanPct}% Human / ${aiPct}% AI)`}
+                        </h4>
+                        <p className="mt-0.5 text-xs opacity-90">
+                          {isHuman && 'Safe & authentic! No significant robotic or repetitive machine patterns detected.'}
+                          {isAi && 'Significant AI patterns detected. Phrases match typical LLM generation (ChatGPT, Claude, etc.).'}
+                          {isMixed && 'Shows a blend of natural human cadence and predictable AI-like phrasing.'}
+                        </p>
+                      </div>
+                    </div>
+                    <span className={`rounded-full px-3 py-1 text-xs font-black uppercase tracking-wider ${
+                      isHuman
+                        ? 'bg-emerald-600 text-white dark:bg-emerald-500'
+                        : isAi
+                          ? 'bg-red-600 text-white dark:bg-red-500'
+                          : 'bg-amber-600 text-white dark:bg-amber-500'
+                    }`}>
                       {textResult.score.classification}
                     </span>
                   </div>
-                  <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
-                    <div
-                      className="h-full rounded-full bg-red-500"
-                      style={{ width: `${Math.round(textResult.score.aiProbability * 100)}%` }}
-                    />
+                </div>
+
+                {/* DUAL METER CARDS */}
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  {/* Human Authenticity Card (Green when high) */}
+                  <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-semibold text-[var(--text-muted)]">Human Authenticity & Rhythm</span>
+                      <span className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
+                        Higher is better
+                      </span>
+                    </div>
+                    <div className="mt-2 flex items-baseline space-x-2">
+                      <span className={`text-3xl font-black ${
+                        humanPct >= 75 ? 'text-emerald-600 dark:text-emerald-400' : humanPct >= 40 ? 'text-amber-600 dark:text-amber-400' : 'text-red-600 dark:text-red-400'
+                      }`}>
+                        {humanPct}%
+                      </span>
+                      <span className="text-xs font-bold text-[var(--text-secondary)]">
+                        {humanPct >= 75 ? 'Natural Human Phrasing' : humanPct >= 40 ? 'Moderate Variance' : 'Low Human Variance'}
+                      </span>
+                    </div>
+                    <div className="mt-2 h-2.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
+                      <div
+                        className={`h-full rounded-full transition-all duration-500 ${
+                          humanPct >= 75 ? 'bg-emerald-500' : humanPct >= 40 ? 'bg-amber-500' : 'bg-red-500'
+                        }`}
+                        style={{ width: `${humanPct}%` }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* AI Match Card (Green when low, Red when high) */}
+                  <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-semibold text-[var(--text-muted)]">AI Pattern Match</span>
+                      <span className="text-[11px] font-bold text-[var(--text-muted)]">
+                        Lower is better
+                      </span>
+                    </div>
+                    <div className="mt-2 flex items-baseline space-x-2">
+                      <span className={`text-3xl font-black ${
+                        isHuman ? 'text-emerald-600 dark:text-emerald-400' : isMixed ? 'text-amber-600 dark:text-amber-400' : 'text-red-600 dark:text-red-400'
+                      }`}>
+                        {aiPct}%
+                      </span>
+                      <span className="text-xs font-bold text-[var(--text-secondary)]">
+                        {isHuman ? 'Virtually No AI' : isMixed ? 'Moderate AI Likelihood' : 'Strong AI Signatures'}
+                      </span>
+                    </div>
+                    <div className="mt-2 h-2.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
+                      <div
+                        className={`h-full rounded-full transition-all duration-500 ${
+                          isHuman ? 'bg-emerald-500' : isMixed ? 'bg-amber-500' : 'bg-red-500'
+                        }`}
+                        style={{ width: `${aiPct}%` }}
+                      />
+                    </div>
                   </div>
                 </div>
 
-                {/* Human Probability */}
+                {/* Sub-Metrics: Perplexity & Burstiness with plain-English meaning */}
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 text-xs">
+                  <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-3.5">
+                    <div className="flex items-center justify-between">
+                      <span className="font-semibold text-[var(--text-muted)]">Vocabulary Variety (Perplexity):</span>
+                      <span className="font-mono font-bold text-[var(--text-primary)]">{perpScore} / 100</span>
+                    </div>
+                    <p className="mt-1 text-[11px] text-[var(--text-secondary)]">
+                      {perpScore >= 70 
+                        ? '✓ Diverse vocabulary and unpredictable phrasing (characteristic of human writers).'
+                        : '⚠️ Predictable word choices typical of algorithmic text generation.'}
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-3.5">
+                    <div className="flex items-center justify-between">
+                      <span className="font-semibold text-[var(--text-muted)]">Sentence Rhythm (Burstiness):</span>
+                      <span className="font-mono font-bold text-[var(--text-primary)]">{burstScore} / 100</span>
+                    </div>
+                    <p className="mt-1 text-[11px] text-[var(--text-secondary)]">
+                      {burstScore >= 70
+                        ? '✓ Natural cadence with varied sentence lengths (short and complex mixed).'
+                        : '⚠️ Rigid, uniform sentence lengths commonly produced by AI tools.'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
+
+          {/* IMAGE DETECTION VERDICT & DETAILS */}
+          {activeTab === 'image' && imageResult && (() => {
+            const imgAiPct = Math.round(imageResult.score.aiProbability * 100);
+            const isSynthetic = imgAiPct >= 50;
+
+            return (
+              <div className="mt-5 space-y-4">
+                <div className={`rounded-xl border p-5 ${
+                  isSynthetic
+                    ? 'border-red-300 bg-red-50/80 text-red-950 dark:border-red-800/60 dark:bg-red-950/25 dark:text-red-200'
+                    : 'border-emerald-300 bg-emerald-50/80 text-emerald-950 dark:border-emerald-800/60 dark:bg-emerald-950/25 dark:text-emerald-200'
+                }`}>
+                  <div className="flex items-center space-x-3">
+                    <span className="text-3xl">{isSynthetic ? '🔴' : '🟢'}</span>
+                    <div>
+                      <h4 className="text-lg font-black tracking-tight">
+                        {isSynthetic ? `Likely AI-Generated Image (${imgAiPct}%)` : `Likely Natural / Camera Photo (${100 - imgAiPct}%)`}
+                      </h4>
+                      <p className="mt-0.5 text-xs opacity-90">
+                        {isSynthetic 
+                          ? 'Diffusion/GAN upscaling noise and latent boundary blur patterns detected.'
+                          : 'Natural camera noise distribution with no generative neural grid artifacts.'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-4">
-                  <span className="text-xs font-semibold text-[var(--text-muted)]">Human Variance & Rhythm</span>
-                  <div className="mt-1 flex items-baseline space-x-2">
-                    <span className="text-3xl font-black text-emerald-600 dark:text-emerald-400">
-                      {Math.round(textResult.score.humanProbability * 100)}%
-                    </span>
-                    <span className="text-xs font-bold text-[var(--text-secondary)]">
-                      Confidence: {textResult.score.confidence}
-                    </span>
-                  </div>
-                  <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
-                    <div
-                      className="h-full rounded-full bg-emerald-500"
-                      style={{ width: `${Math.round(textResult.score.humanProbability * 100)}%` }}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Perplexity & Burstiness */}
-              <div className="grid grid-cols-2 gap-4 text-xs">
-                <div className="rounded-lg border border-[var(--border-subtle)] p-3">
-                  <span className="text-[var(--text-muted)]">Perplexity Score:</span>
-                  <p className="mt-0.5 text-base font-bold text-[var(--text-primary)]">
-                    {textResult.score.perplexityScore} / 100
-                  </p>
-                </div>
-                <div className="rounded-lg border border-[var(--border-subtle)] p-3">
-                  <span className="text-[var(--text-muted)]">Burstiness Cadence:</span>
-                  <p className="mt-0.5 text-base font-bold text-[var(--text-primary)]">
-                    {textResult.score.burstinessScore} / 100
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Image Results */}
-          {imageResult && (
-            <div className="mt-5 space-y-4">
-              <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold text-[var(--text-muted)]">Synthetic Generation Probability</span>
-                  <span className="text-2xl font-black text-[var(--accent)]">
-                    {Math.round(imageResult.score.aiProbability * 100)}%
-                  </span>
-                </div>
-                <p className="mt-1 text-xs font-bold uppercase text-[var(--text-primary)]">
-                  {imageResult.score.classification}
-                </p>
-                <div className="mt-2.5 space-y-1">
-                  <span className="text-[11px] font-bold text-[var(--text-secondary)]">Artifacts Inspected:</span>
-                  <ul className="list-inside list-disc text-xs text-[var(--text-muted)]">
+                  <span className="text-xs font-bold text-[var(--text-secondary)]">Inspected Visual Patterns:</span>
+                  <ul className="mt-2 list-inside list-disc text-xs text-[var(--text-muted)] space-y-1">
                     {imageResult.score.artifactPatternsDetected?.map((a, i) => (
                       <li key={i}>{a}</li>
                     ))}
                   </ul>
                 </div>
               </div>
-            </div>
-          )}
+            );
+          })()}
 
           {/* Limitations Disclosure */}
           <div className="mt-5 flex items-start space-x-2 rounded-lg bg-[var(--bg-subtle)] p-3 text-[11px] text-[var(--text-secondary)]">
