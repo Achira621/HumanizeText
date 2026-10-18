@@ -1,10 +1,12 @@
 import React from 'react';
-import { Moon, Sun, Lock, Sparkles, FileSearch, BookOpen, ShieldCheck } from 'lucide-react';
+import { Moon, Sun, Lock, Sparkles, FileSearch, BookOpen, ShieldCheck, Cpu, Eye } from 'lucide-react';
 import { HumanizeLogo } from './HumanizeLogo';
 
 export type ActiveTab =
   | 'humanizer'
   | 'plagiarism-checker'
+  | 'ai-detector'
+  | 'metadata-inspector'
   | 'paraphrase'
   | 'how-to-humanize'
   | 'privacy-lab'
@@ -36,7 +38,9 @@ export const Header: React.FC<HeaderProps> = ({
 
   const navItems = [
     { id: 'humanizer' as ActiveTab, label: 'Free AI Humanizer', icon: Sparkles },
+    { id: 'ai-detector' as ActiveTab, label: 'AI Detector', icon: Cpu },
     { id: 'plagiarism-checker' as ActiveTab, label: 'Plagiarism Checker', icon: FileSearch },
+    { id: 'metadata-inspector' as ActiveTab, label: 'Metadata & Signatures', icon: Eye },
     { id: 'paraphrase' as ActiveTab, label: 'Paraphrasing Tool', icon: Sparkles },
     { id: 'how-to-humanize' as ActiveTab, label: 'Writing Guide', icon: BookOpen },
     { id: 'privacy-lab' as ActiveTab, label: 'Privacy Lab', icon: ShieldCheck },

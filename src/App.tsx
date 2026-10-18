@@ -4,6 +4,8 @@ import type { ActiveTab } from './components/common/Header';
 import { Footer } from './components/common/Footer';
 import { FreeAiHumanizerPage } from './components/humanizer/FreeAiHumanizerPage';
 import { FreePlagiarismCheckerPage } from './components/similarity/FreePlagiarismCheckerPage';
+import { AiDetectorPage } from './components/detector/AiDetectorPage';
+import { MetadataInspectorPage } from './components/metadata/MetadataInspectorPage';
 import { FreeParaphrasingToolPage } from './components/paraphrase/FreeParaphrasingToolPage';
 import { HowToHumanizeGuidePage } from './components/guide/HowToHumanizeGuidePage';
 import { PrivacyLab } from './components/privacyLab/PrivacyLab';
@@ -15,6 +17,8 @@ import { updatePageMeta } from './lib/seo/metaManager';
 function getTabFromHash(): ActiveTab {
   if (typeof window === 'undefined') return 'humanizer';
   const rawHash = window.location.hash.replace(/^#\/?/, '').trim().toLowerCase();
+  if (rawHash === 'ai-detector' || rawHash === 'detector') return 'ai-detector';
+  if (rawHash === 'metadata-inspector' || rawHash === 'metadata') return 'metadata-inspector';
   if (rawHash === 'plagiarism-checker' || rawHash === 'similarity') return 'plagiarism-checker';
   if (rawHash === 'paraphrase' || rawHash === 'paraphrasing-tool') return 'paraphrase';
   if (rawHash === 'how-to-humanize' || rawHash === 'guide') return 'how-to-humanize';
@@ -26,6 +30,8 @@ function getTabFromHash(): ActiveTab {
 
 function getHashFromTab(tab: ActiveTab): string {
   if (tab === 'humanizer' || tab === 'editor') return '#/';
+  if (tab === 'ai-detector') return '#/ai-detector';
+  if (tab === 'metadata-inspector') return '#/metadata-inspector';
   if (tab === 'plagiarism-checker' || tab === 'similarity') return '#/plagiarism-checker';
   if (tab === 'paraphrase') return '#/paraphrase';
   if (tab === 'how-to-humanize') return '#/how-to-humanize';
@@ -120,6 +126,10 @@ export function App() {
             setActiveTab={setActiveTab}
           />
         )}
+
+        {activeTab === 'ai-detector' && <AiDetectorPage />}
+
+        {activeTab === 'metadata-inspector' && <MetadataInspectorPage />}
 
         {isSimilarityActive && (
           <FreePlagiarismCheckerPage

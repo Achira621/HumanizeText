@@ -121,6 +121,22 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
       'cryptographic plagiarism architecture, threat model, winnowing paper, web crypto security, zero server design',
     canonicalPath: '#/docs',
   },
+  'ai-detector': {
+    title: 'Hybrid AI Detector — On-Device Neural & Secure Server Classification | HumanizeText',
+    description:
+      'Check text and images for synthetic AI generation patterns using a hybrid inference router. Runs locally via cached ONNX models or securely via server fallback.',
+    keywords:
+      'ai detector, hybrid ai detection, on device ai detector, detect chatgpt text, detect ai image, roberta onnx text classifier',
+    canonicalPath: '#/ai-detector',
+  },
+  'metadata-inspector': {
+    title: 'Metadata & Signature Inspector — Client-Side EXIF & GPS Scrubber | HumanizeText',
+    description:
+      'Inspect and sanitize EXIF, GPS location coordinates, camera models, and AI generator parameter chunks locally inside your browser before sharing images.',
+    keywords:
+      'exif metadata inspector, remove gps from photo, scrub image metadata, clean ai prompt chunk, photo privacy scrubber',
+    canonicalPath: '#/metadata-inspector',
+  },
 };
 
 export function updatePageMeta(tab: string): void {
