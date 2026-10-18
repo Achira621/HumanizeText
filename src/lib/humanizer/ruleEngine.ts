@@ -93,11 +93,123 @@ const CLICHE_POOLS: Array<{
     modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
   },
   {
-    pattern: /\bbeacon of\b/gi,
-    pool: ['example of', 'model of', 'symbol of', 'standard for', 'guide for'],
+    pattern: /\bserves? as a beacon of modern inquiry\b/gi,
+    pool: ['stands as a model for modern research', 'leads the way in modern inquiry', 'exemplifies contemporary research'],
+    reason: 'Replaced melodramatic academic cliché',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bserves? as a beacon of\b/gi,
+    pool: ['stands as a model for', 'leads the way in', 'exemplifies', 'guides'],
+    reason: 'Replaced metaphor "serves as a beacon of"',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\ba beacon of\b/gi,
+    pool: ['a model of', 'a standard for', 'an example of', 'a guide for'],
     reason: 'Replaced AI-overused metaphor "beacon of"',
     category: 'phrasing',
     modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bconduct(?:ed)? an investigation into\b/gi,
+    pool: ['investigate', 'examine', 'study', 'look into'],
+    reason: 'Simplified nominalization "conduct an investigation into"',
+    category: 'concise',
+    modes: ['natural', 'concise', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\b(?:the )?aforementioned\b/gi,
+    pool: ['these', 'those', 'the earlier', 'the specified'],
+    reason: 'Replaced archaic academic word "aforementioned"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bit should be noted that\b/gi,
+    pool: ['note that', 'we should note that', 'in fact,', 'importantly,'],
+    reason: 'Removed passive throat-clearer "it should be noted that"',
+    category: 'filler',
+    modes: ['natural', 'concise', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bprior literature demonstrates\b/gi,
+    pool: ['past studies show', 'earlier research shows', 'prior work indicates', 'earlier findings reveal'],
+    reason: 'Replaced formulaic academic citation phrase',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bempirical observations were collected\b/gi,
+    pool: ['data was collected', 'empirical data was gathered', 'observations were compiled'],
+    reason: 'Simplified passive academic phrase',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bover a long duration of time\b/gi,
+    pool: ['over a long period', 'over time', 'for years', 'over many years'],
+    reason: 'Condensed redundant phrase "long duration of time"',
+    category: 'redundancy',
+    modes: ['natural', 'concise', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bwe have the ability to conclude that\b/gi,
+    pool: ['we can conclude that', 'this shows that', 'we can see that', 'the results show that'],
+    reason: 'Streamlined wordy conclusion phrase',
+    category: 'concise',
+    modes: ['natural', 'concise', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bcomputational methodology\b/gi,
+    pool: ['computational methods', 'computational modeling', 'computer methods'],
+    reason: 'Simplified inflated term "computational methodology"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bautomate repetitive tasks\b/gi,
+    pool: ['handle repetitive tasks', 'take care of routine chores', 'automate mundane work'],
+    reason: 'Replaced corporate buzzphrase "automate repetitive tasks"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bsave valuable time\b/gi,
+    pool: ['free up valuable time', 'save hours of work', 'give teams time back'],
+    reason: 'Replaced corporate cliché "save valuable time"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bincrease overall efficiency\b/gi,
+    pool: ['boost efficiency', 'speed up work', 'streamline daily operations'],
+    reason: 'Replaced business buzzword "increase overall efficiency"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bdrive higher productivity\b/gi,
+    pool: ['lift productivity', 'get more done', 'increase team output'],
+    reason: 'Replaced business buzzword "drive higher productivity"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bin many different ways\b/gi,
+    pool: ['in countless ways', 'across the board', 'in all kinds of ways'],
+    reason: 'Replaced vague filler "in many different ways"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bchanging the world\b/gi,
+    pool: ['reshaping daily work', 'transforming modern life', 'altering how we work'],
+    reason: 'Replaced hyperbole "changing the world"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'flow'],
   },
   {
     pattern: /\blandscape(?:s)? of\b/gi,
@@ -635,9 +747,23 @@ const CLICHE_POOLS: Array<{
     modes: ['natural', 'conversational', 'concise', 'flow'],
   },
   {
-    pattern: /\bsignificant(?:ly)?\b/gi,
+    pattern: /\ba significant variance\b/gi,
+    pool: ['a clear difference', 'a notable difference', 'a real contrast', 'a major divergence'],
+    reason: 'Replaced inflated academic phrase "a significant variance"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bsignificant\b/gi,
+    pool: ['notable', 'meaningful', 'major', 'substantial', 'clear'],
+    reason: 'Varied overused adjective "significant"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bsignificantly\b/gi,
     pool: ['considerably', 'substantially', 'markedly', 'greatly', 'quite a bit'],
-    reason: 'Varied overused "significantly"',
+    reason: 'Varied overused adverb "significantly"',
     category: 'phrasing',
     modes: ['natural', 'conversational', 'flow'],
   },
@@ -670,23 +796,24 @@ const CLICHE_POOLS: Array<{
 // SECTION 2: DETERMINISTIC RULES (mode-specific, always-apply)
 // ---------------------------------------------------------------------------
 const DETERMINISTIC_RULES: ReplacementPattern[] = [
-  // Conversational contractions
-  { pattern: /\bdo not\b/gi, replacement: "don't", reason: 'Applied natural contraction', category: 'formality', modes: ['conversational'] },
-  { pattern: /\bcannot\b/gi, replacement: "can't", reason: 'Applied natural contraction', category: 'formality', modes: ['conversational'] },
-  { pattern: /\bwill not\b/gi, replacement: "won't", reason: 'Applied natural contraction', category: 'formality', modes: ['conversational'] },
-  { pattern: /\bshould not\b/gi, replacement: "shouldn't", reason: 'Applied natural contraction', category: 'formality', modes: ['conversational'] },
-  { pattern: /\bwould not\b/gi, replacement: "wouldn't", reason: 'Applied natural contraction', category: 'formality', modes: ['conversational'] },
-  { pattern: /\bcould not\b/gi, replacement: "couldn't", reason: 'Applied natural contraction', category: 'formality', modes: ['conversational'] },
-  { pattern: /\bI am\b/g, replacement: "I'm", reason: 'Applied natural contraction', category: 'formality', modes: ['conversational'] },
-  { pattern: /\bI have\b/g, replacement: "I've", reason: 'Applied natural contraction', category: 'formality', modes: ['conversational'] },
-  { pattern: /\bI will\b/g, replacement: "I'll", reason: 'Applied natural contraction', category: 'formality', modes: ['conversational'] },
-  { pattern: /\bit is\b/gi, replacement: "it's", reason: 'Applied natural contraction', category: 'formality', modes: ['conversational'] },
-  { pattern: /\bthat is\b/gi, replacement: "that's", reason: 'Applied natural contraction', category: 'formality', modes: ['conversational'] },
-  { pattern: /\bthey are\b/gi, replacement: "they're", reason: 'Applied natural contraction', category: 'formality', modes: ['conversational'] },
-  { pattern: /\bwe are\b/gi, replacement: "we're", reason: 'Applied natural contraction', category: 'formality', modes: ['conversational'] },
-  { pattern: /\byou are\b/gi, replacement: "you're", reason: 'Applied natural contraction', category: 'formality', modes: ['conversational'] },
-  { pattern: /\bhe is\b/gi, replacement: "he's", reason: 'Applied natural contraction', category: 'formality', modes: ['conversational'] },
-  { pattern: /\bshe is\b/gi, replacement: "she's", reason: 'Applied natural contraction', category: 'formality', modes: ['conversational'] },
+  // Natural & Conversational contractions (breaks robotic AI stiffness)
+  { pattern: /\bdo not\b/gi, replacement: "don't", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
+  { pattern: /\bcannot\b/gi, replacement: "can't", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
+  { pattern: /\bwill not\b/gi, replacement: "won't", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
+  { pattern: /\bshould not\b/gi, replacement: "shouldn't", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
+  { pattern: /\bwould not\b/gi, replacement: "wouldn't", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
+  { pattern: /\bcould not\b/gi, replacement: "couldn't", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
+  { pattern: /\bI am\b/g, replacement: "I'm", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow'] },
+  { pattern: /\bI have\b/g, replacement: "I've", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow'] },
+  { pattern: /\bI will\b/g, replacement: "I'll", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow'] },
+  { pattern: /\bit is\b/gi, replacement: "it's", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
+  { pattern: /\bthat is\b/gi, replacement: "that's", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
+  { pattern: /\bthere is\b/gi, replacement: "there's", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
+  { pattern: /\bthey are\b/gi, replacement: "they're", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
+  { pattern: /\bwe are\b/gi, replacement: "we're", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
+  { pattern: /\byou are\b/gi, replacement: "you're", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
+  { pattern: /\bhe is\b/gi, replacement: "he's", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow'] },
+  { pattern: /\bshe is\b/gi, replacement: "she's", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow'] },
 
   // Formal expansions
   { pattern: /\bdon't\b/gi, replacement: 'do not', reason: 'Expanded for formal register', category: 'formality', modes: ['formal'] },
@@ -824,23 +951,43 @@ function mergeShortSentencePairs(sentences: string[]): string[] {
 // Estimates likelihood text is AI-generated vs human on 0-100 scale
 // ---------------------------------------------------------------------------
 const AI_SIGNALS = [
-  /\bdelve\b/gi, /\btapestry\b/gi, /\btestament\b/gi, /\bvital role\b/gi,
-  /\bbeacon\b/gi, /\bembark\b/gi, /\bfoster\b/gi, /\bseamlessly\b/gi,
-  /\bunlock(?:s|ed)? (?:the )?potential\b/gi, /\blandscape of\b/gi,
+  /\bdelve(?:s|d|ing)?\b/gi, /\btapestry\b/gi, /\btestament\b/gi, /\bvital role\b/gi,
+  /\bbeacon\b/gi, /\bembark(?:s|ed|ing)?\b/gi, /\bfoster(?:s|ed|ing)?\b/gi, /\bseamlessly\b/gi,
+  /\bunlock(?:s|ed)? (?:the )?potential\b/gi, /\blandscape of\b/gi, /\bevolving landscape\b/gi,
   /\bplethora\b/gi, /\bmyriad\b/gi, /\bparadigm\b/gi, /\bsynergy\b/gi,
   /\bproactive\b/gi, /\bcomprehensive\b/gi, /\brobust\b/gi, /\bimpactful\b/gi,
   /\bin conclusion\b/gi, /\bfurthermore\b/gi, /\bmoreover\b/gi,
   /\bconsequently\b/gi, /\bin addition\b/gi, /\bnotably\b/gi,
-  /\bit is important to note\b/gi, /\bit is worth noting\b/gi,
-  /\bin today's (?:fast-paced|digital)\b/gi, /\bstate-of-the-art\b/gi,
-  /\bgroundbreaking\b/gi, /\bleverage\b/gi, /\butilize\b/gi,
+  /\bit is important to\b/gi, /\bit is worth noting\b/gi, /\bit is crucial to\b/gi,
+  /\bit is essential to\b/gi, /\bit should be noted\b/gi,
+  /\bin today's (?:fast-paced|digital)?\b/gi, /\bstate-of-the-art\b/gi,
+  /\bgroundbreaking\b/gi, /\bleverage\b/gi, /\butilize[sd]?\b/gi, /\butilizing\b/gi,
+  /\bmultifaceted\b/gi, /\bintricacies\b/gi, /\bnuances\b/gi, /\bunderscores\b/gi,
+  /\bharness(?:ing)?\b/gi, /\brevolutionize\b/gi, /\bcornerstone\b/gi, /\bparamount\b/gi,
+  /\bcatalyst\b/gi, /\btransformative\b/gi, /\bindispensable\b/gi, /\bholistic\b/gi,
+  /\bfast-paced world\b/gi, /\bmodern era\b/gi, /\bdigital age\b/gi,
+  /\bpaves the way\b/gi, /\bsheds light on\b/gi, /\bdriving force\b/gi,
+  /\bplays a (?:pivotal|key|central|significant) role\b/gi,
+  /\bserves as a (?:testament|reminder|beacon)\b/gi,
+  /\baims to (?:provide|ensure|deliver)\b/gi,
+  /\bin order to\b/gi, /\bdue to the fact that\b/gi, /\bat this point in time\b/gi,
+  /\bfor the purpose of\b/gi, /\bhas the ability to\b/gi,
+  /\b(increase overall efficiency|drive higher productivity|automate repetitive tasks)\b/gi,
+  /\b(optimal outcomes|significant impact|valuable insights|seamless integration)\b/gi,
+  /\b(it goes without saying|first and foremost|at the end of the day|needless to say)\b/gi,
+  /\b(crucial aspect|key factor|essential component|integral part)\b/gi,
+  /\b(prior literature demonstrates|empirical observations|computational methodology)\b/gi,
+  /\b(aforementioned|conduct an investigation into|duration of time)\b/gi,
 ];
 
 export function scoreHumanization(text: string): number {
-  const wordCount = text.trim().split(/\s+/).length;
-  if (wordCount < 5) return 90;
+  const trimmed = text.trim();
+  if (trimmed.length === 0) return 0;
+  const words = trimmed.split(/\s+/).filter(Boolean);
+  const wordCount = words.length;
+  if (wordCount < 5) return 85;
 
-  // ── 1. AI Signal Density ──────────────────────────────────────────────────
+  // ── 1. AI Signal Matches ──────────────────────────────────────────────────
   let aiSignalCount = 0;
   for (const sig of AI_SIGNALS) {
     const clone = new RegExp(sig.source, sig.flags);
@@ -848,41 +995,46 @@ export function scoreHumanization(text: string): number {
     if (matches) aiSignalCount += matches.length;
   }
 
-  // Base human score defaults to 94 (natural human writing baseline)
-  let score = 94;
+  // ── 2. Uncontracted Auxiliaries vs Contractions ────────────────────────────
+  const uncontracted = (text.match(/\b(it is|there is|they are|we are|cannot|do not|does not|will not|should not|would not|could not|have not|has not|is not|are not)\b/gi) || []).length;
+  const contractions = (text.match(/\b(it's|there's|they're|we're|can't|don't|doesn't|won't|shouldn't|wouldn't|couldn't|haven't|hasn't|isn't|aren't|I'm|I've|I'll|you're|he's|she's)\b/gi) || []).length;
 
+  // ── 3. Sentence Length Variance (Burstiness) ──────────────────────────────
+  const sentences = text.split(/[.!?]+/).map(s => s.trim()).filter(Boolean);
+  let burstinessStdDev = 5;
+  if (sentences.length >= 2) {
+    const lengths = sentences.map(s => s.split(/\s+/).filter(Boolean).length);
+    const mean = lengths.reduce((a, b) => a + b, 0) / lengths.length;
+    const variance = lengths.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / lengths.length;
+    burstinessStdDev = Math.sqrt(variance);
+  }
+
+  let score = 92;
+
+  // AI signal penalties
   if (aiSignalCount > 0) {
     const signalDensity = (aiSignalCount / wordCount) * 100;
-    // Decisive penalty for AI clichés: each signal heavily discounts robotic tone
-    const penalty = Math.min(signalDensity * 7.5 + aiSignalCount * 8, 84);
+    const penalty = Math.min(signalDensity * 7.5 + aiSignalCount * 7.5, 76);
     score -= penalty;
   }
 
-  // ── 2. Burstiness (sentence length variance) ──────────────────────────────
-  const sentences = text.split(/[.!?]+/).map(s => s.trim()).filter(s => s.length > 0);
-  if (sentences.length >= 2) {
-    const lengths = sentences.map(s => s.split(/\s+/).length);
-    const mean = lengths.reduce((a, b) => a + b, 0) / lengths.length;
-    const variance = lengths.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / lengths.length;
-    const stdDev = Math.sqrt(variance);
+  // Formality penalty / contractions bonus
+  if (uncontracted >= 2 && contractions === 0) {
+    score -= Math.min(uncontracted * 5, 20);
+  } else if (contractions > 0) {
+    score += Math.min(contractions * 2, 4);
+  }
 
-    if (stdDev < 1.8 && aiSignalCount > 0) {
-      score -= 6;
-    } else if (stdDev >= 3.0) {
+  // Sentence burstiness impact
+  if (sentences.length >= 2) {
+    if (burstinessStdDev < 2.5) {
+      score -= 10;
+    } else if (burstinessStdDev >= 5.0) {
       score += 2;
     }
   }
 
-  // ── 3. Vocabulary Richness (Type-Token Ratio) ─────────────────────────────
-  const words = text.toLowerCase().match(/\b[a-z]{4,}\b/g) || [];
-  if (words.length > 5) {
-    const uniqueWords = new Set(words);
-    const ttr = uniqueWords.size / words.length;
-    if (ttr > 0.65) score += 1;
-    else if (ttr < 0.45 && aiSignalCount > 0) score -= 4;
-  }
-
-  return Math.max(8, Math.min(98, Math.round(score)));
+  return Math.max(12, Math.min(97, Math.round(score)));
 }
 
 
