@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   Sparkles,
   ShieldCheck,
@@ -12,9 +12,11 @@ import {
   Layers,
   FileSearch,
   BookOpen,
+  TrendingUp,
 } from 'lucide-react';
 import type { HumanizerMode, HumanizerResult, HumanizerChange } from '../../types';
 import { defaultHumanizerManager } from '../../lib/humanizer/manager';
+import { scoreHumanization } from '../../lib/humanizer/ruleEngine';
 import { FileDropzone } from '../common/FileDropzone';
 import { HumanizeLogo } from '../common/HumanizeLogo';
 import type { ActiveTab } from '../common/Header';
@@ -37,6 +39,17 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
   const [copied, setCopied] = useState(false);
   const [showDiff, setShowDiff] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  // Live humanization scores
+  const inputScore = useMemo(() => currentText.trim().length > 20 ? scoreHumanization(currentText) : null, [currentText]);
+  const outputScore = useMemo(() => improvedText.trim().length > 20 ? scoreHumanization(improvedText) : null, [improvedText]);
+
+  const getScoreLabel = (score: number) => {
+    if (score < 30) return { label: 'AI-Detectable', color: '#ef4444' };
+    if (score < 55) return { label: 'Partially Humanized', color: '#f59e0b' };
+    if (score < 75) return { label: 'Human-Level', color: '#10b981' };
+    return { label: 'Highly Human', color: '#059669' };
+  };
 
   // Statistics
   const words = currentText.trim().split(/\s+/).filter(Boolean);
@@ -344,6 +357,47 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
             label="Or drop a document to load text (PDF, DOCX, TXT, Markdown)"
           />
         </div>
+
+        {/* Humanization Score Bar */}
+        {(inputScore !== null || outputScore !== null) && (
+          <div className="border-b border-[var(--border-subtle)] bg-[var(--bg-surface)] px-5 py-3">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              {inputScore !== null && (
+                <div className="flex items-center gap-3">
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">Input Score</span>
+                  <div className="flex items-center gap-2">
+                    <div className="h-2 w-28 overflow-hidden rounded-full bg-[var(--bg-subtle)]">
+                      <div
+                        className="h-full rounded-full transition-all duration-500"
+                        style={{ width: `${inputScore}%`, backgroundColor: getScoreLabel(inputScore).color }}
+                      />
+                    </div>
+                    <span className="text-xs font-bold" style={{ color: getScoreLabel(inputScore).color }}>
+                      {inputScore}% — {getScoreLabel(inputScore).label}
+                    </span>
+                  </div>
+                </div>
+              )}
+              {outputScore !== null && (
+                <div className="flex items-center gap-3">
+                  <TrendingUp className="h-4 w-4 text-[var(--accent)]" />
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">After Humanizing</span>
+                  <div className="flex items-center gap-2">
+                    <div className="h-2 w-28 overflow-hidden rounded-full bg-[var(--bg-subtle)]">
+                      <div
+                        className="h-full rounded-full transition-all duration-700"
+                        style={{ width: `${outputScore}%`, backgroundColor: getScoreLabel(outputScore).color }}
+                      />
+                    </div>
+                    <span className="text-xs font-bold" style={{ color: getScoreLabel(outputScore).color }}>
+                      {outputScore}% — {getScoreLabel(outputScore).label}
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Action Controls & Engine Switcher */}
         <div className="flex flex-col items-center justify-between gap-4 bg-[var(--bg-subtle)] px-5 py-4 sm:flex-row">
