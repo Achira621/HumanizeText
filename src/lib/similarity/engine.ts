@@ -7,6 +7,7 @@ import { tokenizeText } from './tokenizer';
 import type { TokenizedDocument } from './tokenizer';
 import { winnowFingerprints } from './winnowing';
 import type { FingerprintedShingle } from './winnowing';
+import { DEFAULT_REFERENCE_CORPUS } from './defaultCorpus';
 
 export interface ReferenceInput {
   id: string;
@@ -34,6 +35,20 @@ interface MatchCandidate {
 }
 
 export class SimilarityEngine {
+  /**
+   * Fast one-click plagiarism scan comparing submitted text against standard academic & web reference corpus.
+   */
+  public static async scanPlagiarism(
+    submittedText: string,
+    submittedDocName = 'Draft.txt',
+    customReferences?: ReferenceInput[]
+  ): Promise<SimilarityReport> {
+    const refs = customReferences && customReferences.length > 0
+      ? [...customReferences, ...DEFAULT_REFERENCE_CORPUS]
+      : DEFAULT_REFERENCE_CORPUS;
+    return this.compareDocuments(submittedText, submittedDocName, refs);
+  }
+
   /**
    * Compares a submitted document against one or more reference documents locally.
    * Utilizes an ephemeral in-memory HMAC-SHA-256 session key for cryptographic fingerprinting,

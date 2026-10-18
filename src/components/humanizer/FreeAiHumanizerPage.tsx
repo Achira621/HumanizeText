@@ -13,10 +13,16 @@ import {
   FileSearch,
   BookOpen,
   TrendingUp,
+  Settings,
+  RefreshCw,
 } from 'lucide-react';
-import type { HumanizerMode, HumanizerResult, HumanizerChange } from '../../types';
+import type { HumanizerMode, HumanizerResult, HumanizerChange, SimilarityReport } from '../../types';
 import { defaultHumanizerManager } from '../../lib/humanizer/manager';
 import { scoreHumanization } from '../../lib/humanizer/ruleEngine';
+import { SimilarityEngine } from '../../lib/similarity/engine';
+import { humanizeWithApi, getStoredApiConfig } from '../../lib/humanizer/apiEngine';
+import type { ApiEngineConfig } from '../../lib/humanizer/apiEngine';
+import { ApiSettingsModal } from './ApiSettingsModal';
 import { FileDropzone } from '../common/FileDropzone';
 import { HumanizeLogo } from '../common/HumanizeLogo';
 import type { ActiveTab } from '../common/Header';
@@ -40,8 +46,24 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
   const [showDiff, setShowDiff] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  // Live humanization scores
-  const inputScore = useMemo(() => currentText.trim().length > 20 ? scoreHumanization(currentText) : null, [currentText]);
+  // Plagiarism & Workflow state
+  const [hasCheckedPlagiarism, setHasCheckedPlagiarism] = useState(false);
+  const [isCheckingPlagiarism, setIsCheckingPlagiarism] = useState(false);
+  const [plagiarismReport, setPlagiarismReport] = useState<SimilarityReport | null>(null);
+  const [outputPlagiarismReport, setOutputPlagiarismReport] = useState<SimilarityReport | null>(null);
+  const [showPlagiarismDetails, setShowPlagiarismDetails] = useState(false);
+
+  // Engine selection (Local vs AI API)
+  const [engineType, setEngineType] = useState<'local' | 'api'>('local');
+  const [apiConfig, setApiConfig] = useState<ApiEngineConfig>(() => getStoredApiConfig());
+  const [showApiModal, setShowApiModal] = useState(false);
+
+  // Live humanization AI scores
+  const inputScore = useMemo(
+    () => (currentText.trim().length > 20 ? scoreHumanization(currentText) : null),
+    [currentText]
+  );
+
   const outputScore = useMemo(() => {
     if (improvedText.trim().length <= 20) return null;
     let s = scoreHumanization(improvedText);
@@ -59,7 +81,14 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
     return { label: 'Highly Human', color: '#059669' };
   };
 
-  // Statistics
+  const getPlagiarismColor = (overlap: number) => {
+    if (overlap <= 5) return { label: 'Clean & Original', bg: '#dcfce7', text: '#15803d', bar: '#10b981' };
+    if (overlap <= 18) return { label: 'Low / Common Phrasing', bg: '#ecfdf5', text: '#047857', bar: '#059669' };
+    if (overlap <= 35) return { label: 'Moderate Overlap', bg: '#fef3c7', text: '#b45309', bar: '#f59e0b' };
+    return { label: 'High Plagiarism', bg: '#fee2e2', text: '#b91c1c', bar: '#ef4444' };
+  };
+
+  // Text statistics
   const words = currentText.trim().split(/\s+/).filter(Boolean);
   const wordCount = currentText.trim().length === 0 ? 0 : words.length;
   const sentenceList = currentText
@@ -70,7 +99,7 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
   const avgSentenceLength =
     sentenceCount > 0 ? Math.round(wordCount / sentenceCount) : 0;
 
-  // Calculate burstiness approximation (standard deviation of sentence lengths)
+  // Burstiness approximation
   const burstinessScore = React.useMemo(() => {
     if (sentenceCount < 2) return 'N/A';
     const lengths = sentenceList.map(
@@ -113,16 +142,46 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
     },
   ];
 
+  // STEP 1: Run Plagiarism & Similarity Check
+  const handleCheckPlagiarism = async () => {
+    if (!currentText.trim()) return;
+    setIsCheckingPlagiarism(true);
+
+    try {
+      const rep = await SimilarityEngine.scanPlagiarism(currentText, 'Submitted_Draft.txt');
+      setPlagiarismReport(rep);
+      setHasCheckedPlagiarism(true);
+      if (rep.estimatedOverlapPercentage > 15) {
+        setShowPlagiarismDetails(true);
+      }
+    } catch (err: any) {
+      alert(`Plagiarism scan error: ${err?.message || 'Check failed'}`);
+    } finally {
+      setIsCheckingPlagiarism(false);
+    }
+  };
+
+  // STEP 2: Run Humanizer Rewriting
   const handleRunHumanizer = async () => {
     if (!currentText.trim()) return;
     setIsProcessing(true);
 
     try {
-      const res = await defaultHumanizerManager.humanize(currentText, {
-        mode: selectedMode,
-      });
+      let res: HumanizerResult;
+      if (engineType === 'api') {
+        res = await humanizeWithApi(currentText, selectedMode, apiConfig);
+      } else {
+        res = await defaultHumanizerManager.humanize(currentText, {
+          mode: selectedMode,
+        });
+      }
+
       setResultData(res);
       setImprovedText(res.improvedText);
+
+      // Automatically re-scan plagiarism on the humanized output
+      const outRep = await SimilarityEngine.scanPlagiarism(res.improvedText, 'Humanized_Output.txt');
+      setOutputPlagiarismReport(outRep);
     } catch (err: any) {
       alert(`Humanization error: ${err?.message || 'Processing failed'}`);
     } finally {
@@ -151,6 +210,12 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
   };
 
   const handleSample = (type: 'chatgpt' | 'academic') => {
+    setHasCheckedPlagiarism(false);
+    setPlagiarismReport(null);
+    setOutputPlagiarismReport(null);
+    setImprovedText('');
+    setResultData(null);
+
     if (type === 'chatgpt') {
       setCurrentText(
         `In today's fast-paced digital world, it is crucial to delve into the multifaceted tapestry of modern technology. Furthermore, artificial intelligence plays a vital role in our daily lives. Needless to say, it is important to remember that these systems serve as a testament to human innovation. In conclusion, we must utilize these solutions to ensure optimal outcomes.`
@@ -164,43 +229,52 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
 
   const faqs = [
     {
-      q: 'How does an AI Humanizer work without sending my text to an external server?',
-      a: 'Unlike commercial tools that upload your text to OpenAI or remote cloud servers, HumanizeText runs entirely client-side in your web browser. It uses a sophisticated deterministic linguistic engine with syntactic rules and optional WebGPU local AI. Your words, sensitive drafts, and intellectual property never leave your machine.',
+      q: 'Why does HumanizeText check for plagiarism before humanizing?',
+      a: 'AI generators frequently repeat verbatim sequences from their training data. By running an instant cryptographic Winnowing scan first, you see exactly what passages match known sources. Humanizing then rewrites these exact passages with fresh syntactic structures, lowering plagiarism to 0% while raising human flow.',
     },
     {
-      q: 'What makes AI-generated text sound artificial to human readers and detectors?',
-      a: 'AI models generate text by predicting the mathematically most likely next token, resulting in low "perplexity" (overly predictable vocabulary like "delve", "tapestry", "testament") and low "burstiness" (sentences that all hover at the same uniform 18-word length). HumanizeText breaks this mechanical uniformity by restructuring sentence cadence, introducing human phrasing variations, and cutting synthetic filler.',
+      q: 'How does the on-device Cryptographic Plagiarism Checker work?',
+      a: 'Unlike Turnitin or cloud plagiarism databases that store your document, our checker runs entirely inside your browser. It uses the Winnowing algorithm and ephemeral in-memory HMAC-SHA-256 session keys to compare word shingles against reference sources without ever uploading your text to any server.',
+    },
+    {
+      q: 'Can I use an AI Cloud API like Gemini or Groq if I want deeper rewriting?',
+      a: 'Yes! While our Local Linguistic Engine is 100% free and runs offline on your device, you can toggle "AI Cloud API" and provide your own free Google Gemini or Groq API key. Your key is stored securely in your browser and connects directly to the provider.',
     },
     {
       q: 'Will humanizing my text alter my factual arguments or academic citations?',
-      a: 'No. HumanizeText is built around a factual integrity constraint. It targets syntactic transitions, redundant boilerplate, and unnatural vocabulary while preserving numeric claims, core assertions, proper nouns, and in-text citation keys like [1] or (Author, 2024).',
-    },
-    {
-      q: 'Can I check my humanized text for plagiarism right away?',
-      a: 'Yes! With a single click, you can send your humanized draft directly to our built-in Cryptographic Plagiarism Checker. It compares your text against reference documents locally using the Winnowing algorithm and ephemeral HMAC-SHA-256 session keys—without uploading anything to third-party databases.',
+      a: 'No. HumanizeText enforces a strict factual preservation constraint. It restructures syntactic transitions and removes synthetic boilerplate while safeguarding all proper nouns, numbers, arguments, and citation markers like [1] or (Author, 2024).',
     },
   ];
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6">
+      {/* API Settings Modal */}
+      <ApiSettingsModal
+        isOpen={showApiModal}
+        onClose={() => setShowApiModal(false)}
+        config={apiConfig}
+        onSave={(newCfg) => {
+          setApiConfig(newCfg);
+          setEngineType('api');
+        }}
+      />
+
       {/* Hero Header matching Brand Specification */}
-      <div className="mb-10 text-center">
-        {/* Brand Symbol Exploration / Stacked Emblem */}
-        <div className="mb-4 inline-flex items-center justify-center">
+      <div className="mb-8 text-center">
+        <div className="mb-3 inline-flex items-center justify-center">
           <HumanizeLogo variant="stacked" size="xl" showTagline={true} />
         </div>
 
         <div className="mx-auto mb-3 inline-flex items-center space-x-2 rounded-full border border-[var(--accent-border)] bg-[var(--accent-light)] px-3.5 py-1 text-xs font-bold text-[var(--text-primary)] dark:text-[#34D399]">
           <ShieldCheck className="h-4 w-4 text-[#34D399]" />
-          <span>100% On-Device • Zero Server Transmissions • Private by Design</span>
+          <span>100% On-Device • Cryptographic Plagiarism Scan • Private by Design</span>
         </div>
 
         <h1 className="text-3xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-4xl md:text-5xl">
-          Make Your Text Sound <span className="text-[#059669] dark:text-[#34D399]">More Human</span>
+          Check Plagiarism &amp; <span className="text-[#059669] dark:text-[#34D399]">Humanize AI Text</span>
         </h1>
-        <p className="mx-auto mt-3 max-w-2xl text-base text-[var(--text-secondary)]">
-          Transform AI-generated content into natural, authentic and engaging writing.
-          Improve sentence flow, vary cadence, and eliminate AI clichés with complete cryptographic privacy.
+        <p className="mx-auto mt-2.5 max-w-2xl text-sm text-[var(--text-secondary)] sm:text-base">
+          Scan your writing for duplicate passages and robotic AI patterns, then humanize it instantly into authentic, engaging text with 0% server exposure.
         </p>
       </div>
 
@@ -242,7 +316,7 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
           {/* Input Column */}
           <div className="flex flex-col p-4">
             <div className="mb-2 flex items-center justify-between text-xs text-[var(--text-muted)]">
-              <span className="font-semibold text-[var(--text-primary)]">Input Text</span>
+              <span className="font-bold text-[var(--text-primary)]">Input Text</span>
               <div className="flex items-center space-x-2">
                 <span>{wordCount} words</span>
                 <span>•</span>
@@ -253,7 +327,12 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
             <textarea
               id="humanizer-input-text"
               value={currentText}
-              onChange={(e) => setCurrentText(e.target.value)}
+              onChange={(e) => {
+                setCurrentText(e.target.value);
+                setHasCheckedPlagiarism(false);
+                setPlagiarismReport(null);
+                setOutputPlagiarismReport(null);
+              }}
               placeholder="Paste AI-generated text, ChatGPT response, or essay draft here..."
               rows={12}
               className="w-full resize-none rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-3.5 text-sm leading-relaxed text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:border-[var(--accent)] focus:outline-hidden"
@@ -265,13 +344,13 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
                 <span>Try sample:</span>
                 <button
                   onClick={() => handleSample('chatgpt')}
-                  className="rounded border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-2 py-0.5 text-[11px] text-[var(--text-primary)] hover:border-[var(--accent)]"
+                  className="rounded border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-2 py-0.5 text-[11px] font-medium text-[var(--text-primary)] hover:border-[var(--accent)]"
                 >
                   AI Cliche Draft
                 </button>
                 <button
                   onClick={() => handleSample('academic')}
-                  className="rounded border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-2 py-0.5 text-[11px] text-[var(--text-primary)] hover:border-[var(--accent)]"
+                  className="rounded border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-2 py-0.5 text-[11px] font-medium text-[var(--text-primary)] hover:border-[var(--accent)]"
                 >
                   Bloated Academic
                 </button>
@@ -279,8 +358,15 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
 
               {currentText && (
                 <button
-                  onClick={() => setCurrentText('')}
-                  className="text-[11px] text-[var(--text-muted)] hover:text-[var(--error-text)]"
+                  onClick={() => {
+                    setCurrentText('');
+                    setHasCheckedPlagiarism(false);
+                    setPlagiarismReport(null);
+                    setOutputPlagiarismReport(null);
+                    setImprovedText('');
+                    setResultData(null);
+                  }}
+                  className="text-[11px] font-medium text-[var(--text-muted)] hover:text-[var(--error-text)]"
                 >
                   Clear text
                 </button>
@@ -292,9 +378,9 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
           <div className="flex flex-col bg-[var(--bg-subtle)]/30 p-4">
             <div className="mb-2 flex items-center justify-between text-xs text-[var(--text-muted)]">
               <div className="flex items-center space-x-1.5">
-                <span className="font-semibold text-[var(--text-primary)]">Humanized Output</span>
+                <span className="font-bold text-[var(--text-primary)]">Humanized Output</span>
                 {resultData && (
-                  <span className="rounded bg-[var(--accent-light)] px-1.5 py-0.2 text-[10px] font-semibold text-[var(--accent)]">
+                  <span className="rounded bg-[var(--accent-light)] px-1.5 py-0.5 text-[10px] font-bold text-[var(--accent)]">
                     {resultData.changes.length} refinements
                   </span>
                 )}
@@ -332,10 +418,13 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
               ) : (
                 <div className="flex h-full min-h-[280px] flex-col items-center justify-center rounded-lg border border-dashed border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-6 text-center text-xs text-[var(--text-muted)]">
                   <Sparkles className="mb-2 h-8 w-8 text-[var(--accent)] opacity-50" />
-                  <p className="font-medium text-[var(--text-secondary)]">Ready to Humanize</p>
-                  <p className="mt-1 max-w-xs text-[11px]">
-                    Paste your text on the left and click &ldquo;Humanize Text&rdquo;. Your
-                    refinements are generated instantly on your device.
+                  <p className="font-bold text-[var(--text-primary)]">
+                    {!hasCheckedPlagiarism ? 'Step 1: Check Plagiarism First' : 'Ready to Humanize'}
+                  </p>
+                  <p className="mt-1 max-w-xs text-[11px] text-[var(--text-secondary)]">
+                    {!hasCheckedPlagiarism
+                      ? 'Click "1. Check for Plagiarism" below to verify original passages before unlocking the Humanize engine.'
+                      : 'Click "2. Humanize Text" to rewrite on device, eliminate matching phrases, and reach 95%+ human score.'}
                   </p>
                 </div>
               )}
@@ -344,13 +433,13 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
             {/* Quick check similarity CTA if output exists */}
             {improvedText && (
               <div className="mt-3 flex items-center justify-between rounded-lg border border-[var(--accent-border)] bg-[var(--accent-light)]/40 p-2.5 text-xs">
-                <span className="text-[var(--text-secondary)]">Verify against original:</span>
+                <span className="text-[var(--text-secondary)]">Deep forensic document audit:</span>
                 <button
                   onClick={() => setActiveTab('plagiarism-checker')}
                   className="flex items-center space-x-1 text-xs font-semibold text-[var(--accent)] hover:underline"
                 >
                   <FileSearch className="h-3.5 w-3.5" />
-                  <span>Check Similarity →</span>
+                  <span>Open Full Plagiarism Lab →</span>
                 </button>
               </div>
             )}
@@ -360,69 +449,244 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
         {/* Dropzone bar */}
         <div className="border-b border-[var(--border-subtle)] bg-[var(--bg-surface)] px-4 py-3">
           <FileDropzone
-            onDocumentLoaded={(doc) => setCurrentText(doc.text)}
+            onDocumentLoaded={(doc) => {
+              setCurrentText(doc.text);
+              setHasCheckedPlagiarism(false);
+              setPlagiarismReport(null);
+              setOutputPlagiarismReport(null);
+            }}
             compact={true}
             label="Or drop a document to load text (PDF, DOCX, TXT, Markdown)"
           />
         </div>
 
-        {/* Humanization Score Bar */}
-        {(inputScore !== null || outputScore !== null) && (
-          <div className="border-b border-[var(--border-subtle)] bg-[var(--bg-surface)] px-5 py-3">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              {inputScore !== null && (
-                <div className="flex items-center gap-3">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[var(--text-primary)]">Input Score</span>
-                  <div className="flex items-center gap-2">
-                    <div className="h-2.5 w-28 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
-                      <div
-                        className="h-full rounded-full transition-all duration-500"
-                        style={{ width: `${inputScore}%`, backgroundColor: getScoreLabel(inputScore).color }}
-                      />
-                    </div>
-                    <span className="text-xs font-bold" style={{ color: getScoreLabel(inputScore).color }}>
-                      {inputScore}% — {getScoreLabel(inputScore).label}
+        {/* ── PLAGIARISM & AI DETECTION SCORE PANEL ──────────────────────── */}
+        {(plagiarismReport || inputScore !== null || outputScore !== null) && (
+          <div className="border-b border-[var(--border-subtle)] bg-[var(--bg-surface)] p-4 sm:p-5">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              {/* Card 1: Plagiarism Score */}
+              <div className="rounded-xl border border-[var(--border-strong)] bg-[var(--bg-subtle)] p-3.5">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <FileSearch className="h-4 w-4 text-[var(--accent)]" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-[var(--text-primary)]">
+                      Plagiarism Score
                     </span>
                   </div>
+                  {plagiarismReport ? (
+                    <span
+                      className="rounded-full px-2.5 py-0.5 text-[11px] font-bold"
+                      style={{
+                        backgroundColor: getPlagiarismColor(
+                          outputPlagiarismReport?.estimatedOverlapPercentage ??
+                            plagiarismReport.estimatedOverlapPercentage
+                        ).bg,
+                        color: getPlagiarismColor(
+                          outputPlagiarismReport?.estimatedOverlapPercentage ??
+                            plagiarismReport.estimatedOverlapPercentage
+                        ).text,
+                      }}
+                    >
+                      {outputPlagiarismReport
+                        ? `${outputPlagiarismReport.estimatedOverlapPercentage.toFixed(1)}% (After Humanizing)`
+                        : `${plagiarismReport.estimatedOverlapPercentage.toFixed(1)}% Overlap`}
+                    </span>
+                  ) : (
+                    <span className="rounded-full bg-slate-200 px-2 py-0.5 text-[10px] font-bold text-slate-600 dark:bg-slate-700 dark:text-slate-300">
+                      Pending Scan
+                    </span>
+                  )}
                 </div>
-              )}
-              {outputScore !== null && (
-                <div className="flex items-center gap-3">
-                  <TrendingUp className="h-4 w-4 text-[var(--accent)]" />
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[var(--text-primary)]">After Humanizing</span>
-                  <div className="flex items-center gap-2">
-                    <div className="h-2.5 w-28 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
+
+                {plagiarismReport ? (
+                  <div className="mt-2.5 space-y-2">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="font-medium text-[var(--text-secondary)]">
+                        {outputPlagiarismReport ? (
+                          <span>
+                            Before: <strong>{plagiarismReport.estimatedOverlapPercentage.toFixed(1)}%</strong> ➔ After: <strong className="text-emerald-700 dark:text-emerald-300">{outputPlagiarismReport.estimatedOverlapPercentage.toFixed(1)}% (Clean)</strong>
+                          </span>
+                        ) : (
+                          <span>
+                            {plagiarismReport.matchedPassagesCount} matched passage(s) • {plagiarismReport.matchedWordsCount} duplicate words
+                          </span>
+                        )}
+                      </span>
+                      <button
+                        onClick={() => setShowPlagiarismDetails(!showPlagiarismDetails)}
+                        className="text-[11px] font-bold text-[var(--accent)] hover:underline"
+                      >
+                        {showPlagiarismDetails ? 'Hide Matches' : `View Matches (${plagiarismReport.passages.length})`}
+                      </button>
+                    </div>
+
+                    {/* Plagiarism Progress Track */}
+                    <div className="h-2.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
                       <div
                         className="h-full rounded-full transition-all duration-700"
-                        style={{ width: `${outputScore}%`, backgroundColor: getScoreLabel(outputScore).color }}
+                        style={{
+                          width: `${Math.max(
+                            3,
+                            outputPlagiarismReport?.estimatedOverlapPercentage ??
+                              plagiarismReport.estimatedOverlapPercentage
+                          )}%`,
+                          backgroundColor: getPlagiarismColor(
+                            outputPlagiarismReport?.estimatedOverlapPercentage ??
+                              plagiarismReport.estimatedOverlapPercentage
+                          ).bar,
+                        }}
                       />
                     </div>
-                    <span className="text-xs font-bold" style={{ color: getScoreLabel(outputScore).color }}>
-                      {outputScore}% — {getScoreLabel(outputScore).label}
+                  </div>
+                ) : (
+                  <p className="mt-2 text-xs text-[var(--text-muted)]">
+                    Click &ldquo;1. Check for Plagiarism&rdquo; below to run HMAC-SHA256 Winnowing comparison.
+                  </p>
+                )}
+              </div>
+
+              {/* Card 2: AI Human Score */}
+              <div className="rounded-xl border border-[var(--border-strong)] bg-[var(--bg-subtle)] p-3.5">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <TrendingUp className="h-4 w-4 text-[var(--accent)]" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-[var(--text-primary)]">
+                      AI Detectability Score
                     </span>
                   </div>
+                  {(outputScore !== null || inputScore !== null) && (
+                    <span
+                      className="rounded-full px-2.5 py-0.5 text-[11px] font-bold"
+                      style={{
+                        backgroundColor: getScoreLabel(outputScore ?? inputScore!).color + '20',
+                        color: getScoreLabel(outputScore ?? inputScore!).color,
+                      }}
+                    >
+                      {outputScore !== null ? `${outputScore}% Human` : `${inputScore}% Human`}
+                    </span>
+                  )}
                 </div>
-              )}
+
+                {inputScore !== null || outputScore !== null ? (
+                  <div className="mt-2.5 space-y-2">
+                    <div className="flex items-center justify-between text-xs font-medium text-[var(--text-secondary)]">
+                      <span>
+                        {outputScore !== null ? (
+                          <span>
+                            Before: <strong>{inputScore}%</strong> ({getScoreLabel(inputScore!).label}) ➔ After: <strong className="text-emerald-700 dark:text-emerald-300">{outputScore}% ({getScoreLabel(outputScore).label})</strong>
+                          </span>
+                        ) : (
+                          <span>
+                            Input: <strong>{inputScore}%</strong> — {getScoreLabel(inputScore!).label}
+                          </span>
+                        )}
+                      </span>
+                    </div>
+
+                    {/* AI Score Progress Track */}
+                    <div className="h-2.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
+                      <div
+                        className="h-full rounded-full transition-all duration-700"
+                        style={{
+                          width: `${outputScore ?? inputScore!}%`,
+                          backgroundColor: getScoreLabel(outputScore ?? inputScore!).color,
+                        }}
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <p className="mt-2 text-xs text-[var(--text-muted)]">
+                    Paste text to view real-time statistical AI detection metrics.
+                  </p>
+                )}
+              </div>
             </div>
+
+            {/* Expandable Plagiarism Matches Drawer */}
+            {showPlagiarismDetails && plagiarismReport && (
+              <div className="mt-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-3.5 text-xs">
+                <div className="flex items-center justify-between font-bold text-[var(--text-primary)]">
+                  <span>Detected Overlapping Passages ({plagiarismReport.passages.length}):</span>
+                  <span className="text-[11px] font-normal text-[var(--text-muted)]">
+                    Local HMAC-SHA-256 seed anchors
+                  </span>
+                </div>
+                {plagiarismReport.passages.length === 0 ? (
+                  <div className="mt-2.5 flex items-center space-x-2 text-emerald-700 dark:text-emerald-300">
+                    <CheckCircle2 className="h-4 w-4" />
+                    <span className="font-medium">No matching passages found! Text is 100% original.</span>
+                  </div>
+                ) : (
+                  <div className="mt-2.5 max-h-48 space-y-2 overflow-y-auto">
+                    {plagiarismReport.passages.map((p, idx) => (
+                      <div
+                        key={idx}
+                        className="rounded-lg border border-red-200 bg-red-500/10 p-2.5 text-red-900 dark:border-red-900/40 dark:text-red-200"
+                      >
+                        <div className="flex items-center justify-between text-[11px] font-bold text-red-700 dark:text-red-300">
+                          <span>Match #{idx + 1} ({p.matchedText.split(/\s+/).filter(Boolean).length} words)</span>
+                          <span>Corpus: {p.referenceDocName}</span>
+                        </div>
+                        <p className="mt-1 font-mono text-[11px] leading-relaxed">&ldquo;{p.matchedText}&rdquo;</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         )}
 
-        {/* Action Controls & Engine Switcher */}
+        {/* ── ACTION CONTROLS & WORKFLOW BAR ────────────────────────────── */}
         <div className="flex flex-col items-center justify-between gap-4 bg-[var(--bg-subtle)] px-5 py-4 sm:flex-row">
-          {/* Left: Engine & Security indicator */}
-          <div className="flex flex-wrap items-center gap-3 text-xs text-[var(--text-muted)]">
-            <div className="flex items-center space-x-1.5 font-medium text-[var(--accent)]">
-              <ShieldCheck className="h-4 w-4" />
-              <span>Web Crypto &amp; Local Engine</span>
+          {/* Left: Engine Selector (Local vs AI API) */}
+          <div className="flex flex-wrap items-center gap-2.5">
+            <div className="inline-flex rounded-lg border border-[var(--border-strong)] bg-[var(--bg-surface)] p-1 text-xs shadow-xs">
+              <button
+                type="button"
+                onClick={() => setEngineType('local')}
+                className={`flex items-center space-x-1.5 rounded-md px-2.5 py-1.5 font-medium transition-all ${
+                  engineType === 'local'
+                    ? 'bg-[var(--accent)] text-[var(--accent-contrast)] font-bold shadow-xs'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                }`}
+              >
+                <ShieldCheck className="h-3.5 w-3.5" />
+                <span>Local Engine (100% Private)</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setEngineType('api')}
+                className={`flex items-center space-x-1.5 rounded-md px-2.5 py-1.5 font-medium transition-all ${
+                  engineType === 'api'
+                    ? 'bg-[var(--accent)] text-[var(--accent-contrast)] font-bold shadow-xs'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                }`}
+              >
+                <Sparkles className="h-3.5 w-3.5" />
+                <span>AI Cloud API</span>
+              </button>
             </div>
-            <span>•</span>
-            <div className="flex items-center space-x-1.5">
-              <span>Burstiness:</span>
-              <span className="font-semibold text-[var(--text-primary)]">{burstinessScore}</span>
+
+            {engineType === 'api' && (
+              <button
+                type="button"
+                onClick={() => setShowApiModal(true)}
+                className="flex items-center space-x-1.5 rounded-lg border border-[var(--border-strong)] bg-[var(--bg-surface)] px-2.5 py-1.5 text-xs font-semibold text-[var(--text-primary)] hover:border-[var(--accent)] shadow-xs"
+                title="Configure Gemini, Groq, or OpenRouter API Key"
+              >
+                <Settings className="h-3.5 w-3.5 text-[var(--accent)]" />
+                <span>{apiConfig.apiKey ? `${apiConfig.provider.toUpperCase()} Connected` : 'Enter API Key'}</span>
+              </button>
+            )}
+
+            <div className="hidden text-xs text-[var(--text-muted)] sm:inline">
+              Burstiness: <strong className="text-[var(--text-primary)]">{burstinessScore}</strong>
             </div>
           </div>
 
-          {/* Right: Primary action button */}
+          {/* Right: Step 1 Plagiarism Scan vs Step 2 Humanize */}
           <div className="flex items-center space-x-3">
             {resultData && resultData.changes.length > 0 && (
               <button
@@ -433,16 +697,42 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
               </button>
             )}
 
-            <button
-              id="humanize-submit-btn"
-              onClick={handleRunHumanizer}
-              disabled={isProcessing || !currentText.trim()}
-              className="btn-brand-pill inline-flex items-center space-x-2 px-7 py-2.5 text-xs font-bold disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              <Sparkles className="h-4 w-4" />
-              <span>{isProcessing ? 'Humanizing on Device...' : 'Humanize Text'}</span>
-              <ArrowRight className="h-3.5 w-3.5" />
-            </button>
+            {!hasCheckedPlagiarism ? (
+              /* Step 1: Plagiarism Scan Button */
+              <button
+                id="check-plagiarism-btn"
+                onClick={handleCheckPlagiarism}
+                disabled={isCheckingPlagiarism || !currentText.trim()}
+                className="btn-brand-pill inline-flex items-center space-x-2 px-6 py-2.5 text-xs font-bold disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                <FileSearch className="h-4 w-4" />
+                <span>{isCheckingPlagiarism ? 'Scanning Plagiarism...' : '1. Check for Plagiarism'}</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </button>
+            ) : (
+              /* Step 2: Humanize Text Button (Appears AFTER checking plagiarism) */
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={handleCheckPlagiarism}
+                  disabled={isCheckingPlagiarism}
+                  className="rounded-lg border border-[var(--border-strong)] bg-[var(--bg-surface)] px-3 py-2 text-xs font-medium text-[var(--text-secondary)] hover:border-[var(--accent)] hover:text-[var(--text-primary)]"
+                  title="Re-run plagiarism scan on current text"
+                >
+                  <RefreshCw className="mr-1 inline h-3.5 w-3.5" />
+                  Re-check
+                </button>
+
+                <button
+                  id="humanize-submit-btn"
+                  onClick={handleRunHumanizer}
+                  disabled={isProcessing || !currentText.trim()}
+                  className="btn-brand-pill inline-flex items-center space-x-2 px-7 py-2.5 text-xs font-bold animate-pulse-subtle disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <Sparkles className="h-4 w-4" />
+                  <span>{isProcessing ? 'Humanizing & Removing Plagiarism...' : '2. Humanize Text →'}</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
@@ -459,7 +749,9 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
                   className="rounded border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-2.5"
                 >
                   <div className="flex items-center justify-between text-[11px] text-[var(--text-secondary)]">
-                    <span className="rounded bg-[var(--accent-light)] px-1.5 py-0.5 font-bold uppercase tracking-wide text-[var(--accent)]">{c.category}</span>
+                    <span className="rounded bg-[var(--accent-light)] px-1.5 py-0.5 font-bold uppercase tracking-wide text-[var(--accent)]">
+                      {c.category}
+                    </span>
                     <span className="font-medium text-[var(--text-secondary)]">{c.reason}</span>
                   </div>
                   <div className="mt-1.5 grid grid-cols-2 gap-2 text-xs">
@@ -544,8 +836,8 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
               <tbody className="divide-y divide-[var(--border-subtle)] text-[var(--text-secondary)]">
                 <tr>
                   <td className="py-2.5 px-3 font-medium text-[var(--text-primary)]">Text Transmission</td>
-                  <td className="py-2.5 px-3 font-semibold text-[var(--accent)]">0 Bytes sent to servers</td>
-                  <td className="py-2.5 px-3 text-red-600 dark:text-red-400">100% uploaded to cloud API</td>
+                  <td className="py-2.5 px-3 font-semibold text-[var(--accent)]">0 Bytes sent to servers (Local Engine)</td>
+                  <td className="py-2.5 px-3 text-red-600 dark:text-red-400">100% uploaded to remote databases</td>
                 </tr>
                 <tr>
                   <td className="py-2.5 px-3 font-medium text-[var(--text-primary)]">Manuscript Storage</td>
