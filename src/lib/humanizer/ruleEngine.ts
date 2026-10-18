@@ -1440,7 +1440,7 @@ const DETERMINISTIC_RULES: ReplacementPattern[] = [
     pattern: /\bnot only\s+([\w\s,]+?)\s+but also\s+/gi,
     replacement: (_match: string, p1: string) => `both ${p1.trim()} and `,
     reason: 'Simplified correlative conjunction "not only... but also" to natural "both... and"',
-    category: 'concise',
+    category: 'phrasing',
     modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
   },
   // Natural & Conversational contractions (breaks robotic AI stiffness)

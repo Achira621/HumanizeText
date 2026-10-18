@@ -12,37 +12,10 @@ import { PrivacyLab } from './components/privacyLab/PrivacyLab';
 import { VaultWorkspace } from './components/vault/VaultWorkspace';
 import { DocumentationViewer } from './components/docs/DocumentationViewer';
 import { FlowingWavesBackground } from './components/common/FlowingWavesBackground';
-import { updatePageMeta } from './lib/seo/metaManager';
-
-function getTabFromHash(): ActiveTab {
-  if (typeof window === 'undefined') return 'humanizer';
-  const rawHash = window.location.hash.replace(/^#\/?/, '').trim().toLowerCase();
-  if (rawHash === 'ai-detector' || rawHash === 'detector') return 'ai-detector';
-  if (rawHash === 'metadata-inspector' || rawHash === 'metadata') return 'metadata-inspector';
-  if (rawHash === 'plagiarism-checker' || rawHash === 'similarity') return 'plagiarism-checker';
-  if (rawHash === 'paraphrase' || rawHash === 'paraphrasing-tool') return 'paraphrase';
-  if (rawHash === 'how-to-humanize' || rawHash === 'guide') return 'how-to-humanize';
-  if (rawHash === 'privacy-lab') return 'privacy-lab';
-  if (rawHash === 'vault') return 'vault';
-  if (rawHash === 'docs' || rawHash === 'threat-model') return 'docs';
-  return 'humanizer';
-}
-
-function getHashFromTab(tab: ActiveTab): string {
-  if (tab === 'humanizer' || tab === 'editor') return '#/';
-  if (tab === 'ai-detector') return '#/ai-detector';
-  if (tab === 'metadata-inspector') return '#/metadata-inspector';
-  if (tab === 'plagiarism-checker' || tab === 'similarity') return '#/plagiarism-checker';
-  if (tab === 'paraphrase') return '#/paraphrase';
-  if (tab === 'how-to-humanize') return '#/how-to-humanize';
-  if (tab === 'privacy-lab') return '#/privacy-lab';
-  if (tab === 'vault') return '#/vault';
-  if (tab === 'docs') return '#/docs';
-  return '#/';
-}
+import { updatePageMeta, getTabFromLocation, getPathFromTab } from './lib/seo/metaManager';
 
 export function App() {
-  const [activeTab, setActiveTabState] = useState<ActiveTab>(() => getTabFromHash());
+  const [activeTab, setActiveTabState] = useState<ActiveTab>(() => getTabFromLocation());
   const [currentText, setCurrentText] = useState('');
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -55,31 +28,33 @@ export function App() {
     return false;
   });
 
-  // Switch tabs and synchronize with browser history & URL hash
+  // Switch tabs and synchronize with browser history clean pathname
   const setActiveTab = useCallback((newTab: ActiveTab) => {
     setActiveTabState(newTab);
-    const targetHash = getHashFromTab(newTab);
-    if (window.location.hash !== targetHash) {
-      window.history.pushState(null, '', targetHash);
+    const targetPath = getPathFromTab(newTab);
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState(null, '', targetPath);
     }
     updatePageMeta(newTab);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
-  // Listen to browser Back/Forward navigation
+  // Listen to browser Back/Forward navigation (popstate & hashchange)
   useEffect(() => {
-    const handleHashChange = () => {
-      const tab = getTabFromHash();
+    const handleLocationChange = () => {
+      const tab = getTabFromLocation();
       setActiveTabState(tab);
       updatePageMeta(tab);
     };
 
-    window.addEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', handleLocationChange);
+    window.addEventListener('hashchange', handleLocationChange);
     // Initial SEO meta setup on mount
     updatePageMeta(activeTab);
 
     return () => {
-      window.removeEventListener('hashchange', handleHashChange);
+      window.removeEventListener('popstate', handleLocationChange);
+      window.removeEventListener('hashchange', handleLocationChange);
     };
   }, [activeTab]);
 

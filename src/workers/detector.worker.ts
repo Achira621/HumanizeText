@@ -249,7 +249,6 @@ function computeAiScore(text: string): {
   const words = text.trim().split(/\s+/).filter(Boolean);
   const wordCount = words.length;
   const sentences = text.split(/[.!?]+/).map((s) => s.trim()).filter((s) => s.length > 5);
-  const sentenceCount = sentences.length;
 
   // ── Compute all signals ──
   // 1. Keyword signature density

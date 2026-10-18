@@ -36,38 +36,47 @@ export const Header: React.FC<HeaderProps> = ({
         ? 'plagiarism-checker'
         : activeTab;
 
-  const navItems = [
-    { id: 'humanizer' as ActiveTab, label: 'Free AI Humanizer', icon: Sparkles },
-    { id: 'ai-detector' as ActiveTab, label: 'AI Detector', icon: Cpu },
-    { id: 'plagiarism-checker' as ActiveTab, label: 'Plagiarism Checker', icon: FileSearch },
-    { id: 'metadata-inspector' as ActiveTab, label: 'Metadata & Signatures', icon: Eye },
-    { id: 'paraphrase' as ActiveTab, label: 'Paraphrasing Tool', icon: Sparkles },
-    { id: 'how-to-humanize' as ActiveTab, label: 'Writing Guide', icon: BookOpen },
-    { id: 'privacy-lab' as ActiveTab, label: 'Privacy Lab', icon: ShieldCheck },
-    { id: 'vault' as ActiveTab, label: 'Vault', icon: Lock },
-    { id: 'docs' as ActiveTab, label: 'Docs', icon: BookOpen },
+  const navItems: Array<{ id: ActiveTab; label: string; href: string; icon: any }> = [
+    { id: 'humanizer', label: 'Free AI Humanizer', href: '/', icon: Sparkles },
+    { id: 'ai-detector', label: 'AI Detector', href: '/ai-detector', icon: Cpu },
+    { id: 'plagiarism-checker', label: 'Plagiarism Checker', href: '/plagiarism-checker', icon: FileSearch },
+    { id: 'metadata-inspector', label: 'Metadata & Signatures', href: '/metadata-inspector', icon: Eye },
+    { id: 'paraphrase', label: 'Paraphrasing Tool', href: '/paraphrase', icon: Sparkles },
+    { id: 'how-to-humanize', label: 'Writing Guide', href: '/how-to-humanize', icon: BookOpen },
+    { id: 'privacy-lab', label: 'Privacy Lab', href: '/privacy-lab', icon: ShieldCheck },
+    { id: 'vault', label: 'Vault', href: '/vault', icon: Lock },
+    { id: 'docs', label: 'Docs', href: '/docs', icon: BookOpen },
   ];
 
   return (
     <header className="sticky top-0 z-30 w-full border-b border-[var(--border-subtle)] bg-[var(--bg-surface)]/90 backdrop-blur-md transition-colors">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2.5 sm:px-6">
-        {/* Brand Logo & Wordmark */}
-        <div
-          onClick={() => setActiveTab('humanizer')}
+        {/* Brand Logo & Wordmark as crawlable link */}
+        <a
+          href="/"
+          onClick={(e) => {
+            e.preventDefault();
+            setActiveTab('humanizer');
+          }}
           className="flex cursor-pointer items-center transition-opacity hover:opacity-90"
+          aria-label="HumanizeText Homepage"
         >
           <HumanizeLogo variant="horizontal" size="md" showTagline={false} />
-        </div>
+        </a>
 
-        {/* Navigation tabs */}
-        <nav className="hidden items-center space-x-1 xl:flex">
+        {/* Navigation tabs as crawlable links */}
+        <nav className="hidden items-center space-x-1 xl:flex" aria-label="Main Navigation">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = resolvedTab === item.id;
             return (
-              <button
+              <a
                 key={item.id}
-                onClick={() => setActiveTab(item.id)}
+                href={item.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setActiveTab(item.id);
+                }}
                 className={`flex items-center space-x-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-all ${
                   isActive
                     ? 'bg-[var(--accent-light)] text-[var(--accent-deep)] dark:text-[#34D399] shadow-xs'
@@ -76,7 +85,7 @@ export const Header: React.FC<HeaderProps> = ({
               >
                 <Icon className="h-3.5 w-3.5" />
                 <span>{item.label}</span>
-              </button>
+              </a>
             );
           })}
         </nav>
@@ -88,13 +97,17 @@ export const Header: React.FC<HeaderProps> = ({
             <span>0 Data Uploads</span>
           </div>
 
-          <button
-            onClick={() => setActiveTab('humanizer')}
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              setActiveTab('humanizer');
+            }}
             className="btn-brand-pill hidden px-4 py-1.5 text-xs font-bold sm:inline-flex items-center space-x-1"
           >
             <span>Try for Free</span>
             <span>→</span>
-          </button>
+          </a>
 
           <button
             onClick={toggleTheme}
@@ -107,14 +120,18 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Responsive horizontal navigation bar for all screens under xl */}
-      <div className="flex overflow-x-auto border-t border-[var(--border-subtle)] px-2 py-1.5 xl:hidden scrollbar-none">
+      <nav className="flex overflow-x-auto border-t border-[var(--border-subtle)] px-2 py-1.5 xl:hidden scrollbar-none" aria-label="Mobile Navigation">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = resolvedTab === item.id;
           return (
-            <button
+            <a
               key={item.id}
-              onClick={() => setActiveTab(item.id)}
+              href={item.href}
+              onClick={(e) => {
+                e.preventDefault();
+                setActiveTab(item.id);
+              }}
               className={`flex shrink-0 items-center space-x-1 rounded-md px-2.5 py-1 text-xs font-medium ${
                 isActive
                   ? 'bg-[var(--accent-light)] text-[var(--accent)] font-semibold'
@@ -123,10 +140,10 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <Icon className="h-3 w-3" />
               <span>{item.label}</span>
-            </button>
+            </a>
           );
         })}
-      </div>
+      </nav>
     </header>
   );
 };

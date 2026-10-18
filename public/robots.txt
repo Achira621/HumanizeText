@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Canonical XML Sitemap
+Sitemap: https://humanizetext-nine.vercel.app/sitemap.xml

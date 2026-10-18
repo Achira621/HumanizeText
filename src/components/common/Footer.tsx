@@ -14,14 +14,19 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
           {/* Col 1 */}
           <div>
-            <div
-              onClick={() => setActiveTab('humanizer')}
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                setActiveTab('humanizer');
+              }}
               className="cursor-pointer transition-opacity hover:opacity-90 inline-block"
+              aria-label="HumanizeText Home"
             >
               <HumanizeLogo variant="horizontal" size="sm" showTagline={true} />
-            </div>
+            </a>
             <p className="mt-2 text-[11px] leading-relaxed text-[var(--text-muted)]">
-              Privacy-first writing humanization and cryptographic similarity checker. Built to run 100% on-device via Web Crypto.
+              Privacy-first writing humanization, AI content detection, and cryptographic similarity scanning. Engineered to run 100% on-device in browser memory.
             </p>
           </div>
 
@@ -30,36 +35,76 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
             <span className="font-semibold text-[var(--text-primary)]">Free Writing Tools</span>
             <ul className="mt-2 space-y-1.5 text-[11px]">
               <li>
-                <button
-                  onClick={() => setActiveTab('humanizer')}
+                <a
+                  href="/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTab('humanizer');
+                  }}
                   className="hover:text-[var(--accent)] hover:underline"
                 >
                   Free AI Humanizer
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => setActiveTab('plagiarism-checker')}
+                <a
+                  href="/ai-detector"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTab('ai-detector');
+                  }}
+                  className="hover:text-[var(--accent)] hover:underline"
+                >
+                  AI Text &amp; Image Detector
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/plagiarism-checker"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTab('plagiarism-checker');
+                  }}
                   className="hover:text-[var(--accent)] hover:underline"
                 >
                   Free Online Plagiarism Checker
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => setActiveTab('paraphrase')}
+                <a
+                  href="/metadata-inspector"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTab('metadata-inspector');
+                  }}
+                  className="hover:text-[var(--accent)] hover:underline"
+                >
+                  Metadata &amp; Signature Inspector
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/paraphrase"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTab('paraphrase');
+                  }}
                   className="hover:text-[var(--accent)] hover:underline"
                 >
                   Free Paraphrasing Tool
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => setActiveTab('how-to-humanize')}
+                <a
+                  href="/how-to-humanize"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTab('how-to-humanize');
+                  }}
                   className="hover:text-[var(--accent)] hover:underline"
                 >
                   How to Humanize AI Writing
-                </button>
+                </a>
               </li>
             </ul>
           </div>
@@ -69,28 +114,40 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
             <span className="font-semibold text-[var(--text-primary)]">Privacy &amp; Cryptography</span>
             <ul className="mt-2 space-y-1.5 text-[11px]">
               <li>
-                <button
-                  onClick={() => setActiveTab('privacy-lab')}
+                <a
+                  href="/privacy-lab"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTab('privacy-lab');
+                  }}
                   className="hover:text-[var(--accent)] hover:underline"
                 >
                   Interactive Privacy Lab
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => setActiveTab('vault')}
+                <a
+                  href="/vault"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTab('vault');
+                  }}
                   className="hover:text-[var(--accent)] hover:underline"
                 >
                   AES-256-GCM Local Vault
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => setActiveTab('docs')}
+                <a
+                  href="/docs"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTab('docs');
+                  }}
                   className="hover:text-[var(--accent)] hover:underline"
                 >
                   Threat Model &amp; Cryptography
-                </button>
+                </a>
               </li>
             </ul>
           </div>
@@ -104,7 +161,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
                 <span>ZERO_SERVER_TRANSMISSION</span>
               </div>
               <p className="mt-1 text-[var(--text-muted)]">
-                Zero document text, extracted strings, or secret keys ever touch a server. Cloudflare Pages static distribution.
+                Zero document text, extracted strings, or secret keys ever touch a server. Client-side Web Crypto and edge distribution.
               </p>
             </div>
           </div>
@@ -113,12 +170,26 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
         <div className="mt-8 flex flex-col items-center justify-between border-t border-[var(--border-subtle)] pt-4 text-[11px] text-[var(--text-muted)] sm:flex-row">
           <div>© 2026 HumanizeText. Open source under Apache 2.0 license.</div>
           <div className="mt-2 flex items-center space-x-4 sm:mt-0">
-            <button onClick={() => setActiveTab('docs')} className="hover:text-[var(--text-primary)]">
+            <a
+              href="/docs"
+              onClick={(e) => {
+                e.preventDefault();
+                setActiveTab('docs');
+              }}
+              className="hover:text-[var(--text-primary)]"
+            >
               Privacy Documentation
-            </button>
-            <button onClick={() => setActiveTab('docs')} className="hover:text-[var(--text-primary)]">
+            </a>
+            <a
+              href="/docs"
+              onClick={(e) => {
+                e.preventDefault();
+                setActiveTab('docs');
+              }}
+              className="hover:text-[var(--text-primary)]"
+            >
               Research Roadmap
-            </button>
+            </a>
           </div>
         </div>
       </div>

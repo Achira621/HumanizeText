@@ -7,7 +7,6 @@ import type {
   ImageDetectionResult,
   ModelManifest,
   TextDetectionScore,
-  ImageDetectionScore,
 } from '../../types/detector';
 import { MODEL_REGISTRY, TEXT_DETECTOR_MANIFEST, IMAGE_DETECTOR_MANIFEST } from './manifest';
 import { analyzeImageForensics } from './imageAnalysis';

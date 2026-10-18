@@ -3,18 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HumanizeText — Make Your Text Sound More Human</title>
+    <title>HumanizeText | Free AI Text Detector & Text Humanizer</title>
     <meta
       name="description"
-      content="Transform AI-generated content into natural, authentic, and engaging writing. 100% on-device processing via Web Crypto, ephemeral HMAC winnowing, and zero cloud uploads."
+      content="Check text for AI-like writing patterns and make your writing sound more natural with HumanizeText. Explore privacy-focused text tools online."
     />
-    <meta name="keywords" content="humanize text, write like a human, free ai humanizer, privacy writing, cryptographic plagiarism checker, winnowing algorithm, web crypto" />
-    <meta property="og:title" content="HumanizeText — Write Like A Human" />
+    <link rel="canonical" href="https://humanizetext-nine.vercel.app/" />
+
+    <!-- Open Graph Metadata -->
+    <meta property="og:site_name" content="HumanizeText" />
+    <meta property="og:title" content="HumanizeText | Free AI Text Detector & Text Humanizer" />
     <meta
       property="og:description"
-      content="Transform AI-generated content into natural, authentic, and engaging writing. 100% on-device cryptographic privacy."
+      content="Check text for AI-like writing patterns and make your writing sound more natural with HumanizeText. Explore privacy-focused text tools online."
     />
+    <meta property="og:url" content="https://humanizetext-nine.vercel.app/" />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://humanizetext-nine.vercel.app/favicon.svg" />
+
+    <!-- Twitter / X Card Metadata -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="HumanizeText | Free AI Text Detector & Text Humanizer" />
+    <meta
+      name="twitter:description"
+      content="Check text for AI-like writing patterns and make your writing sound more natural with HumanizeText. Explore privacy-focused text tools online."
+    />
+    <meta name="twitter:image" content="https://humanizetext-nine.vercel.app/favicon.svg" />
+
     <meta name="theme-color" content="#0F3D2E" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -23,15 +38,215 @@
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
+
     <!-- Google AdSense Verification & Ad Code -->
     <script
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7198692879064358"
       crossorigin="anonymous"
     ></script>
+
+    <!-- Initial Structured Data (JSON-LD) for Search Engine Crawlers -->
+    <script type="application/ld+json" id="page-schema-jsonld">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://humanizetext-nine.vercel.app/#website",
+            "url": "https://humanizetext-nine.vercel.app/",
+            "name": "HumanizeText",
+            "description": "Privacy-first platform for making writing sound natural, checking AI-generated patterns, and comparing document similarity.",
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://humanizetext-nine.vercel.app/#software",
+            "name": "HumanizeText Free AI Humanizer & Detector",
+            "applicationCategory": "ProductivityApplication",
+            "operatingSystem": "Any (Web Browser)",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "description": "Free on-device AI text humanizer, AI detector, and similarity scanner running locally in browser memory with zero cloud uploads."
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://humanizetext-nine.vercel.app/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Does HumanizeText store or upload my text to remote servers?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. HumanizeText executes its primary linguistic transformations, cryptographic winnowing, and hashing entirely inside your web browser using Web Crypto and local heuristics. Your raw text is never transmitted to, stored on, or logged by external databases."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How does the AI text humanizer make writing sound natural?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "The engine analyzes sentence length variance (burstiness), vocabulary entropy (perplexity), repetitive transitions, and robotic AI clichés. It restructures sentences with natural human cadence, active voice, and diverse vocabulary."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is HumanizeText free to use?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. All core writing tools—including the AI Humanizer, Plagiarism Checker, AI Detector, and Paraphraser—are 100% free with no account creation or subscription required."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <!--
+      Crawlable Semantic Pre-rendering Fallback:
+      Search engine crawlers and bots without JavaScript execution receive immediate access to primary headings,
+      tool descriptions, and internal links. Once React mounts, it replaces this markup with the interactive application.
+    -->
+    <div id="root">
+      <div style="font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif; max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem; color: #111827; line-height: 1.6;">
+        <header style="border-bottom: 1px solid #e5e7eb; padding-bottom: 1.5rem; margin-bottom: 2rem;">
+          <div style="font-size: 1.5rem; font-weight: 800; color: #0F3D2E;">HumanizeText</div>
+          <p style="color: #4b5563; font-size: 0.95rem; margin-top: 0.25rem;">Privacy-Focused AI Text Humanizer, Detector &amp; Writing Suite</p>
+          <nav style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; font-size: 0.875rem;" aria-label="Quick Links">
+            <a href="/" style="color: #059669; font-weight: 600; text-decoration: none;">Free AI Humanizer</a>
+            <a href="/ai-detector" style="color: #374151; text-decoration: none;">AI Text &amp; Image Detector</a>
+            <a href="/plagiarism-checker" style="color: #374151; text-decoration: none;">Plagiarism Checker</a>
+            <a href="/metadata-inspector" style="color: #374151; text-decoration: none;">Metadata &amp; Signatures</a>
+            <a href="/paraphrase" style="color: #374151; text-decoration: none;">Paraphrasing Tool</a>
+            <a href="/how-to-humanize" style="color: #374151; text-decoration: none;">Writing Guide</a>
+            <a href="/privacy-lab" style="color: #374151; text-decoration: none;">Privacy Lab</a>
+            <a href="/vault" style="color: #374151; text-decoration: none;">Encrypted Vault</a>
+            <a href="/docs" style="color: #374151; text-decoration: none;">Security Documentation</a>
+          </nav>
+        </header>
+
+        <main>
+          <article>
+            <h1 style="font-size: 2.25rem; font-weight: 800; color: #111827; letter-spacing: -0.025em; margin-bottom: 1rem;">
+              HumanizeText — Free AI Text Detector &amp; Text Humanizer
+            </h1>
+            <p style="font-size: 1.125rem; color: #374151; margin-bottom: 2rem; max-width: 800px;">
+              Check writing for AI-generated patterns and transform robotic sentences into authentic, human-sounding prose. 100% on-device processing via browser Web Crypto, client-side heuristic winnowing, and zero cloud data transmission.
+            </p>
+
+            <section style="margin-bottom: 2.5rem;">
+              <h2 style="font-size: 1.5rem; font-weight: 700; color: #111827; margin-bottom: 1rem;">Core Privacy-Focused Writing Tools</h2>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                <div style="border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 1.25rem; background-color: #f9fafb;">
+                  <h3 style="font-size: 1.125rem; font-weight: 600; margin-top: 0; color: #0F3D2E;">
+                    <a href="/" style="color: inherit; text-decoration: none;">Free AI Text Humanizer</a>
+                  </h3>
+                  <p style="font-size: 0.875rem; color: #4b5563;">
+                    Eliminate repetitive AI transition words, balance sentence rhythm (burstiness), and vary vocabulary to create natural, authentic human prose.
+                  </p>
+                </div>
+
+                <div style="border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 1.25rem; background-color: #f9fafb;">
+                  <h3 style="font-size: 1.125rem; font-weight: 600; margin-top: 0; color: #0F3D2E;">
+                    <a href="/ai-detector" style="color: inherit; text-decoration: none;">AI Text &amp; Image Detector</a>
+                  </h3>
+                  <p style="font-size: 0.875rem; color: #4b5563;">
+                    Hybrid neural and heuristic classifier analyzing text perplexity, repetitive formulaic phrasing, and frequency-domain image artifacts from Midjourney, Stable Diffusion, and DALL-E.
+                  </p>
+                </div>
+
+                <div style="border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 1.25rem; background-color: #f9fafb;">
+                  <h3 style="font-size: 1.125rem; font-weight: 600; margin-top: 0; color: #0F3D2E;">
+                    <a href="/plagiarism-checker" style="color: inherit; text-decoration: none;">Free Online Plagiarism Checker</a>
+                  </h3>
+                  <p style="font-size: 0.875rem; color: #4b5563;">
+                    Compare documents locally using cryptographic Winnowing and ephemeral HMAC-SHA-256 session keys. Zero file uploads, zero server databases, zero data leakage.
+                  </p>
+                </div>
+
+                <div style="border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 1.25rem; background-color: #f9fafb;">
+                  <h3 style="font-size: 1.125rem; font-weight: 600; margin-top: 0; color: #0F3D2E;">
+                    <a href="/paraphrase" style="color: inherit; text-decoration: none;">Free Paraphrasing Tool</a>
+                  </h3>
+                  <p style="font-size: 0.875rem; color: #4b5563;">
+                    Restructure sentences for academic rigor, conciseness, or natural flow while protecting in-text citations and defending against unintentional mosaic plagiarism.
+                  </p>
+                </div>
+
+                <div style="border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 1.25rem; background-color: #f9fafb;">
+                  <h3 style="font-size: 1.125rem; font-weight: 600; margin-top: 0; color: #0F3D2E;">
+                    <a href="/how-to-humanize" style="color: inherit; text-decoration: none;">How to Humanize AI-Assisted Writing</a>
+                  </h3>
+                  <p style="font-size: 0.875rem; color: #4b5563;">
+                    Editorial guide to transforming mechanical AI-generated prose into nuanced, authentic writing while maintaining factual and intellectual integrity.
+                  </p>
+                </div>
+
+                <div style="border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 1.25rem; background-color: #f9fafb;">
+                  <h3 style="font-size: 1.125rem; font-weight: 600; margin-top: 0; color: #0F3D2E;">
+                    <a href="/metadata-inspector" style="color: inherit; text-decoration: none;">Metadata &amp; Signature Inspector</a>
+                  </h3>
+                  <p style="font-size: 0.875rem; color: #4b5563;">
+                    Inspect and sanitize EXIF metadata, GPS location coordinates, camera models, and AI generator parameter chunks locally inside your browser before sharing.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <section style="margin-bottom: 2.5rem;">
+              <h2 style="font-size: 1.5rem; font-weight: 700; color: #111827; margin-bottom: 1rem;">How HumanizeText Works</h2>
+              <p style="font-size: 0.95rem; color: #4b5563; margin-bottom: 1rem;">
+                Unlike conventional writing assistants that upload your sensitive documents to remote servers, HumanizeText operates on a zero-upload security model. All linguistic transformations, tokenization, and cryptographic similarity hashing are performed entirely within your browser via the Web Crypto API.
+              </p>
+              <ul style="padding-left: 1.25rem; font-size: 0.95rem; color: #4b5563; line-height: 1.75;">
+                <li><strong>Sentence Burstiness:</strong> Balances short punchy statements with longer complex sentences to replicate authentic human cadence.</li>
+                <li><strong>Entropy &amp; Perplexity:</strong> Replaces predictable machine phrasing with varied, expressive vocabulary without altering your original meaning.</li>
+                <li><strong>Cliché Elimination:</strong> Detects and neutralizes dead giveaways of synthetic text, including "delve into", "testament to", and "tapestry of".</li>
+                <li><strong>Cryptographic Winnowing:</strong> Evaluates document similarity locally using ephemeral HMAC-SHA-256 session keys that self-destruct upon tab closure.</li>
+              </ul>
+            </section>
+
+            <section style="margin-bottom: 2.5rem;">
+              <h2 style="font-size: 1.5rem; font-weight: 700; color: #111827; margin-bottom: 1rem;">Frequently Asked Questions</h2>
+              <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <div style="border-left: 3px solid #059669; padding-left: 1rem;">
+                  <h3 style="font-size: 1rem; font-weight: 600; margin: 0 0 0.25rem 0; color: #111827;">Does HumanizeText store or upload my text to remote servers?</h3>
+                  <p style="font-size: 0.875rem; color: #4b5563; margin: 0;">
+                    No. HumanizeText executes its primary linguistic transformations, cryptographic winnowing, and hashing entirely inside your web browser using Web Crypto and local heuristics. Your raw text is never transmitted to, stored on, or logged by external databases.
+                  </p>
+                </div>
+                <div style="border-left: 3px solid #059669; padding-left: 1rem;">
+                  <h3 style="font-size: 1rem; font-weight: 600; margin: 0 0 0.25rem 0; color: #111827;">How does the AI text humanizer make writing sound natural?</h3>
+                  <p style="font-size: 0.875rem; color: #4b5563; margin: 0;">
+                    The engine analyzes sentence length variance (burstiness), vocabulary entropy (perplexity), repetitive transitions, and robotic AI clichés. It restructures sentences with natural human cadence, active voice, and diverse vocabulary.
+                  </p>
+                </div>
+                <div style="border-left: 3px solid #059669; padding-left: 1rem;">
+                  <h3 style="font-size: 1rem; font-weight: 600; margin: 0 0 0.25rem 0; color: #111827;">Is HumanizeText free to use?</h3>
+                  <p style="font-size: 0.875rem; color: #4b5563; margin: 0;">
+                    Yes. All core writing tools—including the AI Humanizer, Plagiarism Checker, AI Detector, and Paraphraser—are 100% free with no account creation or subscription required.
+                  </p>
+                </div>
+              </div>
+            </section>
+          </article>
+        </main>
+
+        <footer style="border-top: 1px solid #e5e7eb; padding-top: 1.5rem; margin-top: 3rem; font-size: 0.8125rem; color: #6b7280; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem;">
+          <div>© 2026 HumanizeText. Privacy-first, open-source writing technology.</div>
+          <div style="display: flex; gap: 1rem;">
+            <a href="/docs" style="color: #6b7280; text-decoration: none;">Documentation</a>
+            <a href="/privacy-lab" style="color: #6b7280; text-decoration: none;">Privacy Lab</a>
+            <a href="/vault" style="color: #6b7280; text-decoration: none;">Local Vault</a>
+          </div>
+        </footer>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
