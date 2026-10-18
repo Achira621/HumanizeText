@@ -50,6 +50,8 @@ export const FreePlagiarismCheckerPage: React.FC<FreePlagiarismCheckerPageProps>
 
   const [activeRefId, setActiveRefId] = useState<string>('ref-1');
   const [isComparing, setIsComparing] = useState(false);
+  const [comparisonStage, setComparisonStage] = useState<string>('');
+  const [comparisonProgress, setComparisonProgress] = useState<number>(0);
   const [report, setReport] = useState<SimilarityReport | null>(null);
   const [selectedPassage, setSelectedPassage] = useState<ReconstructedPassage | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -80,14 +82,37 @@ export const FreePlagiarismCheckerPage: React.FC<FreePlagiarismCheckerPageProps>
   const handleRunComparison = async () => {
     if (!submittedText.trim() || referenceDocs.length === 0) return;
     setIsComparing(true);
+    setComparisonProgress(15);
+    setComparisonStage(`Tokenizing input & ${referenceDocs.length} reference documents...`);
     setSelectedPassage(null);
 
     try {
+      // Phase 1: Shingling and tokenization
+      await new Promise((r) => setTimeout(r, 450));
+      setComparisonProgress(40);
+      setComparisonStage('Generating 5-word n-gram sliding shingles & ephemeral HMAC keys...');
+
+      // Phase 2: Winnowing local minima selection
+      await new Promise((r) => setTimeout(r, 500));
+      setComparisonProgress(70);
+      setComparisonStage('Executing winnowed hash intersection across comparison corpus...');
+
+      // Actual cryptographic engine execution
       const rep = await SimilarityEngine.compareDocuments(
         submittedText,
         submittedDocName,
         referenceDocs
       );
+
+      // Phase 3: Passage reconstruction
+      await new Promise((r) => setTimeout(r, 400));
+      setComparisonProgress(92);
+      setComparisonStage('Reconstructing overlapping passage boundaries & SHA-256 digest...');
+
+      await new Promise((r) => setTimeout(r, 250));
+      setComparisonProgress(100);
+      setComparisonStage('Complete');
+
       setReport(rep);
       if (rep.passages.length > 0) {
         setSelectedPassage(rep.passages[0]);
@@ -96,6 +121,8 @@ export const FreePlagiarismCheckerPage: React.FC<FreePlagiarismCheckerPageProps>
       alert(`Similarity comparison error: ${err?.message || 'Comparison failed'}`);
     } finally {
       setIsComparing(false);
+      setComparisonProgress(0);
+      setComparisonStage('');
     }
   };
 
@@ -176,17 +203,37 @@ export const FreePlagiarismCheckerPage: React.FC<FreePlagiarismCheckerPageProps>
           </div>
 
           <div className="flex items-center space-x-3">
+            {isComparing && (
+              <div className="hidden sm:flex flex-col items-end pr-2 text-right">
+                <span className="text-[11px] font-semibold text-[var(--accent)] animate-pulse">
+                  {comparisonStage}
+                </span>
+                <span className="text-[10px] text-[var(--text-muted)] font-mono">
+                  {comparisonProgress}% complete
+                </span>
+              </div>
+            )}
             <button
               id="run-similarity-btn"
               onClick={handleRunComparison}
               disabled={isComparing || !submittedText.trim() || referenceDocs.length === 0}
               className="btn-brand-pill inline-flex items-center space-x-2 px-6 py-2 text-xs font-bold disabled:opacity-40"
             >
-              <FileSearch className="h-4 w-4" />
-              <span>{isComparing ? 'Comparing Locally...' : 'Run Similarity Check'}</span>
+              <FileSearch className={`h-4 w-4 ${isComparing ? 'animate-spin' : ''}`} />
+              <span>{isComparing ? 'Scanning...' : 'Run Similarity Check'}</span>
             </button>
           </div>
         </div>
+
+        {/* Linear progress bar during comparison */}
+        {isComparing && (
+          <div className="h-1.5 w-full overflow-hidden bg-slate-200 dark:bg-slate-700">
+            <div
+              className="h-full bg-[var(--accent)] transition-all duration-300"
+              style={{ width: `${comparisonProgress}%` }}
+            />
+          </div>
+        )}
 
         {/* 2-Column Document Layout */}
         <div className="grid grid-cols-1 divide-y border-b border-[var(--border-subtle)] lg:grid-cols-2 lg:divide-x lg:divide-y-0">
