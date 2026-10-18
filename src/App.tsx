@@ -39,9 +39,13 @@ export function App() {
   const [activeTab, setActiveTabState] = useState<ActiveTab>(() => getTabFromHash());
   const [currentText, setCurrentText] = useState('');
   const [isDark, setIsDark] = useState(() => {
-    if (typeof window !== 'undefined' && window.matchMedia) {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('humanizetext_theme');
+      if (stored !== null) {
+        return stored === 'dark';
+      }
     }
+    // Default to clean light mode
     return false;
   });
 
@@ -73,12 +77,14 @@ export function App() {
     };
   }, [activeTab]);
 
-  // Keep HTML root class in sync with dark theme
+  // Keep HTML root class and localStorage in sync with theme
   useEffect(() => {
     if (isDark) {
       document.documentElement.classList.add('dark');
+      localStorage.setItem('humanizetext_theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
+      localStorage.setItem('humanizetext_theme', 'light');
     }
   }, [isDark]);
 
