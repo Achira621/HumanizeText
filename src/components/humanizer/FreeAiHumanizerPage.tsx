@@ -364,9 +364,9 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
             <div className="flex flex-wrap items-center justify-between gap-4">
               {inputScore !== null && (
                 <div className="flex items-center gap-3">
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">Input Score</span>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[var(--text-primary)]">Input Score</span>
                   <div className="flex items-center gap-2">
-                    <div className="h-2 w-28 overflow-hidden rounded-full bg-[var(--bg-subtle)]">
+                    <div className="h-2.5 w-28 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
                       <div
                         className="h-full rounded-full transition-all duration-500"
                         style={{ width: `${inputScore}%`, backgroundColor: getScoreLabel(inputScore).color }}
@@ -381,9 +381,9 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
               {outputScore !== null && (
                 <div className="flex items-center gap-3">
                   <TrendingUp className="h-4 w-4 text-[var(--accent)]" />
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">After Humanizing</span>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[var(--text-primary)]">After Humanizing</span>
                   <div className="flex items-center gap-2">
-                    <div className="h-2 w-28 overflow-hidden rounded-full bg-[var(--bg-subtle)]">
+                    <div className="h-2.5 w-28 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
                       <div
                         className="h-full rounded-full transition-all duration-700"
                         style={{ width: `${outputScore}%`, backgroundColor: getScoreLabel(outputScore).color }}
@@ -450,15 +450,15 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
                   key={idx}
                   className="rounded border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-2.5"
                 >
-                  <div className="flex items-center justify-between text-[11px] text-[var(--text-muted)]">
-                    <span className="font-semibold uppercase text-[var(--accent)]">{c.category}</span>
-                    <span>{c.reason}</span>
+                  <div className="flex items-center justify-between text-[11px] text-[var(--text-secondary)]">
+                    <span className="rounded bg-[var(--accent-light)] px-1.5 py-0.5 font-bold uppercase tracking-wide text-[var(--accent)]">{c.category}</span>
+                    <span className="font-medium text-[var(--text-secondary)]">{c.reason}</span>
                   </div>
                   <div className="mt-1.5 grid grid-cols-2 gap-2 text-xs">
-                    <div className="rounded bg-red-500/10 p-1.5 text-red-700 dark:text-red-300">
+                    <div className="rounded border border-red-200 bg-red-500/10 p-2 text-red-900 dark:border-red-900 dark:text-red-200">
                       <span className="font-bold">Original:</span> &ldquo;{c.original}&rdquo;
                     </div>
-                    <div className="rounded bg-emerald-500/10 p-1.5 text-emerald-700 dark:text-emerald-300">
+                    <div className="rounded border border-emerald-200 bg-emerald-500/10 p-2 text-emerald-950 dark:border-emerald-900 dark:text-emerald-200">
                       <span className="font-bold">Humanized:</span> &ldquo;{c.replacement}&rdquo;
                     </div>
                   </div>

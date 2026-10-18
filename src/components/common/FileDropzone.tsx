@@ -83,11 +83,11 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
           </div>
         ) : (
           <div className="flex flex-col items-center text-center">
-            <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-full bg-[var(--bg-surface)] text-[var(--text-secondary)] shadow-xs transition-colors group-hover:text-[var(--accent)]">
+            <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-full border border-[var(--border-strong)] bg-[var(--bg-surface)] text-[var(--text-primary)] shadow-xs transition-colors group-hover:text-[var(--accent)] group-hover:border-[var(--accent)]">
               <UploadCloud className="h-5 w-5" />
             </div>
-            <p className="text-xs font-medium text-[var(--text-primary)]">{label}</p>
-            <p className="mt-1 text-[11px] text-[var(--text-muted)]">{sublabel}</p>
+            <p className="text-xs font-bold text-[var(--text-primary)]">{label}</p>
+            <p className="mt-1 text-[11px] font-medium text-[var(--text-secondary)]">{sublabel}</p>
           </div>
         )}
       </div>

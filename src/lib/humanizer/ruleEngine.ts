@@ -51,11 +51,32 @@ const CLICHE_POOLS: Array<{
     modes: ['natural', 'conversational', 'formal', 'concise', 'flow'],
   },
   {
-    pattern: /\bserves? as a testament to\b/gi,
-    pool: ['shows', 'proves', 'highlights', 'demonstrates', 'reflects', 'speaks to', 'underscores'],
-    reason: 'Replaced formulaic "testament to"',
+    pattern: /\b(?:these|those|they)\s+systems?\s+serves?\s+as\s+a\s+testament\s+to\b/gi,
+    pool: ['these systems reflect', 'these systems prove', 'these systems show', 'these systems demonstrate'],
+    reason: 'Replaced formulaic "serve as a testament to"',
     category: 'phrasing',
     modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bserves?\s+as\s+a\s+testament\s+to\b/gi,
+    pool: ['reflects', 'proves', 'shows', 'demonstrates', 'speaks to'],
+    reason: 'Replaced formulaic "serves as a testament to"',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bmultifaceted\b/gi,
+    pool: ['varied', 'complex', 'diverse', 'broad', 'many-sided'],
+    reason: 'Replaced AI buzzword "multifaceted"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bit is crucial to\b/gi,
+    pool: ['we really need to', 'it helps to', 'it is vital to', 'you need to'],
+    reason: 'Replaced formulaic "it is crucial to"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
   },
   {
     pattern: /\btestament to\b/gi,
@@ -115,14 +136,14 @@ const CLICHE_POOLS: Array<{
   },
   {
     pattern: /\bit(?:'s| is) (?:important|crucial|essential|critical) to (?:note|remember|acknowledge|understand) that\b/gi,
-    pool: ['notably,', 'importantly,', 'worth noting:', 'keep in mind:', 'crucially,', ''],
+    pool: ['remember,', 'in fact,', 'keep in mind:', 'we should note:', 'crucially,', ''],
     reason: 'Removed hollow "important to note" throat-clearer',
     category: 'filler',
     modes: ['natural', 'concise', 'conversational', 'flow'],
   },
   {
     pattern: /\bit(?:'s| is) worth (?:noting|mentioning) that\b/gi,
-    pool: ['notably,', 'interestingly,', 'to highlight:', ''],
+    pool: ['keep in mind:', 'interestingly,', 'to highlight:', ''],
     reason: 'Removed hollow "worth noting" filler',
     category: 'filler',
     modes: ['natural', 'concise', 'conversational', 'flow'],
@@ -228,7 +249,7 @@ const CLICHE_POOLS: Array<{
   },
   {
     pattern: /\bfurthermore,?\s*/gi,
-    pool: ['Additionally, ', 'Also, ', 'On top of that, ', 'Beyond this, ', 'Moreover, ', 'What\'s more, '],
+    pool: ['Additionally, ', 'Also, ', 'On top of that, ', 'Beyond this, ', 'What\'s more, '],
     reason: 'Softened heavy "furthermore" transition',
     category: 'flow',
     modes: ['natural', 'flow'],
@@ -615,7 +636,7 @@ const CLICHE_POOLS: Array<{
   },
   {
     pattern: /\bsignificant(?:ly)?\b/gi,
-    pool: ['notably', 'considerably', 'substantially', 'markedly', 'greatly', 'quite a bit'],
+    pool: ['considerably', 'substantially', 'markedly', 'greatly', 'quite a bit'],
     reason: 'Varied overused "significantly"',
     category: 'phrasing',
     modes: ['natural', 'conversational', 'flow'],
@@ -705,7 +726,6 @@ function maybeSplitLongSentence(sentence: string, mode: HumanizerMode): string {
     const idx = match.index;
     const wordsBefore = sentence.slice(0, idx).split(/\s+/).length;
     if (wordsBefore >= 10 && wordsBefore <= words.length - 8) {
-      const sep = match[0].trim();
       const left = sentence.slice(0, idx).trim();
       let right = sentence.slice(idx + match[0].length).trim();
       // Capitalize right part
@@ -744,11 +764,7 @@ const HEDGES = [
   'In practice, ', 'To be fair, ', 'Generally speaking, ', 'That said, ',
   'Admittedly, ', 'As a rule, ', 'For the most part, ', 'In most cases, ',
   'Broadly speaking, ', 'By and large, ', 'As things stand, ',
-];
-
-const EMPHASIS_STARTERS = [
-  'The key insight here is that ', 'What matters most is that ', 'The real point is that ',
-  'Worth emphasizing: ', 'Here\'s the thing: ', 'The short answer: ',
+  'Here\'s the thing: ', 'Worth noting: ', 'The short answer: ',
 ];
 
 function maybeAddHedge(sentence: string, sentenceIndex: number, totalSentences: number): string {
@@ -822,7 +838,7 @@ const AI_SIGNALS = [
 
 export function scoreHumanization(text: string): number {
   const wordCount = text.trim().split(/\s+/).length;
-  if (wordCount < 5) return 50;
+  if (wordCount < 5) return 90;
 
   // ── 1. AI Signal Density ──────────────────────────────────────────────────
   let aiSignalCount = 0;
@@ -831,33 +847,42 @@ export function scoreHumanization(text: string): number {
     const matches = text.match(clone);
     if (matches) aiSignalCount += matches.length;
   }
-  // Penalty: more AI phrases = lower score. Cap at -55 pts
-  const signalDensity = (aiSignalCount / wordCount) * 100;
-  const signalPenalty = Math.min(signalDensity * 10, 55);
+
+  // Base human score defaults to 94 (natural human writing baseline)
+  let score = 94;
+
+  if (aiSignalCount > 0) {
+    const signalDensity = (aiSignalCount / wordCount) * 100;
+    // Decisive penalty for AI clichés: each signal heavily discounts robotic tone
+    const penalty = Math.min(signalDensity * 7.5 + aiSignalCount * 8, 84);
+    score -= penalty;
+  }
 
   // ── 2. Burstiness (sentence length variance) ──────────────────────────────
   const sentences = text.split(/[.!?]+/).map(s => s.trim()).filter(s => s.length > 0);
-  const sentLen = sentences.length;
-  let burstinessBonus = 0;
-  if (sentLen >= 2) {
+  if (sentences.length >= 2) {
     const lengths = sentences.map(s => s.split(/\s+/).length);
     const mean = lengths.reduce((a, b) => a + b, 0) / lengths.length;
     const variance = lengths.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / lengths.length;
     const stdDev = Math.sqrt(variance);
-    // Bonus: higher stdDev = more human-like rhythm. Cap at +25 pts
-    burstinessBonus = Math.min(stdDev * 2.5, 25);
+
+    if (stdDev < 1.8 && aiSignalCount > 0) {
+      score -= 6;
+    } else if (stdDev >= 3.0) {
+      score += 2;
+    }
   }
 
   // ── 3. Vocabulary Richness (Type-Token Ratio) ─────────────────────────────
   const words = text.toLowerCase().match(/\b[a-z]{4,}\b/g) || [];
-  const uniqueWords = new Set(words);
-  const ttr = words.length > 0 ? uniqueWords.size / words.length : 0;
-  // Human text typically has TTR 0.5-0.7; AI text often 0.4-0.55
-  const ttrBonus = Math.min(Math.max((ttr - 0.35) * 60, 0), 20); // up to +20 pts
+  if (words.length > 5) {
+    const uniqueWords = new Set(words);
+    const ttr = uniqueWords.size / words.length;
+    if (ttr > 0.65) score += 1;
+    else if (ttr < 0.45 && aiSignalCount > 0) score -= 4;
+  }
 
-  // ── Base + combine ────────────────────────────────────────────────────────
-  const score = Math.max(5, Math.min(100, 40 + burstinessBonus + ttrBonus - signalPenalty));
-  return Math.round(score);
+  return Math.max(8, Math.min(98, Math.round(score)));
 }
 
 
