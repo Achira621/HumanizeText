@@ -1,6 +1,7 @@
 import React from 'react';
-import { ShieldCheck, Terminal } from 'lucide-react';
+import { Terminal } from 'lucide-react';
 import type { ActiveTab } from './Header';
+import { HumanizeLogo } from './HumanizeLogo';
 
 interface FooterProps {
   setActiveTab: (tab: ActiveTab) => void;
@@ -13,9 +14,11 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
           {/* Col 1 */}
           <div>
-            <div className="flex items-center space-x-2 font-bold text-[var(--text-primary)]">
-              <ShieldCheck className="h-4 w-4 text-[var(--accent)]" />
-              <span>HumanizeText</span>
+            <div
+              onClick={() => setActiveTab('humanizer')}
+              className="cursor-pointer transition-opacity hover:opacity-90 inline-block"
+            >
+              <HumanizeLogo variant="horizontal" size="sm" showTagline={true} />
             </div>
             <p className="mt-2 text-[11px] leading-relaxed text-[var(--text-muted)]">
               Privacy-first writing humanization and cryptographic similarity checker. Built to run 100% on-device via Web Crypto.

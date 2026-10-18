@@ -9,6 +9,7 @@ import { HowToHumanizeGuidePage } from './components/guide/HowToHumanizeGuidePag
 import { PrivacyLab } from './components/privacyLab/PrivacyLab';
 import { VaultWorkspace } from './components/vault/VaultWorkspace';
 import { DocumentationViewer } from './components/docs/DocumentationViewer';
+import { FlowingWavesBackground } from './components/common/FlowingWavesBackground';
 import { updatePageMeta } from './lib/seo/metaManager';
 
 function getTabFromHash(): ActiveTab {
@@ -94,7 +95,10 @@ export function App() {
   const isSimilarityActive = activeTab === 'plagiarism-checker' || activeTab === 'similarity';
 
   return (
-    <div className="flex min-h-screen flex-col bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors">
+    <div className="relative flex min-h-screen flex-col bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors overflow-hidden">
+      {/* Brand Flowing Waves Background */}
+      <FlowingWavesBackground variant="hero" />
+
       <Header
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -102,7 +106,7 @@ export function App() {
         toggleTheme={toggleTheme}
       />
 
-      <main className="flex-1 py-4 sm:py-6">
+      <main className="relative z-10 flex-1 py-4 sm:py-6">
         {isHumanizerActive && (
           <FreeAiHumanizerPage
             currentText={currentText}

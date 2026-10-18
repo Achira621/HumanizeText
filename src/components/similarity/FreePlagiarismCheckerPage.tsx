@@ -15,6 +15,7 @@ import { SimilarityEngine } from '../../lib/similarity/engine';
 import type { ReferenceInput } from '../../lib/similarity/engine';
 import { FileDropzone } from '../common/FileDropzone';
 import { MatchHighlighter } from './MatchHighlighter';
+import { HumanizeLogo } from '../common/HumanizeLogo';
 import {
   downloadFile,
   exportReportToHtml,
@@ -143,18 +144,23 @@ export const FreePlagiarismCheckerPage: React.FC<FreePlagiarismCheckerPageProps>
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
-      {/* Hero Header with SEO H1 */}
-      <div className="mb-8 text-center">
-        <div className="mx-auto mb-3 inline-flex items-center space-x-2 rounded-full border border-[var(--accent-border)] bg-[var(--accent-light)] px-3 py-1 text-xs font-semibold text-[var(--accent)]">
-          <ShieldCheck className="h-4 w-4" />
+      {/* Hero Header matching Brand Specification */}
+      <div className="mb-10 text-center">
+        <div className="mb-4 inline-flex items-center justify-center">
+          <HumanizeLogo variant="stacked" size="lg" showTagline={true} />
+        </div>
+
+        <div className="mx-auto mb-3 inline-flex items-center space-x-2 rounded-full border border-[var(--accent-border)] bg-[var(--accent-light)] px-3.5 py-1 text-xs font-bold text-[var(--text-primary)] dark:text-[#34D399]">
+          <ShieldCheck className="h-4 w-4 text-[#34D399]" />
           <span>Zero Server Uploads • Cryptographic Winnowing • Ephemeral HMAC-SHA-256</span>
         </div>
+
         <h1 className="text-3xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-4xl md:text-5xl">
-          Free Online Plagiarism Checker
+          Free Online <span className="text-[#34D399]">Plagiarism Checker</span>
         </h1>
         <p className="mx-auto mt-3 max-w-3xl text-base text-[var(--text-secondary)]">
-          Compare documents for verbatim overlap and matching passages with complete privacy.
-          Zero files uploaded, zero data logged, and zero central databases.
+          Compare documents for verbatim overlap and matching passages with complete data sovereignty.
+          Zero files uploaded, zero data logged, and zero permanent databases.
         </p>
       </div>
 
@@ -174,7 +180,7 @@ export const FreePlagiarismCheckerPage: React.FC<FreePlagiarismCheckerPageProps>
               id="run-similarity-btn"
               onClick={handleRunComparison}
               disabled={isComparing || !submittedText.trim() || referenceDocs.length === 0}
-              className="flex items-center space-x-2 rounded-lg bg-[var(--accent)] px-5 py-2 text-xs font-semibold text-[var(--accent-contrast)] shadow-xs transition-all hover:bg-[var(--accent-hover)] disabled:opacity-40"
+              className="btn-brand-pill inline-flex items-center space-x-2 px-6 py-2 text-xs font-bold disabled:opacity-40"
             >
               <FileSearch className="h-4 w-4" />
               <span>{isComparing ? 'Comparing Locally...' : 'Run Similarity Check'}</span>

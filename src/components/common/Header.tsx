@@ -1,5 +1,6 @@
 import React from 'react';
-import { ShieldCheck, Moon, Sun, Lock, Sparkles, FileSearch, BookOpen } from 'lucide-react';
+import { Moon, Sun, Lock, Sparkles, FileSearch, BookOpen, ShieldCheck } from 'lucide-react';
+import { HumanizeLogo } from './HumanizeLogo';
 
 export type ActiveTab =
   | 'humanizer'
@@ -46,27 +47,12 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="sticky top-0 z-30 w-full border-b border-[var(--border-subtle)] bg-[var(--bg-surface)]/90 backdrop-blur-md transition-colors">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2.5 sm:px-6">
-        {/* Brand Wordmark */}
+        {/* Brand Logo & Wordmark */}
         <div
           onClick={() => setActiveTab('humanizer')}
-          className="flex cursor-pointer items-center space-x-2.5 transition-opacity hover:opacity-90"
+          className="flex cursor-pointer items-center transition-opacity hover:opacity-90"
         >
-          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-[var(--accent)] text-[var(--accent-contrast)] shadow-xs">
-            <ShieldCheck className="h-5 w-5" />
-          </div>
-          <div>
-            <div className="flex items-center space-x-2">
-              <span className="text-lg font-bold tracking-tight text-[var(--text-primary)]">
-                HumanizeText
-              </span>
-              <span className="hidden rounded bg-[var(--accent-light)] px-1.5 py-0.5 text-[10px] font-semibold text-[var(--accent)] sm:inline-block">
-                Privacy-First
-              </span>
-            </div>
-            <p className="hidden text-[10px] text-[var(--text-muted)] md:block">
-              100% On-Device AI Humanizer &amp; Plagiarism Detection
-            </p>
-          </div>
+          <HumanizeLogo variant="horizontal" size="md" showTagline={false} />
         </div>
 
         {/* Navigation tabs */}
@@ -78,9 +64,9 @@ export const Header: React.FC<HeaderProps> = ({
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`flex items-center space-x-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors ${
+                className={`flex items-center space-x-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-all ${
                   isActive
-                    ? 'bg-[var(--accent-light)] text-[var(--accent)] font-semibold shadow-2xs'
+                    ? 'bg-[var(--accent-light)] text-[var(--accent-deep)] dark:text-[#34D399] shadow-xs'
                     : 'text-[var(--text-secondary)] hover:bg-[var(--bg-subtle)] hover:text-[var(--text-primary)]'
                 }`}
               >
@@ -91,17 +77,25 @@ export const Header: React.FC<HeaderProps> = ({
           })}
         </nav>
 
-        {/* Right side controls: Security badge + Dark mode toggle */}
-        <div className="flex items-center space-x-3">
-          <div className="hidden items-center space-x-1.5 rounded-full border border-[var(--accent-border)] bg-[var(--accent-light)] px-2.5 py-1 text-[11px] font-medium text-[var(--accent)] md:flex">
+        {/* Right side controls: Try for Free Pill + Security badge + Dark mode toggle */}
+        <div className="flex items-center space-x-2.5 sm:space-x-3">
+          <div className="hidden items-center space-x-1.5 rounded-full border border-[var(--accent-border)] bg-[var(--accent-light)] px-2.5 py-1 text-[11px] font-semibold text-[var(--accent-deep)] dark:text-[#34D399] lg:flex">
             <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
             <span>0 Data Uploads</span>
           </div>
 
           <button
+            onClick={() => setActiveTab('humanizer')}
+            className="btn-brand-pill hidden px-4 py-1.5 text-xs font-bold sm:inline-flex items-center space-x-1"
+          >
+            <span>Try for Free</span>
+            <span>→</span>
+          </button>
+
+          <button
             onClick={toggleTheme}
             aria-label="Toggle theme"
-            className="flex h-8 w-8 items-center justify-center rounded-md border border-[var(--border-subtle)] bg-[var(--bg-subtle)] text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-subtle)] text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"
           >
             {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>

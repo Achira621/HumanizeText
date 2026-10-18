@@ -16,6 +16,7 @@ import {
 import type { HumanizerMode, HumanizerResult, HumanizerChange } from '../../types';
 import { defaultHumanizerManager } from '../../lib/humanizer/manager';
 import { FileDropzone } from '../common/FileDropzone';
+import { HumanizeLogo } from '../common/HumanizeLogo';
 import type { ActiveTab } from '../common/Header';
 
 interface FreeAiHumanizerPageProps {
@@ -161,18 +162,24 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6">
-      {/* Hero Header with SEO H1 */}
-      <div className="mb-8 text-center">
-        <div className="mx-auto mb-3 inline-flex items-center space-x-2 rounded-full border border-[var(--accent-border)] bg-[var(--accent-light)] px-3 py-1 text-xs font-semibold text-[var(--accent)]">
-          <ShieldCheck className="h-4 w-4" />
+      {/* Hero Header matching Brand Specification */}
+      <div className="mb-10 text-center">
+        {/* Brand Symbol Exploration / Stacked Emblem */}
+        <div className="mb-4 inline-flex items-center justify-center">
+          <HumanizeLogo variant="stacked" size="xl" showTagline={true} />
+        </div>
+
+        <div className="mx-auto mb-3 inline-flex items-center space-x-2 rounded-full border border-[var(--accent-border)] bg-[var(--accent-light)] px-3.5 py-1 text-xs font-bold text-[var(--text-primary)] dark:text-[#34D399]">
+          <ShieldCheck className="h-4 w-4 text-[#34D399]" />
           <span>100% On-Device • Zero Server Transmissions • Private by Design</span>
         </div>
+
         <h1 className="text-3xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-4xl md:text-5xl">
-          Free AI Humanizer
+          Make Your Text Sound <span className="text-[#34D399]">More Human</span>
         </h1>
         <p className="mx-auto mt-3 max-w-2xl text-base text-[var(--text-secondary)]">
-          Transform stiff, robotic AI drafts into natural, engaging prose. Improve sentence flow,
-          vary rhythm, and eliminate AI cliches with complete cryptographic privacy.
+          Transform AI-generated content into natural, authentic and engaging writing.
+          Improve sentence flow, vary cadence, and eliminate AI clichés with complete cryptographic privacy.
         </p>
       </div>
 
@@ -368,7 +375,7 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
               id="humanize-submit-btn"
               onClick={handleRunHumanizer}
               disabled={isProcessing || !currentText.trim()}
-              className="flex items-center space-x-2 rounded-lg bg-[var(--accent)] px-6 py-2.5 text-xs font-semibold text-[var(--accent-contrast)] shadow-md transition-all hover:bg-[var(--accent-hover)] hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
+              className="btn-brand-pill inline-flex items-center space-x-2 px-7 py-2.5 text-xs font-bold disabled:cursor-not-allowed disabled:opacity-50"
             >
               <Sparkles className="h-4 w-4" />
               <span>{isProcessing ? 'Humanizing on Device...' : 'Humanize Text'}</span>

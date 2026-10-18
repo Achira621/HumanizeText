@@ -8,6 +8,7 @@ import {
   Lock,
   Search,
 } from 'lucide-react';
+import { HumanizeLogo } from '../common/HumanizeLogo';
 import type { ActiveTab } from '../common/Header';
 
 interface HowToHumanizeGuidePageProps {
@@ -80,14 +81,19 @@ export const HowToHumanizeGuidePage: React.FC<HowToHumanizeGuidePageProps> = ({
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:px-6">
-      {/* Article Header with SEO H1 */}
+      {/* Article Header with Brand Logo */}
       <header className="mb-10 text-center">
-        <div className="mx-auto mb-3 inline-flex items-center space-x-2 rounded-full border border-[var(--accent-border)] bg-[var(--accent-light)] px-3 py-1 text-xs font-semibold text-[var(--accent)]">
-          <BookOpen className="h-4 w-4" />
+        <div className="mb-4 inline-flex items-center justify-center">
+          <HumanizeLogo variant="stacked" size="md" showTagline={true} />
+        </div>
+
+        <div className="mx-auto mb-3 inline-flex items-center space-x-2 rounded-full border border-[var(--accent-border)] bg-[var(--accent-light)] px-3.5 py-1 text-xs font-bold text-[var(--text-primary)] dark:text-[#34D399]">
+          <BookOpen className="h-4 w-4 text-[#34D399]" />
           <span>Editorial Guide • Writing Craft • Academic Integrity</span>
         </div>
+
         <h1 className="text-3xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-4xl md:text-5xl">
-          How to Humanize AI-Assisted Writing
+          How to Humanize <span className="text-[#34D399]">AI-Assisted Writing</span>
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-[var(--text-secondary)]">
           A practical, comprehensive guide to editing AI drafts. Learn how to master sentence
@@ -100,7 +106,7 @@ export const HowToHumanizeGuidePage: React.FC<HowToHumanizeGuidePageProps> = ({
           <span>•</span>
           <span>10 Min Read</span>
           <span>•</span>
-          <span className="text-[var(--accent)] font-medium">Updated 2026</span>
+          <span className="text-[#34D399] font-medium">Updated 2026</span>
         </div>
       </header>
 
@@ -322,17 +328,17 @@ export const HowToHumanizeGuidePage: React.FC<HowToHumanizeGuidePageProps> = ({
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2.5">
             <button
               onClick={() => setActiveTab('humanizer')}
-              className="flex items-center space-x-1.5 rounded-lg bg-[var(--accent)] px-4 py-2 text-xs font-semibold text-[var(--accent-contrast)] shadow-xs hover:bg-[var(--accent-hover)] transition-colors"
+              className="btn-brand-pill inline-flex items-center space-x-1.5 px-5 py-2.5 text-xs font-bold"
             >
               <Sparkles className="h-3.5 w-3.5" />
               <span>Open Free AI Humanizer</span>
             </button>
             <button
               onClick={() => setActiveTab('paraphrase')}
-              className="flex items-center space-x-1.5 rounded-lg border border-[var(--border-strong)] bg-[var(--bg-surface)] px-4 py-2 text-xs font-semibold text-[var(--text-primary)] hover:border-[var(--accent)] transition-colors"
+              className="inline-flex items-center space-x-1.5 rounded-full border border-[var(--border-strong)] bg-[var(--bg-subtle)] px-4 py-2.5 text-xs font-bold text-[var(--text-primary)] hover:border-[var(--accent)] transition-colors"
             >
               <span>Paraphrasing Tool</span>
               <ArrowRight className="h-3.5 w-3.5" />

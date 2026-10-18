@@ -2,62 +2,82 @@
 
 @layer base {
   :root {
-    --bg-primary: #F9F9F8;
+    /* Brand Palette: Direct from HumanizeText Brand Identity Specification */
+    --brand-deep: #0F3D2E;       /* Deep Green */
+    --brand-mint: #34D399;       /* Mint Green */
+    --brand-light-mint: #CFF9E5; /* Light Mint */
+    --brand-soft-white: #F8FEFA; /* Soft White */
+
+    /* Semantic Light Theme */
+    --bg-primary: #F8FEFA;
     --bg-surface: #FFFFFF;
-    --bg-subtle: #F2F2F0;
-    --border-subtle: #E5E5E2;
-    --border-strong: #D1D1CB;
-    --text-primary: #191A1C;
-    --text-secondary: #575961;
-    --text-muted: #7E828E;
-    --accent: #2E7955;
-    --accent-hover: #246345;
-    --accent-light: #EBF5F0;
-    --accent-border: #9DD6B8;
-    --accent-contrast: #FFFFFF;
+    --bg-subtle: #F0FAF4;
+    --border-subtle: #E1F3EA;
+    --border-strong: #C4EAD6;
+    --text-primary: #0F3D2E;
+    --text-secondary: #235643;
+    --text-muted: #628879;
+
+    --accent: #34D399;
+    --accent-hover: #10B981;
+    --accent-deep: #0F3D2E;
+    --accent-light: #CFF9E5;
+    --accent-border: #A7F3D0;
+    --accent-contrast: #072B1F;
+
     --warning-bg: #FEF3C7;
     --warning-text: #92400E;
     --warning-border: #FCD34D;
     --error-bg: #FEE2E2;
     --error-text: #991B1B;
     --error-border: #FCA5A5;
-    --code-bg: #EFEFEA;
+    --code-bg: #EAF7F0;
   }
 
   .dark {
-    --bg-primary: #121316;
-    --bg-surface: #1A1C20;
-    --bg-subtle: #22242A;
-    --border-subtle: #2B2E36;
-    --border-strong: #3D424E;
-    --text-primary: #F3F4F6;
-    --text-secondary: #A0A5B2;
-    --text-muted: #6B7280;
+    /* Semantic Dark Theme: Deepest Pine Forest Black & Luminous Emerald */
+    --brand-deep: #0F3D2E;
+    --brand-mint: #34D399;
+    --brand-light-mint: #CFF9E5;
+    --brand-soft-white: #F8FEFA;
+
+    --bg-primary: #061711;
+    --bg-surface: #0B241B;
+    --bg-subtle: #0F3326;
+    --border-subtle: #174534;
+    --border-strong: #235F48;
+    --text-primary: #F8FEFA;
+    --text-secondary: #CFF9E5;
+    --text-muted: #85B8A1;
+
     --accent: #34D399;
-    --accent-hover: #10B981;
-    --accent-light: #132E24;
-    --accent-border: #1E5642;
-    --accent-contrast: #062418;
+    --accent-hover: #6EE7B7;
+    --accent-deep: #0F3D2E;
+    --accent-light: #103B2C;
+    --accent-border: #1E664B;
+    --accent-contrast: #061711;
+
     --warning-bg: #2E2310;
     --warning-text: #FBBF24;
     --warning-border: #5E4314;
     --error-bg: #2E1515;
     --error-text: #F87171;
     --error-border: #5F2222;
-    --code-bg: #22242A;
+    --code-bg: #0F3326;
   }
 
   body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     min-height: 100vh;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 
-  /* Custom scrollbar for editorial feel */
+  /* Custom brand scrollbars */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -67,6 +87,54 @@
   }
   ::-webkit-scrollbar-thumb {
     background: var(--border-strong);
-    border-radius: 3px;
+    border-radius: 9999px;
   }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+  }
+}
+
+/* Background Flowing Forms & Ribbons Pattern Utilities */
+.bg-brand-mesh {
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(52, 211, 153, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(15, 61, 46, 0.08) 0%, transparent 45%);
+}
+
+.dark .bg-brand-mesh {
+  background-image: 
+    radial-gradient(circle at 20% 15%, rgba(52, 211, 153, 0.15) 0%, transparent 45%),
+    radial-gradient(circle at 85% 75%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+}
+
+/* Pill Action Button Specification */
+.btn-brand-pill {
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #34D399 0%, #10B981 100%);
+  color: #072B1F;
+  font-weight: 700;
+  box-shadow: 0 4px 14px -2px rgba(52, 211, 153, 0.35);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-brand-pill:hover {
+  background: linear-gradient(135deg, #4ade80 0%, #34D399 100%);
+  box-shadow: 0 6px 20px -2px rgba(52, 211, 153, 0.5);
+  transform: translateY(-1px);
+}
+
+.dark .btn-brand-pill {
+  color: #061711;
+  box-shadow: 0 4px 18px -2px rgba(52, 211, 153, 0.45);
+}
+
+/* Glassmorphic card styling */
+.glass-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 8px 30px rgba(15, 61, 46, 0.04);
+}
+
+.dark .glass-card {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }

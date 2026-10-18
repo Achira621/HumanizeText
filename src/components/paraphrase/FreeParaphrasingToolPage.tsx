@@ -14,6 +14,7 @@ import {
 import type { HumanizerMode } from '../../types';
 import { defaultHumanizerManager } from '../../lib/humanizer/manager';
 import { SimilarityEngine } from '../../lib/similarity/engine';
+import { HumanizeLogo } from '../common/HumanizeLogo';
 import type { ActiveTab } from '../common/Header';
 
 interface FreeParaphrasingToolPageProps {
@@ -141,18 +142,23 @@ export const FreeParaphrasingToolPage: React.FC<FreeParaphrasingToolPageProps> =
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6">
-      {/* Hero Header with SEO H1 */}
-      <div className="mb-8 text-center">
-        <div className="mx-auto mb-3 inline-flex items-center space-x-2 rounded-full border border-[var(--accent-border)] bg-[var(--accent-light)] px-3 py-1 text-xs font-semibold text-[var(--accent)]">
-          <BookOpen className="h-4 w-4" />
+      {/* Hero Header matching Brand Specification */}
+      <div className="mb-10 text-center">
+        <div className="mb-4 inline-flex items-center justify-center">
+          <HumanizeLogo variant="stacked" size="lg" showTagline={true} />
+        </div>
+
+        <div className="mx-auto mb-3 inline-flex items-center space-x-2 rounded-full border border-[var(--accent-border)] bg-[var(--accent-light)] px-3.5 py-1 text-xs font-bold text-[var(--text-primary)] dark:text-[#34D399]">
+          <BookOpen className="h-4 w-4 text-[#34D399]" />
           <span>Citation Protection • Meaning Preservation • 100% Private</span>
         </div>
+
         <h1 className="text-3xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-4xl md:text-5xl">
-          Free Paraphrasing Tool
+          Free <span className="text-[#34D399]">Paraphrasing Tool</span>
         </h1>
         <p className="mx-auto mt-3 max-w-2xl text-base text-[var(--text-secondary)]">
-          Rephrase complex sentences, clarify academic arguments, and avoid mosaic plagiarism.
-          Preserves in-text citations and runs entirely client-side.
+          Rephrase complex sentences, clarify arguments, and protect citations against mosaic plagiarism.
+          All rewriting runs 100% locally on your device.
         </p>
       </div>
 
@@ -342,7 +348,7 @@ export const FreeParaphrasingToolPage: React.FC<FreeParaphrasingToolPageProps> =
             id="paraphrase-submit-btn"
             onClick={handleParaphrase}
             disabled={isProcessing || !inputText.trim()}
-            className="flex items-center space-x-2 rounded-lg bg-[var(--accent)] px-6 py-2.5 text-xs font-semibold text-[var(--accent-contrast)] shadow-md transition-all hover:bg-[var(--accent-hover)] disabled:opacity-40"
+            className="btn-brand-pill inline-flex items-center space-x-2 px-7 py-2.5 text-xs font-bold disabled:opacity-40"
           >
             <Sparkles className="h-4 w-4" />
             <span>{isProcessing ? 'Rephrasing...' : 'Paraphrase Text'}</span>
