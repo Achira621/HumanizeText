@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, Cpu, Terminal } from 'lucide-react';
+import { ShieldCheck, Terminal } from 'lucide-react';
 import type { ActiveTab } from './Header';
 
 interface FooterProps {
@@ -22,7 +22,46 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
             </p>
           </div>
 
-          {/* Col 2 */}
+          {/* Col 2: Free Dedicated Tools */}
+          <div>
+            <span className="font-semibold text-[var(--text-primary)]">Free Writing Tools</span>
+            <ul className="mt-2 space-y-1.5 text-[11px]">
+              <li>
+                <button
+                  onClick={() => setActiveTab('humanizer')}
+                  className="hover:text-[var(--accent)] hover:underline"
+                >
+                  Free AI Humanizer
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => setActiveTab('plagiarism-checker')}
+                  className="hover:text-[var(--accent)] hover:underline"
+                >
+                  Free Online Plagiarism Checker
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => setActiveTab('paraphrase')}
+                  className="hover:text-[var(--accent)] hover:underline"
+                >
+                  Free Paraphrasing Tool
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => setActiveTab('how-to-humanize')}
+                  className="hover:text-[var(--accent)] hover:underline"
+                >
+                  How to Humanize AI Writing
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 3: Privacy & Cryptography */}
           <div>
             <span className="font-semibold text-[var(--text-primary)]">Privacy &amp; Cryptography</span>
             <ul className="mt-2 space-y-1.5 text-[11px]">
@@ -47,27 +86,8 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
                   onClick={() => setActiveTab('docs')}
                   className="hover:text-[var(--accent)] hover:underline"
                 >
-                  Threat Model &amp; Limitations
+                  Threat Model &amp; Cryptography
                 </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Col 3 */}
-          <div>
-            <span className="font-semibold text-[var(--text-primary)]">Core Primitives</span>
-            <ul className="mt-2 space-y-1 text-[11px] text-[var(--text-muted)]">
-              <li className="flex items-center space-x-1.5">
-                <Cpu className="h-3 w-3 text-[var(--accent)]" />
-                <span>SHA-256 Document Integrity</span>
-              </li>
-              <li className="flex items-center space-x-1.5">
-                <Cpu className="h-3 w-3 text-[var(--accent)]" />
-                <span>HMAC-SHA-256 Ephemeral Winnowing</span>
-              </li>
-              <li className="flex items-center space-x-1.5">
-                <Cpu className="h-3 w-3 text-[var(--accent)]" />
-                <span>PBKDF2 (600,000 iterations)</span>
               </li>
             </ul>
           </div>

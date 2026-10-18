@@ -1,7 +1,16 @@
 import React from 'react';
 import { ShieldCheck, Moon, Sun, Lock, Sparkles, FileSearch, BookOpen } from 'lucide-react';
 
-export type ActiveTab = 'editor' | 'humanizer' | 'similarity' | 'privacy-lab' | 'vault' | 'docs';
+export type ActiveTab =
+  | 'humanizer'
+  | 'plagiarism-checker'
+  | 'paraphrase'
+  | 'how-to-humanize'
+  | 'privacy-lab'
+  | 'vault'
+  | 'docs'
+  | 'editor'
+  | 'similarity';
 
 interface HeaderProps {
   activeTab: ActiveTab;
@@ -16,21 +25,30 @@ export const Header: React.FC<HeaderProps> = ({
   isDark,
   toggleTheme,
 }) => {
+  // Normalize aliases
+  const resolvedTab =
+    activeTab === 'editor'
+      ? 'humanizer'
+      : activeTab === 'similarity'
+        ? 'plagiarism-checker'
+        : activeTab;
+
   const navItems = [
-    { id: 'editor' as ActiveTab, label: 'Editor', icon: Sparkles },
-    { id: 'humanizer' as ActiveTab, label: 'Humanizer', icon: Sparkles },
-    { id: 'similarity' as ActiveTab, label: 'Similarity Checker', icon: FileSearch },
+    { id: 'humanizer' as ActiveTab, label: 'Free AI Humanizer', icon: Sparkles },
+    { id: 'plagiarism-checker' as ActiveTab, label: 'Plagiarism Checker', icon: FileSearch },
+    { id: 'paraphrase' as ActiveTab, label: 'Paraphrasing Tool', icon: Sparkles },
+    { id: 'how-to-humanize' as ActiveTab, label: 'Writing Guide', icon: BookOpen },
     { id: 'privacy-lab' as ActiveTab, label: 'Privacy Lab', icon: ShieldCheck },
-    { id: 'vault' as ActiveTab, label: 'Encrypted Vault', icon: Lock },
-    { id: 'docs' as ActiveTab, label: 'Security & Docs', icon: BookOpen },
+    { id: 'vault' as ActiveTab, label: 'Vault', icon: Lock },
+    { id: 'docs' as ActiveTab, label: 'Docs', icon: BookOpen },
   ];
 
   return (
     <header className="sticky top-0 z-30 w-full border-b border-[var(--border-subtle)] bg-[var(--bg-surface)]/90 backdrop-blur-md transition-colors">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2.5 sm:px-6">
         {/* Brand Wordmark */}
         <div
-          onClick={() => setActiveTab('editor')}
+          onClick={() => setActiveTab('humanizer')}
           className="flex cursor-pointer items-center space-x-2.5 transition-opacity hover:opacity-90"
         >
           <div className="flex h-8 w-8 items-center justify-center rounded-md bg-[var(--accent)] text-[var(--accent-contrast)] shadow-xs">
@@ -42,27 +60,27 @@ export const Header: React.FC<HeaderProps> = ({
                 HumanizeText
               </span>
               <span className="hidden rounded bg-[var(--accent-light)] px-1.5 py-0.5 text-[10px] font-semibold text-[var(--accent)] sm:inline-block">
-                MVP v1.0
+                Privacy-First
               </span>
             </div>
-            <p className="hidden text-[11px] text-[var(--text-muted)] md:block">
-              Write naturally. Check privately.
+            <p className="hidden text-[10px] text-[var(--text-muted)] md:block">
+              100% On-Device AI Humanizer &amp; Plagiarism Detection
             </p>
           </div>
         </div>
 
         {/* Navigation tabs */}
-        <nav className="hidden items-center space-x-1 lg:flex">
+        <nav className="hidden items-center space-x-1 xl:flex">
           {navItems.map((item) => {
             const Icon = item.icon;
-            const isActive = activeTab === item.id;
+            const isActive = resolvedTab === item.id;
             return (
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`flex items-center space-x-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
+                className={`flex items-center space-x-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors ${
                   isActive
-                    ? 'bg-[var(--accent-light)] text-[var(--accent)] font-semibold'
+                    ? 'bg-[var(--accent-light)] text-[var(--accent)] font-semibold shadow-2xs'
                     : 'text-[var(--text-secondary)] hover:bg-[var(--bg-subtle)] hover:text-[var(--text-primary)]'
                 }`}
               >
@@ -75,9 +93,9 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Right side controls: Security badge + Dark mode toggle */}
         <div className="flex items-center space-x-3">
-          <div className="hidden items-center space-x-1.5 rounded-full border border-[var(--accent-border)] bg-[var(--accent-light)] px-2.5 py-1 text-[11px] font-medium text-[var(--accent)] sm:flex">
+          <div className="hidden items-center space-x-1.5 rounded-full border border-[var(--accent-border)] bg-[var(--accent-light)] px-2.5 py-1 text-[11px] font-medium text-[var(--accent)] md:flex">
             <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
-            <span>100% On-Device</span>
+            <span>0 Data Uploads</span>
           </div>
 
           <button
@@ -90,11 +108,11 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
 
-      {/* Mobile nav bar */}
-      <div className="flex overflow-x-auto border-t border-[var(--border-subtle)] px-2 py-1.5 lg:hidden">
+      {/* Responsive horizontal navigation bar for all screens under xl */}
+      <div className="flex overflow-x-auto border-t border-[var(--border-subtle)] px-2 py-1.5 xl:hidden scrollbar-none">
         {navItems.map((item) => {
           const Icon = item.icon;
-          const isActive = activeTab === item.id;
+          const isActive = resolvedTab === item.id;
           return (
             <button
               key={item.id}
