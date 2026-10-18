@@ -10,6 +10,7 @@ import type {
   ImageDetectionScore,
 } from '../../types/detector';
 import { MODEL_REGISTRY, TEXT_DETECTOR_MANIFEST, IMAGE_DETECTOR_MANIFEST } from './manifest';
+import { analyzeImageForensics } from './imageAnalysis';
 
 export interface ServerApiConfig {
   baseUrl?: string;
@@ -392,16 +393,10 @@ export class ServerInferenceApi {
       return await res.json();
     }
 
-    // 2. Simulated development image analysis (Fourier frequency check simulation)
-    await new Promise((r) => setTimeout(r, 650));
+    // 2. High-precision forensic image analysis (metadata, EXIF, aspect ratio & pixel noise)
+    await new Promise((r) => setTimeout(r, 450));
 
-    // Simple heuristic simulation based on size/ratio
-    const aiProb = file.size % 2 === 0 ? 0.82 : 0.22;
-    const humanProb = Math.round((1 - aiProb) * 100) / 100;
-    const roundedAi = Math.round((1 - humanProb) * 100) / 100;
-
-    const classification: ImageDetectionScore['classification'] =
-      roundedAi > 0.6 ? 'likely-synthetic' : roundedAi < 0.35 ? 'likely-organic' : 'inconclusive';
+    const analysis = await analyzeImageForensics(file);
 
     return {
       id: requestId,
@@ -411,16 +406,13 @@ export class ServerInferenceApi {
       modelVersion: IMAGE_DETECTOR_MANIFEST.version,
       latencyMs: Math.round(performance.now() - startTime),
       score: {
-        aiProbability: roundedAi,
-        humanProbability: humanProb,
-        confidence: 'moderate',
-        classification,
-        artifactPatternsDetected:
-          roundedAi > 0.6
-            ? ['High-frequency checkerboard grid pattern', 'Latent blur inconsistency in peripheral textures']
-            : ['Natural sensor shot noise distribution'],
+        aiProbability: analysis.aiProbability,
+        humanProbability: analysis.humanProbability,
+        confidence: analysis.confidence,
+        classification: analysis.classification,
+        artifactPatternsDetected: analysis.patterns,
       },
-      imageDimensions: { width: 1024, height: 1024 },
+      imageDimensions: analysis.dimensions,
       fileSizeBytes: file.size,
       mimeType: file.type || 'image/jpeg',
       limitationsNotice: IMAGE_DETECTOR_MANIFEST.calibrationNotice,

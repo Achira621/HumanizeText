@@ -35,6 +35,533 @@ const CLICHE_POOLS: Array<{
   category: HumanizerChange['category'];
   modes: HumanizerMode[];
 }> = [
+  // ── High-Impact Email, Pitch & Status Update AI Clichés ────────────────────
+  {
+    pattern: /\bI hope (?:everyone|all of you|you all) (?:is|are) having a (?:productive|great|good) week\.?\b/gi,
+    pool: [
+      "Hope everyone's week is going well.",
+      "Hope you all are having a productive week.",
+      "Hope everyone is having a solid week.",
+    ],
+    reason: 'Replaced AI team opener',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bthroughout my career,?\s*/gi,
+    pool: ['Over the years, ', 'In my past roles, ', 'Across my work, ', 'In my experience, '],
+    reason: 'Replaced formulaic cover letter transition "throughout my career"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bpride myself on\b/gi,
+    pool: ['focus heavily on', 'always aim to', 'make it a point to', 'prioritize'],
+    reason: 'Replaced clichéd resume phrase "pride myself on"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bwelcome the opportunity to\b/gi,
+    pool: ['would love the chance to', 'would be excited to', 'look forward to the chance to'],
+    reason: 'Replaced formal AI closing "welcome the opportunity to"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\balign(?:s)? with the (?:goals|mission|values|objectives) of\b/gi,
+    pool: ['support the goals of', 'fit with what your team is building', 'match the direction of'],
+    reason: 'Replaced corporate alignment cliché',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bdrive sustainable (?:revenue |growth)?/gi,
+    pool: ['bring in steady revenue ', 'deliver consistent growth ', 'support steady growth '],
+    reason: 'Replaced business buzzphrase "drive sustainable growth"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bdata-driven (?:analytics|insights|decisions|approach)\b/gi,
+    pool: ['performance metrics', 'concrete testing and data', 'real data', 'actionable metrics'],
+    reason: 'Replaced buzzphrase "data-driven analytics"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bcontent strategy\b/gi,
+    pool: ['content rollout', 'content roadmap', 'editorial approach', 'content plan'],
+    reason: 'Replaced formal "content strategy"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\baudienc(?:e) engagement\b/gi,
+    pool: ['user engagement', 'community interaction', 'reader interest'],
+    reason: 'Replaced buzzphrase "audience engagement"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bdiscuss how my (?:background|skills|experience)\b/gi,
+    pool: ['talk through how my experience', 'share how my background', 'discuss how my skills'],
+    reason: 'Replaced boilerplate interview request phrasing',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\boptimiz(?:e|ing|es|ation)\b/gi,
+    pool: ['improving', 'refining', 'fine-tuning', 'boosting', 'strengthening'],
+    reason: 'Replaced buzzword "optimize"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bdynamic team\b/gi,
+    pool: ['talented team', 'collaborative team', 'growing team', 'fast-moving team'],
+    reason: 'Replaced empty resume buzzword "dynamic team"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\binnovative solutions\b/gi,
+    pool: ['fresh solutions', 'practical approaches', 'new ideas', 'creative answers'],
+    reason: 'Replaced business buzzword "innovative solutions"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\binnovative\b/gi,
+    pool: ['fresh', 'creative', 'novel', 'practical', 'modern'],
+    reason: 'Replaced cliché "innovative"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bsustainab(?:le|ility)\b/gi,
+    pool: ['steady', 'long-term', 'lasting', 'durable'],
+    reason: 'Replaced overused "sustainable"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bhope (?:everyone|all of you|you all) (?:is|are) having\b/gi,
+    pool: ["hope everyone's having", "hope you all are having"],
+    reason: 'Replaced formulaic team greeting',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\benhance operational efficiency\b/gi,
+    pool: [
+      'boost daily productivity',
+      'speed up operations',
+      'make workflows smoother',
+      'cut down daily delays',
+    ],
+    reason: 'Replaced corporate cliché "enhance operational efficiency"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\boperational efficiency\b/gi,
+    pool: ['daily productivity', 'smooth operations', 'workflow speed', 'day-to-day efficiency'],
+    reason: 'Replaced corporate jargon "operational efficiency"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\btailored specifically to\b/gi,
+    pool: ['designed specifically to', 'built to', 'crafted to', 'aimed at', 'set up to'],
+    reason: 'Replaced AI marketing phrase "tailored specifically to"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\btailored to\b/gi,
+    pool: ['built for', 'designed for', 'suited for', 'crafted for'],
+    reason: 'Replaced cliché "tailored to"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\btailored\b/gi,
+    pool: ['custom', 'focused', 'specific', 'designed', 'personalized'],
+    reason: 'Replaced buzzword "tailored"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\badditionally\b/gi,
+    pool: ['Also,', 'Plus,', 'On top of that,', 'What is more,', 'Along with that,'],
+    reason: 'Replaced formulaic transition "additionally"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bplease let me know if\b/gi,
+    pool: ['Let me know if', 'Drop me a line if', 'Reach out if', 'Tell me if'],
+    reason: 'Replaced boilerplate email prompt',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\blooking forward to your thoughts\b/gi,
+    pool: ['Excited to hear what you think', 'Talk soon', 'Hope to hear your thoughts soon'],
+    reason: 'Varied email closing expectation',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\blooking forward to\b/gi,
+    pool: ['excited for', 'eager to discuss', 'hopeful about', 'anticipating'],
+    reason: 'Replaced cliché "looking forward to"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bif you have any (?:questions|concerns|feedback)\b/gi,
+    pool: [
+      'if anything comes up',
+      'if you have questions',
+      'if anything looks unclear',
+      'if any thoughts come to mind',
+    ],
+    reason: 'Replaced boilerplate conditional question offer',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bI hope this email finds you well(?: and that you(?:'re| are) having a (?:great|productive|wonderful) week)?\.?/gi,
+    pool: [
+      "Hope you're having a good week.",
+      "Hope all is well with you.",
+      "Hope your week is off to a great start.",
+      "Hope things are going smoothly on your end.",
+    ],
+    reason: 'Replaced ubiquitous AI email opener "hope this email finds you well"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bhope this (?:email|message) finds you well\b/gi,
+    pool: ["hope all is well", "hope you're doing well", "hope your week is going well"],
+    reason: 'Replaced clichéd email opening pleasantry',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bI am reaching out to follow up on\b/gi,
+    pool: [
+      "Following up on",
+      "Just wanted to check in on",
+      "Reaching out about",
+      "Circling back on",
+    ],
+    reason: 'Replaced formal robotic follow-up transition',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bI wanted to (?:provide|give|share) a quick update on\b/gi,
+    pool: [
+      "Here's a quick update on",
+      "Quick update on",
+      "Just wanted to share where things stand with",
+    ],
+    reason: 'Replaced formulaic update opener',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bIn today's fast-paced digital landscape\b/gi,
+    pool: [
+      "These days",
+      "In modern business",
+      "Right now",
+      "In today's market",
+      "With things moving so fast today",
+    ],
+    reason: 'Replaced top-ranking AI throat-clearer "in today\'s fast-paced digital landscape"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bin today's (?:world|age|era|society|landscape)\b/gi,
+    pool: ['nowadays', 'today', 'these days', 'currently', 'in the modern market'],
+    reason: 'Replaced clichéd temporal opening cliché',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bplays? a (?:pivotal|crucial|vital|key|significant) role in\b/gi,
+    pool: [
+      'makes a big difference in',
+      'is key to',
+      'really matters for',
+      'heavily impacts',
+      'is central to',
+    ],
+    reason: 'Replaced overused "plays a pivotal role"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bseamlessly (?:and agile|integrates?|integrated|workflows?)\b/gi,
+    pool: [
+      'smoothly integrates',
+      'fits smoothly into existing workflows',
+      'connects without friction',
+      'plugs right in',
+    ],
+    reason: 'Replaced AI buzzword "seamlessly"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bmaintaining a competitive advantage\b/gi,
+    pool: [
+      'staying ahead of the competition',
+      'keeping an edge in the market',
+      'standing out from competitors',
+      'staying competitive',
+    ],
+    reason: 'Replaced corporate buzzphrase "maintaining a competitive advantage"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bleverages cutting-edge technology\b/gi,
+    pool: ['uses modern software', 'relies on up-to-date tools', 'takes advantage of modern tech', 'runs on modern tools'],
+    reason: 'Replaced dual buzzwords "leverages cutting-edge technology"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bleveraging cutting-edge technology\b/gi,
+    pool: ['using modern software', 'relying on up-to-date tools', 'taking advantage of modern tech'],
+    reason: 'Replaced dual buzzwords "leveraging cutting-edge technology"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bleverage cutting-edge technology\b/gi,
+    pool: ['use modern software', 'rely on up-to-date tools', 'take advantage of modern tech'],
+    reason: 'Replaced dual buzzwords "leverage cutting-edge technology"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bcutting-edge\b/gi,
+    pool: ['modern', 'advanced', 'latest', 'state-of-the-art', 'top-tier'],
+    reason: 'Replaced cliché "cutting-edge"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bensuring optimal accuracy\b/gi,
+    pool: [
+      'keeping things precise',
+      'making sure data stays accurate',
+      'guaranteeing accuracy',
+      'maintaining high precision',
+    ],
+    reason: 'Replaced formulaic "ensuring optimal accuracy"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\b(?:fosters?|fostering) (?:greater )?cross-functional collaboration\b/gi,
+    pool: [
+      'helps different teams work together better',
+      'boosts cross-team communication',
+      'connects teams across departments',
+      'breaks down silos',
+    ],
+    reason: 'Replaced AI buzzphrase "foster cross-functional collaboration"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\blays? the groundwork for sustainable long-term growth\b/gi,
+    pool: [
+      'sets a strong foundation for steady growth',
+      'builds a solid base for the long haul',
+      'sets teams up for continued success',
+    ],
+    reason: 'Replaced dramatic AI metaphor "lays the groundwork for sustainable growth"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\blays? the groundwork for\b/gi,
+    pool: ['sets the stage for', 'builds the foundation for', 'prepares the way for', 'sets up'],
+    reason: 'Replaced metaphor "lays the groundwork"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bI would be happy to schedule a brief (?:15-minute )?call\b/gi,
+    pool: [
+      "I'd love to hop on a quick 15-minute call",
+      "Happy to set up a quick 15-minute chat",
+      "Let's schedule a short call",
+      "I'd be glad to jump on a quick call",
+    ],
+    reason: 'Replaced formal AI closing pitch',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bdelve into the details\b/gi,
+    pool: ['walk through the details', 'go over the specifics', 'talk through the details', 'discuss the specifics'],
+    reason: 'Replaced cliché "delve into the details"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bshowcase a live demonstration\b/gi,
+    pool: ['show you a quick demo', 'walk through a live demo', 'give you a quick look at how it works'],
+    reason: 'Replaced redundant "showcase a live demonstration"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bPlease let me know if (?:Thursday or Friday|any time this week) works for your schedule\b/gi,
+    pool: [
+      "Let me know if Thursday or Friday works on your end",
+      "Let me know if you're free Thursday or Friday",
+      "Let me know what time works best for you",
+    ],
+    reason: 'Replaced rigid AI calendar proposal',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bThank you very much for your time and consideration\b/gi,
+    pool: [
+      "Thanks so much for your time",
+      "Appreciate your time and consideration",
+      "Thanks for considering this",
+      "Really appreciate your time",
+    ],
+    reason: 'Replaced robotic sign-off pleasantry',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bI look forward to hearing from you soon\b/gi,
+    pool: [
+      "Talk soon",
+      "Hope to hear from you soon",
+      "Excited to hear what you think",
+      "Eager to hear your thoughts",
+      "Hope to connect soon",
+    ],
+    reason: 'Replaced generic AI closing sentence',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\b(?:Warm|Best|Kind) regards\b/gi,
+    pool: ["Best", "Cheers", "Thanks", "Warmly"],
+    reason: 'Replaced boilerplate corporate sign-off',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bworking diligently to ensure that all requirements are met on time\b/gi,
+    pool: [
+      "pushing hard to keep all deliverables right on track",
+      "working to make sure everything lands on schedule",
+      "making sure we hit our deadlines without issue",
+    ],
+    reason: 'Replaced corporate update cliché',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bcompleted successfully\b/gi,
+    pool: ['wrapped up smoothly', 'finished without issues', 'completed cleanly', 'went through successfully'],
+    reason: 'Replaced redundant AI status phrase',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bmoving into the final stages of verification\b/gi,
+    pool: [
+      "moving into final verification",
+      "wrapping up final testing",
+      "running the last checks before release",
+    ],
+    reason: 'Simplified status phrasing',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bensure a smooth rollout for our users\b/gi,
+    pool: [
+      "give our users a seamless launch",
+      "make the rollout as smooth as possible",
+      "avoid any hiccups for our users",
+    ],
+    reason: 'Replaced corporate rollout cliché',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bPlease let me know if you have any questions or feedback\.?\b/gi,
+    pool: [
+      "Let me know if you have any questions or thoughts.",
+      "Feel free to reach out if anything comes up.",
+      "Happy to answer any questions if anything looks unclear.",
+    ],
+    reason: 'Replaced generic AI feedback request',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bI will keep you posted as we make further progress\.?\b/gi,
+    pool: [
+      "I'll share more updates as we get closer.",
+      "I'll keep you in the loop as things progress.",
+      "More updates to follow soon.",
+    ],
+    reason: 'Replaced AI update closure',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bI am writing to express my enthusiastic interest in\b/gi,
+    pool: [
+      "I am excited to apply for",
+      "I would love to be considered for",
+      "I'm writing to put my name forward for",
+    ],
+    reason: 'Replaced boilerplate cover letter opener',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bconfident in my ability to make a meaningful contribution\b/gi,
+    pool: [
+      "excited about what I can bring to",
+      "eager to make a real impact on",
+      "confident I can deliver strong results for",
+    ],
+    reason: 'Replaced generic cover letter cliché',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bsuccessfully spearheaded\b/gi,
+    pool: ['led', 'directed', 'ran', 'oversaw', 'managed'],
+    reason: 'Replaced resume buzzword "spearheaded"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+
   // ── Mega-clichés (GPT top-25 ──────────────────────────────────────────────
   {
     pattern: /\bdelve(?:s)? into\b/gi,
@@ -352,9 +879,23 @@ const CLICHE_POOLS: Array<{
     modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
   },
   {
-    pattern: /\bfoster(?:s|ing|ed)? (?:a sense of |an environment of )?\b/gi,
+    pattern: /\bfoster(?:s|ing|ed)?(?:\s+(?:a sense of|an environment of))\b/gi,
+    pool: ['build', 'create', 'develop', 'grow', 'encourage', 'promote'],
+    reason: 'Replaced AI-favored "foster a sense/environment of" phrase',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bfoster(?:s|ed)?\b/gi,
     pool: ['build', 'create', 'develop', 'grow', 'encourage', 'promote'],
     reason: 'Replaced AI-favored "foster" verb',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bfostering\b/gi,
+    pool: ['building', 'creating', 'developing', 'growing', 'encouraging'],
+    reason: 'Replaced AI-favored "fostering" verb',
     category: 'phrasing',
     modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
   },
@@ -431,21 +972,21 @@ const CLICHE_POOLS: Array<{
   },
   {
     pattern: /\bin addition(?:,|\s)/gi,
-    pool: ['Also, ', 'On top of that, ', 'What\'s more, ', 'Beyond that, ', 'Plus, ', 'Additionally, '],
+    pool: ['Also, ', 'On top of that, ', 'What\'s more, ', 'Beyond that, ', 'Plus, '],
     reason: 'Replaced stiff additive transition',
     category: 'flow',
     modes: ['natural', 'conversational', 'flow'],
   },
   {
     pattern: /\bfurthermore,?\s*/gi,
-    pool: ['Additionally, ', 'Also, ', 'On top of that, ', 'Beyond this, ', 'What\'s more, '],
+    pool: ['Also, ', 'On top of that, ', 'Beyond this, ', 'What\'s more, ', 'Plus, '],
     reason: 'Softened heavy "furthermore" transition',
     category: 'flow',
     modes: ['natural', 'flow'],
   },
   {
     pattern: /\bmoreover,?\s*/gi,
-    pool: ['Also, ', 'On top of that, ', 'Additionally, ', 'Plus, ', 'Beyond that, '],
+    pool: ['Also, ', 'On top of that, ', 'Beyond that, ', 'Plus, ', 'What\'s more, '],
     reason: 'Smoothed overly stiff "moreover" academic transition',
     category: 'flow',
     modes: ['natural', 'conversational', 'flow'],
@@ -747,9 +1288,16 @@ const CLICHE_POOLS: Array<{
     modes: ['natural', 'concise', 'flow', 'conversational'],
   },
   {
-    pattern: /\bstrategic(?:ally)?\b/gi,
+    pattern: /\bstrategically\b/gi,
     pool: ['deliberately', 'intentionally', 'thoughtfully', 'carefully', 'purposefully'],
-    reason: 'Replaced corporate "strategic" with natural alternatives',
+    reason: 'Replaced corporate adverb "strategically" with natural alternatives',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bstrategic\b/gi,
+    pool: ['key', 'focused', 'planned', 'long-term', 'deliberate'],
+    reason: 'Replaced corporate buzzword "strategic" with natural adjectives',
     category: 'phrasing',
     modes: ['natural', 'concise', 'flow', 'conversational'],
   },
@@ -887,6 +1435,14 @@ const CLICHE_POOLS: Array<{
 // SECTION 2: DETERMINISTIC RULES (mode-specific, always-apply)
 // ---------------------------------------------------------------------------
 const DETERMINISTIC_RULES: ReplacementPattern[] = [
+  // Correlative conjunction replacement (removes classic AI hallmark)
+  {
+    pattern: /\bnot only\s+([\w\s,]+?)\s+but also\s+/gi,
+    replacement: (_match: string, p1: string) => `both ${p1.trim()} and `,
+    reason: 'Simplified correlative conjunction "not only... but also" to natural "both... and"',
+    category: 'concise',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
   // Natural & Conversational contractions (breaks robotic AI stiffness)
   { pattern: /\bdo not\b/gi, replacement: "don't", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
   { pattern: /\bcannot\b/gi, replacement: "can't", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
@@ -986,10 +1542,26 @@ const HEDGES = [
 ];
 
 function maybeAddHedge(sentence: string, sentenceIndex: number, totalSentences: number): string {
-  // Only add a hedge to ~30% of sentences, skipping first and last
+  const trimmed = sentence.trim();
+  // Never add a hedge to the first or last sentence
   if (sentenceIndex === 0 || sentenceIndex === totalSentences - 1) return sentence;
-  if ((sentenceIndex * 7919) % 10 > 2) return sentence; // deterministic ~30%
-  return pick(HEDGES, sentenceIndex) + sentence.charAt(0).toLowerCase() + sentence.slice(1);
+  // Skip short fragments or questions
+  if (trimmed.length < 25 || trimmed.endsWith('?')) return sentence;
+
+  // Never add a hedge to email salutations, closings, or politeness formulas
+  const isEmailFormula = /^(?:Dear|Hi|Hello|Hey|Thank you|Thanks|Please|I look forward|Looking forward|Warm|Best|Kind|Sincerely|Hope|If you|With that|In fact|However|Although|These days|Nowadays|Right now|Following up|Quick update|Let me know)\b/i.test(trimmed);
+  if (isEmailFormula) return sentence;
+
+  // Only add a hedge to ~25% of body sentences
+  if ((sentenceIndex * 7919) % 10 > 2) return sentence;
+
+  // Preserve uppercase "I", "I'm", "I'd", etc.
+  const startsWithPronounI = /^I(?:'|\s)/.test(trimmed);
+  const adjusted = startsWithPronounI
+    ? trimmed
+    : trimmed.charAt(0).toLowerCase() + trimmed.slice(1);
+
+  return pick(HEDGES, sentenceIndex) + adjusted;
 }
 
 /**
@@ -1180,8 +1752,8 @@ export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
     // ── PASS 2: Deterministic rules ──────────────────────────────────────────
     for (const rule of DETERMINISTIC_RULES) {
       if (!rule.modes.includes(mode)) continue;
-      modified = modified.replace(rule.pattern, (m) => {
-        const rep = typeof rule.replacement === 'function' ? rule.replacement(m) : rule.replacement;
+      modified = modified.replace(rule.pattern, (m, ...args) => {
+        const rep = typeof rule.replacement === 'function' ? rule.replacement(m, ...args) : rule.replacement;
         const formatted = m[0] === m[0].toUpperCase() && rep.length > 0
           ? rep.charAt(0).toUpperCase() + rep.slice(1)
           : rep;
@@ -1235,6 +1807,8 @@ export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
 
     // ── PASS 4: Final cleanup ─────────────────────────────────────────────────
     modified = modified.replace(/ {2,}/g, ' ');
+    modified = modified.replace(/\.{2,}/g, '.');
+    modified = modified.replace(/,{2,}/g, ',');
     modified = modified.replace(/\s+([,.:;!?])/g, '$1');
     modified = modified.replace(/([.!?])\s*([a-z])/g, (_, punc, letter) => `${punc} ${letter.toUpperCase()}`);
 

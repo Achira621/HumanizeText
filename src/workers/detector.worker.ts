@@ -259,6 +259,7 @@ function computeAiScore(text: string): {
   }
   // Calculate density of signatures per 100 words
   const densityPer100 = (keywordHits / Math.max(1, wordCount)) * 100;
+  const keywordDensity = Math.min(1, keywordHits / Math.max(1, Math.ceil(wordCount / 50)));
 
   // 2. Burstiness
   const burst = computeBurstiness(sentences);
