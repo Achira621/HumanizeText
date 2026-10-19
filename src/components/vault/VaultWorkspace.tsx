@@ -9,6 +9,8 @@ import {
   CheckCircle2,
   Plus,
   RefreshCw,
+  Sparkles,
+  PenLine,
 } from 'lucide-react';
 import {
   clearAllVaultData,
@@ -52,6 +54,15 @@ export const VaultWorkspace: React.FC<VaultWorkspaceProps> = ({
   useEffect(() => {
     reloadRecords();
   }, []);
+
+  const handleOpenNewInStudio = () => {
+    setActiveDecrypted({
+      id: `draft-${Date.now()}`,
+      title: newTitle.trim() || 'Untitled Draft',
+      content: newContent || 'Type or paste your text here to begin writing with real-time feedback, grammar correction, and paraphrasing...',
+      updatedAt: Date.now(),
+    });
+  };
 
   const handleSaveNewRecord = async () => {
     if (!passphrase || passphrase.length < 4) {
@@ -194,11 +205,21 @@ export const VaultWorkspace: React.FC<VaultWorkspaceProps> = ({
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Left: Encrypt New Record */}
         <div className="rounded-xl border border-[var(--border-strong)] bg-[var(--bg-surface)] p-5 shadow-xs">
-          <div className="flex items-center space-x-2 border-b border-[var(--border-subtle)] pb-3">
-            <Plus className="h-4 w-4 text-[var(--accent)]" />
-            <h2 className="text-sm font-bold text-[var(--text-primary)]">
-              Encrypt & Store New Document
-            </h2>
+          <div className="flex items-center justify-between border-b border-[var(--border-subtle)] pb-3">
+            <div className="flex items-center space-x-2">
+              <Plus className="h-4 w-4 text-[var(--accent)]" />
+              <h2 className="text-sm font-bold text-[var(--text-primary)]">
+                Encrypt & Store New Document
+              </h2>
+            </div>
+            <button
+              type="button"
+              onClick={handleOpenNewInStudio}
+              className="flex items-center space-x-1 rounded-md border border-[var(--accent-border)] bg-[var(--accent-light)] px-2.5 py-1 text-xs font-bold text-[var(--accent)] hover:opacity-90"
+            >
+              <Sparkles className="h-3.5 w-3.5" />
+              <span>Open in Writing Studio</span>
+            </button>
           </div>
 
           <div className="mt-4 space-y-3">
@@ -224,14 +245,24 @@ export const VaultWorkspace: React.FC<VaultWorkspaceProps> = ({
               />
             </div>
 
-            <button
-              onClick={handleSaveNewRecord}
-              disabled={isSaving}
-              className="flex items-center space-x-1.5 rounded-lg bg-[var(--accent)] px-4 py-2 text-xs font-semibold text-[var(--accent-contrast)] hover:bg-[var(--accent-hover)] disabled:opacity-40"
-            >
-              <Lock className="h-3.5 w-3.5" />
-              <span>{isSaving ? 'Encrypting...' : 'Encrypt & Store'}</span>
-            </button>
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                onClick={handleSaveNewRecord}
+                disabled={isSaving}
+                className="flex items-center space-x-1.5 rounded-lg bg-[var(--accent)] px-4 py-2 text-xs font-semibold text-[var(--accent-contrast)] hover:bg-[var(--accent-hover)] disabled:opacity-40"
+              >
+                <Lock className="h-3.5 w-3.5" />
+                <span>{isSaving ? 'Encrypting...' : 'Encrypt & Store'}</span>
+              </button>
+              <button
+                type="button"
+                onClick={handleOpenNewInStudio}
+                className="flex items-center space-x-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-4 py-2 text-xs font-semibold text-[var(--text-primary)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
+              >
+                <PenLine className="h-3.5 w-3.5" />
+                <span>Open in Assistant</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -251,8 +282,16 @@ export const VaultWorkspace: React.FC<VaultWorkspaceProps> = ({
 
           <div className="mt-4 flex-1 space-y-3 max-h-96 overflow-y-auto pr-1">
             {records.length === 0 ? (
-              <div className="py-12 text-center text-xs text-[var(--text-muted)]">
-                No encrypted records in this browser's IndexedDB yet.
+              <div className="py-10 text-center text-xs text-[var(--text-muted)] space-y-3">
+                <p>No encrypted records in this browser's IndexedDB yet.</p>
+                <button
+                  type="button"
+                  onClick={handleOpenNewInStudio}
+                  className="inline-flex items-center space-x-1.5 rounded-lg bg-[var(--accent)] px-4 py-2 text-xs font-bold text-[var(--accent-contrast)] hover:bg-[var(--accent-hover)] shadow-xs"
+                >
+                  <Sparkles className="h-3.5 w-3.5" />
+                  <span>Launch Writing Assistant Studio</span>
+                </button>
               </div>
             ) : (
               records.map((rec) => (
