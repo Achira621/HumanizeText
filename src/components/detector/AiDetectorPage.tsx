@@ -17,9 +17,11 @@ import {
   ArrowRight,
   Copy,
   Check,
+  ThumbsUp,
+  ThumbsDown,
 } from 'lucide-react';
+import type { AdaptiveAnalysisResult } from '../../lib/intelligence/types';
 import type {
-  DetectionResult,
   ImageDetectionResult,
   ModelDownloadProgress,
   SentenceScore,
@@ -28,6 +30,9 @@ import { textModelManager, imageModelManager } from '../../lib/detector/modelMan
 import { defaultInferenceRouter } from '../../lib/detector/router';
 import { defaultModelStorage } from '../../lib/detector/storage';
 import { humanizeWithRules } from '../../lib/humanizer/ruleEngine';
+import { defaultAdaptiveCoordinator } from '../../lib/intelligence/coordinator';
+import { defaultFeedbackPipeline } from '../../lib/intelligence/feedbackPipeline';
+import { defaultModelRegistry } from '../../lib/intelligence/modelRegistry';
 
 interface AiDetectorPageProps {
   onSendToHumanizer?: (text: string) => void;
@@ -43,6 +48,7 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
   const [humanizedSentence, setHumanizedSentence] = useState<string | null>(null);
   const [sentenceCopied, setSentenceCopied] = useState(false);
   const [heatmapFilter, setHeatmapFilter] = useState<'all' | 'ai' | 'human'>('all');
+  const [feedbackSent, setFeedbackSent] = useState<'human' | 'ai' | null>(null);
 
   // Model & Router State
   const [textModelProgress, setTextModelProgress] = useState<ModelDownloadProgress>(() => ({
@@ -63,7 +69,7 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
 
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [activeAnalysisMode, setActiveAnalysisMode] = useState<'local' | 'server' | null>(null);
-  const [textResult, setTextResult] = useState<DetectionResult | null>(null);
+  const [textResult, setTextResult] = useState<AdaptiveAnalysisResult | null>(null);
   const [imageResult, setImageResult] = useState<ImageDetectionResult | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -119,12 +125,13 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
       if (!inputText.trim()) return;
       setIsAnalyzing(true);
       setTextResult(null);
+      setFeedbackSent(null);
 
       try {
         const isLocalReady = textModelManager.getState() === 'READY';
         setActiveAnalysisMode(isLocalReady ? 'local' : 'server');
 
-        const res = await defaultInferenceRouter.detectText(inputText, {
+        const res = await defaultAdaptiveCoordinator.analyzeText(inputText, {
           preferMode: isLocalReady ? 'local-only' : 'auto',
           userConsentedToServer: hasConsent,
           allowServerFallback: true,
@@ -813,6 +820,65 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
               </div>
             );
           })()}
+
+          {/* Adaptive Intelligence Feedback & Transparency */}
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] px-4 py-2.5 text-xs">
+            <div className="flex items-center space-x-2 text-[var(--text-secondary)]">
+              <ShieldCheck className="h-4 w-4 text-[var(--accent)]" />
+              <span>
+                Active Detector: <strong className="text-[var(--text-primary)]">{defaultModelRegistry.getProductionDefault('text-detection').displayName}</strong> (v{defaultModelRegistry.getProductionDefault('text-detection').version})
+              </span>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              {feedbackSent ? (
+                <span className="flex items-center space-x-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                  <CheckCircle2 className="h-3.5 w-3.5" />
+                  <span>Thank you! Feedback recorded for model evaluation.</span>
+                </span>
+              ) : (
+                <>
+                  <span className="text-[11px] text-[var(--text-muted)]">Was this assessment accurate?</span>
+                  <button
+                    onClick={() => {
+                      if (textResult) {
+                        defaultFeedbackPipeline.submitFeedback(
+                          inputText,
+                          textResult.score.aiProbability,
+                          textResult.score.classification,
+                          textResult.score.classification === 'likely-ai' ? 'ai' : 'human'
+                        );
+                        setFeedbackSent(textResult.score.classification === 'likely-ai' ? 'ai' : 'human');
+                      }
+                    }}
+                    title="Accurate assessment"
+                    className="flex items-center space-x-1 rounded-md border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-2.5 py-1 text-xs font-medium text-[var(--text-secondary)] hover:text-emerald-600 dark:hover:text-emerald-400 hover:border-emerald-500 transition-colors"
+                  >
+                    <ThumbsUp className="h-3.5 w-3.5" />
+                    <span>Accurate</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (textResult) {
+                        defaultFeedbackPipeline.submitFeedback(
+                          inputText,
+                          textResult.score.aiProbability,
+                          textResult.score.classification,
+                          textResult.score.classification === 'likely-ai' ? 'human' : 'ai'
+                        );
+                        setFeedbackSent(textResult.score.classification === 'likely-ai' ? 'human' : 'ai');
+                      }
+                    }}
+                    title="Inaccurate assessment"
+                    className="flex items-center space-x-1 rounded-md border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-2.5 py-1 text-xs font-medium text-[var(--text-secondary)] hover:text-amber-600 dark:hover:text-amber-400 hover:border-amber-500 transition-colors"
+                  >
+                    <ThumbsDown className="h-3.5 w-3.5" />
+                    <span>Inaccurate</span>
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
 
           {/* Limitations Disclosure */}
           <div className="mt-5 flex items-start space-x-2 rounded-lg bg-[var(--bg-subtle)] p-3 text-[11px] text-[var(--text-secondary)]">

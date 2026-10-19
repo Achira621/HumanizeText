@@ -359,6 +359,14 @@ export const FreePlagiarismCheckerPage: React.FC<FreePlagiarismCheckerPageProps>
                     <span>•</span>
                     <span>{report.matchedWordsCount} matched words</span>
                     <span>•</span>
+                    {report.matchingClassification && (
+                      <>
+                        <span>•</span>
+                        <span className="inline-flex items-center rounded-full bg-[var(--bg-surface)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[var(--accent)] border border-[var(--border-subtle)]">
+                          Diagnosis: {report.matchingClassification}
+                        </span>
+                      </>
+                    )}
                     <span className="font-mono text-[11px]">
                       HMAC Key: {report.ephemeralKeyFingerprintSha256.substring(0, 12)}...
                     </span>

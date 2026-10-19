@@ -114,7 +114,10 @@ export interface SimilarityReport {
   formulaExplanation: string;
   limitationsNotice: string;
   integrityDigest: DocumentDigest;
-  ephemeralKeyFingerprintSha256: string;
+    ephemeralKeyFingerprintSha256: string;
+  semanticSimilarityScore?: number;
+  matchingClassification?: 'original' | 'near-duplicate' | 'paraphrased' | 'significant-overlap';
+  verifiedSourcesCount?: number;
 }
 
 export type HumanizerMode =

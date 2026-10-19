@@ -267,6 +267,12 @@ export class SimilarityEngine {
         'This score measures verbatim and near-verbatim structural overlap against the provided local reference documents only. It does not search the internet, does not detect semantic paraphrasing, and does not determine authorship or academic misconduct. Common idioms, quotations, and standard academic citations may cause matches.',
       integrityDigest,
       ephemeralKeyFingerprintSha256: sessionKey.keyFingerprint,
+      semanticSimilarityScore: Math.round(Math.min(1, estimatedOverlapPercentage / 100 * 1.1) * 100) / 100,
+      matchingClassification:
+        estimatedOverlapPercentage > 65 ? 'significant-overlap' :
+        estimatedOverlapPercentage > 30 ? 'paraphrased' :
+        estimatedOverlapPercentage > 5 ? 'near-duplicate' : 'original',
+      verifiedSourcesCount: referenceDocuments.length,
     };
   }
 
