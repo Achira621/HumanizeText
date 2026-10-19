@@ -401,4 +401,103 @@ export class SimilarityEngine {
       ephemeralKeyFingerprintSha256: keyFingerprint,
     };
   }
+
+  /**
+   * Evaluates pairwise similarity score in [0, 1] between two passages.
+   * Calibrated for academic verification, verbatim detection, paraphrasing,
+   * synonym swap, and mosaic borrowing while rejecting unrelated negative texts.
+   */
+  public static computePassageSimilarity(source: string, candidate: string): number {
+    const normalize = (t: string) => t.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+    const sNorm = normalize(source);
+    const cNorm = normalize(candidate);
+    if (!sNorm || !cNorm) return 0;
+    if (sNorm === cNorm) return 1.0;
+
+    const sWords = sNorm.split(' ');
+    const cWords = cNorm.split(' ');
+
+    const STOP_WORDS = new Set([
+      'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by',
+      'from', 'up', 'about', 'into', 'over', 'after', 'beneath', 'under', 'above', 'is', 'are',
+      'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'that',
+      'this', 'these', 'those', 'it', 'its', 'as', 'if', 'when', 'than', 'because', 'while',
+      'where', 'which', 'who', 'whom', 'what', 'why', 'how', 'all', 'any', 'both', 'each',
+      'few', 'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only', 'own', 'same',
+      'so', 'then', 'too', 'very', 'can', 'will', 'just', 'should', 'now'
+    ]);
+
+    // 1. Content Word Overlap (Stopwords filtered)
+    const sContent = sWords.filter(w => !STOP_WORDS.has(w) && w.length > 2);
+    const cContent = cWords.filter(w => !STOP_WORDS.has(w) && w.length > 2);
+
+    const sSet = new Set(sContent);
+    const cSet = new Set(cContent);
+
+    let contentOverlap = 0;
+    if (sSet.size > 0 && cSet.size > 0) {
+      let intersection = 0;
+      for (const w of cSet) {
+        if (sSet.has(w)) intersection++;
+      }
+      contentOverlap = intersection / Math.min(sSet.size, cSet.size);
+    }
+
+    // 2. Multi-gram Jaccard (shingle sizes 2, 3, 4)
+    const getShingles = (words: string[], n: number) => {
+      const set = new Set<string>();
+      for (let i = 0; i <= words.length - n; i++) {
+        set.add(words.slice(i, i + n).join(' '));
+      }
+      return set;
+    };
+
+    const jaccard = (a: Set<string>, b: Set<string>) => {
+      if (a.size === 0 || b.size === 0) return 0;
+      let shared = 0;
+      for (const item of a) {
+        if (b.has(item)) shared++;
+      }
+      return shared / (a.size + b.size - shared);
+    };
+
+    const j2 = jaccard(getShingles(sWords, 2), getShingles(cWords, 2));
+    const j3 = jaccard(getShingles(sWords, 3), getShingles(cWords, 3));
+    const j4 = jaccard(getShingles(sWords, 4), getShingles(cWords, 4));
+
+    // 3. Sentence Alignment
+    const splitSentences = (t: string) => t.split(/[.?!]+/).map(s => s.trim().toLowerCase()).filter(s => s.length > 10);
+    const sSentences = splitSentences(source);
+    const cSentences = splitSentences(candidate);
+
+    let sentenceScore = 0;
+    if (sSentences.length > 0 && cSentences.length > 0) {
+      let matchedCount = 0;
+      for (const cs of cSentences) {
+        const csWords = new Set(cs.split(/\s+/).filter(w => !STOP_WORDS.has(w) && w.length > 2));
+        if (csWords.size === 0) continue;
+        for (const ss of sSentences) {
+          const ssWords = new Set(ss.split(/\s+/).filter(w => !STOP_WORDS.has(w) && w.length > 2));
+          let match = 0;
+          for (const w of csWords) {
+            if (ssWords.has(w)) match++;
+          }
+          if (match / Math.min(csWords.size, ssWords.size) >= 0.5) {
+            matchedCount++;
+            break;
+          }
+        }
+      }
+      sentenceScore = matchedCount / cSentences.length;
+    }
+
+    // Unrelated gating: if content word overlap is extremely low, it's unrelated
+    if (contentOverlap < 0.22) {
+      return Math.min(contentOverlap * 0.1, 0.05);
+    }
+
+    // Calibrated combination
+    const combined = (contentOverlap * 0.40) + (sentenceScore * 0.35) + (j2 * 0.15) + (j3 * 0.07) + (j4 * 0.03);
+    return Math.min(Math.max(Number(combined.toFixed(4)), 0), 1);
+  }
 }

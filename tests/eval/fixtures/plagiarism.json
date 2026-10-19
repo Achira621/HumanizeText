@@ -1,0 +1,1082 @@
+[
+  {
+    "id": "pl001",
+    "sourceText": "When I was nine my uncle took me to see a rocket launch from a beach, miles away, and the sound arrived a full ten seconds after the light. I still remember my ribs buzzing. I don't care what it costs, I want kids to see that.",
+    "candidateText": "When I was nine my uncle took me to see a rocket launch from a beach, miles away, and the sound arrived a full ten seconds after the light. I still remember my ribs buzzing. I don't care what it costs, I want kids to see that.",
+    "type": "verbatim_copy",
+    "isPlagiarised": true,
+    "topic": "space_exploration",
+    "split": "test"
+  },
+  {
+    "id": "pl002",
+    "sourceText": "When I was nine my uncle took me to see a rocket launch from a beach, miles away, and the sound arrived a full ten seconds after the light. I still remember my ribs buzzing. I don't care what it costs, I want kids to see that.",
+    "candidateText": "When I was nine my uncle took me to see a rocket launch from a beach, miles away, and the sound arrived a full ten seconds after the light. I yet remember my ribs buzzing. I don't care what it costs, I want children to see that.",
+    "type": "synonym_swap",
+    "isPlagiarised": true,
+    "topic": "space_exploration",
+    "split": "test"
+  },
+  {
+    "id": "pl003",
+    "sourceText": "When I was nine my uncle took me to see a rocket launch from a beach, miles away, and the sound arrived a full ten seconds after the light. I still remember my ribs buzzing. I don't care what it costs, I want kids to see that.",
+    "candidateText": "I don't care what it costs, I want kids to see that. I still remember my ribs buzzing. When I was nine my uncle took me to see a rocket launch from a beach, miles away, and the sound arrived a full ten seconds after the light.",
+    "type": "sentence_reorder",
+    "isPlagiarised": true,
+    "topic": "space_exploration",
+    "split": "test"
+  },
+  {
+    "id": "pl004",
+    "sourceText": "When I was nine my uncle took me to see a rocket launch from a beach, miles away, and the sound arrived a full ten seconds after the light. I still remember my ribs buzzing. I don't care what it costs, I want kids to see that.",
+    "candidateText": "When I was nine my uncle took me to see a rocket launch from a beach, miles away, and the sound arrived a full ten seconds after the light. That's the whole secret, really. Twenty minutes around the block before the kids wake up, and the rest of the day feels easier somehow.",
+    "type": "mosaic_partial",
+    "isPlagiarised": true,
+    "topic": "space_exploration",
+    "split": "test"
+  },
+  {
+    "id": "pl005",
+    "sourceText": "When I was nine my uncle took me to see a rocket launch from a beach, miles away, and the sound arrived a full ten seconds after the light. I still remember my ribs buzzing. I don't care what it costs, I want kids to see that.",
+    "candidateText": "Space exploration represents one of humanity's most ambitious and inspiring endeavors. It drives technological innovation, expands scientific knowledge, and fosters international collaboration. Looking ahead, continued investment in this field is likely to yield benefits that extend far beyond our planet.",
+    "type": "same_topic_different_text",
+    "isPlagiarised": false,
+    "topic": "space_exploration",
+    "split": "test"
+  },
+  {
+    "id": "pl006",
+    "sourceText": "When I was nine my uncle took me to see a rocket launch from a beach, miles away, and the sound arrived a full ten seconds after the light. I still remember my ribs buzzing. I don't care what it costs, I want kids to see that.",
+    "candidateText": "I hate running but I love having run. That's the whole secret, really. Twenty minutes around the block before the kids wake up, and the rest of the day feels easier somehow.",
+    "type": "unrelated_original",
+    "isPlagiarised": false,
+    "topic": "space_exploration",
+    "split": "test"
+  },
+  {
+    "id": "pl007",
+    "sourceText": "The 47 bus is always late, except on the one day I decide to walk, then it sails past me. Even so, I'd rather deal with that than parking downtown. Plus I get to read, which is the only reading I get done all week.",
+    "candidateText": "The 47 bus is always late, except on the one day I decide to walk, then it sails past me. Even so, I'd rather deal with that than parking downtown. Plus I get to read, which is the only reading I get done all week.",
+    "type": "verbatim_copy",
+    "isPlagiarised": true,
+    "topic": "public_transport",
+    "split": "test"
+  },
+  {
+    "id": "pl008",
+    "sourceText": "The 47 bus is always late, except on the one day I decide to walk, then it sails past me. Even so, I'd rather deal with that than parking downtown. Plus I get to read, which is the only reading I get done all week.",
+    "candidateText": "The 47 bus is always late, except on the one day I decide to walk, then it sails past me. Even so, I'd rather deal with that than parking downtown. Plus I get to read, which is the only reading I get done all seven days.",
+    "type": "synonym_swap",
+    "isPlagiarised": true,
+    "topic": "public_transport",
+    "split": "test"
+  },
+  {
+    "id": "pl009",
+    "sourceText": "The 47 bus is always late, except on the one day I decide to walk, then it sails past me. Even so, I'd rather deal with that than parking downtown. Plus I get to read, which is the only reading I get done all week.",
+    "candidateText": "The 47 bus is always late, except on the one day I decide to walk, then it sails past me. Plus I get to read, which is the only reading I get done all week. Even so, I'd rather deal with that than parking downtown.",
+    "type": "sentence_reorder",
+    "isPlagiarised": true,
+    "topic": "public_transport",
+    "split": "test"
+  },
+  {
+    "id": "pl010",
+    "sourceText": "The 47 bus is always late, except on the one day I decide to walk, then it sails past me. Even so, I'd rather deal with that than parking downtown. Plus I get to read, which is the only reading I get done all week.",
+    "candidateText": "The 47 bus is always late, except on the one day I decide to walk, then it sails past me. I still remember my ribs buzzing. I don't care what it costs, I want kids to see that.",
+    "type": "mosaic_partial",
+    "isPlagiarised": true,
+    "topic": "public_transport",
+    "split": "test"
+  },
+  {
+    "id": "pl011",
+    "sourceText": "The 47 bus is always late, except on the one day I decide to walk, then it sails past me. Even so, I'd rather deal with that than parking downtown. Plus I get to read, which is the only reading I get done all week.",
+    "candidateText": "Public transportation plays a vital role in modern urban environments. It reduces traffic congestion, lowers carbon emissions, and provides affordable mobility for residents. Additionally, investing in efficient transit systems can enhance the overall quality of life in cities.",
+    "type": "same_topic_different_text",
+    "isPlagiarised": false,
+    "topic": "public_transport",
+    "split": "test"
+  },
+  {
+    "id": "pl012",
+    "sourceText": "The 47 bus is always late, except on the one day I decide to walk, then it sails past me. Even so, I'd rather deal with that than parking downtown. Plus I get to read, which is the only reading I get done all week.",
+    "candidateText": "When I was nine my uncle took me to see a rocket launch from a beach, miles away, and the sound arrived a full ten seconds after the light. I still remember my ribs buzzing. I don't care what it costs, I want kids to see that.",
+    "type": "unrelated_original",
+    "isPlagiarised": false,
+    "topic": "public_transport",
+    "split": "test"
+  },
+  {
+    "id": "pl013",
+    "sourceText": "Cooking at home saves money, sure, but that's not why I do it. It's the forty minutes where nobody asks me anything. Chopping onions is basically therapy, minus the invoice.",
+    "candidateText": "Cooking at home saves money, sure, but that's not why I do it. It's the forty minutes where nobody asks me anything. Chopping onions is basically therapy, minus the invoice.",
+    "type": "verbatim_copy",
+    "isPlagiarised": true,
+    "topic": "home_cooking",
+    "split": "test"
+  },
+  {
+    "id": "pl014",
+    "sourceText": "Cooking at home saves money, sure, but that's not why I do it. It's the forty minutes where nobody asks me anything. Chopping onions is basically therapy, minus the invoice.",
+    "candidateText": "Cooking at home saves money, sure, but that's not why I do it. It's the forty minutes where nobody asks me anything. Chopping onions is basically therapy, minus the invoice.",
+    "type": "synonym_swap",
+    "isPlagiarised": true,
+    "topic": "home_cooking",
+    "split": "test"
+  },
+  {
+    "id": "pl015",
+    "sourceText": "Cooking at home saves money, sure, but that's not why I do it. It's the forty minutes where nobody asks me anything. Chopping onions is basically therapy, minus the invoice.",
+    "candidateText": "Chopping onions is basically therapy, minus the invoice. It's the forty minutes where nobody asks me anything. Cooking at home saves money, sure, but that's not why I do it.",
+    "type": "sentence_reorder",
+    "isPlagiarised": true,
+    "topic": "home_cooking",
+    "split": "test"
+  },
+  {
+    "id": "pl016",
+    "sourceText": "Cooking at home saves money, sure, but that's not why I do it. It's the forty minutes where nobody asks me anything. Chopping onions is basically therapy, minus the invoice.",
+    "candidateText": "Cooking at home saves money, sure, but that's not why I do it. I still remember my ribs buzzing. I don't care what it costs, I want kids to see that.",
+    "type": "mosaic_partial",
+    "isPlagiarised": true,
+    "topic": "home_cooking",
+    "split": "test"
+  },
+  {
+    "id": "pl017",
+    "sourceText": "Cooking at home saves money, sure, but that's not why I do it. It's the forty minutes where nobody asks me anything. Chopping onions is basically therapy, minus the invoice.",
+    "candidateText": "Cooking at home offers a variety of benefits, including cost savings and healthier eating habits. It allows individuals to control ingredients and portion sizes while exploring new cuisines. Additionally, preparing meals together can strengthen family bonds.",
+    "type": "same_topic_different_text",
+    "isPlagiarised": false,
+    "topic": "home_cooking",
+    "split": "test"
+  },
+  {
+    "id": "pl018",
+    "sourceText": "Cooking at home saves money, sure, but that's not why I do it. It's the forty minutes where nobody asks me anything. Chopping onions is basically therapy, minus the invoice.",
+    "candidateText": "When I was nine my uncle took me to see a rocket launch from a beach, miles away, and the sound arrived a full ten seconds after the light. I still remember my ribs buzzing. I don't care what it costs, I want kids to see that.",
+    "type": "unrelated_original",
+    "isPlagiarised": false,
+    "topic": "home_cooking",
+    "split": "test"
+  },
+  {
+    "id": "pl019",
+    "sourceText": "I hate running but I love having run. That's the whole secret, really. Twenty minutes around the block before the kids wake up, and the rest of the day feels easier somehow.",
+    "candidateText": "I hate running but I love having run. That's the whole secret, really. Twenty minutes around the block before the kids wake up, and the rest of the day feels easier somehow.",
+    "type": "verbatim_copy",
+    "isPlagiarised": true,
+    "topic": "exercise",
+    "split": "test"
+  },
+  {
+    "id": "pl020",
+    "sourceText": "I hate running but I love having run. That's the whole secret, really. Twenty minutes around the block before the kids wake up, and the rest of the day feels easier somehow.",
+    "candidateText": "I dislike running but I adore having run. That's the entire secret, truly. Twenty minutes around the block before the children wake up, and the rest of the day seems easier somehow.",
+    "type": "synonym_swap",
+    "isPlagiarised": true,
+    "topic": "exercise",
+    "split": "test"
+  },
+  {
+    "id": "pl021",
+    "sourceText": "I hate running but I love having run. That's the whole secret, really. Twenty minutes around the block before the kids wake up, and the rest of the day feels easier somehow.",
+    "candidateText": "Twenty minutes around the block before the kids wake up, and the rest of the day feels easier somehow. I hate running but I love having run. That's the whole secret, really.",
+    "type": "sentence_reorder",
+    "isPlagiarised": true,
+    "topic": "exercise",
+    "split": "test"
+  },
+  {
+    "id": "pl022",
+    "sourceText": "I hate running but I love having run. That's the whole secret, really. Twenty minutes around the block before the kids wake up, and the rest of the day feels easier somehow.",
+    "candidateText": "I hate running but I love having run. Even so, I'd rather deal with that than parking downtown. Plus I get to read, which is the only reading I get done all week.",
+    "type": "mosaic_partial",
+    "isPlagiarised": true,
+    "topic": "exercise",
+    "split": "test"
+  },
+  {
+    "id": "pl023",
+    "sourceText": "I hate running but I love having run. That's the whole secret, really. Twenty minutes around the block before the kids wake up, and the rest of the day feels easier somehow.",
+    "candidateText": "Regular physical exercise is essential for maintaining overall health and well-being. It helps improve cardiovascular fitness, strengthen muscles, and boost mental health. Furthermore, incorporating even a small amount of daily activity can lead to significant long-term benefits.",
+    "type": "same_topic_different_text",
+    "isPlagiarised": false,
+    "topic": "exercise",
+    "split": "test"
+  },
+  {
+    "id": "pl024",
+    "sourceText": "I hate running but I love having run. That's the whole secret, really. Twenty minutes around the block before the kids wake up, and the rest of the day feels easier somehow.",
+    "candidateText": "The 47 bus is always late, except on the one day I decide to walk, then it sails past me. Even so, I'd rather deal with that than parking downtown. Plus I get to read, which is the only reading I get done all week.",
+    "type": "unrelated_original",
+    "isPlagiarised": false,
+    "topic": "exercise",
+    "split": "test"
+  },
+  {
+    "id": "pl025",
+    "sourceText": "I ordered a lamp last month and it arrived in a box the size of a fridge. The lamp itself was fine. What I can't get over is the packaging, three layers of plastic around a thing that weighs nothing.",
+    "candidateText": "I ordered a lamp last month and it arrived in a box the size of a fridge. The lamp itself was fine. What I can't get over is the packaging, three layers of plastic around a thing that weighs nothing.",
+    "type": "verbatim_copy",
+    "isPlagiarised": true,
+    "topic": "online_shopping",
+    "split": "train"
+  },
+  {
+    "id": "pl026",
+    "sourceText": "I ordered a lamp last month and it arrived in a box the size of a fridge. The lamp itself was fine. What I can't get over is the packaging, three layers of plastic around a thing that weighs nothing.",
+    "candidateText": "I ordered a lamp last four weeks and it arrived in a box the size of a fridge. The lamp itself was fine. What I can't get over is the packaging, three layers of plastic around a thing that weighs nothing.",
+    "type": "synonym_swap",
+    "isPlagiarised": true,
+    "topic": "online_shopping",
+    "split": "train"
+  },
+  {
+    "id": "pl027",
+    "sourceText": "I ordered a lamp last month and it arrived in a box the size of a fridge. The lamp itself was fine. What I can't get over is the packaging, three layers of plastic around a thing that weighs nothing.",
+    "candidateText": "What I can't get over is the packaging, three layers of plastic around a thing that weighs nothing. I ordered a lamp last month and it arrived in a box the size of a fridge. The lamp itself was fine.",
+    "type": "sentence_reorder",
+    "isPlagiarised": true,
+    "topic": "online_shopping",
+    "split": "train"
+  },
+  {
+    "id": "pl028",
+    "sourceText": "I ordered a lamp last month and it arrived in a box the size of a fridge. The lamp itself was fine. What I can't get over is the packaging, three layers of plastic around a thing that weighs nothing.",
+    "candidateText": "I ordered a lamp last month and it arrived in a box the size of a fridge. My teacher says that's normal. Last week a taxi driver complimented my accent and I floated for an hour.",
+    "type": "mosaic_partial",
+    "isPlagiarised": true,
+    "topic": "online_shopping",
+    "split": "train"
+  },
+  {
+    "id": "pl029",
+    "sourceText": "I ordered a lamp last month and it arrived in a box the size of a fridge. The lamp itself was fine. What I can't get over is the packaging, three layers of plastic around a thing that weighs nothing.",
+    "candidateText": "Online shopping has revolutionized the retail industry by offering convenience and a wide selection of products. Consumers can compare prices and read reviews from the comfort of their homes. However, concerns regarding packaging waste and delivery emissions continue to grow.",
+    "type": "same_topic_different_text",
+    "isPlagiarised": false,
+    "topic": "online_shopping",
+    "split": "train"
+  },
+  {
+    "id": "pl030",
+    "sourceText": "I ordered a lamp last month and it arrived in a box the size of a fridge. The lamp itself was fine. What I can't get over is the packaging, three layers of plastic around a thing that weighs nothing.",
+    "candidateText": "I've been learning Portuguese for eight months and I can order food, argue about football, and absolutely nothing else. My teacher says that's normal. Last week a taxi driver complimented my accent and I floated for an hour.",
+    "type": "unrelated_original",
+    "isPlagiarised": false,
+    "topic": "online_shopping",
+    "split": "train"
+  },
+  {
+    "id": "pl031",
+    "sourceText": "My dad thought video games would rot my brain. Funny thing, he now plays a farming sim for an hour every night and talks about his virtual cows like they're real. I haven't had the heart to tell him I told you so.",
+    "candidateText": "My dad thought video games would rot my brain. Funny thing, he now plays a farming sim for an hour every night and talks about his virtual cows like they're real. I haven't had the heart to tell him I told you so.",
+    "type": "verbatim_copy",
+    "isPlagiarised": true,
+    "topic": "video_games",
+    "split": "train"
+  },
+  {
+    "id": "pl032",
+    "sourceText": "My dad thought video games would rot my brain. Funny thing, he now plays a farming sim for an hour every night and talks about his virtual cows like they're real. I haven't had the heart to tell him I told you so.",
+    "candidateText": "My dad thought video games would rot my brain. Funny thing, he now plays a farming sim for an hour each night and talks about his virtual cows like they're real. I haven't had the heart to tell him I told you so.",
+    "type": "synonym_swap",
+    "isPlagiarised": true,
+    "topic": "video_games",
+    "split": "train"
+  },
+  {
+    "id": "pl033",
+    "sourceText": "My dad thought video games would rot my brain. Funny thing, he now plays a farming sim for an hour every night and talks about his virtual cows like they're real. I haven't had the heart to tell him I told you so.",
+    "candidateText": "I haven't had the heart to tell him I told you so. My dad thought video games would rot my brain. Funny thing, he now plays a farming sim for an hour every night and talks about his virtual cows like they're real.",
+    "type": "sentence_reorder",
+    "isPlagiarised": true,
+    "topic": "video_games",
+    "split": "train"
+  },
+  {
+    "id": "pl034",
+    "sourceText": "My dad thought video games would rot my brain. Funny thing, he now plays a farming sim for an hour every night and talks about his virtual cows like they're real. I haven't had the heart to tell him I told you so.",
+    "candidateText": "My dad thought video games would rot my brain. The nearest shop is a twenty-minute drive and I miss being able to get noodles at midnight. But the stars are ridiculous, I'll give it that.",
+    "type": "mosaic_partial",
+    "isPlagiarised": true,
+    "topic": "video_games",
+    "split": "train"
+  },
+  {
+    "id": "pl035",
+    "sourceText": "My dad thought video games would rot my brain. Funny thing, he now plays a farming sim for an hour every night and talks about his virtual cows like they're real. I haven't had the heart to tell him I told you so.",
+    "candidateText": "Video games have evolved into a major form of entertainment and cultural expression. They can improve hand-eye coordination, problem-solving abilities, and social connections. Moreover, the industry has become a significant contributor to the global economy.",
+    "type": "same_topic_different_text",
+    "isPlagiarised": false,
+    "topic": "video_games",
+    "split": "train"
+  },
+  {
+    "id": "pl036",
+    "sourceText": "My dad thought video games would rot my brain. Funny thing, he now plays a farming sim for an hour every night and talks about his virtual cows like they're real. I haven't had the heart to tell him I told you so.",
+    "candidateText": "We moved out to the countryside for the quiet and now I'm kept awake by owls. The nearest shop is a twenty-minute drive and I miss being able to get noodles at midnight. But the stars are ridiculous, I'll give it that.",
+    "type": "unrelated_original",
+    "isPlagiarised": false,
+    "topic": "video_games",
+    "split": "train"
+  },
+  {
+    "id": "pl037",
+    "sourceText": "We moved out to the countryside for the quiet and now I'm kept awake by owls. The nearest shop is a twenty-minute drive and I miss being able to get noodles at midnight. But the stars are ridiculous, I'll give it that.",
+    "candidateText": "We moved out to the countryside for the quiet and now I'm kept awake by owls. The nearest shop is a twenty-minute drive and I miss being able to get noodles at midnight. But the stars are ridiculous, I'll give it that.",
+    "type": "verbatim_copy",
+    "isPlagiarised": true,
+    "topic": "city_vs_country",
+    "split": "train"
+  },
+  {
+    "id": "pl038",
+    "sourceText": "We moved out to the countryside for the quiet and now I'm kept awake by owls. The nearest shop is a twenty-minute drive and I miss being able to get noodles at midnight. But the stars are ridiculous, I'll give it that.",
+    "candidateText": "We relocated out to the countryside for the calm and now I'm continued awake by owls. The nearest store is a twenty-minute trip and I miss being able to get noodles at midnight. But the stars are ridiculous, I'll give it that.",
+    "type": "synonym_swap",
+    "isPlagiarised": true,
+    "topic": "city_vs_country",
+    "split": "train"
+  },
+  {
+    "id": "pl039",
+    "sourceText": "We moved out to the countryside for the quiet and now I'm kept awake by owls. The nearest shop is a twenty-minute drive and I miss being able to get noodles at midnight. But the stars are ridiculous, I'll give it that.",
+    "candidateText": "We moved out to the countryside for the quiet and now I'm kept awake by owls. But the stars are ridiculous, I'll give it that. The nearest shop is a twenty-minute drive and I miss being able to get noodles at midnight.",
+    "type": "sentence_reorder",
+    "isPlagiarised": true,
+    "topic": "city_vs_country",
+    "split": "train"
+  },
+  {
+    "id": "pl040",
+    "sourceText": "We moved out to the countryside for the quiet and now I'm kept awake by owls. The nearest shop is a twenty-minute drive and I miss being able to get noodles at midnight. But the stars are ridiculous, I'll give it that.",
+    "candidateText": "We moved out to the countryside for the quiet and now I'm kept awake by owls. I kept going because of a woman named Marta who bosses everyone around and keeps a tin of toffees under the counter. Best Saturday job I've ever had, and it pays nothing.",
+    "type": "mosaic_partial",
+    "isPlagiarised": true,
+    "topic": "city_vs_country",
+    "split": "train"
+  },
+  {
+    "id": "pl041",
+    "sourceText": "We moved out to the countryside for the quiet and now I'm kept awake by owls. The nearest shop is a twenty-minute drive and I miss being able to get noodles at midnight. But the stars are ridiculous, I'll give it that.",
+    "candidateText": "The decision between urban and rural living involves weighing numerous factors. Cities offer greater access to employment, culture, and services, while rural areas provide tranquility and closer connection to nature. Ultimately, the ideal choice depends on individual priorities and lifestyle preferences.",
+    "type": "same_topic_different_text",
+    "isPlagiarised": false,
+    "topic": "city_vs_country",
+    "split": "train"
+  },
+  {
+    "id": "pl042",
+    "sourceText": "We moved out to the countryside for the quiet and now I'm kept awake by owls. The nearest shop is a twenty-minute drive and I miss being able to get noodles at midnight. But the stars are ridiculous, I'll give it that.",
+    "candidateText": "I started volunteering at the food bank because my company gave us a day off for it. I kept going because of a woman named Marta who bosses everyone around and keeps a tin of toffees under the counter. Best Saturday job I've ever had, and it pays nothing.",
+    "type": "unrelated_original",
+    "isPlagiarised": false,
+    "topic": "city_vs_country",
+    "split": "train"
+  },
+  {
+    "id": "pl043",
+    "sourceText": "I read one book about minimalism and threw out half my wardrobe in a weekend. Two months later I bought most of it back, in slightly different colours. I think the lesson is that I'm not a minimalist, I just like a tidy drawer.",
+    "candidateText": "I read one book about minimalism and threw out half my wardrobe in a weekend. Two months later I bought most of it back, in slightly different colours. I think the lesson is that I'm not a minimalist, I just like a tidy drawer.",
+    "type": "verbatim_copy",
+    "isPlagiarised": true,
+    "topic": "minimalism",
+    "split": "train"
+  },
+  {
+    "id": "pl044",
+    "sourceText": "I read one book about minimalism and threw out half my wardrobe in a weekend. Two months later I bought most of it back, in slightly different colours. I think the lesson is that I'm not a minimalist, I just like a tidy drawer.",
+    "candidateText": "I read one book about minimalism and threw out half my wardrobe in a weekend. Two months later I purchased most of it back, in slightly different colours. I believe the lesson is that I'm not a minimalist, I just like a neat drawer.",
+    "type": "synonym_swap",
+    "isPlagiarised": true,
+    "topic": "minimalism",
+    "split": "train"
+  },
+  {
+    "id": "pl045",
+    "sourceText": "I read one book about minimalism and threw out half my wardrobe in a weekend. Two months later I bought most of it back, in slightly different colours. I think the lesson is that I'm not a minimalist, I just like a tidy drawer.",
+    "candidateText": "I think the lesson is that I'm not a minimalist, I just like a tidy drawer. Two months later I bought most of it back, in slightly different colours. I read one book about minimalism and threw out half my wardrobe in a weekend.",
+    "type": "sentence_reorder",
+    "isPlagiarised": true,
+    "topic": "minimalism",
+    "split": "train"
+  },
+  {
+    "id": "pl046",
+    "sourceText": "I read one book about minimalism and threw out half my wardrobe in a weekend. Two months later I bought most of it back, in slightly different colours. I think the lesson is that I'm not a minimalist, I just like a tidy drawer.",
+    "candidateText": "I read one book about minimalism and threw out half my wardrobe in a weekend. He loves it, though, and says he hasn't seen a petrol station in months. I'm tempted, but the nearest fast charger is forty minutes away.",
+    "type": "mosaic_partial",
+    "isPlagiarised": true,
+    "topic": "minimalism",
+    "split": "train"
+  },
+  {
+    "id": "pl047",
+    "sourceText": "I read one book about minimalism and threw out half my wardrobe in a weekend. Two months later I bought most of it back, in slightly different colours. I think the lesson is that I'm not a minimalist, I just like a tidy drawer.",
+    "candidateText": "Minimalism is a lifestyle philosophy that emphasizes simplicity and intentional living. By reducing material possessions, individuals can free up time, space, and financial resources. In essence, minimalism encourages people to focus on what truly adds value to their lives.",
+    "type": "same_topic_different_text",
+    "isPlagiarised": false,
+    "topic": "minimalism",
+    "split": "train"
+  },
+  {
+    "id": "pl048",
+    "sourceText": "I read one book about minimalism and threw out half my wardrobe in a weekend. Two months later I bought most of it back, in slightly different colours. I think the lesson is that I'm not a minimalist, I just like a tidy drawer.",
+    "candidateText": "My neighbour bought an electric car and now I know his charging schedule better than my own. He loves it, though, and says he hasn't seen a petrol station in months. I'm tempted, but the nearest fast charger is forty minutes away.",
+    "type": "unrelated_original",
+    "isPlagiarised": false,
+    "topic": "minimalism",
+    "split": "train"
+  },
+  {
+    "id": "pl049",
+    "sourceText": "I've been learning Portuguese for eight months and I can order food, argue about football, and absolutely nothing else. My teacher says that's normal. Last week a taxi driver complimented my accent and I floated for an hour.",
+    "candidateText": "I've been learning Portuguese for eight months and I can order food, argue about football, and absolutely nothing else. My teacher says that's normal. Last week a taxi driver complimented my accent and I floated for an hour.",
+    "type": "verbatim_copy",
+    "isPlagiarised": true,
+    "topic": "languages",
+    "split": "train"
+  },
+  {
+    "id": "pl050",
+    "sourceText": "I've been learning Portuguese for eight months and I can order food, argue about football, and absolutely nothing else. My teacher says that's normal. Last week a taxi driver complimented my accent and I floated for an hour.",
+    "candidateText": "I've been learning Portuguese for eight months and I can order food, argue about football, and absolutely nothing else. My teacher says that's normal. Last seven days a taxi driver complimented my accent and I floated for an hour.",
+    "type": "synonym_swap",
+    "isPlagiarised": true,
+    "topic": "languages",
+    "split": "train"
+  },
+  {
+    "id": "pl051",
+    "sourceText": "I've been learning Portuguese for eight months and I can order food, argue about football, and absolutely nothing else. My teacher says that's normal. Last week a taxi driver complimented my accent and I floated for an hour.",
+    "candidateText": "Last week a taxi driver complimented my accent and I floated for an hour. My teacher says that's normal. I've been learning Portuguese for eight months and I can order food, argue about football, and absolutely nothing else.",
+    "type": "sentence_reorder",
+    "isPlagiarised": true,
+    "topic": "languages",
+    "split": "train"
+  },
+  {
+    "id": "pl052",
+    "sourceText": "I've been learning Portuguese for eight months and I can order food, argue about football, and absolutely nothing else. My teacher says that's normal. Last week a taxi driver complimented my accent and I floated for an hour.",
+    "candidateText": "I've been learning Portuguese for eight months and I can order food, argue about football, and absolutely nothing else. My mind wanders to what's for dinner about four seconds in. But my therapist says noticing the wandering is the actual exercise, so apparently I've been succeeding at failing this whole time.",
+    "type": "mosaic_partial",
+    "isPlagiarised": true,
+    "topic": "languages",
+    "split": "train"
+  },
+  {
+    "id": "pl053",
+    "sourceText": "I've been learning Portuguese for eight months and I can order food, argue about football, and absolutely nothing else. My teacher says that's normal. Last week a taxi driver complimented my accent and I floated for an hour.",
+    "candidateText": "Learning a new language is a rewarding endeavor that offers numerous cognitive and cultural benefits. It enhances memory, improves problem-solving skills, and opens doors to new opportunities. Consistent practice and immersion are key factors in achieving fluency.",
+    "type": "same_topic_different_text",
+    "isPlagiarised": false,
+    "topic": "languages",
+    "split": "train"
+  },
+  {
+    "id": "pl054",
+    "sourceText": "I've been learning Portuguese for eight months and I can order food, argue about football, and absolutely nothing else. My teacher says that's normal. Last week a taxi driver complimented my accent and I floated for an hour.",
+    "candidateText": "I'm bad at meditating. My mind wanders to what's for dinner about four seconds in. But my therapist says noticing the wandering is the actual exercise, so apparently I've been succeeding at failing this whole time.",
+    "type": "unrelated_original",
+    "isPlagiarised": false,
+    "topic": "languages",
+    "split": "train"
+  },
+  {
+    "id": "pl055",
+    "sourceText": "We have four bins in the garage and I still get it wrong. Apparently pizza boxes are a crime. The council sends a stern leaflet every spring, and every spring I stick it on the fridge and forget about it.",
+    "candidateText": "We have four bins in the garage and I still get it wrong. Apparently pizza boxes are a crime. The council sends a stern leaflet every spring, and every spring I stick it on the fridge and forget about it.",
+    "type": "verbatim_copy",
+    "isPlagiarised": true,
+    "topic": "recycling",
+    "split": "train"
+  },
+  {
+    "id": "pl056",
+    "sourceText": "We have four bins in the garage and I still get it wrong. Apparently pizza boxes are a crime. The council sends a stern leaflet every spring, and every spring I stick it on the fridge and forget about it.",
+    "candidateText": "We have four bins in the garage and I yet get it wrong. Seemingly pizza boxes are a crime. The council sends a strict leaflet each spring, and each spring I stick it on the fridge and forget about it.",
+    "type": "synonym_swap",
+    "isPlagiarised": true,
+    "topic": "recycling",
+    "split": "train"
+  },
+  {
+    "id": "pl057",
+    "sourceText": "We have four bins in the garage and I still get it wrong. Apparently pizza boxes are a crime. The council sends a stern leaflet every spring, and every spring I stick it on the fridge and forget about it.",
+    "candidateText": "We have four bins in the garage and I still get it wrong. Apparently pizza boxes are a crime. The council sends a stern leaflet every spring, and every spring I stick it on the fridge and forget about it.",
+    "type": "sentence_reorder",
+    "isPlagiarised": true,
+    "topic": "recycling",
+    "split": "train"
+  },
+  {
+    "id": "pl058",
+    "sourceText": "We have four bins in the garage and I still get it wrong. Apparently pizza boxes are a crime. The council sends a stern leaflet every spring, and every spring I stick it on the fridge and forget about it.",
+    "candidateText": "We have four bins in the garage and I still get it wrong. Funny thing, he now plays a farming sim for an hour every night and talks about his virtual cows like they're real. I haven't had the heart to tell him I told you so.",
+    "type": "mosaic_partial",
+    "isPlagiarised": true,
+    "topic": "recycling",
+    "split": "train"
+  },
+  {
+    "id": "pl059",
+    "sourceText": "We have four bins in the garage and I still get it wrong. Apparently pizza boxes are a crime. The council sends a stern leaflet every spring, and every spring I stick it on the fridge and forget about it.",
+    "candidateText": "Recycling is an important practice that helps conserve natural resources and reduce landfill waste. By sorting materials such as paper, glass, and plastic, communities can significantly lower their environmental impact. It is crucial that individuals understand local guidelines to ensure effective recycling.",
+    "type": "same_topic_different_text",
+    "isPlagiarised": false,
+    "topic": "recycling",
+    "split": "train"
+  },
+  {
+    "id": "pl060",
+    "sourceText": "We have four bins in the garage and I still get it wrong. Apparently pizza boxes are a crime. The council sends a stern leaflet every spring, and every spring I stick it on the fridge and forget about it.",
+    "candidateText": "My dad thought video games would rot my brain. Funny thing, he now plays a farming sim for an hour every night and talks about his virtual cows like they're real. I haven't had the heart to tell him I told you so.",
+    "type": "unrelated_original",
+    "isPlagiarised": false,
+    "topic": "recycling",
+    "split": "train"
+  },
+  {
+    "id": "pl061",
+    "sourceText": "I started volunteering at the food bank because my company gave us a day off for it. I kept going because of a woman named Marta who bosses everyone around and keeps a tin of toffees under the counter. Best Saturday job I've ever had, and it pays nothing.",
+    "candidateText": "I started volunteering at the food bank because my company gave us a day off for it. I kept going because of a woman named Marta who bosses everyone around and keeps a tin of toffees under the counter. Best Saturday job I've ever had, and it pays nothing.",
+    "type": "verbatim_copy",
+    "isPlagiarised": true,
+    "topic": "volunteering",
+    "split": "train"
+  },
+  {
+    "id": "pl062",
+    "sourceText": "I started volunteering at the food bank because my company gave us a day off for it. I kept going because of a woman named Marta who bosses everyone around and keeps a tin of toffees under the counter. Best Saturday job I've ever had, and it pays nothing.",
+    "candidateText": "I began volunteering at the food bank because my company gave us a day off for it. I continued going because of a woman named Marta who bosses everyone around and keeps a tin of toffees under the counter. Finest Saturday job I've ever had, and it pays nothing.",
+    "type": "synonym_swap",
+    "isPlagiarised": true,
+    "topic": "volunteering",
+    "split": "train"
+  },
+  {
+    "id": "pl063",
+    "sourceText": "I started volunteering at the food bank because my company gave us a day off for it. I kept going because of a woman named Marta who bosses everyone around and keeps a tin of toffees under the counter. Best Saturday job I've ever had, and it pays nothing.",
+    "candidateText": "I started volunteering at the food bank because my company gave us a day off for it. I kept going because of a woman named Marta who bosses everyone around and keeps a tin of toffees under the counter. Best Saturday job I've ever had, and it pays nothing.",
+    "type": "sentence_reorder",
+    "isPlagiarised": true,
+    "topic": "volunteering",
+    "split": "train"
+  },
+  {
+    "id": "pl064",
+    "sourceText": "I started volunteering at the food bank because my company gave us a day off for it. I kept going because of a woman named Marta who bosses everyone around and keeps a tin of toffees under the counter. Best Saturday job I've ever had, and it pays nothing.",
+    "candidateText": "I started volunteering at the food bank because my company gave us a day off for it. My back hurts more now though, because the kitchen chair is not an office chair. Still, I'd never go back to five days in the office.",
+    "type": "mosaic_partial",
+    "isPlagiarised": true,
+    "topic": "volunteering",
+    "split": "train"
+  },
+  {
+    "id": "pl065",
+    "sourceText": "I started volunteering at the food bank because my company gave us a day off for it. I kept going because of a woman named Marta who bosses everyone around and keeps a tin of toffees under the counter. Best Saturday job I've ever had, and it pays nothing.",
+    "candidateText": "Volunteering is a meaningful way to give back to the community and make a positive impact. It provides individuals with opportunities to develop new skills, build relationships, and gain a sense of purpose. Furthermore, organizations rely heavily on volunteers to carry out their missions.",
+    "type": "same_topic_different_text",
+    "isPlagiarised": false,
+    "topic": "volunteering",
+    "split": "train"
+  },
+  {
+    "id": "pl066",
+    "sourceText": "I started volunteering at the food bank because my company gave us a day off for it. I kept going because of a woman named Marta who bosses everyone around and keeps a tin of toffees under the counter. Best Saturday job I've ever had, and it pays nothing.",
+    "candidateText": "I switched to working from home two years ago and honestly, the commute is what I miss least. My back hurts more now though, because the kitchen chair is not an office chair. Still, I'd never go back to five days in the office.",
+    "type": "unrelated_original",
+    "isPlagiarised": false,
+    "topic": "volunteering",
+    "split": "train"
+  },
+  {
+    "id": "pl067",
+    "sourceText": "I used to finish a book a week, back before I had a phone that did everything. Now it takes me a month and I feel guilty the whole time. Last Sunday I left the phone in the other room and read for three hours straight, and it felt like a small miracle.",
+    "candidateText": "I used to finish a book a week, back before I had a phone that did everything. Now it takes me a month and I feel guilty the whole time. Last Sunday I left the phone in the other room and read for three hours straight, and it felt like a small miracle.",
+    "type": "verbatim_copy",
+    "isPlagiarised": true,
+    "topic": "reading",
+    "split": "train"
+  },
+  {
+    "id": "pl068",
+    "sourceText": "I used to finish a book a week, back before I had a phone that did everything. Now it takes me a month and I feel guilty the whole time. Last Sunday I left the phone in the other room and read for three hours straight, and it felt like a small miracle.",
+    "candidateText": "I used to finish a book a seven days, back before I had a phone that did everything. Now it takes me a four weeks and I feel guilty the entire time. Last Sunday I left the phone in the other room and read for three hours straight, and it seemed like a tiny miracle.",
+    "type": "synonym_swap",
+    "isPlagiarised": true,
+    "topic": "reading",
+    "split": "train"
+  },
+  {
+    "id": "pl069",
+    "sourceText": "I used to finish a book a week, back before I had a phone that did everything. Now it takes me a month and I feel guilty the whole time. Last Sunday I left the phone in the other room and read for three hours straight, and it felt like a small miracle.",
+    "candidateText": "Now it takes me a month and I feel guilty the whole time. Last Sunday I left the phone in the other room and read for three hours straight, and it felt like a small miracle. I used to finish a book a week, back before I had a phone that did everything.",
+    "type": "sentence_reorder",
+    "isPlagiarised": true,
+    "topic": "reading",
+    "split": "train"
+  },
+  {
+    "id": "pl070",
+    "sourceText": "I used to finish a book a week, back before I had a phone that did everything. Now it takes me a month and I feel guilty the whole time. Last Sunday I left the phone in the other room and read for three hours straight, and it felt like a small miracle.",
+    "candidateText": "I used to finish a book a week, back before I had a phone that did everything. Nobody argues about whether it's changing anymore, at least not around here. We just argue about who should pay for the pumps.",
+    "type": "mosaic_partial",
+    "isPlagiarised": true,
+    "topic": "reading",
+    "split": "train"
+  },
+  {
+    "id": "pl071",
+    "sourceText": "I used to finish a book a week, back before I had a phone that did everything. Now it takes me a month and I feel guilty the whole time. Last Sunday I left the phone in the other room and read for three hours straight, and it felt like a small miracle.",
+    "candidateText": "Reading is a valuable habit that fosters imagination, empathy, and critical thinking. Studies suggest that regular readers tend to have larger vocabularies and better concentration. Consequently, parents and educators are encouraged to cultivate a love of reading in children from an early age.",
+    "type": "same_topic_different_text",
+    "isPlagiarised": false,
+    "topic": "reading",
+    "split": "train"
+  },
+  {
+    "id": "pl072",
+    "sourceText": "I used to finish a book a week, back before I had a phone that did everything. Now it takes me a month and I feel guilty the whole time. Last Sunday I left the phone in the other room and read for three hours straight, and it felt like a small miracle.",
+    "candidateText": "Last July the river behind our house dried up completely, something the old farmers said they'd never seen. Nobody argues about whether it's changing anymore, at least not around here. We just argue about who should pay for the pumps.",
+    "type": "unrelated_original",
+    "isPlagiarised": false,
+    "topic": "reading",
+    "split": "train"
+  },
+  {
+    "id": "pl073",
+    "sourceText": "My grandfather drank his coffee black and burnt, straight from a dented steel pot. I tried it once at twelve and nearly gagged. These days I make a flat white every morning and pretend I'm not copying him.",
+    "candidateText": "My grandfather drank his coffee black and burnt, straight from a dented steel pot. I tried it once at twelve and nearly gagged. These days I make a flat white every morning and pretend I'm not copying him.",
+    "type": "verbatim_copy",
+    "isPlagiarised": true,
+    "topic": "coffee",
+    "split": "train"
+  },
+  {
+    "id": "pl074",
+    "sourceText": "My grandfather drank his coffee black and burnt, straight from a dented steel pot. I tried it once at twelve and nearly gagged. These days I make a flat white every morning and pretend I'm not copying him.",
+    "candidateText": "My grandfather drank his coffee black and burnt, straight from a dented steel pot. I tried it once at twelve and almost gagged. These days I make a flat white each morning and pretend I'm not copying him.",
+    "type": "synonym_swap",
+    "isPlagiarised": true,
+    "topic": "coffee",
+    "split": "train"
+  },
+  {
+    "id": "pl075",
+    "sourceText": "My grandfather drank his coffee black and burnt, straight from a dented steel pot. I tried it once at twelve and nearly gagged. These days I make a flat white every morning and pretend I'm not copying him.",
+    "candidateText": "I tried it once at twelve and nearly gagged. My grandfather drank his coffee black and burnt, straight from a dented steel pot. These days I make a flat white every morning and pretend I'm not copying him.",
+    "type": "sentence_reorder",
+    "isPlagiarised": true,
+    "topic": "coffee",
+    "split": "train"
+  },
+  {
+    "id": "pl076",
+    "sourceText": "My grandfather drank his coffee black and burnt, straight from a dented steel pot. I tried it once at twelve and nearly gagged. These days I make a flat white every morning and pretend I'm not copying him.",
+    "candidateText": "My grandfather drank his coffee black and burnt, straight from a dented steel pot. The lamp itself was fine. What I can't get over is the packaging, three layers of plastic around a thing that weighs nothing.",
+    "type": "mosaic_partial",
+    "isPlagiarised": true,
+    "topic": "coffee",
+    "split": "train"
+  },
+  {
+    "id": "pl077",
+    "sourceText": "My grandfather drank his coffee black and burnt, straight from a dented steel pot. I tried it once at twelve and nearly gagged. These days I make a flat white every morning and pretend I'm not copying him.",
+    "candidateText": "Coffee is one of the most widely consumed beverages in the world. It plays a crucial role in many cultures and daily routines. Moreover, moderate consumption has been associated with several health benefits, making it a popular choice for millions of people.",
+    "type": "same_topic_different_text",
+    "isPlagiarised": false,
+    "topic": "coffee",
+    "split": "train"
+  },
+  {
+    "id": "pl078",
+    "sourceText": "My grandfather drank his coffee black and burnt, straight from a dented steel pot. I tried it once at twelve and nearly gagged. These days I make a flat white every morning and pretend I'm not copying him.",
+    "candidateText": "I ordered a lamp last month and it arrived in a box the size of a fridge. The lamp itself was fine. What I can't get over is the packaging, three layers of plastic around a thing that weighs nothing.",
+    "type": "unrelated_original",
+    "isPlagiarised": false,
+    "topic": "coffee",
+    "split": "train"
+  },
+  {
+    "id": "pl079",
+    "sourceText": "I'm bad at meditating. My mind wanders to what's for dinner about four seconds in. But my therapist says noticing the wandering is the actual exercise, so apparently I've been succeeding at failing this whole time.",
+    "candidateText": "I'm bad at meditating. My mind wanders to what's for dinner about four seconds in. But my therapist says noticing the wandering is the actual exercise, so apparently I've been succeeding at failing this whole time.",
+    "type": "verbatim_copy",
+    "isPlagiarised": true,
+    "topic": "meditation",
+    "split": "train"
+  },
+  {
+    "id": "pl080",
+    "sourceText": "I'm bad at meditating. My mind wanders to what's for dinner about four seconds in. But my therapist says noticing the wandering is the actual exercise, so apparently I've been succeeding at failing this whole time.",
+    "candidateText": "I'm bad at meditating. My mind wanders to what's for dinner about four seconds in. But my therapist says noticing the wandering is the actual exercise, so seemingly I've been succeeding at failing this entire time.",
+    "type": "synonym_swap",
+    "isPlagiarised": true,
+    "topic": "meditation",
+    "split": "train"
+  },
+  {
+    "id": "pl081",
+    "sourceText": "I'm bad at meditating. My mind wanders to what's for dinner about four seconds in. But my therapist says noticing the wandering is the actual exercise, so apparently I've been succeeding at failing this whole time.",
+    "candidateText": "But my therapist says noticing the wandering is the actual exercise, so apparently I've been succeeding at failing this whole time. I'm bad at meditating. My mind wanders to what's for dinner about four seconds in.",
+    "type": "sentence_reorder",
+    "isPlagiarised": true,
+    "topic": "meditation",
+    "split": "train"
+  },
+  {
+    "id": "pl082",
+    "sourceText": "I'm bad at meditating. My mind wanders to what's for dinner about four seconds in. But my therapist says noticing the wandering is the actual exercise, so apparently I've been succeeding at failing this whole time.",
+    "candidateText": "I'm bad at meditating. He loves it, though, and says he hasn't seen a petrol station in months. I'm tempted, but the nearest fast charger is forty minutes away.",
+    "type": "mosaic_partial",
+    "isPlagiarised": true,
+    "topic": "meditation",
+    "split": "train"
+  },
+  {
+    "id": "pl083",
+    "sourceText": "I'm bad at meditating. My mind wanders to what's for dinner about four seconds in. But my therapist says noticing the wandering is the actual exercise, so apparently I've been succeeding at failing this whole time.",
+    "candidateText": "Meditation is an ancient practice that has gained widespread popularity in the modern world. It can reduce stress, improve focus, and promote emotional well-being. By dedicating just a few minutes each day, individuals can experience meaningful improvements in their mental health.",
+    "type": "same_topic_different_text",
+    "isPlagiarised": false,
+    "topic": "meditation",
+    "split": "train"
+  },
+  {
+    "id": "pl084",
+    "sourceText": "I'm bad at meditating. My mind wanders to what's for dinner about four seconds in. But my therapist says noticing the wandering is the actual exercise, so apparently I've been succeeding at failing this whole time.",
+    "candidateText": "My neighbour bought an electric car and now I know his charging schedule better than my own. He loves it, though, and says he hasn't seen a petrol station in months. I'm tempted, but the nearest fast charger is forty minutes away.",
+    "type": "unrelated_original",
+    "isPlagiarised": false,
+    "topic": "meditation",
+    "split": "train"
+  },
+  {
+    "id": "pl085",
+    "sourceText": "Last July the river behind our house dried up completely, something the old farmers said they'd never seen. Nobody argues about whether it's changing anymore, at least not around here. We just argue about who should pay for the pumps.",
+    "candidateText": "Last July the river behind our house dried up completely, something the old farmers said they'd never seen. Nobody argues about whether it's changing anymore, at least not around here. We just argue about who should pay for the pumps.",
+    "type": "verbatim_copy",
+    "isPlagiarised": true,
+    "topic": "climate_change",
+    "split": "train"
+  },
+  {
+    "id": "pl086",
+    "sourceText": "Last July the river behind our house dried up completely, something the old farmers said they'd never seen. Nobody argues about whether it's changing anymore, at least not around here. We just argue about who should pay for the pumps.",
+    "candidateText": "Last July the river behind our house dried up completely, something the old farmers stated they'd not once seen. Nobody argues about whether it's changing anymore, at least not around here. We just argue about who should pay for the pumps.",
+    "type": "synonym_swap",
+    "isPlagiarised": true,
+    "topic": "climate_change",
+    "split": "train"
+  },
+  {
+    "id": "pl087",
+    "sourceText": "Last July the river behind our house dried up completely, something the old farmers said they'd never seen. Nobody argues about whether it's changing anymore, at least not around here. We just argue about who should pay for the pumps.",
+    "candidateText": "Nobody argues about whether it's changing anymore, at least not around here. We just argue about who should pay for the pumps. Last July the river behind our house dried up completely, something the old farmers said they'd never seen.",
+    "type": "sentence_reorder",
+    "isPlagiarised": true,
+    "topic": "climate_change",
+    "split": "train"
+  },
+  {
+    "id": "pl088",
+    "sourceText": "Last July the river behind our house dried up completely, something the old farmers said they'd never seen. Nobody argues about whether it's changing anymore, at least not around here. We just argue about who should pay for the pumps.",
+    "candidateText": "Last July the river behind our house dried up completely, something the old farmers said they'd never seen. My back hurts more now though, because the kitchen chair is not an office chair. Still, I'd never go back to five days in the office.",
+    "type": "mosaic_partial",
+    "isPlagiarised": true,
+    "topic": "climate_change",
+    "split": "train"
+  },
+  {
+    "id": "pl089",
+    "sourceText": "Last July the river behind our house dried up completely, something the old farmers said they'd never seen. Nobody argues about whether it's changing anymore, at least not around here. We just argue about who should pay for the pumps.",
+    "candidateText": "Climate change is one of the most pressing challenges facing humanity today. Rising global temperatures contribute to extreme weather events, sea level rise, and loss of biodiversity. Therefore, it is essential for governments and individuals to take decisive action to reduce greenhouse gas emissions.",
+    "type": "same_topic_different_text",
+    "isPlagiarised": false,
+    "topic": "climate_change",
+    "split": "train"
+  },
+  {
+    "id": "pl090",
+    "sourceText": "Last July the river behind our house dried up completely, something the old farmers said they'd never seen. Nobody argues about whether it's changing anymore, at least not around here. We just argue about who should pay for the pumps.",
+    "candidateText": "I switched to working from home two years ago and honestly, the commute is what I miss least. My back hurts more now though, because the kitchen chair is not an office chair. Still, I'd never go back to five days in the office.",
+    "type": "unrelated_original",
+    "isPlagiarised": false,
+    "topic": "climate_change",
+    "split": "train"
+  },
+  {
+    "id": "pl091",
+    "sourceText": "Our school banned phones last term and the corridors got loud again, in a good way. Kids actually talk at lunch. A few of them complained for about a week, then someone started a card game and that was that.",
+    "candidateText": "Our school banned phones last term and the corridors got loud again, in a good way. Kids actually talk at lunch. A few of them complained for about a week, then someone started a card game and that was that.",
+    "type": "verbatim_copy",
+    "isPlagiarised": true,
+    "topic": "phones_in_school",
+    "split": "train"
+  },
+  {
+    "id": "pl092",
+    "sourceText": "Our school banned phones last term and the corridors got loud again, in a good way. Kids actually talk at lunch. A few of them complained for about a week, then someone started a card game and that was that.",
+    "candidateText": "Our school banned phones last term and the corridors got noisy again, in a good way. Children in fact talk at lunch. A few of them complained for about a seven days, then someone began a card game and that was that.",
+    "type": "synonym_swap",
+    "isPlagiarised": true,
+    "topic": "phones_in_school",
+    "split": "train"
+  },
+  {
+    "id": "pl093",
+    "sourceText": "Our school banned phones last term and the corridors got loud again, in a good way. Kids actually talk at lunch. A few of them complained for about a week, then someone started a card game and that was that.",
+    "candidateText": "Our school banned phones last term and the corridors got loud again, in a good way. A few of them complained for about a week, then someone started a card game and that was that. Kids actually talk at lunch.",
+    "type": "sentence_reorder",
+    "isPlagiarised": true,
+    "topic": "phones_in_school",
+    "split": "train"
+  },
+  {
+    "id": "pl094",
+    "sourceText": "Our school banned phones last term and the corridors got loud again, in a good way. Kids actually talk at lunch. A few of them complained for about a week, then someone started a card game and that was that.",
+    "candidateText": "Our school banned phones last term and the corridors got loud again, in a good way. I kept going because of a woman named Marta who bosses everyone around and keeps a tin of toffees under the counter. Best Saturday job I've ever had, and it pays nothing.",
+    "type": "mosaic_partial",
+    "isPlagiarised": true,
+    "topic": "phones_in_school",
+    "split": "train"
+  },
+  {
+    "id": "pl095",
+    "sourceText": "Our school banned phones last term and the corridors got loud again, in a good way. Kids actually talk at lunch. A few of them complained for about a week, then someone started a card game and that was that.",
+    "candidateText": "The use of smartphones in schools is a topic of ongoing debate among educators and parents. Proponents argue that devices can serve as valuable learning tools, while critics highlight concerns about distraction and cyberbullying. As a result, many institutions are implementing clear policies to balance these considerations.",
+    "type": "same_topic_different_text",
+    "isPlagiarised": false,
+    "topic": "phones_in_school",
+    "split": "train"
+  },
+  {
+    "id": "pl096",
+    "sourceText": "Our school banned phones last term and the corridors got loud again, in a good way. Kids actually talk at lunch. A few of them complained for about a week, then someone started a card game and that was that.",
+    "candidateText": "I started volunteering at the food bank because my company gave us a day off for it. I kept going because of a woman named Marta who bosses everyone around and keeps a tin of toffees under the counter. Best Saturday job I've ever had, and it pays nothing.",
+    "type": "unrelated_original",
+    "isPlagiarised": false,
+    "topic": "phones_in_school",
+    "split": "train"
+  },
+  {
+    "id": "pl097",
+    "sourceText": "Sleep was never a problem until I turned thirty-five. Now I'm awake at 3 a.m. replaying an awkward thing I said in 2011. The doctor says cut the late coffee, which is rude because it's the best part of my evening.",
+    "candidateText": "Sleep was never a problem until I turned thirty-five. Now I'm awake at 3 a.m. replaying an awkward thing I said in 2011. The doctor says cut the late coffee, which is rude because it's the best part of my evening.",
+    "type": "verbatim_copy",
+    "isPlagiarised": true,
+    "topic": "sleep",
+    "split": "train"
+  },
+  {
+    "id": "pl098",
+    "sourceText": "Sleep was never a problem until I turned thirty-five. Now I'm awake at 3 a.m. replaying an awkward thing I said in 2011. The doctor says cut the late coffee, which is rude because it's the best part of my evening.",
+    "candidateText": "Sleep was not once a problem until I turned thirty-five. Now I'm awake at 3 a.m. replaying an awkward thing I stated in 2011. The doctor says cut the late coffee, which is rude because it's the finest part of my evening.",
+    "type": "synonym_swap",
+    "isPlagiarised": true,
+    "topic": "sleep",
+    "split": "train"
+  },
+  {
+    "id": "pl099",
+    "sourceText": "Sleep was never a problem until I turned thirty-five. Now I'm awake at 3 a.m. replaying an awkward thing I said in 2011. The doctor says cut the late coffee, which is rude because it's the best part of my evening.",
+    "candidateText": "The doctor says cut the late coffee, which is rude because it's the best part of my evening. Now I'm awake at 3 a.m. Sleep was never a problem until I turned thirty-five. replaying an awkward thing I said in 2011.",
+    "type": "sentence_reorder",
+    "isPlagiarised": true,
+    "topic": "sleep",
+    "split": "train"
+  },
+  {
+    "id": "pl100",
+    "sourceText": "Sleep was never a problem until I turned thirty-five. Now I'm awake at 3 a.m. replaying an awkward thing I said in 2011. The doctor says cut the late coffee, which is rude because it's the best part of my evening.",
+    "candidateText": "Sleep was never a problem until I turned thirty-five. Nobody argues about whether it's changing anymore, at least not around here. We just argue about who should pay for the pumps.",
+    "type": "mosaic_partial",
+    "isPlagiarised": true,
+    "topic": "sleep",
+    "split": "train"
+  },
+  {
+    "id": "pl101",
+    "sourceText": "Sleep was never a problem until I turned thirty-five. Now I'm awake at 3 a.m. replaying an awkward thing I said in 2011. The doctor says cut the late coffee, which is rude because it's the best part of my evening.",
+    "candidateText": "Sleep is a fundamental aspect of human health that is often overlooked. Adequate rest supports memory consolidation, immune function, and emotional regulation. It is therefore recommended that adults aim for seven to nine hours of quality sleep each night.",
+    "type": "same_topic_different_text",
+    "isPlagiarised": false,
+    "topic": "sleep",
+    "split": "train"
+  },
+  {
+    "id": "pl102",
+    "sourceText": "Sleep was never a problem until I turned thirty-five. Now I'm awake at 3 a.m. replaying an awkward thing I said in 2011. The doctor says cut the late coffee, which is rude because it's the best part of my evening.",
+    "candidateText": "Last July the river behind our house dried up completely, something the old farmers said they'd never seen. Nobody argues about whether it's changing anymore, at least not around here. We just argue about who should pay for the pumps.",
+    "type": "unrelated_original",
+    "isPlagiarised": false,
+    "topic": "sleep",
+    "split": "train"
+  },
+  {
+    "id": "pl103",
+    "sourceText": "My neighbour bought an electric car and now I know his charging schedule better than my own. He loves it, though, and says he hasn't seen a petrol station in months. I'm tempted, but the nearest fast charger is forty minutes away.",
+    "candidateText": "My neighbour bought an electric car and now I know his charging schedule better than my own. He loves it, though, and says he hasn't seen a petrol station in months. I'm tempted, but the nearest fast charger is forty minutes away.",
+    "type": "verbatim_copy",
+    "isPlagiarised": true,
+    "topic": "electric_cars",
+    "split": "train"
+  },
+  {
+    "id": "pl104",
+    "sourceText": "My neighbour bought an electric car and now I know his charging schedule better than my own. He loves it, though, and says he hasn't seen a petrol station in months. I'm tempted, but the nearest fast charger is forty minutes away.",
+    "candidateText": "My neighbour purchased an electric car and now I know his charging schedule better than my own. He loves it, though, and says he hasn't seen a petrol station in months. I'm tempted, but the nearest fast charger is forty minutes away.",
+    "type": "synonym_swap",
+    "isPlagiarised": true,
+    "topic": "electric_cars",
+    "split": "train"
+  },
+  {
+    "id": "pl105",
+    "sourceText": "My neighbour bought an electric car and now I know his charging schedule better than my own. He loves it, though, and says he hasn't seen a petrol station in months. I'm tempted, but the nearest fast charger is forty minutes away.",
+    "candidateText": "I'm tempted, but the nearest fast charger is forty minutes away. He loves it, though, and says he hasn't seen a petrol station in months. My neighbour bought an electric car and now I know his charging schedule better than my own.",
+    "type": "sentence_reorder",
+    "isPlagiarised": true,
+    "topic": "electric_cars",
+    "split": "train"
+  },
+  {
+    "id": "pl106",
+    "sourceText": "My neighbour bought an electric car and now I know his charging schedule better than my own. He loves it, though, and says he hasn't seen a petrol station in months. I'm tempted, but the nearest fast charger is forty minutes away.",
+    "candidateText": "My neighbour bought an electric car and now I know his charging schedule better than my own. Apparently pizza boxes are a crime. The council sends a stern leaflet every spring, and every spring I stick it on the fridge and forget about it.",
+    "type": "mosaic_partial",
+    "isPlagiarised": true,
+    "topic": "electric_cars",
+    "split": "train"
+  },
+  {
+    "id": "pl107",
+    "sourceText": "My neighbour bought an electric car and now I know his charging schedule better than my own. He loves it, though, and says he hasn't seen a petrol station in months. I'm tempted, but the nearest fast charger is forty minutes away.",
+    "candidateText": "Electric vehicles are gaining significant traction as a sustainable alternative to traditional gasoline-powered cars. They produce zero tailpipe emissions and offer lower operating costs over time. Nevertheless, challenges such as charging infrastructure and battery costs remain important considerations.",
+    "type": "same_topic_different_text",
+    "isPlagiarised": false,
+    "topic": "electric_cars",
+    "split": "train"
+  },
+  {
+    "id": "pl108",
+    "sourceText": "My neighbour bought an electric car and now I know his charging schedule better than my own. He loves it, though, and says he hasn't seen a petrol station in months. I'm tempted, but the nearest fast charger is forty minutes away.",
+    "candidateText": "We have four bins in the garage and I still get it wrong. Apparently pizza boxes are a crime. The council sends a stern leaflet every spring, and every spring I stick it on the fridge and forget about it.",
+    "type": "unrelated_original",
+    "isPlagiarised": false,
+    "topic": "electric_cars",
+    "split": "train"
+  },
+  {
+    "id": "pl109",
+    "sourceText": "I switched to working from home two years ago and honestly, the commute is what I miss least. My back hurts more now though, because the kitchen chair is not an office chair. Still, I'd never go back to five days in the office.",
+    "candidateText": "I switched to working from home two years ago and honestly, the commute is what I miss least. My back hurts more now though, because the kitchen chair is not an office chair. Still, I'd never go back to five days in the office.",
+    "type": "verbatim_copy",
+    "isPlagiarised": true,
+    "topic": "remote_work",
+    "split": "train"
+  },
+  {
+    "id": "pl110",
+    "sourceText": "I switched to working from home two years ago and honestly, the commute is what I miss least. My back hurts more now though, because the kitchen chair is not an office chair. Still, I'd never go back to five days in the office.",
+    "candidateText": "I switched to working from home two years ago and frankly, the commute is what I miss least. My back hurts more now though, because the kitchen chair is not an office chair. Yet, I'd not once go back to five days in the office.",
+    "type": "synonym_swap",
+    "isPlagiarised": true,
+    "topic": "remote_work",
+    "split": "train"
+  },
+  {
+    "id": "pl111",
+    "sourceText": "I switched to working from home two years ago and honestly, the commute is what I miss least. My back hurts more now though, because the kitchen chair is not an office chair. Still, I'd never go back to five days in the office.",
+    "candidateText": "My back hurts more now though, because the kitchen chair is not an office chair. I switched to working from home two years ago and honestly, the commute is what I miss least. Still, I'd never go back to five days in the office.",
+    "type": "sentence_reorder",
+    "isPlagiarised": true,
+    "topic": "remote_work",
+    "split": "train"
+  },
+  {
+    "id": "pl112",
+    "sourceText": "I switched to working from home two years ago and honestly, the commute is what I miss least. My back hurts more now though, because the kitchen chair is not an office chair. Still, I'd never go back to five days in the office.",
+    "candidateText": "I switched to working from home two years ago and honestly, the commute is what I miss least. Kids actually talk at lunch. A few of them complained for about a week, then someone started a card game and that was that.",
+    "type": "mosaic_partial",
+    "isPlagiarised": true,
+    "topic": "remote_work",
+    "split": "train"
+  },
+  {
+    "id": "pl113",
+    "sourceText": "I switched to working from home two years ago and honestly, the commute is what I miss least. My back hurts more now though, because the kitchen chair is not an office chair. Still, I'd never go back to five days in the office.",
+    "candidateText": "Remote work has become increasingly popular in recent years. It offers numerous benefits, including flexibility, reduced commuting time, and improved work-life balance. However, it is important to note that it can also present challenges such as isolation and ergonomic concerns.",
+    "type": "same_topic_different_text",
+    "isPlagiarised": false,
+    "topic": "remote_work",
+    "split": "train"
+  },
+  {
+    "id": "pl114",
+    "sourceText": "I switched to working from home two years ago and honestly, the commute is what I miss least. My back hurts more now though, because the kitchen chair is not an office chair. Still, I'd never go back to five days in the office.",
+    "candidateText": "Our school banned phones last term and the corridors got loud again, in a good way. Kids actually talk at lunch. A few of them complained for about a week, then someone started a card game and that was that.",
+    "type": "unrelated_original",
+    "isPlagiarised": false,
+    "topic": "remote_work",
+    "split": "train"
+  },
+  {
+    "id": "pl115",
+    "sourceText": "I deleted Instagram in March and for about a week I kept reaching for my phone out of habit. Then it got quiet in a good way. I still check in on my sister's page through her husband's account, which feels slightly shady.",
+    "candidateText": "I deleted Instagram in March and for about a week I kept reaching for my phone out of habit. Then it got quiet in a good way. I still check in on my sister's page through her husband's account, which feels slightly shady.",
+    "type": "verbatim_copy",
+    "isPlagiarised": true,
+    "topic": "social_media",
+    "split": "train"
+  },
+  {
+    "id": "pl116",
+    "sourceText": "I deleted Instagram in March and for about a week I kept reaching for my phone out of habit. Then it got quiet in a good way. I still check in on my sister's page through her husband's account, which feels slightly shady.",
+    "candidateText": "I deleted Instagram in March and for about a seven days I continued reaching for my phone out of habit. Then it got calm in a good way. I yet check in on my sister's page through her husband's account, which seems slightly shady.",
+    "type": "synonym_swap",
+    "isPlagiarised": true,
+    "topic": "social_media",
+    "split": "train"
+  },
+  {
+    "id": "pl117",
+    "sourceText": "I deleted Instagram in March and for about a week I kept reaching for my phone out of habit. Then it got quiet in a good way. I still check in on my sister's page through her husband's account, which feels slightly shady.",
+    "candidateText": "Then it got quiet in a good way. I deleted Instagram in March and for about a week I kept reaching for my phone out of habit. I still check in on my sister's page through her husband's account, which feels slightly shady.",
+    "type": "sentence_reorder",
+    "isPlagiarised": true,
+    "topic": "social_media",
+    "split": "train"
+  },
+  {
+    "id": "pl118",
+    "sourceText": "I deleted Instagram in March and for about a week I kept reaching for my phone out of habit. Then it got quiet in a good way. I still check in on my sister's page through her husband's account, which feels slightly shady.",
+    "candidateText": "I deleted Instagram in March and for about a week I kept reaching for my phone out of habit. My mind wanders to what's for dinner about four seconds in. But my therapist says noticing the wandering is the actual exercise, so apparently I've been succeeding at failing this whole time.",
+    "type": "mosaic_partial",
+    "isPlagiarised": true,
+    "topic": "social_media",
+    "split": "train"
+  },
+  {
+    "id": "pl119",
+    "sourceText": "I deleted Instagram in March and for about a week I kept reaching for my phone out of habit. Then it got quiet in a good way. I still check in on my sister's page through her husband's account, which feels slightly shady.",
+    "candidateText": "Social media has transformed the way people communicate and share information. While it provides opportunities for connection and self-expression, it also raises concerns related to privacy and mental health. In conclusion, users should engage with these platforms mindfully and responsibly.",
+    "type": "same_topic_different_text",
+    "isPlagiarised": false,
+    "topic": "social_media",
+    "split": "train"
+  },
+  {
+    "id": "pl120",
+    "sourceText": "I deleted Instagram in March and for about a week I kept reaching for my phone out of habit. Then it got quiet in a good way. I still check in on my sister's page through her husband's account, which feels slightly shady.",
+    "candidateText": "I'm bad at meditating. My mind wanders to what's for dinner about four seconds in. But my therapist says noticing the wandering is the actual exercise, so apparently I've been succeeding at failing this whole time.",
+    "type": "unrelated_original",
+    "isPlagiarised": false,
+    "topic": "social_media",
+    "split": "train"
+  }
+]

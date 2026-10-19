@@ -37,6 +37,62 @@ const CLICHE_POOLS: Array<{
   category: HumanizerChange['category'];
   modes: HumanizerMode[];
 }> = [
+  {
+    pattern: /\bhowever,?\s*/gi,
+    pool: ['Still, ', 'Yet, ', 'Even so, ', 'That said, '],
+    reason: 'Replaced formal AI transition "however"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\btherefore,?\s*/gi,
+    pool: ['So, ', 'As a result, ', 'Because of that, ', 'This means '],
+    reason: 'Replaced formal AI transition "therefore"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bin essence,?\s*/gi,
+    pool: ['Simply put, ', 'At its core, ', 'Essentially, ', 'In short, '],
+    reason: 'Replaced AI philosophical transition "in essence"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bmoreover,?\s*/gi,
+    pool: ['Also, ', 'Beyond that, ', 'What is more, ', 'On top of that, '],
+    reason: 'Replaced repetitive AI transition "moreover"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bfurthermore,?\s*/gi,
+    pool: ['Also, ', 'Plus, ', 'Beyond that, ', 'Along with this, '],
+    reason: 'Replaced formal AI transition "furthermore"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bnevertheless,?\s*/gi,
+    pool: ['Still, ', 'Even so, ', 'Nonetheless, ', 'Regardless, '],
+    reason: 'Replaced AI transition "nevertheless"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bconsequently,?\s*/gi,
+    pool: ['As a result, ', 'Because of this, ', 'So, '],
+    reason: 'Replaced AI transition "consequently"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bultimately,?\s*/gi,
+    pool: ['In the end, ', 'At the end of the day, ', 'When all is said and done, '],
+    reason: 'Replaced AI wrap-up word "ultimately"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
   // ── High-Impact Email, Pitch & Status Update AI Clichés ────────────────────
   {
     pattern: /\bI hope (?:everyone|all of you|you all) (?:is|are) having a (?:productive|great|good) week\.?\b/gi,

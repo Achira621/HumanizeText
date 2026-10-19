@@ -1,0 +1,562 @@
+[
+  {
+    "id": "remote_work_h",
+    "text": "I switched to working from home two years ago and honestly, the commute is what I miss least. My back hurts more now though, because the kitchen chair is not an office chair. Still, I'd never go back to five days in the office.",
+    "label": "human",
+    "topic": "remote_work",
+    "split": "train"
+  },
+  {
+    "id": "remote_work_a",
+    "text": "Remote work has become increasingly popular in recent years. It offers numerous benefits, including flexibility, reduced commuting time, and improved work-life balance. However, it is important to note that it can also present challenges such as isolation and ergonomic concerns.",
+    "label": "ai",
+    "topic": "remote_work",
+    "split": "train"
+  },
+  {
+    "id": "remote_work_a_edit",
+    "text": "Remote work has become increasingly popular in recent years. It offers numerous benefits, including flexibility, reduced commuting time, and improved work-life balance. However, it is important to note that it can also present challenges such as isolation and ergonomic concerns.",
+    "label": "ai",
+    "topic": "remote_work",
+    "split": "train"
+  },
+  {
+    "id": "remote_work_mixed",
+    "text": "Remote work has become increasingly popular in recent years. My back hurts more now though, because the kitchen chair is not an office chair. Still, I'd never go back to five days in the office.",
+    "label": "mixed",
+    "topic": "remote_work",
+    "split": "train"
+  },
+  {
+    "id": "coffee_h",
+    "text": "My grandfather drank his coffee black and burnt, straight from a dented steel pot. I tried it once at twelve and nearly gagged. These days I make a flat white every morning and pretend I'm not copying him.",
+    "label": "human",
+    "topic": "coffee",
+    "split": "train"
+  },
+  {
+    "id": "coffee_a",
+    "text": "Coffee is one of the most widely consumed beverages in the world. It plays a crucial role in many cultures and daily routines. Moreover, moderate consumption has been associated with several health benefits, making it a popular choice for millions of people.",
+    "label": "ai",
+    "topic": "coffee",
+    "split": "train"
+  },
+  {
+    "id": "coffee_a_edit",
+    "text": "Coffee is one of the most widely consumed beverages in the world. It plays a crucial role in many cultures and daily routines. Moreover, moderate consumption has been associated with several health benefits, making it a popular choice for millions of people.",
+    "label": "ai",
+    "topic": "coffee",
+    "split": "train"
+  },
+  {
+    "id": "coffee_mixed",
+    "text": "Coffee is one of the most widely consumed beverages in the world. I tried it once at twelve and nearly gagged. These days I make a flat white every morning and pretend I'm not copying him.",
+    "label": "mixed",
+    "topic": "coffee",
+    "split": "train"
+  },
+  {
+    "id": "climate_change_h",
+    "text": "Last July the river behind our house dried up completely, something the old farmers said they'd never seen. Nobody argues about whether it's changing anymore, at least not around here. We just argue about who should pay for the pumps.",
+    "label": "human",
+    "topic": "climate_change",
+    "split": "train"
+  },
+  {
+    "id": "climate_change_a",
+    "text": "Climate change is one of the most pressing challenges facing humanity today. Rising global temperatures contribute to extreme weather events, sea level rise, and loss of biodiversity. Therefore, it is essential for governments and individuals to take decisive action to reduce greenhouse gas emissions.",
+    "label": "ai",
+    "topic": "climate_change",
+    "split": "train"
+  },
+  {
+    "id": "climate_change_a_edit",
+    "text": "Climate change is one of the most pressing challenges facing humanity today. Rising global temperatures contribute to extreme weather events, sea level rise, and loss of biodiversity. Therefore, it is essential for governments and individuals to take decisive action to reduce greenhouse gas emissions.",
+    "label": "ai",
+    "topic": "climate_change",
+    "split": "train"
+  },
+  {
+    "id": "climate_change_mixed",
+    "text": "Climate change is one of the most pressing challenges facing humanity today. Nobody argues about whether it's changing anymore, at least not around here. We just argue about who should pay for the pumps.",
+    "label": "mixed",
+    "topic": "climate_change",
+    "split": "train"
+  },
+  {
+    "id": "social_media_h",
+    "text": "I deleted Instagram in March and for about a week I kept reaching for my phone out of habit. Then it got quiet in a good way. I still check in on my sister's page through her husband's account, which feels slightly shady.",
+    "label": "human",
+    "topic": "social_media",
+    "split": "train"
+  },
+  {
+    "id": "social_media_a",
+    "text": "Social media has transformed the way people communicate and share information. While it provides opportunities for connection and self-expression, it also raises concerns related to privacy and mental health. In conclusion, users should engage with these platforms mindfully and responsibly.",
+    "label": "ai",
+    "topic": "social_media",
+    "split": "train"
+  },
+  {
+    "id": "social_media_a_edit",
+    "text": "Social media has transformed the way people communicate and share information. While it provides opportunities for connection and self-expression, it also raises concerns related to privacy and mental health. In conclusion, users should engage with these platforms mindfully and responsibly.",
+    "label": "ai",
+    "topic": "social_media",
+    "split": "train"
+  },
+  {
+    "id": "social_media_mixed",
+    "text": "Social media has transformed the way people communicate and share information. Then it got quiet in a good way. I still check in on my sister's page through her husband's account, which feels slightly shady.",
+    "label": "mixed",
+    "topic": "social_media",
+    "split": "train"
+  },
+  {
+    "id": "exercise_h",
+    "text": "I hate running but I love having run. That's the whole secret, really. Twenty minutes around the block before the kids wake up, and the rest of the day feels easier somehow.",
+    "label": "human",
+    "topic": "exercise",
+    "split": "test"
+  },
+  {
+    "id": "exercise_a",
+    "text": "Regular physical exercise is essential for maintaining overall health and well-being. It helps improve cardiovascular fitness, strengthen muscles, and boost mental health. Furthermore, incorporating even a small amount of daily activity can lead to significant long-term benefits.",
+    "label": "ai",
+    "topic": "exercise",
+    "split": "test"
+  },
+  {
+    "id": "exercise_a_edit",
+    "text": "Regular physical exercise is essential for maintaining overall health and well-being. It helps improve cardiovascular fitness, strengthen muscles, and boost mental health. Furthermore, incorporating even a tiny amount of daily activity can lead to significant long-term benefits.",
+    "label": "ai",
+    "topic": "exercise",
+    "split": "test"
+  },
+  {
+    "id": "exercise_mixed",
+    "text": "Regular physical exercise is essential for maintaining overall health and well-being. That's the whole secret, really. Twenty minutes around the block before the kids wake up, and the rest of the day feels easier somehow.",
+    "label": "mixed",
+    "topic": "exercise",
+    "split": "test"
+  },
+  {
+    "id": "public_transport_h",
+    "text": "The 47 bus is always late, except on the one day I decide to walk, then it sails past me. Even so, I'd rather deal with that than parking downtown. Plus I get to read, which is the only reading I get done all week.",
+    "label": "human",
+    "topic": "public_transport",
+    "split": "test"
+  },
+  {
+    "id": "public_transport_a",
+    "text": "Public transportation plays a vital role in modern urban environments. It reduces traffic congestion, lowers carbon emissions, and provides affordable mobility for residents. Additionally, investing in efficient transit systems can enhance the overall quality of life in cities.",
+    "label": "ai",
+    "topic": "public_transport",
+    "split": "test"
+  },
+  {
+    "id": "public_transport_a_edit",
+    "text": "Public transportation plays a vital role in modern urban environments. It reduces traffic congestion, lowers carbon emissions, and provides affordable mobility for residents. Additionally, investing in efficient transit systems can enhance the overall quality of life in cities.",
+    "label": "ai",
+    "topic": "public_transport",
+    "split": "test"
+  },
+  {
+    "id": "public_transport_mixed",
+    "text": "Public transportation plays a vital role in modern urban environments. Even so, I'd rather deal with that than parking downtown. Plus I get to read, which is the only reading I get done all week.",
+    "label": "mixed",
+    "topic": "public_transport",
+    "split": "test"
+  },
+  {
+    "id": "languages_h",
+    "text": "I've been learning Portuguese for eight months and I can order food, argue about football, and absolutely nothing else. My teacher says that's normal. Last week a taxi driver complimented my accent and I floated for an hour.",
+    "label": "human",
+    "topic": "languages",
+    "split": "train"
+  },
+  {
+    "id": "languages_a",
+    "text": "Learning a new language is a rewarding endeavor that offers numerous cognitive and cultural benefits. It enhances memory, improves problem-solving skills, and opens doors to new opportunities. Consistent practice and immersion are key factors in achieving fluency.",
+    "label": "ai",
+    "topic": "languages",
+    "split": "train"
+  },
+  {
+    "id": "languages_a_edit",
+    "text": "Learning a new language is a rewarding endeavor that offers numerous cognitive and cultural benefits. It enhances memory, improves problem-solving skills, and opens doors to new opportunities. Consistent practice and immersion are key factors in achieving fluency.",
+    "label": "ai",
+    "topic": "languages",
+    "split": "train"
+  },
+  {
+    "id": "languages_mixed",
+    "text": "Learning a new language is a rewarding endeavor that offers numerous cognitive and cultural benefits. My teacher says that's normal. Last week a taxi driver complimented my accent and I floated for an hour.",
+    "label": "mixed",
+    "topic": "languages",
+    "split": "train"
+  },
+  {
+    "id": "sleep_h",
+    "text": "Sleep was never a problem until I turned thirty-five. Now I'm awake at 3 a.m. replaying an awkward thing I said in 2011. The doctor says cut the late coffee, which is rude because it's the best part of my evening.",
+    "label": "human",
+    "topic": "sleep",
+    "split": "train"
+  },
+  {
+    "id": "sleep_a",
+    "text": "Sleep is a fundamental aspect of human health that is often overlooked. Adequate rest supports memory consolidation, immune function, and emotional regulation. It is therefore recommended that adults aim for seven to nine hours of quality sleep each night.",
+    "label": "ai",
+    "topic": "sleep",
+    "split": "train"
+  },
+  {
+    "id": "sleep_a_edit",
+    "text": "Sleep is a fundamental aspect of human health that is often overlooked. Adequate rest supports memory consolidation, immune function, and emotional regulation. It is therefore recommended that adults aim for seven to nine hours of quality sleep each night.",
+    "label": "ai",
+    "topic": "sleep",
+    "split": "train"
+  },
+  {
+    "id": "sleep_mixed",
+    "text": "Sleep is a fundamental aspect of human health that is often overlooked. Now I'm awake at 3 a.m. replaying an awkward thing I said in 2011. The doctor says cut the late coffee, which is rude because it's the best part of my evening.",
+    "label": "mixed",
+    "topic": "sleep",
+    "split": "train"
+  },
+  {
+    "id": "electric_cars_h",
+    "text": "My neighbour bought an electric car and now I know his charging schedule better than my own. He loves it, though, and says he hasn't seen a petrol station in months. I'm tempted, but the nearest fast charger is forty minutes away.",
+    "label": "human",
+    "topic": "electric_cars",
+    "split": "train"
+  },
+  {
+    "id": "electric_cars_a",
+    "text": "Electric vehicles are gaining significant traction as a sustainable alternative to traditional gasoline-powered cars. They produce zero tailpipe emissions and offer lower operating costs over time. Nevertheless, challenges such as charging infrastructure and battery costs remain important considerations.",
+    "label": "ai",
+    "topic": "electric_cars",
+    "split": "train"
+  },
+  {
+    "id": "electric_cars_a_edit",
+    "text": "Electric vehicles are gaining significant traction as a sustainable alternative to traditional gasoline-powered cars. They produce zero tailpipe emissions and offer lower operating costs over time. Nevertheless, challenges such as charging infrastructure and battery costs remain important considerations.",
+    "label": "ai",
+    "topic": "electric_cars",
+    "split": "train"
+  },
+  {
+    "id": "electric_cars_mixed",
+    "text": "Electric vehicles are gaining significant traction as a sustainable alternative to traditional gasoline-powered cars. He loves it, though, and says he hasn't seen a petrol station in months. I'm tempted, but the nearest fast charger is forty minutes away.",
+    "label": "mixed",
+    "topic": "electric_cars",
+    "split": "train"
+  },
+  {
+    "id": "online_shopping_h",
+    "text": "I ordered a lamp last month and it arrived in a box the size of a fridge. The lamp itself was fine. What I can't get over is the packaging, three layers of plastic around a thing that weighs nothing.",
+    "label": "human",
+    "topic": "online_shopping",
+    "split": "train"
+  },
+  {
+    "id": "online_shopping_a",
+    "text": "Online shopping has revolutionized the retail industry by offering convenience and a wide selection of products. Consumers can compare prices and read reviews from the comfort of their homes. However, concerns regarding packaging waste and delivery emissions continue to grow.",
+    "label": "ai",
+    "topic": "online_shopping",
+    "split": "train"
+  },
+  {
+    "id": "online_shopping_a_edit",
+    "text": "Online shopping has revolutionized the retail industry by offering convenience and a wide selection of products. Consumers can compare prices and read reviews from the comfort of their homes. However, concerns regarding packaging waste and delivery emissions continue to grow.",
+    "label": "ai",
+    "topic": "online_shopping",
+    "split": "train"
+  },
+  {
+    "id": "online_shopping_mixed",
+    "text": "Online shopping has revolutionized the retail industry by offering convenience and a wide selection of products. The lamp itself was fine. What I can't get over is the packaging, three layers of plastic around a thing that weighs nothing.",
+    "label": "mixed",
+    "topic": "online_shopping",
+    "split": "train"
+  },
+  {
+    "id": "reading_h",
+    "text": "I used to finish a book a week, back before I had a phone that did everything. Now it takes me a month and I feel guilty the whole time. Last Sunday I left the phone in the other room and read for three hours straight, and it felt like a small miracle.",
+    "label": "human",
+    "topic": "reading",
+    "split": "train"
+  },
+  {
+    "id": "reading_a",
+    "text": "Reading is a valuable habit that fosters imagination, empathy, and critical thinking. Studies suggest that regular readers tend to have larger vocabularies and better concentration. Consequently, parents and educators are encouraged to cultivate a love of reading in children from an early age.",
+    "label": "ai",
+    "topic": "reading",
+    "split": "train"
+  },
+  {
+    "id": "reading_a_edit",
+    "text": "Reading is a valuable habit that fosters imagination, empathy, and critical thinking. Studies suggest that regular readers tend to have larger vocabularies and better concentration. Consequently, parents and educators are encouraged to cultivate a adore of reading in children from an early age.",
+    "label": "ai",
+    "topic": "reading",
+    "split": "train"
+  },
+  {
+    "id": "reading_mixed",
+    "text": "Reading is a valuable habit that fosters imagination, empathy, and critical thinking. Now it takes me a month and I feel guilty the whole time. Last Sunday I left the phone in the other room and read for three hours straight, and it felt like a small miracle.",
+    "label": "mixed",
+    "topic": "reading",
+    "split": "train"
+  },
+  {
+    "id": "meditation_h",
+    "text": "I'm bad at meditating. My mind wanders to what's for dinner about four seconds in. But my therapist says noticing the wandering is the actual exercise, so apparently I've been succeeding at failing this whole time.",
+    "label": "human",
+    "topic": "meditation",
+    "split": "train"
+  },
+  {
+    "id": "meditation_a",
+    "text": "Meditation is an ancient practice that has gained widespread popularity in the modern world. It can reduce stress, improve focus, and promote emotional well-being. By dedicating just a few minutes each day, individuals can experience meaningful improvements in their mental health.",
+    "label": "ai",
+    "topic": "meditation",
+    "split": "train"
+  },
+  {
+    "id": "meditation_a_edit",
+    "text": "Meditation is an ancient practice that has gained widespread popularity in the modern world. It can reduce stress, improve focus, and promote emotional well-being. By dedicating just a few minutes each day, individuals can experience meaningful improvements in their mental health.",
+    "label": "ai",
+    "topic": "meditation",
+    "split": "train"
+  },
+  {
+    "id": "meditation_mixed",
+    "text": "Meditation is an ancient practice that has gained widespread popularity in the modern world. My mind wanders to what's for dinner about four seconds in. But my therapist says noticing the wandering is the actual exercise, so apparently I've been succeeding at failing this whole time.",
+    "label": "mixed",
+    "topic": "meditation",
+    "split": "train"
+  },
+  {
+    "id": "recycling_h",
+    "text": "We have four bins in the garage and I still get it wrong. Apparently pizza boxes are a crime. The council sends a stern leaflet every spring, and every spring I stick it on the fridge and forget about it.",
+    "label": "human",
+    "topic": "recycling",
+    "split": "train"
+  },
+  {
+    "id": "recycling_a",
+    "text": "Recycling is an important practice that helps conserve natural resources and reduce landfill waste. By sorting materials such as paper, glass, and plastic, communities can significantly lower their environmental impact. It is crucial that individuals understand local guidelines to ensure effective recycling.",
+    "label": "ai",
+    "topic": "recycling",
+    "split": "train"
+  },
+  {
+    "id": "recycling_a_edit",
+    "text": "Recycling is an important practice that helps conserve natural resources and reduce landfill waste. By sorting materials such as paper, glass, and plastic, communities can significantly lower their environmental impact. It is crucial that individuals understand local guidelines to ensure effective recycling.",
+    "label": "ai",
+    "topic": "recycling",
+    "split": "train"
+  },
+  {
+    "id": "recycling_mixed",
+    "text": "Recycling is an important practice that helps conserve natural resources and reduce landfill waste. Apparently pizza boxes are a crime. The council sends a stern leaflet every spring, and every spring I stick it on the fridge and forget about it.",
+    "label": "mixed",
+    "topic": "recycling",
+    "split": "train"
+  },
+  {
+    "id": "video_games_h",
+    "text": "My dad thought video games would rot my brain. Funny thing, he now plays a farming sim for an hour every night and talks about his virtual cows like they're real. I haven't had the heart to tell him I told you so.",
+    "label": "human",
+    "topic": "video_games",
+    "split": "train"
+  },
+  {
+    "id": "video_games_a",
+    "text": "Video games have evolved into a major form of entertainment and cultural expression. They can improve hand-eye coordination, problem-solving abilities, and social connections. Moreover, the industry has become a significant contributor to the global economy.",
+    "label": "ai",
+    "topic": "video_games",
+    "split": "train"
+  },
+  {
+    "id": "video_games_a_edit",
+    "text": "Video games have evolved into a major form of entertainment and cultural expression. They can improve hand-eye coordination, problem-solving abilities, and social connections. Moreover, the industry has become a significant contributor to the global economy.",
+    "label": "ai",
+    "topic": "video_games",
+    "split": "train"
+  },
+  {
+    "id": "video_games_mixed",
+    "text": "Video games have evolved into a major form of entertainment and cultural expression. Funny thing, he now plays a farming sim for an hour every night and talks about his virtual cows like they're real. I haven't had the heart to tell him I told you so.",
+    "label": "mixed",
+    "topic": "video_games",
+    "split": "train"
+  },
+  {
+    "id": "home_cooking_h",
+    "text": "Cooking at home saves money, sure, but that's not why I do it. It's the forty minutes where nobody asks me anything. Chopping onions is basically therapy, minus the invoice.",
+    "label": "human",
+    "topic": "home_cooking",
+    "split": "test"
+  },
+  {
+    "id": "home_cooking_a",
+    "text": "Cooking at home offers a variety of benefits, including cost savings and healthier eating habits. It allows individuals to control ingredients and portion sizes while exploring new cuisines. Additionally, preparing meals together can strengthen family bonds.",
+    "label": "ai",
+    "topic": "home_cooking",
+    "split": "test"
+  },
+  {
+    "id": "home_cooking_a_edit",
+    "text": "Cooking at home offers a variety of benefits, including cost savings and healthier eating habits. It allows individuals to control ingredients and portion sizes while exploring new cuisines. Additionally, preparing meals together can strengthen family bonds.",
+    "label": "ai",
+    "topic": "home_cooking",
+    "split": "test"
+  },
+  {
+    "id": "home_cooking_mixed",
+    "text": "Cooking at home offers a variety of benefits, including cost savings and healthier eating habits. It's the forty minutes where nobody asks me anything. Chopping onions is basically therapy, minus the invoice.",
+    "label": "mixed",
+    "topic": "home_cooking",
+    "split": "test"
+  },
+  {
+    "id": "city_vs_country_h",
+    "text": "We moved out to the countryside for the quiet and now I'm kept awake by owls. The nearest shop is a twenty-minute drive and I miss being able to get noodles at midnight. But the stars are ridiculous, I'll give it that.",
+    "label": "human",
+    "topic": "city_vs_country",
+    "split": "train"
+  },
+  {
+    "id": "city_vs_country_a",
+    "text": "The decision between urban and rural living involves weighing numerous factors. Cities offer greater access to employment, culture, and services, while rural areas provide tranquility and closer connection to nature. Ultimately, the ideal choice depends on individual priorities and lifestyle preferences.",
+    "label": "ai",
+    "topic": "city_vs_country",
+    "split": "train"
+  },
+  {
+    "id": "city_vs_country_a_edit",
+    "text": "The decision between urban and rural living involves weighing numerous factors. Cities offer greater access to employment, culture, and services, while rural areas provide tranquility and closer connection to nature. Ultimately, the ideal choice depends on individual priorities and lifestyle preferences.",
+    "label": "ai",
+    "topic": "city_vs_country",
+    "split": "train"
+  },
+  {
+    "id": "city_vs_country_mixed",
+    "text": "The decision between urban and rural living involves weighing numerous factors. The nearest shop is a twenty-minute drive and I miss being able to get noodles at midnight. But the stars are ridiculous, I'll give it that.",
+    "label": "mixed",
+    "topic": "city_vs_country",
+    "split": "train"
+  },
+  {
+    "id": "phones_in_school_h",
+    "text": "Our school banned phones last term and the corridors got loud again, in a good way. Kids actually talk at lunch. A few of them complained for about a week, then someone started a card game and that was that.",
+    "label": "human",
+    "topic": "phones_in_school",
+    "split": "train"
+  },
+  {
+    "id": "phones_in_school_a",
+    "text": "The use of smartphones in schools is a topic of ongoing debate among educators and parents. Proponents argue that devices can serve as valuable learning tools, while critics highlight concerns about distraction and cyberbullying. As a result, many institutions are implementing clear policies to balance these considerations.",
+    "label": "ai",
+    "topic": "phones_in_school",
+    "split": "train"
+  },
+  {
+    "id": "phones_in_school_a_edit",
+    "text": "The use of smartphones in schools is a topic of ongoing debate among educators and parents. Proponents argue that devices can serve as valuable learning tools, while critics highlight concerns about distraction and cyberbullying. As a result, many institutions are implementing clear policies to balance these considerations.",
+    "label": "ai",
+    "topic": "phones_in_school",
+    "split": "train"
+  },
+  {
+    "id": "phones_in_school_mixed",
+    "text": "The use of smartphones in schools is a topic of ongoing debate among educators and parents. Kids actually talk at lunch. A few of them complained for about a week, then someone started a card game and that was that.",
+    "label": "mixed",
+    "topic": "phones_in_school",
+    "split": "train"
+  },
+  {
+    "id": "volunteering_h",
+    "text": "I started volunteering at the food bank because my company gave us a day off for it. I kept going because of a woman named Marta who bosses everyone around and keeps a tin of toffees under the counter. Best Saturday job I've ever had, and it pays nothing.",
+    "label": "human",
+    "topic": "volunteering",
+    "split": "train"
+  },
+  {
+    "id": "volunteering_a",
+    "text": "Volunteering is a meaningful way to give back to the community and make a positive impact. It provides individuals with opportunities to develop new skills, build relationships, and gain a sense of purpose. Furthermore, organizations rely heavily on volunteers to carry out their missions.",
+    "label": "ai",
+    "topic": "volunteering",
+    "split": "train"
+  },
+  {
+    "id": "volunteering_a_edit",
+    "text": "Volunteering is a meaningful way to give back to the community and make a positive impact. It provides individuals with opportunities to develop new skills, build relationships, and gain a sense of purpose. Furthermore, organizations rely heavily on volunteers to carry out their missions.",
+    "label": "ai",
+    "topic": "volunteering",
+    "split": "train"
+  },
+  {
+    "id": "volunteering_mixed",
+    "text": "Volunteering is a meaningful way to give back to the community and make a positive impact. I kept going because of a woman named Marta who bosses everyone around and keeps a tin of toffees under the counter. Best Saturday job I've ever had, and it pays nothing.",
+    "label": "mixed",
+    "topic": "volunteering",
+    "split": "train"
+  },
+  {
+    "id": "minimalism_h",
+    "text": "I read one book about minimalism and threw out half my wardrobe in a weekend. Two months later I bought most of it back, in slightly different colours. I think the lesson is that I'm not a minimalist, I just like a tidy drawer.",
+    "label": "human",
+    "topic": "minimalism",
+    "split": "train"
+  },
+  {
+    "id": "minimalism_a",
+    "text": "Minimalism is a lifestyle philosophy that emphasizes simplicity and intentional living. By reducing material possessions, individuals can free up time, space, and financial resources. In essence, minimalism encourages people to focus on what truly adds value to their lives.",
+    "label": "ai",
+    "topic": "minimalism",
+    "split": "train"
+  },
+  {
+    "id": "minimalism_a_edit",
+    "text": "Minimalism is a lifestyle philosophy that emphasizes simplicity and intentional living. By reducing material possessions, individuals can free up time, space, and financial resources. In essence, minimalism encourages people to focus on what truly adds value to their lives.",
+    "label": "ai",
+    "topic": "minimalism",
+    "split": "train"
+  },
+  {
+    "id": "minimalism_mixed",
+    "text": "Minimalism is a lifestyle philosophy that emphasizes simplicity and intentional living. Two months later I bought most of it back, in slightly different colours. I think the lesson is that I'm not a minimalist, I just like a tidy drawer.",
+    "label": "mixed",
+    "topic": "minimalism",
+    "split": "train"
+  },
+  {
+    "id": "space_exploration_h",
+    "text": "When I was nine my uncle took me to see a rocket launch from a beach, miles away, and the sound arrived a full ten seconds after the light. I still remember my ribs buzzing. I don't care what it costs, I want kids to see that.",
+    "label": "human",
+    "topic": "space_exploration",
+    "split": "test"
+  },
+  {
+    "id": "space_exploration_a",
+    "text": "Space exploration represents one of humanity's most ambitious and inspiring endeavors. It drives technological innovation, expands scientific knowledge, and fosters international collaboration. Looking ahead, continued investment in this field is likely to yield benefits that extend far beyond our planet.",
+    "label": "ai",
+    "topic": "space_exploration",
+    "split": "test"
+  },
+  {
+    "id": "space_exploration_a_edit",
+    "text": "Space exploration represents one of humanity's most ambitious and inspiring endeavors. It drives technological innovation, expands scientific knowledge, and fosters international collaboration. Looking ahead, continued investment in this field is likely to yield benefits that extend far beyond our planet.",
+    "label": "ai",
+    "topic": "space_exploration",
+    "split": "test"
+  },
+  {
+    "id": "space_exploration_mixed",
+    "text": "Space exploration represents one of humanity's most ambitious and inspiring endeavors. I still remember my ribs buzzing. I don't care what it costs, I want kids to see that.",
+    "label": "mixed",
+    "topic": "space_exploration",
+    "split": "test"
+  }
+]
