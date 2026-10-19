@@ -124,18 +124,84 @@ export type HumanizerMode =
   | 'formal'
   | 'flow';
 
+export type VocabularyIntensity = 'conservative' | 'balanced' | 'dynamic' | 'maximum';
+
+export interface DiffToken {
+  id: string;
+  text: string;
+  type: 'unchanged' | 'changed' | 'structural' | 'frozen';
+  original?: string;
+  alternatives?: string[];
+  reason?: string;
+  category?: 'filler' | 'passive' | 'phrasing' | 'redundancy' | 'flow' | 'formality' | 'contraction' | 'frozen';
+}
+
+export interface AiSignalPhrase {
+  id: string;
+  phrase: string;
+  start: number;
+  end: number;
+  explainer: string;
+  category: string;
+}
+
 export interface HumanizerOptions {
   mode: HumanizerMode;
   targetReadingLevel?: 'general' | 'academic' | 'casual';
   preserveTechnicalTerms?: boolean;
+  frozenWords?: string[];
+  vocabularyIntensity?: VocabularyIntensity;
+  tone?: 'conversational' | 'academic' | 'formal' | 'creative' | 'concise';
+  smartContractions?: boolean;
+}
+
+export type WritingIssueCategory =
+  | 'grammar'
+  | 'spelling'
+  | 'clarity'
+  | 'wordiness'
+  | 'passive_voice'
+  | 'tone'
+  | 'split_sentence'
+  | 'repetitive_words'
+  | 'ai_cliche';
+
+export interface WritingSuggestion {
+  id: string;
+  original: string;
+  replacement: string;
+  alternatives?: string[];
+  explanation: string;
+  category: WritingIssueCategory;
+  severity: 'error' | 'warning' | 'suggestion';
+  startChar: number;
+  endChar: number;
+  sentence?: string;
+}
+
+export interface WritingAnalysis {
+  suggestions: WritingSuggestion[];
+  readability: {
+    fleschKincaidScore: number;
+    gradeLevel: string;
+    readingTimeMinutes: number;
+    wordCount: number;
+    sentenceCount: number;
+    avgSentenceLength: number;
+    tone: 'Confident' | 'Academic' | 'Conversational' | 'Formal' | 'Neutral';
+  };
+  aiProbability: number;
+  burstinessScore: number;
+  passiveSentenceCount: number;
 }
 
 export interface HumanizerChange {
   original: string;
   replacement: string;
   reason: string;
-  category: 'filler' | 'passive' | 'phrasing' | 'redundancy' | 'flow' | 'formality';
+  category: 'filler' | 'passive' | 'phrasing' | 'redundancy' | 'flow' | 'formality' | 'contraction' | 'frozen';
   index: number;
+  alternatives?: string[];
 }
 
 export interface HumanizerResult {
@@ -143,6 +209,7 @@ export interface HumanizerResult {
   improvedText: string;
   mode: HumanizerMode;
   changes: HumanizerChange[];
+  diffTokens?: DiffToken[];
   stats: {
     originalWords: number;
     improvedWords: number;
@@ -150,8 +217,8 @@ export interface HumanizerResult {
     readingTimeSeconds: number;
   };
   engineName: string;
-  engineType: 'deterministic-rules' | 'browser-ai-local';
-  processedLocally: true;
+  engineType: 'deterministic-rules' | 'browser-ai-local' | 'cloud-api';
+  processedLocally: boolean;
 }
 
 export interface LocalHumanizerEngine {

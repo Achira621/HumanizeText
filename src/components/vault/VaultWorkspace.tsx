@@ -18,12 +18,19 @@ import {
 } from '../../lib/storage/indexedDb';
 import { decryptVaultRecord, encryptVaultRecord } from '../../lib/crypto/vault';
 import type { EncryptedPayload, VaultRecord } from '../../types';
+import { VaultWritingAssistant } from './VaultWritingAssistant';
 
 interface VaultWorkspaceProps {
   onLoadIntoEditor?: (text: string, title: string) => void;
+  onLoadIntoHumanizer?: (text: string) => void;
+  onLoadIntoPlagiarismChecker?: (text: string, title: string) => void;
 }
 
-export const VaultWorkspace: React.FC<VaultWorkspaceProps> = ({ onLoadIntoEditor }) => {
+export const VaultWorkspace: React.FC<VaultWorkspaceProps> = ({
+  onLoadIntoEditor,
+  onLoadIntoHumanizer,
+  onLoadIntoPlagiarismChecker,
+}) => {
   const [passphrase, setPassphrase] = useState('');
   const [records, setRecords] = useState<EncryptedPayload[]>([]);
   const [activeDecrypted, setActiveDecrypted] = useState<VaultRecord | null>(null);
@@ -288,29 +295,23 @@ export const VaultWorkspace: React.FC<VaultWorkspaceProps> = ({ onLoadIntoEditor
         </div>
       </div>
 
-      {/* Decrypted Record Viewer */}
+      {/* Decrypted Record Viewer / Writing Assistant Studio */}
       {activeDecrypted && (
-        <div className="mt-6 rounded-xl border border-[var(--accent-border)] bg-[var(--bg-surface)] p-6 shadow-xs">
-          <div className="flex items-center justify-between border-b border-[var(--border-subtle)] pb-3">
-            <div className="flex items-center space-x-2">
-              <Unlock className="h-5 w-5 text-[var(--accent)]" />
-              <h2 className="text-base font-bold text-[var(--text-primary)]">
-                Decrypted: {activeDecrypted.title}
-              </h2>
-            </div>
-            {onLoadIntoEditor && (
-              <button
-                onClick={() => onLoadIntoEditor(activeDecrypted.content, activeDecrypted.title)}
-                className="rounded-lg bg-[var(--accent)] px-3 py-1.5 text-xs font-semibold text-[var(--accent-contrast)] hover:bg-[var(--accent-hover)]"
-              >
-                Load Into Main Editor
-              </button>
-            )}
-          </div>
-          <div className="mt-4 whitespace-pre-wrap font-sans text-sm leading-relaxed text-[var(--text-primary)] bg-[var(--bg-subtle)] p-4 rounded-lg">
-            {activeDecrypted.content}
-          </div>
-        </div>
+        <VaultWritingAssistant
+          initialRecord={activeDecrypted}
+          passphrase={passphrase}
+          onSaveRecord={async (updated) => {
+            const encrypted = await encryptVaultRecord(passphrase, updated);
+            await saveEncryptedPayload(encrypted);
+            setActiveDecrypted(updated);
+            await reloadRecords();
+            setSuccessMsg(`Document "${updated.title}" updated and re-encrypted successfully.`);
+          }}
+          onClose={() => setActiveDecrypted(null)}
+          onLoadIntoEditor={onLoadIntoEditor}
+          onLoadIntoHumanizer={onLoadIntoHumanizer}
+          onLoadIntoPlagiarismChecker={onLoadIntoPlagiarismChecker}
+        />
       )}
     </div>
   );

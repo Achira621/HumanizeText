@@ -15,14 +15,25 @@ import {
   TrendingUp,
   Settings,
   RefreshCw,
+  Snowflake,
+  Sliders,
 } from 'lucide-react';
-import type { HumanizerMode, HumanizerResult, HumanizerChange, SimilarityReport } from '../../types';
+import type {
+  HumanizerMode,
+  HumanizerResult,
+  HumanizerChange,
+  SimilarityReport,
+  VocabularyIntensity,
+} from '../../types';
 import { defaultHumanizerManager } from '../../lib/humanizer/manager';
-import { scoreHumanization } from '../../lib/humanizer/ruleEngine';
+import { scoreHumanization, detectAiSignals } from '../../lib/humanizer/ruleEngine';
 import { SimilarityEngine } from '../../lib/similarity/engine';
 import { humanizeWithApi, getStoredApiConfig } from '../../lib/humanizer/apiEngine';
 import type { ApiEngineConfig } from '../../lib/humanizer/apiEngine';
 import { ApiSettingsModal } from './ApiSettingsModal';
+import { FreezeWordsModal } from './FreezeWordsModal';
+import { InteractiveOutputEditor } from './InteractiveOutputEditor';
+import { AiSignalsInspector } from './AiSignalsInspector';
 import { FileDropzone } from '../common/FileDropzone';
 import { HumanizeLogo } from '../common/HumanizeLogo';
 import type { ActiveTab } from '../common/Header';
@@ -45,6 +56,73 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
   const [copied, setCopied] = useState(false);
   const [showDiff, setShowDiff] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  // QuillBot-style Frozen Words and Synonym Intensity State
+  const [frozenWords, setFrozenWords] = useState<string[]>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const stored = localStorage.getItem('humanizetext_frozen_words');
+        if (stored) return JSON.parse(stored);
+      } catch {}
+    }
+    return [];
+  });
+  const [showFreezeModal, setShowFreezeModal] = useState(false);
+
+  const [vocabularyIntensity, setVocabularyIntensity] = useState<VocabularyIntensity>(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('humanizetext_vocab_intensity') as VocabularyIntensity;
+      if (stored && ['conservative', 'balanced', 'dynamic', 'maximum'].includes(stored)) {
+        return stored;
+      }
+    }
+    return 'balanced';
+  });
+
+  const handleAddFrozenWord = (word: string) => {
+    const trimmed = word.trim();
+    if (!trimmed) return;
+    setFrozenWords((prev) => {
+      if (prev.some((w) => w.toLowerCase() === trimmed.toLowerCase())) return prev;
+      const next = [...prev, trimmed];
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('humanizetext_frozen_words', JSON.stringify(next));
+      }
+      return next;
+    });
+  };
+
+  const handleRemoveFrozenWord = (word: string) => {
+    setFrozenWords((prev) => {
+      const next = prev.filter((w) => w.toLowerCase() !== word.toLowerCase());
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('humanizetext_frozen_words', JSON.stringify(next));
+      }
+      return next;
+    });
+  };
+
+  const handleClearAllFrozenWords = () => {
+    setFrozenWords([]);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('humanizetext_frozen_words');
+    }
+  };
+
+  const handleSetVocabIntensity = (intensity: VocabularyIntensity) => {
+    setVocabularyIntensity(intensity);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('humanizetext_vocab_intensity', intensity);
+    }
+  };
+
+  // Smart Contractions toggle (QuillBot ProcessContractions)
+  const [smartContractions, setSmartContractions] = useState<boolean>(true);
+
+  // Live input AI signals detection
+  const inputAiSignals = useMemo(() => {
+    return detectAiSignals(currentText);
+  }, [currentText]);
 
   // Plagiarism & Workflow state
   const [hasCheckedPlagiarism, setHasCheckedPlagiarism] = useState(false);
@@ -200,13 +278,18 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
     setIsProcessing(true);
 
     try {
+      const options = {
+        mode: selectedMode,
+        frozenWords,
+        vocabularyIntensity,
+        smartContractions,
+      };
+
       let res: HumanizerResult;
       if (engineType === 'api') {
-        res = await humanizeWithApi(textToProcess, selectedMode, apiConfig);
+        res = await humanizeWithApi(textToProcess, selectedMode, apiConfig, options);
       } else {
-        res = await defaultHumanizerManager.humanize(textToProcess, {
-          mode: selectedMode,
-        });
+        res = await defaultHumanizerManager.humanize(textToProcess, options);
       }
 
       setResultData(res);
@@ -306,6 +389,16 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6">
+      {/* Freeze Words Modal */}
+      <FreezeWordsModal
+        isOpen={showFreezeModal}
+        onClose={() => setShowFreezeModal(false)}
+        frozenWords={frozenWords}
+        onAddWord={handleAddFrozenWord}
+        onRemoveWord={handleRemoveFrozenWord}
+        onClearAll={handleClearAllFrozenWords}
+      />
+
       {/* API Settings Modal */}
       <ApiSettingsModal
         isOpen={showApiModal}
@@ -338,20 +431,21 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
 
       {/* Main Workspace Card */}
       <div className="overflow-hidden rounded-xl border border-[var(--border-strong)] bg-[var(--bg-surface)] shadow-md">
-        {/* Mode Selector Tabs */}
+        {/* Mode Selector & Toolbar */}
         <div className="border-b border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-3">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
-              Writing Mode:
-            </span>
-            <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            {/* Left: Mode Buttons */}
+            <div className="flex flex-wrap items-center gap-1.5">
+              <span className="mr-1 text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
+                Mode:
+              </span>
               {modes.map((m) => (
                 <button
                   key={m.id}
                   onClick={() => setSelectedMode(m.id)}
                   className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all ${
                     selectedMode === m.id
-                      ? 'bg-[var(--accent)] text-[var(--accent-contrast)] shadow-xs'
+                      ? 'bg-[var(--accent)] text-[var(--accent-contrast)] shadow-xs font-bold'
                       : 'border border-[var(--border-subtle)] bg-[var(--bg-surface)] text-[var(--text-secondary)] hover:border-[var(--accent)] hover:text-[var(--text-primary)]'
                   }`}
                   title={m.desc}
@@ -360,7 +454,71 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
                 </button>
               ))}
             </div>
+
+            {/* Right: Synonym Slider & Freeze Words */}
+            <div className="flex flex-wrap items-center gap-2">
+              {/* Synonym Frequency Intensity */}
+              <div className="flex items-center space-x-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-2.5 py-1 text-xs shadow-2xs">
+                <Sliders className="h-3.5 w-3.5 text-[var(--accent)]" />
+                <span className="text-[11px] font-semibold text-[var(--text-muted)]">Synonyms:</span>
+                <div className="flex items-center space-x-1">
+                  {(['conservative', 'balanced', 'dynamic', 'maximum'] as VocabularyIntensity[]).map((level) => (
+                    <button
+                      key={level}
+                      type="button"
+                      onClick={() => handleSetVocabIntensity(level)}
+                      className={`rounded px-1.5 py-0.5 text-[10px] font-bold capitalize transition-all ${
+                        vocabularyIntensity === level
+                          ? 'bg-[var(--accent)] text-[var(--accent-contrast)] shadow-2xs'
+                          : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                      }`}
+                      title={`Synonym replacement level: ${level}`}
+                    >
+                      {level === 'conservative' ? 'Low' : level === 'balanced' ? 'Med' : level === 'dynamic' ? 'High' : 'Max'}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Freeze Words */}
+              <button
+                type="button"
+                onClick={() => setShowFreezeModal(true)}
+                className={`flex items-center space-x-1.5 rounded-lg border px-2.5 py-1 text-xs font-semibold transition-all ${
+                  frozenWords.length > 0
+                    ? 'border-purple-500/40 bg-purple-500/10 text-purple-700 dark:text-purple-300 shadow-2xs'
+                    : 'border-[var(--border-subtle)] bg-[var(--bg-surface)] text-[var(--text-secondary)] hover:border-purple-400 hover:text-purple-600'
+                }`}
+                title="Freeze specific terms so the humanizer never modifies them"
+              >
+                <Snowflake className="h-3.5 w-3.5 text-purple-500" />
+                <span>Freeze Words</span>
+                {frozenWords.length > 0 && (
+                  <span className="rounded-full bg-purple-500/20 px-1.5 py-0.2 text-[10px] font-bold text-purple-700 dark:text-purple-300">
+                    {frozenWords.length}
+                  </span>
+                )}
+              </button>
+
+              {/* Smart Contractions Toggle */}
+              <button
+                type="button"
+                onClick={() => setSmartContractions(!smartContractions)}
+                className={`flex items-center space-x-1.5 rounded-lg border px-2.5 py-1 text-xs font-semibold transition-all ${
+                  smartContractions
+                    ? 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:text-blue-300 shadow-2xs'
+                    : 'border-[var(--border-subtle)] bg-[var(--bg-surface)] text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                }`}
+                title="Smart Contractions: Normalizes contractions for conversational flow or expands for formal modes"
+              >
+                <span>Contractions:</span>
+                <span className={`font-bold ${smartContractions ? 'text-blue-600 dark:text-blue-400' : 'text-[var(--text-muted)]'}`}>
+                  {smartContractions ? 'ON' : 'OFF'}
+                </span>
+              </button>
+            </div>
           </div>
+
           <p className="mt-2 text-left text-[11px] text-[var(--text-muted)]">
             <strong className="text-[var(--text-secondary)]">
               {modes.find((m) => m.id === selectedMode)?.label}:
@@ -374,7 +532,10 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
           {/* Input Column */}
           <div className="flex flex-col p-4">
             <div className="mb-2 flex items-center justify-between text-xs text-[var(--text-muted)]">
-              <span className="font-bold text-[var(--text-primary)]">Input Text</span>
+              <div className="flex items-center space-x-2">
+                <span className="font-bold text-[var(--text-primary)]">Input Text</span>
+                <AiSignalsInspector signals={inputAiSignals} isHumanized={false} />
+              </div>
               <div className="flex items-center space-x-2">
                 <span>{wordCount} words</span>
                 <span>•</span>
@@ -499,19 +660,26 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
 
             <div className="relative flex-1">
               {improvedText ? (
-                <div className="h-full min-h-[280px] rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-3.5 text-sm leading-relaxed text-[var(--text-primary)]">
-                  {improvedText}
-                </div>
+                <InteractiveOutputEditor
+                  improvedText={improvedText}
+                  diffTokens={resultData?.diffTokens}
+                  onChangeText={(newTxt) => {
+                    setImprovedText(newTxt);
+                    if (resultData) {
+                      setResultData({ ...resultData, improvedText: newTxt });
+                    }
+                  }}
+                  onFreezeWord={(word) => {
+                    handleAddFrozenWord(word);
+                  }}
+                  isProcessing={isProcessing}
+                />
               ) : (
                 <div className="flex h-full min-h-[280px] flex-col items-center justify-center rounded-lg border border-dashed border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-6 text-center text-xs text-[var(--text-muted)]">
                   <Sparkles className="mb-2 h-8 w-8 text-[var(--accent)] opacity-50" />
-                  <p className="font-bold text-[var(--text-primary)]">
-                    {!hasCheckedPlagiarism ? 'Step 1: Check Plagiarism First' : 'Ready to Humanize'}
-                  </p>
+                  <p className="font-bold text-[var(--text-primary)]">Ready to Humanize</p>
                   <p className="mt-1 max-w-xs text-[11px] text-[var(--text-secondary)]">
-                    {!hasCheckedPlagiarism
-                      ? 'Click "1. Check for Plagiarism" below to verify original passages before unlocking the Humanize engine.'
-                      : 'Click "2. Humanize Text" to rewrite on device, eliminate matching phrases, and reach 95%+ human score.'}
+                    Paste text on the left, adjust your writing mode and synonym intensity, and click &ldquo;Humanize Text&rdquo; to eliminate AI markers and restore authentic human voice.
                   </p>
                 </div>
               )}
@@ -792,71 +960,54 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
             </div>
           </div>
 
-          {/* Right: Step 1 Plagiarism Scan vs Step 2 Humanize */}
-          <div className="flex items-center space-x-3">
+          {/* Right: Direct Humanize and Plagiarism buttons */}
+          <div className="flex flex-wrap items-center gap-2.5">
             {resultData && resultData.changes.length > 0 && (
               <button
                 onClick={() => setShowDiff(!showDiff)}
-                className="rounded-lg border border-[var(--border-strong)] bg-[var(--bg-surface)] px-3 py-2 text-xs font-semibold text-[var(--text-primary)] transition-colors hover:bg-[var(--bg-subtle)]"
+                className="rounded-xl border border-[var(--border-strong)] bg-[var(--bg-surface)] px-3 py-2 text-xs font-semibold text-[var(--text-primary)] transition-colors hover:bg-[var(--bg-subtle)]"
               >
                 {showDiff ? 'Hide Changes' : `View ${resultData.changes.length} Changes`}
               </button>
             )}
 
-            {!hasCheckedPlagiarism ? (
-              /* Step 1: Plagiarism Scan Button */
+            <button
+              id="check-plagiarism-btn"
+              onClick={handleCheckPlagiarism}
+              disabled={isCheckingPlagiarism || !currentText.trim()}
+              className="inline-flex items-center space-x-1.5 rounded-xl border border-[var(--border-strong)] bg-[var(--bg-surface)] px-4 py-2.5 text-xs font-bold text-[var(--text-primary)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors shadow-2xs disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              <FileSearch className="h-4 w-4" />
+              <span>{isCheckingPlagiarism ? 'Scanning...' : hasCheckedPlagiarism ? 'Re-scan Plagiarism' : 'Check Plagiarism'}</span>
+            </button>
+
+            {passCount > 0 && (
               <button
-                id="check-plagiarism-btn"
-                onClick={handleCheckPlagiarism}
-                disabled={isCheckingPlagiarism || !currentText.trim()}
-                className="btn-brand-pill inline-flex items-center space-x-2 px-6 py-2.5 text-xs font-bold disabled:cursor-not-allowed disabled:opacity-50"
+                onClick={() => handleRunHumanizer(true)}
+                disabled={isProcessing || !improvedText.trim()}
+                className="flex items-center space-x-1.5 rounded-xl border border-[var(--accent)] bg-[var(--accent-light)] px-3.5 py-2.5 text-xs font-bold text-[var(--accent)] hover:bg-[var(--accent)] hover:text-[var(--accent-contrast)] transition-colors shadow-xs disabled:opacity-50"
+                title="Run another humanization pass on the output to further boost human score and rhythm"
               >
-                <FileSearch className="h-4 w-4" />
-                <span>{isCheckingPlagiarism ? 'Scanning Plagiarism...' : '1. Check for Plagiarism'}</span>
-                <ArrowRight className="h-3.5 w-3.5" />
+                <RefreshCw className={`h-3.5 w-3.5 ${isProcessing ? 'animate-spin' : ''}`} />
+                <span>Pass #{passCount + 1}</span>
               </button>
-            ) : (
-              /* Step 2: Humanize Text Button (Appears AFTER checking plagiarism) */
-              <div className="flex items-center space-x-2">
-                <button
-                  onClick={handleCheckPlagiarism}
-                  disabled={isCheckingPlagiarism}
-                  className="rounded-lg border border-[var(--border-strong)] bg-[var(--bg-surface)] px-3 py-2 text-xs font-medium text-[var(--text-secondary)] hover:border-[var(--accent)] hover:text-[var(--text-primary)]"
-                  title="Re-run plagiarism scan on current text"
-                >
-                  <RefreshCw className="mr-1 inline h-3.5 w-3.5" />
-                  Re-check
-                </button>
-
-                {passCount > 0 && (
-                  <button
-                    onClick={() => handleRunHumanizer(true)}
-                    disabled={isProcessing || !improvedText.trim()}
-                    className="flex items-center space-x-1.5 rounded-lg border border-[var(--accent)] bg-[var(--accent-light)] px-3.5 py-2 text-xs font-bold text-[var(--accent)] hover:bg-[var(--accent)] hover:text-[var(--accent-contrast)] transition-colors shadow-xs disabled:opacity-50"
-                    title="Run another humanization pass on the output to further boost human score and rhythm"
-                  >
-                    <RefreshCw className={`h-3.5 w-3.5 ${isProcessing ? 'animate-spin' : ''}`} />
-                    <span>Run Pass #{passCount + 1} (Refine More)</span>
-                  </button>
-                )}
-
-                <button
-                  id="humanize-submit-btn"
-                  onClick={() => handleRunHumanizer(false)}
-                  disabled={isProcessing || !currentText.trim()}
-                  className="btn-brand-pill inline-flex items-center space-x-2 px-7 py-2.5 text-xs font-bold animate-pulse-subtle disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  <Sparkles className="h-4 w-4" />
-                  <span>
-                    {isProcessing
-                      ? 'Humanizing & Removing Plagiarism...'
-                      : passCount === 0
-                        ? '2. Humanize Text →'
-                        : `Re-Humanize (Pass #${passCount})`}
-                  </span>
-                </button>
-              </div>
             )}
+
+            <button
+              id="humanize-submit-btn"
+              onClick={() => handleRunHumanizer(false)}
+              disabled={isProcessing || !currentText.trim()}
+              className="btn-brand-pill inline-flex items-center space-x-2 px-6 py-2.5 text-xs font-bold disabled:cursor-not-allowed disabled:opacity-50 shadow-md"
+            >
+              <Sparkles className="h-4 w-4" />
+              <span>
+                {isProcessing
+                  ? 'Humanizing & Removing Plagiarism...'
+                  : passCount === 0
+                  ? 'Humanize Text →'
+                  : `Re-Humanize (Pass #${passCount})`}
+              </span>
+            </button>
           </div>
         </div>
 

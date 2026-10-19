@@ -80,6 +80,15 @@ export interface TextChunkScore {
   score: TextDetectionScore;
 }
 
+export interface SentenceScore {
+  sentenceIndex: number;
+  text: string;
+  aiProbability: number;
+  humanProbability: number;
+  classification: 'likely-human' | 'inconclusive' | 'likely-ai';
+  detectedSignals: string[];
+}
+
 export interface DetectionResult {
   id: string;
   timestamp: number;
@@ -89,6 +98,7 @@ export interface DetectionResult {
   latencyMs: number;
   score: TextDetectionScore;
   chunkBreakdown?: TextChunkScore[];
+  sentenceBreakdown?: SentenceScore[];
   inputWordCount: number;
   limitationsNotice: string;
 }

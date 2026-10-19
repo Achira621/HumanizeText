@@ -102,7 +102,14 @@ export function App() {
           />
         )}
 
-        {activeTab === 'ai-detector' && <AiDetectorPage />}
+        {activeTab === 'ai-detector' && (
+          <AiDetectorPage
+            onSendToHumanizer={(text) => {
+              setCurrentText(text);
+              setActiveTab('humanizer');
+            }}
+          />
+        )}
 
         {activeTab === 'metadata-inspector' && <MetadataInspectorPage />}
 
@@ -127,7 +134,17 @@ export function App() {
         {activeTab === 'privacy-lab' && <PrivacyLab />}
 
         {activeTab === 'vault' && (
-          <VaultWorkspace onLoadIntoEditor={handleLoadVaultIntoEditor} />
+          <VaultWorkspace
+            onLoadIntoEditor={handleLoadVaultIntoEditor}
+            onLoadIntoHumanizer={(text) => {
+              setCurrentText(text);
+              setActiveTab('humanizer');
+            }}
+            onLoadIntoPlagiarismChecker={(text) => {
+              setCurrentText(text);
+              setActiveTab('editor');
+            }}
+          />
         )}
 
         {activeTab === 'docs' && <DocumentationViewer />}

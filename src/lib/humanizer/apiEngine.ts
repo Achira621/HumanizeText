@@ -1,4 +1,5 @@
-import type { HumanizerMode, HumanizerResult } from '../../types';
+import type { HumanizerMode, HumanizerOptions, HumanizerResult } from '../../types';
+import { computeDiffTokens } from './ruleEngine';
 
 export type ApiProvider = 'gemini' | 'groq' | 'openrouter';
 
@@ -39,7 +40,7 @@ export function saveApiConfig(config: ApiEngineConfig): void {
 /**
  * Builds the humanization prompt for LLM rewriting.
  */
-function buildSystemPrompt(mode: HumanizerMode): string {
+function buildSystemPrompt(mode: HumanizerMode, options?: HumanizerOptions): string {
   let modeGuidance = '';
   switch (mode) {
     case 'concise':
@@ -60,6 +61,18 @@ function buildSystemPrompt(mode: HumanizerMode): string {
       break;
   }
 
+  const frozenSection =
+    options?.frozenWords && options.frozenWords.length > 0
+      ? `\nCRITICAL - FROZEN WORDS TO PRESERVE VERBATIM:\nDo NOT change, rephrase, translate, or substitute the following words/terms under any circumstances: [${options.frozenWords.join(', ')}]. Leave them exactly as they appear in the source text.`
+      : '';
+
+  const intensityGuidance =
+    options?.vocabularyIntensity === 'conservative'
+      ? '\nMaintain a gentle transformation: preserve original sentences where possible and only replace clear AI formulaic markers.'
+      : options?.vocabularyIntensity === 'maximum'
+      ? '\nApply comprehensive stylistic humanization: completely reconstruct sentences with rich, natural vocabulary and rhythmic variety.'
+      : '';
+
   return `You are a world-class professional editor and human writing specialist.
 Your task is to rewrite the provided text so that it reads 100% like authentic human writing and bypasses all AI detectors with 0% plagiarism.
 
@@ -70,7 +83,7 @@ CRITICAL INSTRUCTIONS:
    - NO stiff transitional clutter: "furthermore", "moreover", "consequently", "in conclusion"
 2. Maximize burstiness: Dramatically vary sentence length. Pair short 4-8 word punchy sentences with longer 20+ word complex thoughts.
 3. Natural phrasing: Use natural English idioms, conversational contractions (it's, don't, can't, we're) unless in strict formal mode.
-4. Factual and Citation Preservation: Retain all names, facts, statistics, citations (e.g. [1], (Author, 2024)), and core meaning with 100% accuracy.
+4. Factual and Citation Preservation: Retain all names, facts, statistics, citations (e.g. [1], (Author, 2024)), and core meaning with 100% accuracy.${frozenSection}${intensityGuidance}
 5. Specific style mode: ${modeGuidance}
 6. Output format: Return ONLY the rewritten text. Do NOT include introductory phrases, conversational remarks, or markdown code fences.`;
 }
@@ -180,13 +193,14 @@ async function callOpenRouter(apiKey: string, systemPrompt: string, text: string
 export async function humanizeWithApi(
   text: string,
   mode: HumanizerMode,
-  config: ApiEngineConfig
+  config: ApiEngineConfig,
+  options?: HumanizerOptions
 ): Promise<HumanizerResult> {
   if (!config.apiKey || !config.apiKey.trim()) {
     throw new Error(`API key required for ${config.provider.toUpperCase()} mode. Please enter an API key or use the Local Engine.`);
   }
 
-  const systemPrompt = buildSystemPrompt(mode);
+  const systemPrompt = buildSystemPrompt(mode, options);
   let improvedText = '';
 
   if (config.provider === 'gemini') {
@@ -203,33 +217,41 @@ export async function humanizeWithApi(
   const originalWords = text.split(/\s+/).filter(Boolean).length;
   const improvedWords = improvedText.split(/\s+/).filter(Boolean).length;
 
+  const changes: any[] = [
+    {
+      original: 'Source draft structure',
+      replacement: 'Deep neural semantic rewrite',
+      reason: `Processed with ${config.provider.toUpperCase()} AI rewrite model with human cadence constraints`,
+      category: 'phrasing',
+      index: 0,
+      alternatives: ['Natural human expression', 'Fluent conversational phrasing'],
+    },
+    {
+      original: 'Uniform AI rhythm',
+      replacement: 'Organic human sentence burstiness',
+      reason: 'Restructured sentence lengths and eliminated machine transition markers',
+      category: 'flow',
+      index: 1,
+      alternatives: ['Balanced rhythmic variation', 'Engaging mixed cadence'],
+    },
+    {
+      original: 'Mechanical vocabulary',
+      replacement: 'Natural idiom and voice register',
+      reason: `Applied ${mode} human stylistic transformation`,
+      category: 'formality',
+      index: 2,
+      alternatives: ['Contextual human idioms', 'Authentic tone of voice'],
+    },
+  ];
+
+  const diffTokens = computeDiffTokens(text, improvedText, changes, options?.frozenWords || []);
+
   return {
     originalText: text,
     improvedText,
     mode,
-    changes: [
-      {
-        original: 'Source draft structure',
-        replacement: 'Deep neural semantic rewrite',
-        reason: `Processed with ${config.provider.toUpperCase()} AI rewrite model with human cadence constraints`,
-        category: 'phrasing',
-        index: 0,
-      },
-      {
-        original: 'Uniform AI rhythm',
-        replacement: 'Organic human sentence burstiness',
-        reason: 'Restructured sentence lengths and eliminated machine transition markers',
-        category: 'flow',
-        index: 1,
-      },
-      {
-        original: 'Mechanical vocabulary',
-        replacement: 'Natural idiom and voice register',
-        reason: `Applied ${mode} human stylistic transformation`,
-        category: 'formality',
-        index: 2,
-      },
-    ],
+    changes,
+    diffTokens,
     stats: {
       originalWords,
       improvedWords,
@@ -237,7 +259,7 @@ export async function humanizeWithApi(
       readingTimeSeconds: Math.ceil(improvedWords / 3.5),
     },
     engineName: `AI Cloud API (${config.provider.toUpperCase()})`,
-    engineType: 'deterministic-rules',
-    processedLocally: true,
+    engineType: 'cloud-api',
+    processedLocally: false,
   };
 }

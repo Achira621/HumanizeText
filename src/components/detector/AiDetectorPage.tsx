@@ -13,21 +13,36 @@ import {
   RefreshCw,
   HardDrive,
   Info,
+  Wand2,
+  ArrowRight,
+  Copy,
+  Check,
 } from 'lucide-react';
 import type {
   DetectionResult,
   ImageDetectionResult,
   ModelDownloadProgress,
+  SentenceScore,
 } from '../../types/detector';
 import { textModelManager, imageModelManager } from '../../lib/detector/modelManager';
 import { defaultInferenceRouter } from '../../lib/detector/router';
 import { defaultModelStorage } from '../../lib/detector/storage';
+import { humanizeWithRules } from '../../lib/humanizer/ruleEngine';
 
-export const AiDetectorPage: React.FC = () => {
+interface AiDetectorPageProps {
+  onSendToHumanizer?: (text: string) => void;
+}
+
+export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanizer }) => {
   const [activeTab, setActiveTab] = useState<'text' | 'image'>('text');
   const [inputText, setInputText] = useState('');
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [resultViewMode, setResultViewMode] = useState<'summary' | 'heatmap'>('summary');
+  const [selectedSentence, setSelectedSentence] = useState<SentenceScore | null>(null);
+  const [humanizedSentence, setHumanizedSentence] = useState<string | null>(null);
+  const [sentenceCopied, setSentenceCopied] = useState(false);
+  const [heatmapFilter, setHeatmapFilter] = useState<'all' | 'ai' | 'human'>('all');
 
   // Model & Router State
   const [textModelProgress, setTextModelProgress] = useState<ModelDownloadProgress>(() => ({
@@ -517,32 +532,245 @@ export const AiDetectorPage: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Sub-Metrics: Perplexity & Burstiness with plain-English meaning */}
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 text-xs">
-                  <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-3.5">
-                    <div className="flex items-center justify-between">
-                      <span className="font-semibold text-[var(--text-muted)]">Vocabulary Variety (Perplexity):</span>
-                      <span className="font-mono font-bold text-[var(--text-primary)]">{perpScore} / 100</span>
-                    </div>
-                    <p className="mt-1 text-[11px] text-[var(--text-secondary)]">
-                      {perpScore >= 70 
-                        ? '✓ Diverse vocabulary and unpredictable phrasing (characteristic of human writers).'
-                        : '⚠️ Predictable word choices typical of algorithmic text generation.'}
-                    </p>
+                {/* Action Bar: Send Full Text to Free AI Humanizer & View Mode Toggle */}
+                <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-3">
+                  <div className="flex items-center space-x-2">
+                    <button
+                      onClick={() => setResultViewMode('summary')}
+                      className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+                        resultViewMode === 'summary'
+                          ? 'bg-[var(--accent)] text-[var(--accent-contrast)] shadow-xs'
+                          : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                      }`}
+                    >
+                      Overview Metrics
+                    </button>
+                    {textResult.sentenceBreakdown && textResult.sentenceBreakdown.length > 0 && (
+                      <button
+                        onClick={() => setResultViewMode('heatmap')}
+                        className={`flex items-center space-x-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+                          resultViewMode === 'heatmap'
+                            ? 'bg-[var(--accent)] text-[var(--accent-contrast)] shadow-xs'
+                            : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                        }`}
+                      >
+                        <Wand2 className="h-3.5 w-3.5" />
+                        <span>Sentence AI Heatmap ({textResult.sentenceBreakdown.length})</span>
+                      </button>
+                    )}
                   </div>
 
-                  <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-3.5">
-                    <div className="flex items-center justify-between">
-                      <span className="font-semibold text-[var(--text-muted)]">Sentence Rhythm (Burstiness):</span>
-                      <span className="font-mono font-bold text-[var(--text-primary)]">{burstScore} / 100</span>
-                    </div>
-                    <p className="mt-1 text-[11px] text-[var(--text-secondary)]">
-                      {burstScore >= 70
-                        ? '✓ Natural cadence with varied sentence lengths (short and complex mixed).'
-                        : '⚠️ Rigid, uniform sentence lengths commonly produced by AI tools.'}
-                    </p>
-                  </div>
+                  {onSendToHumanizer && (
+                    <button
+                      onClick={() => onSendToHumanizer(inputText)}
+                      className="flex items-center space-x-1.5 rounded-lg bg-[var(--accent)] px-3.5 py-1.5 text-xs font-bold text-[var(--accent-contrast)] hover:bg-[var(--accent-hover)] shadow-xs"
+                    >
+                      <Sparkles className="h-3.5 w-3.5" />
+                      <span>Humanize Full Text in Studio</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </button>
+                  )}
                 </div>
+
+                {/* VIEW 1: Overview Metrics */}
+                {resultViewMode === 'summary' && (
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 text-xs">
+                    <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-3.5">
+                      <div className="flex items-center justify-between">
+                        <span className="font-semibold text-[var(--text-muted)]">Vocabulary Variety (Perplexity):</span>
+                        <span className="font-mono font-bold text-[var(--text-primary)]">{perpScore} / 100</span>
+                      </div>
+                      <p className="mt-1 text-[11px] text-[var(--text-secondary)]">
+                        {perpScore >= 70 
+                          ? '✓ Diverse vocabulary and unpredictable phrasing (characteristic of human writers).'
+                          : '⚠️ Predictable word choices typical of algorithmic text generation.'}
+                      </p>
+                    </div>
+
+                    <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-3.5">
+                      <div className="flex items-center justify-between">
+                        <span className="font-semibold text-[var(--text-muted)]">Sentence Rhythm (Burstiness):</span>
+                        <span className="font-mono font-bold text-[var(--text-primary)]">{burstScore} / 100</span>
+                      </div>
+                      <p className="mt-1 text-[11px] text-[var(--text-secondary)]">
+                        {burstScore >= 70
+                          ? '✓ Natural cadence with varied sentence lengths (short and complex mixed).'
+                          : '⚠️ Rigid, uniform sentence lengths commonly produced by AI tools.'}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* VIEW 2: Interactive Sentence-by-Sentence AI Heatmap */}
+                {resultViewMode === 'heatmap' && textResult.sentenceBreakdown && (
+                  <div className="space-y-4">
+                    {/* Heatmap Filters & Legend */}
+                    <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
+                      <div className="flex items-center space-x-1.5">
+                        <button
+                          onClick={() => setHeatmapFilter('all')}
+                          className={`rounded-full px-2.5 py-1 text-[11px] font-bold ${
+                            heatmapFilter === 'all'
+                              ? 'bg-[var(--text-primary)] text-[var(--bg-surface)]'
+                              : 'bg-[var(--bg-subtle)] text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                          }`}
+                        >
+                          All ({textResult.sentenceBreakdown.length})
+                        </button>
+                        <button
+                          onClick={() => setHeatmapFilter('ai')}
+                          className={`rounded-full px-2.5 py-1 text-[11px] font-bold ${
+                            heatmapFilter === 'ai'
+                              ? 'bg-red-600 text-white'
+                              : 'bg-red-500/10 text-red-600 hover:bg-red-500/20'
+                          }`}
+                        >
+                          AI Sentences ({textResult.sentenceBreakdown.filter((s) => s.aiProbability >= 0.60).length})
+                        </button>
+                        <button
+                          onClick={() => setHeatmapFilter('human')}
+                          className={`rounded-full px-2.5 py-1 text-[11px] font-bold ${
+                            heatmapFilter === 'human'
+                              ? 'bg-emerald-600 text-white'
+                              : 'bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20'
+                          }`}
+                        >
+                          Human Sentences ({textResult.sentenceBreakdown.filter((s) => s.aiProbability < 0.35).length})
+                        </button>
+                      </div>
+
+                      <div className="flex items-center space-x-3 text-[11px] text-[var(--text-muted)]">
+                        <span className="flex items-center space-x-1">
+                          <span className="h-2 w-2 rounded-full bg-red-500" />
+                          <span>AI Pattern</span>
+                        </span>
+                        <span className="flex items-center space-x-1">
+                          <span className="h-2 w-2 rounded-full bg-amber-500" />
+                          <span>Mixed</span>
+                        </span>
+                        <span className="flex items-center space-x-1">
+                          <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                          <span>Human</span>
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Inline Interactive Text Flow */}
+                    <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-4 font-sans text-sm leading-relaxed max-h-80 overflow-y-auto">
+                      {textResult.sentenceBreakdown
+                        .filter((s) => {
+                          if (heatmapFilter === 'ai') return s.aiProbability >= 0.60;
+                          if (heatmapFilter === 'human') return s.aiProbability < 0.35;
+                          return true;
+                        })
+                        .map((s) => {
+                          const isHighAi = s.aiProbability >= 0.60;
+                          const isHumanSent = s.aiProbability <= 0.35;
+                          const isSelected = selectedSentence?.sentenceIndex === s.sentenceIndex;
+
+                          return (
+                            <span
+                              key={s.sentenceIndex}
+                              onClick={() => {
+                                setSelectedSentence(s);
+                                setHumanizedSentence(null);
+                                setSentenceCopied(false);
+                              }}
+                              className={`cursor-pointer rounded px-1 py-0.5 transition-all inline ${
+                                isSelected
+                                  ? 'ring-2 ring-[var(--accent)] ring-offset-1 font-medium'
+                                  : ''
+                              } ${
+                                isHighAi
+                                  ? 'bg-red-500/15 text-red-950 dark:text-red-200 hover:bg-red-500/25'
+                                  : isHumanSent
+                                  ? 'bg-emerald-500/15 text-emerald-950 dark:text-emerald-200 hover:bg-emerald-500/25'
+                                  : 'bg-amber-500/15 text-amber-950 dark:text-amber-200 hover:bg-amber-500/25'
+                              }`}
+                              title={`Click to inspect (${Math.round(s.aiProbability * 100)}% AI)`}
+                            >
+                              {s.text}{' '}
+                            </span>
+                          );
+                        })}
+                    </div>
+
+                    {/* Selected Sentence Inspector & In-Place Humanizer */}
+                    {selectedSentence && (
+                      <div className="rounded-xl border border-[var(--accent-border)] bg-[var(--bg-surface)] p-4 shadow-md text-xs space-y-3">
+                        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border-subtle)] pb-2.5">
+                          <div className="flex items-center space-x-2">
+                            <span className="font-bold text-[var(--text-primary)]">
+                              Sentence #{selectedSentence.sentenceIndex + 1}
+                            </span>
+                            <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
+                              selectedSentence.aiProbability >= 0.60
+                                ? 'bg-red-500/10 text-red-600 border border-red-500/20'
+                                : selectedSentence.aiProbability <= 0.35
+                                ? 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20'
+                                : 'bg-amber-500/10 text-amber-600 border border-amber-500/20'
+                            }`}>
+                              {Math.round(selectedSentence.aiProbability * 100)}% AI Likelihood
+                            </span>
+                          </div>
+
+                          <button
+                            onClick={() => {
+                              const res = humanizeWithRules(selectedSentence.text, {
+                                mode: 'natural',
+                                vocabularyIntensity: 'dynamic',
+                              });
+                              setHumanizedSentence(res.improvedText);
+                            }}
+                            className="flex items-center space-x-1.5 rounded-lg bg-[var(--accent)] px-3 py-1.5 text-xs font-bold text-[var(--accent-contrast)] hover:bg-[var(--accent-hover)] shadow-xs"
+                          >
+                            <Sparkles className="h-3.5 w-3.5" />
+                            <span>Humanize This Sentence</span>
+                          </button>
+                        </div>
+
+                        <p className="font-mono text-xs text-[var(--text-primary)] bg-[var(--bg-subtle)] p-2.5 rounded-lg">
+                          "{selectedSentence.text}"
+                        </p>
+
+                        {/* Signals */}
+                        {selectedSentence.detectedSignals.length > 0 && (
+                          <div className="flex items-center space-x-2 text-[11px]">
+                            <span className="text-[var(--text-muted)] font-semibold">Detected AI Signals:</span>
+                            {selectedSentence.detectedSignals.map((sig, i) => (
+                              <span key={i} className="rounded bg-red-500/10 px-1.5 py-0.5 text-red-600 font-mono">
+                                "{sig}"
+                              </span>
+                            ))}
+                          </div>
+                        )}
+
+                        {/* Humanized Sentence In-Place Preview */}
+                        {humanizedSentence && (
+                          <div className="mt-2 rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-3 space-y-2">
+                            <div className="flex items-center justify-between text-[11px] font-bold text-emerald-700 dark:text-emerald-300">
+                              <span>✓ Humanized Natural Phrasing:</span>
+                              <button
+                                onClick={() => {
+                                  navigator.clipboard.writeText(humanizedSentence);
+                                  setSentenceCopied(true);
+                                  setTimeout(() => setSentenceCopied(false), 2000);
+                                }}
+                                className="flex items-center space-x-1 rounded bg-white dark:bg-slate-800 px-2 py-0.5 text-[10px] text-[var(--text-primary)] border border-emerald-500/20 shadow-xs"
+                              >
+                                {sentenceCopied ? <Check className="h-3 w-3 text-emerald-500" /> : <Copy className="h-3 w-3" />}
+                                <span>{sentenceCopied ? 'Copied!' : 'Copy'}</span>
+                              </button>
+                            </div>
+                            <p className="text-xs font-sans text-emerald-950 dark:text-emerald-100 leading-relaxed">
+                              {humanizedSentence}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             );
           })()}

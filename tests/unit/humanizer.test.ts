@@ -46,6 +46,47 @@ describe('Humanizer Module — Deterministic Rule-Based Engine', () => {
     expect(result.improvedText).toContain('materials');
   });
 
+  it('preserves user-specified frozen words verbatim even if they are clichés', async () => {
+    const input = 'We will delve into the rich tapestry of proprietary MachineLearning.';
+    const result = await engine.process(input, {
+      mode: 'natural',
+      frozenWords: ['delve into', 'MachineLearning'],
+    });
+
+    // "delve into" was frozen, so it MUST remain verbatim
+    expect(result.improvedText).toContain('delve into');
+    expect(result.improvedText).toContain('MachineLearning');
+    // "tapestry of" was NOT frozen, so it gets humanized
+    expect(result.improvedText).not.toContain('tapestry of');
+
+    const frozenTokens = result.diffTokens?.filter((t) => t.type === 'frozen');
+    expect(frozenTokens?.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it('generates interactive diff tokens with alternative synonyms', async () => {
+    const input = 'We will delve into the rich tapestry of technology.';
+    const result = await engine.process(input, { mode: 'natural' });
+
+    expect(result.diffTokens).toBeDefined();
+    expect(result.diffTokens!.length).toBeGreaterThan(0);
+
+    const changedToken = result.diffTokens!.find((t) => t.type === 'changed');
+    expect(changedToken).toBeDefined();
+    expect(changedToken?.alternatives).toBeDefined();
+    expect(changedToken!.alternatives!.length).toBeGreaterThan(0);
+  });
+
+  it('detects AI signals with explainers and spans', async () => {
+    const { detectAiSignals } = await import('../../src/lib/humanizer/ruleEngine');
+    const input = 'Furthermore, we must delve into the multifaceted nature of AI. In conclusion, it is crucial to note.';
+    const signals = detectAiSignals(input);
+
+    expect(signals.length).toBeGreaterThanOrEqual(3);
+    const delveSignal = signals.find((s) => s.phrase.toLowerCase().includes('delve into'));
+    expect(delveSignal).toBeDefined();
+    expect(delveSignal?.explainer).toContain('delve into');
+  });
+
   it('safely handles empty input without error', async () => {
     const result = await engine.process('', { mode: 'natural' });
     expect(result.improvedText).toBe('');

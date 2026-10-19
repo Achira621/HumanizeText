@@ -3,7 +3,7 @@
 // Multi-Signal AI Text Detection Engine v2
 // ============================================================================
 
-import type { DetectionResult, TextChunkScore } from '../types/detector';
+import type { DetectionResult, TextChunkScore, SentenceScore } from '../types/detector';
 import { TEXT_DETECTOR_MANIFEST } from '../lib/detector/manifest';
 
 interface WorkerRequest {
@@ -467,6 +467,43 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
       // Also compute full-document score (captures cross-chunk patterns)
       const fullDocScore = computeAiScore(text);
 
+      // Sentence-by-sentence analysis for QuillBot-style heatmap
+      const rawSentences = text.match(/[^.!?\r\n]+(?:[.!?]+|\r?\n+|$)/g) || [text];
+      const sentenceScores: SentenceScore[] = [];
+
+      let sIdx = 0;
+      for (const rawS of rawSentences) {
+        const sTrimmed = rawS.trim();
+        if (sTrimmed.length < 5) continue;
+
+        const sScore = computeAiScore(sTrimmed);
+        const matchingSigs: string[] = [];
+        for (const sig of GPT_SIGNATURES) {
+          const match = sTrimmed.match(sig);
+          if (match && !matchingSigs.includes(match[0].toLowerCase())) {
+            matchingSigs.push(match[0].toLowerCase());
+          }
+        }
+
+        let sAi = sScore.aiProbability;
+        if (matchingSigs.length >= 2) sAi = Math.max(sAi, 0.85);
+        else if (matchingSigs.length === 1) sAi = Math.max(sAi, 0.65);
+        else if (sTrimmed.split(/\s+/).length < 8 && fullDocScore.aiProbability < 0.35) sAi = Math.min(sAi, 0.20);
+
+        sAi = Math.max(0.02, Math.min(0.98, Math.round(sAi * 100) / 100));
+        const sHuman = Math.round((1 - sAi) * 100) / 100;
+        const sClass = sAi >= 0.60 ? 'likely-ai' : sAi <= 0.35 ? 'likely-human' : 'inconclusive';
+
+        sentenceScores.push({
+          sentenceIndex: sIdx++,
+          text: sTrimmed,
+          aiProbability: sAi,
+          humanProbability: sHuman,
+          classification: sClass,
+          detectedSignals: matchingSigs,
+        });
+      }
+
       // Final score: weighted average of chunk-level and document-level
       const chunkAvgAi = totalAiScore / Math.max(1, chunks.length);
       const blendedAi = chunks.length > 1
@@ -497,6 +534,7 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
           burstinessScore: fullDocScore.burstinessScore,
         },
         chunkBreakdown: chunks.length > 1 ? chunkScores : undefined,
+        sentenceBreakdown: sentenceScores.length > 0 ? sentenceScores : undefined,
         inputWordCount: wordCount,
         limitationsNotice: TEXT_DETECTOR_MANIFEST.calibrationNotice,
       };
