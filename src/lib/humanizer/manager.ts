@@ -1,19 +1,23 @@
 import type {
   HumanizerOptions,
   HumanizerResult,
-  LocalHumanizerEngine,
 } from '../../types';
 import { OptionalBrowserAIEngine } from './browserAiEngine';
 import { RuleBasedHumanizerEngine } from './ruleEngine';
+import { defaultWorkerApiClient, WorkerApiClient } from '../workerApi/client';
+
+export type HumanizerEngineId = 'deterministic-rules' | 'browser-ai-local' | 'cloudflare-workers-ai';
 
 export class HumanizerManager {
   private ruleEngine: RuleBasedHumanizerEngine;
   private browserAiEngine: OptionalBrowserAIEngine;
-  private activeEngineId: 'deterministic-rules' | 'browser-ai-local' = 'deterministic-rules';
+  private workerApiClient: WorkerApiClient;
+  private activeEngineId: HumanizerEngineId = 'cloudflare-workers-ai';
 
   constructor() {
     this.ruleEngine = new RuleBasedHumanizerEngine();
     this.browserAiEngine = new OptionalBrowserAIEngine();
+    this.workerApiClient = defaultWorkerApiClient;
   }
 
   public getRuleEngine(): RuleBasedHumanizerEngine {
@@ -24,20 +28,35 @@ export class HumanizerManager {
     return this.browserAiEngine;
   }
 
-  public getActiveEngine(): LocalHumanizerEngine {
-    if (this.activeEngineId === 'browser-ai-local') {
-      return this.browserAiEngine;
-    }
-    return this.ruleEngine;
+  public getWorkerApiClient(): WorkerApiClient {
+    return this.workerApiClient;
   }
 
-  public setActiveEngine(engineId: 'deterministic-rules' | 'browser-ai-local') {
+  public getActiveEngineId(): HumanizerEngineId {
+    return this.activeEngineId;
+  }
+
+  public setActiveEngine(engineId: HumanizerEngineId) {
     this.activeEngineId = engineId;
   }
 
-  public async humanize(text: string, options: HumanizerOptions): Promise<HumanizerResult> {
-    const engine = this.getActiveEngine();
-    return await engine.process(text, options);
+  public async humanize(
+    text: string,
+    options: HumanizerOptions,
+    overrideEngineId?: HumanizerEngineId
+  ): Promise<HumanizerResult> {
+    const targetEngine = overrideEngineId || this.activeEngineId;
+
+    if (targetEngine === 'cloudflare-workers-ai') {
+      return await this.workerApiClient.humanize(text, options);
+    }
+
+    if (targetEngine === 'browser-ai-local') {
+      return await this.browserAiEngine.process(text, options);
+    }
+
+    // Default: deterministic offline rule engine
+    return await this.ruleEngine.process(text, options);
   }
 }
 

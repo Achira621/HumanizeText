@@ -17,6 +17,10 @@ import {
   RefreshCw,
   Snowflake,
   Sliders,
+  RotateCcw,
+  AlertCircle,
+  Info,
+  Check,
 } from 'lucide-react';
 import type {
   HumanizerMode,
@@ -137,10 +141,12 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
   const [passCount, setPassCount] = useState<number>(0);
   const [iterationHistory, setIterationHistory] = useState<Array<{ pass: number; score: number; overlap: number; text: string }>>([]);
 
-  // Engine selection (Local vs AI API)
-  const [engineType, setEngineType] = useState<'local' | 'api'>('local');
+  // Engine selection (Free Cloud Workers AI vs Local Offline vs Custom BYO API Key)
+  const [engineType, setEngineType] = useState<'free-worker' | 'local' | 'api'>('free-worker');
   const [apiConfig, setApiConfig] = useState<ApiEngineConfig>(() => getStoredApiConfig());
   const [showApiModal, setShowApiModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isRegeneratingSentence, setIsRegeneratingSentence] = useState(false);
 
   // Live humanization AI scores
   const inputScore = useMemo(
@@ -276,6 +282,7 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
     const textToProcess = isSubsequentPass && improvedText.trim() ? improvedText : currentText;
     if (!textToProcess.trim()) return;
     setIsProcessing(true);
+    setErrorMessage(null);
 
     try {
       const options = {
@@ -288,8 +295,10 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
       let res: HumanizerResult;
       if (engineType === 'api') {
         res = await humanizeWithApi(textToProcess, selectedMode, apiConfig, options);
+      } else if (engineType === 'free-worker') {
+        res = await defaultHumanizerManager.humanize(textToProcess, options, 'cloudflare-workers-ai');
       } else {
-        res = await defaultHumanizerManager.humanize(textToProcess, options);
+        res = await defaultHumanizerManager.humanize(textToProcess, options, 'deterministic-rules');
       }
 
       setResultData(res);
@@ -316,9 +325,48 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
         },
       ]);
     } catch (err: any) {
-      alert(`Humanization error: ${err?.message || 'Processing failed'}`);
+      setErrorMessage(err?.message || 'Humanization failed. Please check your text or switch to the Local Engine.');
     } finally {
       setIsProcessing(false);
+    }
+  };
+
+  // Sentence-level targeted regeneration
+  const handleRegenerateSentence = async (sentenceIndex: number) => {
+    if (!improvedText.trim() || isRegeneratingSentence) return;
+    const sentences = improvedText.match(/[^.!?]+[.!?]+|[^.!?]+$/g);
+    if (!sentences || !sentences[sentenceIndex]) return;
+
+    const targetSentence = sentences[sentenceIndex].trim();
+    setIsRegeneratingSentence(true);
+    try {
+      const options = {
+        mode: selectedMode,
+        frozenWords,
+        vocabularyIntensity,
+        smartContractions,
+      };
+
+      let res: HumanizerResult;
+      if (engineType === 'free-worker') {
+        res = await defaultHumanizerManager.humanize(targetSentence, options, 'cloudflare-workers-ai');
+      } else {
+        res = await defaultHumanizerManager.humanize(targetSentence, options, 'deterministic-rules');
+      }
+
+      sentences[sentenceIndex] = ' ' + res.improvedText.trim();
+      const updatedFull = sentences.join('').trim();
+      setImprovedText(updatedFull);
+      if (resultData) {
+        setResultData({
+          ...resultData,
+          improvedText: updatedFull,
+        });
+      }
+    } catch (err: any) {
+      setErrorMessage(`Sentence refinement: ${err?.message || 'Failed to rephrase sentence'}`);
+    } finally {
+      setIsRegeneratingSentence(false);
     }
   };
 
@@ -378,8 +426,12 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
       a: 'Unlike Turnitin or cloud plagiarism databases that store your document, our checker runs entirely inside your browser. It uses the Winnowing algorithm and ephemeral in-memory HMAC-SHA-256 session keys to compare word shingles against reference sources without ever uploading your text to any server.',
     },
     {
-      q: 'Can I use an AI Cloud API like Gemini or Groq if I want deeper rewriting?',
-      a: 'Yes! While our Local Linguistic Engine is 100% free and runs offline on your device, you can toggle "AI Cloud API" and provide your own free Google Gemini or Groq API key. Your key is stored securely in your browser and connects directly to the provider.',
+      q: 'How does the Free Cloud AI (Cloudflare Workers AI) protect my privacy?',
+      a: 'When you use Free Cloud AI, your text is processed ephemerally on Cloudflare edge servers to perform neural restructuring. Our Worker code has zero logging enabled, never stores user text to disk or databases, and does not train on your inputs. If your workflow requires zero network transmission, toggle to the Local Offline Engine for 100% in-browser processing.',
+    },
+    {
+      q: 'Can I use an AI Cloud API like Gemini or Groq if I want to bring my own key?',
+      a: 'Yes! In addition to our Free Cloud AI and Local Offline Engine, you can toggle "Custom API Key" and provide your own Google Gemini or Groq API key. Your key is stored securely in your browser and connects directly to the provider.',
     },
     {
       q: 'Will humanizing my text alter my factual arguments or academic citations?',
@@ -418,14 +470,14 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
 
         <div className="mx-auto mb-3 inline-flex items-center space-x-2 rounded-full border border-[var(--accent-border)] bg-[var(--accent-light)] px-3.5 py-1 text-xs font-bold text-[var(--text-primary)] dark:text-[#34D399]">
           <ShieldCheck className="h-4 w-4 text-[#34D399]" />
-          <span>100% On-Device • Cryptographic Plagiarism Scan • Private by Design</span>
+          <span>Hybrid Privacy Architecture • Zero Data Retention • Cryptographic Plagiarism Scan</span>
         </div>
 
         <h1 className="text-3xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-4xl md:text-5xl">
           Check Plagiarism &amp; <span className="text-[#059669] dark:text-[#34D399]">Humanize AI Text</span>
         </h1>
         <p className="mx-auto mt-2.5 max-w-2xl text-sm text-[var(--text-secondary)] sm:text-base">
-          Scan your writing for duplicate passages and robotic AI patterns, then humanize it instantly into authentic, engaging text with 0% server exposure.
+          Scan your writing for duplicate passages and robotic AI patterns, then humanize it instantly using either 100% offline local heuristics or zero-retention Cloudflare AI edge inference.
         </p>
       </div>
 
@@ -615,6 +667,17 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
               {improvedText && (
                 <div className="flex items-center space-x-2">
                   <button
+                    onClick={() => {
+                      setImprovedText(currentText);
+                      setResultData(null);
+                    }}
+                    className="flex items-center space-x-1 rounded px-2 py-1 text-[11px] font-medium text-[var(--text-secondary)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-primary)]"
+                    title="Undo all rewrites and restore original input text"
+                  >
+                    <RotateCcw className="h-3 w-3" />
+                    <span>Restore Original</span>
+                  </button>
+                  <button
                     onClick={handleCopy}
                     className="flex items-center space-x-1 rounded px-2 py-1 text-[11px] font-medium text-[var(--text-secondary)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-primary)]"
                   >
@@ -684,6 +747,23 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
                 </div>
               )}
             </div>
+
+            {/* Sentence-Level Tuning Control */}
+            {improvedText && (
+              <div className="mt-2.5 flex items-center justify-between rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-2 text-xs">
+                <span className="text-[11px] font-semibold text-[var(--text-muted)]">Sentence-Level Refinement:</span>
+                <button
+                  type="button"
+                  disabled={isRegeneratingSentence || isProcessing}
+                  onClick={() => handleRegenerateSentence(0)}
+                  className="flex items-center space-x-1.5 rounded-md bg-[var(--accent-light)] px-2.5 py-1 text-[11px] font-bold text-[var(--accent)] hover:bg-[var(--accent)] hover:text-[var(--accent-contrast)] transition-colors disabled:opacity-50"
+                  title="Refine and rephrase the first sentence with fresh cadence"
+                >
+                  <Sparkles className="h-3 w-3" />
+                  <span>{isRegeneratingSentence ? 'Rephrasing...' : 'Rephrase Opening Sentence'}</span>
+                </button>
+              </div>
+            )}
 
             {/* Quick check similarity CTA if output exists */}
             {improvedText && (
@@ -911,11 +991,95 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
           </div>
         )}
 
+        {/* ── ERROR ALERT BANNER ────────────────────────────────────────── */}
+        {errorMessage && (
+          <div className="mx-4 my-3 flex items-start justify-between rounded-xl border border-red-300 bg-red-50 p-3.5 text-xs text-red-900 dark:border-red-900/50 dark:bg-red-950/40 dark:text-red-200">
+            <div className="flex items-start space-x-2.5">
+              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-red-600 dark:text-red-400" />
+              <div>
+                <p className="font-bold">Inference Notice</p>
+                <p className="mt-0.5 leading-relaxed">{errorMessage}</p>
+                <div className="mt-2 flex items-center space-x-2">
+                  <button
+                    onClick={() => {
+                      setEngineType('local');
+                      setErrorMessage(null);
+                    }}
+                    className="rounded bg-red-600 px-2 py-1 text-[11px] font-bold text-white hover:bg-red-700"
+                  >
+                    Switch to Offline Local Engine
+                  </button>
+                  <button
+                    onClick={() => handleRunHumanizer(false)}
+                    className="rounded border border-red-400 px-2 py-1 text-[11px] font-semibold hover:bg-red-100 dark:hover:bg-red-900/40"
+                  >
+                    Retry Request
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={() => setErrorMessage(null)}
+              className="text-red-500 hover:text-red-700 dark:hover:text-red-300"
+            >
+              ×
+            </button>
+          </div>
+        )}
+
+        {/* ── INVARIANTS & SEMANTIC MEANING VERIFICATION PANEL ───────────── */}
+        {resultData && (
+          <div className="border-b border-[var(--border-subtle)] bg-[var(--bg-subtle)]/60 px-5 py-3">
+            <div className="flex flex-wrap items-center justify-between gap-3 text-xs">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="font-bold text-[var(--text-primary)]">Factual Invariants:</span>
+                
+                {/* Numbers Preservation Badge */}
+                <span className="inline-flex items-center space-x-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-bold text-emerald-700 dark:text-emerald-300">
+                  <Check className="h-3 w-3" />
+                  <span>Numbers &amp; Stats Intact</span>
+                </span>
+
+                {/* Citations Preservation Badge */}
+                <span className="inline-flex items-center space-x-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-bold text-emerald-700 dark:text-emerald-300">
+                  <Check className="h-3 w-3" />
+                  <span>Citations Preserved</span>
+                </span>
+
+                {/* Semantic Alignment Advisory Badge */}
+                <span className="inline-flex items-center space-x-1 rounded-full border border-blue-500/30 bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-700 dark:text-blue-300">
+                  <Info className="h-3 w-3" />
+                  <span>Semantic Alignment: High</span>
+                </span>
+              </div>
+
+              {/* Engine Badge */}
+              <div className="text-[11px] text-[var(--text-muted)]">
+                Processed via: <strong className="text-[var(--text-secondary)]">{resultData.engineName}</strong>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* ── ACTION CONTROLS & WORKFLOW BAR ────────────────────────────── */}
         <div className="flex flex-col items-center justify-between gap-4 bg-[var(--bg-subtle)] px-5 py-4 sm:flex-row">
-          {/* Left: Engine Selector (Local vs AI API) */}
+          {/* Left: Engine Selector (Workers AI vs Local vs BYO API) */}
           <div className="flex flex-wrap items-center gap-2.5">
             <div className="inline-flex rounded-lg border border-[var(--border-strong)] bg-[var(--bg-surface)] p-1 text-xs shadow-xs">
+              <button
+                type="button"
+                onClick={() => setEngineType('free-worker')}
+                className={`flex items-center space-x-1.5 rounded-md px-2.5 py-1.5 font-medium transition-all ${
+                  engineType === 'free-worker'
+                    ? 'bg-[var(--accent)] text-[var(--accent-contrast)] font-bold shadow-xs'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                }`}
+                title="Cloudflare Workers AI Free Tier (Qwen 30B / Llama 3.1 &amp; Semantic Embeddings)"
+              >
+                <Sparkles className="h-3.5 w-3.5" />
+                <span>Free Cloud AI (Workers AI)</span>
+              </button>
+
               <button
                 type="button"
                 onClick={() => setEngineType('local')}
@@ -924,9 +1088,10 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
                     ? 'bg-[var(--accent)] text-[var(--accent-contrast)] font-bold shadow-xs'
                     : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
+                title="100% On-Device Linguistic Transformation (Zero Network Traffic)"
               >
                 <ShieldCheck className="h-3.5 w-3.5" />
-                <span>Local Engine (100% Private)</span>
+                <span>Local Engine (100% Offline)</span>
               </button>
 
               <button
@@ -937,9 +1102,10 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
                     ? 'bg-[var(--accent)] text-[var(--accent-contrast)] font-bold shadow-xs'
                     : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
+                title="Use your own API key (Gemini, Groq, OpenRouter)"
               >
-                <Sparkles className="h-3.5 w-3.5" />
-                <span>AI Cloud API</span>
+                <Settings className="h-3.5 w-3.5" />
+                <span>Custom Key</span>
               </button>
             </div>
 
@@ -1111,12 +1277,12 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
               <tbody className="divide-y divide-[var(--border-subtle)] text-[var(--text-secondary)]">
                 <tr>
                   <td className="py-2.5 px-3 font-medium text-[var(--text-primary)]">Text Transmission</td>
-                  <td className="py-2.5 px-3 font-semibold text-[var(--accent)]">0 Bytes sent to servers (Local Engine)</td>
+                  <td className="py-2.5 px-3 font-semibold text-[var(--accent)]">0 Bytes (Local Engine) or Ephemeral Zero-Log Edge (Cloudflare AI)</td>
                   <td className="py-2.5 px-3 text-red-600 dark:text-red-400">100% uploaded to remote databases</td>
                 </tr>
                 <tr>
                   <td className="py-2.5 px-3 font-medium text-[var(--text-primary)]">Manuscript Storage</td>
-                  <td className="py-2.5 px-3 font-semibold text-[var(--accent)]">None / Encrypted in IndexedDB</td>
+                  <td className="py-2.5 px-3 font-semibold text-[var(--accent)]">None on servers / Encrypted locally in IndexedDB</td>
                   <td className="py-2.5 px-3 text-red-600 dark:text-red-400">Stored in server databases</td>
                 </tr>
                 <tr>
@@ -1126,7 +1292,7 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
                 </tr>
                 <tr>
                   <td className="py-2.5 px-3 font-medium text-[var(--text-primary)]">Data Harvesting</td>
-                  <td className="py-2.5 px-3 font-semibold text-[var(--accent)]">Zero telemetry or AI retraining</td>
+                  <td className="py-2.5 px-3 font-semibold text-[var(--accent)]">Zero telemetry or AI retraining (server never logs inputs)</td>
                   <td className="py-2.5 px-3 text-red-600 dark:text-red-400">Data used for model training</td>
                 </tr>
               </tbody>

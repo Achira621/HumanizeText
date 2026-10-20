@@ -72,7 +72,7 @@
               "price": "0",
               "priceCurrency": "USD"
             },
-            "description": "Free on-device AI text humanizer, AI detector, and similarity scanner running locally in browser memory with zero cloud uploads."
+            "description": "Privacy-focused AI text humanizer, AI detector, and similarity scanner. Offers 100% on-device offline processing or ephemeral, zero-retention Cloudflare Workers AI."
           },
           {
             "@type": "FAQPage",
@@ -80,10 +80,10 @@
             "mainEntity": [
               {
                 "@type": "Question",
-                "name": "Does HumanizeText store or upload my text to remote servers?",
+                "name": "How does HumanizeText protect user privacy and handle text?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "No. HumanizeText executes its primary linguistic transformations, cryptographic winnowing, and hashing entirely inside your web browser using Web Crypto and local heuristics. Your raw text is never transmitted to, stored on, or logged by external databases."
+                  "text": "HumanizeText defaults to complete privacy. The Plagiarism Checker, Local Humanizer, Metadata Inspector, and Encrypted Vault run 100% locally in your browser memory using Web Crypto. When you select the Free Cloud AI engine, your text is sent over encrypted HTTPS to Cloudflare Workers AI for serverless inference. It is processed ephemerally in RAM with zero disk storage, zero logging, and zero model training retention."
                 }
               },
               {
@@ -138,7 +138,7 @@
               HumanizeText — Free AI Text Detector &amp; Text Humanizer
             </h1>
             <p style="font-size: 1.125rem; color: #374151; margin-bottom: 2rem; max-width: 800px;">
-              Check writing for AI-generated patterns and transform robotic sentences into authentic, human-sounding prose. 100% on-device processing via browser Web Crypto, client-side heuristic winnowing, and zero cloud data transmission.
+              Check writing for AI-generated patterns and transform robotic sentences into authentic, human-sounding prose. Offers 100% on-device offline processing via browser Web Crypto or ephemeral, zero-retention Cloudflare Workers AI.
             </p>
 
             <section style="margin-bottom: 2.5rem;">
@@ -149,7 +149,7 @@
                     <a href="/" style="color: inherit; text-decoration: none;">Free AI Text Humanizer</a>
                   </h3>
                   <p style="font-size: 0.875rem; color: #4b5563;">
-                    Eliminate repetitive AI transition words, balance sentence rhythm (burstiness), and vary vocabulary to create natural, authentic human prose.
+                    Eliminate repetitive AI transition words, balance sentence rhythm (burstiness), and vary vocabulary using either our offline local engine or Cloudflare Workers AI.
                   </p>
                 </div>
 
@@ -203,7 +203,7 @@
             <section style="margin-bottom: 2.5rem;">
               <h2 style="font-size: 1.5rem; font-weight: 700; color: #111827; margin-bottom: 1rem;">How HumanizeText Works</h2>
               <p style="font-size: 0.95rem; color: #4b5563; margin-bottom: 1rem;">
-                Unlike conventional writing assistants that upload your sensitive documents to remote servers, HumanizeText operates on a zero-upload security model. All linguistic transformations, tokenization, and cryptographic similarity hashing are performed entirely within your browser via the Web Crypto API.
+                HumanizeText gives you full transparency over where your data is processed. The Plagiarism Checker, Local Humanizer, and Vault execute completely inside your browser tab. When using Free Cloud AI, text is dispatched ephemerally to Cloudflare Workers AI with zero retention, zero disk logging, and zero model training.
               </p>
               <ul style="padding-left: 1.25rem; font-size: 0.95rem; color: #4b5563; line-height: 1.75;">
                 <li><strong>Sentence Burstiness:</strong> Balances short punchy statements with longer complex sentences to replicate authentic human cadence.</li>
@@ -217,9 +217,9 @@
               <h2 style="font-size: 1.5rem; font-weight: 700; color: #111827; margin-bottom: 1rem;">Frequently Asked Questions</h2>
               <div style="display: flex; flex-direction: column; gap: 1rem;">
                 <div style="border-left: 3px solid #059669; padding-left: 1rem;">
-                  <h3 style="font-size: 1rem; font-weight: 600; margin: 0 0 0.25rem 0; color: #111827;">Does HumanizeText store or upload my text to remote servers?</h3>
+                  <h3 style="font-size: 1rem; font-weight: 600; margin: 0 0 0.25rem 0; color: #111827;">How does HumanizeText protect user privacy and handle text?</h3>
                   <p style="font-size: 0.875rem; color: #4b5563; margin: 0;">
-                    No. HumanizeText executes its primary linguistic transformations, cryptographic winnowing, and hashing entirely inside your web browser using Web Crypto and local heuristics. Your raw text is never transmitted to, stored on, or logged by external databases.
+                    All similarity scans, local humanization, and vault storage occur 100% on your device. When choosing Cloud AI, processing runs ephemerally in Cloudflare Workers AI RAM and is discarded immediately after generation, with zero persistent storage or training usage.
                   </p>
                 </div>
                 <div style="border-left: 3px solid #059669; padding-left: 1rem;">

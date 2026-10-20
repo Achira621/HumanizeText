@@ -1,0 +1,22 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "humanizetext-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2024-11-12",
+  "ai": {
+    "binding": "AI"
+  },
+  "vars": {
+    "AI_TEXT_MODEL": "@cf/qwen/qwen3-30b-a3b-fp8",
+    "AI_FALLBACK_TEXT_MODEL": "@cf/meta/llama-3.1-8b-instruct",
+    "AI_EMBEDDING_MODEL": "@cf/qwen/qwen3-embedding-0.6b",
+    "AI_FALLBACK_EMBEDDING_MODEL": "@cf/baai/bge-base-en-v1.5",
+    "ALLOWED_ORIGINS": "https://humanizetext-nine.vercel.app,http://localhost:5173,http://localhost:4173",
+    "MAX_INPUT_CHARS": "5000",
+    "MAX_OUTPUT_TOKENS": "1536",
+    "RATE_LIMIT_PER_MINUTE": "15"
+  },
+  "observability": {
+    "enabled": true
+  }
+}

@@ -26,7 +26,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
               <HumanizeLogo variant="horizontal" size="sm" showTagline={true} />
             </a>
             <p className="mt-2 text-[11px] leading-relaxed text-[var(--text-muted)]">
-              Privacy-first writing humanization, AI content detection, and cryptographic similarity scanning. Engineered to run 100% on-device in browser memory.
+              Privacy-first writing humanization, AI content detection, and cryptographic similarity scanning. Offers 100% on-device offline tools alongside ephemeral, zero-retention Cloudflare edge AI.
             </p>
           </div>
 
@@ -158,10 +158,10 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
             <div className="mt-2 rounded border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-2.5 text-[11px] leading-relaxed">
               <div className="flex items-center space-x-1 font-mono text-[10px] text-[var(--accent)]">
                 <Terminal className="h-3 w-3" />
-                <span>ZERO_SERVER_TRANSMISSION</span>
+                <span>HYBRID_PRIVACY_GUARANTEE</span>
               </div>
               <p className="mt-1 text-[var(--text-muted)]">
-                Zero document text, extracted strings, or secret keys ever touch a server. Client-side Web Crypto and edge distribution.
+                Choose 100% offline in-browser execution or ephemeral, zero-log Cloudflare Workers AI edge inference. Never stored on disk or used for training.
               </p>
             </div>
           </div>

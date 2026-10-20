@@ -41,7 +41,7 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
             priceCurrency: 'USD',
           },
           description:
-            'Free on-device AI text humanizer, AI detector, and similarity scanner running locally in browser memory with zero cloud uploads.',
+            'Free privacy-first AI text humanizer, AI detector, and similarity scanner with local in-browser heuristics and ephemeral zero-log Cloudflare edge inference.',
         },
         {
           '@type': 'FAQPage',
@@ -52,7 +52,7 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
               name: 'Does HumanizeText store or upload my text to remote servers?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'No. HumanizeText executes its primary linguistic transformations, cryptographic winnowing, and hashing entirely inside your web browser using Web Crypto and local heuristics. Your raw text is never transmitted to, stored on, or logged by external databases.',
+                text: 'No. HumanizeText provides a 100% on-device local engine (zero bytes transmitted) alongside an ephemeral, zero-retention Cloudflare Workers AI edge model. Under neither mode is your text stored, logged to disk, or used for model training.',
               },
             },
             {

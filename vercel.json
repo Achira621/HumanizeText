@@ -57,7 +57,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'wasm-unsafe-eval' https://pagead2.googlesyndication.com https://*.googlesyndication.com https://ep2.adtrafficquality.google; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://pagead2.googlesyndication.com https://*.google.com https://*.g.doubleclick.net; frame-src 'self' https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://*.google.com; worker-src 'self' blob:; connect-src 'self' https://pagead2.googlesyndication.com https://ep2.adtrafficquality.google https://*.google.com https://generativelanguage.googleapis.com https://api.groq.com https://openrouter.ai; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';"
+          "value": "default-src 'self'; script-src 'self' 'wasm-unsafe-eval' https://pagead2.googlesyndication.com https://*.googlesyndication.com https://ep2.adtrafficquality.google; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://pagead2.googlesyndication.com https://*.google.com https://*.g.doubleclick.net; frame-src 'self' https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://*.google.com; worker-src 'self' blob:; connect-src 'self' https://*.workers.dev https://pagead2.googlesyndication.com https://ep2.adtrafficquality.google https://*.google.com https://generativelanguage.googleapis.com https://api.groq.com https://openrouter.ai; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';"
         }
       ]
     }
