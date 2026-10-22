@@ -148,6 +148,9 @@ export interface AiSignalPhrase {
   category: string;
 }
 
+export * from './context';
+import type { WritingContext, RewritePlan } from './context';
+
 export interface HumanizerOptions {
   mode: HumanizerMode;
   targetReadingLevel?: 'general' | 'academic' | 'casual';
@@ -156,6 +159,9 @@ export interface HumanizerOptions {
   vocabularyIntensity?: VocabularyIntensity;
   tone?: 'conversational' | 'academic' | 'formal' | 'creative' | 'concise';
   smartContractions?: boolean;
+  context?: Partial<WritingContext>;
+  plan?: Partial<RewritePlan>;
+  explicitInstructions?: string;
 }
 
 export type WritingIssueCategory =
@@ -222,6 +228,24 @@ export interface HumanizerResult {
   engineName: string;
   engineType: 'deterministic-rules' | 'browser-ai-local' | 'cloud-api';
   processedLocally: boolean;
+  context?: WritingContext;
+  plan?: RewritePlan;
+  executionEnvironment?: 'cloud-worker-ai' | 'local-emulation-fallback' | 'mock-test';
+  fallbackTriggered?: boolean;
+  mockEngine?: boolean;
+  invariants?: {
+    isValid: boolean;
+    hasConfirmedFactualError: boolean;
+    hasSemanticDriftWarning: boolean;
+    numbersPreserved: boolean;
+    citationsPreserved: boolean;
+    quotesPreserved: boolean;
+    urlsPreserved: boolean;
+    negationsPreserved: boolean;
+    hedgingPreserved: boolean;
+    unitsPreserved: boolean;
+    causalityPreserved: boolean;
+  };
 }
 
 export interface LocalHumanizerEngine {

@@ -71,9 +71,99 @@ describe('Deterministic Invariants Pipeline', () => {
     expect(res.isValid).toBe(false);
     expect(res.preservationWarnings.some((w) => w.includes('Frozen words omitted'))).toBe(true);
   });
+
+  it('detects dropped negation polarity (flipping negative claim)', () => {
+    const orig = 'The phase 3 clinical trial did not find a significant difference between groups and observed no secondary toxicity.';
+    const badRewrite = 'The phase 3 clinical trial found a significant difference between groups and observed secondary toxicity.';
+    const res = validateInvariants(orig, badRewrite);
+
+    expect(res.negationsPreserved).toBe(false);
+    expect(res.criticalViolation).toBe(true);
+    expect(res.negationWarnings.length).toBeGreaterThan(0);
+    expect(res.preservationWarnings.some((w) => w.includes('Negation polarity dropped'))).toBe(true);
+  });
+
+  it('detects lost epistemic hedging and dogmatic assertion shifts', () => {
+    const orig = 'Preliminary empirical data tentatively suggests that the intervention may potentially reduce symptoms, though future trials are required.';
+    const dogmaticRewrite = 'Empirical data definitively proves that the intervention reduces symptoms without question.';
+    const res = validateInvariants(orig, dogmaticRewrite);
+
+    expect(res.hedgingPreserved).toBe(false);
+    expect(res.hedgingWarnings.length).toBeGreaterThan(0);
+    expect(res.preservationWarnings.some((w) => w.includes('Epistemic hedging'))).toBe(true);
+  });
+
+  it('detects altered or dropped measurement units', () => {
+    const orig = 'The patient was prescribed 50mg of the compound and achieved a 35% reduction in 28 days.';
+    const badRewrite = 'The patient was prescribed 50 of the compound and achieved a 35 reduction in 28.';
+    const res = validateInvariants(orig, badRewrite);
+
+    expect(res.unitsPreserved).toBe(false);
+    expect(res.criticalViolation).toBe(true);
+    expect(res.hasConfirmedFactualError).toBe(true);
+    expect(res.missingUnits.length).toBeGreaterThan(0);
+  });
+
+  it('handles negative contractions without falsely flagging dropped negations', () => {
+    const orig = 'We could not finish the migration and they have not approved the PR.';
+    const contractedRewrite = "We couldn't finish the migration and they haven't approved the PR.";
+    const res = validateInvariants(orig, contractedRewrite);
+
+    expect(res.negationsPreserved).toBe(true);
+    expect(res.hasConfirmedFactualError).toBe(false);
+  });
+
+  it('detects inverted causality direction', () => {
+    const orig = 'Because protein folding degradation occurred rapidly, enzymes failed to catalyze the synthesis reaction.';
+    const invertedRewrite = 'Because enzymes failed to catalyze the synthesis reaction, protein folding degradation occurred rapidly.';
+    const res = validateInvariants(orig, invertedRewrite);
+
+    expect(res.causalityPreserved).toBe(false);
+    expect(res.criticalViolation).toBe(true);
+    expect(res.hasConfirmedFactualError).toBe(true);
+    expect(res.causalityWarnings.length).toBeGreaterThan(0);
+    expect(res.violations.some((v) => v.type === 'reversed_causality' && v.severity === 'critical')).toBe(true);
+  });
+
+  it('detects unsupported numerical additions and hallucinated stats', () => {
+    const orig = 'The model achieved improved latency across benchmark trials.';
+    const hallucinatedRewrite = 'The model achieved improved latency by 45% and reduced memory to $58.2 million across 3 hubs.';
+    const res = validateInvariants(orig, hallucinatedRewrite);
+
+    expect(res.numbersPreserved).toBe(false);
+    expect(res.hasConfirmedFactualError).toBe(true);
+    expect(res.unsupportedAdditions.length).toBeGreaterThan(0);
+    expect(res.violations.some((v) => v.type === 'unsupported_addition')).toBe(true);
+  });
+
+  it('detects mutated measurement units (e.g. 50mg to 50kg, 145ms to 145s)', () => {
+    const orig = 'The dosage was set at 50mg and latency stabilized at 145ms.';
+    const mutatedRewrite = 'The dosage was set at 50kg and latency stabilized at 145s.';
+    const res = validateInvariants(orig, mutatedRewrite);
+
+    expect(res.unitsPreserved).toBe(false);
+    expect(res.hasConfirmedFactualError).toBe(true);
+    expect(res.mutatedUnits.length).toBeGreaterThan(0);
+    expect(res.violations.some((v) => v.type === 'mutated_unit')).toBe(true);
+  });
+
+  it('strictly separates confirmed factual errors from soft semantic drift warnings', () => {
+    // 1. Factual Error only
+    const origFact = 'The cluster runs 12 nodes across 3 regions.';
+    const rewrFact = 'The cluster runs 10 nodes across 3 regions.';
+    const factRes = validateInvariants(origFact, rewrFact);
+    expect(factRes.hasConfirmedFactualError).toBe(true);
+    expect(factRes.hasSemanticDriftWarning).toBe(false);
+
+    // 2. Soft Semantic Drift only (lost hedging without fact mutation)
+    const origDrift = 'Preliminary observations tentatively suggest that the pattern may be cyclical.';
+    const rewrDrift = 'Observations suggest the pattern is cyclical in rhythm and cadence.';
+    const driftRes = validateInvariants(origDrift, rewrDrift);
+    expect(driftRes.hasConfirmedFactualError).toBe(false);
+  });
 });
 
-describe('Semantic Cosine Similarity', () => {
+describe('Semantic Cosine Similarity & Limits', () => {
   it('calculates exact cosine similarity for identical vectors', () => {
     const vecA = [0.2, 0.5, 0.8, 0.1];
     const score = computeCosineSimilarity(vecA, vecA);
@@ -95,6 +185,22 @@ describe('Semantic Cosine Similarity', () => {
     const low = interpretSemanticScore(0.55);
     expect(low.status).toBe('low');
     expect(low.advisory).toContain('Low semantic alignment');
+  });
+
+  it('demonstrates that high cosine similarity does NOT guarantee fact or negation preservation', () => {
+    // Negated sentence vs affirmative sentence often have high vector cosine similarity in general models
+    // e.g., "The drug is effective" vs "The drug is not effective" differ by 1 word in high-dimensional space
+    const affirmativeVector = [0.91, 0.42, 0.05, 0.12];
+    const negatedVector = [0.89, 0.44, 0.04, 0.11];
+    const cosmeticSim = computeCosineSimilarity(affirmativeVector, negatedVector);
+    expect(cosmeticSim).toBeGreaterThan(0.95);
+
+    // Despite >95% cosine score, deterministic invariant check catches the critical negation flip
+    const orig = 'The drug was not effective in reducing patient symptoms.';
+    const reversed = 'The drug was effective in reducing patient symptoms.';
+    const inv = validateInvariants(orig, reversed);
+    expect(inv.negationsPreserved).toBe(false);
+    expect(inv.criticalViolation).toBe(true);
   });
 
   it('splits long text into bounded paragraph chunks', () => {

@@ -72,6 +72,8 @@ export const FreeParaphrasingToolPage: React.FC<FreeParaphrasingToolPageProps> =
     },
   ];
 
+  const [engineType, setEngineType] = useState<'deterministic-rules' | 'cloudflare-workers-ai'>('deterministic-rules');
+
   const handleParaphrase = async () => {
     if (!inputText.trim()) return;
     setIsProcessing(true);
@@ -79,9 +81,13 @@ export const FreeParaphrasingToolPage: React.FC<FreeParaphrasingToolPageProps> =
 
     try {
       const modeConfig = modes.find((m) => m.id === paraphraseMode);
-      const res = await defaultHumanizerManager.humanize(inputText, {
-        mode: modeConfig?.internalMode || 'natural',
-      });
+      const res = await defaultHumanizerManager.humanize(
+        inputText,
+        {
+          mode: modeConfig?.internalMode || 'natural',
+        },
+        engineType
+      );
       setOutputText(res.improvedText);
     } catch (err: any) {
       alert(`Paraphrasing error: ${err?.message || 'Processing failed'}`);
@@ -131,8 +137,8 @@ export const FreeParaphrasingToolPage: React.FC<FreeParaphrasingToolPageProps> =
       a: 'Our local paraphrasing engine recognizes APA, MLA, Chicago, and numeric bracketed citations (such as [1] or (Author, 2024)). It treats citation anchors as immutable tokens, ensuring they are not mangled or removed during text restructuring.',
     },
     {
-      q: 'Why is a client-side paraphrasing tool safer than cloud alternatives?',
-      a: 'When you paste research, unreleased corporate documents, or academic essays into commercial cloud tools (like QuillBot or Wordtune), your proprietary drafts are sent across the internet, logged into corporate servers, and often retained for machine learning training. HumanizeText executes 100% in your browser memory via the Web Crypto API, guaranteeing total data sovereignty.',
+      q: 'How does HumanizeText protect my text privacy while paraphrasing?',
+      a: 'By default, this tool uses our Local Linguistic Engine, executing 100% inside your browser memory using Web Crypto with zero bytes transmitted to any server. If you toggle the Cloud AI option for deeper neural restructuring, text is processed ephemerally on Cloudflare Workers AI edge servers with zero persistent disk storage, zero logging of inputs, and no machine learning retraining.',
     },
     {
       q: 'How does the "Verify Paraphrase Similarity" button work?',
@@ -157,8 +163,7 @@ export const FreeParaphrasingToolPage: React.FC<FreeParaphrasingToolPageProps> =
           Free <span className="text-[#059669] dark:text-[#34D399]">Paraphrasing Tool</span>
         </h1>
         <p className="mx-auto mt-3 max-w-2xl text-base text-[var(--text-secondary)]">
-          Rephrase complex sentences, clarify arguments, and protect citations against mosaic plagiarism.
-          All rewriting runs 100% locally on your device.
+          Rephrase complex sentences, clarify arguments, and protect citations against mosaic plagiarism with your choice of 100% offline local rules or zero-retention Cloud AI.
         </p>
       </div>
 
@@ -339,9 +344,42 @@ export const FreeParaphrasingToolPage: React.FC<FreeParaphrasingToolPageProps> =
 
         {/* Toolbar & Action Button */}
         <div className="flex flex-col items-center justify-between gap-4 bg-[var(--bg-subtle)] px-5 py-4 sm:flex-row">
-          <div className="flex items-center space-x-2 text-xs text-[var(--text-muted)]">
-            <Lock className="h-4 w-4 text-[var(--accent)]" />
-            <span>Client-side Web Crypto • Zero text transmitted to third parties</span>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+            <div className="flex items-center space-x-1 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-1 text-xs">
+              <button
+                type="button"
+                onClick={() => setEngineType('deterministic-rules')}
+                className={`rounded px-2.5 py-1 text-[11px] font-semibold transition-all ${
+                  engineType === 'deterministic-rules'
+                    ? 'bg-[var(--accent)] text-[var(--accent-contrast)] shadow-2xs font-bold'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                }`}
+                title="100% in-browser offline transformation with zero network traffic"
+              >
+                Local Offline
+              </button>
+              <button
+                type="button"
+                onClick={() => setEngineType('cloudflare-workers-ai')}
+                className={`rounded px-2.5 py-1 text-[11px] font-semibold transition-all ${
+                  engineType === 'cloudflare-workers-ai'
+                    ? 'bg-[var(--accent)] text-[var(--accent-contrast)] shadow-2xs font-bold'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                }`}
+                title="Neural Qwen 30B restructuring on Cloudflare Workers AI with ephemeral memory"
+              >
+                Cloud AI (Qwen 30B)
+              </button>
+            </div>
+
+            <div className="flex items-center space-x-1.5 text-xs text-[var(--text-muted)]">
+              <Lock className="h-3.5 w-3.5 text-[var(--accent)]" />
+              <span>
+                {engineType === 'deterministic-rules'
+                  ? 'Local Web Crypto • 0 bytes sent to servers'
+                  : 'Cloudflare Workers AI • Ephemeral edge inference with zero disk logs'}
+              </span>
+            </div>
           </div>
 
           <button

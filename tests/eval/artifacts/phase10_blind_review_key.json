@@ -1,0 +1,182 @@
+{
+  "p7_acad_01_hedging_trap": {
+    "originalPassageId": "p7_acad_01_hedging_trap",
+    "systemA": "baseline",
+    "systemB": "contextAware"
+  },
+  "p7_acad_02_causality_bounds": {
+    "originalPassageId": "p7_acad_02_causality_bounds",
+    "systemA": "contextAware",
+    "systemB": "baseline"
+  },
+  "p7_acad_03_multivariate_regression": {
+    "originalPassageId": "p7_acad_03_multivariate_regression",
+    "systemA": "baseline",
+    "systemB": "contextAware"
+  },
+  "p7_acad_04_epistemic_bounds": {
+    "originalPassageId": "p7_acad_04_epistemic_bounds",
+    "systemA": "baseline",
+    "systemB": "contextAware"
+  },
+  "p7_acad_05_historical_scholarship": {
+    "originalPassageId": "p7_acad_05_historical_scholarship",
+    "systemA": "baseline",
+    "systemB": "contextAware"
+  },
+  "p7_acad_06_causal_inversion_agriculture": {
+    "originalPassageId": "p7_acad_06_causal_inversion_agriculture",
+    "systemA": "baseline",
+    "systemB": "contextAware"
+  },
+  "p7_acad_07_dense_citations_hedging": {
+    "originalPassageId": "p7_acad_07_dense_citations_hedging",
+    "systemA": "contextAware",
+    "systemB": "baseline"
+  },
+  "p7_tech_01_negated_guarantee": {
+    "originalPassageId": "p7_tech_01_negated_guarantee",
+    "systemA": "contextAware",
+    "systemB": "baseline"
+  },
+  "p7_tech_02_latency_memory": {
+    "originalPassageId": "p7_tech_02_latency_memory",
+    "systemA": "contextAware",
+    "systemB": "baseline"
+  },
+  "p7_tech_03_rfc2119_network": {
+    "originalPassageId": "p7_tech_03_rfc2119_network",
+    "systemA": "baseline",
+    "systemB": "contextAware"
+  },
+  "p7_tech_04_distributed_consensus": {
+    "originalPassageId": "p7_tech_04_distributed_consensus",
+    "systemA": "contextAware",
+    "systemB": "baseline"
+  },
+  "p7_tech_05_cryptographic_primitives": {
+    "originalPassageId": "p7_tech_05_cryptographic_primitives",
+    "systemA": "baseline",
+    "systemB": "contextAware"
+  },
+  "p7_tech_06_database_deadlock": {
+    "originalPassageId": "p7_tech_06_database_deadlock",
+    "systemA": "contextAware",
+    "systemB": "baseline"
+  },
+  "p7_tech_07_api_rate_limiting": {
+    "originalPassageId": "p7_tech_07_api_rate_limiting",
+    "systemA": "contextAware",
+    "systemB": "baseline"
+  },
+  "p7_prof_01_arr_expenditure": {
+    "originalPassageId": "p7_prof_01_arr_expenditure",
+    "systemA": "baseline",
+    "systemB": "contextAware"
+  },
+  "p7_prof_02_overedit_trap": {
+    "originalPassageId": "p7_prof_02_overedit_trap",
+    "systemA": "baseline",
+    "systemB": "contextAware"
+  },
+  "p7_prof_03_bureaucratic_bloat": {
+    "originalPassageId": "p7_prof_03_bureaucratic_bloat",
+    "systemA": "baseline",
+    "systemB": "contextAware"
+  },
+  "p7_prof_04_compliance_disclaimer": {
+    "originalPassageId": "p7_prof_04_compliance_disclaimer",
+    "systemA": "baseline",
+    "systemB": "contextAware"
+  },
+  "p7_prof_05_quarterly_shareholder": {
+    "originalPassageId": "p7_prof_05_quarterly_shareholder",
+    "systemA": "baseline",
+    "systemB": "contextAware"
+  },
+  "p7_prof_06_board_resolution": {
+    "originalPassageId": "p7_prof_06_board_resolution",
+    "systemA": "contextAware",
+    "systemB": "baseline"
+  },
+  "p7_prof_07_executive_memo_redundancy": {
+    "originalPassageId": "p7_prof_07_executive_memo_redundancy",
+    "systemA": "baseline",
+    "systemB": "contextAware"
+  },
+  "p7_conv_01_personal_voice": {
+    "originalPassageId": "p7_conv_01_personal_voice",
+    "systemA": "baseline",
+    "systemB": "contextAware"
+  },
+  "p7_conv_02_commute_contractions": {
+    "originalPassageId": "p7_conv_02_commute_contractions",
+    "systemA": "contextAware",
+    "systemB": "baseline"
+  },
+  "p7_conv_03_travel_mishap": {
+    "originalPassageId": "p7_conv_03_travel_mishap",
+    "systemA": "baseline",
+    "systemB": "contextAware"
+  },
+  "p7_conv_04_culinary_argument": {
+    "originalPassageId": "p7_conv_04_culinary_argument",
+    "systemA": "baseline",
+    "systemB": "contextAware"
+  },
+  "p7_conv_05_garage_project": {
+    "originalPassageId": "p7_conv_05_garage_project",
+    "systemA": "contextAware",
+    "systemB": "baseline"
+  },
+  "p7_conv_06_tech_frustration": {
+    "originalPassageId": "p7_conv_06_tech_frustration",
+    "systemA": "baseline",
+    "systemB": "contextAware"
+  },
+  "p7_conv_07_neighborhood_dialogue": {
+    "originalPassageId": "p7_conv_07_neighborhood_dialogue",
+    "systemA": "contextAware",
+    "systemB": "baseline"
+  },
+  "p7_creat_01_sensory_ambiguity": {
+    "originalPassageId": "p7_creat_01_sensory_ambiguity",
+    "systemA": "baseline",
+    "systemB": "contextAware"
+  },
+  "p7_creat_02_metaphor_restraint": {
+    "originalPassageId": "p7_creat_02_metaphor_restraint",
+    "systemA": "baseline",
+    "systemB": "contextAware"
+  },
+  "p7_creat_03_mountain_express": {
+    "originalPassageId": "p7_creat_03_mountain_express",
+    "systemA": "contextAware",
+    "systemB": "baseline"
+  },
+  "p7_creat_04_desert_twilight": {
+    "originalPassageId": "p7_creat_04_desert_twilight",
+    "systemA": "baseline",
+    "systemB": "contextAware"
+  },
+  "p7_creat_05_harbor_fog": {
+    "originalPassageId": "p7_creat_05_harbor_fog",
+    "systemA": "contextAware",
+    "systemB": "baseline"
+  },
+  "p7_creat_06_antique_clockmaker": {
+    "originalPassageId": "p7_creat_06_antique_clockmaker",
+    "systemA": "baseline",
+    "systemB": "contextAware"
+  },
+  "p7_creat_07_storm_over_prairie": {
+    "originalPassageId": "p7_creat_07_storm_over_prairie",
+    "systemA": "contextAware",
+    "systemB": "baseline"
+  },
+  "p7_creat_08_cellist_rehearsal": {
+    "originalPassageId": "p7_creat_08_cellist_rehearsal",
+    "systemA": "contextAware",
+    "systemB": "baseline"
+  }
+}

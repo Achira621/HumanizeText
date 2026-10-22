@@ -21,6 +21,84 @@ export interface Env {
 export type WritingMode = 'natural' | 'concise' | 'conversational' | 'formal' | 'flow';
 export type VocabularyIntensity = 'conservative' | 'balanced' | 'dynamic' | 'maximum';
 
+export type WritingGenre =
+  | 'academic'
+  | 'technical'
+  | 'professional'
+  | 'conversational'
+  | 'creative'
+  | 'general';
+
+export type WritingAudience =
+  | 'general-public'
+  | 'domain-experts'
+  | 'business-executives'
+  | 'students'
+  | 'colleagues';
+
+export type ToneRegister =
+  | 'formal'
+  | 'objective'
+  | 'engaging'
+  | 'persuasive'
+  | 'casual'
+  | 'authoritative';
+
+export type EpistemicStance =
+  | 'certain'
+  | 'hedged'
+  | 'exploratory'
+  | 'skeptical';
+
+export interface ProtectedTokensDto {
+  numbers: string[];
+  dates: string[];
+  citations: string[];
+  quotes: string[];
+  units: string[];
+  urls: string[];
+  frozenWords: string[];
+}
+
+export interface WritingContextDto {
+  objective: string;
+  genre: WritingGenre;
+  audience: WritingAudience;
+  tone: ToneRegister;
+  epistemicStance: EpistemicStance;
+  coreThesis: string;
+  supportingClaims: string[];
+  protectedTokens: ProtectedTokensDto;
+  hedgingMarkers: string[];
+  negationMarkers: string[];
+  editingIntensity: VocabularyIntensity;
+  explicitInstructions?: string;
+  missingContext: string[];
+}
+
+export interface WritingIssueDto {
+  type: 'wordiness' | 'ai_cliche' | 'stiff_transition' | 'monotonous_cadence' | 'redundancy' | 'passive_overuse';
+  description: string;
+  targetExcerpt?: string;
+}
+
+export interface RewritePlanDto {
+  planId: string;
+  genre: WritingGenre;
+  coreMessage: string;
+  claimsToPreserve: string[];
+  qualificationsToMaintain: string[];
+  issuesToFix: WritingIssueDto[];
+  sectionsToKeepUnchanged: string[];
+  targetedAdjustments: {
+    rhythm: string;
+    diction: string;
+    formality: string;
+  };
+  invariantRequirements: string[];
+  isFallback: boolean;
+}
+
 export interface HumanizerRequest {
   text: string;
   mode?: WritingMode;
@@ -28,6 +106,8 @@ export interface HumanizerRequest {
   frozenWords?: string[];
   smartContractions?: boolean;
   enableSemanticComparison?: boolean;
+  context?: Partial<WritingContextDto>;
+  plan?: Partial<RewritePlanDto>;
 }
 
 export interface DiffTokenDto {
@@ -35,6 +115,20 @@ export interface DiffTokenDto {
   text: string;
   type: 'unchanged' | 'changed' | 'structural' | 'frozen';
   original?: string;
+}
+
+export interface InvariantsSummaryDto {
+  numbersPreserved: boolean;
+  citationsPreserved: boolean;
+  quotesPreserved: boolean;
+  urlsPreserved: boolean;
+  negationsPreserved: boolean;
+  hedgingPreserved: boolean;
+  unitsPreserved: boolean;
+  causalityPreserved?: boolean;
+  hasConfirmedFactualError?: boolean;
+  hasSemanticDriftWarning?: boolean;
+  lengthRatio: number;
 }
 
 export interface HumanizerResponse {
@@ -48,12 +142,9 @@ export interface HumanizerResponse {
     status: 'high' | 'moderate' | 'low';
     advisory: string;
   };
-  invariants: {
-    numbersPreserved: boolean;
-    citationsPreserved: boolean;
-    quotesPreserved: boolean;
-    lengthRatio: number;
-  };
+  invariants: InvariantsSummaryDto;
+  context?: WritingContextDto;
+  plan?: RewritePlanDto;
   diffTokens?: DiffTokenDto[];
   stats: {
     originalWords: number;
@@ -64,6 +155,16 @@ export interface HumanizerResponse {
   modelUsed: string;
   version: string;
   latencyMs: number;
+  executionEnvironment?: 'cloud-worker-ai' | 'local-emulation-fallback' | 'mock-test';
+  fallbackTriggered?: boolean;
+  mockEngine?: boolean;
+  timing?: {
+    totalWorkerMs: number;
+    inferenceMs?: number;
+    repairMs?: number;
+    embeddingMs?: number;
+    overheadMs: number;
+  };
 }
 
 export interface CompareMeaningRequest {
@@ -101,6 +202,11 @@ export interface DetectResponse {
   signalsDetected: string[];
   modelUsed: string;
   latencyMs: number;
+  timing?: {
+    executionMs: number;
+    overheadDescription: string;
+  };
+  methodologyNotice?: string;
 }
 
 export interface PlagiarismRequest {

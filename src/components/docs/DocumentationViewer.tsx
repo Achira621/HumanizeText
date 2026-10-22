@@ -113,7 +113,7 @@ export const DocumentationViewer: React.FC = () => {
                     <tr>
                       <td className="py-2 font-medium">Network Sniffing / Man-in-the-Middle</td>
                       <td className="py-2">Inspects TLS traffic between client and host</td>
-                      <td className="py-2">Zero network traffic contains document text or keys. Static assets only.</td>
+                      <td className="py-2">Local mode emits zero document network traffic. Cloud AI mode uses TLS 1.3 to ephemeral Cloudflare edge isolates with zero disk logging.</td>
                     </tr>
                     <tr>
                       <td className="py-2 font-medium">Precomputation / Rainbow Table Attacks</td>
@@ -147,12 +147,12 @@ export const DocumentationViewer: React.FC = () => {
                 3. Privacy Statement &amp; Guarantees
               </h2>
               <div className="rounded-lg border border-[var(--accent-border)] bg-[var(--accent-light)] p-4 text-[var(--accent)] font-medium">
-                HumanizeText does not collect, log, sell, transmit, or share your documents, text inputs, or cryptographic keys.
+                HumanizeText enforces strict privacy boundaries: local processing by default, zero text storage, and ephemeral edge inference without disk persistence.
               </div>
               <ul className="list-disc list-inside space-y-1">
-                <li><strong>No User Accounts:</strong> Zero cookies, zero tracking IDs, zero sessions.</li>
-                <li><strong>No Analytics or Trackers:</strong> No Google Analytics, no Meta Pixel, no Hotjar, no Mixpanel.</li>
-                <li><strong>Local-Only Processing:</strong> PDF extraction, DOCX parsing, winnowing, and HMAC calculations execute entirely in your browser CPU/RAM.</li>
+                <li><strong>No User Accounts:</strong> Zero mandatory login, zero account tracking IDs, zero sessions.</li>
+                <li><strong>Local-First Processing:</strong> PDF extraction, DOCX parsing, winnowing plagiarism scans, and local rules execute entirely in browser memory.</li>
+                <li><strong>Ephemeral Cloud AI Option:</strong> Optional cloud humanization runs in Cloudflare Workers AI volatile RAM with zero database storage bindings and zero prompt retention.</li>
                 <li><strong>Opt-In Encrypted Storage:</strong> Documents saved to the local vault are stored exclusively as AES-GCM ciphertext in your browser's IndexedDB. Plaintext is never persisted.</li>
               </ul>
             </article>

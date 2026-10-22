@@ -14,13 +14,6 @@
     "split": "train"
   },
   {
-    "id": "remote_work_a_edit",
-    "text": "Remote work has become increasingly popular in recent years. It offers numerous benefits, including flexibility, reduced commuting time, and improved work-life balance. However, it is important to note that it can also present challenges such as isolation and ergonomic concerns.",
-    "label": "ai",
-    "topic": "remote_work",
-    "split": "train"
-  },
-  {
     "id": "remote_work_mixed",
     "text": "Remote work has become increasingly popular in recent years. My back hurts more now though, because the kitchen chair is not an office chair. Still, I'd never go back to five days in the office.",
     "label": "mixed",
@@ -36,13 +29,6 @@
   },
   {
     "id": "coffee_a",
-    "text": "Coffee is one of the most widely consumed beverages in the world. It plays a crucial role in many cultures and daily routines. Moreover, moderate consumption has been associated with several health benefits, making it a popular choice for millions of people.",
-    "label": "ai",
-    "topic": "coffee",
-    "split": "train"
-  },
-  {
-    "id": "coffee_a_edit",
     "text": "Coffee is one of the most widely consumed beverages in the world. It plays a crucial role in many cultures and daily routines. Moreover, moderate consumption has been associated with several health benefits, making it a popular choice for millions of people.",
     "label": "ai",
     "topic": "coffee",
@@ -70,13 +56,6 @@
     "split": "train"
   },
   {
-    "id": "climate_change_a_edit",
-    "text": "Climate change is one of the most pressing challenges facing humanity today. Rising global temperatures contribute to extreme weather events, sea level rise, and loss of biodiversity. Therefore, it is essential for governments and individuals to take decisive action to reduce greenhouse gas emissions.",
-    "label": "ai",
-    "topic": "climate_change",
-    "split": "train"
-  },
-  {
     "id": "climate_change_mixed",
     "text": "Climate change is one of the most pressing challenges facing humanity today. Nobody argues about whether it's changing anymore, at least not around here. We just argue about who should pay for the pumps.",
     "label": "mixed",
@@ -92,13 +71,6 @@
   },
   {
     "id": "social_media_a",
-    "text": "Social media has transformed the way people communicate and share information. While it provides opportunities for connection and self-expression, it also raises concerns related to privacy and mental health. In conclusion, users should engage with these platforms mindfully and responsibly.",
-    "label": "ai",
-    "topic": "social_media",
-    "split": "train"
-  },
-  {
-    "id": "social_media_a_edit",
     "text": "Social media has transformed the way people communicate and share information. While it provides opportunities for connection and self-expression, it also raises concerns related to privacy and mental health. In conclusion, users should engage with these platforms mindfully and responsibly.",
     "label": "ai",
     "topic": "social_media",
@@ -154,13 +126,6 @@
     "split": "test"
   },
   {
-    "id": "public_transport_a_edit",
-    "text": "Public transportation plays a vital role in modern urban environments. It reduces traffic congestion, lowers carbon emissions, and provides affordable mobility for residents. Additionally, investing in efficient transit systems can enhance the overall quality of life in cities.",
-    "label": "ai",
-    "topic": "public_transport",
-    "split": "test"
-  },
-  {
     "id": "public_transport_mixed",
     "text": "Public transportation plays a vital role in modern urban environments. Even so, I'd rather deal with that than parking downtown. Plus I get to read, which is the only reading I get done all week.",
     "label": "mixed",
@@ -176,13 +141,6 @@
   },
   {
     "id": "languages_a",
-    "text": "Learning a new language is a rewarding endeavor that offers numerous cognitive and cultural benefits. It enhances memory, improves problem-solving skills, and opens doors to new opportunities. Consistent practice and immersion are key factors in achieving fluency.",
-    "label": "ai",
-    "topic": "languages",
-    "split": "train"
-  },
-  {
-    "id": "languages_a_edit",
     "text": "Learning a new language is a rewarding endeavor that offers numerous cognitive and cultural benefits. It enhances memory, improves problem-solving skills, and opens doors to new opportunities. Consistent practice and immersion are key factors in achieving fluency.",
     "label": "ai",
     "topic": "languages",
@@ -210,13 +168,6 @@
     "split": "train"
   },
   {
-    "id": "sleep_a_edit",
-    "text": "Sleep is a fundamental aspect of human health that is often overlooked. Adequate rest supports memory consolidation, immune function, and emotional regulation. It is therefore recommended that adults aim for seven to nine hours of quality sleep each night.",
-    "label": "ai",
-    "topic": "sleep",
-    "split": "train"
-  },
-  {
     "id": "sleep_mixed",
     "text": "Sleep is a fundamental aspect of human health that is often overlooked. Now I'm awake at 3 a.m. replaying an awkward thing I said in 2011. The doctor says cut the late coffee, which is rude because it's the best part of my evening.",
     "label": "mixed",
@@ -238,13 +189,6 @@
     "split": "train"
   },
   {
-    "id": "electric_cars_a_edit",
-    "text": "Electric vehicles are gaining significant traction as a sustainable alternative to traditional gasoline-powered cars. They produce zero tailpipe emissions and offer lower operating costs over time. Nevertheless, challenges such as charging infrastructure and battery costs remain important considerations.",
-    "label": "ai",
-    "topic": "electric_cars",
-    "split": "train"
-  },
-  {
     "id": "electric_cars_mixed",
     "text": "Electric vehicles are gaining significant traction as a sustainable alternative to traditional gasoline-powered cars. He loves it, though, and says he hasn't seen a petrol station in months. I'm tempted, but the nearest fast charger is forty minutes away.",
     "label": "mixed",
@@ -260,13 +204,6 @@
   },
   {
     "id": "online_shopping_a",
-    "text": "Online shopping has revolutionized the retail industry by offering convenience and a wide selection of products. Consumers can compare prices and read reviews from the comfort of their homes. However, concerns regarding packaging waste and delivery emissions continue to grow.",
-    "label": "ai",
-    "topic": "online_shopping",
-    "split": "train"
-  },
-  {
-    "id": "online_shopping_a_edit",
     "text": "Online shopping has revolutionized the retail industry by offering convenience and a wide selection of products. Consumers can compare prices and read reviews from the comfort of their homes. However, concerns regarding packaging waste and delivery emissions continue to grow.",
     "label": "ai",
     "topic": "online_shopping",
@@ -322,13 +259,6 @@
     "split": "train"
   },
   {
-    "id": "meditation_a_edit",
-    "text": "Meditation is an ancient practice that has gained widespread popularity in the modern world. It can reduce stress, improve focus, and promote emotional well-being. By dedicating just a few minutes each day, individuals can experience meaningful improvements in their mental health.",
-    "label": "ai",
-    "topic": "meditation",
-    "split": "train"
-  },
-  {
     "id": "meditation_mixed",
     "text": "Meditation is an ancient practice that has gained widespread popularity in the modern world. My mind wanders to what's for dinner about four seconds in. But my therapist says noticing the wandering is the actual exercise, so apparently I've been succeeding at failing this whole time.",
     "label": "mixed",
@@ -344,13 +274,6 @@
   },
   {
     "id": "recycling_a",
-    "text": "Recycling is an important practice that helps conserve natural resources and reduce landfill waste. By sorting materials such as paper, glass, and plastic, communities can significantly lower their environmental impact. It is crucial that individuals understand local guidelines to ensure effective recycling.",
-    "label": "ai",
-    "topic": "recycling",
-    "split": "train"
-  },
-  {
-    "id": "recycling_a_edit",
     "text": "Recycling is an important practice that helps conserve natural resources and reduce landfill waste. By sorting materials such as paper, glass, and plastic, communities can significantly lower their environmental impact. It is crucial that individuals understand local guidelines to ensure effective recycling.",
     "label": "ai",
     "topic": "recycling",
@@ -378,13 +301,6 @@
     "split": "train"
   },
   {
-    "id": "video_games_a_edit",
-    "text": "Video games have evolved into a major form of entertainment and cultural expression. They can improve hand-eye coordination, problem-solving abilities, and social connections. Moreover, the industry has become a significant contributor to the global economy.",
-    "label": "ai",
-    "topic": "video_games",
-    "split": "train"
-  },
-  {
     "id": "video_games_mixed",
     "text": "Video games have evolved into a major form of entertainment and cultural expression. Funny thing, he now plays a farming sim for an hour every night and talks about his virtual cows like they're real. I haven't had the heart to tell him I told you so.",
     "label": "mixed",
@@ -400,13 +316,6 @@
   },
   {
     "id": "home_cooking_a",
-    "text": "Cooking at home offers a variety of benefits, including cost savings and healthier eating habits. It allows individuals to control ingredients and portion sizes while exploring new cuisines. Additionally, preparing meals together can strengthen family bonds.",
-    "label": "ai",
-    "topic": "home_cooking",
-    "split": "test"
-  },
-  {
-    "id": "home_cooking_a_edit",
     "text": "Cooking at home offers a variety of benefits, including cost savings and healthier eating habits. It allows individuals to control ingredients and portion sizes while exploring new cuisines. Additionally, preparing meals together can strengthen family bonds.",
     "label": "ai",
     "topic": "home_cooking",
@@ -434,13 +343,6 @@
     "split": "train"
   },
   {
-    "id": "city_vs_country_a_edit",
-    "text": "The decision between urban and rural living involves weighing numerous factors. Cities offer greater access to employment, culture, and services, while rural areas provide tranquility and closer connection to nature. Ultimately, the ideal choice depends on individual priorities and lifestyle preferences.",
-    "label": "ai",
-    "topic": "city_vs_country",
-    "split": "train"
-  },
-  {
     "id": "city_vs_country_mixed",
     "text": "The decision between urban and rural living involves weighing numerous factors. The nearest shop is a twenty-minute drive and I miss being able to get noodles at midnight. But the stars are ridiculous, I'll give it that.",
     "label": "mixed",
@@ -456,13 +358,6 @@
   },
   {
     "id": "phones_in_school_a",
-    "text": "The use of smartphones in schools is a topic of ongoing debate among educators and parents. Proponents argue that devices can serve as valuable learning tools, while critics highlight concerns about distraction and cyberbullying. As a result, many institutions are implementing clear policies to balance these considerations.",
-    "label": "ai",
-    "topic": "phones_in_school",
-    "split": "train"
-  },
-  {
-    "id": "phones_in_school_a_edit",
     "text": "The use of smartphones in schools is a topic of ongoing debate among educators and parents. Proponents argue that devices can serve as valuable learning tools, while critics highlight concerns about distraction and cyberbullying. As a result, many institutions are implementing clear policies to balance these considerations.",
     "label": "ai",
     "topic": "phones_in_school",
@@ -490,13 +385,6 @@
     "split": "train"
   },
   {
-    "id": "volunteering_a_edit",
-    "text": "Volunteering is a meaningful way to give back to the community and make a positive impact. It provides individuals with opportunities to develop new skills, build relationships, and gain a sense of purpose. Furthermore, organizations rely heavily on volunteers to carry out their missions.",
-    "label": "ai",
-    "topic": "volunteering",
-    "split": "train"
-  },
-  {
     "id": "volunteering_mixed",
     "text": "Volunteering is a meaningful way to give back to the community and make a positive impact. I kept going because of a woman named Marta who bosses everyone around and keeps a tin of toffees under the counter. Best Saturday job I've ever had, and it pays nothing.",
     "label": "mixed",
@@ -512,13 +400,6 @@
   },
   {
     "id": "minimalism_a",
-    "text": "Minimalism is a lifestyle philosophy that emphasizes simplicity and intentional living. By reducing material possessions, individuals can free up time, space, and financial resources. In essence, minimalism encourages people to focus on what truly adds value to their lives.",
-    "label": "ai",
-    "topic": "minimalism",
-    "split": "train"
-  },
-  {
-    "id": "minimalism_a_edit",
     "text": "Minimalism is a lifestyle philosophy that emphasizes simplicity and intentional living. By reducing material possessions, individuals can free up time, space, and financial resources. In essence, minimalism encourages people to focus on what truly adds value to their lives.",
     "label": "ai",
     "topic": "minimalism",
@@ -546,17 +427,94 @@
     "split": "test"
   },
   {
-    "id": "space_exploration_a_edit",
-    "text": "Space exploration represents one of humanity's most ambitious and inspiring endeavors. It drives technological innovation, expands scientific knowledge, and fosters international collaboration. Looking ahead, continued investment in this field is likely to yield benefits that extend far beyond our planet.",
-    "label": "ai",
-    "topic": "space_exploration",
-    "split": "test"
-  },
-  {
     "id": "space_exploration_mixed",
     "text": "Space exploration represents one of humanity's most ambitious and inspiring endeavors. I still remember my ribs buzzing. I don't care what it costs, I want kids to see that.",
     "label": "mixed",
     "topic": "space_exploration",
+    "split": "test"
+  },
+  {
+    "id": "ood_orwell_h",
+    "text": "It was a bright cold day in April, and the clocks were striking thirteen. Winston Smith, his chin nuzzled into his breast in an effort to escape the vile wind, slipped quickly through the glass doors of Victory Mansions.",
+    "label": "human",
+    "topic": "ood_literature",
+    "split": "test"
+  },
+  {
+    "id": "ood_forum_h",
+    "text": "honestly bro just reseat the ram. i had the exact same bsod loop last thursday after updating the bios and spent 4 hours thinking my 4090 was cooked. turned out slot 2 was just slightly loose lol",
+    "label": "human",
+    "topic": "ood_forum",
+    "split": "test"
+  },
+  {
+    "id": "ood_rfc_h",
+    "text": "A TCP implementation MUST be able to process incoming segments while sending. The socket buffer allocation algorithm MUST NOT deadlock when receive window drops to zero under heavy half-duplex loads.",
+    "label": "human",
+    "topic": "ood_rfc",
+    "split": "test"
+  },
+  {
+    "id": "ood_darwin_h",
+    "text": "When we compare the individuals of the same variety or sub-variety of our older cultivated plants and animals, one of the first points which strikes us is, that they generally differ more from each other than do the individuals of any one species.",
+    "label": "human",
+    "topic": "ood_biology",
+    "split": "test"
+  },
+  {
+    "id": "ood_casual_review_h",
+    "text": "Ordered the spicy noodles at 1am after a long shift. They arrived lukewarm and the broth spilled inside the plastic bag, but honestly? It still hit the spot. 4/5 would regret again.",
+    "label": "human",
+    "topic": "ood_review",
+    "split": "test"
+  },
+  {
+    "id": "ood_legal_contract_h",
+    "text": "Neither party shall be liable for failure to perform any obligation hereunder if such failure is caused by acts of God, civil commotion, or governmental intervention beyond reasonable foreseeability.",
+    "label": "human",
+    "topic": "ood_legal",
+    "split": "test"
+  },
+  {
+    "id": "ood_cot_scratchpad_a",
+    "text": "To determine whether the hypothesis holds, we must first analyze the underlying premises. It is important to note that the parameters exhibit a multifaceted correlation. Furthermore, delving into the dataset reveals that systematic variance plays a pivotal role.",
+    "label": "ai",
+    "topic": "ood_reasoning",
+    "split": "test"
+  },
+  {
+    "id": "ood_evasive_prompt_a",
+    "text": "Well, in todays digital era, navigating the intricate tapestry of modern software architecture requires a comprehensive approach. It is truly a testament to technological innovation that seamlessly harnesses cloud infrastructure.",
+    "label": "ai",
+    "topic": "ood_evasive",
+    "split": "test"
+  },
+  {
+    "id": "ood_corporate_memo_a",
+    "text": "Subject: Q3 Synergy and Paradigm Alignment. As we delve into the upcoming sprint cycle, it is crucial to foster proactive collaboration across all multifaceted cross-functional workstreams to ensure optimal deliverable cadence.",
+    "label": "ai",
+    "topic": "ood_corporate",
+    "split": "test"
+  },
+  {
+    "id": "ood_evasive_essay_a",
+    "text": "The transformative impact of artificial intelligence cannot be overstated in todays fast-paced society. It plays a vital role across a wide range of industries, ultimately fostering unprecedented efficiency and innovation.",
+    "label": "ai",
+    "topic": "ood_essay",
+    "split": "test"
+  },
+  {
+    "id": "ood_synthetic_cover_letter_a",
+    "text": "Throughout my career, I have always prided myself on delivering cutting-edge solutions. I am deeply passionate about leveraging my robust technical expertise to delve into complex challenges and seamlessly empower your team.",
+    "label": "ai",
+    "topic": "ood_resume",
+    "split": "test"
+  },
+  {
+    "id": "ood_synthetic_review_a",
+    "text": "This product is truly a beacon of excellence and a testament to quality craftsmanship. It effortlessly blends functionality with elegant design, making it an indispensable addition to any modern household.",
+    "label": "ai",
+    "topic": "ood_product",
     "split": "test"
   }
 ]

@@ -153,7 +153,7 @@ export const FreePlagiarismCheckerPage: React.FC<FreePlagiarismCheckerPageProps>
   const faqs = [
     {
       q: 'Does this plagiarism checker upload my paper or essay to a database like Turnitin does?',
-      a: 'No, absolutely not. Unlike commercial services (such as Turnitin, Copyleaks, or Grammarly) that store every uploaded document in a permanent central database for future scanning, HumanizeText performs 100% of its computation inside your browser using the Web Crypto API. Not a single character of your document ever touches any server.',
+      a: 'No. When using this standalone Plagiarism Checker tool, all computation executes 100% inside your browser using the Web Crypto API against your supplied reference files. Not a single character of your draft or reference materials is transmitted to any server. (Note: On the Free AI Humanizer tab, users can optionally choose Cloud AI for rewriting, but this plagiarism comparison tool is always 100% on-device).',
     },
     {
       q: 'What can be compared with this free tool?',
@@ -161,7 +161,7 @@ export const FreePlagiarismCheckerPage: React.FC<FreePlagiarismCheckerPageProps>
     },
     {
       q: 'Why doesn’t this tool search the entire public internet like commercial checkers claim to do?',
-      a: 'Searching the public web requires sending your unencrypted document to a third-party cloud service that parses, indexes, and logs your content. For unpublished research, legal contracts, proprietary software documentation, and student theses, uploading your draft to third-party cloud databases violates non-disclosure agreements, forfeits intellectual property confidentiality, and leaves you vulnerable to data leaks. HumanizeText gives you a zero-knowledge, local comparison engine instead.',
+      a: 'Searching the entire public web requires sending unencrypted documents to massive centralized web crawler databases that index and retain drafts. HumanizeText focuses on confidential, sovereign source auditing: you provide the reference documents (such as lecture notes, textbook chapters, or prior drafts), and our engine computes cryptographic intersection entirely inside your browser memory. No third party ever receives your draft.',
     },
     {
       q: 'How does the Winnowing algorithm detect plagiarism even if someone changes minor words?',

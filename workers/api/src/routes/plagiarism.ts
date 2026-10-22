@@ -55,7 +55,7 @@ export async function handlePlagiarism(request: Request, env: Env): Promise<Resp
     }
   }
 
-  const latencyMs = Math.round(performance.now() - startTime);
+  const latencyMs = Number((performance.now() - startTime).toFixed(2));
 
   const payload: PlagiarismResponse = {
     success: true,

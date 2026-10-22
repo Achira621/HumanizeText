@@ -1,0 +1,142 @@
+[
+  {
+    "id": "p5_acad_01_hedging_trap",
+    "genre": "academic",
+    "split": "dev",
+    "sourceText": "According to Miller et al. (2024), computational linguistics models exhibit noticeable syntactic uniformity [12]. Preliminary empirical data tentatively suggests that prompt engineering may not completely eliminate stylistic uniformity in 45% of cases.",
+    "baselineModelOutput": "Miller et al. (2024) found that computational linguistics models often sound repetitive. Early data proves that prompt engineering eliminates stylistic uniformity in 45% of cases.",
+    "phase4ModelOutput": "As Miller et al. (2024) observe, computational language models frequently display noticeable syntactic uniformity [12]. Preliminary empirical findings tentatively suggest that prompt engineering may not completely eliminate stylistic uniformity in 45% of cases.",
+    "model": "@cf/qwen/qwen3-30b-a3b-fp8",
+    "baselineFlaws": ["omitted_citation_12", "lost_hedging", "negation_flip"]
+  },
+  {
+    "id": "p5_acad_02_causality_bounds",
+    "genre": "academic",
+    "split": "val",
+    "sourceText": "Because protein folding degradation occurred rapidly below 4°C, enzymes failed to catalyze the synthesis reaction. Consequently, yield did not exceed 12.4% across 5 trial replications.",
+    "baselineModelOutput": "Enzymes failed to catalyze the synthesis reaction, which caused rapid protein folding degradation below 4°C. The yield reached 12.4% across 5 trial replications.",
+    "phase4ModelOutput": "Because protein folding degraded rapidly at temperatures below 4°C, the enzymes failed to catalyze the synthesis reaction. Consequently, yield did not exceed 12.4% across 5 trial replications.",
+    "model": "@cf/qwen/qwen3-30b-a3b-fp8",
+    "baselineFlaws": ["reversed_causality", "negation_flip"]
+  },
+  {
+    "id": "p5_tech_01_negated_guarantee",
+    "genre": "technical",
+    "split": "val",
+    "sourceText": "Failover benchmark testing revealed that asynchronous database replication does not guarantee zero-loss recovery without persistent disk write-ahead checkpoints on all 3 secondary nodes.",
+    "baselineModelOutput": "Failover benchmark testing revealed that asynchronous database replication guarantees zero-loss recovery with persistent disk write-ahead checkpoints on all 3 secondary nodes.",
+    "phase4ModelOutput": "Failover tests showed that asynchronous database replication does not guarantee zero-loss recovery without persistent disk write-ahead checkpoints on all 3 secondary nodes.",
+    "model": "@cf/qwen/qwen3-30b-a3b-fp8",
+    "baselineFlaws": ["negation_flip"]
+  },
+  {
+    "id": "p5_tech_02_latency_memory",
+    "genre": "technical",
+    "split": "held-out",
+    "sourceText": "The endpoint p99 latency dropped from 145ms to 18ms after deploying Redis caching, but heap memory consumption expanded to 64GB across the cluster.",
+    "baselineModelOutput": "Endpoint latency fell from 145 to 18 after adding Redis, while memory grew to 64 across the cluster.",
+    "phase4ModelOutput": "Endpoint p99 latency dropped from 145ms to 18ms after deploying Redis caching, though heap memory expanded to 64GB across the cluster.",
+    "model": "@cf/qwen/qwen3-30b-a3b-fp8",
+    "baselineFlaws": ["lost_units_ms_gb", "lost_p99"]
+  },
+  {
+    "id": "p5_prof_01_arr_expenditure",
+    "genre": "professional",
+    "split": "held-out",
+    "sourceText": "On March 31, 2026, BioTech Corp announced that recurring ARR expanded by 128% to $58.2 million. However, net operating cash flow did not turn positive due to $14.5 million in capital expenditures across 3 manufacturing hubs.",
+    "baselineModelOutput": "On March 31, 2026, BioTech Corp announced recurring ARR grew 128% to 58.2 million. Net operating cash flow turned positive despite capital expenditures across 3 manufacturing hubs.",
+    "phase4ModelOutput": "BioTech Corp announced on March 31, 2026, that recurring ARR surged 128% to $58.2 million. Even so, net operating cash flow did not turn positive, reflecting $14.5 million in capital expenditures across 3 manufacturing hubs.",
+    "model": "@cf/qwen/qwen3-30b-a3b-fp8",
+    "baselineFlaws": ["negation_flip", "lost_dollar_unit"]
+  },
+  {
+    "id": "p5_prof_02_overedit_trap",
+    "genre": "professional",
+    "split": "held-out",
+    "sourceText": "We must delve into our third-quarter procurement pipeline to ensure all supplier contracts comply with section 4.2 standards before December 15, 2025.",
+    "baselineModelOutput": "It is imperative that our leadership undertakes an exhaustive strategic review of our third-quarter procurement infrastructure in order to guarantee full alignment with benchmarks.",
+    "phase4ModelOutput": "We need to examine our third-quarter procurement pipeline to ensure all supplier contracts comply with section 4.2 standards before December 15, 2025.",
+    "model": "@cf/qwen/qwen3-30b-a3b-fp8",
+    "baselineFlaws": ["over_editing", "lost_section_4_2", "lost_date"]
+  },
+  {
+    "id": "p5_conv_01_personal_voice",
+    "genre": "conversational",
+    "split": "dev",
+    "sourceText": "Honestly, my grandfather never bought modern coffee maker gadgets. He boiled the same dark roast in a dented steel pot every single morning, and I definitely do not miss the burnt taste from when I tried it at ten years old.",
+    "baselineModelOutput": "It is worth noting that my grandfather refrained from purchasing contemporary coffee appliances. He consistently prepared dark roast coffee in a steel vessel each morning, and I do not desire the flavor experienced at age ten.",
+    "phase4ModelOutput": "Honestly, my grandfather never bought modern coffee gadgets. He boiled the same dark roast in a dented steel pot every morning, and I definitely don't miss the burnt taste from when I tried it at ten years old.",
+    "model": "@cf/qwen/qwen3-30b-a3b-fp8",
+    "baselineFlaws": ["voice_flattening", "ai_cliche_it_is_worth_noting"]
+  },
+  {
+    "id": "p5_conv_02_commute_contractions",
+    "genre": "conversational",
+    "split": "held-out",
+    "sourceText": "I wouldn't say my remote work routine is flawless, but spending 90 minutes on a crowded train every weekday was something I couldn't tolerate anymore after five years.",
+    "baselineModelOutput": "I would not state that my remote work routine is flawless; however, spending 90 minutes on a crowded train every weekday was an ordeal that I could not tolerate after five years.",
+    "phase4ModelOutput": "I wouldn't call my remote work routine flawless, but spending 90 minutes on a packed train every weekday was something I couldn't tolerate anymore after five years.",
+    "model": "@cf/qwen/qwen3-30b-a3b-fp8",
+    "baselineFlaws": ["contraction_expansion", "formalization_bias"]
+  },
+  {
+    "id": "p5_creat_01_sensory_ambiguity",
+    "genre": "creative",
+    "split": "held-out",
+    "sourceText": "The solitary lighthouse beacon pierced the ocean fog with tentative flashes, yet its beam could not reveal the jagged reef hiding thirty feet below the churning tide.",
+    "baselineModelOutput": "The lighthouse served as a beacon of hope, piercing the multifaceted tapestry of fog with its illumination, playing a pivotal role in revealing thirty feet of reef.",
+    "phase4ModelOutput": "The solitary lighthouse pierced the ocean fog in tentative flashes, but its beam could not reveal the jagged reef hiding thirty feet beneath the churning tide.",
+    "model": "@cf/qwen/qwen3-30b-a3b-fp8",
+    "baselineFlaws": ["ai_cliches_tapestry_pivotal", "negation_flip"]
+  },
+  {
+    "id": "p5_creat_02_metaphor_restraint",
+    "genre": "creative",
+    "split": "val",
+    "sourceText": "In the quiet library basement, dust motes drifted like pale stars through narrow sunbeams, undisturbed by the muffled murmur of afternoon traffic above.",
+    "baselineModelOutput": "Within the serene library sanctuary, a rich tapestry of dust particles floated through vibrant sunbeams, standing as a testament to tranquility amidst afternoon traffic.",
+    "phase4ModelOutput": "In the quiet library basement, dust motes drifted like pale stars through narrow sunbeams, undisturbed by the muffled murmur of afternoon traffic above.",
+    "model": "@cf/qwen/qwen3-30b-a3b-fp8",
+    "baselineFlaws": ["ai_cliches_tapestry_testament", "lost_undisturbed", "over_editing"]
+  },
+  {
+    "id": "p6_hq_01_minimal_edits",
+    "genre": "creative",
+    "split": "held-out",
+    "sourceText": "The morning express cleared the mountain pass just as dawn broke over the timberline. Frost clung to the passenger windows, but inside the dining car the coffee was hot and the conductors spoke in quiet murmurs.",
+    "baselineModelOutput": "As dawn illuminated the timberline, the morning train successfully completed its navigation of the mountainous pass, serving as a testament to railway engineering while passengers enjoyed hot beverages.",
+    "phase4ModelOutput": "The morning express cleared the mountain pass just as dawn broke over the timberline. Frost clung to the passenger windows, but inside the dining car the coffee was hot and the conductors spoke in quiet murmurs.",
+    "model": "@cf/qwen/qwen3-30b-a3b-fp8",
+    "baselineFlaws": ["over_editing", "ai_cliche_testament", "voice_destruction"]
+  },
+  {
+    "id": "p6_clunky_01_bureaucratic_bloat",
+    "genre": "professional",
+    "split": "dev",
+    "sourceText": "In order to facilitate the proactive optimization of our multifaceted enterprise deliverables, it is crucial to note that delving into comprehensive strategic synergies plays a pivotal role in ensuring that seamless cross-functional alignment is achieved.",
+    "baselineModelOutput": "In order to optimize multifaceted enterprise deliverables, delving into comprehensive strategic synergies plays a pivotal role in ensuring seamless alignment.",
+    "phase4ModelOutput": "To improve enterprise results, teams should coordinate priorities directly across departments.",
+    "model": "@cf/qwen/qwen3-30b-a3b-fp8",
+    "baselineFlaws": ["cliche_retention_delving_pivotal_synergies"]
+  },
+  {
+    "id": "p6_tech_03_rfc2119_network",
+    "genre": "technical",
+    "split": "held-out",
+    "sourceText": "Under RFC 2119 specifications, routers MUST NOT forward ICMP redirect packets when ingress bandwidth exceeds 10Gbps across IPv6 interface eth0.",
+    "baselineModelOutput": "Under RFC 2119 specifications, routers forward ICMP redirect packets when ingress bandwidth exceeds 10 across IPv6 interface eth0.",
+    "phase4ModelOutput": "Under RFC 2119 specifications, routers MUST NOT forward ICMP redirect packets when ingress bandwidth exceeds 10Gbps across IPv6 interface eth0.",
+    "model": "@cf/qwen/qwen3-30b-a3b-fp8",
+    "baselineFlaws": ["negation_flip", "lost_unit_gbps"]
+  },
+  {
+    "id": "p6_trap_01_causal_inversion",
+    "genre": "academic",
+    "split": "val",
+    "sourceText": "Because severe drought depleted aquifer reserves across 4 agricultural counties, soybean crop yield fell by 38% in 2025.",
+    "baselineModelOutput": "Soybean crop yield dropped by 38% in 2025, which caused severe drought depleting aquifer reserves across 4 agricultural counties.",
+    "phase4ModelOutput": "Because severe drought depleted aquifer reserves across 4 agricultural counties, soybean crop yields dropped by 38% in 2025.",
+    "model": "@cf/qwen/qwen3-30b-a3b-fp8",
+    "baselineFlaws": ["reversed_causality"]
+  }
+]

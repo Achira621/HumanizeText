@@ -246,10 +246,10 @@ export function computeAiScore(text: string): AiAnalysisResult {
   const clauseDensity = computeClauseDensity(sentences);
 
   let sigKeyword: number;
-  if (densityPer100 >= 4.0 || keywordHits >= 6) sigKeyword = 0.98;
-  else if (densityPer100 >= 2.5 || keywordHits >= 4) sigKeyword = 0.92;
-  else if (densityPer100 >= 1.5 || keywordHits >= 2) sigKeyword = 0.82;
-  else if (densityPer100 >= 0.8 || keywordHits >= 1) sigKeyword = 0.65;
+  if (keywordHits >= 6 || (densityPer100 >= 4.0 && keywordHits >= 3)) sigKeyword = 0.98;
+  else if (keywordHits >= 4 || (densityPer100 >= 2.5 && keywordHits >= 2)) sigKeyword = 0.92;
+  else if (keywordHits >= 2 || (densityPer100 >= 1.5 && keywordHits >= 2)) sigKeyword = 0.82;
+  else if (keywordHits === 1) sigKeyword = 0.40;
   else sigKeyword = 0.05;
 
   let sigBurst: number;
@@ -327,10 +327,19 @@ export function computeAiScore(text: string): AiAnalysisResult {
   } else if (keywordHits === 0) {
     // If no AI keywords and high burstiness / conversational indicators, sharply lower score
     if (text.includes("I ") || text.includes("I'd") || text.includes("I'm") || text.includes("my ")) {
-      calibratedAi = Math.min(calibratedAi, 0.18);
+      calibratedAi = Math.min(calibratedAi, 0.16);
+    } else if (vocab.typeTokenRatio > 0.60) {
+      calibratedAi = Math.min(calibratedAi, 0.16);
     } else {
-      calibratedAi = Math.min(calibratedAi, 0.25);
+      calibratedAi = Math.min(calibratedAi, 0.20);
     }
+  }
+
+  // Technical normative specification discount: RFC normative words & protocol symbols
+  const hasRfcNormative = /\b(?:MUST|MUST NOT|SHOULD|SHOULD NOT|SHALL|SHALL NOT)\b/.test(text);
+  const technicalTerms = text.match(/\b(?:TCP|UDP|IP|HTTP|HTTPS|DNS|RFC|SQL|API|SDK|p99|latency|socket|buffer|deadlock|half-duplex|mutex)\b/gi) || [];
+  if (hasRfcNormative || technicalTerms.length >= 2) {
+    calibratedAi = Math.max(0.04, calibratedAi - 0.22);
   }
 
   if (wordCount < 25) {

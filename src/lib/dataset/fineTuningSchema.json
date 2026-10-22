@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://humanizetext-nine.vercel.app/schemas/finetuning-dataset-v1.json",
+  "title": "HumanizeTextFineTuningDatasetSchema",
+  "description": "Versioned dataset schema for context-aware writing intelligence and meaning-preserving transformation.",
+  "type": "object",
+  "required": [
+    "sampleId",
+    "schemaVersion",
+    "provenance",
+    "permissions",
+    "context",
+    "sourceText",
+    "preferredRevision",
+    "protectedClaims",
+    "rationale",
+    "split",
+    "metadata"
+  ],
+  "properties": {
+    "sampleId": {
+      "type": "string",
+      "pattern": "^ft_[a-z0-9_]+$"
+    },
+    "schemaVersion": {
+      "type": "string",
+      "enum": ["1.0.0"]
+    },
+    "provenance": {
+      "type": "string",
+      "description": "Origin of the source text, e.g. OpenWebText, synthetic generation, public domain"
+    },
+    "permissions": {
+      "type": "object",
+      "required": ["consentedForResearch", "license", "commercialUseAllowed", "containsPii", "anonymized"],
+      "properties": {
+        "consentedForResearch": { "type": "boolean" },
+        "license": { "type": "string" },
+        "commercialUseAllowed": { "type": "boolean" },
+        "containsPii": { "type": "boolean" },
+        "anonymized": { "type": "boolean" }
+      }
+    },
+    "context": {
+      "type": "object",
+      "required": ["genre", "audience", "tone", "epistemicStance", "protectedTokens"],
+      "properties": {
+        "objective": { "type": "string" },
+        "genre": {
+          "type": "string",
+          "enum": ["academic", "technical", "professional", "conversational", "creative", "general"]
+        },
+        "audience": {
+          "type": "string",
+          "enum": ["general-public", "domain-experts", "business-executives", "students", "colleagues"]
+        },
+        "tone": {
+          "type": "string",
+          "enum": ["formal", "objective", "engaging", "persuasive", "casual", "authoritative"]
+        },
+        "epistemicStance": {
+          "type": "string",
+          "enum": ["certain", "hedged", "exploratory", "skeptical"]
+        },
+        "coreThesis": { "type": "string" },
+        "supportingClaims": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "protectedTokens": {
+          "type": "object",
+          "properties": {
+            "numbers": { "type": "array", "items": { "type": "string" } },
+            "dates": { "type": "array", "items": { "type": "string" } },
+            "citations": { "type": "array", "items": { "type": "string" } },
+            "quotes": { "type": "array", "items": { "type": "string" } },
+            "units": { "type": "array", "items": { "type": "string" } },
+            "urls": { "type": "array", "items": { "type": "string" } },
+            "frozenWords": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "hedgingMarkers": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "negationMarkers": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "editingIntensity": {
+          "type": "string",
+          "enum": ["conservative", "balanced", "dynamic", "maximum"]
+        }
+      }
+    },
+    "sourceText": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 10000
+    },
+    "preferredRevision": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 10000
+    },
+    "protectedClaims": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "rationale": {
+      "type": "string"
+    },
+    "split": {
+      "type": "string",
+      "enum": ["train", "validation", "test"]
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["wordCountSource", "wordCountRevision", "genre", "dateCurated"],
+      "properties": {
+        "wordCountSource": { "type": "integer", "minimum": 1 },
+        "wordCountRevision": { "type": "integer", "minimum": 1 },
+        "genre": { "type": "string" },
+        "readingEaseSource": { "type": "number" },
+        "readingEaseRevision": { "type": "number" },
+        "dateCurated": { "type": "string", "format": "date" }
+      }
+    }
+  }
+}

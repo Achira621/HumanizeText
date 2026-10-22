@@ -1,0 +1,146 @@
+[
+  {
+    "id": "sem_exact_01",
+    "textA": "The distributed ledger utilizes Byzantine fault tolerance to reach consensus across untrusted validator nodes.",
+    "textB": "The distributed ledger utilizes Byzantine fault tolerance to reach consensus across untrusted validator nodes.",
+    "category": "exact_match",
+    "isSemanticallyEquivalent": true,
+    "split": "validation"
+  },
+  {
+    "id": "sem_exact_02",
+    "textA": "Atmospheric carbon dioxide concentrations reached 421 parts per million in the latest observatory measurements.",
+    "textB": "Atmospheric carbon dioxide concentrations reached 421 parts per million in the latest observatory measurements.",
+    "category": "exact_match",
+    "isSemanticallyEquivalent": true,
+    "split": "test"
+  },
+  {
+    "id": "sem_para_01",
+    "textA": "The engineering team finalized the cloud architecture migration three weeks ahead of the projected deadline.",
+    "textB": "The cloud architecture transition was successfully completed by the engineers three weeks prior to schedule.",
+    "category": "true_paraphrase",
+    "isSemanticallyEquivalent": true,
+    "split": "validation"
+  },
+  {
+    "id": "sem_para_02",
+    "textA": "Excessive consumption of refined carbohydrates induces rapid insulin spikes followed by sustained fatigue.",
+    "textB": "Eating too many refined sugars causes sharp rises in blood insulin, frequently leading to prolonged tiredness.",
+    "category": "true_paraphrase",
+    "isSemanticallyEquivalent": true,
+    "split": "validation"
+  },
+  {
+    "id": "sem_para_03",
+    "textA": "The researcher demonstrated that randomized trial results exhibit statistically significant variance across demographic groups.",
+    "textB": "Empirical evidence from the clinical trial revealed marked differences in outcomes depending on participant demographics.",
+    "category": "true_paraphrase",
+    "isSemanticallyEquivalent": true,
+    "split": "test"
+  },
+  {
+    "id": "sem_para_04",
+    "textA": "Renewable energy adoption expanded rapidly after regional municipal subsidies lowered installation costs.",
+    "textB": "Local government rebates reduced setup expenses, triggering an acceleration in clean energy implementation.",
+    "category": "true_paraphrase",
+    "isSemanticallyEquivalent": true,
+    "split": "test"
+  },
+  {
+    "id": "sem_partial_01",
+    "textA": "The university senate approved the new artificial intelligence curriculum for all incoming computer science undergraduates.",
+    "textB": "The university senate approved the AI curriculum for computer science students, pending budgetary review by the dean.",
+    "category": "partial_change",
+    "isSemanticallyEquivalent": false,
+    "split": "validation"
+  },
+  {
+    "id": "sem_partial_02",
+    "textA": "The vaccine candidate demonstrated eighty-five percent efficacy against symptomatic infection in clinical phases.",
+    "textB": "The experimental vaccine provided strong protection against severe disease hospitalization in adult cohorts.",
+    "category": "partial_change",
+    "isSemanticallyEquivalent": false,
+    "split": "test"
+  },
+  {
+    "id": "sem_neg_01",
+    "textA": "The cryptographic signature algorithm is provably vulnerable to chosen-ciphertext cryptanalysis.",
+    "textB": "The cryptographic signature algorithm is provably immune to chosen-ciphertext cryptanalysis.",
+    "category": "negation_change",
+    "isSemanticallyEquivalent": false,
+    "split": "validation"
+  },
+  {
+    "id": "sem_neg_02",
+    "textA": "The audit committee confirmed that internal corporate compliance standards were fully satisfied.",
+    "textB": "The audit committee confirmed that internal corporate compliance standards were not satisfied.",
+    "category": "negation_change",
+    "isSemanticallyEquivalent": false,
+    "split": "test"
+  },
+  {
+    "id": "sem_num_01",
+    "textA": "Quarterly operating revenue grew by fourteen percent to sixty-two million dollars.",
+    "textB": "Quarterly operating revenue grew by eighty-four percent to sixty-two million dollars.",
+    "category": "numerical_change",
+    "isSemanticallyEquivalent": false,
+    "split": "validation"
+  },
+  {
+    "id": "sem_num_02",
+    "textA": "The clinical trial enrolled four hundred and fifty participants across twelve medical centers in 2024.",
+    "textB": "The clinical trial enrolled four thousand five hundred participants across twelve medical centers in 2024.",
+    "category": "numerical_change",
+    "isSemanticallyEquivalent": false,
+    "split": "test"
+  },
+  {
+    "id": "sem_contra_01",
+    "textA": "The operating system kernel runs entirely in privileged ring zero memory without user space drivers.",
+    "textB": "The microkernel delegates device driver execution to isolated user space processes.",
+    "category": "contradiction",
+    "isSemanticallyEquivalent": false,
+    "split": "validation"
+  },
+  {
+    "id": "sem_contra_02",
+    "textA": "Strict monetary policy successfully curbed rising inflation without dampening employment rates.",
+    "textB": "Aggressive central bank rate hikes failed to control inflation and triggered widespread job losses.",
+    "category": "contradiction",
+    "isSemanticallyEquivalent": false,
+    "split": "test"
+  },
+  {
+    "id": "sem_drift_01",
+    "textA": "Deep learning models require extensive computational resources and specialized matrix multiplication hardware.",
+    "textB": "Modern high-performance graphics cards feature high-bandwidth video memory suitable for ray-traced video games.",
+    "category": "topic_drift",
+    "isSemanticallyEquivalent": false,
+    "split": "validation"
+  },
+  {
+    "id": "sem_drift_02",
+    "textA": "Photosynthesis converts solar photons into chemical glucose through light-dependent chloroplast reactions.",
+    "textB": "Commercial solar photovoltaic panels convert incident light directly into direct current electricity.",
+    "category": "topic_drift",
+    "isSemanticallyEquivalent": false,
+    "split": "test"
+  },
+  {
+    "id": "sem_unrelated_01",
+    "textA": "The international space station orbits the Earth at an altitude of approximately four hundred kilometers.",
+    "textB": "A proper espresso extraction requires eighteen grams of finely ground coffee beans tamped with thirty pounds of force.",
+    "category": "unrelated",
+    "isSemanticallyEquivalent": false,
+    "split": "validation"
+  },
+  {
+    "id": "sem_unrelated_02",
+    "textA": "Post-quantum cryptography relies on lattice-based mathematics and learning with errors problems.",
+    "textB": "Ancient Roman concrete utilized volcanic pozzolan ash and slaked lime to harden underwater.",
+    "category": "unrelated",
+    "isSemanticallyEquivalent": false,
+    "split": "test"
+  }
+]

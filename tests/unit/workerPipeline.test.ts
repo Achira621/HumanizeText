@@ -193,4 +193,43 @@ describe('Cloudflare Worker Pipeline & Routes', () => {
     expect(blocked.allowed).toBe(false);
     expect(blocked.remaining).toBe(0);
   });
+
+  it('handles malformed JSON body gracefully with HTTP 400', async () => {
+    const env = createMockEnv();
+    const req = new Request('http://localhost/api/humanize', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: 'this is not valid json {{{',
+    });
+
+    const res = await worker.fetch(req, env, {} as any);
+    expect(res.status).toBe(400);
+    const data = await res.json();
+    expect(data.success).toBe(false);
+    expect(data.error).toContain('Invalid JSON');
+  });
+
+  it('handles upstream Workers AI quota exhaustion gracefully with HTTP 503', async () => {
+    const env = createMockEnv({
+      AI: {
+        run: vi.fn(async () => {
+          throw new Error('Daily inference quota exceeded (10,000 Neurons/day cap reached)');
+        }),
+      },
+    });
+
+    const req = new Request('http://localhost/api/humanize', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        text: 'This is a test document with sufficient characters to pass validation.',
+      }),
+    });
+
+    const res = await worker.fetch(req, env, {} as any);
+    expect(res.status).toBe(503);
+    const data = await res.json();
+    expect(data.success).toBe(false);
+    expect(data.error).toContain('Inference platform is currently busy or quota has been reached');
+  });
 });

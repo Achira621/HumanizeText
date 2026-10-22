@@ -1,0 +1,213 @@
+[
+  {
+    "id": "p5_acad_01_hedging_trap",
+    "genre": "academic",
+    "split": "dev",
+    "targetIntensity": "balanced",
+    "sourceText": "According to Miller et al. (2024), computational linguistics models exhibit noticeable syntactic uniformity [12]. Preliminary empirical data tentatively suggests that prompt engineering may not completely eliminate stylistic uniformity in 45% of cases.",
+    "failureTraps": ["lost_hedging", "negation_flip", "omitted_citation"],
+    "requiredInvariants": {
+      "numbers": ["2024", "12", "45%"],
+      "citations": ["(Miller et al., 2024)", "[12]"],
+      "units": ["45%"],
+      "negations": ["not completely"],
+      "hedges": ["tentatively suggests", "may"]
+    },
+    "description": "Academic passage with nested citations, tentative hedging ('tentatively suggests', 'may'), and a qualified negation ('may not completely eliminate')."
+  },
+  {
+    "id": "p5_acad_02_causality_bounds",
+    "genre": "academic",
+    "split": "val",
+    "targetIntensity": "balanced",
+    "sourceText": "Because protein folding degradation occurred rapidly below 4°C, enzymes failed to catalyze the synthesis reaction. Consequently, yield did not exceed 12.4% across 5 trial replications.",
+    "failureTraps": ["reversed_causality", "negation_flip", "unit_loss"],
+    "requiredInvariants": {
+      "numbers": ["4", "12.4%", "5"],
+      "units": ["4°C", "12.4%"],
+      "negations": ["failed to", "did not exceed"],
+      "hedges": []
+    },
+    "description": "Causal dependency where temperature causes enzymatic failure; naive reordering can invert the causal chain or drop the negative bound."
+  },
+  {
+    "id": "p5_tech_01_negated_guarantee",
+    "genre": "technical",
+    "split": "val",
+    "targetIntensity": "conservative",
+    "sourceText": "Failover benchmark testing revealed that asynchronous database replication does not guarantee zero-loss recovery without persistent disk write-ahead checkpoints on all 3 secondary nodes.",
+    "failureTraps": ["negation_flip", "false_promise", "unit_drift"],
+    "requiredInvariants": {
+      "numbers": ["3"],
+      "units": ["3"],
+      "negations": ["does not guarantee", "without"],
+      "hedges": []
+    },
+    "description": "Technical architecture rule where asynchronous replication explicitly lacks zero-loss guarantees; dropping 'not' creates a catastrophic factual reversal."
+  },
+  {
+    "id": "p5_tech_02_latency_memory",
+    "genre": "technical",
+    "split": "held-out",
+    "targetIntensity": "balanced",
+    "sourceText": "The endpoint p99 latency dropped from 145ms to 18ms after deploying Redis caching, but heap memory consumption expanded to 64GB across the cluster.",
+    "failureTraps": ["unit_drift", "altered_quantities"],
+    "requiredInvariants": {
+      "numbers": ["145", "18", "64"],
+      "units": ["145ms", "18ms", "64GB"],
+      "negations": [],
+      "hedges": []
+    },
+    "description": "Performance telemetry pairing latency reduction in milliseconds with memory growth in gigabytes."
+  },
+  {
+    "id": "p5_prof_01_arr_expenditure",
+    "genre": "professional",
+    "split": "held-out",
+    "targetIntensity": "balanced",
+    "sourceText": "On March 31, 2026, BioTech Corp announced that recurring ARR expanded by 128% to $58.2 million. However, net operating cash flow did not turn positive due to $14.5 million in capital expenditures across 3 manufacturing hubs.",
+    "failureTraps": ["negation_flip", "financial_unit_loss", "omitted_dates"],
+    "requiredInvariants": {
+      "numbers": ["31", "2026", "128%", "58.2", "14.5", "3"],
+      "units": ["128%", "$58.2 million", "$14.5 million"],
+      "negations": ["did not turn"],
+      "hedges": []
+    },
+    "description": "Financial release pairing strong top-line revenue growth with a negative net cash flow qualification."
+  },
+  {
+    "id": "p5_prof_02_overedit_trap",
+    "genre": "professional",
+    "split": "held-out",
+    "targetIntensity": "conservative",
+    "sourceText": "We must delve into our third-quarter procurement pipeline to ensure all supplier contracts comply with section 4.2 standards before December 15, 2025.",
+    "failureTraps": ["over_editing", "cliche_removal_excess"],
+    "requiredInvariants": {
+      "numbers": ["4.2", "15", "2025"],
+      "units": ["section 4.2"],
+      "negations": [],
+      "hedges": []
+    },
+    "description": "Over-editing trap: clean corporate prose containing only one cliché ('delve into'). The pipeline should surgical-strike the cliché without rewriting the entire sentence."
+  },
+  {
+    "id": "p5_conv_01_personal_voice",
+    "genre": "conversational",
+    "split": "dev",
+    "targetIntensity": "balanced",
+    "sourceText": "Honestly, my grandfather never bought modern coffee maker gadgets. He boiled the same dark roast in a dented steel pot every single morning, and I definitely do not miss the burnt taste from when I tried it at ten years old.",
+    "failureTraps": ["voice_flattening", "negation_flip"],
+    "requiredInvariants": {
+      "numbers": ["ten"],
+      "units": [],
+      "negations": ["never", "do not miss"],
+      "hedges": []
+    },
+    "description": "Conversational memory whose warmth depends on colloquial rhythm and emphatic negative statements ('never', 'do not miss')."
+  },
+  {
+    "id": "p5_conv_02_commute_contractions",
+    "genre": "conversational",
+    "split": "held-out",
+    "targetIntensity": "dynamic",
+    "sourceText": "I wouldn't say my remote work routine is flawless, but spending 90 minutes on a crowded train every weekday was something I couldn't tolerate anymore after five years.",
+    "failureTraps": ["contraction_expansion", "formalization_bias"],
+    "requiredInvariants": {
+      "numbers": ["90", "five"],
+      "units": ["90 minutes", "five years"],
+      "negations": ["wouldn't", "couldn't"],
+      "hedges": []
+    },
+    "description": "Conversational reflection where expanding contractions ('would not', 'could not') destroys the authentic voice."
+  },
+  {
+    "id": "p5_creat_01_sensory_ambiguity",
+    "genre": "creative",
+    "split": "held-out",
+    "targetIntensity": "balanced",
+    "sourceText": "The solitary lighthouse beacon pierced the ocean fog with tentative flashes, yet its beam could not reveal the jagged reef hiding thirty feet below the churning tide.",
+    "failureTraps": ["negation_flip", "thesaurus_bloat", "cliche_injection"],
+    "requiredInvariants": {
+      "numbers": ["thirty"],
+      "units": ["thirty feet"],
+      "negations": ["could not reveal"],
+      "hedges": ["tentative"]
+    },
+    "description": "Creative descriptive prose where sensory diction must be preserved without injecting robotic AI filler or flipping the negative discovery."
+  },
+  {
+    "id": "p5_creat_02_metaphor_restraint",
+    "genre": "creative",
+    "split": "val",
+    "targetIntensity": "conservative",
+    "sourceText": "In the quiet library basement, dust motes drifted like pale stars through narrow sunbeams, undisturbed by the muffled murmur of afternoon traffic above.",
+    "failureTraps": ["ai_trope_injection", "over_editing"],
+    "requiredInvariants": {
+      "numbers": [],
+      "units": [],
+      "negations": ["undisturbed"],
+      "hedges": []
+    },
+    "description": "Poetic prose requiring high preservation: an indiscriminate humanizer will often inject clichéd tropes ('a tapestry of light', 'beacon of knowledge')."
+  },
+  {
+    "id": "p6_hq_01_minimal_edits",
+    "genre": "creative",
+    "split": "held-out",
+    "targetIntensity": "conservative",
+    "sourceText": "The morning express cleared the mountain pass just as dawn broke over the timberline. Frost clung to the passenger windows, but inside the dining car the coffee was hot and the conductors spoke in quiet murmurs.",
+    "failureTraps": ["over_editing", "voice_destruction"],
+    "requiredInvariants": {
+      "numbers": [],
+      "units": [],
+      "negations": [],
+      "hedges": []
+    },
+    "description": "High-quality original text requiring minimal/zero edits: already possesses rich human cadence and zero formulaic AI clichés."
+  },
+  {
+    "id": "p6_clunky_01_bureaucratic_bloat",
+    "genre": "professional",
+    "split": "dev",
+    "targetIntensity": "dynamic",
+    "sourceText": "In order to facilitate the proactive optimization of our multifaceted enterprise deliverables, it is crucial to note that delving into comprehensive strategic synergies plays a pivotal role in ensuring that seamless cross-functional alignment is achieved.",
+    "failureTraps": ["under_editing", "cliche_retention"],
+    "requiredInvariants": {
+      "numbers": [],
+      "units": [],
+      "negations": [],
+      "hedges": []
+    },
+    "description": "Clunky prose requiring heavy structural rewriting: dense with 5 AI corporate clichés that must be aggressively cut."
+  },
+  {
+    "id": "p6_tech_03_rfc2119_network",
+    "genre": "technical",
+    "split": "held-out",
+    "targetIntensity": "conservative",
+    "sourceText": "Under RFC 2119 specifications, routers MUST NOT forward ICMP redirect packets when ingress bandwidth exceeds 10Gbps across IPv6 interface eth0.",
+    "failureTraps": ["negation_flip", "rfc_keyword_loss", "unit_drift"],
+    "requiredInvariants": {
+      "numbers": ["2119", "10", "0"],
+      "units": ["10Gbps"],
+      "negations": ["MUST NOT"],
+      "hedges": []
+    },
+    "description": "Technical prose dense with RFC 2119 normative keywords ('MUST NOT'), protocol units ('10Gbps'), and interface tokens ('eth0', 'IPv6')."
+  },
+  {
+    "id": "p6_trap_01_causal_inversion",
+    "genre": "academic",
+    "split": "val",
+    "targetIntensity": "balanced",
+    "sourceText": "Because severe drought depleted aquifer reserves across 4 agricultural counties, soybean crop yield fell by 38% in 2025.",
+    "failureTraps": ["reversed_causality", "unit_drift"],
+    "requiredInvariants": {
+      "numbers": ["4", "38%", "2025"],
+      "units": ["38%"],
+      "negations": [],
+      "hedges": []
+    },
+    "description": "Meaning-drift trap: causal direction where drought causes crop drop. Naive rewrite must not claim crop drop caused drought."
+  }
+]

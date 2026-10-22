@@ -1,0 +1,650 @@
+[
+  {
+    "id": "p7_acad_01_hedging_trap",
+    "genre": "academic",
+    "split": "dev",
+    "lengthCategory": "medium",
+    "targetIntensity": "conservative",
+    "stressCategory": "dense_hedging_epistemic",
+    "sourceText": "According to Miller et al. (2024), computational linguistics models exhibit noticeable syntactic uniformity [12]. Preliminary empirical data tentatively suggests that prompt engineering may not completely eliminate stylistic uniformity in 45% of cases.",
+    "failureTraps": ["lost_hedging", "negation_flip", "omitted_citation"],
+    "requiredInvariants": {
+      "numbers": ["2024", "12", "45%"],
+      "citations": ["Miller et al. (2024)", "[12]"],
+      "units": ["45%"],
+      "negations": ["not completely"],
+      "hedges": ["tentatively suggests", "may"]
+    },
+    "description": "Academic passage with nested citations, tentative hedging ('tentatively suggests', 'may'), and a qualified negation ('may not completely eliminate')."
+  },
+  {
+    "id": "p7_acad_02_causality_bounds",
+    "genre": "academic",
+    "split": "val",
+    "lengthCategory": "medium",
+    "targetIntensity": "balanced",
+    "stressCategory": "causal_chain",
+    "sourceText": "Because protein folding degradation occurred rapidly below 4°C, enzymes failed to catalyze the synthesis reaction. Consequently, yield did not exceed 12.4% across 5 trial replications.",
+    "failureTraps": ["reversed_causality", "negation_flip", "unit_loss"],
+    "requiredInvariants": {
+      "numbers": ["4", "12.4%", "5"],
+      "citations": [],
+      "units": ["4°C", "12.4%"],
+      "negations": ["failed to", "did not exceed"],
+      "hedges": []
+    },
+    "description": "Causal dependency where temperature causes enzymatic failure; naive reordering can invert the causal chain or drop the negative bound."
+  },
+  {
+    "id": "p7_acad_03_multivariate_regression",
+    "genre": "academic",
+    "split": "held-out",
+    "lengthCategory": "long",
+    "targetIntensity": "conservative",
+    "stressCategory": "numbers_units_citations",
+    "sourceText": "Multivariate regression analysis across n = 1,420 subjects demonstrated that serum cortisol levels correlated inversely with slow-wave sleep duration (β = -0.42, p < 0.001) [8]. However, longitudinal follow-ups at 18 months failed to confirm sustained cognitive deficits when baseline BMI remained under 24.5 kg/m².",
+    "failureTraps": ["lost_p_value", "negation_flip", "unit_loss"],
+    "requiredInvariants": {
+      "numbers": ["1,420", "-0.42", "0.001", "8", "18", "24.5"],
+      "citations": ["[8]"],
+      "units": ["18 months", "24.5 kg/m²", "kg/m²"],
+      "negations": ["failed to confirm"],
+      "hedges": []
+    },
+    "description": "Statistical results passage featuring sample size n, correlation coefficient beta, p-value threshold, negative correlation, and BMI unit."
+  },
+  {
+    "id": "p7_acad_04_epistemic_bounds",
+    "genre": "academic",
+    "split": "dev",
+    "lengthCategory": "short",
+    "targetIntensity": "conservative",
+    "stressCategory": "dense_hedging_epistemic",
+    "sourceText": "Initial spectroscopic readings appear to indicate trace methane emissions near crater 7B, although sensor calibration drift might account for 30% of observed variance.",
+    "failureTraps": ["lost_hedging", "dogmatic_certainty"],
+    "requiredInvariants": {
+      "numbers": ["7", "30%"],
+      "citations": [],
+      "units": ["30%"],
+      "negations": [],
+      "hedges": ["appear to indicate", "might account for"]
+    },
+    "description": "Hedged scientific observation with two distinct epistemic dampeners that must not be upgraded to confirmed discovery."
+  },
+  {
+    "id": "p7_acad_05_historical_scholarship",
+    "genre": "academic",
+    "split": "val",
+    "lengthCategory": "long",
+    "targetIntensity": "balanced",
+    "stressCategory": "already_strong_prose",
+    "sourceText": "Historiographical consensus regarding seventeenth-century agrarian revolts has shifted markedly since Trevor-Roper's (1967) thesis. Archival taxation rolls in Normandy suggest that local rebellions were not driven primarily by grain scarcity, but rather by municipal resentment against centralized excise collectors during the 1639 Nu-Pieds uprising.",
+    "failureTraps": ["over_editing", "citation_loss", "negation_flip"],
+    "requiredInvariants": {
+      "numbers": ["1967", "1639"],
+      "citations": ["Trevor-Roper's (1967)"],
+      "units": [],
+      "negations": ["not driven primarily"],
+      "hedges": ["suggest that"]
+    },
+    "description": "Sophisticated historical prose with citation, delicate thesis qualification, and specific date."
+  },
+  {
+    "id": "p7_acad_06_causal_inversion_agriculture",
+    "genre": "academic",
+    "split": "held-out",
+    "lengthCategory": "short",
+    "targetIntensity": "balanced",
+    "stressCategory": "causal_chain",
+    "sourceText": "Because prolonged drought depleted regional water tables across 4 southern counties, aggregate soybean harvest yields plunged 38% in fiscal year 2025.",
+    "failureTraps": ["reversed_causality", "unit_loss"],
+    "requiredInvariants": {
+      "numbers": ["4", "38%", "2025"],
+      "citations": [],
+      "units": ["38%"],
+      "negations": [],
+      "hedges": []
+    },
+    "description": "Unidirectional cause-and-effect structure: water depletion caused yield drop, never the reverse."
+  },
+  {
+    "id": "p7_acad_07_dense_citations_hedging",
+    "genre": "academic",
+    "split": "dev",
+    "lengthCategory": "long",
+    "targetIntensity": "conservative",
+    "stressCategory": "dense_hedging_epistemic",
+    "sourceText": "While early randomized trials (Chen & Gupta, 2023; Zhao et al., 2025) ostensibly supported microRNA-146a upregulation as a biomarker for neuroinflammation [4, 7], subsequent longitudinal cohort studies did not reproduce these findings in pediatric cohorts under 12 years of age.",
+    "failureTraps": ["citation_drop", "negation_flip", "lost_hedging"],
+    "requiredInvariants": {
+      "numbers": ["2023", "2025", "146", "4", "7", "12"],
+      "citations": ["Chen & Gupta, 2023", "Zhao et al., 2025", "[4, 7]"],
+      "units": ["12 years"],
+      "negations": ["did not reproduce"],
+      "hedges": ["ostensibly"]
+    },
+    "description": "Complex academic syntax with compound parenthetical citations, multiple bracketed references, and negative replication outcome."
+  },
+  {
+    "id": "p7_tech_01_negated_guarantee",
+    "genre": "technical",
+    "split": "val",
+    "lengthCategory": "medium",
+    "targetIntensity": "conservative",
+    "stressCategory": "negation_polarity",
+    "sourceText": "Failover benchmark testing revealed that asynchronous database replication does not guarantee zero-loss recovery without persistent disk write-ahead checkpoints on all 3 secondary nodes.",
+    "failureTraps": ["negation_flip", "false_promise", "unit_drift"],
+    "requiredInvariants": {
+      "numbers": ["3"],
+      "citations": [],
+      "units": ["3"],
+      "negations": ["does not guarantee", "without"],
+      "hedges": []
+    },
+    "description": "Technical architecture rule where asynchronous replication explicitly lacks zero-loss guarantees; dropping 'not' creates a catastrophic factual reversal."
+  },
+  {
+    "id": "p7_tech_02_latency_memory",
+    "genre": "technical",
+    "split": "held-out",
+    "lengthCategory": "short",
+    "targetIntensity": "balanced",
+    "stressCategory": "numbers_units_citations",
+    "sourceText": "The endpoint p99 latency dropped from 145ms to 18ms after deploying Redis caching, but heap memory consumption expanded to 64GB across the cluster.",
+    "failureTraps": ["unit_drift", "altered_quantities"],
+    "requiredInvariants": {
+      "numbers": ["99", "145", "18", "64"],
+      "citations": [],
+      "units": ["145ms", "18ms", "64GB"],
+      "negations": [],
+      "hedges": []
+    },
+    "description": "Performance telemetry pairing latency reduction in milliseconds with memory growth in gigabytes."
+  },
+  {
+    "id": "p7_tech_03_rfc2119_network",
+    "genre": "technical",
+    "split": "held-out",
+    "lengthCategory": "short",
+    "targetIntensity": "conservative",
+    "stressCategory": "negation_polarity",
+    "sourceText": "Under RFC 2119 specifications, routers MUST NOT forward ICMP redirect packets when ingress bandwidth exceeds 10Gbps across IPv6 interface eth0.",
+    "failureTraps": ["negation_flip", "lost_unit_gbps", "lost_rfc"],
+    "requiredInvariants": {
+      "numbers": ["2119", "10", "6", "0"],
+      "citations": ["RFC 2119"],
+      "units": ["10Gbps"],
+      "negations": ["MUST NOT"],
+      "hedges": []
+    },
+    "description": "RFC standard specification with imperative negative constraint MUST NOT and 10Gbps networking unit."
+  },
+  {
+    "id": "p7_tech_04_distributed_consensus",
+    "genre": "technical",
+    "split": "dev",
+    "lengthCategory": "long",
+    "targetIntensity": "balanced",
+    "stressCategory": "causal_chain",
+    "sourceText": "In Raft consensus groups of 5 replicas, leader election fails when network partitions isolate 3 nodes concurrently. Because split-brain conditions prevent reaching a 3-of-5 quorum, client write requests are rejected with HTTP 503 until heartbeats resume within 150ms.",
+    "failureTraps": ["reversed_causality", "dropped_numbers", "status_code_drift"],
+    "requiredInvariants": {
+      "numbers": ["5", "3", "503", "150"],
+      "citations": [],
+      "units": ["150ms", "HTTP 503"],
+      "negations": ["fails", "prevent"],
+      "hedges": []
+    },
+    "description": "Distributed systems consensus failure chain with node count thresholds, quorum constraints, HTTP error status code, and millisecond heartbeat window."
+  },
+  {
+    "id": "p7_tech_05_cryptographic_primitives",
+    "genre": "technical",
+    "split": "val",
+    "lengthCategory": "long",
+    "targetIntensity": "conservative",
+    "stressCategory": "negation_polarity",
+    "sourceText": "Zero-knowledge verification protocols cannot ensure computational privacy if the prover reuses the same 256-bit elliptic curve nonce across multiple proofs. Under curve Ed25519, repeating scalar k leaks private signing keys within 2 signature operations.",
+    "failureTraps": ["negation_flip", "cryptographic_error", "unit_loss"],
+    "requiredInvariants": {
+      "numbers": ["256", "25519", "2"],
+      "citations": [],
+      "units": ["256-bit"],
+      "negations": ["cannot ensure"],
+      "hedges": []
+    },
+    "description": "Cryptographic security specification where nonce reuse breaks security guarantees; must preserve negative bounds and mathematical constants."
+  },
+  {
+    "id": "p7_tech_06_database_deadlock",
+    "genre": "technical",
+    "split": "dev",
+    "lengthCategory": "medium",
+    "targetIntensity": "balanced",
+    "stressCategory": "causal_chain",
+    "sourceText": "Because Transaction T1 retained an exclusive table lock on orders while awaiting row locks on inventory, Transaction T2 encountered deadlock after 30 seconds. Consequently, the PostgreSQL engine aborted T2 with SQLSTATE code 40P01.",
+    "failureTraps": ["reversed_causality", "lost_sqlstate", "unit_drift"],
+    "requiredInvariants": {
+      "numbers": ["1", "2", "30", "40"],
+      "citations": [],
+      "units": ["30 seconds", "40P01"],
+      "negations": [],
+      "hedges": []
+    },
+    "description": "Database deadlock incident report with transaction identifiers, timeout durations, and exact SQLSTATE diagnostic code."
+  },
+  {
+    "id": "p7_tech_07_api_rate_limiting",
+    "genre": "technical",
+    "split": "held-out",
+    "lengthCategory": "medium",
+    "targetIntensity": "conservative",
+    "stressCategory": "numbers_units_citations",
+    "sourceText": "Edge edge-worker middleware throttles unauthenticated requests to 60 queries per minute per /24 subnet. Requests exceeding this threshold receive HTTP 429 with a Retry-After header of 30 seconds, and payload bodies are not buffered in RAM.",
+    "failureTraps": ["negation_flip", "rate_distortion", "status_drift"],
+    "requiredInvariants": {
+      "numbers": ["60", "24", "429", "30"],
+      "citations": [],
+      "units": ["60 queries per minute", "30 seconds", "HTTP 429"],
+      "negations": ["not buffered"],
+      "hedges": []
+    },
+    "description": "Edge API throttling rule containing rate boundaries, subnet masks, status codes, and negation about memory buffering."
+  },
+  {
+    "id": "p7_prof_01_arr_expenditure",
+    "genre": "professional",
+    "split": "held-out",
+    "lengthCategory": "medium",
+    "targetIntensity": "balanced",
+    "stressCategory": "numbers_units_citations",
+    "sourceText": "On March 31, 2026, BioTech Corp announced that recurring ARR expanded by 128% to $58.2 million. However, net operating cash flow did not turn positive due to $14.5 million in capital expenditures across 3 manufacturing hubs.",
+    "failureTraps": ["negation_flip", "financial_unit_loss", "omitted_dates"],
+    "requiredInvariants": {
+      "numbers": ["31", "2026", "128%", "58.2", "14.5", "3"],
+      "citations": [],
+      "units": ["128%", "$58.2 million", "$14.5 million"],
+      "negations": ["did not turn"],
+      "hedges": []
+    },
+    "description": "Financial release pairing strong top-line revenue growth with a negative net cash flow qualification."
+  },
+  {
+    "id": "p7_prof_02_overedit_trap",
+    "genre": "professional",
+    "split": "held-out",
+    "lengthCategory": "short",
+    "targetIntensity": "conservative",
+    "stressCategory": "already_strong_prose",
+    "sourceText": "We must delve into our third-quarter procurement pipeline to ensure all supplier contracts comply with section 4.2 standards before December 15, 2025.",
+    "failureTraps": ["over_editing", "cliche_removal_excess"],
+    "requiredInvariants": {
+      "numbers": ["4.2", "15", "2025"],
+      "citations": [],
+      "units": ["section 4.2"],
+      "negations": [],
+      "hedges": []
+    },
+    "description": "Over-editing trap: clean corporate prose containing only one cliché ('delve into'). The pipeline should surgical-strike the cliché without rewriting the entire sentence."
+  },
+  {
+    "id": "p7_prof_03_bureaucratic_bloat",
+    "genre": "professional",
+    "split": "dev",
+    "lengthCategory": "long",
+    "targetIntensity": "dynamic",
+    "stressCategory": "redundant_bureaucratic",
+    "sourceText": "In order to facilitate the proactive optimization of our multifaceted enterprise deliverables, it is crucial to note that delving into comprehensive strategic synergies plays a pivotal role in ensuring that seamless cross-functional alignment is achieved.",
+    "failureTraps": ["cliche_retention", "meaning_distortion"],
+    "requiredInvariants": {
+      "numbers": [],
+      "citations": [],
+      "units": [],
+      "negations": [],
+      "hedges": []
+    },
+    "description": "Heavily padded corporate jargon riddled with clichés ('delving into', 'multifaceted', 'pivotal role', 'strategic synergies'); requires assertive streamlining."
+  },
+  {
+    "id": "p7_prof_04_compliance_disclaimer",
+    "genre": "professional",
+    "split": "val",
+    "lengthCategory": "long",
+    "targetIntensity": "conservative",
+    "stressCategory": "negation_polarity",
+    "sourceText": "Pursuant to FINRA Rule 2210, past portfolio performance does not guarantee future investment returns. Advisory clients must understand that principal loss remains possible in 100% of non-FDIC insured fixed income funds.",
+    "failureTraps": ["negation_flip", "regulatory_weakening"],
+    "requiredInvariants": {
+      "numbers": ["2210", "100%"],
+      "citations": ["FINRA Rule 2210"],
+      "units": ["100%"],
+      "negations": ["does not guarantee"],
+      "hedges": []
+    },
+    "description": "Strict financial compliance disclaimer with mandatory rule citation and non-guarantee negation."
+  },
+  {
+    "id": "p7_prof_05_quarterly_shareholder",
+    "genre": "professional",
+    "split": "dev",
+    "lengthCategory": "medium",
+    "targetIntensity": "balanced",
+    "stressCategory": "dense_hedging_epistemic",
+    "sourceText": "Management expects fourth-quarter gross margin to hover between 42% and 45%, though unforeseen supply disruptions in Taiwan could potentially shave 150 basis points off operating earnings.",
+    "failureTraps": ["dropped_ranges", "lost_hedging", "unit_loss"],
+    "requiredInvariants": {
+      "numbers": ["42%", "45%", "150"],
+      "citations": [],
+      "units": ["42%", "45%", "150 basis points"],
+      "negations": [],
+      "hedges": ["expects", "could potentially"]
+    },
+    "description": "Forward-looking earnings guidance containing range bounds, financial basis points, and conditional hedging."
+  },
+  {
+    "id": "p7_prof_06_board_resolution",
+    "genre": "professional",
+    "split": "val",
+    "lengthCategory": "medium",
+    "targetIntensity": "conservative",
+    "stressCategory": "already_strong_prose",
+    "sourceText": "The Governance Committee unanimously approved the revised whistleblower protection charter on August 12, 2025. All employees may submit anonymous grievance filings without fear of retaliatory reassignment or salary diminution.",
+    "failureTraps": ["over_editing", "omitted_date", "negation_loss"],
+    "requiredInvariants": {
+      "numbers": ["12", "2025"],
+      "citations": [],
+      "units": [],
+      "negations": ["without fear"],
+      "hedges": []
+    },
+    "description": "Already well-written corporate resolution that should be preserved with minimal alterations."
+  },
+  {
+    "id": "p7_prof_07_executive_memo_redundancy",
+    "genre": "professional",
+    "split": "held-out",
+    "lengthCategory": "long",
+    "targetIntensity": "dynamic",
+    "stressCategory": "redundant_bureaucratic",
+    "sourceText": "At the present point in time, it is absolutely essential and incumbent upon every individual department head to actively eliminate redundant expenditures. In the event that budget targets are not reached by October 31, discretionary hiring will be temporarily frozen for 90 days.",
+    "failureTraps": ["dropped_deadline", "dropped_duration", "negation_flip"],
+    "requiredInvariants": {
+      "numbers": ["31", "90"],
+      "citations": [],
+      "units": ["90 days"],
+      "negations": ["not reached"],
+      "hedges": []
+    },
+    "description": "Verbose executive memo requiring aggressive pruning of redundant phrases ('at the present point in time', 'absolutely essential and incumbent') while preserving deadline and freeze duration."
+  },
+  {
+    "id": "p7_conv_01_personal_voice",
+    "genre": "conversational",
+    "split": "dev",
+    "lengthCategory": "medium",
+    "targetIntensity": "balanced",
+    "stressCategory": "already_strong_prose",
+    "sourceText": "Honestly, my grandfather never bought modern coffee maker gadgets. He boiled the same dark roast in a dented steel pot every single morning, and I definitely do not miss the burnt taste from when I tried it at ten years old.",
+    "failureTraps": ["voice_flattening", "negation_flip", "ai_cliche_injection"],
+    "requiredInvariants": {
+      "numbers": ["ten"],
+      "citations": [],
+      "units": ["ten years old"],
+      "negations": ["never", "do not miss"],
+      "hedges": []
+    },
+    "description": "Personal memoir prose with distinct conversational voice that generic AI turns into robotic corporate exposition."
+  },
+  {
+    "id": "p7_conv_02_commute_contractions",
+    "genre": "conversational",
+    "split": "held-out",
+    "lengthCategory": "short",
+    "targetIntensity": "balanced",
+    "stressCategory": "already_strong_prose",
+    "sourceText": "I wouldn't say my remote work routine is flawless, but spending 90 minutes on a crowded train every weekday was something I couldn't tolerate anymore after five years.",
+    "failureTraps": ["contraction_expansion", "formalization_bias"],
+    "requiredInvariants": {
+      "numbers": ["90", "five"],
+      "citations": [],
+      "units": ["90 minutes", "five years"],
+      "negations": ["wouldn't say", "couldn't tolerate"],
+      "hedges": []
+    },
+    "description": "Natural conversational reflection with natural contractions; should not be expanded to stiff formal phrasing."
+  },
+  {
+    "id": "p7_conv_03_travel_mishap",
+    "genre": "conversational",
+    "split": "val",
+    "lengthCategory": "long",
+    "targetIntensity": "balanced",
+    "stressCategory": "already_strong_prose",
+    "sourceText": "We landed in Lisbon around 2 a.m. after a seven-hour delay in Munich, only to find our checked luggage hadn't made the connection. Still, the taxi driver played fado on the radio, and the midnight air smelled like saltwater and warm bread, so nobody complained.",
+    "failureTraps": ["voice_destruction", "dropped_numbers", "negation_flip"],
+    "requiredInvariants": {
+      "numbers": ["2", "seven"],
+      "citations": [],
+      "units": ["2 a.m.", "seven-hour"],
+      "negations": ["hadn't made", "nobody complained"],
+      "hedges": []
+    },
+    "description": "Vivid personal narrative with natural storytelling cadence and negative contrast ('nobody complained')."
+  },
+  {
+    "id": "p7_conv_04_culinary_argument",
+    "genre": "conversational",
+    "split": "dev",
+    "lengthCategory": "medium",
+    "targetIntensity": "dynamic",
+    "stressCategory": "negation_polarity",
+    "sourceText": "Look, you cannot put pineapple on a traditional Neapolitan pizza and expect my aunt from Naples to smile. She spent 40 years running a bakery on Via Toledo, and breaking that rule is basically a family scandal.",
+    "failureTraps": ["negation_flip", "over_formalization", "lost_years"],
+    "requiredInvariants": {
+      "numbers": ["40"],
+      "citations": [],
+      "units": ["40 years"],
+      "negations": ["cannot put"],
+      "hedges": []
+    },
+    "description": "Brisk opinionated dialogue where informal cadence must be kept lively without becoming robotic."
+  },
+  {
+    "id": "p7_conv_05_garage_project",
+    "genre": "conversational",
+    "split": "val",
+    "lengthCategory": "medium",
+    "targetIntensity": "balanced",
+    "stressCategory": "already_strong_prose",
+    "sourceText": "My sister and I spent 3 weekends rebuilding our dad's 1974 lawnmower engine. We stripped 4 stripped bolts and soaked the carburetor in vinegar twice, but the moment that 5-horsepower motor roared back to life, we gave each other high fives like kids.",
+    "failureTraps": ["voice_flattening", "unit_loss"],
+    "requiredInvariants": {
+      "numbers": ["3", "1974", "4", "5"],
+      "citations": [],
+      "units": ["3 weekends", "5-horsepower"],
+      "negations": [],
+      "hedges": []
+    },
+    "description": "Warm nostalgic family project story; must maintain informal warmth and exact mechanical details."
+  },
+  {
+    "id": "p7_conv_06_tech_frustration",
+    "genre": "conversational",
+    "split": "held-out",
+    "lengthCategory": "short",
+    "targetIntensity": "balanced",
+    "stressCategory": "dense_hedging_epistemic",
+    "sourceText": "I'm fairly sure the latest smart thermostat update broke our scheduling profile, because the heat kicked on at 3:30 a.m. yesterday and wouldn't shut off until I pulled the battery.",
+    "failureTraps": ["lost_hedging", "dropped_timestamp", "negation_flip"],
+    "requiredInvariants": {
+      "numbers": ["3:30"],
+      "citations": [],
+      "units": ["3:30 a.m."],
+      "negations": ["wouldn't shut off"],
+      "hedges": ["fairly sure"]
+    },
+    "description": "Relatable consumer frustration with epistemic hedging ('fairly sure') and specific time marker."
+  },
+  {
+    "id": "p7_conv_07_neighborhood_dialogue",
+    "genre": "conversational",
+    "split": "dev",
+    "lengthCategory": "long",
+    "targetIntensity": "balanced",
+    "stressCategory": "already_strong_prose",
+    "sourceText": "Every Sunday around 8 o'clock, Mr. Henderson walks his three golden retrievers down Elm Street. He doesn't say much beyond a cheerful nod, but if you're outside washing the car, he will always pause to compliment the shine and tell you rain isn't coming until Tuesday.",
+    "failureTraps": ["voice_flattening", "negation_flip", "over_formalization"],
+    "requiredInvariants": {
+      "numbers": ["8", "three"],
+      "citations": [],
+      "units": ["8 o'clock"],
+      "negations": ["doesn't say", "isn't coming"],
+      "hedges": []
+    },
+    "description": "Gentle neighborhood observational vignette with two everyday negations and warm human pacing."
+  },
+  {
+    "id": "p7_creat_01_sensory_ambiguity",
+    "genre": "creative",
+    "split": "held-out",
+    "lengthCategory": "medium",
+    "targetIntensity": "conservative",
+    "stressCategory": "already_strong_prose",
+    "sourceText": "The solitary lighthouse beacon pierced the ocean fog with tentative flashes, yet its beam could not reveal the jagged reef hiding thirty feet below the churning tide.",
+    "failureTraps": ["ai_cliches_tapestry_pivotal", "negation_flip", "over_editing"],
+    "requiredInvariants": {
+      "numbers": ["thirty"],
+      "citations": [],
+      "units": ["thirty feet"],
+      "negations": ["could not reveal"],
+      "hedges": ["tentative"]
+    },
+    "description": "Poetic maritime imagery that AI humanizers often ruin by inserting cliché words like 'tapestry of fog' or 'beacon of hope'."
+  },
+  {
+    "id": "p7_creat_02_metaphor_restraint",
+    "genre": "creative",
+    "split": "val",
+    "lengthCategory": "medium",
+    "targetIntensity": "conservative",
+    "stressCategory": "already_strong_prose",
+    "sourceText": "In the quiet library basement, dust motes drifted like pale stars through narrow sunbeams, undisturbed by the muffled murmur of afternoon traffic above.",
+    "failureTraps": ["ai_cliches_tapestry_testament", "lost_undisturbed", "over_editing"],
+    "requiredInvariants": {
+      "numbers": [],
+      "citations": [],
+      "units": [],
+      "negations": ["undisturbed"],
+      "hedges": []
+    },
+    "description": "Evocative, peaceful prose requiring zero or minimal intervention. Prime trap for gratuitous rewriting."
+  },
+  {
+    "id": "p7_creat_03_mountain_express",
+    "genre": "creative",
+    "split": "held-out",
+    "lengthCategory": "medium",
+    "targetIntensity": "conservative",
+    "stressCategory": "already_strong_prose",
+    "sourceText": "The morning express cleared the mountain pass just as dawn broke over the timberline. Frost clung to the passenger windows, but inside the dining car the coffee was hot and the conductors spoke in quiet murmurs.",
+    "failureTraps": ["over_editing", "ai_cliche_testament", "voice_destruction"],
+    "requiredInvariants": {
+      "numbers": [],
+      "citations": [],
+      "units": [],
+      "negations": [],
+      "hedges": []
+    },
+    "description": "Pristine literary scene setting with strong atmospheric restraint. Over-editing is a direct failure."
+  },
+  {
+    "id": "p7_creat_04_desert_twilight",
+    "genre": "creative",
+    "split": "dev",
+    "lengthCategory": "long",
+    "targetIntensity": "conservative",
+    "stressCategory": "already_strong_prose",
+    "sourceText": "Dusk fell over the red sandstone canyon in long purple shadows. Cacti stood like sentinel silhouettes against the copper horizon, and the dry wind carried the scent of creosote bush and cool stone. No coyotes barked tonight; the desert held its breath until the stars emerged.",
+    "failureTraps": ["over_editing", "ai_cliche_symphony", "negation_flip"],
+    "requiredInvariants": {
+      "numbers": [],
+      "citations": [],
+      "units": [],
+      "negations": ["No coyotes barked"],
+      "hedges": []
+    },
+    "description": "Atmospheric desert landscape description; testing against AI tendencies to inject 'vibrant tapestry' or 'cacophony of sensations'."
+  },
+  {
+    "id": "p7_creat_05_harbor_fog",
+    "genre": "creative",
+    "split": "val",
+    "lengthCategory": "short",
+    "targetIntensity": "conservative",
+    "stressCategory": "already_strong_prose",
+    "sourceText": "Trawlers creaked against grease-slicked pilings as the swell pushed through the outer marina. A single yellow lantern burned at the end of dock 4, cutting a hazy halo through the salt mist.",
+    "failureTraps": ["over_editing", "dropped_dock_number"],
+    "requiredInvariants": {
+      "numbers": ["4"],
+      "citations": [],
+      "units": ["dock 4"],
+      "negations": [],
+      "hedges": []
+    },
+    "description": "Compact maritime vignette; must retain sensory grit and specific dock identifier without purple embellishment."
+  },
+  {
+    "id": "p7_creat_06_antique_clockmaker",
+    "genre": "creative",
+    "split": "dev",
+    "lengthCategory": "long",
+    "targetIntensity": "balanced",
+    "stressCategory": "numbers_units_citations",
+    "sourceText": "Master horologist Vane peered through his 10x brass loupe at the escapement mechanism of an 18th-century French mantel clock. If the balance wheel oscillations varied by even 0.5 seconds per day, the pendulum would fail to synchronize with the chiming train.",
+    "failureTraps": ["unit_drift", "negation_flip", "lost_numbers"],
+    "requiredInvariants": {
+      "numbers": ["10", "18", "0.5"],
+      "citations": [],
+      "units": ["10x", "18th-century", "0.5 seconds per day"],
+      "negations": ["fail to synchronize"],
+      "hedges": []
+    },
+    "description": "Historical craft narrative pairing period diction with exact technical horological measurements."
+  },
+  {
+    "id": "p7_creat_07_storm_over_prairie",
+    "genre": "creative",
+    "split": "val",
+    "lengthCategory": "medium",
+    "targetIntensity": "conservative",
+    "stressCategory": "already_strong_prose",
+    "sourceText": "Thunder rolled low across the western prairie, shaking the tin roof of the old grain elevator. Dry wheat rippled like amber water under the sudden downdraft, but not a single raindrop touched the cracked earth for twenty miles.",
+    "failureTraps": ["over_editing", "negation_flip", "unit_loss"],
+    "requiredInvariants": {
+      "numbers": ["twenty"],
+      "citations": [],
+      "units": ["twenty miles"],
+      "negations": ["not a single"],
+      "hedges": []
+    },
+    "description": "Dramatic storm approach with negative qualification ('not a single raindrop touched') and distance unit."
+  },
+  {
+    "id": "p7_creat_08_cellist_rehearsal",
+    "genre": "creative",
+    "split": "held-out",
+    "lengthCategory": "long",
+    "targetIntensity": "conservative",
+    "stressCategory": "already_strong_prose",
+    "sourceText": "In the cold conservatory practice room, Maya tightened her horsehair bow and drew the first long C-natural across the gut strings. The resonance filled the vaulted corners with rich amber vibration, without any harsh vibrato or hurried tempo to spoil the phrasing.",
+    "failureTraps": ["over_editing", "negation_flip", "voice_destruction"],
+    "requiredInvariants": {
+      "numbers": [],
+      "citations": [],
+      "units": [],
+      "negations": ["without any"],
+      "hedges": []
+    },
+    "description": "Acoustic musical passage requiring stylistic discipline; AI models frequently over-embellish classical music descriptions."
+  }
+]

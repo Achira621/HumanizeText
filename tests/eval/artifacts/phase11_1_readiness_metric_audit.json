@@ -1,0 +1,301 @@
+{
+  "metadata": {
+    "phase": "Phase 11.1: Evaluation Report Integrity & Readiness Metric Reconciliation",
+    "auditTimestamp": "2026-10-22T02:41:57.507Z",
+    "frozenSourceAuditJson": "tests/eval/artifacts/phase10_1_metric_audit.json",
+    "datasetFixture": "tests/eval/fixtures/phase10_independent_semantic.json",
+    "datasetTotalSamples": 125,
+    "binaryEligibleSamples": 120,
+    "ambiguousQuarantinedSamples": 5,
+    "provenanceType": "audit_report_reconciliation"
+  },
+  "confusionMatrixReconciled": {
+    "trueNegatives": 40,
+    "falsePositives": 3,
+    "truePositives": 66,
+    "falseNegatives": 11,
+    "totalBinary": 120
+  },
+  "discrepancyAnalysis": {
+    "summary": "Phase 11 report inadvertently used intermediate draft estimates where false positives were assumed to be 1 instead of 3, and accuracy subtracted the stale Phase 10 error count (15) from 120 rather than summing TN + TP (40 + 66 = 106).",
+    "table": [
+      {
+        "metric": "Accuracy",
+        "phase11Reported": {
+          "fraction": "105 / 120",
+          "percentage": "87.5%",
+          "numeric": 0.875
+        },
+        "recomputedPhase10_1": {
+          "fraction": "106 / 120",
+          "percentage": "88.33%",
+          "numeric": 0.8833333333333333
+        },
+        "discrepancyDelta": "-0.83 percentage points (105 vs 106 numerator)",
+        "rootCause": "Report author subtracted stale contaminated error count of 15 (120 - 15 = 105) instead of computing actual correct predictions (40 TN + 66 TP = 106)."
+      },
+      {
+        "metric": "Precision",
+        "phase11Reported": {
+          "fraction": "66 / 67",
+          "percentage": "98.5%",
+          "numeric": 0.98507
+        },
+        "recomputedPhase10_1": {
+          "fraction": "66 / 69",
+          "percentage": "95.65%",
+          "numeric": 0.9565217391304348
+        },
+        "discrepancyDelta": "+2.85 percentage points (67 vs 69 denominator)",
+        "rootCause": "Denominator used 67 (either from contaminated Phase 10 TP count 67, or assuming FP = 1) instead of true positive predictions (66 TP + 3 FP = 69)."
+      },
+      {
+        "metric": "Recall",
+        "phase11Reported": {
+          "fraction": "66 / 77",
+          "percentage": "85.7%",
+          "numeric": 0.85714
+        },
+        "recomputedPhase10_1": {
+          "fraction": "66 / 77",
+          "percentage": "85.71%",
+          "numeric": 0.8571428571428571
+        },
+        "discrepancyDelta": "0.00 percentage points (rounding display only)",
+        "rootCause": "Numerator and denominator matched correctly (66 TP / 77 total true drift)."
+      },
+      {
+        "metric": "Specificity",
+        "phase11Reported": {
+          "fraction": "42 / 43",
+          "percentage": "97.7%",
+          "numeric": 0.97674
+        },
+        "recomputedPhase10_1": {
+          "fraction": "40 / 43",
+          "percentage": "93.02%",
+          "numeric": 0.9302325581395349
+        },
+        "discrepancyDelta": "+4.68 percentage points (42 vs 40 numerator)",
+        "rootCause": "Numerator assumed 42 TN (43 - 1 FP) instead of true 40 TN (43 valid - 3 FP)."
+      },
+      {
+        "metric": "False Positive Rate (FPR)",
+        "phase11Reported": {
+          "fraction": "1 / 43",
+          "percentage": "2.3%",
+          "numeric": 0.02326
+        },
+        "recomputedPhase10_1": {
+          "fraction": "3 / 43",
+          "percentage": "6.98%",
+          "numeric": 0.06976744186046512
+        },
+        "discrepancyDelta": "-4.68 percentage points (1 vs 3 numerator)",
+        "rootCause": "Conflated the 1 inappropriately rejected manual review case (p10_creat_16) with valid-cohort false alarms, omitting the 3 true false alarms in the valid cohort."
+      },
+      {
+        "metric": "False Negative Rate (FNR)",
+        "phase11Reported": {
+          "fraction": "Not reported",
+          "percentage": "Not reported",
+          "numeric": null
+        },
+        "recomputedPhase10_1": {
+          "fraction": "11 / 77",
+          "percentage": "14.29%",
+          "numeric": 0.14285714285714285
+        },
+        "discrepancyDelta": "Omitted from Phase 11 readiness table",
+        "rootCause": "Metric was absent from the Phase 11 summary scorecard."
+      },
+      {
+        "metric": "F1 Score",
+        "phase11Reported": {
+          "fraction": "Derived",
+          "percentage": "N/A",
+          "numeric": 0.917
+        },
+        "recomputedPhase10_1": {
+          "fraction": "132 / 146",
+          "percentage": "N/A",
+          "numeric": 0.9041095890410958
+        },
+        "discrepancyDelta": "+0.013 (+1.4% relative error)",
+        "rootCause": "Derived harmonic mean using inflated Precision (0.985) and Recall (0.857) instead of true confusion matrix values (2 * 66 / (132 + 3 + 11) = 132 / 146 = 0.904)."
+      }
+    ]
+  },
+  "correctedReadinessMetrics": {
+    "datasetDescription": "Phase 10 independent synthetic evaluation dataset (n = 125)",
+    "binaryConfusionMatrix": {
+      "trueNegatives": 40,
+      "falsePositives": 3,
+      "truePositives": 66,
+      "falseNegatives": 11,
+      "total": 120
+    },
+    "metrics": {
+      "accuracy": {
+        "fraction": "106 / 120",
+        "percentage": "88.33%",
+        "value": 0.8833
+      },
+      "precision": {
+        "fraction": "66 / 69",
+        "percentage": "95.65%",
+        "value": 0.9565
+      },
+      "recall": {
+        "fraction": "66 / 77",
+        "percentage": "85.71%",
+        "value": 0.8571
+      },
+      "specificity": {
+        "fraction": "40 / 43",
+        "percentage": "93.02%",
+        "value": 0.9302
+      },
+      "falsePositiveRate": {
+        "fraction": "3 / 43",
+        "percentage": "6.98%",
+        "value": 0.0698
+      },
+      "falseNegativeRate": {
+        "fraction": "11 / 77",
+        "percentage": "14.29%",
+        "value": 0.1429
+      },
+      "f1Score": {
+        "fraction": "132 / 146",
+        "percentage": "N/A",
+        "value": 0.904
+      }
+    }
+  },
+  "ambiguousCohortDisposition": {
+    "totalAmbiguous": 5,
+    "correctlyRoutedToManualReview": 0,
+    "inappropriatelyAcceptedAsValid": 4,
+    "inappropriatelyRejectedAsDrift": 1,
+    "independentlyAdjudicatedByHumans": 0,
+    "humanReviewStatus": "PENDING",
+    "cases": [
+      {
+        "id": "p10_acad_16_ambiguous_epistemic_rhetorical",
+        "genre": "academic",
+        "automatedResult": "Inappropriately Accepted (Cleared without manual review trigger)",
+        "humanAdjudicationStatus": "PENDING"
+      },
+      {
+        "id": "p10_tech_17_ambiguous_configuration_syntax",
+        "genre": "technical",
+        "automatedResult": "Inappropriately Accepted (Cleared without manual review trigger)",
+        "humanAdjudicationStatus": "PENDING"
+      },
+      {
+        "id": "p10_prof_16_ambiguous_corporate_rhetoric",
+        "genre": "professional",
+        "automatedResult": "Inappropriately Accepted (Cleared without manual review trigger)",
+        "humanAdjudicationStatus": "PENDING"
+      },
+      {
+        "id": "p10_conv_16_ambiguous_idiomatic_expression",
+        "genre": "conversational",
+        "automatedResult": "Inappropriately Accepted (Cleared without manual review trigger)",
+        "humanAdjudicationStatus": "PENDING"
+      },
+      {
+        "id": "p10_creat_16_ambiguous_metaphorical_riddle",
+        "genre": "creative",
+        "automatedResult": "Inappropriately Rejected (Triggered negation check on dropped rhetorical 'not')",
+        "humanAdjudicationStatus": "PENDING"
+      }
+    ]
+  },
+  "frozenFalseNegatives": {
+    "count": 11,
+    "missedDriftRate": "14.29% (11 / 77)",
+    "cases": [
+      {
+        "id": "p10_acad_07_reversed_causality",
+        "genre": "academic",
+        "category": "reversed_causality",
+        "rationale": "Causal arrow reversed: atmospheric carbon causing acidification flipped to acidification causing atmospheric carbon."
+      },
+      {
+        "id": "p10_acad_23_causal_chain_inversion",
+        "genre": "academic",
+        "category": "reversed_causality",
+        "rationale": "Causal relationship flipped: dehydration causing breakdown changed to breakdown causing dehydration."
+      },
+      {
+        "id": "p10_tech_16_memory_unit_scale_mutation",
+        "genre": "technical",
+        "category": "unit_scale_mutation",
+        "rationale": "Massive 1000x memory allocation increase from 512 KB to 512 MB."
+      },
+      {
+        "id": "p10_tech_25_hardware_frequency_mutation",
+        "genre": "technical",
+        "category": "unit_scale_mutation",
+        "rationale": "Impossible 1000x hardware frequency mutation from 16 MHz to 16 GHz."
+      },
+      {
+        "id": "p10_prof_07_reversed_causality_corporate",
+        "genre": "professional",
+        "category": "reversed_causality",
+        "rationale": "Commercial causality reversed: competitor price cuts causing margin compression inverted."
+      },
+      {
+        "id": "p10_conv_06_unsupported_addition_party",
+        "genre": "conversational",
+        "category": "unsupported_addition",
+        "rationale": "Hallucinated party features: added ungrounded \"open bar and live DJ\"."
+      },
+      {
+        "id": "p10_conv_07_reversed_causality_flight",
+        "genre": "conversational",
+        "category": "reversed_causality",
+        "rationale": "Absurd causal reversal: flight causing delay of a thunderstorm."
+      },
+      {
+        "id": "p10_conv_10_negation_target_shift_food",
+        "genre": "conversational",
+        "category": "negation_target_shift",
+        "rationale": "Order reversed: what was ordered became excluded and vice-versa."
+      },
+      {
+        "id": "p10_conv_25_hedging_destruction_rumor",
+        "genre": "conversational",
+        "category": "lost_epistemic_hedging",
+        "rationale": "Casual rumor (\"heard rumors... might open\") upgraded to verified corporate fact."
+      },
+      {
+        "id": "p10_creat_06_unsupported_addition_magical_lore",
+        "genre": "creative",
+        "category": "unsupported_addition",
+        "rationale": "Hallucinated lore: injected magical attributes (\"enchanted Valyrian... imbued with dragonfire\")."
+      },
+      {
+        "id": "p10_creat_15_negation_scope_stars",
+        "genre": "creative",
+        "category": "negation_scope_shift",
+        "rationale": "Poetic quantifier shift: \"not every star\" (some do) changed to \"no star\" (none do)."
+      }
+    ]
+  },
+  "humanReviewCompletionStatus": {
+    "status": "PENDING",
+    "targetComparisonsCount": 36,
+    "completedReviewsCount": 0,
+    "distinctReviewersCount": 0,
+    "missingScoresCount": 36,
+    "zeroFabricationConfirmed": true,
+    "protocolDescription": "Anonymized randomized pairwise comparison workflow (dual-rater protocol prepared, awaiting human graders)"
+  },
+  "readinessAssessment": {
+    "verdict": "CONDITIONAL_NOT_PRODUCTION_READY",
+    "justification": "While clean binary metrics (Accuracy 88.33%, Precision 95.65%, F1 0.904) exceed synthetic targets, the validator suffers from 14.29% missed drifts across active causal verbs and hardware unit scales, 0% manual review routing on ambiguous rhetorical structures, and zero completed human evaluation ratings."
+  }
+}

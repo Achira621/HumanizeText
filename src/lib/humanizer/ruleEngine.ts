@@ -1982,11 +1982,33 @@ export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
         ? 0.92
         : 1.0;
 
+    // ── STEP 0.5: CONTEXT-AWARE MASKING & PRESERVATION ───────────────────────
+    // Protect unchanged sections, quotes, citations, and RFC normative terms
+    const sectionMasks: Array<{ placeholder: string; original: string }> = [];
+    const sectionsToProtect = [
+      ...(options.plan?.sectionsToKeepUnchanged || []),
+      ...(options.context?.protectedTokens?.quotes || []),
+      ...(options.context?.protectedTokens?.citations || []),
+    ];
+
+    sectionsToProtect.forEach((sec, idx) => {
+      const s = sec.trim();
+      if (s.length > 3 && modified.includes(s)) {
+        const placeholder = `__HT_UNCHANGED_SEC_${idx}__`;
+        sectionMasks.push({ placeholder, original: s });
+        modified = modified.replace(s, placeholder);
+      }
+    });
+
+    // Clean authorial prose preservation: If plan identifies zero writing issues, preserve authorial voice
+    const isCleanProse = Boolean(options.plan && options.plan.issuesToFix && options.plan.issuesToFix.length === 0);
+
     // ── PASS 1: Pool-based cliché replacements ───────────────────────────────
     let ruleIdx = 0;
-    for (const rule of CLICHE_POOLS) {
-      ruleIdx++;
-      if (rule.pool.length === 0 || !rule.modes.includes(mode)) continue;
+    if (!isCleanProse) {
+      for (const rule of CLICHE_POOLS) {
+        ruleIdx++;
+        if (rule.pool.length === 0 || !rule.modes.includes(mode)) continue;
 
       let matchCount = 0;
       modified = modified.replace(rule.pattern, (match) => {
@@ -2044,10 +2066,12 @@ export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
         return formatted;
       });
     }
+  }
 
     // ── PASS 3: Sentence-level structural transforms ──────────────────────────
     if (mode === 'natural' || mode === 'flow' || mode === 'conversational') {
-      const sentenceRegex = /([^.!?]*[.!?]+\s*)/g;
+      // Robust sentence segmentation that protects URLs, decimals, and abbreviations
+      const sentenceRegex = /.*?(?:(?<!\b(?:et al|Dr|Mr|Mrs|Ms|Prof|vs|e\.g|i\.e))[.!?]+)(?=\s+[A-Z"'([0-9]|$)/gi;
       const sentenceParts: string[] = [];
       let lastIndex = 0;
       let m: RegExpExecArray | null;
@@ -2079,8 +2103,10 @@ export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
     }
 
     // ── STEP 3.5: CONTRACTIONS NORMALIZATION (QuillBot ProcessContractions) ─────
-    const shouldContract = smartContractions || tone === 'conversational' || mode === 'conversational';
-    const shouldExpand = tone === 'academic' || tone === 'formal' || mode === 'formal';
+    const isConversational = options.context?.genre === 'conversational' || tone === 'conversational' || mode === 'conversational';
+    const isAcademic = (options.context?.genre === 'academic' || tone === 'academic' || tone === 'formal' || mode === 'formal') && !isConversational;
+    const shouldContract = smartContractions || isConversational;
+    const shouldExpand = isAcademic;
 
     if (shouldContract) {
       const contractMap: [RegExp, string][] = [
@@ -2152,7 +2178,10 @@ export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
       }
     }
 
-    // ── STEP 4: RESTORE FROZEN TOKENS ─────────────────────────────────────────
+    // ── STEP 4: RESTORE UNCHANGED SECTIONS & FROZEN TOKENS ───────────────────
+    for (const mask of sectionMasks) {
+      modified = modified.replace(new RegExp(mask.placeholder, 'g'), mask.original);
+    }
     for (const mask of frozenMasks) {
       modified = modified.replace(new RegExp(mask.placeholder, 'g'), mask.original);
     }
@@ -2162,7 +2191,7 @@ export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
     modified = modified.replace(/\.{2,}/g, '.');
     modified = modified.replace(/,{2,}/g, ',');
     modified = modified.replace(/\s+([,.:;!?])/g, '$1');
-    modified = modified.replace(/([.!?])\s*([a-z])/g, (_, punc, letter) => `${punc} ${letter.toUpperCase()}`);
+    modified = modified.replace(/([.!?])\s+([a-z])/g, (_, punc, letter) => `${punc} ${letter.toUpperCase()}`);
 
     // ── STEP 6: COMPUTE INTERACTIVE DIFF TOKENS ──────────────────────────────
     const diffTokens = computeDiffTokens(text, modified, recordedChanges, validFrozenWords);
@@ -2189,6 +2218,11 @@ export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
       engineName: this.name,
       engineType: 'deterministic-rules',
       processedLocally: true,
+      context: options.context as any,
+      plan: options.plan as any,
+      executionEnvironment: 'local-emulation-fallback',
+      fallbackTriggered: true,
+      mockEngine: true,
     };
   }
 }

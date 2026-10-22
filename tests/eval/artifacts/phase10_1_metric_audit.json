@@ -1,0 +1,745 @@
+{
+  "metadata": {
+    "phase": "Phase 10.1: Confusion-Matrix Reconciliation & Artifact Integrity Audit",
+    "auditTimestamp": "2026-10-21T17:20:57.442Z",
+    "datasetFile": "tests/eval/fixtures/phase10_independent_semantic.json",
+    "datasetChecksumSha256": "2c609e4903e14706875ca16983b327c3c81d1d845993c2a4b22f14893403ada1",
+    "originalReportJsonFile": "tests/eval/artifacts/phase10_evaluation_report.json",
+    "originalReportJsonChecksumSha256": "20e0617e7463e515491dedd1b9124634c9d7978bcd76ffe139af75f161783dbd",
+    "provenanceType": "independently_generated_synthetic_evaluation",
+    "totalRecords": 125,
+    "datasetIntegrity": {
+      "duplicateIdsCount": 0,
+      "duplicatePairsCount": 0,
+      "distinctGenresCount": 5,
+      "distinctCategoriesCount": 16,
+      "groundTruthStatusCounts": {
+        "PASS": 43,
+        "FAIL": 77,
+        "MANUAL_REVIEW": 5
+      },
+      "groundTruthClassificationCounts": {
+        "TRUE_NEGATIVE": 43,
+        "TRUE_POSITIVE": 77,
+        "APPROPRIATE_MANUAL_REVIEW": 5
+      }
+    }
+  },
+  "rootCauseAnalysis": {
+    "discrepancy1_denominators_43_and_82": {
+      "issue": "Phase 10 Markdown report cited 49 valid and 72 drift in narrative text, but reported rates with denominators of 43 and 82.",
+      "rootCause": "The actual fixture contains 43 PASS, 77 FAIL, and 5 MANUAL_REVIEW. The script classified 4 of the 5 MANUAL_REVIEW cases into FN and 1 into TP, expanding the drift denominator from 77 to 82 (77 + 5 = 82). The valid denominator was exactly 43 (40 TN + 3 FP = 43). The numbers 49 and 72 in the report were hardcoded strings from an earlier draft schema and did not match the fixture or the JSON report.",
+      "verdict": "CONFIRMED BUG IN PHASE 10 SCRIPT TEMPLATE & BUCKETING PROTOCOL"
+    },
+    "discrepancy2_counts_tn40_fp3_tp67_fn15": {
+      "issue": "Why were TN=40, FP=3, TP=67, and FN=15 reported when true ground truth had 43 PASS, 77 FAIL, and 5 MANUAL_REVIEW?",
+      "rootCause": "The 43 PASS cases split cleanly into 40 TN and 3 FP. For the 5 MANUAL_REVIEW cases, because validateInvariants returned manualReviewRequired: undefined, lines 334-335 dumped the 4 valid ones into FN and the 1 flagged one into TP. Thus, TP became 66 + 1 = 67, and FN became 11 + 4 = 15.",
+      "verdict": "CONFIRMED: CONTAMINATED MANUAL_REVIEW BUCKETING IN SCRIPT"
+    },
+    "discrepancy3_zero_manual_review_routed": {
+      "issue": "Why were 0 of 4 (actually 5) ambiguous cases routed to manual review?",
+      "rootCause": "The validator’s checkRhetoricalClauseShift regex was calibrated on specific patterns (e.g. \"Why ...? Don't ...\"). The independent rhetorical cases in Phase 10 used broader rhetorical styles and indirect questions, so manualReviewRequired remained undefined/false.",
+      "verdict": "CONFIRMED: REGEX CALIBRATION GAP FOR BROAD RHETORICAL PATTERNS"
+    }
+  },
+  "metricReconciliationTable": {
+    "cleanBinaryProtocol": {
+      "description": "Excludes 5 ambiguous cases from binary metrics; evaluates binary-eligible cases on strictly locked expectedStatus (43 PASS, 77 FAIL).",
+      "eligibleSamples": 120,
+      "phase8": {
+        "tn": 40,
+        "fp": 3,
+        "tp": 44,
+        "fn": 33,
+        "fpr": {
+          "fraction": "3 / 43",
+          "percentage": "6.98%",
+          "confidenceInterval95": [
+            0.024,
+            0.186
+          ]
+        },
+        "fnr": {
+          "fraction": "33 / 77",
+          "percentage": "42.86%",
+          "confidenceInterval95": [
+            0.324,
+            0.54
+          ]
+        },
+        "precision": "93.62%",
+        "recall": "57.14%",
+        "f1Score": 0.71,
+        "accuracy": "70.00%"
+      },
+      "phase9": {
+        "tn": 40,
+        "fp": 3,
+        "tp": 66,
+        "fn": 11,
+        "fpr": {
+          "fraction": "3 / 43",
+          "percentage": "6.98%",
+          "confidenceInterval95": [
+            0.024,
+            0.186
+          ]
+        },
+        "fnr": {
+          "fraction": "11 / 77",
+          "percentage": "14.29%",
+          "confidenceInterval95": [
+            0.082,
+            0.238
+          ]
+        },
+        "precision": "95.65%",
+        "recall": "85.71%",
+        "f1Score": 0.904,
+        "accuracy": "88.33%"
+      },
+      "deltaImpact": {
+        "missedCorruptionsDelta": "-22 (33 -> 11, 66.7% reduction in missed corruptions)",
+        "fnrDrop": "-28.57 percentage points (42.86% -> 14.29%)",
+        "recallGain": "+28.57 percentage points (57.14% -> 85.71%)",
+        "f1Gain": "+0.194 (0.710 -> 0.904)",
+        "fprStability": "Unchanged at 6.98% (3 / 43)"
+      }
+    },
+    "ambiguousCohortAccounting": {
+      "totalAmbiguousCases": 5,
+      "cleanBreakdown": {
+        "correctlyRoutedToManualReview": 0,
+        "inappropriatelyAcceptedAsValid": 4,
+        "inappropriatelyRejectedAsDrift": 1
+      },
+      "items": [
+        {
+          "id": "p10_acad_16_ambiguous_epistemic_rhetorical",
+          "genre": "academic",
+          "outcome": "INAPPROPRIATE_ACCEPTANCE",
+          "warnings": []
+        },
+        {
+          "id": "p10_tech_17_ambiguous_configuration_syntax",
+          "genre": "technical",
+          "outcome": "INAPPROPRIATE_ACCEPTANCE",
+          "warnings": []
+        },
+        {
+          "id": "p10_prof_16_ambiguous_corporate_rhetoric",
+          "genre": "professional",
+          "outcome": "INAPPROPRIATE_ACCEPTANCE",
+          "warnings": []
+        },
+        {
+          "id": "p10_conv_16_ambiguous_idiomatic_expression",
+          "genre": "conversational",
+          "outcome": "INAPPROPRIATE_ACCEPTANCE",
+          "warnings": []
+        },
+        {
+          "id": "p10_creat_16_ambiguous_metaphorical_riddle",
+          "genre": "creative",
+          "outcome": "INAPPROPRIATE_REJECTION",
+          "warnings": [
+            "Negation polarity dropped: Source contained negative qualifications (not fear that), but rewrite contains zero negation markers."
+          ]
+        }
+      ]
+    },
+    "originalPhase10ContaminatedProtocolComparison": {
+      "description": "Original Phase 10 script values with ambiguous cases collapsed into binary counts.",
+      "originalPhase10Report": {
+        "phase8": {
+          "tn": 40,
+          "fp": 3,
+          "tp": 45,
+          "fn": 37,
+          "manual": 0,
+          "fpr": 7,
+          "fnr": 45.1
+        },
+        "phase9": {
+          "tn": 40,
+          "fp": 3,
+          "tp": 67,
+          "fn": 15,
+          "manual": 0,
+          "fpr": 7,
+          "fnr": 18.3
+        }
+      }
+    }
+  },
+  "binaryFalseNegativesDetail": [
+    {
+      "id": "p10_acad_07_reversed_causality",
+      "genre": "academic",
+      "category": "reversed_causality",
+      "rationale": "Causal arrow reversed: atmospheric carbon causing acidification flipped to acidification causing atmospheric carbon."
+    },
+    {
+      "id": "p10_acad_23_causal_chain_inversion",
+      "genre": "academic",
+      "category": "reversed_causality",
+      "rationale": "Causal relationship flipped: dehydration causing breakdown changed to breakdown causing dehydration."
+    },
+    {
+      "id": "p10_tech_16_memory_unit_scale_mutation",
+      "genre": "technical",
+      "category": "unit_scale_mutation",
+      "rationale": "Massive 1000x memory allocation increase from 512 KB to 512 MB."
+    },
+    {
+      "id": "p10_tech_25_hardware_frequency_mutation",
+      "genre": "technical",
+      "category": "unit_scale_mutation",
+      "rationale": "Impossible 1000x hardware frequency mutation from 16 MHz to 16 GHz."
+    },
+    {
+      "id": "p10_prof_07_reversed_causality_corporate",
+      "genre": "professional",
+      "category": "reversed_causality",
+      "rationale": "Commercial causality reversed: competitor price cuts causing margin compression inverted."
+    },
+    {
+      "id": "p10_conv_06_unsupported_addition_party",
+      "genre": "conversational",
+      "category": "unsupported_addition",
+      "rationale": "Hallucinated party features: added ungrounded \"open bar and live DJ\"."
+    },
+    {
+      "id": "p10_conv_07_reversed_causality_flight",
+      "genre": "conversational",
+      "category": "reversed_causality",
+      "rationale": "Absurd causal reversal: flight causing delay of a thunderstorm."
+    },
+    {
+      "id": "p10_conv_10_negation_target_shift_food",
+      "genre": "conversational",
+      "category": "negation_target_shift",
+      "rationale": "Order reversed: what was ordered became excluded and vice-versa."
+    },
+    {
+      "id": "p10_conv_25_hedging_destruction_rumor",
+      "genre": "conversational",
+      "category": "lost_epistemic_hedging",
+      "rationale": "Casual rumor (\"heard rumors... might open\") upgraded to verified corporate fact."
+    },
+    {
+      "id": "p10_creat_06_unsupported_addition_magical_lore",
+      "genre": "creative",
+      "category": "unsupported_addition",
+      "rationale": "Hallucinated lore: injected magical attributes (\"enchanted Valyrian... imbued with dragonfire\")."
+    },
+    {
+      "id": "p10_creat_15_negation_scope_stars",
+      "genre": "creative",
+      "category": "negation_scope_shift",
+      "rationale": "Poetic quantifier shift: \"not every star\" (some do) changed to \"no star\" (none do)."
+    }
+  ],
+  "binaryFalsePositivesDetail": [
+    {
+      "id": "p10_conv_09_valid_conversational_smoothing",
+      "genre": "conversational",
+      "category": "natural_structural_rewrite",
+      "warnings": [
+        "Negation polarity dropped: Source contained negative qualifications (not feeling up), but rewrite contains zero negation markers."
+      ]
+    },
+    {
+      "id": "p10_conv_22_valid_polite_reminder",
+      "genre": "conversational",
+      "category": "valid_paraphrase",
+      "warnings": [
+        "Negation polarity dropped: Source contained negative qualifications (don't forget to), but rewrite contains zero negation markers."
+      ]
+    },
+    {
+      "id": "p10_creat_17_valid_dialogue_rephrasing",
+      "genre": "creative",
+      "category": "valid_paraphrase",
+      "warnings": [
+        "Quotation alteration: One or more verbatim quotations were modified or omitted."
+      ]
+    }
+  ],
+  "genreBreakdown": {
+    "academic": {
+      "total": 25,
+      "pass": 8,
+      "fail": 16,
+      "manual": 1,
+      "phase8": {
+        "tn": 8,
+        "fp": 0,
+        "tp": 9,
+        "fn": 7,
+        "ambManual": 0,
+        "ambAccept": 1,
+        "ambReject": 0
+      },
+      "phase9": {
+        "tn": 8,
+        "fp": 0,
+        "tp": 14,
+        "fn": 2,
+        "ambManual": 0,
+        "ambAccept": 1,
+        "ambReject": 0
+      }
+    },
+    "technical": {
+      "total": 25,
+      "pass": 8,
+      "fail": 16,
+      "manual": 1,
+      "phase8": {
+        "tn": 8,
+        "fp": 0,
+        "tp": 9,
+        "fn": 7,
+        "ambManual": 0,
+        "ambAccept": 1,
+        "ambReject": 0
+      },
+      "phase9": {
+        "tn": 8,
+        "fp": 0,
+        "tp": 14,
+        "fn": 2,
+        "ambManual": 0,
+        "ambAccept": 1,
+        "ambReject": 0
+      }
+    },
+    "professional": {
+      "total": 25,
+      "pass": 9,
+      "fail": 15,
+      "manual": 1,
+      "phase8": {
+        "tn": 9,
+        "fp": 0,
+        "tp": 8,
+        "fn": 7,
+        "ambManual": 0,
+        "ambAccept": 1,
+        "ambReject": 0
+      },
+      "phase9": {
+        "tn": 9,
+        "fp": 0,
+        "tp": 14,
+        "fn": 1,
+        "ambManual": 0,
+        "ambAccept": 1,
+        "ambReject": 0
+      }
+    },
+    "conversational": {
+      "total": 25,
+      "pass": 9,
+      "fail": 15,
+      "manual": 1,
+      "phase8": {
+        "tn": 7,
+        "fp": 2,
+        "tp": 9,
+        "fn": 6,
+        "ambManual": 0,
+        "ambAccept": 1,
+        "ambReject": 0
+      },
+      "phase9": {
+        "tn": 7,
+        "fp": 2,
+        "tp": 11,
+        "fn": 4,
+        "ambManual": 0,
+        "ambAccept": 1,
+        "ambReject": 0
+      }
+    },
+    "creative": {
+      "total": 25,
+      "pass": 9,
+      "fail": 15,
+      "manual": 1,
+      "phase8": {
+        "tn": 8,
+        "fp": 1,
+        "tp": 9,
+        "fn": 6,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 1
+      },
+      "phase9": {
+        "tn": 8,
+        "fp": 1,
+        "tp": 13,
+        "fn": 2,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 1
+      }
+    }
+  },
+  "categoryBreakdown": {
+    "valid_paraphrase": {
+      "total": 23,
+      "expectedStatus": "PASS",
+      "phase8": {
+        "tn": 21,
+        "fp": 2,
+        "tp": 0,
+        "fn": 0,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      },
+      "phase9": {
+        "tn": 21,
+        "fp": 2,
+        "tp": 0,
+        "fn": 0,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      }
+    },
+    "cardinal_ordinal_swap": {
+      "total": 5,
+      "expectedStatus": "FAIL",
+      "phase8": {
+        "tn": 0,
+        "fp": 0,
+        "tp": 0,
+        "fn": 5,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      },
+      "phase9": {
+        "tn": 0,
+        "fp": 0,
+        "tp": 5,
+        "fn": 0,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      }
+    },
+    "boundary_trap": {
+      "total": 8,
+      "expectedStatus": "FAIL",
+      "phase8": {
+        "tn": 0,
+        "fp": 0,
+        "tp": 8,
+        "fn": 0,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      },
+      "phase9": {
+        "tn": 0,
+        "fp": 0,
+        "tp": 8,
+        "fn": 0,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      }
+    },
+    "valid_negation_movement": {
+      "total": 5,
+      "expectedStatus": "PASS",
+      "phase8": {
+        "tn": 5,
+        "fp": 0,
+        "tp": 0,
+        "fn": 0,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      },
+      "phase9": {
+        "tn": 5,
+        "fp": 0,
+        "tp": 0,
+        "fn": 0,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      }
+    },
+    "negation_scope_shift": {
+      "total": 6,
+      "expectedStatus": "FAIL",
+      "phase8": {
+        "tn": 0,
+        "fp": 0,
+        "tp": 2,
+        "fn": 4,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      },
+      "phase9": {
+        "tn": 0,
+        "fp": 0,
+        "tp": 5,
+        "fn": 1,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      }
+    },
+    "lost_epistemic_hedging": {
+      "total": 13,
+      "expectedStatus": "FAIL",
+      "phase8": {
+        "tn": 0,
+        "fp": 0,
+        "tp": 4,
+        "fn": 9,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      },
+      "phase9": {
+        "tn": 0,
+        "fp": 0,
+        "tp": 12,
+        "fn": 1,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      }
+    },
+    "reversed_causality": {
+      "total": 6,
+      "expectedStatus": "FAIL",
+      "phase8": {
+        "tn": 0,
+        "fp": 0,
+        "tp": 2,
+        "fn": 4,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      },
+      "phase9": {
+        "tn": 0,
+        "fp": 0,
+        "tp": 2,
+        "fn": 4,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      }
+    },
+    "citation_mutation": {
+      "total": 2,
+      "expectedStatus": "FAIL",
+      "phase8": {
+        "tn": 0,
+        "fp": 0,
+        "tp": 2,
+        "fn": 0,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      },
+      "phase9": {
+        "tn": 0,
+        "fp": 0,
+        "tp": 2,
+        "fn": 0,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      }
+    },
+    "unsupported_addition": {
+      "total": 9,
+      "expectedStatus": "FAIL",
+      "phase8": {
+        "tn": 0,
+        "fp": 0,
+        "tp": 4,
+        "fn": 5,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      },
+      "phase9": {
+        "tn": 0,
+        "fp": 0,
+        "tp": 7,
+        "fn": 2,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      }
+    },
+    "unit_scale_mutation": {
+      "total": 7,
+      "expectedStatus": "FAIL",
+      "phase8": {
+        "tn": 0,
+        "fp": 0,
+        "tp": 5,
+        "fn": 2,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      },
+      "phase9": {
+        "tn": 0,
+        "fp": 0,
+        "tp": 5,
+        "fn": 2,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      }
+    },
+    "natural_structural_rewrite": {
+      "total": 10,
+      "expectedStatus": "PASS",
+      "phase8": {
+        "tn": 9,
+        "fp": 1,
+        "tp": 0,
+        "fn": 0,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      },
+      "phase9": {
+        "tn": 9,
+        "fp": 1,
+        "tp": 0,
+        "fn": 0,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      }
+    },
+    "age_demographic_boundary": {
+      "total": 4,
+      "expectedStatus": "FAIL",
+      "phase8": {
+        "tn": 0,
+        "fp": 0,
+        "tp": 4,
+        "fn": 0,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      },
+      "phase9": {
+        "tn": 0,
+        "fp": 0,
+        "tp": 4,
+        "fn": 0,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      }
+    },
+    "numeric_mutation": {
+      "total": 13,
+      "expectedStatus": "FAIL",
+      "phase8": {
+        "tn": 0,
+        "fp": 0,
+        "tp": 13,
+        "fn": 0,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      },
+      "phase9": {
+        "tn": 0,
+        "fp": 0,
+        "tp": 13,
+        "fn": 0,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      }
+    },
+    "negation_target_shift": {
+      "total": 4,
+      "expectedStatus": "FAIL",
+      "phase8": {
+        "tn": 0,
+        "fp": 0,
+        "tp": 0,
+        "fn": 4,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      },
+      "phase9": {
+        "tn": 0,
+        "fp": 0,
+        "tp": 3,
+        "fn": 1,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      }
+    },
+    "ambiguous_rhetorical": {
+      "total": 5,
+      "expectedStatus": "MANUAL_REVIEW",
+      "phase8": {
+        "tn": 0,
+        "fp": 0,
+        "tp": 0,
+        "fn": 0,
+        "ambManual": 0,
+        "ambAccept": 4,
+        "ambReject": 1
+      },
+      "phase9": {
+        "tn": 0,
+        "fp": 0,
+        "tp": 0,
+        "fn": 0,
+        "ambManual": 0,
+        "ambAccept": 4,
+        "ambReject": 1
+      }
+    },
+    "high_quality_unnecessary_edit": {
+      "total": 5,
+      "expectedStatus": "PASS",
+      "phase8": {
+        "tn": 5,
+        "fp": 0,
+        "tp": 0,
+        "fn": 0,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      },
+      "phase9": {
+        "tn": 5,
+        "fp": 0,
+        "tp": 0,
+        "fn": 0,
+        "ambManual": 0,
+        "ambAccept": 0,
+        "ambReject": 0
+      }
+    }
+  }
+}

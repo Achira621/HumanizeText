@@ -13,6 +13,7 @@ import type {
 } from '../../../workers/api/src/types';
 import { RuleBasedHumanizerEngine } from '../humanizer/ruleEngine';
 import { validateInvariants } from '../pipeline/invariants';
+import { analyzeWritingContext, buildRewritePlan } from '../pipeline/contextEngine';
 
 export interface WorkerApiConfig {
   baseUrl?: string;
@@ -77,6 +78,7 @@ export class WorkerApiClient {
     if (this.baseUrl) {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), this.timeoutMs);
+      const clientStart = performance.now();
 
       try {
         const res = await fetch(`${this.baseUrl}/api/humanize`, {
@@ -88,6 +90,8 @@ export class WorkerApiClient {
             vocabularyIntensity: options.vocabularyIntensity,
             frozenWords: options.frozenWords,
             smartContractions: options.smartContractions,
+            context: options.context,
+            plan: options.plan,
           }),
           signal: controller.signal,
         });
@@ -107,8 +111,9 @@ export class WorkerApiClient {
           throw new Error(errData.error || `Worker API failed with status ${res.status}`);
         }
 
+        const clientRoundtripMs = Number((performance.now() - clientStart).toFixed(2));
         const data: HumanizerResponse = await res.json();
-        return this.adaptWorkerResponse(data, trimmed, options.mode);
+        return this.adaptWorkerResponse(data, trimmed, options.mode, clientRoundtripMs);
       } catch (err: any) {
         clearTimeout(timeoutId);
         if (err.name === 'AbortError') {
@@ -119,7 +124,19 @@ export class WorkerApiClient {
       }
     }
 
-    // Dev fallback: when no remote worker URL is configured, use local rule engine + invariant validation
+    // Dev fallback: when no remote worker URL is configured, use local context engine + rule engine + invariant validation
+    const localContext = options.context && (options.context as any).genre
+      ? (options.context as any)
+      : analyzeWritingContext(trimmed, {
+          genre: options.mode === 'formal' ? 'academic' : options.mode === 'conversational' ? 'conversational' : undefined,
+          intensity: options.vocabularyIntensity,
+          frozenWords: options.frozenWords,
+          explicitInstructions: options.explicitInstructions,
+        });
+    const localPlan = options.plan && (options.plan as any).planId
+      ? (options.plan as any)
+      : buildRewritePlan(localContext, trimmed);
+
     const localResult = await this.localFallbackEngine.process(trimmed, options);
     const invCheck = validateInvariants(trimmed, localResult.improvedText, {
       allowLengthReduction: options.mode === 'concise',
@@ -128,9 +145,27 @@ export class WorkerApiClient {
 
     return {
       ...localResult,
+      context: localContext,
+      plan: localPlan,
       engineName: 'Cloudflare Workers AI (Local Emulation Mode)',
       engineType: 'cloud-api',
       processedLocally: true,
+      executionEnvironment: 'local-emulation-fallback',
+      fallbackTriggered: true,
+      mockEngine: true,
+      invariants: {
+        isValid: invCheck.isValid,
+        hasConfirmedFactualError: invCheck.hasConfirmedFactualError,
+        hasSemanticDriftWarning: invCheck.hasSemanticDriftWarning,
+        numbersPreserved: invCheck.numbersPreserved,
+        citationsPreserved: invCheck.citationsPreserved,
+        quotesPreserved: invCheck.quotesPreserved,
+        urlsPreserved: invCheck.urlsPreserved,
+        negationsPreserved: invCheck.negationsPreserved,
+        hedgingPreserved: invCheck.hedgingPreserved,
+        unitsPreserved: invCheck.unitsPreserved,
+        causalityPreserved: invCheck.causalityPreserved,
+      },
       changes: [
         ...localResult.changes,
         ...(invCheck.preservationWarnings.length > 0
@@ -154,7 +189,8 @@ export class WorkerApiClient {
   private adaptWorkerResponse(
     data: HumanizerResponse,
     originalText: string,
-    mode: HumanizerMode
+    mode: HumanizerMode,
+    clientRoundtripMs?: number
   ): HumanizerResult {
     const diffTokens: DiffToken[] = (data.diffTokens || []).map((t) => ({
       id: t.id,
@@ -163,11 +199,16 @@ export class WorkerApiClient {
       original: t.original,
     }));
 
+    const netMs = clientRoundtripMs ? Number(Math.max(0, clientRoundtripMs - data.latencyMs).toFixed(1)) : 0;
+    const timingDetail = data.timing?.inferenceMs
+      ? `(Inference: ${data.timing.inferenceMs}ms, Net: ${netMs}ms)`
+      : `(Total: ${clientRoundtripMs ?? data.latencyMs}ms)`;
+
     const changes: HumanizerChange[] = [
       {
         original: 'Source structure',
         replacement: 'Neural rewrite with burstiness',
-        reason: `Processed with ${data.modelUsed} on Cloudflare Workers AI`,
+        reason: `Processed with ${data.modelUsed} on Cloudflare Workers AI ${timingDetail}`,
         category: 'phrasing',
         index: 0,
       },
@@ -192,9 +233,34 @@ export class WorkerApiClient {
       changes,
       diffTokens,
       stats: data.stats,
+      context: data.context as any,
+      plan: data.plan as any,
       engineName: `Cloudflare Workers AI (${data.modelUsed.split('/').pop()})`,
       engineType: 'cloud-api',
       processedLocally: false,
+      executionEnvironment: data.executionEnvironment || 'cloud-worker-ai',
+      fallbackTriggered: data.fallbackTriggered || false,
+      mockEngine: false,
+      invariants: data.invariants
+        ? {
+            isValid:
+              data.invariants.numbersPreserved &&
+              data.invariants.citationsPreserved &&
+              data.invariants.unitsPreserved &&
+              data.invariants.negationsPreserved &&
+              (data.invariants.causalityPreserved !== false),
+            hasConfirmedFactualError: !!data.invariants.hasConfirmedFactualError,
+            hasSemanticDriftWarning: !!data.invariants.hasSemanticDriftWarning,
+            numbersPreserved: data.invariants.numbersPreserved,
+            citationsPreserved: data.invariants.citationsPreserved,
+            quotesPreserved: data.invariants.quotesPreserved,
+            urlsPreserved: data.invariants.urlsPreserved,
+            negationsPreserved: data.invariants.negationsPreserved,
+            hedgingPreserved: data.invariants.hedgingPreserved,
+            unitsPreserved: data.invariants.unitsPreserved,
+            causalityPreserved: data.invariants.causalityPreserved ?? true,
+          }
+        : undefined,
     };
   }
 

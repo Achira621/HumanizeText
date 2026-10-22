@@ -1,0 +1,4280 @@
+[
+  {
+    "passage": {
+      "id": "p7_acad_01_hedging_trap",
+      "genre": "academic",
+      "split": "dev",
+      "lengthCategory": "medium",
+      "targetIntensity": "conservative",
+      "stressCategory": "dense_hedging_epistemic",
+      "sourceText": "According to Miller et al. (2024), computational linguistics models exhibit noticeable syntactic uniformity [12]. Preliminary empirical data tentatively suggests that prompt engineering may not completely eliminate stylistic uniformity in 45% of cases.",
+      "failureTraps": [
+        "lost_hedging",
+        "negation_flip",
+        "omitted_citation"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "2024",
+          "12",
+          "45%"
+        ],
+        "citations": [
+          "Miller et al. (2024)",
+          "[12]"
+        ],
+        "units": [
+          "45%"
+        ],
+        "negations": [
+          "not completely"
+        ],
+        "hedges": [
+          "tentatively suggests",
+          "may"
+        ]
+      },
+      "description": "Academic passage with nested citations, tentative hedging ('tentatively suggests', 'may'), and a qualified negation ('may not completely eliminate')."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "As Miller et al. (2024) note, computational linguistics models show significant syntactic uniformity [12]. Early data suggests that prompt engineering might not fully eliminate stylistic uniformity in 45% of instances.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 4682,
+      "timing": {
+        "totalWorkerMs": 4682,
+        "inferenceMs": 4682,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.273,
+      "contentRetentionRatio": 0.619
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "Miller et al. (2024) note that computational linguistics models demonstrate substantial syntactic similarities [12]. Early empirical results suggest that prompt engineering may not entirely eliminate stylistic uniformity in 45% of cases.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 13191,
+      "timing": {
+        "totalWorkerMs": 13191,
+        "inferenceMs": 13191,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.364,
+      "contentRetentionRatio": 0.619
+    },
+    "blindEvaluation": {
+      "passageId": "p7_acad_01_hedging_trap",
+      "genre": "academic",
+      "stressCategory": "dense_hedging_epistemic",
+      "systemAIsContextAware": false,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 4.8,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.64,
+        "rationale": "Cliché count: 0, Retention: 0.62, Genre: academic, Category: dense_hedging_epistemic"
+      },
+      "scoreB": {
+        "clarity": 4.8,
+        "genreToneFit": 4.8,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.64,
+        "rationale": "Cliché count: 0, Retention: 0.62, Genre: academic, Category: dense_hedging_epistemic"
+      },
+      "winner": "Tie",
+      "rationale": "System A composite: 4.64, System B composite: 4.64. Winner: Tie"
+    },
+    "completedAt": "2026-10-21T15:19:44.568Z"
+  },
+  {
+    "passage": {
+      "id": "p7_acad_02_causality_bounds",
+      "genre": "academic",
+      "split": "val",
+      "lengthCategory": "medium",
+      "targetIntensity": "balanced",
+      "stressCategory": "causal_chain",
+      "sourceText": "Because protein folding degradation occurred rapidly below 4°C, enzymes failed to catalyze the synthesis reaction. Consequently, yield did not exceed 12.4% across 5 trial replications.",
+      "failureTraps": [
+        "reversed_causality",
+        "negation_flip",
+        "unit_loss"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "4",
+          "12.4%",
+          "5"
+        ],
+        "citations": [],
+        "units": [
+          "4°C",
+          "12.4%"
+        ],
+        "negations": [
+          "failed to",
+          "did not exceed"
+        ],
+        "hedges": []
+      },
+      "description": "Causal dependency where temperature causes enzymatic failure; naive reordering can invert the causal chain or drop the negative bound."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "Protein folding degraded quickly at temperatures below 4°C, causing enzymes to fail to catalyze the synthesis reaction. Consequently, the yield did not exceed 12.4% across all five trials.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 15757,
+      "timing": {
+        "totalWorkerMs": 15757,
+        "inferenceMs": 2612,
+        "repairMs": 13145,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": false,
+        "numbersPreserved": false,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": true,
+        "hasSemanticDriftWarning": false,
+        "violations": [
+          "missing_number: Numerical discrepancy: Missing original number(s): 5"
+        ],
+        "warnings": [
+          "Numerical discrepancy: Missing original number(s): 5"
+        ]
+      },
+      "overEditingRatio": 0.389,
+      "contentRetentionRatio": 0.611
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "The rapid protein folding degradation below 4°C prevented effective catalysis of the synthesis reaction. Yield did not exceed 12.4% across 5 trial replications.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 13594,
+      "timing": {
+        "totalWorkerMs": 13594,
+        "inferenceMs": 3516,
+        "repairMs": 10078,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.222,
+      "contentRetentionRatio": 0.611
+    },
+    "blindEvaluation": {
+      "passageId": "p7_acad_02_causality_bounds",
+      "genre": "academic",
+      "stressCategory": "causal_chain",
+      "systemAIsContextAware": false,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 4.8,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 3.5,
+        "composite": 4.41,
+        "rationale": "Cliché count: 1, Retention: 0.61, Genre: academic, Category: causal_chain"
+      },
+      "scoreB": {
+        "clarity": 4.8,
+        "genreToneFit": 4.8,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.64,
+        "rationale": "Cliché count: 0, Retention: 0.61, Genre: academic, Category: causal_chain"
+      },
+      "winner": "ContextAware",
+      "rationale": "System A composite: 4.41, System B composite: 4.64. Winner: ContextAware"
+    },
+    "completedAt": "2026-10-21T15:20:22.851Z"
+  },
+  {
+    "passage": {
+      "id": "p7_acad_03_multivariate_regression",
+      "genre": "academic",
+      "split": "held-out",
+      "lengthCategory": "long",
+      "targetIntensity": "conservative",
+      "stressCategory": "numbers_units_citations",
+      "sourceText": "Multivariate regression analysis across n = 1,420 subjects demonstrated that serum cortisol levels correlated inversely with slow-wave sleep duration (β = -0.42, p < 0.001) [8]. However, longitudinal follow-ups at 18 months failed to confirm sustained cognitive deficits when baseline BMI remained under 24.5 kg/m².",
+      "failureTraps": [
+        "lost_p_value",
+        "negation_flip",
+        "unit_loss"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "1,420",
+          "-0.42",
+          "0.001",
+          "8",
+          "18",
+          "24.5"
+        ],
+        "citations": [
+          "[8]"
+        ],
+        "units": [
+          "18 months",
+          "24.5 kg/m²",
+          "kg/m²"
+        ],
+        "negations": [
+          "failed to confirm"
+        ],
+        "hedges": []
+      },
+      "description": "Statistical results passage featuring sample size n, correlation coefficient beta, p-value threshold, negative correlation, and BMI unit."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "Multivariate regression analysis of 1,420 participants showed that higher cortisol levels were linked to shorter slow-wave sleep (β = -0.42, p < 0.001) [8]. Nevertheless, 18-month follow-ups did not find evidence of long-term cognitive issues in individuals with baseline BMIs below 24.5 kg/m².",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 6780,
+      "timing": {
+        "totalWorkerMs": 6780,
+        "inferenceMs": 6780,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.536,
+      "contentRetentionRatio": 0.393
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "A multivariate regression analysis of 1,420 subjects revealed a significant inverse correlation between serum cortisol levels and slow-wave sleep duration (β = -0.42, p < 0.001) [8]. Longitudinal follow-ups at 18 months did not confirm sustained cognitive deficits among participants with baseline BMI under 24.5 kg/m².",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 9689,
+      "timing": {
+        "totalWorkerMs": 9689,
+        "inferenceMs": 9689,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.25,
+      "contentRetentionRatio": 0.714
+    },
+    "blindEvaluation": {
+      "passageId": "p7_acad_03_multivariate_regression",
+      "genre": "academic",
+      "stressCategory": "numbers_units_citations",
+      "systemAIsContextAware": false,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 4.8,
+        "voiceRetention": 2.5,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.21,
+        "rationale": "Cliché count: 0, Retention: 0.39, Genre: academic, Category: numbers_units_citations"
+      },
+      "scoreB": {
+        "clarity": 4.8,
+        "genreToneFit": 4.8,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.64,
+        "rationale": "Cliché count: 0, Retention: 0.71, Genre: academic, Category: numbers_units_citations"
+      },
+      "winner": "ContextAware",
+      "rationale": "System A composite: 4.21, System B composite: 4.64. Winner: ContextAware"
+    },
+    "completedAt": "2026-10-21T15:20:48.152Z"
+  },
+  {
+    "passage": {
+      "id": "p7_acad_04_epistemic_bounds",
+      "genre": "academic",
+      "split": "dev",
+      "lengthCategory": "short",
+      "targetIntensity": "conservative",
+      "stressCategory": "dense_hedging_epistemic",
+      "sourceText": "Initial spectroscopic readings appear to indicate trace methane emissions near crater 7B, although sensor calibration drift might account for 30% of observed variance.",
+      "failureTraps": [
+        "lost_hedging",
+        "dogmatic_certainty"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "7",
+          "30%"
+        ],
+        "citations": [],
+        "units": [
+          "30%"
+        ],
+        "negations": [],
+        "hedges": [
+          "appear to indicate",
+          "might account for"
+        ]
+      },
+      "description": "Hedged scientific observation with two distinct epistemic dampeners that must not be upgraded to confirmed discovery."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "Initial spectroscopic readings suggest trace methane emissions near crater 7B, though calibration drift could explain 30% of the observed variance.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 4377,
+      "timing": {
+        "totalWorkerMs": 4377,
+        "inferenceMs": 4377,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.176,
+      "contentRetentionRatio": 0.706
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "Initial spectroscopic readings suggest trace methane emissions near crater 7B, although sensor calibration drift could account for 30% of the observed variance.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 8587,
+      "timing": {
+        "totalWorkerMs": 8587,
+        "inferenceMs": 8587,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.059,
+      "contentRetentionRatio": 0.882
+    },
+    "blindEvaluation": {
+      "passageId": "p7_acad_04_epistemic_bounds",
+      "genre": "academic",
+      "stressCategory": "dense_hedging_epistemic",
+      "systemAIsContextAware": true,
+      "scoreA": {
+        "clarity": 4.2,
+        "genreToneFit": 4.8,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.51,
+        "rationale": "Cliché count: 0, Retention: 0.88, Genre: academic, Category: dense_hedging_epistemic"
+      },
+      "scoreB": {
+        "clarity": 4.2,
+        "genreToneFit": 4.8,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.51,
+        "rationale": "Cliché count: 0, Retention: 0.71, Genre: academic, Category: dense_hedging_epistemic"
+      },
+      "winner": "Tie",
+      "rationale": "System A composite: 4.51, System B composite: 4.51. Winner: Tie"
+    },
+    "completedAt": "2026-10-21T15:21:09.894Z"
+  },
+  {
+    "passage": {
+      "id": "p7_acad_05_historical_scholarship",
+      "genre": "academic",
+      "split": "val",
+      "lengthCategory": "long",
+      "targetIntensity": "balanced",
+      "stressCategory": "already_strong_prose",
+      "sourceText": "Historiographical consensus regarding seventeenth-century agrarian revolts has shifted markedly since Trevor-Roper's (1967) thesis. Archival taxation rolls in Normandy suggest that local rebellions were not driven primarily by grain scarcity, but rather by municipal resentment against centralized excise collectors during the 1639 Nu-Pieds uprising.",
+      "failureTraps": [
+        "over_editing",
+        "citation_loss",
+        "negation_flip"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "1967",
+          "1639"
+        ],
+        "citations": [
+          "Trevor-Roper's (1967)"
+        ],
+        "units": [],
+        "negations": [
+          "not driven primarily"
+        ],
+        "hedges": [
+          "suggest that"
+        ]
+      },
+      "description": "Sophisticated historical prose with citation, delicate thesis qualification, and specific date."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "Historians have long debated the causes of 17th-century agrarian revolts, with perspectives evolving since Trevor-Roper's 1967 analysis. New research using archival records from Normandy reveals that the 1639 Nu-Pieds uprising was not primarily driven by grain scarcity, but rather by local anger toward government tax officials. Examination of taxation data challenges earlier assumptions, showing municipal resistance focused on centralized excise policies rather than scarcity-driven desperation.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 12363,
+      "timing": {
+        "totalWorkerMs": 12363,
+        "inferenceMs": 5407,
+        "repairMs": 6956,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": false,
+        "numbersPreserved": false,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": true,
+        "hasSemanticDriftWarning": false,
+        "violations": [
+          "unsupported_addition: Unsupported numerical addition: Rewrite introduced ungrounded numbers or statistics: 17"
+        ],
+        "warnings": [
+          "Unsupported numerical addition: Rewrite introduced ungrounded numbers or statistics: 17"
+        ]
+      },
+      "overEditingRatio": 0.722,
+      "contentRetentionRatio": 0.611
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "The historiography of seventeenth-century agrarian revolts has evolved significantly since Trevor-Roper's 1967 analysis. Archival taxation records from Normandy indicate that local uprisings during the 1639 Nu-Pieds revolt were not primarily driven by grain shortages, but rather by municipal opposition to centralized excise enforcement.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 11353,
+      "timing": {
+        "totalWorkerMs": 11353,
+        "inferenceMs": 5320,
+        "repairMs": 6033,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.306,
+      "contentRetentionRatio": 0.611
+    },
+    "blindEvaluation": {
+      "passageId": "p7_acad_05_historical_scholarship",
+      "genre": "academic",
+      "stressCategory": "already_strong_prose",
+      "systemAIsContextAware": false,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 4.8,
+        "voiceRetention": 1.5,
+        "conciseness": 2.8,
+        "absenceOfAiFiller": 5,
+        "composite": 3.71,
+        "rationale": "Cliché count: 0, Retention: 0.61, Genre: academic, Category: already_strong_prose"
+      },
+      "scoreB": {
+        "clarity": 4.8,
+        "genreToneFit": 4.8,
+        "voiceRetention": 2.5,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.21,
+        "rationale": "Cliché count: 0, Retention: 0.61, Genre: academic, Category: already_strong_prose"
+      },
+      "winner": "ContextAware",
+      "rationale": "System A composite: 3.71, System B composite: 4.21. Winner: ContextAware"
+    },
+    "completedAt": "2026-10-21T15:21:49.556Z"
+  },
+  {
+    "passage": {
+      "id": "p7_acad_06_causal_inversion_agriculture",
+      "genre": "academic",
+      "split": "held-out",
+      "lengthCategory": "short",
+      "targetIntensity": "balanced",
+      "stressCategory": "causal_chain",
+      "sourceText": "Because prolonged drought depleted regional water tables across 4 southern counties, aggregate soybean harvest yields plunged 38% in fiscal year 2025.",
+      "failureTraps": [
+        "reversed_causality",
+        "unit_loss"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "4",
+          "38%",
+          "2025"
+        ],
+        "citations": [],
+        "units": [
+          "38%"
+        ],
+        "negations": [],
+        "hedges": []
+      },
+      "description": "Unidirectional cause-and-effect structure: water depletion caused yield drop, never the reverse."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "4 southern counties experienced depleted regional water tables due to prolonged drought, causing aggregate soybean harvest yields to drop 38% in fiscal year 2025.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 29852,
+      "timing": {
+        "totalWorkerMs": 29852,
+        "inferenceMs": 20590,
+        "repairMs": 9262,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.167,
+      "contentRetentionRatio": 0.833
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "Prolonged drought depleting regional water tables in 4 southern counties led to a 38% decline in total soybean harvests during fiscal year 2025.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 23438,
+      "timing": {
+        "totalWorkerMs": 23438,
+        "inferenceMs": 7948,
+        "repairMs": 15490,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.278,
+      "contentRetentionRatio": 0.611
+    },
+    "blindEvaluation": {
+      "passageId": "p7_acad_06_causal_inversion_agriculture",
+      "genre": "academic",
+      "stressCategory": "causal_chain",
+      "systemAIsContextAware": true,
+      "scoreA": {
+        "clarity": 4.2,
+        "genreToneFit": 4.8,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.51,
+        "rationale": "Cliché count: 0, Retention: 0.61, Genre: academic, Category: causal_chain"
+      },
+      "scoreB": {
+        "clarity": 4.2,
+        "genreToneFit": 4.8,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.51,
+        "rationale": "Cliché count: 0, Retention: 0.83, Genre: academic, Category: causal_chain"
+      },
+      "winner": "Tie",
+      "rationale": "System A composite: 4.51, System B composite: 4.51. Winner: Tie"
+    },
+    "completedAt": "2026-10-21T15:23:04.768Z"
+  },
+  {
+    "passage": {
+      "id": "p7_acad_07_dense_citations_hedging",
+      "genre": "academic",
+      "split": "dev",
+      "lengthCategory": "long",
+      "targetIntensity": "conservative",
+      "stressCategory": "dense_hedging_epistemic",
+      "sourceText": "While early randomized trials (Chen & Gupta, 2023; Zhao et al., 2025) ostensibly supported microRNA-146a upregulation as a biomarker for neuroinflammation [4, 7], subsequent longitudinal cohort studies did not reproduce these findings in pediatric cohorts under 12 years of age.",
+      "failureTraps": [
+        "citation_drop",
+        "negation_flip",
+        "lost_hedging"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "2023",
+          "2025",
+          "146",
+          "4",
+          "7",
+          "12"
+        ],
+        "citations": [
+          "Chen & Gupta, 2023",
+          "Zhao et al., 2025",
+          "[4, 7]"
+        ],
+        "units": [
+          "12 years"
+        ],
+        "negations": [
+          "did not reproduce"
+        ],
+        "hedges": [
+          "ostensibly"
+        ]
+      },
+      "description": "Complex academic syntax with compound parenthetical citations, multiple bracketed references, and negative replication outcome."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "Early randomized trials (Chen & Gupta, 2023; Zhao et al., 2025) indicated that microRNA-146a upregulation might act as a biomarker for neuroinflammation [4, 7]. Later longitudinal studies in children under 12, however, did not replicate these findings.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 16940,
+      "timing": {
+        "totalWorkerMs": 16940,
+        "inferenceMs": 16940,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": false,
+        "numbersPreserved": true,
+        "unitsPreserved": false,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": true,
+        "hasSemanticDriftWarning": false,
+        "violations": [
+          "missing_unit: Measurement unit discrepancy: Missing unit(s): 12 years"
+        ],
+        "warnings": [
+          "Measurement unit discrepancy: Missing unit(s): 12 years"
+        ]
+      },
+      "overEditingRatio": 0.192,
+      "contentRetentionRatio": 0.654
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "Early randomized trials (Chen & Gupta, 2023; Zhao et al., 2025) indicated microRNA-146a upregulation as a biomarker for neuroinflammation [4, 7]. Later longitudinal studies failed to confirm these results in children under 12.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 6799,
+      "timing": {
+        "totalWorkerMs": 6799,
+        "inferenceMs": 6799,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": false,
+        "numbersPreserved": true,
+        "unitsPreserved": false,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": true,
+        "hasSemanticDriftWarning": false,
+        "violations": [
+          "missing_unit: Measurement unit discrepancy: Missing unit(s): 12 years"
+        ],
+        "warnings": [
+          "Measurement unit discrepancy: Missing unit(s): 12 years"
+        ]
+      },
+      "overEditingRatio": 0.231,
+      "contentRetentionRatio": 0.615
+    },
+    "blindEvaluation": {
+      "passageId": "p7_acad_07_dense_citations_hedging",
+      "genre": "academic",
+      "stressCategory": "dense_hedging_epistemic",
+      "systemAIsContextAware": false,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 4.8,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.64,
+        "rationale": "Cliché count: 0, Retention: 0.65, Genre: academic, Category: dense_hedging_epistemic"
+      },
+      "scoreB": {
+        "clarity": 4.2,
+        "genreToneFit": 4.8,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.51,
+        "rationale": "Cliché count: 0, Retention: 0.62, Genre: academic, Category: dense_hedging_epistemic"
+      },
+      "winner": "Baseline",
+      "rationale": "System A composite: 4.64, System B composite: 4.51. Winner: Baseline"
+    },
+    "completedAt": "2026-10-21T15:23:37.342Z"
+  },
+  {
+    "passage": {
+      "id": "p7_tech_01_negated_guarantee",
+      "genre": "technical",
+      "split": "val",
+      "lengthCategory": "medium",
+      "targetIntensity": "conservative",
+      "stressCategory": "negation_polarity",
+      "sourceText": "Failover benchmark testing revealed that asynchronous database replication does not guarantee zero-loss recovery without persistent disk write-ahead checkpoints on all 3 secondary nodes.",
+      "failureTraps": [
+        "negation_flip",
+        "false_promise",
+        "unit_drift"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "3"
+        ],
+        "citations": [],
+        "units": [
+          "3"
+        ],
+        "negations": [
+          "does not guarantee",
+          "without"
+        ],
+        "hedges": []
+      },
+      "description": "Technical architecture rule where asynchronous replication explicitly lacks zero-loss guarantees; dropping 'not' creates a catastrophic factual reversal."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "Testing revealed that asynchronous database replication cannot guarantee zero-loss recovery unless all 3 secondary nodes have persistent disk write-ahead checkpoints.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 14118,
+      "timing": {
+        "totalWorkerMs": 14118,
+        "inferenceMs": 4197,
+        "repairMs": 9921,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.105,
+      "contentRetentionRatio": 0.842
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "Testing showed asynchronous database replication cannot ensure zero-loss recovery unless persistent disk write-ahead checkpoints are in place on all 3 secondary nodes.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 5637,
+      "timing": {
+        "totalWorkerMs": 5637,
+        "inferenceMs": 5637,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.263,
+      "contentRetentionRatio": 0.737
+    },
+    "blindEvaluation": {
+      "passageId": "p7_tech_01_negated_guarantee",
+      "genre": "technical",
+      "stressCategory": "negation_polarity",
+      "systemAIsContextAware": true,
+      "scoreA": {
+        "clarity": 4.2,
+        "genreToneFit": 4.5,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.44,
+        "rationale": "Cliché count: 0, Retention: 0.74, Genre: technical, Category: negation_polarity"
+      },
+      "scoreB": {
+        "clarity": 4.2,
+        "genreToneFit": 4.5,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.44,
+        "rationale": "Cliché count: 0, Retention: 0.84, Genre: technical, Category: negation_polarity"
+      },
+      "winner": "Tie",
+      "rationale": "System A composite: 4.44, System B composite: 4.44. Winner: Tie"
+    },
+    "completedAt": "2026-10-21T15:24:05.979Z"
+  },
+  {
+    "passage": {
+      "id": "p7_tech_02_latency_memory",
+      "genre": "technical",
+      "split": "held-out",
+      "lengthCategory": "short",
+      "targetIntensity": "balanced",
+      "stressCategory": "numbers_units_citations",
+      "sourceText": "The endpoint p99 latency dropped from 145ms to 18ms after deploying Redis caching, but heap memory consumption expanded to 64GB across the cluster.",
+      "failureTraps": [
+        "unit_drift",
+        "altered_quantities"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "99",
+          "145",
+          "18",
+          "64"
+        ],
+        "citations": [],
+        "units": [
+          "145ms",
+          "18ms",
+          "64GB"
+        ],
+        "negations": [],
+        "hedges": []
+      },
+      "description": "Performance telemetry pairing latency reduction in milliseconds with memory growth in gigabytes."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "After implementing Redis caching, endpoint p99 latency decreased from 145ms to 18ms, though heap memory usage rose to 64GB across the cluster.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 5149,
+      "timing": {
+        "totalWorkerMs": 5149,
+        "inferenceMs": 5149,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.313,
+      "contentRetentionRatio": 0.75
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "After deploying Redis caching, endpoint p99 latency fell from 145ms to 18ms. However, heap memory usage increased to 64GB across the cluster.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 5172,
+      "timing": {
+        "totalWorkerMs": 5172,
+        "inferenceMs": 5172,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.25,
+      "contentRetentionRatio": 0.813
+    },
+    "blindEvaluation": {
+      "passageId": "p7_tech_02_latency_memory",
+      "genre": "technical",
+      "stressCategory": "numbers_units_citations",
+      "systemAIsContextAware": true,
+      "scoreA": {
+        "clarity": 4.2,
+        "genreToneFit": 4.5,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.44,
+        "rationale": "Cliché count: 0, Retention: 0.81, Genre: technical, Category: numbers_units_citations"
+      },
+      "scoreB": {
+        "clarity": 4.2,
+        "genreToneFit": 4.5,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.44,
+        "rationale": "Cliché count: 0, Retention: 0.75, Genre: technical, Category: numbers_units_citations"
+      },
+      "winner": "Tie",
+      "rationale": "System A composite: 4.44, System B composite: 4.44. Winner: Tie"
+    },
+    "completedAt": "2026-10-21T15:24:25.149Z"
+  },
+  {
+    "passage": {
+      "id": "p7_tech_03_rfc2119_network",
+      "genre": "technical",
+      "split": "held-out",
+      "lengthCategory": "short",
+      "targetIntensity": "conservative",
+      "stressCategory": "negation_polarity",
+      "sourceText": "Under RFC 2119 specifications, routers MUST NOT forward ICMP redirect packets when ingress bandwidth exceeds 10Gbps across IPv6 interface eth0.",
+      "failureTraps": [
+        "negation_flip",
+        "lost_unit_gbps",
+        "lost_rfc"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "2119",
+          "10",
+          "6",
+          "0"
+        ],
+        "citations": [
+          "RFC 2119"
+        ],
+        "units": [
+          "10Gbps"
+        ],
+        "negations": [
+          "MUST NOT"
+        ],
+        "hedges": []
+      },
+      "description": "RFC standard specification with imperative negative constraint MUST NOT and 10Gbps networking unit."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "According to RFC 2119 guidelines, routers MUST NOT forward ICMP redirect packets if the ingress bandwidth on the IPv6 interface eth0 exceeds 10Gbps.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 21951,
+      "timing": {
+        "totalWorkerMs": 21951,
+        "inferenceMs": 8032,
+        "repairMs": 13919,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.111,
+      "contentRetentionRatio": 0.778
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "According to RFC 2119, routers must not forward ICMP redirect packets if ingress bandwidth exceeds 10 Gbps on the IPv6 interface eth0.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 3491,
+      "timing": {
+        "totalWorkerMs": 3491,
+        "inferenceMs": 3491,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.111,
+      "contentRetentionRatio": 0.722
+    },
+    "blindEvaluation": {
+      "passageId": "p7_tech_03_rfc2119_network",
+      "genre": "technical",
+      "stressCategory": "negation_polarity",
+      "systemAIsContextAware": true,
+      "scoreA": {
+        "clarity": 4.2,
+        "genreToneFit": 4.5,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.44,
+        "rationale": "Cliché count: 0, Retention: 0.72, Genre: technical, Category: negation_polarity"
+      },
+      "scoreB": {
+        "clarity": 4.2,
+        "genreToneFit": 4.5,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.44,
+        "rationale": "Cliché count: 0, Retention: 0.78, Genre: technical, Category: negation_polarity"
+      },
+      "winner": "Tie",
+      "rationale": "System A composite: 4.44, System B composite: 4.44. Winner: Tie"
+    },
+    "completedAt": "2026-10-21T15:24:59.436Z"
+  },
+  {
+    "passage": {
+      "id": "p7_tech_04_distributed_consensus",
+      "genre": "technical",
+      "split": "dev",
+      "lengthCategory": "long",
+      "targetIntensity": "balanced",
+      "stressCategory": "causal_chain",
+      "sourceText": "In Raft consensus groups of 5 replicas, leader election fails when network partitions isolate 3 nodes concurrently. Because split-brain conditions prevent reaching a 3-of-5 quorum, client write requests are rejected with HTTP 503 until heartbeats resume within 150ms.",
+      "failureTraps": [
+        "reversed_causality",
+        "dropped_numbers",
+        "status_code_drift"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "5",
+          "3",
+          "503",
+          "150"
+        ],
+        "citations": [],
+        "units": [
+          "150ms",
+          "HTTP 503"
+        ],
+        "negations": [
+          "fails",
+          "prevent"
+        ],
+        "hedges": []
+      },
+      "description": "Distributed systems consensus failure chain with node count thresholds, quorum constraints, HTTP error status code, and millisecond heartbeat window."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "In Raft consensus groups of 5 replicas, leader elections fail when 3 nodes are isolated due to network partitions. This split-brain scenario prevents achieving a 3-of-5 quorum, causing clients to receive HTTP 503 errors until heartbeats resume within 150 milliseconds.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 17628,
+      "timing": {
+        "totalWorkerMs": 17628,
+        "inferenceMs": 4675,
+        "repairMs": 12953,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": false,
+        "numbersPreserved": true,
+        "unitsPreserved": false,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": true,
+        "hasSemanticDriftWarning": false,
+        "violations": [
+          "missing_unit: Measurement unit discrepancy: Missing unit(s): 150ms"
+        ],
+        "warnings": [
+          "Measurement unit discrepancy: Missing unit(s): 150ms"
+        ]
+      },
+      "overEditingRatio": 0.367,
+      "contentRetentionRatio": 0.567
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "In Raft consensus groups with 5 replicas, leader election fails when network partitions isolate three nodes simultaneously. Split-brain scenarios disrupt achieving a 3-of-5 quorum, causing client write requests to get rejected with HTTP 503. The system remains in this state until heartbeats restore within 150ms.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 19059,
+      "timing": {
+        "totalWorkerMs": 19059,
+        "inferenceMs": 4752,
+        "repairMs": 14307,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": false,
+        "numbersPreserved": false,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": true,
+        "hasSemanticDriftWarning": false,
+        "violations": [
+          "missing_number: Numerical discrepancy: Missing original number(s): 3"
+        ],
+        "warnings": [
+          "Numerical discrepancy: Missing original number(s): 3"
+        ]
+      },
+      "overEditingRatio": 0.333,
+      "contentRetentionRatio": 0.8
+    },
+    "blindEvaluation": {
+      "passageId": "p7_tech_04_distributed_consensus",
+      "genre": "technical",
+      "stressCategory": "causal_chain",
+      "systemAIsContextAware": true,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 4.5,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.56,
+        "rationale": "Cliché count: 0, Retention: 0.8, Genre: technical, Category: causal_chain"
+      },
+      "scoreB": {
+        "clarity": 4.2,
+        "genreToneFit": 4.5,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.44,
+        "rationale": "Cliché count: 0, Retention: 0.57, Genre: technical, Category: causal_chain"
+      },
+      "winner": "ContextAware",
+      "rationale": "System A composite: 4.56, System B composite: 4.44. Winner: ContextAware"
+    },
+    "completedAt": "2026-10-21T15:25:45.042Z"
+  },
+  {
+    "passage": {
+      "id": "p7_tech_05_cryptographic_primitives",
+      "genre": "technical",
+      "split": "val",
+      "lengthCategory": "long",
+      "targetIntensity": "conservative",
+      "stressCategory": "negation_polarity",
+      "sourceText": "Zero-knowledge verification protocols cannot ensure computational privacy if the prover reuses the same 256-bit elliptic curve nonce across multiple proofs. Under curve Ed25519, repeating scalar k leaks private signing keys within 2 signature operations.",
+      "failureTraps": [
+        "negation_flip",
+        "cryptographic_error",
+        "unit_loss"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "256",
+          "25519",
+          "2"
+        ],
+        "citations": [],
+        "units": [
+          "256-bit"
+        ],
+        "negations": [
+          "cannot ensure"
+        ],
+        "hedges": []
+      },
+      "description": "Cryptographic security specification where nonce reuse breaks security guarantees; must preserve negative bounds and mathematical constants."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "Zero-knowledge verification protocols fail to protect computational privacy when a prover reuses a 256-bit elliptic curve nonce across multiple proofs. With Ed25519, using the same scalar value k in two signature operations exposes private signing keys.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 16380,
+      "timing": {
+        "totalWorkerMs": 16380,
+        "inferenceMs": 4878,
+        "repairMs": 11502,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": false,
+        "numbersPreserved": false,
+        "unitsPreserved": true,
+        "negationsPreserved": false,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": true,
+        "hasSemanticDriftWarning": false,
+        "violations": [
+          "missing_number: Numerical discrepancy: Missing original number(s): 2",
+          "negation_flip: Negation polarity dropped: Source contained negative qualifications (cannot ensure computational), but rewrite contains zero negation markers."
+        ],
+        "warnings": [
+          "Numerical discrepancy: Missing original number(s): 2",
+          "Negation polarity dropped: Source contained negative qualifications (cannot ensure computational), but rewrite contains zero negation markers."
+        ]
+      },
+      "overEditingRatio": 0.214,
+      "contentRetentionRatio": 0.778
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "Zero-knowledge verification protocols cannot ensure computational privacy if the prover reuses the same 256-bit elliptic curve nonce across multiple proofs. Under Ed25519, reusing the same scalar k within 2 signature operations leaks the private signing key.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 14703,
+      "timing": {
+        "totalWorkerMs": 14703,
+        "inferenceMs": 3586,
+        "repairMs": 11117,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.036,
+      "contentRetentionRatio": 0.926
+    },
+    "blindEvaluation": {
+      "passageId": "p7_tech_05_cryptographic_primitives",
+      "genre": "technical",
+      "stressCategory": "negation_polarity",
+      "systemAIsContextAware": false,
+      "scoreA": {
+        "clarity": 4.2,
+        "genreToneFit": 4.5,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.44,
+        "rationale": "Cliché count: 0, Retention: 0.78, Genre: technical, Category: negation_polarity"
+      },
+      "scoreB": {
+        "clarity": 4.2,
+        "genreToneFit": 4.5,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.44,
+        "rationale": "Cliché count: 0, Retention: 0.93, Genre: technical, Category: negation_polarity"
+      },
+      "winner": "Tie",
+      "rationale": "System A composite: 4.44, System B composite: 4.44. Winner: Tie"
+    },
+    "completedAt": "2026-10-21T15:26:24.920Z"
+  },
+  {
+    "passage": {
+      "id": "p7_tech_06_database_deadlock",
+      "genre": "technical",
+      "split": "dev",
+      "lengthCategory": "medium",
+      "targetIntensity": "balanced",
+      "stressCategory": "causal_chain",
+      "sourceText": "Because Transaction T1 retained an exclusive table lock on orders while awaiting row locks on inventory, Transaction T2 encountered deadlock after 30 seconds. Consequently, the PostgreSQL engine aborted T2 with SQLSTATE code 40P01.",
+      "failureTraps": [
+        "reversed_causality",
+        "lost_sqlstate",
+        "unit_drift"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "1",
+          "2",
+          "30",
+          "40"
+        ],
+        "citations": [],
+        "units": [
+          "30 seconds",
+          "40P01"
+        ],
+        "negations": [],
+        "hedges": []
+      },
+      "description": "Database deadlock incident report with transaction identifiers, timeout durations, and exact SQLSTATE diagnostic code."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "Transaction T1 held an exclusive table lock on orders while waiting for row locks on inventory, causing a deadlock after 30 seconds. PostgreSQL terminated Transaction T2 with SQLSTATE code 40P01.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 9957,
+      "timing": {
+        "totalWorkerMs": 9957,
+        "inferenceMs": 9957,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.174,
+      "contentRetentionRatio": 0.682
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "Transaction T1 held an exclusive table lock on orders while waiting for row locks on inventory. This resulted in a deadlock after 30 seconds. PostgreSQL aborted T2 with SQLSTATE code 40P01.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 3709,
+      "timing": {
+        "totalWorkerMs": 3709,
+        "inferenceMs": 3709,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.13,
+      "contentRetentionRatio": 0.727
+    },
+    "blindEvaluation": {
+      "passageId": "p7_tech_06_database_deadlock",
+      "genre": "technical",
+      "stressCategory": "causal_chain",
+      "systemAIsContextAware": false,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 4.5,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.56,
+        "rationale": "Cliché count: 0, Retention: 0.68, Genre: technical, Category: causal_chain"
+      },
+      "scoreB": {
+        "clarity": 4.8,
+        "genreToneFit": 4.5,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.56,
+        "rationale": "Cliché count: 0, Retention: 0.73, Genre: technical, Category: causal_chain"
+      },
+      "winner": "Tie",
+      "rationale": "System A composite: 4.56, System B composite: 4.56. Winner: Tie"
+    },
+    "completedAt": "2026-10-21T15:26:47.450Z"
+  },
+  {
+    "passage": {
+      "id": "p7_tech_07_api_rate_limiting",
+      "genre": "technical",
+      "split": "held-out",
+      "lengthCategory": "medium",
+      "targetIntensity": "conservative",
+      "stressCategory": "numbers_units_citations",
+      "sourceText": "Edge edge-worker middleware throttles unauthenticated requests to 60 queries per minute per /24 subnet. Requests exceeding this threshold receive HTTP 429 with a Retry-After header of 30 seconds, and payload bodies are not buffered in RAM.",
+      "failureTraps": [
+        "negation_flip",
+        "rate_distortion",
+        "status_drift"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "60",
+          "24",
+          "429",
+          "30"
+        ],
+        "citations": [],
+        "units": [
+          "60 queries per minute",
+          "30 seconds",
+          "HTTP 429"
+        ],
+        "negations": [
+          "not buffered"
+        ],
+        "hedges": []
+      },
+      "description": "Edge API throttling rule containing rate boundaries, subnet masks, status codes, and negation about memory buffering."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "Edge edge-worker middleware limits unauthenticated requests to 60 per minute per /24 subnet. Exceeding this limit triggers an HTTP 429 response with a 30-second retry delay. Request data isn't stored in memory.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 3788,
+      "timing": {
+        "totalWorkerMs": 3788,
+        "inferenceMs": 3788,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.5,
+      "contentRetentionRatio": 0.5
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "Edge-worker middleware limits unauthenticated requests to 60 per minute per /24 subnet. Exceeding this threshold triggers an HTTP 429 response with a 30-second retry interval, and payloads are not stored in memory.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 7515,
+      "timing": {
+        "totalWorkerMs": 7515,
+        "inferenceMs": 7515,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.364,
+      "contentRetentionRatio": 0.55
+    },
+    "blindEvaluation": {
+      "passageId": "p7_tech_07_api_rate_limiting",
+      "genre": "technical",
+      "stressCategory": "numbers_units_citations",
+      "systemAIsContextAware": true,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 4.5,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.56,
+        "rationale": "Cliché count: 0, Retention: 0.55, Genre: technical, Category: numbers_units_citations"
+      },
+      "scoreB": {
+        "clarity": 4.8,
+        "genreToneFit": 4.5,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.56,
+        "rationale": "Cliché count: 0, Retention: 0.5, Genre: technical, Category: numbers_units_citations"
+      },
+      "winner": "Tie",
+      "rationale": "System A composite: 4.56, System B composite: 4.56. Winner: Tie"
+    },
+    "completedAt": "2026-10-21T15:27:07.578Z"
+  },
+  {
+    "passage": {
+      "id": "p7_prof_01_arr_expenditure",
+      "genre": "professional",
+      "split": "held-out",
+      "lengthCategory": "medium",
+      "targetIntensity": "balanced",
+      "stressCategory": "numbers_units_citations",
+      "sourceText": "On March 31, 2026, BioTech Corp announced that recurring ARR expanded by 128% to $58.2 million. However, net operating cash flow did not turn positive due to $14.5 million in capital expenditures across 3 manufacturing hubs.",
+      "failureTraps": [
+        "negation_flip",
+        "financial_unit_loss",
+        "omitted_dates"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "31",
+          "2026",
+          "128%",
+          "58.2",
+          "14.5",
+          "3"
+        ],
+        "citations": [],
+        "units": [
+          "128%",
+          "$58.2 million",
+          "$14.5 million"
+        ],
+        "negations": [
+          "did not turn"
+        ],
+        "hedges": []
+      },
+      "description": "Financial release pairing strong top-line revenue growth with a negative net cash flow qualification."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "On March 31, 2026, BioTech Corp announced that recurring ARR rose 128% to $58.2 million. Net operating cash flow remained negative, driven by $14.5 million in capital expenditures across 3 manufacturing hubs.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 39919,
+      "timing": {
+        "totalWorkerMs": 39919,
+        "inferenceMs": 27412,
+        "repairMs": 12507,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": false,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": false,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": true,
+        "hasSemanticDriftWarning": false,
+        "violations": [
+          "negation_flip: Negation polarity dropped: Source contained negative qualifications (not turn positive), but rewrite contains zero negation markers."
+        ],
+        "warnings": [
+          "Negation polarity dropped: Source contained negative qualifications (not turn positive), but rewrite contains zero negation markers."
+        ]
+      },
+      "overEditingRatio": 0.2,
+      "contentRetentionRatio": 0.789
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "BioTech Corp reported a 128% increase in recurring ARR to $58.2 million as of March 31, 2026. Net operating cash flow remained negative, attributable to $14.5 million in capital expenditures at three manufacturing hubs.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 32331,
+      "timing": {
+        "totalWorkerMs": 32331,
+        "inferenceMs": 4793,
+        "repairMs": 27538,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": false,
+        "numbersPreserved": false,
+        "unitsPreserved": true,
+        "negationsPreserved": false,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": true,
+        "hasSemanticDriftWarning": false,
+        "violations": [
+          "missing_number: Numerical discrepancy: Missing original number(s): 3",
+          "negation_flip: Negation polarity dropped: Source contained negative qualifications (not turn positive), but rewrite contains zero negation markers."
+        ],
+        "warnings": [
+          "Numerical discrepancy: Missing original number(s): 3",
+          "Negation polarity dropped: Source contained negative qualifications (not turn positive), but rewrite contains zero negation markers."
+        ]
+      },
+      "overEditingRatio": 0.3,
+      "contentRetentionRatio": 0.684
+    },
+    "blindEvaluation": {
+      "passageId": "p7_prof_01_arr_expenditure",
+      "genre": "professional",
+      "stressCategory": "numbers_units_citations",
+      "systemAIsContextAware": false,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.43,
+        "rationale": "Cliché count: 0, Retention: 0.79, Genre: professional, Category: numbers_units_citations"
+      },
+      "scoreB": {
+        "clarity": 4.2,
+        "genreToneFit": 4,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.31,
+        "rationale": "Cliché count: 0, Retention: 0.68, Genre: professional, Category: numbers_units_citations"
+      },
+      "winner": "Baseline",
+      "rationale": "System A composite: 4.43, System B composite: 4.31. Winner: Baseline"
+    },
+    "completedAt": "2026-10-21T15:28:28.946Z"
+  },
+  {
+    "passage": {
+      "id": "p7_prof_02_overedit_trap",
+      "genre": "professional",
+      "split": "held-out",
+      "lengthCategory": "short",
+      "targetIntensity": "conservative",
+      "stressCategory": "already_strong_prose",
+      "sourceText": "We must delve into our third-quarter procurement pipeline to ensure all supplier contracts comply with section 4.2 standards before December 15, 2025.",
+      "failureTraps": [
+        "over_editing",
+        "cliche_removal_excess"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "4.2",
+          "15",
+          "2025"
+        ],
+        "citations": [],
+        "units": [
+          "section 4.2"
+        ],
+        "negations": [],
+        "hedges": []
+      },
+      "description": "Over-editing trap: clean corporate prose containing only one cliché ('delve into'). The pipeline should surgical-strike the cliché without rewriting the entire sentence."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "Review our third-quarter procurement pipeline to verify that all supplier contracts meet section 4.2 requirements before December 15, 2025.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 10185,
+      "timing": {
+        "totalWorkerMs": 10185,
+        "inferenceMs": 10185,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.267,
+      "contentRetentionRatio": 0.667
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "We need to review our third-quarter procurement pipeline to confirm all supplier contracts comply with section 4.2 standards by December 15, 2025.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 9224,
+      "timing": {
+        "totalWorkerMs": 9224,
+        "inferenceMs": 9224,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.2,
+      "contentRetentionRatio": 0.733
+    },
+    "blindEvaluation": {
+      "passageId": "p7_prof_02_overedit_trap",
+      "genre": "professional",
+      "stressCategory": "already_strong_prose",
+      "systemAIsContextAware": true,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 3.8,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.34,
+        "rationale": "Cliché count: 0, Retention: 0.73, Genre: professional, Category: already_strong_prose"
+      },
+      "scoreB": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 3.8,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.34,
+        "rationale": "Cliché count: 0, Retention: 0.67, Genre: professional, Category: already_strong_prose"
+      },
+      "winner": "Tie",
+      "rationale": "System A composite: 4.34, System B composite: 4.34. Winner: Tie"
+    },
+    "completedAt": "2026-10-21T15:28:58.018Z"
+  },
+  {
+    "passage": {
+      "id": "p7_prof_03_bureaucratic_bloat",
+      "genre": "professional",
+      "split": "dev",
+      "lengthCategory": "long",
+      "targetIntensity": "dynamic",
+      "stressCategory": "redundant_bureaucratic",
+      "sourceText": "In order to facilitate the proactive optimization of our multifaceted enterprise deliverables, it is crucial to note that delving into comprehensive strategic synergies plays a pivotal role in ensuring that seamless cross-functional alignment is achieved.",
+      "failureTraps": [
+        "cliche_retention",
+        "meaning_distortion"
+      ],
+      "requiredInvariants": {
+        "numbers": [],
+        "citations": [],
+        "units": [],
+        "negations": [],
+        "hedges": []
+      },
+      "description": "Heavily padded corporate jargon riddled with clichés ('delving into', 'multifaceted', 'pivotal role', 'strategic synergies'); requires assertive streamlining."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "To proactively optimize our diverse deliverables, it's essential to focus on strategic synergies. These synergies help ensure effective collaboration across departments.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 5759,
+      "timing": {
+        "totalWorkerMs": 5759,
+        "inferenceMs": 5759,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.545,
+      "contentRetentionRatio": 0.136
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "To proactively optimize our diverse enterprise deliverables, identifying strategic synergies is essential for ensuring cross-functional alignment. This approach directly strengthens operational coherence and accelerates value creation across departments.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 4115,
+      "timing": {
+        "totalWorkerMs": 4115,
+        "inferenceMs": 4115,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.682,
+      "contentRetentionRatio": 0.364
+    },
+    "blindEvaluation": {
+      "passageId": "p7_prof_03_bureaucratic_bloat",
+      "genre": "professional",
+      "stressCategory": "redundant_bureaucratic",
+      "systemAIsContextAware": true,
+      "scoreA": {
+        "clarity": 4.2,
+        "genreToneFit": 4,
+        "voiceRetention": 2.5,
+        "conciseness": 2,
+        "absenceOfAiFiller": 5,
+        "composite": 3.51,
+        "rationale": "Cliché count: 0, Retention: 0.36, Genre: professional, Category: redundant_bureaucratic"
+      },
+      "scoreB": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 2.5,
+        "conciseness": 5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.09,
+        "rationale": "Cliché count: 0, Retention: 0.14, Genre: professional, Category: redundant_bureaucratic"
+      },
+      "winner": "Baseline",
+      "rationale": "System A composite: 3.51, System B composite: 4.09. Winner: Baseline"
+    },
+    "completedAt": "2026-10-21T15:29:17.483Z"
+  },
+  {
+    "passage": {
+      "id": "p7_prof_04_compliance_disclaimer",
+      "genre": "professional",
+      "split": "val",
+      "lengthCategory": "long",
+      "targetIntensity": "conservative",
+      "stressCategory": "negation_polarity",
+      "sourceText": "Pursuant to FINRA Rule 2210, past portfolio performance does not guarantee future investment returns. Advisory clients must understand that principal loss remains possible in 100% of non-FDIC insured fixed income funds.",
+      "failureTraps": [
+        "negation_flip",
+        "regulatory_weakening"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "2210",
+          "100%"
+        ],
+        "citations": [
+          "FINRA Rule 2210"
+        ],
+        "units": [
+          "100%"
+        ],
+        "negations": [
+          "does not guarantee"
+        ],
+        "hedges": []
+      },
+      "description": "Strict financial compliance disclaimer with mandatory rule citation and non-guarantee negation."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "Under FINRA Rule 2210, past portfolio performance doesn't guarantee future investment returns. Advisory clients should be aware that principal loss is possible in 100% of non-FDIC insured fixed income funds.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 9569,
+      "timing": {
+        "totalWorkerMs": 9569,
+        "inferenceMs": 5105,
+        "repairMs": 4464,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.125,
+      "contentRetentionRatio": 0.833
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "Under FINRA Rule 2210, past portfolio performance doesn't guarantee future investment returns. Advisory clients should recognize that principal loss is possible in 100% of non-FDIC insured fixed income funds.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 47373,
+      "timing": {
+        "totalWorkerMs": 47373,
+        "inferenceMs": 47373,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.125,
+      "contentRetentionRatio": 0.833
+    },
+    "blindEvaluation": {
+      "passageId": "p7_prof_04_compliance_disclaimer",
+      "genre": "professional",
+      "stressCategory": "negation_polarity",
+      "systemAIsContextAware": true,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.43,
+        "rationale": "Cliché count: 0, Retention: 0.83, Genre: professional, Category: negation_polarity"
+      },
+      "scoreB": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.43,
+        "rationale": "Cliché count: 0, Retention: 0.83, Genre: professional, Category: negation_polarity"
+      },
+      "winner": "Tie",
+      "rationale": "System A composite: 4.43, System B composite: 4.43. Winner: Tie"
+    },
+    "completedAt": "2026-10-21T15:30:23.364Z"
+  },
+  {
+    "passage": {
+      "id": "p7_prof_05_quarterly_shareholder",
+      "genre": "professional",
+      "split": "dev",
+      "lengthCategory": "medium",
+      "targetIntensity": "balanced",
+      "stressCategory": "dense_hedging_epistemic",
+      "sourceText": "Management expects fourth-quarter gross margin to hover between 42% and 45%, though unforeseen supply disruptions in Taiwan could potentially shave 150 basis points off operating earnings.",
+      "failureTraps": [
+        "dropped_ranges",
+        "lost_hedging",
+        "unit_loss"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "42%",
+          "45%",
+          "150"
+        ],
+        "citations": [],
+        "units": [
+          "42%",
+          "45%",
+          "150 basis points"
+        ],
+        "negations": [],
+        "hedges": [
+          "expects",
+          "could potentially"
+        ]
+      },
+      "description": "Forward-looking earnings guidance containing range bounds, financial basis points, and conditional hedging."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "Management expects the fourth-quarter gross margin to remain between 42% and 45%, but unexpected supply chain disruptions in Taiwan could reduce operating income by 150 basis points.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 7979,
+      "timing": {
+        "totalWorkerMs": 7979,
+        "inferenceMs": 7979,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.263,
+      "contentRetentionRatio": 0.684
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "Management anticipates the fourth-quarter gross margin will remain within 42% to 45%. However, unexpected supply chain issues in Taiwan could reduce operating earnings by up to 150 basis points.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 3625,
+      "timing": {
+        "totalWorkerMs": 3625,
+        "inferenceMs": 3625,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.421,
+      "contentRetentionRatio": 0.579
+    },
+    "blindEvaluation": {
+      "passageId": "p7_prof_05_quarterly_shareholder",
+      "genre": "professional",
+      "stressCategory": "dense_hedging_epistemic",
+      "systemAIsContextAware": false,
+      "scoreA": {
+        "clarity": 4.2,
+        "genreToneFit": 4,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.31,
+        "rationale": "Cliché count: 0, Retention: 0.68, Genre: professional, Category: dense_hedging_epistemic"
+      },
+      "scoreB": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.43,
+        "rationale": "Cliché count: 0, Retention: 0.58, Genre: professional, Category: dense_hedging_epistemic"
+      },
+      "winner": "ContextAware",
+      "rationale": "System A composite: 4.31, System B composite: 4.43. Winner: ContextAware"
+    },
+    "completedAt": "2026-10-21T15:30:44.202Z"
+  },
+  {
+    "passage": {
+      "id": "p7_prof_06_board_resolution",
+      "genre": "professional",
+      "split": "val",
+      "lengthCategory": "medium",
+      "targetIntensity": "conservative",
+      "stressCategory": "already_strong_prose",
+      "sourceText": "The Governance Committee unanimously approved the revised whistleblower protection charter on August 12, 2025. All employees may submit anonymous grievance filings without fear of retaliatory reassignment or salary diminution.",
+      "failureTraps": [
+        "over_editing",
+        "omitted_date",
+        "negation_loss"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "12",
+          "2025"
+        ],
+        "citations": [],
+        "units": [],
+        "negations": [
+          "without fear"
+        ],
+        "hedges": []
+      },
+      "description": "Already well-written corporate resolution that should be preserved with minimal alterations."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "The Governance Committee unanimously approved the revised whistleblower protection charter on August 12, 2025. All employees may submit anonymous grievance filings without fear of retaliatory reassignment or salary diminution.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 35096,
+      "timing": {
+        "totalWorkerMs": 35096,
+        "inferenceMs": 25259,
+        "repairMs": 9837,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0,
+      "contentRetentionRatio": 1
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "The Governance Committee unanimously approved the revised whistleblower protection charter on August 12, 2025. Employees may submit anonymous grievance filings without fear of retaliatory reassignment or salary diminution.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 11112,
+      "timing": {
+        "totalWorkerMs": 11112,
+        "inferenceMs": 11112,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0,
+      "contentRetentionRatio": 1
+    },
+    "blindEvaluation": {
+      "passageId": "p7_prof_06_board_resolution",
+      "genre": "professional",
+      "stressCategory": "already_strong_prose",
+      "systemAIsContextAware": true,
+      "scoreA": {
+        "clarity": 4.2,
+        "genreToneFit": 4,
+        "voiceRetention": 5,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.51,
+        "rationale": "Cliché count: 0, Retention: 1, Genre: professional, Category: already_strong_prose"
+      },
+      "scoreB": {
+        "clarity": 4.2,
+        "genreToneFit": 4,
+        "voiceRetention": 5,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.51,
+        "rationale": "Cliché count: 0, Retention: 1, Genre: professional, Category: already_strong_prose"
+      },
+      "winner": "Tie",
+      "rationale": "System A composite: 4.51, System B composite: 4.51. Winner: Tie"
+    },
+    "completedAt": "2026-10-21T15:31:39.288Z"
+  },
+  {
+    "passage": {
+      "id": "p7_prof_07_executive_memo_redundancy",
+      "genre": "professional",
+      "split": "held-out",
+      "lengthCategory": "long",
+      "targetIntensity": "dynamic",
+      "stressCategory": "redundant_bureaucratic",
+      "sourceText": "At the present point in time, it is absolutely essential and incumbent upon every individual department head to actively eliminate redundant expenditures. In the event that budget targets are not reached by October 31, discretionary hiring will be temporarily frozen for 90 days.",
+      "failureTraps": [
+        "dropped_deadline",
+        "dropped_duration",
+        "negation_flip"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "31",
+          "90"
+        ],
+        "citations": [],
+        "units": [
+          "90 days"
+        ],
+        "negations": [
+          "not reached"
+        ],
+        "hedges": []
+      },
+      "description": "Verbose executive memo requiring aggressive pruning of redundant phrases ('at the present point in time', 'absolutely essential and incumbent') while preserving deadline and freeze duration."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "Now, all department heads must actively cut redundant spending. If budget goals aren't met by October 31, non-essential hiring will be paused for 90 days.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 7420,
+      "timing": {
+        "totalWorkerMs": 7420,
+        "inferenceMs": 7420,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.24,
+      "contentRetentionRatio": 0.32
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "Now is the moment for every department head to cut redundant spending. If budget goals remain unmet by October 31, non-essential hiring will pause for 90 days.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 26089,
+      "timing": {
+        "totalWorkerMs": 26089,
+        "inferenceMs": 3283,
+        "repairMs": 22806,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": false,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": false,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": true,
+        "hasSemanticDriftWarning": false,
+        "violations": [
+          "negation_flip: Negation polarity dropped: Source contained negative qualifications (not reached by), but rewrite contains zero negation markers."
+        ],
+        "warnings": [
+          "Negation polarity dropped: Source contained negative qualifications (not reached by), but rewrite contains zero negation markers."
+        ]
+      },
+      "overEditingRatio": 0.24,
+      "contentRetentionRatio": 0.36
+    },
+    "blindEvaluation": {
+      "passageId": "p7_prof_07_executive_memo_redundancy",
+      "genre": "professional",
+      "stressCategory": "redundant_bureaucratic",
+      "systemAIsContextAware": true,
+      "scoreA": {
+        "clarity": 4.2,
+        "genreToneFit": 4,
+        "voiceRetention": 2.5,
+        "conciseness": 5,
+        "absenceOfAiFiller": 5,
+        "composite": 3.97,
+        "rationale": "Cliché count: 0, Retention: 0.36, Genre: professional, Category: redundant_bureaucratic"
+      },
+      "scoreB": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 2.5,
+        "conciseness": 5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.09,
+        "rationale": "Cliché count: 0, Retention: 0.32, Genre: professional, Category: redundant_bureaucratic"
+      },
+      "winner": "Baseline",
+      "rationale": "System A composite: 3.97, System B composite: 4.09. Winner: Baseline"
+    },
+    "completedAt": "2026-10-21T15:32:21.638Z"
+  },
+  {
+    "passage": {
+      "id": "p7_conv_01_personal_voice",
+      "genre": "conversational",
+      "split": "dev",
+      "lengthCategory": "medium",
+      "targetIntensity": "balanced",
+      "stressCategory": "already_strong_prose",
+      "sourceText": "Honestly, my grandfather never bought modern coffee maker gadgets. He boiled the same dark roast in a dented steel pot every single morning, and I definitely do not miss the burnt taste from when I tried it at ten years old.",
+      "failureTraps": [
+        "voice_flattening",
+        "negation_flip",
+        "ai_cliche_injection"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "ten"
+        ],
+        "citations": [],
+        "units": [
+          "ten years old"
+        ],
+        "negations": [
+          "never",
+          "do not miss"
+        ],
+        "hedges": []
+      },
+      "description": "Personal memoir prose with distinct conversational voice that generic AI turns into robotic corporate exposition."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "Honestly, my grandfather never owned a modern coffee maker. He brewed the same dark roast in a dented steel pot every morning, and I still don't miss the burnt taste from when I tried it at ten.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 6360,
+      "timing": {
+        "totalWorkerMs": 6360,
+        "inferenceMs": 6360,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.174,
+      "contentRetentionRatio": 0.739
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "Honestly, my grandpa never went for the fancy coffee gadgets. He’d brew that same dark roast in a dented steel pot every morning, and I don’t miss that burnt taste from when I tried it at ten.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 8620,
+      "timing": {
+        "totalWorkerMs": 8620,
+        "inferenceMs": 8620,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.174,
+      "contentRetentionRatio": 0.652
+    },
+    "blindEvaluation": {
+      "passageId": "p7_conv_01_personal_voice",
+      "genre": "conversational",
+      "stressCategory": "already_strong_prose",
+      "systemAIsContextAware": false,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 5,
+        "voiceRetention": 3.8,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.59,
+        "rationale": "Cliché count: 0, Retention: 0.74, Genre: conversational, Category: already_strong_prose"
+      },
+      "scoreB": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 3.8,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.34,
+        "rationale": "Cliché count: 0, Retention: 0.65, Genre: conversational, Category: already_strong_prose"
+      },
+      "winner": "Baseline",
+      "rationale": "System A composite: 4.59, System B composite: 4.34. Winner: Baseline"
+    },
+    "completedAt": "2026-10-21T15:32:45.528Z"
+  },
+  {
+    "passage": {
+      "id": "p7_conv_02_commute_contractions",
+      "genre": "conversational",
+      "split": "held-out",
+      "lengthCategory": "short",
+      "targetIntensity": "balanced",
+      "stressCategory": "already_strong_prose",
+      "sourceText": "I wouldn't say my remote work routine is flawless, but spending 90 minutes on a crowded train every weekday was something I couldn't tolerate anymore after five years.",
+      "failureTraps": [
+        "contraction_expansion",
+        "formalization_bias"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "90",
+          "five"
+        ],
+        "citations": [],
+        "units": [
+          "90 minutes",
+          "five years"
+        ],
+        "negations": [
+          "wouldn't say",
+          "couldn't tolerate"
+        ],
+        "hedges": []
+      },
+      "description": "Natural conversational reflection with natural contractions; should not be expanded to stiff formal phrasing."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "My remote work routine isn't perfect, but commuting on a crowded train for 90 minutes each weekday became unbearable after five years.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 3631,
+      "timing": {
+        "totalWorkerMs": 3631,
+        "inferenceMs": 3631,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.278,
+      "contentRetentionRatio": 0.556
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "I wouldn't call my remote work setup perfect, but commuting on a packed train for 90 minutes every day was something I couldn't stand after five years.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 4169,
+      "timing": {
+        "totalWorkerMs": 4169,
+        "inferenceMs": 4169,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.333,
+      "contentRetentionRatio": 0.611
+    },
+    "blindEvaluation": {
+      "passageId": "p7_conv_02_commute_contractions",
+      "genre": "conversational",
+      "stressCategory": "already_strong_prose",
+      "systemAIsContextAware": true,
+      "scoreA": {
+        "clarity": 4.2,
+        "genreToneFit": 5,
+        "voiceRetention": 2.5,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.14,
+        "rationale": "Cliché count: 0, Retention: 0.61, Genre: conversational, Category: already_strong_prose"
+      },
+      "scoreB": {
+        "clarity": 4.2,
+        "genreToneFit": 5,
+        "voiceRetention": 3.8,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.47,
+        "rationale": "Cliché count: 0, Retention: 0.56, Genre: conversational, Category: already_strong_prose"
+      },
+      "winner": "Baseline",
+      "rationale": "System A composite: 4.14, System B composite: 4.47. Winner: Baseline"
+    },
+    "completedAt": "2026-10-21T15:33:02.146Z"
+  },
+  {
+    "passage": {
+      "id": "p7_conv_03_travel_mishap",
+      "genre": "conversational",
+      "split": "val",
+      "lengthCategory": "long",
+      "targetIntensity": "balanced",
+      "stressCategory": "already_strong_prose",
+      "sourceText": "We landed in Lisbon around 2 a.m. after a seven-hour delay in Munich, only to find our checked luggage hadn't made the connection. Still, the taxi driver played fado on the radio, and the midnight air smelled like saltwater and warm bread, so nobody complained.",
+      "failureTraps": [
+        "voice_destruction",
+        "dropped_numbers",
+        "negation_flip"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "2",
+          "seven"
+        ],
+        "citations": [],
+        "units": [
+          "2 a.m.",
+          "seven-hour"
+        ],
+        "negations": [
+          "hadn't made",
+          "nobody complained"
+        ],
+        "hedges": []
+      },
+      "description": "Vivid personal narrative with natural storytelling cadence and negative contrast ('nobody complained')."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "We arrived in Lisbon around 2 a.m. after a seven-hour delay in Munich, only to find our checked luggage hadn't made the connection. The taxi driver played fado on the radio, and the midnight air smelled of saltwater and warm bread—so no one complained.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 6994,
+      "timing": {
+        "totalWorkerMs": 6994,
+        "inferenceMs": 6994,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.036,
+      "contentRetentionRatio": 0.857
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "We touched down in Lisbon around 2 a.m. after a seven-hour delay in Munich, only to discover our checked bags hadn’t made the connection. Still, the taxi driver cranked up some fado, and the midnight air carried the scent of saltwater and warm bread—so no one batted an eye.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 5872,
+      "timing": {
+        "totalWorkerMs": 5872,
+        "inferenceMs": 5872,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.286,
+      "contentRetentionRatio": 0.643
+    },
+    "blindEvaluation": {
+      "passageId": "p7_conv_03_travel_mishap",
+      "genre": "conversational",
+      "stressCategory": "already_strong_prose",
+      "systemAIsContextAware": true,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 3.8,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.34,
+        "rationale": "Cliché count: 0, Retention: 0.64, Genre: conversational, Category: already_strong_prose"
+      },
+      "scoreB": {
+        "clarity": 4.8,
+        "genreToneFit": 5,
+        "voiceRetention": 5,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.89,
+        "rationale": "Cliché count: 0, Retention: 0.86, Genre: conversational, Category: already_strong_prose"
+      },
+      "winner": "Baseline",
+      "rationale": "System A composite: 4.34, System B composite: 4.89. Winner: Baseline"
+    },
+    "completedAt": "2026-10-21T15:33:23.869Z"
+  },
+  {
+    "passage": {
+      "id": "p7_conv_04_culinary_argument",
+      "genre": "conversational",
+      "split": "dev",
+      "lengthCategory": "medium",
+      "targetIntensity": "dynamic",
+      "stressCategory": "negation_polarity",
+      "sourceText": "Look, you cannot put pineapple on a traditional Neapolitan pizza and expect my aunt from Naples to smile. She spent 40 years running a bakery on Via Toledo, and breaking that rule is basically a family scandal.",
+      "failureTraps": [
+        "negation_flip",
+        "over_formalization",
+        "lost_years"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "40"
+        ],
+        "citations": [],
+        "units": [
+          "40 years"
+        ],
+        "negations": [
+          "cannot put"
+        ],
+        "hedges": []
+      },
+      "description": "Brisk opinionated dialogue where informal cadence must be kept lively without becoming robotic."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "Let me be clear: adding pineapple to a traditional Neapolitan pizza won't earn approval from my aunt in Naples. She ran a bakery on Via Toledo for 40 years, and violating that rule is practically a family scandal.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 5127,
+      "timing": {
+        "totalWorkerMs": 5127,
+        "inferenceMs": 5127,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.35,
+      "contentRetentionRatio": 0.6
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "Hey, trying to put pineapple on a traditional Neapolitan pizza? Don’t expect my aunt from Naples to even blink. She ran that bakery on Via Toledo for 40 years, and messing with the rules? That’s a full-blown family scandal.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 17133,
+      "timing": {
+        "totalWorkerMs": 17133,
+        "inferenceMs": 4643,
+        "repairMs": 12490,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": false,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": false,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": true,
+        "hasSemanticDriftWarning": false,
+        "violations": [
+          "negation_flip: Negation polarity dropped: Source contained negative qualifications (cannot put pineapple), but rewrite contains zero negation markers."
+        ],
+        "warnings": [
+          "Negation polarity dropped: Source contained negative qualifications (cannot put pineapple), but rewrite contains zero negation markers."
+        ]
+      },
+      "overEditingRatio": 0.35,
+      "contentRetentionRatio": 0.6
+    },
+    "blindEvaluation": {
+      "passageId": "p7_conv_04_culinary_argument",
+      "genre": "conversational",
+      "stressCategory": "negation_polarity",
+      "systemAIsContextAware": true,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.43,
+        "rationale": "Cliché count: 0, Retention: 0.6, Genre: conversational, Category: negation_polarity"
+      },
+      "scoreB": {
+        "clarity": 4.2,
+        "genreToneFit": 5,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.56,
+        "rationale": "Cliché count: 0, Retention: 0.6, Genre: conversational, Category: negation_polarity"
+      },
+      "winner": "Baseline",
+      "rationale": "System A composite: 4.43, System B composite: 4.56. Winner: Baseline"
+    },
+    "completedAt": "2026-10-21T15:33:54.974Z"
+  },
+  {
+    "passage": {
+      "id": "p7_conv_05_garage_project",
+      "genre": "conversational",
+      "split": "val",
+      "lengthCategory": "medium",
+      "targetIntensity": "balanced",
+      "stressCategory": "already_strong_prose",
+      "sourceText": "My sister and I spent 3 weekends rebuilding our dad's 1974 lawnmower engine. We stripped 4 stripped bolts and soaked the carburetor in vinegar twice, but the moment that 5-horsepower motor roared back to life, we gave each other high fives like kids.",
+      "failureTraps": [
+        "voice_flattening",
+        "unit_loss"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "3",
+          "1974",
+          "4",
+          "5"
+        ],
+        "citations": [],
+        "units": [
+          "3 weekends",
+          "5-horsepower"
+        ],
+        "negations": [],
+        "hedges": []
+      },
+      "description": "Warm nostalgic family project story; must maintain informal warmth and exact mechanical details."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "My sister and I spent 3 weekends rebuilding our dad's 1974 lawnmower engine. We stripped 4 stripped bolts and soaked the carburetor in vinegar twice, but when the 5-horsepower motor roared back to life, we high-fived like children.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 27342,
+      "timing": {
+        "totalWorkerMs": 27342,
+        "inferenceMs": 6863,
+        "repairMs": 20479,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.115,
+      "contentRetentionRatio": 0.84
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "My sister and I spent three weekends rebuilding our dad's 1974 lawnmower engine. We stripped four stripped bolts and soaked the carburetor in vinegar twice, but when that 5-horsepower motor roared back to life, we high-fived like kids.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 14984,
+      "timing": {
+        "totalWorkerMs": 14984,
+        "inferenceMs": 9072,
+        "repairMs": 5912,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": false,
+        "numbersPreserved": false,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": true,
+        "hasSemanticDriftWarning": false,
+        "violations": [
+          "missing_number: Numerical discrepancy: Missing original number(s): 3, 4"
+        ],
+        "warnings": [
+          "Numerical discrepancy: Missing original number(s): 3, 4"
+        ]
+      },
+      "overEditingRatio": 0.154,
+      "contentRetentionRatio": 0.88
+    },
+    "blindEvaluation": {
+      "passageId": "p7_conv_05_garage_project",
+      "genre": "conversational",
+      "stressCategory": "already_strong_prose",
+      "systemAIsContextAware": false,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 5,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.64,
+        "rationale": "Cliché count: 0, Retention: 0.84, Genre: conversational, Category: already_strong_prose"
+      },
+      "scoreB": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 3.8,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.34,
+        "rationale": "Cliché count: 0, Retention: 0.88, Genre: conversational, Category: already_strong_prose"
+      },
+      "winner": "Baseline",
+      "rationale": "System A composite: 4.64, System B composite: 4.34. Winner: Baseline"
+    },
+    "completedAt": "2026-10-21T15:34:46.313Z"
+  },
+  {
+    "passage": {
+      "id": "p7_conv_06_tech_frustration",
+      "genre": "conversational",
+      "split": "held-out",
+      "lengthCategory": "short",
+      "targetIntensity": "balanced",
+      "stressCategory": "dense_hedging_epistemic",
+      "sourceText": "I'm fairly sure the latest smart thermostat update broke our scheduling profile, because the heat kicked on at 3:30 a.m. yesterday and wouldn't shut off until I pulled the battery.",
+      "failureTraps": [
+        "lost_hedging",
+        "dropped_timestamp",
+        "negation_flip"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "3:30"
+        ],
+        "citations": [],
+        "units": [
+          "3:30 a.m."
+        ],
+        "negations": [
+          "wouldn't shut off"
+        ],
+        "hedges": [
+          "fairly sure"
+        ]
+      },
+      "description": "Relatable consumer frustration with epistemic hedging ('fairly sure') and specific time marker."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "I'm fairly sure the latest smart thermostat update disrupted our schedule, as the heat turned on at 3:30 a.m. yesterday and wouldn't shut off until I removed the battery.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 8142,
+      "timing": {
+        "totalWorkerMs": 8142,
+        "inferenceMs": 8142,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.222,
+      "contentRetentionRatio": 0.667
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "I'm pretty sure the latest smart thermostat update messed up our schedule. The heat turned on at 3:30 a.m. yesterday and wouldn't shut off until I pulled the battery.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 15258,
+      "timing": {
+        "totalWorkerMs": 15258,
+        "inferenceMs": 9638,
+        "repairMs": 5620,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.222,
+      "contentRetentionRatio": 0.667
+    },
+    "blindEvaluation": {
+      "passageId": "p7_conv_06_tech_frustration",
+      "genre": "conversational",
+      "stressCategory": "dense_hedging_epistemic",
+      "systemAIsContextAware": true,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 5,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.68,
+        "rationale": "Cliché count: 0, Retention: 0.67, Genre: conversational, Category: dense_hedging_epistemic"
+      },
+      "scoreB": {
+        "clarity": 4.8,
+        "genreToneFit": 5,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.68,
+        "rationale": "Cliché count: 0, Retention: 0.67, Genre: conversational, Category: dense_hedging_epistemic"
+      },
+      "winner": "Tie",
+      "rationale": "System A composite: 4.68, System B composite: 4.68. Winner: Tie"
+    },
+    "completedAt": "2026-10-21T15:35:18.933Z"
+  },
+  {
+    "passage": {
+      "id": "p7_conv_07_neighborhood_dialogue",
+      "genre": "conversational",
+      "split": "dev",
+      "lengthCategory": "long",
+      "targetIntensity": "balanced",
+      "stressCategory": "already_strong_prose",
+      "sourceText": "Every Sunday around 8 o'clock, Mr. Henderson walks his three golden retrievers down Elm Street. He doesn't say much beyond a cheerful nod, but if you're outside washing the car, he will always pause to compliment the shine and tell you rain isn't coming until Tuesday.",
+      "failureTraps": [
+        "voice_flattening",
+        "negation_flip",
+        "over_formalization"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "8",
+          "three"
+        ],
+        "citations": [],
+        "units": [
+          "8 o'clock"
+        ],
+        "negations": [
+          "doesn't say",
+          "isn't coming"
+        ],
+        "hedges": []
+      },
+      "description": "Gentle neighborhood observational vignette with two everyday negations and warm human pacing."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "Every Sunday at 8 a.m., Mr. Henderson takes his three golden retrievers for a walk along Elm Street. He rarely speaks beyond a cheerful nod, but if you're outside washing your car, he'll always stop to praise its shine and mention that rain won't arrive until Tuesday.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 5006,
+      "timing": {
+        "totalWorkerMs": 5006,
+        "inferenceMs": 5006,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.407,
+      "contentRetentionRatio": 0.63
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "Every Sunday at 8, Mr. Henderson takes his three golden retrievers for a walk down Elm Street. He’s not much for conversation, just a cheerful nod, but if you’re outside washing the car, he’ll always stop by to praise the shine and let you know rain isn’t coming until Tuesday.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 5468,
+      "timing": {
+        "totalWorkerMs": 5468,
+        "inferenceMs": 5468,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.222,
+      "contentRetentionRatio": 0.63
+    },
+    "blindEvaluation": {
+      "passageId": "p7_conv_07_neighborhood_dialogue",
+      "genre": "conversational",
+      "stressCategory": "already_strong_prose",
+      "systemAIsContextAware": false,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 5,
+        "voiceRetention": 2.5,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.26,
+        "rationale": "Cliché count: 0, Retention: 0.63, Genre: conversational, Category: already_strong_prose"
+      },
+      "scoreB": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 3.8,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.34,
+        "rationale": "Cliché count: 0, Retention: 0.63, Genre: conversational, Category: already_strong_prose"
+      },
+      "winner": "ContextAware",
+      "rationale": "System A composite: 4.26, System B composite: 4.34. Winner: ContextAware"
+    },
+    "completedAt": "2026-10-21T15:35:38.555Z"
+  },
+  {
+    "passage": {
+      "id": "p7_creat_01_sensory_ambiguity",
+      "genre": "creative",
+      "split": "held-out",
+      "lengthCategory": "medium",
+      "targetIntensity": "conservative",
+      "stressCategory": "already_strong_prose",
+      "sourceText": "The solitary lighthouse beacon pierced the ocean fog with tentative flashes, yet its beam could not reveal the jagged reef hiding thirty feet below the churning tide.",
+      "failureTraps": [
+        "ai_cliches_tapestry_pivotal",
+        "negation_flip",
+        "over_editing"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "thirty"
+        ],
+        "citations": [],
+        "units": [
+          "thirty feet"
+        ],
+        "negations": [
+          "could not reveal"
+        ],
+        "hedges": [
+          "tentative"
+        ]
+      },
+      "description": "Poetic maritime imagery that AI humanizers often ruin by inserting cliché words like 'tapestry of fog' or 'beacon of hope'."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "The lone lighthouse beam cut through the ocean mist with hesitant glows, but its light failed to expose the jagged reef lying thirty feet beneath the roiling waves.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 9210,
+      "timing": {
+        "totalWorkerMs": 9210,
+        "inferenceMs": 9210,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.706,
+      "contentRetentionRatio": 0.412
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "The lighthouse's single beam flickered uncertainly through the ocean mist. Below the roiling surf, a jagged reef remained hidden, just thirty feet beneath the waves.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 23710,
+      "timing": {
+        "totalWorkerMs": 23710,
+        "inferenceMs": 4362,
+        "repairMs": 19348,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": false,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": false,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": true,
+        "hasSemanticDriftWarning": false,
+        "violations": [
+          "negation_flip: Negation polarity dropped: Source contained negative qualifications (not reveal the), but rewrite contains zero negation markers."
+        ],
+        "warnings": [
+          "Negation polarity dropped: Source contained negative qualifications (not reveal the), but rewrite contains zero negation markers."
+        ]
+      },
+      "overEditingRatio": 0.706,
+      "contentRetentionRatio": 0.412
+    },
+    "blindEvaluation": {
+      "passageId": "p7_creat_01_sensory_ambiguity",
+      "genre": "creative",
+      "stressCategory": "already_strong_prose",
+      "systemAIsContextAware": true,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 1.5,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 3.76,
+        "rationale": "Cliché count: 0, Retention: 0.41, Genre: creative, Category: already_strong_prose"
+      },
+      "scoreB": {
+        "clarity": 4.2,
+        "genreToneFit": 4,
+        "voiceRetention": 1.5,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 3.64,
+        "rationale": "Cliché count: 0, Retention: 0.41, Genre: creative, Category: already_strong_prose"
+      },
+      "winner": "ContextAware",
+      "rationale": "System A composite: 3.76, System B composite: 3.64. Winner: ContextAware"
+    },
+    "completedAt": "2026-10-21T15:36:20.607Z"
+  },
+  {
+    "passage": {
+      "id": "p7_creat_02_metaphor_restraint",
+      "genre": "creative",
+      "split": "val",
+      "lengthCategory": "medium",
+      "targetIntensity": "conservative",
+      "stressCategory": "already_strong_prose",
+      "sourceText": "In the quiet library basement, dust motes drifted like pale stars through narrow sunbeams, undisturbed by the muffled murmur of afternoon traffic above.",
+      "failureTraps": [
+        "ai_cliches_tapestry_testament",
+        "lost_undisturbed",
+        "over_editing"
+      ],
+      "requiredInvariants": {
+        "numbers": [],
+        "citations": [],
+        "units": [],
+        "negations": [
+          "undisturbed"
+        ],
+        "hedges": []
+      },
+      "description": "Evocative, peaceful prose requiring zero or minimal intervention. Prime trap for gratuitous rewriting."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "The library basement was quiet. Dust motes swirled like pale stars through narrow sunbeams, unbothered by the muffled murmur of afternoon traffic above.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 4919,
+      "timing": {
+        "totalWorkerMs": 4919,
+        "inferenceMs": 4919,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.111,
+      "contentRetentionRatio": 0.889
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "Beneath the library's quiet basement, dust motes drifted like pale stars through narrow sunbeams. Unbothered by the muffled hum of afternoon traffic above.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 6162,
+      "timing": {
+        "totalWorkerMs": 6162,
+        "inferenceMs": 6162,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.167,
+      "contentRetentionRatio": 0.833
+    },
+    "blindEvaluation": {
+      "passageId": "p7_creat_02_metaphor_restraint",
+      "genre": "creative",
+      "stressCategory": "already_strong_prose",
+      "systemAIsContextAware": true,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 3.8,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.34,
+        "rationale": "Cliché count: 0, Retention: 0.83, Genre: creative, Category: already_strong_prose"
+      },
+      "scoreB": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 5,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.64,
+        "rationale": "Cliché count: 0, Retention: 0.89, Genre: creative, Category: already_strong_prose"
+      },
+      "winner": "Baseline",
+      "rationale": "System A composite: 4.34, System B composite: 4.64. Winner: Baseline"
+    },
+    "completedAt": "2026-10-21T15:36:40.649Z"
+  },
+  {
+    "passage": {
+      "id": "p7_creat_03_mountain_express",
+      "genre": "creative",
+      "split": "held-out",
+      "lengthCategory": "medium",
+      "targetIntensity": "conservative",
+      "stressCategory": "already_strong_prose",
+      "sourceText": "The morning express cleared the mountain pass just as dawn broke over the timberline. Frost clung to the passenger windows, but inside the dining car the coffee was hot and the conductors spoke in quiet murmurs.",
+      "failureTraps": [
+        "over_editing",
+        "ai_cliche_testament",
+        "voice_destruction"
+      ],
+      "requiredInvariants": {
+        "numbers": [],
+        "citations": [],
+        "units": [],
+        "negations": [],
+        "hedges": []
+      },
+      "description": "Pristine literary scene setting with strong atmospheric restraint. Over-editing is a direct failure."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "The morning express passed the mountain pass as dawn broke over the timberline. Frost clung to the passenger windows, but the dining car's coffee was hot, and conductors spoke in quiet murmurs.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 11504,
+      "timing": {
+        "totalWorkerMs": 11504,
+        "inferenceMs": 11504,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.105,
+      "contentRetentionRatio": 0.895
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "The morning express crested the mountain pass as dawn spilled over the timberline. Frost clung to the windows, yet within the dining car, coffee steamed and conductors exchanged soft conversations.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 3777,
+      "timing": {
+        "totalWorkerMs": 3777,
+        "inferenceMs": 3777,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.368,
+      "contentRetentionRatio": 0.632
+    },
+    "blindEvaluation": {
+      "passageId": "p7_creat_03_mountain_express",
+      "genre": "creative",
+      "stressCategory": "already_strong_prose",
+      "systemAIsContextAware": false,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 5,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.64,
+        "rationale": "Cliché count: 0, Retention: 0.89, Genre: creative, Category: already_strong_prose"
+      },
+      "scoreB": {
+        "clarity": 4.2,
+        "genreToneFit": 4,
+        "voiceRetention": 2.5,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 3.89,
+        "rationale": "Cliché count: 0, Retention: 0.63, Genre: creative, Category: already_strong_prose"
+      },
+      "winner": "Baseline",
+      "rationale": "System A composite: 4.64, System B composite: 3.89. Winner: Baseline"
+    },
+    "completedAt": "2026-10-21T15:37:05.149Z"
+  },
+  {
+    "passage": {
+      "id": "p7_creat_04_desert_twilight",
+      "genre": "creative",
+      "split": "dev",
+      "lengthCategory": "long",
+      "targetIntensity": "conservative",
+      "stressCategory": "already_strong_prose",
+      "sourceText": "Dusk fell over the red sandstone canyon in long purple shadows. Cacti stood like sentinel silhouettes against the copper horizon, and the dry wind carried the scent of creosote bush and cool stone. No coyotes barked tonight; the desert held its breath until the stars emerged.",
+      "failureTraps": [
+        "over_editing",
+        "ai_cliche_symphony",
+        "negation_flip"
+      ],
+      "requiredInvariants": {
+        "numbers": [],
+        "citations": [],
+        "units": [],
+        "negations": [
+          "No coyotes barked"
+        ],
+        "hedges": []
+      },
+      "description": "Atmospheric desert landscape description; testing against AI tendencies to inject 'vibrant tapestry' or 'cacophony of sensations'."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "Dusk settled over the red sandstone canyon, stretching long purple shadows across the ground. Cacti loomed as dark shapes against the copper sky, while the dry wind brought the smell of creosote and cool stone. No coyotes called out tonight. The desert seemed to hold its breath until the stars appeared.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 4416,
+      "timing": {
+        "totalWorkerMs": 4416,
+        "inferenceMs": 4416,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.452,
+      "contentRetentionRatio": 0.613
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "Dusk settled over the red sandstone canyon, casting long purple shadows. Cacti stood as silent sentinels against the copper horizon, their forms stark against the fading light. A dry wind carried the aroma of creosote bush and cool stone. No coyotes barked tonight; the desert held its breath until the stars emerged.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 7614,
+      "timing": {
+        "totalWorkerMs": 7614,
+        "inferenceMs": 7614,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.29,
+      "contentRetentionRatio": 0.839
+    },
+    "blindEvaluation": {
+      "passageId": "p7_creat_04_desert_twilight",
+      "genre": "creative",
+      "stressCategory": "already_strong_prose",
+      "systemAIsContextAware": true,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 3.8,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.34,
+        "rationale": "Cliché count: 0, Retention: 0.84, Genre: creative, Category: already_strong_prose"
+      },
+      "scoreB": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 2.5,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.01,
+        "rationale": "Cliché count: 0, Retention: 0.61, Genre: creative, Category: already_strong_prose"
+      },
+      "winner": "ContextAware",
+      "rationale": "System A composite: 4.34, System B composite: 4.01. Winner: ContextAware"
+    },
+    "completedAt": "2026-10-21T15:37:26.210Z"
+  },
+  {
+    "passage": {
+      "id": "p7_creat_05_harbor_fog",
+      "genre": "creative",
+      "split": "val",
+      "lengthCategory": "short",
+      "targetIntensity": "conservative",
+      "stressCategory": "already_strong_prose",
+      "sourceText": "Trawlers creaked against grease-slicked pilings as the swell pushed through the outer marina. A single yellow lantern burned at the end of dock 4, cutting a hazy halo through the salt mist.",
+      "failureTraps": [
+        "over_editing",
+        "dropped_dock_number"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "4"
+        ],
+        "citations": [],
+        "units": [
+          "dock 4"
+        ],
+        "negations": [],
+        "hedges": []
+      },
+      "description": "Compact maritime vignette; must retain sensory grit and specific dock identifier without purple embellishment."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "Trawlers creaked against grease-slicked pilings. The swell pushed through the outer marina. A single yellow lantern glowed at the end of dock 4, casting a hazy glow through the salt mist.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 7357,
+      "timing": {
+        "totalWorkerMs": 7357,
+        "inferenceMs": 7357,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.136,
+      "contentRetentionRatio": 0.857
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "The trawlers groaned against grease-slicked pilings as waves surged through the outer marina. A single yellow lantern burned at dock 4's end, its light cutting a hazy halo through the salt mist.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 7857,
+      "timing": {
+        "totalWorkerMs": 7857,
+        "inferenceMs": 7857,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.182,
+      "contentRetentionRatio": 0.857
+    },
+    "blindEvaluation": {
+      "passageId": "p7_creat_05_harbor_fog",
+      "genre": "creative",
+      "stressCategory": "already_strong_prose",
+      "systemAIsContextAware": true,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 3.8,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.34,
+        "rationale": "Cliché count: 0, Retention: 0.86, Genre: creative, Category: already_strong_prose"
+      },
+      "scoreB": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 5,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.64,
+        "rationale": "Cliché count: 0, Retention: 0.86, Genre: creative, Category: already_strong_prose"
+      },
+      "winner": "Baseline",
+      "rationale": "System A composite: 4.34, System B composite: 4.64. Winner: Baseline"
+    },
+    "completedAt": "2026-10-21T15:37:50.377Z"
+  },
+  {
+    "passage": {
+      "id": "p7_creat_06_antique_clockmaker",
+      "genre": "creative",
+      "split": "dev",
+      "lengthCategory": "long",
+      "targetIntensity": "balanced",
+      "stressCategory": "numbers_units_citations",
+      "sourceText": "Master horologist Vane peered through his 10x brass loupe at the escapement mechanism of an 18th-century French mantel clock. If the balance wheel oscillations varied by even 0.5 seconds per day, the pendulum would fail to synchronize with the chiming train.",
+      "failureTraps": [
+        "unit_drift",
+        "negation_flip",
+        "lost_numbers"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "10",
+          "18",
+          "0.5"
+        ],
+        "citations": [],
+        "units": [
+          "10x",
+          "18th-century",
+          "0.5 seconds per day"
+        ],
+        "negations": [
+          "fail to synchronize"
+        ],
+        "hedges": []
+      },
+      "description": "Historical craft narrative pairing period diction with exact technical horological measurements."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "Master horologist Vane examined the escapement mechanism of an 18th-century French mantel clock through his 10x brass loupe. Even a 0.5-second daily variation in the balance wheel's oscillations would disrupt the pendulum's synchronization with the chiming train.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 5689,
+      "timing": {
+        "totalWorkerMs": 5689,
+        "inferenceMs": 5689,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.32,
+      "contentRetentionRatio": 0.72
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "Master horologist Vane studied the escapement mechanism of an 18th-century French mantel clock through his 10x brass loupe. Even a slight deviation of 0.5 seconds per day in the balance wheel's oscillations would disrupt the pendulum's synchronization with the chiming train.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 4479,
+      "timing": {
+        "totalWorkerMs": 4479,
+        "inferenceMs": 4479,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.28,
+      "contentRetentionRatio": 0.76
+    },
+    "blindEvaluation": {
+      "passageId": "p7_creat_06_antique_clockmaker",
+      "genre": "creative",
+      "stressCategory": "numbers_units_citations",
+      "systemAIsContextAware": false,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.43,
+        "rationale": "Cliché count: 0, Retention: 0.72, Genre: creative, Category: numbers_units_citations"
+      },
+      "scoreB": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 4.2,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.43,
+        "rationale": "Cliché count: 0, Retention: 0.76, Genre: creative, Category: numbers_units_citations"
+      },
+      "winner": "Tie",
+      "rationale": "System A composite: 4.43, System B composite: 4.43. Winner: Tie"
+    },
+    "completedAt": "2026-10-21T15:38:09.630Z"
+  },
+  {
+    "passage": {
+      "id": "p7_creat_07_storm_over_prairie",
+      "genre": "creative",
+      "split": "val",
+      "lengthCategory": "medium",
+      "targetIntensity": "conservative",
+      "stressCategory": "already_strong_prose",
+      "sourceText": "Thunder rolled low across the western prairie, shaking the tin roof of the old grain elevator. Dry wheat rippled like amber water under the sudden downdraft, but not a single raindrop touched the cracked earth for twenty miles.",
+      "failureTraps": [
+        "over_editing",
+        "negation_flip",
+        "unit_loss"
+      ],
+      "requiredInvariants": {
+        "numbers": [
+          "twenty"
+        ],
+        "citations": [],
+        "units": [
+          "twenty miles"
+        ],
+        "negations": [
+          "not a single"
+        ],
+        "hedges": []
+      },
+      "description": "Dramatic storm approach with negative qualification ('not a single raindrop touched') and distance unit."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "Thunder rumbled across the western prairie, vibrating the tin roof of the old grain elevator. Dry wheat rippled like amber water beneath a sudden gust, yet no rain fell on the cracked earth for twenty miles.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 3372,
+      "timing": {
+        "totalWorkerMs": 3372,
+        "inferenceMs": 3372,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.25,
+      "contentRetentionRatio": 0.708
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "Thunder rumbled over the western prairie, rattling the rusted tin roof of the old grain elevator. Dry wheat rippled like amber water beneath the sudden gust, yet not a single raindrop touched the cracked earth for twenty miles.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 14469,
+      "timing": {
+        "totalWorkerMs": 14469,
+        "inferenceMs": 14469,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.208,
+      "contentRetentionRatio": 0.792
+    },
+    "blindEvaluation": {
+      "passageId": "p7_creat_07_storm_over_prairie",
+      "genre": "creative",
+      "stressCategory": "already_strong_prose",
+      "systemAIsContextAware": true,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 3.8,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.34,
+        "rationale": "Cliché count: 0, Retention: 0.79, Genre: creative, Category: already_strong_prose"
+      },
+      "scoreB": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 3.8,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.34,
+        "rationale": "Cliché count: 0, Retention: 0.71, Genre: creative, Category: already_strong_prose"
+      },
+      "winner": "Tie",
+      "rationale": "System A composite: 4.34, System B composite: 4.34. Winner: Tie"
+    },
+    "completedAt": "2026-10-21T15:38:36.357Z"
+  },
+  {
+    "passage": {
+      "id": "p7_creat_08_cellist_rehearsal",
+      "genre": "creative",
+      "split": "held-out",
+      "lengthCategory": "long",
+      "targetIntensity": "conservative",
+      "stressCategory": "already_strong_prose",
+      "sourceText": "In the cold conservatory practice room, Maya tightened her horsehair bow and drew the first long C-natural across the gut strings. The resonance filled the vaulted corners with rich amber vibration, without any harsh vibrato or hurried tempo to spoil the phrasing.",
+      "failureTraps": [
+        "over_editing",
+        "negation_flip",
+        "voice_destruction"
+      ],
+      "requiredInvariants": {
+        "numbers": [],
+        "citations": [],
+        "units": [],
+        "negations": [
+          "without any"
+        ],
+        "hedges": []
+      },
+      "description": "Acoustic musical passage requiring stylistic discipline; AI models frequently over-embellish classical music descriptions."
+    },
+    "baseline": {
+      "pipeline": "baseline",
+      "status": "SUCCESS",
+      "improvedText": "In the cold conservatory practice room, Maya tightened her horsehair bow. She played the first long C-natural across the gut strings, its resonance echoing through the vaulted corners. The sound carried warm, amber tones without any harsh vibrato or rushed tempo marring the phrasing.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 6215,
+      "timing": {
+        "totalWorkerMs": 6215,
+        "inferenceMs": 6215,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0.333,
+      "contentRetentionRatio": 0.778
+    },
+    "contextAware": {
+      "pipeline": "context-aware",
+      "status": "SUCCESS",
+      "improvedText": "In the cold conservatory practice room, Maya tightened her horsehair bow. She drew the first long C-natural across the gut strings. The resonance filled the vaulted corners with rich amber vibration, without any harsh vibrato or hurried tempo to spoil the phrasing.",
+      "modelUsed": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "executionEnvironment": "cloud-worker-ai",
+      "fallbackTriggered": false,
+      "latencyMs": 10731,
+      "timing": {
+        "totalWorkerMs": 10731,
+        "inferenceMs": 4600,
+        "repairMs": 6131,
+        "overheadMs": 0
+      },
+      "invariants": {
+        "passed": true,
+        "numbersPreserved": true,
+        "unitsPreserved": true,
+        "negationsPreserved": true,
+        "hedgingPreserved": true,
+        "citationsPreserved": true,
+        "causalityPreserved": true,
+        "hasConfirmedFactualError": false,
+        "hasSemanticDriftWarning": false,
+        "violations": [],
+        "warnings": []
+      },
+      "overEditingRatio": 0,
+      "contentRetentionRatio": 1
+    },
+    "blindEvaluation": {
+      "passageId": "p7_creat_08_cellist_rehearsal",
+      "genre": "creative",
+      "stressCategory": "already_strong_prose",
+      "systemAIsContextAware": false,
+      "scoreA": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 2.5,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.01,
+        "rationale": "Cliché count: 0, Retention: 0.78, Genre: creative, Category: already_strong_prose"
+      },
+      "scoreB": {
+        "clarity": 4.8,
+        "genreToneFit": 4,
+        "voiceRetention": 5,
+        "conciseness": 4.5,
+        "absenceOfAiFiller": 5,
+        "composite": 4.64,
+        "rationale": "Cliché count: 0, Retention: 1, Genre: creative, Category: already_strong_prose"
+      },
+      "winner": "ContextAware",
+      "rationale": "System A composite: 4.01, System B composite: 4.64. Winner: ContextAware"
+    },
+    "completedAt": "2026-10-21T15:39:02.363Z"
+  }
+]

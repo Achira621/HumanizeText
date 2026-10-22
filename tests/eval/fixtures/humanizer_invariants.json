@@ -1,0 +1,49 @@
+[
+  {
+    "id": "inv_academic_citation",
+    "genre": "academic",
+    "length": "medium",
+    "sourceText": "According to Miller et al. (2024), computational linguistics systems exhibit noticeable syntactic homogeneity. Furthermore, empirical findings in [12] demonstrate that burstiness variance drops below 3.5 in synthetic drafts.",
+    "expectedNumbers": ["2024", "12", "3.5"],
+    "expectedCitations": ["(Miller et al., 2024)", "[12]"],
+    "expectedProperNouns": ["Miller"],
+    "split": "validation"
+  },
+  {
+    "id": "inv_financial_numbers_dates",
+    "genre": "financial",
+    "length": "long",
+    "sourceText": "On October 14, 2025, BioTech Corp announced a $42.5 million Series B financing round led by Sequoia Capital. The company grew its recurring ARR by 128% year-over-year, delivering $14.2 million in EBITDA across 3 operating quarters.",
+    "expectedNumbers": ["14", "2025", "42.5", "128%", "14.2", "3"],
+    "expectedDates": ["October 14, 2025"],
+    "expectedProperNouns": ["BioTech Corp", "Sequoia Capital"],
+    "split": "validation"
+  },
+  {
+    "id": "inv_technical_urls_code",
+    "genre": "technical",
+    "length": "short",
+    "sourceText": "Developers should review the official documentation at https://workers.cloudflare.com/docs and check the deployment guide at https://github.com/humanizetext/api before launching version 2.0.",
+    "expectedUrls": ["https://workers.cloudflare.com/docs", "https://github.com/humanizetext/api"],
+    "expectedNumbers": ["2.0"],
+    "split": "test"
+  },
+  {
+    "id": "inv_legal_quotes",
+    "genre": "legal",
+    "length": "medium",
+    "sourceText": "The confidentiality agreement explicitly states that \"all proprietary source code and unpublished manuscripts remain the sole property of the author.\" Therefore, section 4.2 forbids any unauthorized external cloud transmission.",
+    "expectedQuotes": ["all proprietary source code and unpublished manuscripts remain the sole property of the author."],
+    "expectedNumbers": ["4.2"],
+    "split": "test"
+  },
+  {
+    "id": "inv_medical_dosage_trial",
+    "genre": "medical",
+    "length": "medium",
+    "sourceText": "Patients received 50mg of Compound-B twice daily for 28 consecutive days starting on January 15, 2026. Dr. Sarah Jenkins reported a 47.3% reduction in inflammatory biomarkers without secondary side effects.",
+    "expectedNumbers": ["50", "28", "15", "2026", "47.3%"],
+    "expectedProperNouns": ["Sarah Jenkins"],
+    "split": "test"
+  }
+]

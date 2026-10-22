@@ -1,0 +1,1181 @@
+{
+  "metadata": {
+    "title": "Phase 8: Semantic Validator Calibration Re-Evaluation Report",
+    "timestamp": "2026-10-21T16:17:51.975Z",
+    "sampleCount": 36,
+    "sourceArtifact": "phase7_live_results.json (immutable frozen ground truth)",
+    "evaluatorVersion": "Calibrated Invariants v8.0"
+  },
+  "metrics": {
+    "totalPassages": 36,
+    "confirmedSemanticFailures": {
+      "baseline": {
+        "legacy": 0,
+        "calibrated": 0
+      },
+      "contextAware": {
+        "legacy": 0,
+        "calibrated": 0
+      }
+    },
+    "falsePositiveAlerts": {
+      "baseline": {
+        "legacy": 6,
+        "calibrated": 0
+      },
+      "contextAware": {
+        "legacy": 6,
+        "calibrated": 0
+      }
+    },
+    "manualReviewCases": {
+      "baseline": {
+        "legacy": 0,
+        "calibrated": 0,
+        "ids": []
+      },
+      "contextAware": {
+        "legacy": 0,
+        "calibrated": 1,
+        "ids": [
+          "p7_conv_04_culinary_argument"
+        ]
+      }
+    },
+    "criticalPassRate": {
+      "baseline": {
+        "legacy": 83.3,
+        "calibrated": 100
+      },
+      "contextAware": {
+        "legacy": 80.6,
+        "calibrated": 100
+      }
+    },
+    "categoryPreservation": {
+      "numbers": {
+        "baseline": {
+          "legacy": 91.7,
+          "calibrated": 100
+        },
+        "contextAware": {
+          "legacy": 91.7,
+          "calibrated": 100
+        }
+      },
+      "units": {
+        "baseline": {
+          "legacy": 94.4,
+          "calibrated": 100
+        },
+        "contextAware": {
+          "legacy": 97.2,
+          "calibrated": 100
+        }
+      },
+      "citations": {
+        "baseline": {
+          "legacy": 100,
+          "calibrated": 100
+        },
+        "contextAware": {
+          "legacy": 100,
+          "calibrated": 100
+        }
+      },
+      "negations": {
+        "baseline": {
+          "legacy": 94.4,
+          "calibrated": 100
+        },
+        "contextAware": {
+          "legacy": 88.9,
+          "calibrated": 100
+        }
+      },
+      "causality": {
+        "baseline": {
+          "legacy": 100,
+          "calibrated": 100
+        },
+        "contextAware": {
+          "legacy": 100,
+          "calibrated": 100
+        }
+      },
+      "hedging": {
+        "baseline": {
+          "legacy": 100,
+          "calibrated": 100
+        },
+        "contextAware": {
+          "legacy": 100,
+          "calibrated": 100
+        }
+      }
+    },
+    "overEditingOnStrongProse": {
+      "baselineRatio": 27.3,
+      "contextAwareRatio": 24,
+      "deltaPercent": 3.3
+    },
+    "auditTable": [
+      {
+        "passageId": "p7_acad_02_causality_bounds",
+        "pipeline": "baseline",
+        "ruleTriggered": "missing_number",
+        "classification": "LEXICAL_FALSE_POSITIVE",
+        "legacyOutcome": "FAIL (False-Positive)",
+        "calibratedOutcome": "PASS",
+        "normalizationApplied": "NUMERIC_WORD_EQUIVALENCE",
+        "trace": {
+          "rationale": "Number '5' was preserved via written word equivalent 'five'.",
+          "sourceSpan": "5",
+          "outputSpan": "five",
+          "normalizationRuleApplied": "NUMERIC_WORD_EQUIVALENCE",
+          "severity": "advisory"
+        }
+      },
+      {
+        "passageId": "p7_acad_05_historical_scholarship",
+        "pipeline": "baseline",
+        "ruleTriggered": "unsupported_addition",
+        "classification": "LEXICAL_FALSE_POSITIVE",
+        "legacyOutcome": "FAIL (False-Positive)",
+        "calibratedOutcome": "PASS",
+        "normalizationApplied": "NUMERIC_WORD_EQUIVALENCE",
+        "trace": {
+          "rationale": "Number '17' in rewrite was grounded in source word 'seventeenth'.",
+          "sourceSpan": "seventeenth",
+          "outputSpan": "17",
+          "normalizationRuleApplied": "NUMERIC_WORD_EQUIVALENCE",
+          "severity": "advisory"
+        }
+      },
+      {
+        "passageId": "p7_acad_07_dense_citations_hedging",
+        "pipeline": "baseline",
+        "ruleTriggered": "missing_unit",
+        "classification": "LEXICAL_FALSE_POSITIVE",
+        "legacyOutcome": "FAIL (False-Positive)",
+        "calibratedOutcome": "PASS",
+        "normalizationApplied": "DEMOGRAPHIC_AGE_EQUIVALENCE",
+        "trace": {
+          "rationale": "Age qualification 'under 12 years of age' preserved via demographic phrase 'children under 12'.",
+          "sourceSpan": "under 12 years of age",
+          "outputSpan": "children under 12",
+          "normalizationRuleApplied": "DEMOGRAPHIC_AGE_EQUIVALENCE",
+          "severity": "advisory"
+        }
+      },
+      {
+        "passageId": "p7_acad_07_dense_citations_hedging",
+        "pipeline": "context-aware",
+        "ruleTriggered": "missing_unit",
+        "classification": "LEXICAL_FALSE_POSITIVE",
+        "legacyOutcome": "FAIL (False-Positive)",
+        "calibratedOutcome": "PASS",
+        "normalizationApplied": "DEMOGRAPHIC_AGE_EQUIVALENCE",
+        "trace": {
+          "rationale": "Age qualification 'under 12 years of age' preserved via demographic phrase 'children under 12'.",
+          "sourceSpan": "under 12 years of age",
+          "outputSpan": "children under 12",
+          "normalizationRuleApplied": "DEMOGRAPHIC_AGE_EQUIVALENCE",
+          "severity": "advisory"
+        }
+      },
+      {
+        "passageId": "p7_tech_04_distributed_consensus",
+        "pipeline": "baseline",
+        "ruleTriggered": "missing_unit",
+        "classification": "LEXICAL_FALSE_POSITIVE",
+        "legacyOutcome": "FAIL (False-Positive)",
+        "calibratedOutcome": "PASS",
+        "normalizationApplied": "UNIT_ABBREVIATION_EQUIVALENCE",
+        "trace": {
+          "rationale": "Unit abbreviation '150ms' was preserved via expanded term '150 milliseconds'.",
+          "sourceSpan": "150ms",
+          "outputSpan": "150 milliseconds",
+          "normalizationRuleApplied": "UNIT_ABBREVIATION_EQUIVALENCE",
+          "severity": "advisory"
+        }
+      },
+      {
+        "passageId": "p7_tech_04_distributed_consensus",
+        "pipeline": "context-aware",
+        "ruleTriggered": "missing_number",
+        "classification": "LEXICAL_FALSE_POSITIVE",
+        "legacyOutcome": "FAIL (False-Positive)",
+        "calibratedOutcome": "PASS",
+        "normalizationApplied": "NUMERIC_WORD_EQUIVALENCE",
+        "trace": {
+          "rationale": "Number '3' was preserved via written word equivalent 'three'.",
+          "sourceSpan": "3",
+          "outputSpan": "three",
+          "normalizationRuleApplied": "NUMERIC_WORD_EQUIVALENCE",
+          "severity": "advisory"
+        }
+      },
+      {
+        "passageId": "p7_tech_05_cryptographic_primitives",
+        "pipeline": "baseline",
+        "ruleTriggered": "missing_number, negation_flip",
+        "classification": "LEXICAL_FALSE_POSITIVE",
+        "legacyOutcome": "FAIL (False-Positive)",
+        "calibratedOutcome": "PASS",
+        "normalizationApplied": "NUMERIC_WORD_EQUIVALENCE",
+        "trace": {
+          "rationale": "Number '2' was preserved via written word equivalent 'two'.",
+          "sourceSpan": "2",
+          "outputSpan": "two",
+          "normalizationRuleApplied": "NUMERIC_WORD_EQUIVALENCE",
+          "severity": "advisory"
+        }
+      },
+      {
+        "passageId": "p7_prof_01_arr_expenditure",
+        "pipeline": "baseline",
+        "ruleTriggered": "negation_flip",
+        "classification": "LEXICAL_FALSE_POSITIVE",
+        "legacyOutcome": "FAIL (False-Positive)",
+        "calibratedOutcome": "PASS",
+        "normalizationApplied": "NOT_TURN_POSITIVE_REMAIN_NEGATIVE",
+        "trace": {
+          "rationale": "'did not turn positive' is semantically equivalent to 'remained negative'",
+          "sourceSpan": "did not turn positive",
+          "outputSpan": "remained negative",
+          "normalizationRuleApplied": "NOT_TURN_POSITIVE_REMAIN_NEGATIVE",
+          "severity": "advisory"
+        }
+      },
+      {
+        "passageId": "p7_prof_01_arr_expenditure",
+        "pipeline": "context-aware",
+        "ruleTriggered": "missing_number, negation_flip",
+        "classification": "LEXICAL_FALSE_POSITIVE",
+        "legacyOutcome": "FAIL (False-Positive)",
+        "calibratedOutcome": "PASS",
+        "normalizationApplied": "NUMERIC_WORD_EQUIVALENCE, NOT_TURN_POSITIVE_REMAIN_NEGATIVE",
+        "trace": {
+          "rationale": "Number '3' was preserved via written word equivalent 'three'.",
+          "sourceSpan": "3",
+          "outputSpan": "three",
+          "normalizationRuleApplied": "NUMERIC_WORD_EQUIVALENCE",
+          "severity": "advisory"
+        }
+      },
+      {
+        "passageId": "p7_prof_07_executive_memo_redundancy",
+        "pipeline": "context-aware",
+        "ruleTriggered": "negation_flip",
+        "classification": "LEXICAL_FALSE_POSITIVE",
+        "legacyOutcome": "FAIL (False-Positive)",
+        "calibratedOutcome": "PASS",
+        "normalizationApplied": "NOT_REACHED_REMAIN_UNMET",
+        "trace": {
+          "rationale": "'not reached' is semantically equivalent to 'unmet'",
+          "sourceSpan": "not reached",
+          "outputSpan": "remain unmet",
+          "normalizationRuleApplied": "NOT_REACHED_REMAIN_UNMET",
+          "severity": "advisory"
+        }
+      },
+      {
+        "passageId": "p7_conv_04_culinary_argument",
+        "pipeline": "context-aware",
+        "ruleTriggered": "negation_flip",
+        "classification": "AMBIGUOUS_MANUAL_REVIEW",
+        "legacyOutcome": "FAIL (False-Positive)",
+        "calibratedOutcome": "PASS (Manual-Review Advisory)",
+        "normalizationApplied": "RHETORICAL_CLAUSE_NEGATION_SHIFT",
+        "trace": {
+          "rationale": "Ambiguous rhetorical clause shift: Negation shifted from conditional premise to main imperative. Flagged for manual review.",
+          "sourceSpan": "cannot put pineapple on a traditional Neapolitan pizza and expect",
+          "outputSpan": "trying to put pineapple on a traditional Neapolitan pizza? Don't expect",
+          "normalizationRuleApplied": "RHETORICAL_CLAUSE_NEGATION_SHIFT",
+          "severity": "manual_review"
+        }
+      },
+      {
+        "passageId": "p7_conv_05_garage_project",
+        "pipeline": "context-aware",
+        "ruleTriggered": "missing_number",
+        "classification": "LEXICAL_FALSE_POSITIVE",
+        "legacyOutcome": "FAIL (False-Positive)",
+        "calibratedOutcome": "PASS",
+        "normalizationApplied": "NUMERIC_WORD_EQUIVALENCE, NUMERIC_WORD_EQUIVALENCE",
+        "trace": {
+          "rationale": "Number '3' was preserved via written word equivalent 'three'.",
+          "sourceSpan": "3",
+          "outputSpan": "three",
+          "normalizationRuleApplied": "NUMERIC_WORD_EQUIVALENCE",
+          "severity": "advisory"
+        }
+      },
+      {
+        "passageId": "p7_creat_01_sensory_ambiguity",
+        "pipeline": "context-aware",
+        "ruleTriggered": "negation_flip",
+        "classification": "LEXICAL_FALSE_POSITIVE",
+        "legacyOutcome": "FAIL (False-Positive)",
+        "calibratedOutcome": "PASS",
+        "normalizationApplied": "COULD_NOT_REVEAL_REMAINED_HIDDEN",
+        "trace": {
+          "rationale": "'could not reveal ... hiding' is semantically equivalent to 'remained hidden'",
+          "sourceSpan": "could not reveal the jagged reef hiding",
+          "outputSpan": "remained hidden",
+          "normalizationRuleApplied": "COULD_NOT_REVEAL_REMAINED_HIDDEN",
+          "severity": "advisory"
+        }
+      }
+    ]
+  },
+  "evaluatedPassages": [
+    {
+      "id": "p7_acad_01_hedging_trap",
+      "genre": "academic",
+      "split": "dev",
+      "stressCategory": "dense_hedging_epistemic",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_acad_02_causality_bounds",
+      "genre": "academic",
+      "split": "val",
+      "stressCategory": "causal_chain",
+      "baseline": {
+        "legacyPassed": false,
+        "calibratedPassed": true,
+        "flipped": true,
+        "flipReason": "NUMERIC_WORD_EQUIVALENCE: Number '5' was preserved via written word equivalent 'five'.",
+        "classification": "LEXICAL_FALSE_POSITIVE",
+        "calibratedTraces": [
+          {
+            "rationale": "Number '5' was preserved via written word equivalent 'five'.",
+            "sourceSpan": "5",
+            "outputSpan": "five",
+            "normalizationRuleApplied": "NUMERIC_WORD_EQUIVALENCE",
+            "severity": "advisory"
+          }
+        ]
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_acad_03_multivariate_regression",
+      "genre": "academic",
+      "split": "held-out",
+      "stressCategory": "numbers_units_citations",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_acad_04_epistemic_bounds",
+      "genre": "academic",
+      "split": "dev",
+      "stressCategory": "dense_hedging_epistemic",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_acad_05_historical_scholarship",
+      "genre": "academic",
+      "split": "val",
+      "stressCategory": "already_strong_prose",
+      "baseline": {
+        "legacyPassed": false,
+        "calibratedPassed": true,
+        "flipped": true,
+        "flipReason": "NUMERIC_WORD_EQUIVALENCE: Number '17' in rewrite was grounded in source word 'seventeenth'.",
+        "classification": "LEXICAL_FALSE_POSITIVE",
+        "calibratedTraces": [
+          {
+            "rationale": "Number '17' in rewrite was grounded in source word 'seventeenth'.",
+            "sourceSpan": "seventeenth",
+            "outputSpan": "17",
+            "normalizationRuleApplied": "NUMERIC_WORD_EQUIVALENCE",
+            "severity": "advisory"
+          }
+        ]
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_acad_06_causal_inversion_agriculture",
+      "genre": "academic",
+      "split": "held-out",
+      "stressCategory": "causal_chain",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_acad_07_dense_citations_hedging",
+      "genre": "academic",
+      "split": "dev",
+      "stressCategory": "dense_hedging_epistemic",
+      "baseline": {
+        "legacyPassed": false,
+        "calibratedPassed": true,
+        "flipped": true,
+        "flipReason": "DEMOGRAPHIC_AGE_EQUIVALENCE: Age qualification 'under 12 years of age' preserved via demographic phrase 'children under 12'.",
+        "classification": "LEXICAL_FALSE_POSITIVE",
+        "calibratedTraces": [
+          {
+            "rationale": "Age qualification 'under 12 years of age' preserved via demographic phrase 'children under 12'.",
+            "sourceSpan": "under 12 years of age",
+            "outputSpan": "children under 12",
+            "normalizationRuleApplied": "DEMOGRAPHIC_AGE_EQUIVALENCE",
+            "severity": "advisory"
+          }
+        ]
+      },
+      "contextAware": {
+        "legacyPassed": false,
+        "calibratedPassed": true,
+        "flipped": true,
+        "flipReason": "DEMOGRAPHIC_AGE_EQUIVALENCE: Age qualification 'under 12 years of age' preserved via demographic phrase 'children under 12'.",
+        "classification": "LEXICAL_FALSE_POSITIVE",
+        "calibratedTraces": [
+          {
+            "rationale": "Age qualification 'under 12 years of age' preserved via demographic phrase 'children under 12'.",
+            "sourceSpan": "under 12 years of age",
+            "outputSpan": "children under 12",
+            "normalizationRuleApplied": "DEMOGRAPHIC_AGE_EQUIVALENCE",
+            "severity": "advisory"
+          }
+        ],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_tech_01_negated_guarantee",
+      "genre": "technical",
+      "split": "val",
+      "stressCategory": "negation_polarity",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_tech_02_latency_memory",
+      "genre": "technical",
+      "split": "held-out",
+      "stressCategory": "numbers_units_citations",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_tech_03_rfc2119_network",
+      "genre": "technical",
+      "split": "held-out",
+      "stressCategory": "negation_polarity",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_tech_04_distributed_consensus",
+      "genre": "technical",
+      "split": "dev",
+      "stressCategory": "causal_chain",
+      "baseline": {
+        "legacyPassed": false,
+        "calibratedPassed": true,
+        "flipped": true,
+        "flipReason": "UNIT_ABBREVIATION_EQUIVALENCE: Unit abbreviation '150ms' was preserved via expanded term '150 milliseconds'.",
+        "classification": "LEXICAL_FALSE_POSITIVE",
+        "calibratedTraces": [
+          {
+            "rationale": "Unit abbreviation '150ms' was preserved via expanded term '150 milliseconds'.",
+            "sourceSpan": "150ms",
+            "outputSpan": "150 milliseconds",
+            "normalizationRuleApplied": "UNIT_ABBREVIATION_EQUIVALENCE",
+            "severity": "advisory"
+          }
+        ]
+      },
+      "contextAware": {
+        "legacyPassed": false,
+        "calibratedPassed": true,
+        "flipped": true,
+        "flipReason": "NUMERIC_WORD_EQUIVALENCE: Number '3' was preserved via written word equivalent 'three'.",
+        "classification": "LEXICAL_FALSE_POSITIVE",
+        "calibratedTraces": [
+          {
+            "rationale": "Number '3' was preserved via written word equivalent 'three'.",
+            "sourceSpan": "3",
+            "outputSpan": "three",
+            "normalizationRuleApplied": "NUMERIC_WORD_EQUIVALENCE",
+            "severity": "advisory"
+          }
+        ],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_tech_05_cryptographic_primitives",
+      "genre": "technical",
+      "split": "val",
+      "stressCategory": "negation_polarity",
+      "baseline": {
+        "legacyPassed": false,
+        "calibratedPassed": true,
+        "flipped": true,
+        "flipReason": "NUMERIC_WORD_EQUIVALENCE: Number '2' was preserved via written word equivalent 'two'.",
+        "classification": "LEXICAL_FALSE_POSITIVE",
+        "calibratedTraces": [
+          {
+            "rationale": "Number '2' was preserved via written word equivalent 'two'.",
+            "sourceSpan": "2",
+            "outputSpan": "two",
+            "normalizationRuleApplied": "NUMERIC_WORD_EQUIVALENCE",
+            "severity": "advisory"
+          }
+        ]
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_tech_06_database_deadlock",
+      "genre": "technical",
+      "split": "dev",
+      "stressCategory": "causal_chain",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_tech_07_api_rate_limiting",
+      "genre": "technical",
+      "split": "held-out",
+      "stressCategory": "numbers_units_citations",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_prof_01_arr_expenditure",
+      "genre": "professional",
+      "split": "held-out",
+      "stressCategory": "numbers_units_citations",
+      "baseline": {
+        "legacyPassed": false,
+        "calibratedPassed": true,
+        "flipped": true,
+        "flipReason": "NOT_TURN_POSITIVE_REMAIN_NEGATIVE: 'did not turn positive' is semantically equivalent to 'remained negative'",
+        "classification": "LEXICAL_FALSE_POSITIVE",
+        "calibratedTraces": [
+          {
+            "rationale": "'did not turn positive' is semantically equivalent to 'remained negative'",
+            "sourceSpan": "did not turn positive",
+            "outputSpan": "remained negative",
+            "normalizationRuleApplied": "NOT_TURN_POSITIVE_REMAIN_NEGATIVE",
+            "severity": "advisory"
+          }
+        ]
+      },
+      "contextAware": {
+        "legacyPassed": false,
+        "calibratedPassed": true,
+        "flipped": true,
+        "flipReason": "NUMERIC_WORD_EQUIVALENCE: Number '3' was preserved via written word equivalent 'three'.; NOT_TURN_POSITIVE_REMAIN_NEGATIVE: 'did not turn positive' is semantically equivalent to 'remained negative'",
+        "classification": "LEXICAL_FALSE_POSITIVE",
+        "calibratedTraces": [
+          {
+            "rationale": "Number '3' was preserved via written word equivalent 'three'.",
+            "sourceSpan": "3",
+            "outputSpan": "three",
+            "normalizationRuleApplied": "NUMERIC_WORD_EQUIVALENCE",
+            "severity": "advisory"
+          },
+          {
+            "rationale": "'did not turn positive' is semantically equivalent to 'remained negative'",
+            "sourceSpan": "did not turn positive",
+            "outputSpan": "remained negative",
+            "normalizationRuleApplied": "NOT_TURN_POSITIVE_REMAIN_NEGATIVE",
+            "severity": "advisory"
+          }
+        ],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_prof_02_overedit_trap",
+      "genre": "professional",
+      "split": "held-out",
+      "stressCategory": "already_strong_prose",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_prof_03_bureaucratic_bloat",
+      "genre": "professional",
+      "split": "dev",
+      "stressCategory": "redundant_bureaucratic",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_prof_04_compliance_disclaimer",
+      "genre": "professional",
+      "split": "val",
+      "stressCategory": "negation_polarity",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_prof_05_quarterly_shareholder",
+      "genre": "professional",
+      "split": "dev",
+      "stressCategory": "dense_hedging_epistemic",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_prof_06_board_resolution",
+      "genre": "professional",
+      "split": "val",
+      "stressCategory": "already_strong_prose",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_prof_07_executive_memo_redundancy",
+      "genre": "professional",
+      "split": "held-out",
+      "stressCategory": "redundant_bureaucratic",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": false,
+        "calibratedPassed": true,
+        "flipped": true,
+        "flipReason": "NOT_REACHED_REMAIN_UNMET: 'not reached' is semantically equivalent to 'unmet'",
+        "classification": "LEXICAL_FALSE_POSITIVE",
+        "calibratedTraces": [
+          {
+            "rationale": "'not reached' is semantically equivalent to 'unmet'",
+            "sourceSpan": "not reached",
+            "outputSpan": "remain unmet",
+            "normalizationRuleApplied": "NOT_REACHED_REMAIN_UNMET",
+            "severity": "advisory"
+          }
+        ],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_conv_01_personal_voice",
+      "genre": "conversational",
+      "split": "dev",
+      "stressCategory": "already_strong_prose",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_conv_02_commute_contractions",
+      "genre": "conversational",
+      "split": "held-out",
+      "stressCategory": "already_strong_prose",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_conv_03_travel_mishap",
+      "genre": "conversational",
+      "split": "val",
+      "stressCategory": "already_strong_prose",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_conv_04_culinary_argument",
+      "genre": "conversational",
+      "split": "dev",
+      "stressCategory": "negation_polarity",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": false,
+        "calibratedPassed": true,
+        "flipped": true,
+        "flipReason": "RHETORICAL_CLAUSE_NEGATION_SHIFT: Ambiguous rhetorical clause shift: Negation shifted from conditional premise to main imperative. Flagged for manual review.",
+        "classification": "AMBIGUOUS_MANUAL_REVIEW",
+        "calibratedTraces": [
+          {
+            "rationale": "Ambiguous rhetorical clause shift: Negation shifted from conditional premise to main imperative. Flagged for manual review.",
+            "sourceSpan": "cannot put pineapple on a traditional Neapolitan pizza and expect",
+            "outputSpan": "trying to put pineapple on a traditional Neapolitan pizza? Don't expect",
+            "normalizationRuleApplied": "RHETORICAL_CLAUSE_NEGATION_SHIFT",
+            "severity": "manual_review"
+          }
+        ],
+        "manualReviewCases": [
+          "RHETORICAL_CLAUSE_SHIFT: \"cannot put pineapple on a traditional Neapolitan pizza and expect\" -> \"trying to put pineapple on a traditional Neapolitan pizza? Don't expect\""
+        ]
+      }
+    },
+    {
+      "id": "p7_conv_05_garage_project",
+      "genre": "conversational",
+      "split": "val",
+      "stressCategory": "already_strong_prose",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": false,
+        "calibratedPassed": true,
+        "flipped": true,
+        "flipReason": "NUMERIC_WORD_EQUIVALENCE: Number '3' was preserved via written word equivalent 'three'.; NUMERIC_WORD_EQUIVALENCE: Number '4' was preserved via written word equivalent 'four'.",
+        "classification": "LEXICAL_FALSE_POSITIVE",
+        "calibratedTraces": [
+          {
+            "rationale": "Number '3' was preserved via written word equivalent 'three'.",
+            "sourceSpan": "3",
+            "outputSpan": "three",
+            "normalizationRuleApplied": "NUMERIC_WORD_EQUIVALENCE",
+            "severity": "advisory"
+          },
+          {
+            "rationale": "Number '4' was preserved via written word equivalent 'four'.",
+            "sourceSpan": "4",
+            "outputSpan": "four",
+            "normalizationRuleApplied": "NUMERIC_WORD_EQUIVALENCE",
+            "severity": "advisory"
+          }
+        ],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_conv_06_tech_frustration",
+      "genre": "conversational",
+      "split": "held-out",
+      "stressCategory": "dense_hedging_epistemic",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_conv_07_neighborhood_dialogue",
+      "genre": "conversational",
+      "split": "dev",
+      "stressCategory": "already_strong_prose",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_creat_01_sensory_ambiguity",
+      "genre": "creative",
+      "split": "held-out",
+      "stressCategory": "already_strong_prose",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": false,
+        "calibratedPassed": true,
+        "flipped": true,
+        "flipReason": "COULD_NOT_REVEAL_REMAINED_HIDDEN: 'could not reveal ... hiding' is semantically equivalent to 'remained hidden'",
+        "classification": "LEXICAL_FALSE_POSITIVE",
+        "calibratedTraces": [
+          {
+            "rationale": "'could not reveal ... hiding' is semantically equivalent to 'remained hidden'",
+            "sourceSpan": "could not reveal the jagged reef hiding",
+            "outputSpan": "remained hidden",
+            "normalizationRuleApplied": "COULD_NOT_REVEAL_REMAINED_HIDDEN",
+            "severity": "advisory"
+          }
+        ],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_creat_02_metaphor_restraint",
+      "genre": "creative",
+      "split": "val",
+      "stressCategory": "already_strong_prose",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_creat_03_mountain_express",
+      "genre": "creative",
+      "split": "held-out",
+      "stressCategory": "already_strong_prose",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_creat_04_desert_twilight",
+      "genre": "creative",
+      "split": "dev",
+      "stressCategory": "already_strong_prose",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_creat_05_harbor_fog",
+      "genre": "creative",
+      "split": "val",
+      "stressCategory": "already_strong_prose",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_creat_06_antique_clockmaker",
+      "genre": "creative",
+      "split": "dev",
+      "stressCategory": "numbers_units_citations",
+      "baseline": {
+        "legacyPassed": false,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [
+          {
+            "rationale": "'fail to synchronize' is semantically equivalent to 'disrupt synchronization'",
+            "sourceSpan": "fail to synchronize",
+            "outputSpan": "disrupt the pendulum's synchronization",
+            "normalizationRuleApplied": "FAIL_TO_SYNCHRONIZE_DISRUPT",
+            "severity": "advisory"
+          }
+        ]
+      },
+      "contextAware": {
+        "legacyPassed": false,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [
+          {
+            "rationale": "'fail to synchronize' is semantically equivalent to 'disrupt synchronization'",
+            "sourceSpan": "fail to synchronize",
+            "outputSpan": "disrupt the pendulum's synchronization",
+            "normalizationRuleApplied": "FAIL_TO_SYNCHRONIZE_DISRUPT",
+            "severity": "advisory"
+          }
+        ],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_creat_07_storm_over_prairie",
+      "genre": "creative",
+      "split": "val",
+      "stressCategory": "already_strong_prose",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    },
+    {
+      "id": "p7_creat_08_cellist_rehearsal",
+      "genre": "creative",
+      "split": "held-out",
+      "stressCategory": "already_strong_prose",
+      "baseline": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": []
+      },
+      "contextAware": {
+        "legacyPassed": true,
+        "calibratedPassed": true,
+        "flipped": false,
+        "calibratedTraces": [],
+        "manualReviewCases": []
+      }
+    }
+  ]
+}

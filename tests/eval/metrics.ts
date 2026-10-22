@@ -128,3 +128,16 @@ export function containsPhrase(text: string, phrase: string): boolean {
   const escaped = phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   return new RegExp(`\\b${escaped}\\b`, 'i').test(text);
 }
+
+/** Computes the 95% Wilson Score confidence interval for a proportion. */
+export function wilsonConfidenceInterval(successes: number, total: number, z = 1.96): [number, number] {
+  if (total === 0) return [0, 0];
+  const p = successes / total;
+  const z2 = z * z;
+  const denominator = 1 + z2 / total;
+  const center = p + z2 / (2 * total);
+  const margin = z * Math.sqrt((p * (1 - p) + z2 / (4 * total)) / total);
+  const lower = Math.max(0, (center - margin) / denominator);
+  const upper = Math.min(1, (center + margin) / denominator);
+  return [round(lower, 3), round(upper, 3)];
+}

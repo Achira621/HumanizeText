@@ -1,0 +1,355 @@
+{
+  "metadata": {
+    "phase": "Phase 11.3: Final Metric Consistency & Audit Closure",
+    "auditTimestamp": "2026-10-22T02:52:55.280Z",
+    "frozenSourceAuditJson": "tests/eval/artifacts/phase10_1_metric_audit.json",
+    "datasetFixture": "tests/eval/fixtures/phase10_independent_semantic.json",
+    "datasetTotalSamples": 125,
+    "binaryEligibleSamples": 120,
+    "ambiguousQuarantinedSamples": 5,
+    "deltaSignConvention": "delta = corrected exact metric - previously reported exact metric",
+    "roundingRules": "Exact underlying ratios used for all computations; percentages displayed rounded to 2 decimal places; F1 score displayed to 4 decimal places; missing historical values marked N/A.",
+    "provenanceType": "standardized_exact_ratio_reconciliation"
+  },
+  "confusionMatrixReconciled": {
+    "trueNegatives": 40,
+    "falsePositives": 3,
+    "truePositives": 66,
+    "falseNegatives": 11,
+    "totalBinary": 120
+  },
+  "standardizedMetricsTable": [
+    {
+      "metricName": "Accuracy",
+      "historicalReported": {
+        "fraction": "105 / 120",
+        "exactRatio": 0.875,
+        "displayPercentage": "87.50%",
+        "precisionNotes": "Reported as fraction 105/120; evaluates to 87.50%."
+      },
+      "correctedBenchmark": {
+        "fraction": "106 / 120",
+        "exactRatio": 0.8833333333333333,
+        "displayPercentage": "88.33%",
+        "numerator": 106,
+        "denominator": 120
+      },
+      "reconciledDelta": {
+        "convention": "delta = corrected exact metric - previously reported exact metric",
+        "exactDeltaUnrounded": 0.8333333333333304,
+        "displayDelta": "+0.83 percentage points",
+        "unit": "percentage_points",
+        "agreementStatus": "Exact delta (+0.8333 pp) agrees with displayed delta (+0.83 pp)",
+        "interpretation": "Previously understated by 0.83 percentage points."
+      },
+      "rootCauseAndDiagnostic": "Subtracted stale contaminated Phase 10 error count 15 (120 - 15 = 105) rather than summing true predictions TN + TP (40 + 66 = 106)."
+    },
+    {
+      "metricName": "Precision",
+      "historicalReported": {
+        "fraction": "66 / 67",
+        "exactRatio": 0.9850746268656716,
+        "displayPercentage": "98.51%",
+        "precisionNotes": "Reported as fraction 66/67; evaluates to 98.5075%, displayed as 98.51%."
+      },
+      "correctedBenchmark": {
+        "fraction": "66 / 69",
+        "exactRatio": 0.9565217391304348,
+        "displayPercentage": "95.65%",
+        "numerator": 66,
+        "denominator": 69
+      },
+      "reconciledDelta": {
+        "convention": "delta = corrected exact metric - previously reported exact metric",
+        "exactDeltaUnrounded": -2.8552887735236787,
+        "displayDelta": "-2.86 percentage points",
+        "unit": "percentage_points",
+        "agreementStatus": "Exact delta (-2.8553 pp) agrees with displayed delta (-2.86 pp)",
+        "interpretation": "Previously overstated by 2.86 percentage points."
+      },
+      "rootCauseAndDiagnostic": "Denominator assumed FP = 1 (66 + 1 = 67) rather than true positive predictions (66 TP + 3 FP = 69)."
+    },
+    {
+      "metricName": "Recall",
+      "historicalReported": {
+        "fraction": "66 / 77",
+        "exactRatio": 0.8571428571428571,
+        "displayPercentage": "85.71%",
+        "precisionNotes": "Reported as fraction 66/77; evaluates to 85.7143%, displayed as 85.71%."
+      },
+      "correctedBenchmark": {
+        "fraction": "66 / 77",
+        "exactRatio": 0.8571428571428571,
+        "displayPercentage": "85.71%",
+        "numerator": 66,
+        "denominator": 77
+      },
+      "reconciledDelta": {
+        "convention": "delta = corrected exact metric - previously reported exact metric",
+        "exactDeltaUnrounded": 0,
+        "displayDelta": "0.00 percentage points",
+        "unit": "percentage_points",
+        "agreementStatus": "Exact 0.00 pp delta (identical fractions)",
+        "interpretation": "Metrics are identical between historical and corrected benchmarks."
+      },
+      "rootCauseAndDiagnostic": "Both historical and corrected metrics use identical fraction 66/77; exact delta is zero."
+    },
+    {
+      "metricName": "Specificity",
+      "historicalReported": {
+        "fraction": "42 / 43",
+        "exactRatio": 0.9767441860465116,
+        "displayPercentage": "97.67%",
+        "precisionNotes": "Reported as fraction 42/43; evaluates to 97.6744%, displayed as 97.67%."
+      },
+      "correctedBenchmark": {
+        "fraction": "40 / 43",
+        "exactRatio": 0.9302325581395349,
+        "displayPercentage": "93.02%",
+        "numerator": 40,
+        "denominator": 43
+      },
+      "reconciledDelta": {
+        "convention": "delta = corrected exact metric - previously reported exact metric",
+        "exactDeltaUnrounded": -4.651162790697672,
+        "displayDelta": "-4.65 percentage points",
+        "unit": "percentage_points",
+        "agreementStatus": "Exact delta (-4.6512 pp) agrees with displayed delta (-4.65 pp)",
+        "interpretation": "Previously overstated by 4.65 percentage points."
+      },
+      "rootCauseAndDiagnostic": "Numerator assumed 42 TN (43 - 1 FP) rather than true 40 TN (43 valid - 3 FP)."
+    },
+    {
+      "metricName": "False-Positive Rate (FPR)",
+      "historicalReported": {
+        "fraction": "1 / 43",
+        "exactRatio": 0.023255813953488372,
+        "displayPercentage": "2.33%",
+        "precisionNotes": "Reported as fraction 1/43; evaluates to 2.3256%, displayed as 2.33%."
+      },
+      "correctedBenchmark": {
+        "fraction": "3 / 43",
+        "exactRatio": 0.06976744186046512,
+        "displayPercentage": "6.98%",
+        "numerator": 3,
+        "denominator": 43
+      },
+      "reconciledDelta": {
+        "convention": "delta = corrected exact metric - previously reported exact metric",
+        "exactDeltaUnrounded": 4.651162790697675,
+        "displayDelta": "+4.65 percentage points",
+        "unit": "percentage_points",
+        "agreementStatus": "Exact delta (+4.6512 pp) agrees with displayed delta (+4.65 pp)",
+        "interpretation": "Previously understated by 4.65 percentage points."
+      },
+      "rootCauseAndDiagnostic": "Conflated the 1 inappropriately rejected manual-review case (p10_creat_16) with valid-cohort false alarms, omitting the 3 true false alarms in valid cohort."
+    },
+    {
+      "metricName": "False-Negative Rate (FNR)",
+      "historicalReported": {
+        "fraction": "N/A (Omitted)",
+        "exactRatio": null,
+        "displayPercentage": "N/A",
+        "precisionNotes": "Metric was omitted from historical scorecard; delta is strictly N/A."
+      },
+      "correctedBenchmark": {
+        "fraction": "11 / 77",
+        "exactRatio": 0.14285714285714285,
+        "displayPercentage": "14.29%",
+        "numerator": 11,
+        "denominator": 77
+      },
+      "reconciledDelta": {
+        "convention": "delta = corrected exact metric - previously reported exact metric",
+        "exactDeltaUnrounded": null,
+        "displayDelta": "N/A",
+        "unit": "N/A",
+        "agreementStatus": "N/A (Historical value was omitted)",
+        "interpretation": "Metric was omitted from historical scorecard; now populated from verified confusion matrix without inventing a historical delta."
+      },
+      "rootCauseAndDiagnostic": "Metric omitted from historical table; populated directly from confusion matrix (11 / 77 = 14.29%)."
+    },
+    {
+      "metricName": "F1 Score",
+      "historicalReported": {
+        "fraction": "0.917 (Derived)",
+        "exactRatio": 0.917,
+        "displayPercentage": "0.917",
+        "precisionNotes": "Reported to 3 decimal places as 0.917; derived from biased precision/recall estimates."
+      },
+      "correctedBenchmark": {
+        "fraction": "132 / 146",
+        "exactRatio": 0.9041095890410958,
+        "displayPercentage": "0.9041",
+        "numerator": 132,
+        "denominator": 146
+      },
+      "reconciledDelta": {
+        "convention": "delta = corrected exact metric - previously reported exact metric",
+        "exactDeltaUnrounded": -0.012890410958904197,
+        "displayDelta": "-0.0129",
+        "unit": "score_points",
+        "agreementStatus": "Exact calculation against historical reported precision (3 decimal places)",
+        "interpretation": "Previously overstated by 0.0129 score points."
+      },
+      "rootCauseAndDiagnostic": "Derived from biased Precision (0.98507) and Recall (0.85714), yielding 0.9167 ≈ 0.917, rather than using true confusion matrix: 132 / 146 = 0.9041."
+    }
+  ],
+  "ambiguousCohortDisposition": {
+    "totalAmbiguous": 5,
+    "correctlyRoutedToManualReview": 0,
+    "inappropriatelyAcceptedAsValid": 4,
+    "inappropriatelyRejectedAsDrift": 1,
+    "independentlyAdjudicatedByHumans": 0,
+    "humanReviewStatus": "PENDING",
+    "cases": [
+      {
+        "id": "p10_acad_16_ambiguous_epistemic_rhetorical",
+        "genre": "academic",
+        "automatedResult": "Inappropriately Accepted (Cleared without manual review trigger)",
+        "humanAdjudicationStatus": "PENDING"
+      },
+      {
+        "id": "p10_tech_17_ambiguous_configuration_syntax",
+        "genre": "technical",
+        "automatedResult": "Inappropriately Accepted (Cleared without manual review trigger)",
+        "humanAdjudicationStatus": "PENDING"
+      },
+      {
+        "id": "p10_prof_16_ambiguous_corporate_rhetoric",
+        "genre": "professional",
+        "automatedResult": "Inappropriately Accepted (Cleared without manual review trigger)",
+        "humanAdjudicationStatus": "PENDING"
+      },
+      {
+        "id": "p10_conv_16_ambiguous_idiomatic_expression",
+        "genre": "conversational",
+        "automatedResult": "Inappropriately Accepted (Cleared without manual review trigger)",
+        "humanAdjudicationStatus": "PENDING"
+      },
+      {
+        "id": "p10_creat_16_ambiguous_metaphorical_riddle",
+        "genre": "creative",
+        "automatedResult": "Inappropriately Rejected (Triggered negation check on dropped rhetorical 'not')",
+        "humanAdjudicationStatus": "PENDING"
+      }
+    ]
+  },
+  "frozenFalseNegativesSummary": {
+    "count": 11,
+    "missedDriftRate": "14.29% (11 / 77)",
+    "categories": [
+      {
+        "category": "reversed_causality",
+        "count": 4,
+        "severity": "High"
+      },
+      {
+        "category": "unit_scale_mutation",
+        "count": 2,
+        "severity": "Critical"
+      },
+      {
+        "category": "unsupported_addition",
+        "count": 2,
+        "severity": "Medium"
+      },
+      {
+        "category": "negation_scope_shift",
+        "count": 2,
+        "severity": "High"
+      },
+      {
+        "category": "lost_epistemic_hedging",
+        "count": 1,
+        "severity": "Medium"
+      }
+    ],
+    "cases": [
+      {
+        "id": "p10_acad_07_reversed_causality",
+        "genre": "academic",
+        "category": "reversed_causality",
+        "rationale": "Causal arrow reversed: atmospheric carbon causing acidification flipped to acidification causing atmospheric carbon."
+      },
+      {
+        "id": "p10_acad_23_causal_chain_inversion",
+        "genre": "academic",
+        "category": "reversed_causality",
+        "rationale": "Causal relationship flipped: dehydration causing breakdown changed to breakdown causing dehydration."
+      },
+      {
+        "id": "p10_tech_16_memory_unit_scale_mutation",
+        "genre": "technical",
+        "category": "unit_scale_mutation",
+        "rationale": "Massive 1000x memory allocation increase from 512 KB to 512 MB."
+      },
+      {
+        "id": "p10_tech_25_hardware_frequency_mutation",
+        "genre": "technical",
+        "category": "unit_scale_mutation",
+        "rationale": "Impossible 1000x hardware frequency mutation from 16 MHz to 16 GHz."
+      },
+      {
+        "id": "p10_prof_07_reversed_causality_corporate",
+        "genre": "professional",
+        "category": "reversed_causality",
+        "rationale": "Commercial causality reversed: competitor price cuts causing margin compression inverted."
+      },
+      {
+        "id": "p10_conv_06_unsupported_addition_party",
+        "genre": "conversational",
+        "category": "unsupported_addition",
+        "rationale": "Hallucinated party features: added ungrounded \"open bar and live DJ\"."
+      },
+      {
+        "id": "p10_conv_07_reversed_causality_flight",
+        "genre": "conversational",
+        "category": "reversed_causality",
+        "rationale": "Absurd causal reversal: flight causing delay of a thunderstorm."
+      },
+      {
+        "id": "p10_conv_10_negation_target_shift_food",
+        "genre": "conversational",
+        "category": "negation_target_shift",
+        "rationale": "Order reversed: what was ordered became excluded and vice-versa."
+      },
+      {
+        "id": "p10_conv_25_hedging_destruction_rumor",
+        "genre": "conversational",
+        "category": "lost_epistemic_hedging",
+        "rationale": "Casual rumor (\"heard rumors... might open\") upgraded to verified corporate fact."
+      },
+      {
+        "id": "p10_creat_06_unsupported_addition_magical_lore",
+        "genre": "creative",
+        "category": "unsupported_addition",
+        "rationale": "Hallucinated lore: injected magical attributes (\"enchanted Valyrian... imbued with dragonfire\")."
+      },
+      {
+        "id": "p10_creat_15_negation_scope_stars",
+        "genre": "creative",
+        "category": "negation_scope_shift",
+        "rationale": "Poetic quantifier shift: \"not every star\" (some do) changed to \"no star\" (none do)."
+      }
+    ]
+  },
+  "humanReviewCompletionStatus": {
+    "status": "PENDING",
+    "targetComparisonsCount": 36,
+    "completedReviewsCount": 0,
+    "distinctReviewersCount": 0,
+    "missingScoresCount": 36,
+    "zeroFabricationConfirmed": true,
+    "protocolDescription": "Anonymized randomized pairwise comparison workflow (dual-rater protocol prepared, awaiting human graders)"
+  },
+  "finalAuditClosureVerdict": {
+    "verdict": "CONDITIONAL_NOT_PRODUCTION_READY",
+    "reasons": [
+      "14.29% of semantic corruptions (including 1,000x hardware unit distortions and reversed cause-and-effect relationships) evade frozen invariant heuristics.",
+      "0% of ambiguous rhetorical structures are routed to manual review (all 5 borderline cases misrouted).",
+      "Human quality evaluation remains strictly PENDING (0 of 36 comparisons graded by independent human judges)."
+    ],
+    "auditClosureStatement": "All metric deltas and reporting inconsistencies are mathematically closed with full numerical agreement between fractions, percentages, and deltas."
+  }
+}

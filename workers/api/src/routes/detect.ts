@@ -113,7 +113,8 @@ export async function handleDetect(request: Request, _env: Env): Promise<Respons
     confidence = aiProbability <= 0.2 ? 'high' : 'moderate';
   }
 
-  const latencyMs = Math.round(performance.now() - startTime);
+  const elapsedMs = performance.now() - startTime;
+  const latencyMs = Number(elapsedMs.toFixed(2));
 
   const payload: DetectResponse = {
     success: true,
@@ -130,6 +131,12 @@ export async function handleDetect(request: Request, _env: Env): Promise<Respons
     signalsDetected: Array.from(new Set(signalsDetected)).slice(0, 10),
     modelUsed: 'calibrated-multi-signal-v1',
     latencyMs,
+    timing: {
+      executionMs: latencyMs,
+      overheadDescription: 'Synchronous in-memory string variance calculation (<1ms CPU time, no remote neural model invoked)',
+    },
+    methodologyNotice:
+      'Evaluates stylistic variance and signature n-gram clichés. Diagnostic only; does not provide conclusive proof of authorship.',
   };
 
   return new Response(JSON.stringify(payload), {

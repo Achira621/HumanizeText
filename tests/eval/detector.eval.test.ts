@@ -2,7 +2,7 @@ import { beforeAll, describe, expect, it } from 'vitest';
 import { adapters } from './adapters';
 import { loadDetection } from './fixtures';
 import { GATES } from './gates';
-import { bestThreshold, confusion, mean, prf, rocAuc, round } from './metrics';
+import { bestThreshold, confusion, mean, prf, rocAuc, round, wilsonConfidenceInterval } from './metrics';
 import type { DetectionRow } from './types';
 
 interface Scored {
@@ -37,15 +37,27 @@ describe.skipIf(scoreText === undefined)('AI detector evaluation', () => {
     const train = binary('train');
     const test = binary('test');
     const { threshold } = bestThreshold(train.scores, train.labels);
-    const metrics = prf(confusion(test.scores, test.labels, threshold));
+    const conf = confusion(test.scores, test.labels, threshold);
+    const metrics = prf(conf);
     const auc = rocAuc(test.scores, test.labels);
-    console.info('[detector]', {
+
+    const precCi = wilsonConfidenceInterval(conf.tp, conf.tp + conf.fp);
+    const recallCi = wilsonConfidenceInterval(conf.tp, conf.tp + conf.fn);
+    const fprCi = wilsonConfidenceInterval(conf.fp, conf.fp + conf.tn);
+
+    console.info('[detector evaluation report]', {
+      trainSampleSize: train.scores.length,
+      testSampleSize: test.scores.length,
       threshold,
+      confusion: conf,
       auc: round(auc),
       precision: round(metrics.precision),
+      precision95CI: precCi,
       recall: round(metrics.recall),
+      recall95CI: recallCi,
       f1: round(metrics.f1),
       fpr: round(metrics.fpr),
+      fpr95CI: fprCi,
     });
     expect(auc).toBeGreaterThanOrEqual(GATES.detector.minAucTest);
     expect(metrics.f1).toBeGreaterThanOrEqual(GATES.detector.minF1Test);

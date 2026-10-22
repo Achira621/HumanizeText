@@ -1,0 +1,1877 @@
+[
+  {
+    "id": "p10_acad_01_valid_paraphrase_syntax",
+    "genre": "academic",
+    "category": "valid_paraphrase",
+    "sourceText": "The crystallographic analysis revealed that conformational changes in the active site occur primarily during substrate binding [7].",
+    "rewrittenText": "Conformational shifts in the active site take place chiefly upon substrate binding, as shown by crystallographic analysis [7].",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_paraphrase",
+      "rationale": "Legitimate academic paraphrase restructuring clauses and substituting synonyms while preserving active site context and citation [7]."
+    },
+    "provenance": "independent_academic_biochem_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_acad_02_cardinal_ordinal_mutation",
+    "genre": "academic",
+    "category": "cardinal_ordinal_swap",
+    "sourceText": "We analyzed 5 discrete cohorts of immunocompromised patients across three clinical testing centers.",
+    "rewrittenText": "We analyzed the fifth discrete cohort of immunocompromised patients across three clinical testing centers.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "cardinal_ordinal_swap",
+      "rationale": "Cardinal count 5 was mutated into ordinal rank fifth, dropping four entire cohorts from the analysis scope."
+    },
+    "provenance": "independent_academic_immunology_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_acad_03_numeric_boundary_3_vs_30",
+    "genre": "academic",
+    "category": "boundary_trap",
+    "sourceText": "The control group required 3 distinct therapeutic interventions before cellular stabilization was observed.",
+    "rewrittenText": "The control group required 30 distinct therapeutic interventions before cellular stabilization was observed.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "boundary_trap",
+      "rationale": "Fatal order-of-magnitude numeric boundary mutation from 3 to 30 interventions."
+    },
+    "provenance": "independent_academic_oncology_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_acad_04_valid_negation_movement",
+    "genre": "academic",
+    "category": "valid_negation_movement",
+    "sourceText": "The experimental assay did not detect any viable bacterial colonies after 48 hours of incubation.",
+    "rewrittenText": "The experimental assay detected no viable bacterial colonies after 48 hours of incubation.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_negation_movement",
+      "rationale": "Valid syntactic movement from pre-verbal negation (\"did not detect any\") to post-verbal quantifier negation (\"detected no\")."
+    },
+    "provenance": "independent_academic_microbiology_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_acad_05_negation_scope_shift",
+    "genre": "academic",
+    "category": "negation_scope_shift",
+    "sourceText": "Not all peptide sequences fold into stable secondary structures under elevated thermal pressure.",
+    "rewrittenText": "No peptide sequences fold into stable secondary structures under elevated thermal pressure.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "negation_scope_shift",
+      "rationale": "Quantifier scope shift: \"not all\" (partial negation, some fold) mutated to \"no\" (universal negative, none fold)."
+    },
+    "provenance": "independent_academic_biophys_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_acad_06_epistemic_strengthening",
+    "genre": "academic",
+    "category": "lost_epistemic_hedging",
+    "sourceText": "The retrospective data may indicate an underlying correlation between sleep disruption and amyloid deposition.",
+    "rewrittenText": "The retrospective data conclusively demonstrates an underlying correlation between sleep disruption and amyloid deposition.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "lost_epistemic_hedging",
+      "rationale": "Epistemic qualification destroyed: tentative hedge \"may indicate\" converted into unreserved certainty \"conclusively demonstrates\"."
+    },
+    "provenance": "independent_academic_neuro_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_acad_07_reversed_causality",
+    "genre": "academic",
+    "category": "reversed_causality",
+    "sourceText": "Increased atmospheric carbon concentration accelerated ocean acidification throughout the Miocene epoch.",
+    "rewrittenText": "Ocean acidification accelerated increased atmospheric carbon concentration throughout the Miocene epoch.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "reversed_causality",
+      "rationale": "Causal arrow reversed: atmospheric carbon causing acidification flipped to acidification causing atmospheric carbon."
+    },
+    "provenance": "independent_academic_paleo_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_acad_08_citation_year_mutation",
+    "genre": "academic",
+    "category": "citation_mutation",
+    "sourceText": "Previous comparative meta-analyses by Thornton et al. (2018) established baseline effect sizes for cognitive behavioral therapy [19].",
+    "rewrittenText": "Previous comparative meta-analyses by Thornton et al. (2024) established baseline effect sizes for cognitive behavioral therapy [19].",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "citation_mutation",
+      "rationale": "Citation publication year mutated from 2018 to 2024, corrupting academic attribution."
+    },
+    "provenance": "independent_academic_psych_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_acad_09_unsupported_addition_statistics",
+    "genre": "academic",
+    "category": "unsupported_addition",
+    "sourceText": "Enzymatic activity decreased steadily as environmental salinity approached saturation points.",
+    "rewrittenText": "Enzymatic activity decreased steadily by 78.4% as environmental salinity approached saturation points.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "unsupported_addition",
+      "rationale": "Hallucinated statistical claim: injected ungrounded quantitative metric \"by 78.4%\"."
+    },
+    "provenance": "independent_academic_biochem_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_acad_10_unit_scale_mutation_mg_to_kg",
+    "genre": "academic",
+    "category": "unit_scale_mutation",
+    "sourceText": "Daily administration of 25 mg of the experimental compound produced no hepatotoxicity in rodent models.",
+    "rewrittenText": "Daily administration of 25 kg of the experimental compound produced no hepatotoxicity in rodent models.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "unit_scale_mutation",
+      "rationale": "Lethal 1,000,000x dosage mutation from 25 mg to 25 kg."
+    },
+    "provenance": "independent_academic_pharm_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_acad_11_valid_nominalization_unpacking",
+    "genre": "academic",
+    "category": "natural_structural_rewrite",
+    "sourceText": "The implementation of automated error correction mechanisms facilitated a reduction in genomic sequencing latency.",
+    "rewrittenText": "Implementing automated error correction reduced genomic sequencing delays.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "natural_structural_rewrite",
+      "rationale": "Clean stylistic unwinding of nominalizations (\"implementation of\" -> \"implementing\", \"facilitated a reduction\" -> \"reduced\") preserving exact scientific meaning."
+    },
+    "provenance": "independent_academic_genomics_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_acad_12_age_demographic_expansion",
+    "genre": "academic",
+    "category": "age_demographic_boundary",
+    "sourceText": "The longitudinal pediatric trial restricted participant enrollment to children aged 6 to 11.",
+    "rewrittenText": "The longitudinal pediatric trial enrolled pediatric participants under 25 years of age.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "age_demographic_boundary",
+      "rationale": "Expanded strict pediatric trial eligibility from ages 6-11 to under 25."
+    },
+    "provenance": "independent_academic_pediatrics_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_acad_13_decimal_mutation",
+    "genre": "academic",
+    "category": "numeric_mutation",
+    "sourceText": "The calculated p-value of 0.041 indicated statistical significance below the predetermined threshold of 0.05.",
+    "rewrittenText": "The calculated p-value of 0.41 indicated statistical significance below the predetermined threshold of 0.05.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "numeric_mutation",
+      "rationale": "Decimal precision error: p-value shifted from significant 0.041 to non-significant 0.41."
+    },
+    "provenance": "independent_academic_biostat_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_acad_14_valid_passive_to_active",
+    "genre": "academic",
+    "category": "valid_paraphrase",
+    "sourceText": "Significant sediment stratification was observed by the field expedition along the northern ridge.",
+    "rewrittenText": "Along the northern ridge, the field expedition observed significant sediment stratification.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_paraphrase",
+      "rationale": "Standard passive-to-active grammatical reorganization with zero semantic drift."
+    },
+    "provenance": "independent_academic_geology_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_acad_15_negation_target_diversion",
+    "genre": "academic",
+    "category": "negation_target_shift",
+    "sourceText": "The researchers did not publish the proprietary crystal structures, though they shared synthesis protocols.",
+    "rewrittenText": "The researchers published the proprietary crystal structures, though they did not share synthesis protocols.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "negation_target_shift",
+      "rationale": "Negation target inverted: what was withheld became published, and what was shared became withheld."
+    },
+    "provenance": "independent_academic_materials_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_acad_16_ambiguous_epistemic_rhetorical",
+    "genre": "academic",
+    "category": "ambiguous_rhetorical",
+    "sourceText": "Could these mitochondrial anomalies be attributed solely to environmental toxin exposure? The available evidence remains inconclusive.",
+    "rewrittenText": "Whether environmental toxins alone cause these mitochondrial anomalies remains an open question in the literature.",
+    "groundTruth": {
+      "expectedStatus": "MANUAL_REVIEW",
+      "expectedClassification": "APPROPRIATE_MANUAL_REVIEW",
+      "primaryCategory": "ambiguous_rhetorical",
+      "rationale": "Rhetorical inquiry converted into formal indirect assertion; subtle nuance shifts require human reviewer judgment."
+    },
+    "provenance": "independent_academic_toxicology_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_acad_17_high_quality_prose_preservation",
+    "genre": "academic",
+    "category": "high_quality_unnecessary_edit",
+    "sourceText": "Natural selection acts continuously upon phenotypic variation, favoring alleles that enhance reproductive fitness in fluctuating environments.",
+    "rewrittenText": "Natural selection acts continuously upon phenotypic variation, favoring alleles that enhance reproductive fitness in fluctuating environments.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "high_quality_unnecessary_edit",
+      "rationale": "Zero modification of pristine, textbook-grade evolutionary prose."
+    },
+    "provenance": "independent_academic_evolutionary_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_acad_18_percentage_bound_mutation",
+    "genre": "academic",
+    "category": "numeric_mutation",
+    "sourceText": "Overall tumor regression exceeded 65% in patients undergoing combination immunotherapy.",
+    "rewrittenText": "Overall tumor regression reached barely 15% in patients undergoing combination immunotherapy.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "numeric_mutation",
+      "rationale": "Severe efficacy reduction: 65% regression mutated to 15%."
+    },
+    "provenance": "independent_academic_oncology_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_acad_19_inability_vs_failure_corruption",
+    "genre": "academic",
+    "category": "lost_epistemic_hedging",
+    "sourceText": "The current analytical model cannot guarantee zero false discovery rates in high-throughput datasets.",
+    "rewrittenText": "The current analytical model completely failed to prevent false discovery rates in high-throughput datasets.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "lost_epistemic_hedging",
+      "rationale": "Epistemic inability (\"cannot guarantee\") equated with active failure (\"completely failed to prevent\")."
+    },
+    "provenance": "independent_academic_bioinfo_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_acad_20_valid_cardinal_word_equivalence",
+    "genre": "academic",
+    "category": "valid_paraphrase",
+    "sourceText": "Three independent laboratories replicated the synthesis procedure with identical spectroscopic profiles.",
+    "rewrittenText": "3 independent laboratories replicated the synthesis procedure with identical spectroscopic profiles.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_paraphrase",
+      "rationale": "Standard valid substitution between written number word \"Three\" and cardinal digit \"3\"."
+    },
+    "provenance": "independent_academic_organic_chem_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_acad_21_citation_bracket_swap",
+    "genre": "academic",
+    "category": "citation_mutation",
+    "sourceText": "Microtubule stabilization during mitotic spindle assembly requires dedicated phosphorylation cascades [14].",
+    "rewrittenText": "Microtubule stabilization during mitotic spindle assembly requires dedicated phosphorylation cascades [41].",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "citation_mutation",
+      "rationale": "Citation bracket reference mutated from [14] to [41]."
+    },
+    "provenance": "independent_academic_cell_bio_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_acad_22_valid_structural_subordinate_reorder",
+    "genre": "academic",
+    "category": "natural_structural_rewrite",
+    "sourceText": "Although initial baseline recordings exhibited substantial signal noise, subsequent filtering isolated clean neural spikes.",
+    "rewrittenText": "Subsequent filtering isolated clean neural spikes, although initial baseline recordings exhibited substantial signal noise.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "natural_structural_rewrite",
+      "rationale": "Valid clause reordering preserving concession and neural spike isolation claims."
+    },
+    "provenance": "independent_academic_electrophys_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_acad_23_causal_chain_inversion",
+    "genre": "academic",
+    "category": "reversed_causality",
+    "sourceText": "Prolonged cellular dehydration induced severe membrane permeability breakdown in cultured fibroblasts.",
+    "rewrittenText": "Severe membrane permeability breakdown induced prolonged cellular dehydration in cultured fibroblasts.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "reversed_causality",
+      "rationale": "Causal relationship flipped: dehydration causing breakdown changed to breakdown causing dehydration."
+    },
+    "provenance": "independent_academic_cellular_path_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_acad_24_valid_synonym_substitution",
+    "genre": "academic",
+    "category": "valid_paraphrase",
+    "sourceText": "The archaeological survey corroborated previous hypotheses regarding seasonal migratory patterns across the valley.",
+    "rewrittenText": "The archaeological investigation supported prior theories concerning seasonal migration routes through the valley.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_paraphrase",
+      "rationale": "Accurate academic synonym replacements with identical scholarly meaning."
+    },
+    "provenance": "independent_academic_anthro_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_acad_25_unsupported_regulatory_stamp",
+    "genre": "academic",
+    "category": "unsupported_addition",
+    "sourceText": "The synthetic lipid nanoparticle demonstrated enhanced cellular uptake in preliminary in vitro models.",
+    "rewrittenText": "The FDA-approved synthetic lipid nanoparticle demonstrated enhanced cellular uptake in preliminary in vitro models.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "unsupported_addition",
+      "rationale": "Hallucinated institutional claim: inserted ungrounded \"FDA-approved\" into an early-stage study."
+    },
+    "provenance": "independent_academic_nanotech_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_01_rfc_keyword_preservation",
+    "genre": "technical",
+    "category": "valid_paraphrase",
+    "sourceText": "According to RFC 2119, an intermediate proxy MUST NOT forward malformed hop-by-hop headers to downstream nodes.",
+    "rewrittenText": "As specified in RFC 2119, downstream nodes must not receive malformed hop-by-hop headers forwarded by an intermediate proxy.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_paraphrase",
+      "rationale": "Valid RFC 2119 technical paraphrase retaining RFC standard ID and negative constraint."
+    },
+    "provenance": "independent_tech_rfc_standards_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_02_throughput_unit_mutation",
+    "genre": "technical",
+    "category": "unit_scale_mutation",
+    "sourceText": "The dedicated fiber interconnect sustains bidirectional throughput of 10 Gbps with minimal packet loss.",
+    "rewrittenText": "The dedicated fiber interconnect sustains bidirectional throughput of 10 Mbps with minimal packet loss.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "unit_scale_mutation",
+      "rationale": "Critical network throughput degradation from 10 Gbps to 10 Mbps (1000x drop)."
+    },
+    "provenance": "independent_tech_networking_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_03_latency_ms_to_s_mutation",
+    "genre": "technical",
+    "category": "unit_scale_mutation",
+    "sourceText": "The distributed database commits transactions across quorum nodes with an average round-trip latency of 25 ms.",
+    "rewrittenText": "The distributed database commits transactions across quorum nodes with an average round-trip latency of 25 s.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "unit_scale_mutation",
+      "rationale": "Latency scale corrupted from 25 ms to 25 s (1000x slower)."
+    },
+    "provenance": "independent_tech_distributed_systems_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_04_version_string_mutation",
+    "genre": "technical",
+    "category": "numeric_mutation",
+    "sourceText": "The patch requires OpenSSL v3.0.8 or higher to mitigate CVE-2023-0286 memory corruption vulnerabilities.",
+    "rewrittenText": "The patch requires OpenSSL v3.0.9 or higher to mitigate CVE-2023-0286 memory corruption vulnerabilities.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "numeric_mutation",
+      "rationale": "Version dependency corrupted from v3.0.8 to v3.0.9."
+    },
+    "provenance": "independent_tech_security_advisory_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_05_valid_negation_movement_syntax",
+    "genre": "technical",
+    "category": "valid_negation_movement",
+    "sourceText": "The parser did not find any matching grammar tokens in the malformed payload.",
+    "rewrittenText": "The parser found no matching grammar tokens in the malformed payload.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_negation_movement",
+      "rationale": "Valid technical negation shift: \"did not find any\" -> \"found no\"."
+    },
+    "provenance": "independent_tech_compiler_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_06_boundary_trap_port_numbers",
+    "genre": "technical",
+    "category": "boundary_trap",
+    "sourceText": "The ingress gateway listens on port 80 for legacy HTTP requests before redirecting to port 443.",
+    "rewrittenText": "The ingress gateway listens on port 8 for legacy HTTP requests before redirecting to port 443.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "boundary_trap",
+      "rationale": "Port boundary mutation: standard HTTP port 80 truncated to port 8."
+    },
+    "provenance": "independent_tech_infrastructure_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_07_rfc_normative_must_not_to_must",
+    "genre": "technical",
+    "category": "negation_scope_shift",
+    "sourceText": "Compliant TLS 1.3 endpoints MUST NOT negotiate cipher suites utilizing static RSA key transport.",
+    "rewrittenText": "Compliant TLS 1.3 endpoints MUST negotiate cipher suites utilizing static RSA key transport.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "negation_scope_shift",
+      "rationale": "RFC 2119 negation deletion: prohibitive \"MUST NOT\" converted into mandatory \"MUST\"."
+    },
+    "provenance": "independent_tech_crypto_protocols_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_08_valid_architecture_paraphrase",
+    "genre": "technical",
+    "category": "valid_paraphrase",
+    "sourceText": "By caching rendered HTML fragments in Redis, the web server minimizes database read load during peak traffic spikes.",
+    "rewrittenText": "The web server reduces database read pressure during traffic spikes by storing rendered HTML fragments in Redis.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_paraphrase",
+      "rationale": "Flawless technical paraphrase retaining Redis caching and database read load reduction."
+    },
+    "provenance": "independent_tech_web_arch_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_09_unsupported_addition_soc2",
+    "genre": "technical",
+    "category": "unsupported_addition",
+    "sourceText": "The cloud storage bucket enforces server-side AES-256 encryption for all objects at rest.",
+    "rewrittenText": "The SOC2-certified cloud storage bucket enforces server-side AES-256 encryption for all objects at rest.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "unsupported_addition",
+      "rationale": "Hallucinated compliance certification: added \"SOC2-certified\" where no audit claim existed."
+    },
+    "provenance": "independent_tech_cloud_security_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_10_reversed_causality_systems",
+    "genre": "technical",
+    "category": "reversed_causality",
+    "sourceText": "Unchecked memory leaks in the logging daemon caused cascading worker thread exhaustion.",
+    "rewrittenText": "Cascading worker thread exhaustion caused unchecked memory leaks in the logging daemon.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "reversed_causality",
+      "rationale": "Causality inverted: memory leaks causing thread exhaustion flipped to exhaustion causing memory leaks."
+    },
+    "provenance": "independent_tech_systems_diagnostics_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_11_cardinal_to_ordinal_index_swap",
+    "genre": "technical",
+    "category": "cardinal_ordinal_swap",
+    "sourceText": "The cluster deployed 4 standby replica nodes across independent availability zones.",
+    "rewrittenText": "The cluster deployed the fourth standby replica node across independent availability zones.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "cardinal_ordinal_swap",
+      "rationale": "Count 4 mutated to ordinal rank fourth, reducing 4 standby replicas to 1."
+    },
+    "provenance": "independent_tech_cloud_ops_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_12_valid_technical_code_refactoring_prose",
+    "genre": "technical",
+    "category": "natural_structural_rewrite",
+    "sourceText": "Whenever an unhandled exception occurs inside the event loop, the supervisor process terminates the child worker and spins up a clean instance.",
+    "rewrittenText": "If the event loop encounters an unhandled exception, the supervisor kills the child worker and spawns a fresh instance.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "natural_structural_rewrite",
+      "rationale": "Concise engineering paraphrase accurately capturing event loop error supervision logic."
+    },
+    "provenance": "independent_tech_runtime_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_13_spelled_number_protected_rfc_corruption",
+    "genre": "technical",
+    "category": "boundary_trap",
+    "sourceText": "Authentication tokens must strictly satisfy the security constraints detailed in RFC 7519.",
+    "rewrittenText": "Authentication tokens must strictly satisfy the security constraints detailed in RFC seven thousand five hundred nineteen.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "boundary_trap",
+      "rationale": "Protected numeric standard identifier RFC 7519 corrupted by spelling out digits."
+    },
+    "provenance": "independent_tech_standards_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_14_epistemic_hedging_destruction",
+    "genre": "technical",
+    "category": "lost_epistemic_hedging",
+    "sourceText": "Under extreme partition events, this consistency algorithm might experience brief split-brain anomalies.",
+    "rewrittenText": "Under extreme partition events, this consistency algorithm will inevitably experience brief split-brain anomalies.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "lost_epistemic_hedging",
+      "rationale": "Hedging modal \"might\" strengthened into guaranteed certainty \"will inevitably\"."
+    },
+    "provenance": "independent_tech_distributed_db_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_15_valid_passive_voice_causal_statement",
+    "genre": "technical",
+    "category": "valid_paraphrase",
+    "sourceText": "The kernel panic was caused by an invalid memory dereference in the third-party network driver.",
+    "rewrittenText": "An invalid memory dereference in the third-party network driver caused the kernel panic.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_paraphrase",
+      "rationale": "Passive causal construction (\"was caused by\") correctly converted to active (\"caused\") without flipping the true cause."
+    },
+    "provenance": "independent_tech_kernel_diagnostics_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_16_memory_unit_scale_mutation",
+    "genre": "technical",
+    "category": "unit_scale_mutation",
+    "sourceText": "Each worker thread is allocated a stack size of 512 KB to avoid excessive virtual memory footprints.",
+    "rewrittenText": "Each worker thread is allocated a stack size of 512 MB to avoid excessive virtual memory footprints.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "unit_scale_mutation",
+      "rationale": "Massive 1000x memory allocation increase from 512 KB to 512 MB."
+    },
+    "provenance": "independent_tech_concurrency_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_17_ambiguous_configuration_syntax",
+    "genre": "technical",
+    "category": "ambiguous_rhetorical",
+    "sourceText": "Why manage state manually in the client? Let the server-driven reconciliation engine handle lifecycle updates automatically.",
+    "rewrittenText": "Managing client state manually is redundant when the server-driven reconciliation engine handles lifecycle updates automatically.",
+    "groundTruth": {
+      "expectedStatus": "MANUAL_REVIEW",
+      "expectedClassification": "APPROPRIATE_MANUAL_REVIEW",
+      "primaryCategory": "ambiguous_rhetorical",
+      "rationale": "Rhetorical promotional developer pitch converted to declarative technical stance."
+    },
+    "provenance": "independent_tech_framework_docs_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_18_percentage_sla_mutation",
+    "genre": "technical",
+    "category": "numeric_mutation",
+    "sourceText": "The enterprise service level agreement guarantees 99.95% monthly uptime for all production API endpoints.",
+    "rewrittenText": "The enterprise service level agreement guarantees 99.5% monthly uptime for all production API endpoints.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "numeric_mutation",
+      "rationale": "SLA degraded from three-and-a-half nines (99.95%) to two nines (99.5%), allowing 10x more downtime."
+    },
+    "provenance": "independent_tech_cloud_sla_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_19_high_quality_clean_code_docs",
+    "genre": "technical",
+    "category": "high_quality_unnecessary_edit",
+    "sourceText": "The hash map uses open addressing with linear probing to maintain cache locality across sequential lookups.",
+    "rewrittenText": "The hash map uses open addressing with linear probing to maintain cache locality across sequential lookups.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "high_quality_unnecessary_edit",
+      "rationale": "Zero modification of clear, rigorous systems documentation."
+    },
+    "provenance": "independent_tech_data_structures_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_20_currency_mutation_billing",
+    "genre": "technical",
+    "category": "numeric_mutation",
+    "sourceText": "Ingress bandwidth across regional peering links is billed at $0.02 per gigabyte transferred.",
+    "rewrittenText": "Ingress bandwidth across regional peering links is billed at $0.20 per gigabyte transferred.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "numeric_mutation",
+      "rationale": "10x billing rate mutation from $0.02 to $0.20 per gigabyte."
+    },
+    "provenance": "independent_tech_billing_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_21_valid_word_number_count",
+    "genre": "technical",
+    "category": "valid_paraphrase",
+    "sourceText": "The pipeline runs 8 parallel worker containers to process the daily telemetry stream.",
+    "rewrittenText": "The pipeline runs eight parallel worker containers to process the daily telemetry stream.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_paraphrase",
+      "rationale": "Valid equivalence between digit 8 and word eight in non-protected count context."
+    },
+    "provenance": "independent_tech_devops_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_22_negation_scope_all_vs_none",
+    "genre": "technical",
+    "category": "negation_scope_shift",
+    "sourceText": "Not all microservices require direct access to the persistent message broker.",
+    "rewrittenText": "No microservices require direct access to the persistent message broker.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "negation_scope_shift",
+      "rationale": "Quantifier scope shift: \"not all\" (some microservices do) changed to \"no\" (zero microservices do)."
+    },
+    "provenance": "independent_tech_microservices_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_23_valid_concise_refinement",
+    "genre": "technical",
+    "category": "natural_structural_rewrite",
+    "sourceText": "In order to prevent unauthorized access from taking place, the authorization module conducts validation on each bearer token.",
+    "rewrittenText": "To prevent unauthorized access, the authorization module validates every bearer token.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "natural_structural_rewrite",
+      "rationale": "Trims verbose padding (\"In order to\", \"taking place\", \"conducts validation on\") while preserving core security logic."
+    },
+    "provenance": "independent_tech_api_design_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_24_epistemic_guarantee_to_failure",
+    "genre": "technical",
+    "category": "lost_epistemic_hedging",
+    "sourceText": "The rate limiter cannot guarantee total defense against sophisticated distributed botnet floods.",
+    "rewrittenText": "The rate limiter failed to protect against sophisticated distributed botnet floods.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "lost_epistemic_hedging",
+      "rationale": "Equating design boundary (\"cannot guarantee total defense\") with active operational collapse (\"failed to protect\")."
+    },
+    "provenance": "independent_tech_ddos_mitigation_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_tech_25_hardware_frequency_mutation",
+    "genre": "technical",
+    "category": "unit_scale_mutation",
+    "sourceText": "The onboard microcontroller operates at a base clock frequency of 16 MHz.",
+    "rewrittenText": "The onboard microcontroller operates at a base clock frequency of 16 GHz.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "unit_scale_mutation",
+      "rationale": "Impossible 1000x hardware frequency mutation from 16 MHz to 16 GHz."
+    },
+    "provenance": "independent_tech_embedded_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_01_valid_executive_paraphrase",
+    "genre": "professional",
+    "category": "valid_paraphrase",
+    "sourceText": "Operating margins improved by 4.2% during Q3 due to disciplined supply chain procurement and automated inventory management.",
+    "rewrittenText": "Disciplined supply chain procurement and automated inventory management drove a 4.2% increase in Q3 operating margins.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_paraphrase",
+      "rationale": "Legitimate professional paraphrase with identical financial metrics (4.2%, Q3) and causal drivers."
+    },
+    "provenance": "independent_prof_earnings_report_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_02_revenue_currency_mutation",
+    "genre": "professional",
+    "category": "numeric_mutation",
+    "sourceText": "Annual recurring revenue reached $45 million following the successful acquisition of the European logistics platform.",
+    "rewrittenText": "Annual recurring revenue reached $4.5 million following the successful acquisition of the European logistics platform.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "numeric_mutation",
+      "rationale": "Catastrophic 90% revenue understatement from $45 million to $4.5 million."
+    },
+    "provenance": "independent_prof_ir_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_03_cardinal_to_ordinal_board_swap",
+    "genre": "professional",
+    "category": "cardinal_ordinal_swap",
+    "sourceText": "The governance committee appointed 3 independent directors to oversee the internal audit process.",
+    "rewrittenText": "The governance committee appointed the third independent director to oversee the internal audit process.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "cardinal_ordinal_swap",
+      "rationale": "Three directors appointed mutated to only the third director appointed."
+    },
+    "provenance": "independent_prof_board_governance_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_04_valid_negation_movement_legal",
+    "genre": "professional",
+    "category": "valid_negation_movement",
+    "sourceText": "The audit committee did not identify any material misstatements in the consolidated balance sheet.",
+    "rewrittenText": "The audit committee identified no material misstatements in the consolidated balance sheet.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_negation_movement",
+      "rationale": "Standard professional negation movement: \"did not identify any\" -> \"identified no\"."
+    },
+    "provenance": "independent_prof_audit_findings_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_05_contract_penalty_boundary_trap",
+    "genre": "professional",
+    "category": "boundary_trap",
+    "sourceText": "Failure to deliver the final milestone within 30 days will trigger a contractual liquidated damages penalty.",
+    "rewrittenText": "Failure to deliver the final milestone within 3 days will trigger a contractual liquidated damages penalty.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "boundary_trap",
+      "rationale": "Contractual grace period collapsed by 90% from 30 days to 3 days."
+    },
+    "provenance": "independent_prof_commercial_contracts_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_06_regulatory_filing_hallucination",
+    "genre": "professional",
+    "category": "unsupported_addition",
+    "sourceText": "The company submitted its annual disclosure statement to international trade regulatory bodies.",
+    "rewrittenText": "The company submitted its SEC-approved annual disclosure statement to international trade regulatory bodies.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "unsupported_addition",
+      "rationale": "Hallucinated regulatory status: injected false \"SEC-approved\" claim."
+    },
+    "provenance": "independent_prof_sec_disclosures_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_07_reversed_causality_corporate",
+    "genre": "professional",
+    "category": "reversed_causality",
+    "sourceText": "Aggressive pricing cuts by foreign competitors triggered widespread margin compression across our retail division.",
+    "rewrittenText": "Widespread margin compression across our retail division triggered aggressive pricing cuts by foreign competitors.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "reversed_causality",
+      "rationale": "Commercial causality reversed: competitor price cuts causing margin compression inverted."
+    },
+    "provenance": "independent_prof_market_analysis_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_08_epistemic_hedging_guidance",
+    "genre": "professional",
+    "category": "lost_epistemic_hedging",
+    "sourceText": "Management believes currency exchange fluctuations might impact fourth-quarter gross profitability.",
+    "rewrittenText": "Management guarantees currency exchange fluctuations will not impact fourth-quarter gross profitability.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "lost_epistemic_hedging",
+      "rationale": "Hedging converted into false financial guarantee with negation flip."
+    },
+    "provenance": "independent_prof_guidance_notes_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_09_valid_structural_refinement_hr",
+    "genre": "professional",
+    "category": "natural_structural_rewrite",
+    "sourceText": "Employees who are currently eligible for parental leave benefits should submit their documentation prior to October 15.",
+    "rewrittenText": "Employees eligible for parental leave must submit documentation before October 15.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "natural_structural_rewrite",
+      "rationale": "Crisp professional condensation preserving eligibility scope and deadline October 15."
+    },
+    "provenance": "independent_prof_hr_policy_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_10_negation_target_shift_legal",
+    "genre": "professional",
+    "category": "negation_target_shift",
+    "sourceText": "The tenant did not approve the structural renovations, but agreed to the routine plumbing repairs.",
+    "rewrittenText": "The tenant approved the structural renovations, but did not agree to the routine plumbing repairs.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "negation_target_shift",
+      "rationale": "Negation target flipped: tenant approved what was rejected and rejected what was approved."
+    },
+    "provenance": "independent_prof_real_estate_lease_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_11_date_year_mutation",
+    "genre": "professional",
+    "category": "numeric_mutation",
+    "sourceText": "The non-disclosure agreement remains in full legal effect until December 31, 2025.",
+    "rewrittenText": "The non-disclosure agreement remains in full legal effect until December 31, 2026.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "numeric_mutation",
+      "rationale": "Contractual expiration year mutated from 2025 to 2026."
+    },
+    "provenance": "independent_prof_nda_agreements_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_12_valid_word_digit_headcount",
+    "genre": "professional",
+    "category": "valid_paraphrase",
+    "sourceText": "The regional office plans to onboard five senior compliance analysts next quarter.",
+    "rewrittenText": "The regional office plans to onboard 5 senior compliance analysts next quarter.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_paraphrase",
+      "rationale": "Valid equivalence between written \"five\" and digit \"5\" for analyst headcount."
+    },
+    "provenance": "independent_prof_recruiting_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_13_demographic_qualifier_expansion",
+    "genre": "professional",
+    "category": "age_demographic_boundary",
+    "sourceText": "The specialized apprentice development program is exclusively reserved for graduates under 25 years old.",
+    "rewrittenText": "The specialized apprentice development program is open to applicants of all ages.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "age_demographic_boundary",
+      "rationale": "Restricted demographic boundary (\"under 25\") expanded to unbounded eligibility (\"all ages\")."
+    },
+    "provenance": "independent_prof_apprenticeship_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_14_high_quality_pr_statement",
+    "genre": "professional",
+    "category": "high_quality_unnecessary_edit",
+    "sourceText": "We deeply regret the disruption caused to our commuters this morning and are conducting a comprehensive root-cause analysis.",
+    "rewrittenText": "We deeply regret the disruption caused to our commuters this morning and are conducting a comprehensive root-cause analysis.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "high_quality_unnecessary_edit",
+      "rationale": "Zero modification of well-crafted, crisis communications statement."
+    },
+    "provenance": "independent_prof_crisis_pr_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_15_negation_quantifier_shift",
+    "genre": "professional",
+    "category": "negation_scope_shift",
+    "sourceText": "Not all prospective vendors complied with the mandatory data privacy requirements in the RFP.",
+    "rewrittenText": "No prospective vendors complied with the mandatory data privacy requirements in the RFP.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "negation_scope_shift",
+      "rationale": "Quantifier shift from \"not all\" (some complied) to \"no\" (zero vendors complied)."
+    },
+    "provenance": "independent_prof_rfp_eval_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_16_ambiguous_corporate_rhetoric",
+    "genre": "professional",
+    "category": "ambiguous_rhetorical",
+    "sourceText": "Can modern enterprise organizations afford to ignore workplace flexibility? In today's competitive talent market, the answer is clearly no.",
+    "rewrittenText": "Modern enterprise organizations cannot afford to ignore workplace flexibility in today's competitive talent market.",
+    "groundTruth": {
+      "expectedStatus": "MANUAL_REVIEW",
+      "expectedClassification": "APPROPRIATE_MANUAL_REVIEW",
+      "primaryCategory": "ambiguous_rhetorical",
+      "rationale": "Rhetorical question-and-answer format flattened into a direct assertion."
+    },
+    "provenance": "independent_prof_workplace_op_ed_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_17_valid_business_synergies_paraphrase",
+    "genre": "professional",
+    "category": "valid_paraphrase",
+    "sourceText": "The proposed merger promises significant operational synergies by consolidating redundant distribution networks.",
+    "rewrittenText": "Consolidating redundant distribution networks through the proposed merger will generate substantial operational synergies.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_paraphrase",
+      "rationale": "Accurate business paraphrase maintaining merger, operational synergies, and distribution consolidation."
+    },
+    "provenance": "independent_prof_ma_strategy_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_18_severance_weeks_boundary_trap",
+    "genre": "professional",
+    "category": "boundary_trap",
+    "sourceText": "Eligible departures receive 8 weeks of full salary continuation as part of the transition package.",
+    "rewrittenText": "Eligible departures receive 80 weeks of full salary continuation as part of the transition package.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "boundary_trap",
+      "rationale": "10x financial liability increase: 8 weeks severance multiplied to 80 weeks."
+    },
+    "provenance": "independent_prof_severance_policy_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_19_inability_to_guarantee_vs_failure",
+    "genre": "professional",
+    "category": "lost_epistemic_hedging",
+    "sourceText": "The escrow agent cannot guarantee immediate disbursement of funds if international wire holidays intervene.",
+    "rewrittenText": "The escrow agent failed to disburse funds due to international wire holidays.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "lost_epistemic_hedging",
+      "rationale": "Conditional inability to guarantee converted to active accusation of failure."
+    },
+    "provenance": "independent_prof_escrow_agreements_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_20_valid_executive_summary_condensation",
+    "genre": "professional",
+    "category": "natural_structural_rewrite",
+    "sourceText": "Due to the fact that customer acquisition costs have risen sharply, marketing leadership has elected to redirect budget toward retention campaigns.",
+    "rewrittenText": "Because customer acquisition costs have surged, marketing leadership redirected budget toward retention campaigns.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "natural_structural_rewrite",
+      "rationale": "Eliminates wordy \"Due to the fact that\" while preserving business rationale and budget redirection."
+    },
+    "provenance": "independent_prof_marketing_memo_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_21_unsupported_added_claim_margin",
+    "genre": "professional",
+    "category": "unsupported_addition",
+    "sourceText": "The retail division expanded its direct-to-consumer footprint across five urban metropolitan areas.",
+    "rewrittenText": "The retail division expanded its direct-to-consumer footprint across five urban metropolitan areas, achieving record 40% profit margins.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "unsupported_addition",
+      "rationale": "Injected ungrounded financial claim: \"achieving record 40% profit margins\"."
+    },
+    "provenance": "independent_prof_retail_expansion_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_22_valid_passive_to_active_legal",
+    "genre": "professional",
+    "category": "valid_paraphrase",
+    "sourceText": "All intellectual property rights are retained exclusively by the licensor under Section 14.",
+    "rewrittenText": "Under Section 14, the licensor exclusively retains all intellectual property rights.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_paraphrase",
+      "rationale": "Valid voice shift preserving Section 14 IP reservation."
+    },
+    "provenance": "independent_prof_ip_license_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_23_share_percentage_swap",
+    "genre": "professional",
+    "category": "numeric_mutation",
+    "sourceText": "The founding partners retained a 51% controlling voting interest following Series B financing.",
+    "rewrittenText": "The founding partners retained a 15% controlling voting interest following Series B financing.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "numeric_mutation",
+      "rationale": "Majority ownership inverted: 51% controlling interest mutated to minority 15%."
+    },
+    "provenance": "independent_prof_venture_cap_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_24_valid_polite_business_inquiry",
+    "genre": "professional",
+    "category": "valid_paraphrase",
+    "sourceText": "Please let us know your availability for a 30-minute introductory call either Thursday or Friday morning.",
+    "rewrittenText": "Could you share when you are free for a 30-minute introductory discussion this Thursday or Friday morning?",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_paraphrase",
+      "rationale": "Polite business meeting scheduling paraphrase retaining 30-minute duration and day options."
+    },
+    "provenance": "independent_prof_email_correspondence_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_prof_25_hedging_destruction_deal_closing",
+    "genre": "professional",
+    "category": "lost_epistemic_hedging",
+    "sourceText": "Preliminary feedback suggests the acquisition terms might close before the end of Q4.",
+    "rewrittenText": "The acquisition terms will definitely close before the end of Q4 without exception.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "lost_epistemic_hedging",
+      "rationale": "Cautious forecast (\"might close\") replaced with absolute certainty (\"will definitely close... without exception\")."
+    },
+    "provenance": "independent_prof_deal_advisory_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_01_valid_casual_paraphrase",
+    "genre": "conversational",
+    "category": "valid_paraphrase",
+    "sourceText": "Hey guys, we are meeting at the coffee shop around 3:30 PM if anyone wants to join.",
+    "rewrittenText": "Hey everyone, if you want to join us, we'll be gathering at the coffee shop around 3:30 PM.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_paraphrase",
+      "rationale": "Natural conversational paraphrase preserving time (3:30 PM) and location."
+    },
+    "provenance": "independent_conv_messaging_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_02_meeting_time_mutation",
+    "genre": "conversational",
+    "category": "numeric_mutation",
+    "sourceText": "Let's catch up at the library entrance at 4:00 PM today.",
+    "rewrittenText": "Let's catch up at the library entrance at 5:00 PM today.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "numeric_mutation",
+      "rationale": "Meeting time shifted by an hour from 4:00 PM to 5:00 PM."
+    },
+    "provenance": "independent_conv_chat_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_03_cardinal_ordinal_swap_movie",
+    "genre": "conversational",
+    "category": "cardinal_ordinal_swap",
+    "sourceText": "I watched 3 episodes of that new sci-fi series last night.",
+    "rewrittenText": "I watched the third episode of that new sci-fi series last night.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "cardinal_ordinal_swap",
+      "rationale": "Count of 3 episodes mutated to only the 3rd episode."
+    },
+    "provenance": "independent_conv_forum_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_04_valid_negation_movement_chat",
+    "genre": "conversational",
+    "category": "valid_negation_movement",
+    "sourceText": "I didn't see any milk left in the fridge this morning.",
+    "rewrittenText": "I saw no milk left in the fridge this morning.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_negation_movement",
+      "rationale": "Conversational negation shift: \"didn't see any\" -> \"saw no\"."
+    },
+    "provenance": "independent_conv_roommate_notes_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_05_boundary_trap_3_vs_30_dollars",
+    "genre": "conversational",
+    "category": "boundary_trap",
+    "sourceText": "Can you lend me $3 for the bus fare until tomorrow?",
+    "rewrittenText": "Can you lend me $30 for the bus fare until tomorrow?",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "boundary_trap",
+      "rationale": "10x currency mutation: $3 bus fare altered to $30."
+    },
+    "provenance": "independent_conv_sms_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_06_unsupported_addition_party",
+    "genre": "conversational",
+    "category": "unsupported_addition",
+    "sourceText": "Sarah is hosting a casual birthday barbecue in her backyard on Saturday.",
+    "rewrittenText": "Sarah is hosting a casual birthday barbecue in her backyard on Saturday with an open bar and live DJ.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "unsupported_addition",
+      "rationale": "Hallucinated party features: added ungrounded \"open bar and live DJ\"."
+    },
+    "provenance": "independent_conv_invitations_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_07_reversed_causality_flight",
+    "genre": "conversational",
+    "category": "reversed_causality",
+    "sourceText": "The thunderstorm delayed our flight by three hours at the departure gate.",
+    "rewrittenText": "Our flight delayed the thunderstorm by three hours at the departure gate.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "reversed_causality",
+      "rationale": "Absurd causal reversal: flight causing delay of a thunderstorm."
+    },
+    "provenance": "independent_conv_travel_updates_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_08_epistemic_hedging_plans",
+    "genre": "conversational",
+    "category": "lost_epistemic_hedging",
+    "sourceText": "I might stop by the gym after work if I finish my errands early.",
+    "rewrittenText": "I will definitely go to the gym after work regardless of my errands.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "lost_epistemic_hedging",
+      "rationale": "Conditional possibility (\"might stop by... if\") converted into absolute commitment."
+    },
+    "provenance": "independent_conv_personal_plans_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_09_valid_conversational_smoothing",
+    "genre": "conversational",
+    "category": "natural_structural_rewrite",
+    "sourceText": "Honestly, I am really not feeling up to going out tonight because I have had a super exhausting week.",
+    "rewrittenText": "I'm exhausted from a long week, so I'd rather stay in tonight.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "natural_structural_rewrite",
+      "rationale": "Natural colloquial cleanup preserving sentiment and reasoning."
+    },
+    "provenance": "independent_conv_group_chat_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_10_negation_target_shift_food",
+    "genre": "conversational",
+    "category": "negation_target_shift",
+    "sourceText": "I didn't order the spicy tacos, but I did order the guacamole.",
+    "rewrittenText": "I ordered the spicy tacos, but I didn't order the guacamole.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "negation_target_shift",
+      "rationale": "Order reversed: what was ordered became excluded and vice-versa."
+    },
+    "provenance": "independent_conv_food_order_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_11_currency_price_mutation",
+    "genre": "conversational",
+    "category": "numeric_mutation",
+    "sourceText": "The concert tickets were $85 each after taxes and service fees.",
+    "rewrittenText": "The concert tickets were $185 each after taxes and service fees.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "numeric_mutation",
+      "rationale": "Ticket price inflated by $100 from $85 to $185."
+    },
+    "provenance": "independent_conv_ticket_sales_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_12_valid_word_number_chat",
+    "genre": "conversational",
+    "category": "valid_paraphrase",
+    "sourceText": "We adopted two rescue kittens from the animal shelter on Saturday.",
+    "rewrittenText": "We adopted 2 rescue kittens from the animal shelter on Saturday.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_paraphrase",
+      "rationale": "Valid equivalence: word \"two\" replaced by digit \"2\"."
+    },
+    "provenance": "independent_conv_family_chat_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_13_age_boundary_club_trap",
+    "genre": "conversational",
+    "category": "age_demographic_boundary",
+    "sourceText": "Remember that the concert venue only admits people aged 21 and older.",
+    "rewrittenText": "Remember that the concert venue admits anyone aged 12 and older.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "age_demographic_boundary",
+      "rationale": "Age limit collapsed from legal drinking age 21+ to 12+."
+    },
+    "provenance": "independent_conv_event_planning_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_14_high_quality_poignant_message",
+    "genre": "conversational",
+    "category": "high_quality_unnecessary_edit",
+    "sourceText": "Thank you for being there for me during such a tough time; your kindness meant the world to our family.",
+    "rewrittenText": "Thank you for being there for me during such a tough time; your kindness meant the world to our family.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "high_quality_unnecessary_edit",
+      "rationale": "Zero modification of heartfelt, authentic human gratitude."
+    },
+    "provenance": "independent_conv_thank_you_note_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_15_negation_scope_everyone_vs_nobody",
+    "genre": "conversational",
+    "category": "negation_scope_shift",
+    "sourceText": "Not everyone enjoyed the movie as much as Mark did.",
+    "rewrittenText": "Nobody enjoyed the movie as much as Mark did.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "negation_scope_shift",
+      "rationale": "Scope shift: \"not everyone\" (some liked it) changed to \"nobody\" (zero people liked it)."
+    },
+    "provenance": "independent_conv_movie_chat_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_16_ambiguous_idiomatic_expression",
+    "genre": "conversational",
+    "category": "ambiguous_rhetorical",
+    "sourceText": "Who needs a gym membership when you can just chase a toddler around all afternoon?",
+    "rewrittenText": "Chasing a toddler all afternoon is just as good of a workout as going to the gym.",
+    "groundTruth": {
+      "expectedStatus": "MANUAL_REVIEW",
+      "expectedClassification": "APPROPRIATE_MANUAL_REVIEW",
+      "primaryCategory": "ambiguous_rhetorical",
+      "rationale": "Humorous rhetorical exaggeration converted into literal workout equivalence."
+    },
+    "provenance": "independent_conv_parenting_forum_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_17_valid_conversational_restructure",
+    "genre": "conversational",
+    "category": "valid_paraphrase",
+    "sourceText": "Since traffic on the highway is completely backed up, we should probably take the scenic coastal route instead.",
+    "rewrittenText": "We should probably take the scenic coastal route instead, given how backed up highway traffic is.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_paraphrase",
+      "rationale": "Natural reordering of cause and suggestion in casual conversation."
+    },
+    "provenance": "independent_conv_road_trip_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_18_unit_scale_weight_mutation",
+    "genre": "conversational",
+    "category": "unit_scale_mutation",
+    "sourceText": "The airline baggage allowance limits checked luggage to 50 kg per passenger.",
+    "rewrittenText": "The airline baggage allowance limits checked luggage to 50 mg per passenger.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "unit_scale_mutation",
+      "rationale": "Absurd unit mutation from 50 kg luggage limit to 50 mg."
+    },
+    "provenance": "independent_conv_travel_checkin_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_19_inability_to_reach_vs_ghosting",
+    "genre": "conversational",
+    "category": "lost_epistemic_hedging",
+    "sourceText": "I couldn't reach Dave because his phone battery probably died on the hike.",
+    "rewrittenText": "Dave deliberately refused to answer my calls during the hike.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "lost_epistemic_hedging",
+      "rationale": "Technical inability (\"couldn't reach... battery probably died\") converted into deliberate snub."
+    },
+    "provenance": "independent_conv_hiking_chat_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_20_valid_dinner_plan_paraphrase",
+    "genre": "conversational",
+    "category": "natural_structural_rewrite",
+    "sourceText": "Do you want to grab Italian food tonight, or would you rather cook something quick at home?",
+    "rewrittenText": "Are you in the mood for Italian tonight, or should we just whip up a quick meal at home?",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "natural_structural_rewrite",
+      "rationale": "Idiomatic casual rewrite preserving choices (Italian vs home cooking)."
+    },
+    "provenance": "independent_conv_dinner_plans_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_21_unsupported_added_claim_scholarship",
+    "genre": "conversational",
+    "category": "unsupported_addition",
+    "sourceText": "Maya got accepted into the architecture master's program at Columbia!",
+    "rewrittenText": "Maya got accepted into the architecture master's program at Columbia with a full $100,000 scholarship!",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "unsupported_addition",
+      "rationale": "Invented monetary claim: added \"$100,000 scholarship\" where none was mentioned."
+    },
+    "provenance": "independent_conv_congratulations_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_22_valid_polite_reminder",
+    "genre": "conversational",
+    "category": "valid_paraphrase",
+    "sourceText": "Don't forget to bring your umbrella because it looks like rain this afternoon.",
+    "rewrittenText": "It looks like it might rain this afternoon, so remember to grab your umbrella.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_paraphrase",
+      "rationale": "Natural causal flip in everyday speech preserving weather caution."
+    },
+    "provenance": "independent_conv_morning_routine_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_23_score_mutation_sports",
+    "genre": "conversational",
+    "category": "numeric_mutation",
+    "sourceText": "Our soccer team won the championship match 3 to 1 in extra time!",
+    "rewrittenText": "Our soccer team won the championship match 30 to 1 in extra time!",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "numeric_mutation",
+      "rationale": "Score corrupted from realistic 3-1 to absurd 30-1."
+    },
+    "provenance": "independent_conv_sports_fandom_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_24_valid_casual_agreement",
+    "genre": "conversational",
+    "category": "valid_paraphrase",
+    "sourceText": "Yeah, that makes total sense; I completely agree with your assessment of the situation.",
+    "rewrittenText": "Totally agree—that makes complete sense to me.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_paraphrase",
+      "rationale": "Casual conversational streamlining with zero meaning shift."
+    },
+    "provenance": "independent_conv_agreement_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_conv_25_hedging_destruction_rumor",
+    "genre": "conversational",
+    "category": "lost_epistemic_hedging",
+    "sourceText": "I heard rumors that they might open a new bakery downtown next month.",
+    "rewrittenText": "They have officially confirmed that a new bakery opens downtown on the first of next month.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "lost_epistemic_hedging",
+      "rationale": "Casual rumor (\"heard rumors... might open\") upgraded to verified corporate fact."
+    },
+    "provenance": "independent_conv_neighborhood_gossip_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_01_valid_evocative_paraphrase",
+    "genre": "creative",
+    "category": "valid_paraphrase",
+    "sourceText": "The old lighthouse stood resolute against the battered cliffs, casting its sweeping golden beam into the tempestuous sea.",
+    "rewrittenText": "Casting a sweeping beam of gold into the stormy sea, the ancient lighthouse held firm against the battered cliffs.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_paraphrase",
+      "rationale": "Evocative literary paraphrase maintaining nautical imagery and lighthouse resilience."
+    },
+    "provenance": "independent_creat_maritime_fiction_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_02_cardinal_ordinal_bell_tolling",
+    "genre": "creative",
+    "category": "cardinal_ordinal_swap",
+    "sourceText": "The cathedral bell chimed 7 times across the silent valley at midnight.",
+    "rewrittenText": "The cathedral bell chimed the seventh time across the silent valley at midnight.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "cardinal_ordinal_swap",
+      "rationale": "Full count of 7 chimes mutated to only the single 7th chime."
+    },
+    "provenance": "independent_creat_gothic_novel_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_03_numeric_boundary_coins_3_vs_30",
+    "genre": "creative",
+    "category": "boundary_trap",
+    "sourceText": "The wandering knight offered 3 silver coins to the ferryman for passage across the misty river.",
+    "rewrittenText": "The wandering knight offered 30 silver coins to the ferryman for passage across the misty river.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "boundary_trap",
+      "rationale": "10x currency inflation from 3 to 30 silver coins."
+    },
+    "provenance": "independent_creat_fantasy_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_04_valid_negation_movement_poetic",
+    "genre": "creative",
+    "category": "valid_negation_movement",
+    "sourceText": "The deserted courtyard did not show any signs of life beneath the winter snow.",
+    "rewrittenText": "The deserted courtyard showed no signs of life beneath the winter snow.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_negation_movement",
+      "rationale": "Poetic negation shift: \"did not show any signs\" -> \"showed no signs\"."
+    },
+    "provenance": "independent_creat_winter_prose_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_05_negation_target_shift_forest",
+    "genre": "creative",
+    "category": "negation_target_shift",
+    "sourceText": "The weary traveler did not fear the howling wolves, but dreaded the bitter frost.",
+    "rewrittenText": "The weary traveler feared the howling wolves, but did not dread the bitter frost.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "negation_target_shift",
+      "rationale": "Emotional polarity switched: traveler now fears wolves and ignores frost."
+    },
+    "provenance": "independent_creat_wilderness_fiction_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_06_unsupported_addition_magical_lore",
+    "genre": "creative",
+    "category": "unsupported_addition",
+    "sourceText": "She drew a slender steel dagger from her leather scabbard and stepped into the shadow of the archway.",
+    "rewrittenText": "She drew an enchanted Valyrian steel dagger imbued with dragonfire from her leather scabbard and stepped into the shadow of the archway.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "unsupported_addition",
+      "rationale": "Hallucinated lore: injected magical attributes (\"enchanted Valyrian... imbued with dragonfire\")."
+    },
+    "provenance": "independent_creat_sword_sorcery_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_07_reversed_causality_tragedy",
+    "genre": "creative",
+    "category": "reversed_causality",
+    "sourceText": "Her profound grief caused the reckless vow that brought ruin upon their ancestral house.",
+    "rewrittenText": "The reckless vow that brought ruin upon their ancestral house caused her profound grief.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "reversed_causality",
+      "rationale": "Narrative causality inverted: grief driving the vow flipped to the vow driving her grief."
+    },
+    "provenance": "independent_creat_historical_drama_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_08_epistemic_hedging_prophecy",
+    "genre": "creative",
+    "category": "lost_epistemic_hedging",
+    "sourceText": "The ancient runes might foretell the return of the exiled king before the winter solstice.",
+    "rewrittenText": "The ancient runes definitely guarantee the return of the exiled king before the winter solstice.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "lost_epistemic_hedging",
+      "rationale": "Ambiguous prophecy (\"might foretell\") upgraded to absolute guarantee."
+    },
+    "provenance": "independent_creat_mythology_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_09_valid_rhythmic_prose_refinement",
+    "genre": "creative",
+    "category": "natural_structural_rewrite",
+    "sourceText": "Leaves of fiery crimson and ochre were swirling in the gusty autumn breeze across the cobblestone square.",
+    "rewrittenText": "Crimson and ochre leaves swirled across the cobblestone square in the gusty autumn breeze.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "natural_structural_rewrite",
+      "rationale": "Graceful stylistic tightening of descriptive prose preserving visual atmosphere."
+    },
+    "provenance": "independent_creat_autumn_narrative_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_10_distance_unit_scale_mutation",
+    "genre": "creative",
+    "category": "unit_scale_mutation",
+    "sourceText": "The watchtower peered out over an expanse spanning 50 km of barren tundra.",
+    "rewrittenText": "The watchtower peered out over an expanse spanning 50 mm of barren tundra.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "unit_scale_mutation",
+      "rationale": "Vast 50 km vista collapsed to a microscopic 50 mm."
+    },
+    "provenance": "independent_creat_epic_prose_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_11_character_age_boundary_expansion",
+    "genre": "creative",
+    "category": "age_demographic_boundary",
+    "sourceText": "The village elder apprenticed only young orphans aged 8 to 12 in the ancient art of glassblowing.",
+    "rewrittenText": "The village elder apprenticed adults aged 20 to 45 in the ancient art of glassblowing.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "age_demographic_boundary",
+      "rationale": "Apprenticeship demographic mutated from young orphans (8-12) to mature adults (20-45)."
+    },
+    "provenance": "independent_creat_fable_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_12_valid_word_number_dragons",
+    "genre": "creative",
+    "category": "valid_paraphrase",
+    "sourceText": "Three black stallions galloped through the open gates of the mountain citadel.",
+    "rewrittenText": "3 black stallions galloped through the open gates of the mountain citadel.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_paraphrase",
+      "rationale": "Number word \"Three\" validly mapped to digit \"3\" in count context."
+    },
+    "provenance": "independent_creat_medieval_prose_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_13_historical_year_mutation",
+    "genre": "creative",
+    "category": "numeric_mutation",
+    "sourceText": "The fleet set sail from the southern harbor in the fateful spring of 1492.",
+    "rewrittenText": "The fleet set sail from the southern harbor in the fateful spring of 1942.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "numeric_mutation",
+      "rationale": "Historical voyage year swapped from 1492 to World War II era 1942."
+    },
+    "provenance": "independent_creat_historical_fiction_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_14_high_quality_lyrical_verse",
+    "genre": "creative",
+    "category": "high_quality_unnecessary_edit",
+    "sourceText": "The sea does not mourn the ships it swallows, nor does the wind remember the dust it stirs.",
+    "rewrittenText": "The sea does not mourn the ships it swallows, nor does the wind remember the dust it stirs.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "high_quality_unnecessary_edit",
+      "rationale": "Pristine poetic cadence preserved with zero intrusive modification."
+    },
+    "provenance": "independent_creat_poetic_prose_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_15_negation_scope_stars",
+    "genre": "creative",
+    "category": "negation_scope_shift",
+    "sourceText": "Not every star in the celestial dome shines with steady, unyielding brilliance.",
+    "rewrittenText": "No star in the celestial dome shines with steady, unyielding brilliance.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "negation_scope_shift",
+      "rationale": "Poetic quantifier shift: \"not every star\" (some do) changed to \"no star\" (none do)."
+    },
+    "provenance": "independent_creat_astronomy_lore_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_16_ambiguous_metaphorical_riddle",
+    "genre": "creative",
+    "category": "ambiguous_rhetorical",
+    "sourceText": "What is courage if not fear that has said its prayers? The young squire pondered this before battle.",
+    "rewrittenText": "The young squire pondered the belief that true courage is simply fear fortified by prayer before battle.",
+    "groundTruth": {
+      "expectedStatus": "MANUAL_REVIEW",
+      "expectedClassification": "APPROPRIATE_MANUAL_REVIEW",
+      "primaryCategory": "ambiguous_rhetorical",
+      "rationale": "Philosophical riddle restructured into declarative psychological statement."
+    },
+    "provenance": "independent_creat_philosophical_fiction_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_17_valid_dialogue_rephrasing",
+    "genre": "creative",
+    "category": "valid_paraphrase",
+    "sourceText": "\"If you cross that threshold at nightfall,\" whispered the hermit, \"you will find only sorrow.\"",
+    "rewrittenText": "\"Crossing that threshold when darkness falls,\" the hermit whispered, \"will bring you nothing but sorrow.\"",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_paraphrase",
+      "rationale": "Valid dialogue restructuring keeping atmospheric gloom and warning intact."
+    },
+    "provenance": "independent_creat_dark_fantasy_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_18_boundary_trap_hours_to_minutes",
+    "genre": "creative",
+    "category": "boundary_trap",
+    "sourceText": "The prisoner spent 5 days in the damp subterranean oubliette without daylight.",
+    "rewrittenText": "The prisoner spent 50 days in the damp subterranean oubliette without daylight.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "boundary_trap",
+      "rationale": "10x captivity ordeal boundary error: 5 days altered to 50 days."
+    },
+    "provenance": "independent_creat_dungeon_lore_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_19_inability_to_sleep_vs_refusal",
+    "genre": "creative",
+    "category": "lost_epistemic_hedging",
+    "sourceText": "The tormented scholar could not find peace as shadowy memories haunted his waking thoughts.",
+    "rewrittenText": "The tormented scholar deliberately refused to find peace as shadowy memories haunted his waking thoughts.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "lost_epistemic_hedging",
+      "rationale": "Psychological inability (\"could not find\") mutated to willful stubbornness (\"deliberately refused\")."
+    },
+    "provenance": "independent_creat_psychological_gothic_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_20_valid_scenic_atmosphere",
+    "genre": "creative",
+    "category": "natural_structural_rewrite",
+    "sourceText": "A dense silver fog crept silently over the harbor, obscuring the masts of the anchored schooners.",
+    "rewrittenText": "Silver fog crept silently across the harbor, hiding the anchored schooners' masts.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "natural_structural_rewrite",
+      "rationale": "Tight descriptive prose enhancement retaining maritime mystery."
+    },
+    "provenance": "independent_creat_coastal_tale_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_21_unsupported_added_gemstone",
+    "genre": "creative",
+    "category": "unsupported_addition",
+    "sourceText": "The artisan carved a wooden music box with delicate filigree hinges.",
+    "rewrittenText": "The artisan carved a wooden music box encrusted with 24 flawless diamonds and rubies.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "unsupported_addition",
+      "rationale": "Injected extravagant ornamentation (\"encrusted with 24 flawless diamonds and rubies\")."
+    },
+    "provenance": "independent_creat_artisan_tales_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_22_valid_allegory_paraphrase",
+    "genre": "creative",
+    "category": "valid_paraphrase",
+    "sourceText": "Time carves canyons out of stubborn stone, yet leaves memories untouched in the human heart.",
+    "rewrittenText": "Though time cuts deep canyons through stubborn stone, memories remain untouched within the heart.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_paraphrase",
+      "rationale": "Flawless allegorical paraphrase preserving contrast between geological erosion and enduring memory."
+    },
+    "provenance": "independent_creat_allegorical_prose_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_23_percentage_potion_mutation",
+    "genre": "creative",
+    "category": "numeric_mutation",
+    "sourceText": "The alchemist mixed a draught containing 70% pure spring essence and wild herbs.",
+    "rewrittenText": "The alchemist mixed a draught containing 7% pure spring essence and wild herbs.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "numeric_mutation",
+      "rationale": "10x potion concentration collapse from 70% to 7%."
+    },
+    "provenance": "independent_creat_fantasy_lore_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_24_valid_poetic_active_shift",
+    "genre": "creative",
+    "category": "valid_paraphrase",
+    "sourceText": "The quiet melody was hummed softly by the wandering minstrel as twilight faded into night.",
+    "rewrittenText": "As twilight faded into night, the wandering minstrel softly hummed the quiet melody.",
+    "groundTruth": {
+      "expectedStatus": "PASS",
+      "expectedClassification": "TRUE_NEGATIVE",
+      "primaryCategory": "valid_paraphrase",
+      "rationale": "Valid voice shift from passive to active retaining poetic atmosphere."
+    },
+    "provenance": "independent_creat_troubadour_tales_corpus",
+    "split": "independent-test"
+  },
+  {
+    "id": "p10_creat_25_hedging_destruction_omen",
+    "genre": "creative",
+    "category": "lost_epistemic_hedging",
+    "sourceText": "The crimson comet may signify a turbulent harvest season for the northern provinces.",
+    "rewrittenText": "The crimson comet guarantees total famine and collapse for the northern provinces.",
+    "groundTruth": {
+      "expectedStatus": "FAIL",
+      "expectedClassification": "TRUE_POSITIVE",
+      "primaryCategory": "lost_epistemic_hedging",
+      "rationale": "Gentle omen (\"may signify a turbulent harvest\") escalated into apocalyptic certainty."
+    },
+    "provenance": "independent_creat_folklore_corpus",
+    "split": "independent-test"
+  }
+]
