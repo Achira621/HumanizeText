@@ -118,7 +118,7 @@ export const NavDropdown: React.FC<NavDropdownProps> = ({
         aria-controls={menuId}
         onClick={onToggle}
         onKeyDown={handleTriggerKeyDown}
-        className={`flex items-center space-x-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-[color,background-color,border-color,box-shadow] duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-1 ${
+        className={`flex items-center space-x-1.5 rounded-full px-3 py-1.5 text-xs font-semibold whitespace-nowrap transition-[color,background-color,border-color,box-shadow] duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-1 ${
           isParentActive
             ? 'bg-[var(--accent-light)] text-[var(--accent-deep)] dark:text-[#34D399] shadow-xs'
             : 'text-[var(--text-secondary)] hover:bg-[var(--bg-subtle)] hover:text-[var(--text-primary)]'

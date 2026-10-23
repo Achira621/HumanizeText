@@ -130,8 +130,6 @@ export const Header: React.FC<HeaderProps> = ({
     },
   ];
 
-  const isHumanizerActive = resolvedTab === 'humanizer';
-
   return (
     <header className="sticky top-0 z-30 w-full border-b border-[var(--border-subtle)] bg-[var(--bg-surface)]/95 backdrop-blur-md transition-colors">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2.5 sm:px-6">
@@ -166,7 +164,7 @@ export const Header: React.FC<HeaderProps> = ({
                     e.preventDefault();
                     handleSelectTab(item.id);
                   }}
-                  className={`flex items-center space-x-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-[color,background-color,box-shadow] duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] ${
+                  className={`flex items-center space-x-1.5 rounded-full px-3 py-1.5 text-xs font-semibold whitespace-nowrap transition-[color,background-color,box-shadow] duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] ${
                     isActive
                       ? 'bg-[var(--accent-light)] text-[var(--accent-deep)] dark:text-[#34D399] shadow-xs'
                       : 'text-[var(--text-secondary)] hover:bg-[var(--bg-subtle)] hover:text-[var(--text-primary)]'
@@ -217,7 +215,7 @@ export const Header: React.FC<HeaderProps> = ({
           </nav>
         </div>
 
-        {/* Right side controls: Security badge + Contextual CTA + Theme toggle + Mobile Menu trigger */}
+        {/* Right side controls: Security badge + Theme toggle + Mobile Menu trigger */}
         <div className="flex items-center space-x-2 sm:space-x-3">
           {/* Privacy Guarantee Pill (clickable to Privacy Lab) */}
           <a
@@ -232,21 +230,6 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)] animate-pulse" aria-hidden="true" />
             <span>0 Data Uploads</span>
           </a>
-
-          {/* Contextual Quick Action: visible on secondary pages to jump back to Humanizer */}
-          {!isHumanizerActive && (
-            <a
-              href="/"
-              onClick={(e) => {
-                e.preventDefault();
-                handleSelectTab('humanizer');
-              }}
-              className="btn-brand-pill hidden px-3.5 py-1.5 text-xs font-bold sm:inline-flex items-center space-x-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
-            >
-              <span>Start Humanizing</span>
-              <span aria-hidden="true">→</span>
-            </a>
-          )}
 
           {/* Theme toggle button */}
           <button
