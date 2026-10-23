@@ -531,15 +531,15 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
         <div className="border-b border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-3">
           <div className="flex flex-wrap items-center justify-between gap-3">
             {/* Left: Mode Buttons */}
-            <div className="flex flex-wrap items-center gap-1.5">
-              <span className="mr-1 text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none w-full sm:w-auto -mx-1 px-1">
+              <span className="mr-1 shrink-0 text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
                 Mode:
               </span>
               {modes.map((m) => (
                 <button
                   key={m.id}
                   onClick={() => setSelectedMode(m.id)}
-                  className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all ${
+                  className={`shrink-0 rounded-lg px-3 py-1.5 text-xs font-medium transition-all ${
                     selectedMode === m.id
                       ? 'bg-[var(--accent)] text-[var(--accent-contrast)] shadow-xs font-bold'
                       : 'border border-[var(--border-subtle)] bg-[var(--bg-surface)] text-[var(--text-secondary)] hover:border-[var(--accent)] hover:text-[var(--text-primary)]'
@@ -1098,50 +1098,53 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
         )}
 
         {/* ── ACTION CONTROLS & WORKFLOW BAR ────────────────────────────── */}
-        <div className="flex flex-col items-center justify-between gap-4 bg-[var(--bg-subtle)] px-5 py-4 sm:flex-row">
+        <div className="flex flex-col items-stretch sm:items-center justify-between gap-4 bg-[var(--bg-subtle)] px-4 sm:px-5 py-4 sm:flex-row">
           {/* Left: Engine Selector (Workers AI vs Local vs BYO API) */}
-          <div className="flex flex-wrap items-center gap-2.5">
-            <div className="inline-flex rounded-lg border border-[var(--border-strong)] bg-[var(--bg-surface)] p-1 text-xs shadow-xs">
+          <div className="flex flex-wrap items-center gap-2.5 w-full sm:w-auto">
+            <div className="inline-flex w-full sm:w-auto justify-between sm:justify-start rounded-lg border border-[var(--border-strong)] bg-[var(--bg-surface)] p-1 text-xs shadow-xs">
               <button
                 type="button"
                 onClick={() => setEngineType('free-worker')}
-                className={`flex items-center space-x-1.5 rounded-md px-2.5 py-1.5 font-medium transition-all ${
+                className={`flex items-center justify-center space-x-1.5 rounded-md px-2.5 py-1.5 font-medium transition-all ${
                   engineType === 'free-worker'
                     ? 'bg-[var(--accent)] text-[var(--accent-contrast)] font-bold shadow-xs'
                     : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
                 title="Cloudflare Workers AI Free Tier (Qwen 30B / Llama 3.1 &amp; Semantic Embeddings)"
               >
-                <Sparkles className="h-3.5 w-3.5" />
-                <span>Free Cloud AI (Workers AI)</span>
+                <Sparkles className="h-3.5 w-3.5 shrink-0" />
+                <span className="hidden sm:inline">Free Cloud AI (Workers AI)</span>
+                <span className="sm:hidden">Cloud AI</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setEngineType('local')}
-                className={`flex items-center space-x-1.5 rounded-md px-2.5 py-1.5 font-medium transition-all ${
+                className={`flex items-center justify-center space-x-1.5 rounded-md px-2.5 py-1.5 font-medium transition-all ${
                   engineType === 'local'
                     ? 'bg-[var(--accent)] text-[var(--accent-contrast)] font-bold shadow-xs'
                     : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
                 title="100% On-Device Linguistic Transformation (Zero Network Traffic)"
               >
-                <ShieldCheck className="h-3.5 w-3.5" />
-                <span>Local Engine (100% Offline)</span>
+                <ShieldCheck className="h-3.5 w-3.5 shrink-0" />
+                <span className="hidden sm:inline">Local Engine (100% Offline)</span>
+                <span className="sm:hidden">Offline</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setEngineType('api')}
-                className={`flex items-center space-x-1.5 rounded-md px-2.5 py-1.5 font-medium transition-all ${
+                className={`flex items-center justify-center space-x-1.5 rounded-md px-2.5 py-1.5 font-medium transition-all ${
                   engineType === 'api'
                     ? 'bg-[var(--accent)] text-[var(--accent-contrast)] font-bold shadow-xs'
                     : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
                 title="Use your own API key (Gemini, Groq, OpenRouter)"
               >
-                <Settings className="h-3.5 w-3.5" />
-                <span>Custom Key</span>
+                <Settings className="h-3.5 w-3.5 shrink-0" />
+                <span className="hidden sm:inline">Custom Key</span>
+                <span className="sm:hidden">BYO Key</span>
               </button>
             </div>
 
@@ -1149,7 +1152,7 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
               <button
                 type="button"
                 onClick={() => setShowApiModal(true)}
-                className="flex items-center space-x-1.5 rounded-lg border border-[var(--border-strong)] bg-[var(--bg-surface)] px-2.5 py-1.5 text-xs font-semibold text-[var(--text-primary)] hover:border-[var(--accent)] shadow-xs"
+                className="flex items-center justify-center space-x-1.5 rounded-lg border border-[var(--border-strong)] bg-[var(--bg-surface)] px-2.5 py-1.5 text-xs font-semibold text-[var(--text-primary)] hover:border-[var(--accent)] shadow-xs w-full sm:w-auto"
                 title="Configure Gemini, Groq, or OpenRouter API Key"
               >
                 <Settings className="h-3.5 w-3.5 text-[var(--accent)]" />
@@ -1163,11 +1166,11 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
           </div>
 
           {/* Right: Direct Humanize and Plagiarism buttons */}
-          <div className="flex flex-wrap items-center gap-2.5">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full sm:w-auto">
             {resultData && resultData.changes.length > 0 && (
               <button
                 onClick={() => setShowDiff(!showDiff)}
-                className="rounded-xl border border-[var(--border-strong)] bg-[var(--bg-surface)] px-3 py-2 text-xs font-semibold text-[var(--text-primary)] transition-colors hover:bg-[var(--bg-subtle)]"
+                className="rounded-xl border border-[var(--border-strong)] bg-[var(--bg-surface)] px-3 py-2 text-xs font-semibold text-[var(--text-primary)] transition-colors hover:bg-[var(--bg-subtle)] text-center"
               >
                 {showDiff ? 'Hide Changes' : `View ${resultData.changes.length} Changes`}
               </button>
@@ -1177,7 +1180,7 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
               id="check-plagiarism-btn"
               onClick={handleCheckPlagiarism}
               disabled={isCheckingPlagiarism || !currentText.trim()}
-              className="inline-flex items-center space-x-1.5 rounded-xl border border-[var(--border-strong)] bg-[var(--bg-surface)] px-4 py-2.5 text-xs font-bold text-[var(--text-primary)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors shadow-2xs disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex items-center justify-center space-x-1.5 rounded-xl border border-[var(--border-strong)] bg-[var(--bg-surface)] px-4 py-2.5 min-h-[44px] text-xs font-bold text-[var(--text-primary)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors shadow-2xs disabled:cursor-not-allowed disabled:opacity-50 w-full sm:w-auto"
             >
               <FileSearch className="h-4 w-4" />
               <span>{isCheckingPlagiarism ? 'Scanning...' : hasCheckedPlagiarism ? 'Re-scan Plagiarism' : 'Check Plagiarism'}</span>
@@ -1187,7 +1190,7 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
               <button
                 onClick={() => handleRunHumanizer(true)}
                 disabled={isProcessing || !improvedText.trim()}
-                className="flex items-center space-x-1.5 rounded-xl border border-[var(--accent)] bg-[var(--accent-light)] px-3.5 py-2.5 text-xs font-bold text-[var(--accent)] hover:bg-[var(--accent)] hover:text-[var(--accent-contrast)] transition-colors shadow-xs disabled:opacity-50"
+                className="flex items-center justify-center space-x-1.5 rounded-xl border border-[var(--accent)] bg-[var(--accent-light)] px-3.5 py-2.5 min-h-[44px] text-xs font-bold text-[var(--accent)] hover:bg-[var(--accent)] hover:text-[var(--accent-contrast)] transition-colors shadow-xs disabled:opacity-50 w-full sm:w-auto"
                 title="Run another humanization pass on the output to further boost human score and rhythm"
               >
                 <RefreshCw className={`h-3.5 w-3.5 ${isProcessing ? 'animate-spin' : ''}`} />
@@ -1199,7 +1202,7 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
               id="humanize-submit-btn"
               onClick={() => handleRunHumanizer(false)}
               disabled={isProcessing || !currentText.trim()}
-              className="btn-brand-pill inline-flex items-center space-x-2 px-6 py-2.5 text-xs font-bold disabled:cursor-not-allowed disabled:opacity-50 shadow-md"
+              className="btn-brand-pill inline-flex items-center justify-center space-x-2 px-6 py-2.5 min-h-[44px] text-xs font-bold disabled:cursor-not-allowed disabled:opacity-50 shadow-md w-full sm:w-auto"
             >
               <Sparkles className="h-4 w-4" />
               <span>

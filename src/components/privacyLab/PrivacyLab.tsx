@@ -256,7 +256,7 @@ export const PrivacyLab: React.FC<PrivacyLabProps> = ({ setActiveTab }) => {
 
         {/* Tool 2: Keyed vs Unkeyed Fingerprinting Demo */}
         <section className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-6 shadow-xs">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex items-center space-x-2">
               <Key className="h-5 w-5 text-[var(--accent)]" />
               <h2 className="text-base font-bold text-[var(--text-primary)]">
@@ -265,7 +265,7 @@ export const PrivacyLab: React.FC<PrivacyLabProps> = ({ setActiveTab }) => {
             </div>
             <button
               onClick={refreshSessionKey}
-              className="flex items-center space-x-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-subtle)] px-2.5 py-1 text-xs text-[var(--text-primary)] hover:border-[var(--accent)]"
+              className="flex items-center justify-center space-x-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-subtle)] px-2.5 py-1.5 text-xs text-[var(--text-primary)] hover:border-[var(--accent)] w-full sm:w-auto"
             >
               <RefreshCw className="h-3.5 w-3.5" />
               <span>Regenerate Session Key</span>
@@ -408,18 +408,18 @@ export const PrivacyLab: React.FC<PrivacyLabProps> = ({ setActiveTab }) => {
                   />
                 </div>
 
-                <div className="flex items-center space-x-2 pt-1">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 pt-1">
                   <button
                     onClick={handleDecryptTest}
                     disabled={!encryptedPayload}
-                    className="rounded border border-[var(--border-strong)] bg-[var(--bg-surface)] px-3 py-1.5 text-xs font-semibold text-[var(--text-primary)] hover:border-[var(--accent)] disabled:opacity-40"
+                    className="rounded border border-[var(--border-strong)] bg-[var(--bg-surface)] px-3 py-2 text-xs font-semibold text-[var(--text-primary)] hover:border-[var(--accent)] disabled:opacity-40 text-center"
                   >
                     Attempt Decrypt
                   </button>
                   <button
                     onClick={handleTamperCiphertext}
                     disabled={!encryptedPayload || isTampered}
-                    className="rounded border border-[var(--error-border)] bg-[var(--error-bg)] px-3 py-1.5 text-xs font-semibold text-[var(--error-text)] hover:opacity-90 disabled:opacity-40"
+                    className="rounded border border-[var(--error-border)] bg-[var(--error-bg)] px-3 py-2 text-xs font-semibold text-[var(--error-text)] hover:opacity-90 disabled:opacity-40 text-center"
                   >
                     Simulate 1-Bit Ciphertext Tamper
                   </button>
@@ -451,7 +451,7 @@ export const PrivacyLab: React.FC<PrivacyLabProps> = ({ setActiveTab }) => {
 
         {/* Tool 4: PBKDF2 Hardware Benchmark */}
         <section className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-6 shadow-xs">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex items-center space-x-2">
               <Cpu className="h-5 w-5 text-[var(--accent)]" />
               <h2 className="text-base font-bold text-[var(--text-primary)]">
@@ -461,7 +461,7 @@ export const PrivacyLab: React.FC<PrivacyLabProps> = ({ setActiveTab }) => {
             <button
               onClick={handleRunBenchmark}
               disabled={isBenchmarking}
-              className="flex items-center space-x-1.5 rounded-lg bg-[var(--accent)] px-3 py-1.5 text-xs font-semibold text-[var(--accent-contrast)] hover:bg-[var(--accent-hover)] disabled:opacity-50"
+              className="flex items-center justify-center space-x-1.5 rounded-lg bg-[var(--accent)] px-3 py-1.5 text-xs font-semibold text-[var(--accent-contrast)] hover:bg-[var(--accent-hover)] disabled:opacity-50 w-full sm:w-auto"
             >
               <Zap className="h-3.5 w-3.5" />
               <span>{isBenchmarking ? 'Benchmarking Hardware...' : 'Run Benchmark'}</span>

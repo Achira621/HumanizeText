@@ -292,10 +292,10 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
         {/* Right: QuillBot-Style Writing Assistant Panel (5 Cols) */}
         <div className="flex flex-col rounded-xl border border-[var(--border-strong)] bg-[var(--bg-surface)] p-4 shadow-sm lg:col-span-5">
           {/* Assistant Tabs */}
-          <div className="flex border-b border-[var(--border-subtle)] pb-2 gap-1 text-xs font-bold">
+          <div className="flex items-center border-b border-[var(--border-subtle)] pb-1 sm:pb-2 gap-1 text-xs font-bold overflow-x-auto scrollbar-none flex-nowrap sm:flex-wrap w-full">
             <button
               onClick={() => setActiveTab('suggestions')}
-              className={`flex items-center space-x-1.5 rounded-lg px-2.5 py-1.5 transition-all ${
+              className={`shrink-0 flex items-center space-x-1.5 rounded-lg px-2.5 py-1.5 transition-all ${
                 activeTab === 'suggestions'
                   ? 'bg-[var(--accent)] text-[var(--accent-contrast)]'
                   : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
@@ -314,7 +314,7 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
 
             <button
               onClick={() => setActiveTab('paraphraser')}
-              className={`flex items-center space-x-1.5 rounded-lg px-2.5 py-1.5 transition-all ${
+              className={`shrink-0 flex items-center space-x-1.5 rounded-lg px-2.5 py-1.5 transition-all ${
                 activeTab === 'paraphraser'
                   ? 'bg-[var(--accent)] text-[var(--accent-contrast)]'
                   : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
@@ -326,7 +326,7 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
 
             <button
               onClick={() => setActiveTab('aiRadar')}
-              className={`flex items-center space-x-1.5 rounded-lg px-2.5 py-1.5 transition-all ${
+              className={`shrink-0 flex items-center space-x-1.5 rounded-lg px-2.5 py-1.5 transition-all ${
                 activeTab === 'aiRadar'
                   ? 'bg-[var(--accent)] text-[var(--accent-contrast)]'
                   : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
@@ -338,7 +338,7 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
 
             <button
               onClick={() => setActiveTab('metrics')}
-              className={`flex items-center space-x-1.5 rounded-lg px-2.5 py-1.5 transition-all ${
+              className={`shrink-0 flex items-center space-x-1.5 rounded-lg px-2.5 py-1.5 transition-all ${
                 activeTab === 'metrics'
                   ? 'bg-[var(--accent)] text-[var(--accent-contrast)]'
                   : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'

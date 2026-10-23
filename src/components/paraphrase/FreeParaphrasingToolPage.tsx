@@ -197,11 +197,11 @@ export const FreeParaphrasingToolPage: React.FC<FreeParaphrasingToolPageProps> =
       <div className="overflow-hidden rounded-xl border border-[var(--border-strong)] bg-[var(--bg-surface)] shadow-md">
         {/* Mode Selector */}
         <div className="border-b border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-3">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <span className="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] shrink-0">
               Paraphrase Objective:
             </span>
-            <div className="flex flex-wrap gap-1.5" role="radiogroup" aria-label="Paraphrase style modes">
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none w-full sm:w-auto -mx-1 px-1" role="radiogroup" aria-label="Paraphrase style modes">
               {modes.map((m) => (
                 <button
                   key={m.id}
@@ -209,7 +209,7 @@ export const FreeParaphrasingToolPage: React.FC<FreeParaphrasingToolPageProps> =
                   role="radio"
                   aria-checked={paraphraseMode === m.id}
                   onClick={() => setParaphraseMode(m.id)}
-                  className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] ${
+                  className={`shrink-0 rounded-lg px-3 py-1.5 text-xs font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] ${
                     paraphraseMode === m.id
                       ? 'bg-[var(--accent)] text-[var(--accent-contrast)] shadow-xs font-bold'
                       : 'border border-[var(--border-subtle)] bg-[var(--bg-surface)] text-[var(--text-secondary)] hover:border-[var(--accent)] hover:text-[var(--text-primary)]'
@@ -373,13 +373,13 @@ export const FreeParaphrasingToolPage: React.FC<FreeParaphrasingToolPageProps> =
         </div>
 
         {/* Toolbar & Action Button */}
-        <div className="flex flex-col items-center justify-between gap-4 bg-[var(--bg-subtle)] px-5 py-4 sm:flex-row">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-            <div className="flex items-center space-x-1 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-1 text-xs">
+        <div className="flex flex-col items-stretch sm:items-center justify-between gap-4 bg-[var(--bg-subtle)] px-4 sm:px-5 py-4 sm:flex-row">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full sm:w-auto">
+            <div className="flex items-center space-x-1 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-1 text-xs w-full sm:w-auto justify-between sm:justify-start">
               <button
                 type="button"
                 onClick={() => setEngineType('deterministic-rules')}
-                className={`rounded px-2.5 py-1 text-[11px] font-semibold transition-all ${
+                className={`flex-1 sm:flex-initial text-center rounded px-2.5 py-1.5 text-[11px] font-semibold transition-all ${
                   engineType === 'deterministic-rules'
                     ? 'bg-[var(--accent)] text-[var(--accent-contrast)] shadow-2xs font-bold'
                     : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
@@ -391,7 +391,7 @@ export const FreeParaphrasingToolPage: React.FC<FreeParaphrasingToolPageProps> =
               <button
                 type="button"
                 onClick={() => setEngineType('cloudflare-workers-ai')}
-                className={`rounded px-2.5 py-1 text-[11px] font-semibold transition-all ${
+                className={`flex-1 sm:flex-initial text-center rounded px-2.5 py-1.5 text-[11px] font-semibold transition-all ${
                   engineType === 'cloudflare-workers-ai'
                     ? 'bg-[var(--accent)] text-[var(--accent-contrast)] shadow-2xs font-bold'
                     : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
@@ -403,7 +403,7 @@ export const FreeParaphrasingToolPage: React.FC<FreeParaphrasingToolPageProps> =
             </div>
 
             <div className="flex items-center space-x-1.5 text-xs text-[var(--text-muted)]">
-              <Lock className="h-3.5 w-3.5 text-[var(--accent)]" />
+              <Lock className="h-3.5 w-3.5 shrink-0 text-[var(--accent)]" />
               <span>
                 {engineType === 'deterministic-rules'
                   ? 'Local Web Crypto • 0 bytes sent to servers'
@@ -416,7 +416,7 @@ export const FreeParaphrasingToolPage: React.FC<FreeParaphrasingToolPageProps> =
             id="paraphrase-submit-btn"
             onClick={handleParaphrase}
             disabled={isProcessing || !inputText.trim()}
-            className="btn-brand-pill inline-flex items-center space-x-2 px-7 py-2.5 text-xs font-bold disabled:opacity-40"
+            className="btn-brand-pill inline-flex items-center justify-center space-x-2 px-7 py-2.5 min-h-[44px] text-xs font-bold disabled:opacity-40 w-full sm:w-auto"
           >
             <Sparkles className="h-4 w-4" />
             <span>{isProcessing ? 'Rephrasing...' : 'Paraphrase Text'}</span>

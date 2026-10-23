@@ -234,13 +234,13 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
         </p>
 
         {/* Text / Image Switcher */}
-        <div className="mt-6 inline-flex rounded-xl border border-[var(--border-strong)] bg-[var(--bg-surface)] p-1 shadow-xs">
+        <div className="mt-6 inline-flex w-full sm:w-auto rounded-xl border border-[var(--border-strong)] bg-[var(--bg-surface)] p-1 shadow-xs">
           <button
             onClick={() => {
               setActiveTab('text');
               setErrorMessage(null);
             }}
-            className={`flex items-center space-x-2 rounded-lg px-5 py-2 text-xs font-bold transition-all ${
+            className={`flex flex-1 sm:flex-initial items-center justify-center space-x-2 rounded-lg px-4 sm:px-5 py-2 text-xs font-bold transition-all ${
               activeTab === 'text'
                 ? 'bg-[var(--accent)] text-[var(--accent-contrast)] shadow-xs'
                 : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
@@ -254,7 +254,7 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
               setActiveTab('image');
               setErrorMessage(null);
             }}
-            className={`flex items-center space-x-2 rounded-lg px-5 py-2 text-xs font-bold transition-all ${
+            className={`flex flex-1 sm:flex-initial items-center justify-center space-x-2 rounded-lg px-4 sm:px-5 py-2 text-xs font-bold transition-all ${
               activeTab === 'image'
                 ? 'bg-[var(--accent)] text-[var(--accent-contrast)] shadow-xs'
                 : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
@@ -404,16 +404,16 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
         </div>
 
         {/* Action Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[var(--border-subtle)] bg-[var(--bg-subtle)] px-5 py-3.5">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 border-t border-[var(--border-subtle)] bg-[var(--bg-subtle)] px-4 sm:px-5 py-3.5">
           <div className="flex items-center space-x-2 text-xs text-[var(--text-muted)]">
             {textModelProgress.state === 'READY' ? (
               <span className="flex items-center space-x-1 text-emerald-700 dark:text-emerald-400 font-semibold">
-                <ShieldCheck className="h-4 w-4" />
+                <ShieldCheck className="h-4 w-4 shrink-0" />
                 <span>Local private inference will be used</span>
               </span>
             ) : (
               <span className="flex items-center space-x-1 text-[var(--text-secondary)]">
-                <Server className="h-3.5 w-3.5 text-[var(--accent)]" />
+                <Server className="h-3.5 w-3.5 shrink-0 text-[var(--accent)]" />
                 <span>Server inference route ready (Requires consent)</span>
               </span>
             )}
@@ -422,7 +422,7 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
           <button
             onClick={() => handleRunAnalysis(false)}
             disabled={isAnalyzing || (activeTab === 'text' ? !inputText.trim() : !imageFile)}
-            className="btn-brand-pill inline-flex items-center space-x-2 px-7 py-2.5 text-xs font-bold disabled:opacity-40"
+            className="btn-brand-pill inline-flex items-center justify-center space-x-2 px-7 py-2.5 min-h-[44px] text-xs font-bold disabled:opacity-40 w-full sm:w-auto"
           >
             <Sparkles className={`h-4 w-4 ${isAnalyzing ? 'animate-spin' : ''}`} />
             <span>

@@ -220,7 +220,7 @@ export const FreePlagiarismCheckerPage: React.FC<FreePlagiarismCheckerPageProps>
       {/* Main Comparison Card */}
       <div className="overflow-hidden rounded-xl border border-[var(--border-strong)] bg-[var(--bg-surface)] shadow-md">
         {/* Top Controls Toolbar */}
-        <div className="flex flex-wrap items-center justify-between border-b border-[var(--border-subtle)] bg-[var(--bg-subtle)] px-4 py-3">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 border-b border-[var(--border-subtle)] bg-[var(--bg-subtle)] px-4 py-3">
           <div className="flex items-center space-x-2">
             <Cpu className="h-4 w-4 text-[var(--accent)]" />
             <span className="text-xs font-bold text-[var(--text-primary)]">
@@ -228,9 +228,9 @@ export const FreePlagiarismCheckerPage: React.FC<FreePlagiarismCheckerPageProps>
             </span>
           </div>
 
-          <div className="flex items-center space-x-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:space-x-3 w-full sm:w-auto">
             {isComparing && (
-              <div className="hidden sm:flex flex-col items-end pr-2 text-right">
+              <div className="flex flex-row justify-between sm:flex-col sm:items-end pr-2 text-right">
                 <span className="text-[11px] font-semibold text-[var(--accent)] animate-pulse">
                   {comparisonStage}
                 </span>
@@ -243,7 +243,7 @@ export const FreePlagiarismCheckerPage: React.FC<FreePlagiarismCheckerPageProps>
               id="run-similarity-btn"
               onClick={handleRunComparison}
               disabled={isComparing || !submittedText.trim() || referenceDocs.length === 0}
-              className="btn-brand-pill inline-flex items-center space-x-2 px-6 py-2 text-xs font-bold disabled:opacity-40"
+              className="btn-brand-pill inline-flex items-center justify-center space-x-2 px-6 py-2.5 min-h-[44px] text-xs font-bold disabled:opacity-40 w-full sm:w-auto"
             >
               <FileSearch className={`h-4 w-4 ${isComparing ? 'animate-spin' : ''}`} />
               <span>{isComparing ? 'Scanning...' : 'Run Similarity Check'}</span>
