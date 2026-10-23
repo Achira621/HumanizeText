@@ -59,6 +59,9 @@ describe('On-Device Writing Assistant Engine', () => {
     const original = 'In order to proceed, we must act at this point in time.';
     const analysis = analyzeWriting(original);
 
+    const singleFixed = applySingleSuggestion(original, analysis.suggestions[0]);
+    expect(singleFixed).not.toBe(original);
+
     const fixedBatch = applyAllApplicableSuggestions(original, analysis.suggestions);
     expect(fixedBatch).not.toContain('In order to');
     expect(fixedBatch).not.toContain('at this point in time');

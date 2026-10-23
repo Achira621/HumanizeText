@@ -11,8 +11,15 @@ import {
 } from 'lucide-react';
 import type { ImageMetadataReport, CleanedMetadataResult } from '../../types/detector';
 import { defaultMetadataInspector } from '../../lib/metadata/inspector';
+import type { ActiveTab } from '../common/Header';
 
-export const MetadataInspectorPage: React.FC = () => {
+interface MetadataInspectorPageProps {
+  setActiveTab?: (tab: ActiveTab) => void;
+}
+
+export const MetadataInspectorPage: React.FC<MetadataInspectorPageProps> = ({
+  setActiveTab,
+}) => {
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [report, setReport] = useState<ImageMetadataReport | null>(null);
@@ -70,6 +77,34 @@ export const MetadataInspectorPage: React.FC = () => {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6">
+      {/* Wayfinding Breadcrumbs */}
+      {setActiveTab && (
+        <nav aria-label="Breadcrumb" className="mb-4">
+          <ol className="flex items-center space-x-2 text-xs text-[var(--text-muted)]">
+            <li>
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setActiveTab('humanizer');
+                }}
+                className="hover:text-[var(--text-primary)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
+              >
+                Home
+              </a>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li>
+              <span>Tools</span>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li aria-current="page" className="font-semibold text-[var(--text-primary)]">
+              Metadata Inspector
+            </li>
+          </ol>
+        </nav>
+      )}
+
       {/* Hero Header */}
       <div className="mb-8 text-center">
         <div className="mx-auto mb-3 inline-flex items-center space-x-2 rounded-full border border-[var(--accent-border)] bg-[var(--accent-light)] px-3.5 py-1 text-xs font-bold text-[var(--text-primary)]">

@@ -137,13 +137,31 @@
   box-shadow: 0 6px 22px -2px rgba(52, 211, 153, 0.55);
 }
 
-/* Glassmorphic card styling */
+/* Glassmorphic and editorial card styling */
 .glass-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
 }
 
 .dark .glass-card {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* Accessible text selection */
+::selection {
+  background-color: var(--accent-light);
+  color: var(--text-primary);
+}
+
+/* Reduced-motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

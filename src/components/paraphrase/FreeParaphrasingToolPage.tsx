@@ -148,6 +148,32 @@ export const FreeParaphrasingToolPage: React.FC<FreeParaphrasingToolPageProps> =
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6">
+      {/* Wayfinding Breadcrumbs */}
+      <nav aria-label="Breadcrumb" className="mb-4">
+        <ol className="flex items-center space-x-2 text-xs text-[var(--text-muted)]">
+          <li>
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                setActiveTab('humanizer');
+              }}
+              className="hover:text-[var(--text-primary)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
+            >
+              Home
+            </a>
+          </li>
+          <li aria-hidden="true">/</li>
+          <li>
+            <span>Writing Studio</span>
+          </li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" className="font-semibold text-[var(--text-primary)]">
+            Paraphrasing Tool
+          </li>
+        </ol>
+      </nav>
+
       {/* Hero Header matching Brand Specification */}
       <div className="mb-10 text-center">
         <div className="mb-4 inline-flex items-center justify-center">
@@ -175,14 +201,17 @@ export const FreeParaphrasingToolPage: React.FC<FreeParaphrasingToolPageProps> =
             <span className="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
               Paraphrase Objective:
             </span>
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-1.5" role="radiogroup" aria-label="Paraphrase style modes">
               {modes.map((m) => (
                 <button
                   key={m.id}
+                  type="button"
+                  role="radio"
+                  aria-checked={paraphraseMode === m.id}
                   onClick={() => setParaphraseMode(m.id)}
-                  className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all ${
+                  className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] ${
                     paraphraseMode === m.id
-                      ? 'bg-[var(--accent)] text-[var(--accent-contrast)] shadow-xs'
+                      ? 'bg-[var(--accent)] text-[var(--accent-contrast)] shadow-xs font-bold'
                       : 'border border-[var(--border-subtle)] bg-[var(--bg-surface)] text-[var(--text-secondary)] hover:border-[var(--accent)] hover:text-[var(--text-primary)]'
                   }`}
                   title={m.desc}
@@ -211,6 +240,7 @@ export const FreeParaphrasingToolPage: React.FC<FreeParaphrasingToolPageProps> =
 
             <textarea
               id="paraphrase-input-text"
+              aria-label="Source text to paraphrase"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder="Paste the passage or paragraph you want to paraphrase..."
@@ -451,18 +481,25 @@ export const FreeParaphrasingToolPage: React.FC<FreeParaphrasingToolPageProps> =
                   className="rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-subtle)] transition-colors"
                 >
                   <button
+                    type="button"
                     onClick={() => setOpenFaq(isOpen ? null : index)}
-                    className="flex w-full items-center justify-between p-4 text-left text-sm font-semibold text-[var(--text-primary)]"
+                    aria-expanded={isOpen}
+                    aria-controls={`para-faq-answer-${index}`}
+                    className="flex w-full items-center justify-between p-4 text-left text-sm font-semibold text-[var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] rounded-lg"
                   >
                     <span>{faq.q}</span>
                     {isOpen ? (
-                      <ChevronUp className="h-4 w-4 shrink-0 text-[var(--accent)]" />
+                      <ChevronUp className="h-4 w-4 shrink-0 text-[var(--accent)]" aria-hidden="true" />
                     ) : (
-                      <ChevronDown className="h-4 w-4 shrink-0 text-[var(--text-muted)]" />
+                      <ChevronDown className="h-4 w-4 shrink-0 text-[var(--text-muted)]" aria-hidden="true" />
                     )}
                   </button>
                   {isOpen && (
-                    <div className="border-t border-[var(--border-subtle)] px-4 pb-4 pt-2 text-xs leading-relaxed text-[var(--text-secondary)]">
+                    <div
+                      id={`para-faq-answer-${index}`}
+                      role="region"
+                      className="border-t border-[var(--border-subtle)] px-4 pb-4 pt-2 text-xs leading-relaxed text-[var(--text-secondary)]"
+                    >
                       {faq.a}
                     </div>
                   )}

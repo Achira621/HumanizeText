@@ -81,6 +81,32 @@ export const HowToHumanizeGuidePage: React.FC<HowToHumanizeGuidePageProps> = ({
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 sm:px-6">
+      {/* Wayfinding Breadcrumbs */}
+      <nav aria-label="Breadcrumb" className="mb-4">
+        <ol className="flex items-center space-x-2 text-xs text-[var(--text-muted)]">
+          <li>
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                setActiveTab('humanizer');
+              }}
+              className="hover:text-[var(--text-primary)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
+            >
+              Home
+            </a>
+          </li>
+          <li aria-hidden="true">/</li>
+          <li>
+            <span>Resources</span>
+          </li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" className="font-semibold text-[var(--text-primary)]">
+            Writing Guide
+          </li>
+        </ol>
+      </nav>
+
       {/* Article Header with Brand Logo */}
       <header className="mb-10 text-center">
         <div className="mb-4 inline-flex items-center justify-center">
@@ -185,9 +211,10 @@ export const HowToHumanizeGuidePage: React.FC<HowToHumanizeGuidePageProps> = ({
             </div>
 
             <div className="relative w-full sm:w-64">
-              <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[var(--text-muted)]" />
+              <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[var(--text-muted)]" aria-hidden="true" />
               <input
                 type="text"
+                aria-label="Search AI cliché keywords and alternatives"
                 placeholder="Search clichés..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -206,17 +233,33 @@ export const HowToHumanizeGuidePage: React.FC<HowToHumanizeGuidePageProps> = ({
                 </tr>
               </thead>
               <tbody className="divide-y divide-[var(--border-subtle)] text-[var(--text-secondary)]">
-                {filteredCliches.map((row, idx) => (
-                  <tr key={idx} className="hover:bg-[var(--bg-subtle)]/50">
-                    <td className="py-2.5 px-3 font-medium text-red-600 dark:text-red-400">
-                      &ldquo;{row.aiWord}&rdquo;
-                    </td>
-                    <td className="py-2.5 px-3 text-[var(--text-muted)]">{row.issue}</td>
-                    <td className="py-2.5 px-3 font-medium text-emerald-700 dark:text-emerald-300">
-                      {row.humanAlt}
+                {filteredCliches.length === 0 ? (
+                  <tr>
+                    <td colSpan={3} className="py-8 px-4 text-center text-xs text-[var(--text-muted)]">
+                      <p className="font-semibold text-[var(--text-primary)]">No clichés found matching &ldquo;{searchTerm}&rdquo;</p>
+                      <p className="mt-1 text-[11px]">Your vocabulary is free of this marker!</p>
+                      <button
+                        type="button"
+                        onClick={() => setSearchTerm('')}
+                        className="mt-2 inline-flex items-center text-xs font-bold text-[var(--accent)] hover:underline"
+                      >
+                        Clear filter
+                      </button>
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  filteredCliches.map((row, idx) => (
+                    <tr key={idx} className="hover:bg-[var(--bg-subtle)]/50">
+                      <td className="py-2.5 px-3 font-medium text-red-600 dark:text-red-400">
+                        &ldquo;{row.aiWord}&rdquo;
+                      </td>
+                      <td className="py-2.5 px-3 text-[var(--text-muted)]">{row.issue}</td>
+                      <td className="py-2.5 px-3 font-medium text-emerald-700 dark:text-emerald-300">
+                        {row.humanAlt}
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>

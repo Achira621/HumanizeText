@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { Header } from './components/common/Header';
 import type { ActiveTab } from './components/common/Header';
 import { Footer } from './components/common/Footer';
+import { SkipToContent } from './components/common/SkipToContent';
 import { FreeAiHumanizerPage } from './components/humanizer/FreeAiHumanizerPage';
 import { FreePlagiarismCheckerPage } from './components/similarity/FreePlagiarismCheckerPage';
 import { AiDetectorPage } from './components/detector/AiDetectorPage';
@@ -83,6 +84,9 @@ export function App() {
 
   return (
     <div className="relative flex min-h-screen flex-col bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors overflow-hidden">
+      {/* Accessible Skip Link for Keyboard / Screen Reader Navigation */}
+      <SkipToContent />
+
       {/* Brand Flowing Waves Background */}
       <FlowingWavesBackground variant="hero" />
 
@@ -93,7 +97,7 @@ export function App() {
         toggleTheme={toggleTheme}
       />
 
-      <main className="relative z-10 flex-1 py-4 sm:py-6">
+      <main id="main-content" className="relative z-10 flex-1 py-4 sm:py-6">
         {isHumanizerActive && (
           <FreeAiHumanizerPage
             currentText={currentText}
@@ -104,6 +108,7 @@ export function App() {
 
         {activeTab === 'ai-detector' && (
           <AiDetectorPage
+            setActiveTab={setActiveTab}
             onSendToHumanizer={(text) => {
               setCurrentText(text);
               setActiveTab('humanizer');
@@ -111,7 +116,9 @@ export function App() {
           />
         )}
 
-        {activeTab === 'metadata-inspector' && <MetadataInspectorPage />}
+        {activeTab === 'metadata-inspector' && (
+          <MetadataInspectorPage setActiveTab={setActiveTab} />
+        )}
 
         {isSimilarityActive && (
           <FreePlagiarismCheckerPage
@@ -131,10 +138,11 @@ export function App() {
           <HowToHumanizeGuidePage setActiveTab={setActiveTab} />
         )}
 
-        {activeTab === 'privacy-lab' && <PrivacyLab />}
+        {activeTab === 'privacy-lab' && <PrivacyLab setActiveTab={setActiveTab} />}
 
         {activeTab === 'vault' && (
           <VaultWorkspace
+            setActiveTab={setActiveTab}
             onLoadIntoEditor={handleLoadVaultIntoEditor}
             onLoadIntoHumanizer={(text) => {
               setCurrentText(text);
@@ -142,12 +150,12 @@ export function App() {
             }}
             onLoadIntoPlagiarismChecker={(text) => {
               setCurrentText(text);
-              setActiveTab('editor');
+              setActiveTab('plagiarism-checker');
             }}
           />
         )}
 
-        {activeTab === 'docs' && <DocumentationViewer />}
+        {activeTab === 'docs' && <DocumentationViewer setActiveTab={setActiveTab} />}
       </main>
 
       <Footer setActiveTab={setActiveTab} />

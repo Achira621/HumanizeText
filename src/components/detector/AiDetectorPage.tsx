@@ -33,12 +33,14 @@ import { humanizeWithRules } from '../../lib/humanizer/ruleEngine';
 import { defaultAdaptiveCoordinator } from '../../lib/intelligence/coordinator';
 import { defaultFeedbackPipeline } from '../../lib/intelligence/feedbackPipeline';
 import { defaultModelRegistry } from '../../lib/intelligence/modelRegistry';
+import type { ActiveTab } from '../common/Header';
 
 interface AiDetectorPageProps {
   onSendToHumanizer?: (text: string) => void;
+  setActiveTab?: (tab: ActiveTab) => void;
 }
 
-export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanizer }) => {
+export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanizer, setActiveTab: onNavigateTab }) => {
   const [activeTab, setActiveTab] = useState<'text' | 'image'>('text');
   const [inputText, setInputText] = useState('');
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -189,6 +191,34 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6">
+      {/* Wayfinding Breadcrumbs */}
+      {onNavigateTab && (
+        <nav aria-label="Breadcrumb" className="mb-4">
+          <ol className="flex items-center space-x-2 text-xs text-[var(--text-muted)]">
+            <li>
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigateTab('humanizer');
+                }}
+                className="hover:text-[var(--text-primary)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
+              >
+                Home
+              </a>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li>
+              <span>Detection</span>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li aria-current="page" className="font-semibold text-[var(--text-primary)]">
+              AI Detector
+            </li>
+          </ol>
+        </nav>
+      )}
+
       {/* Hero Header */}
       <div className="mb-8 text-center">
         <div className="mx-auto mb-3 inline-flex items-center space-x-2 rounded-full border border-[var(--accent-border)] bg-[var(--accent-light)] px-3.5 py-1 text-xs font-bold text-[var(--text-primary)]">
@@ -452,9 +482,15 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
                 }`}>
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <div className="flex items-center space-x-3">
-                      <span className="text-3xl">
-                        {isHuman ? '🟢' : isAi ? '🔴' : '🟡'}
-                      </span>
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/60 dark:bg-black/30 shadow-xs">
+                        {isHuman ? (
+                          <CheckCircle2 className="h-6 w-6 text-emerald-600 dark:text-emerald-400" aria-hidden="true" />
+                        ) : isAi ? (
+                          <AlertCircle className="h-6 w-6 text-red-600 dark:text-red-400" aria-hidden="true" />
+                        ) : (
+                          <Info className="h-6 w-6 text-amber-600 dark:text-amber-400" aria-hidden="true" />
+                        )}
+                      </div>
                       <div>
                         <h4 className="text-lg font-black tracking-tight">
                           {isHuman && `Likely 100% Human Written (${humanPct}% Human)`}
@@ -678,12 +714,22 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
                           return (
                             <span
                               key={s.sentenceIndex}
+                              role="button"
+                              tabIndex={0}
                               onClick={() => {
                                 setSelectedSentence(s);
                                 setHumanizedSentence(null);
                                 setSentenceCopied(false);
                               }}
-                              className={`cursor-pointer rounded px-1 py-0.5 transition-all inline ${
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                  e.preventDefault();
+                                  setSelectedSentence(s);
+                                  setHumanizedSentence(null);
+                                  setSentenceCopied(false);
+                                }
+                              }}
+                              className={`cursor-pointer rounded px-1 py-0.5 transition-all inline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] ${
                                 isSelected
                                   ? 'ring-2 ring-[var(--accent)] ring-offset-1 font-medium'
                                   : ''
@@ -894,11 +940,21 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
 
       {/* Server Processing Consent Modal */}
       {showConsentModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="consent-title"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs"
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') {
+              setShowConsentModal(false);
+            }
+          }}
+        >
           <div className="max-w-md rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-surface)] p-6 shadow-2xl">
             <div className="flex items-center space-x-3 text-[var(--accent)]">
-              <Server className="h-6 w-6" />
-              <h3 className="text-base font-bold text-[var(--text-primary)]">Server Processing Consent</h3>
+              <Server className="h-6 w-6" aria-hidden="true" />
+              <h3 id="consent-title" className="text-base font-bold text-[var(--text-primary)]">Server Processing Consent</h3>
             </div>
             <p className="mt-3 text-xs leading-relaxed text-[var(--text-secondary)]">
               The on-device local model is not yet prepared on this browser. To view your score immediately without waiting
@@ -911,18 +967,20 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
             </div>
             <div className="mt-5 flex items-center justify-end space-x-3">
               <button
+                type="button"
                 onClick={() => setShowConsentModal(false)}
-                className="rounded-lg border border-[var(--border-strong)] px-4 py-2 text-xs font-semibold text-[var(--text-secondary)] hover:bg-[var(--bg-subtle)]"
+                className="rounded-lg border border-[var(--border-strong)] px-4 py-2 text-xs font-semibold text-[var(--text-secondary)] hover:bg-[var(--bg-subtle)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
               >
                 Cancel
               </button>
               <button
+                type="button"
                 onClick={() => {
                   setUserConsented(true);
                   setShowConsentModal(false);
                   handleRunAnalysis(true);
                 }}
-                className="btn-brand-pill px-5 py-2 text-xs font-bold"
+                className="btn-brand-pill px-5 py-2 text-xs font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
               >
                 Consent & Analyze on Server
               </button>

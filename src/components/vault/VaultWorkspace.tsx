@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Lock,
   Unlock,
@@ -20,18 +20,21 @@ import {
 } from '../../lib/storage/indexedDb';
 import { decryptVaultRecord, encryptVaultRecord } from '../../lib/crypto/vault';
 import type { EncryptedPayload, VaultRecord } from '../../types';
+import type { ActiveTab } from '../common/Header';
 import { VaultWritingAssistant } from './VaultWritingAssistant';
 
 interface VaultWorkspaceProps {
   onLoadIntoEditor?: (text: string, title: string) => void;
   onLoadIntoHumanizer?: (text: string) => void;
   onLoadIntoPlagiarismChecker?: (text: string, title: string) => void;
+  setActiveTab?: (tab: ActiveTab) => void;
 }
 
 export const VaultWorkspace: React.FC<VaultWorkspaceProps> = ({
   onLoadIntoEditor,
   onLoadIntoHumanizer,
   onLoadIntoPlagiarismChecker,
+  setActiveTab,
 }) => {
   const [passphrase, setPassphrase] = useState('');
   const [records, setRecords] = useState<EncryptedPayload[]>([]);
@@ -42,17 +45,31 @@ export const VaultWorkspace: React.FC<VaultWorkspaceProps> = ({
   const [newContent, setNewContent] = useState('');
   const [isSaving, setIsSaving] = useState(false);
 
-  const reloadRecords = async () => {
+  const reloadRecords = useCallback(async () => {
     try {
       const list = await listAllEncryptedPayloads();
       setRecords(list);
     } catch (err: any) {
       setErrorMsg(`Failed to open IndexedDB vault: ${err?.message}`);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    reloadRecords();
+    let isCancelled = false;
+    listAllEncryptedPayloads()
+      .then((list) => {
+        if (!isCancelled) {
+          setRecords(list);
+        }
+      })
+      .catch((err: any) => {
+        if (!isCancelled) {
+          setErrorMsg(`Failed to open IndexedDB vault: ${err?.message}`);
+        }
+      });
+    return () => {
+      isCancelled = true;
+    };
   }, []);
 
   const handleOpenNewInStudio = () => {
@@ -139,6 +156,23 @@ export const VaultWorkspace: React.FC<VaultWorkspaceProps> = ({
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+      {/* Wayfinding Breadcrumbs */}
+      {setActiveTab && (
+        <nav aria-label="Breadcrumb" className="mb-4 flex items-center gap-1.5 text-xs text-[var(--text-muted)]">
+          <button
+            type="button"
+            onClick={() => setActiveTab('humanizer')}
+            className="hover:text-[var(--accent)] transition-colors focus:outline-hidden"
+          >
+            Home
+          </button>
+          <span>/</span>
+          <span className="text-[var(--text-secondary)]">Security &amp; Privacy</span>
+          <span>/</span>
+          <span className="font-medium text-[var(--text-primary)]" aria-current="page">Encrypted Vault</span>
+        </nav>
+      )}
+
       {/* Title */}
       <div className="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-center">
         <div>

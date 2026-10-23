@@ -412,7 +412,7 @@ export function analyzeWriting(text: string): WritingAnalysis {
     }
   }
 
-  const repetitiveEntries = [...wordFrequency.entries()].filter(([_, count]) => count >= 4 && wordCount < 300);
+  const repetitiveEntries = [...wordFrequency.entries()].filter(([, count]) => count >= 4 && wordCount < 300);
   for (const [repWord, count] of repetitiveEntries.slice(0, 3)) {
     const firstIdx = text.toLowerCase().indexOf(repWord);
     suggestions.push({

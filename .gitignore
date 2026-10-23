@@ -25,3 +25,5 @@ dist-ssr
 .gemini/
 *.tsbuildinfo
 .wrangler/
+__pycache__/
+*.pyc

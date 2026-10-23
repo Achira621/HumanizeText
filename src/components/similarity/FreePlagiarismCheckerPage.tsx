@@ -171,6 +171,32 @@ export const FreePlagiarismCheckerPage: React.FC<FreePlagiarismCheckerPageProps>
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
+      {/* Wayfinding Breadcrumbs */}
+      <nav aria-label="Breadcrumb" className="mb-4">
+        <ol className="flex items-center space-x-2 text-xs text-[var(--text-muted)]">
+          <li>
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                setActiveTab('humanizer');
+              }}
+              className="hover:text-[var(--text-primary)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
+            >
+              Home
+            </a>
+          </li>
+          <li aria-hidden="true">/</li>
+          <li>
+            <span>Detection</span>
+          </li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" className="font-semibold text-[var(--text-primary)]">
+            Plagiarism Checker
+          </li>
+        </ol>
+      </nav>
+
       {/* Hero Header matching Brand Specification */}
       <div className="mb-10 text-center">
         <div className="mb-4 inline-flex items-center justify-center">
@@ -227,7 +253,14 @@ export const FreePlagiarismCheckerPage: React.FC<FreePlagiarismCheckerPageProps>
 
         {/* Linear progress bar during comparison */}
         {isComparing && (
-          <div className="h-1.5 w-full overflow-hidden bg-slate-200 dark:bg-slate-700">
+          <div
+            role="progressbar"
+            aria-valuenow={comparisonProgress}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-label="Document similarity comparison progress"
+            className="h-1.5 w-full overflow-hidden bg-slate-200 dark:bg-slate-700"
+          >
             <div
               className="h-full bg-[var(--accent)] transition-all duration-300"
               style={{ width: `${comparisonProgress}%` }}
@@ -256,6 +289,7 @@ export const FreePlagiarismCheckerPage: React.FC<FreePlagiarismCheckerPageProps>
 
             <textarea
               id="submitted-text-input"
+              aria-label="Submitted document text to check for plagiarism"
               value={submittedText}
               onChange={(e) => setSubmittedText(e.target.value)}
               placeholder="Paste the document or essay you want to check here..."
@@ -315,6 +349,7 @@ export const FreePlagiarismCheckerPage: React.FC<FreePlagiarismCheckerPageProps>
             {/* Active Reference text preview */}
             <textarea
               readOnly
+              aria-label="Reference source text preview"
               value={referenceDocs.find((r) => r.id === activeRefId)?.text || ''}
               rows={9}
               className="w-full resize-none rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-3 text-xs leading-relaxed text-[var(--text-secondary)]"
@@ -542,18 +577,25 @@ export const FreePlagiarismCheckerPage: React.FC<FreePlagiarismCheckerPageProps>
                   className="rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-subtle)] transition-colors"
                 >
                   <button
+                    type="button"
                     onClick={() => setOpenFaq(isOpen ? null : index)}
-                    className="flex w-full items-center justify-between p-4 text-left text-sm font-semibold text-[var(--text-primary)]"
+                    aria-expanded={isOpen}
+                    aria-controls={`plag-faq-answer-${index}`}
+                    className="flex w-full items-center justify-between p-4 text-left text-sm font-semibold text-[var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] rounded-lg"
                   >
                     <span>{faq.q}</span>
                     {isOpen ? (
-                      <ChevronUp className="h-4 w-4 shrink-0 text-[var(--accent)]" />
+                      <ChevronUp className="h-4 w-4 shrink-0 text-[var(--accent)]" aria-hidden="true" />
                     ) : (
-                      <ChevronDown className="h-4 w-4 shrink-0 text-[var(--text-muted)]" />
+                      <ChevronDown className="h-4 w-4 shrink-0 text-[var(--text-muted)]" aria-hidden="true" />
                     )}
                   </button>
                   {isOpen && (
-                    <div className="border-t border-[var(--border-subtle)] px-4 pb-4 pt-2 text-xs leading-relaxed text-[var(--text-secondary)]">
+                    <div
+                      id={`plag-faq-answer-${index}`}
+                      role="region"
+                      className="border-t border-[var(--border-subtle)] px-4 pb-4 pt-2 text-xs leading-relaxed text-[var(--text-secondary)]"
+                    >
                       {faq.a}
                     </div>
                   )}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   ShieldCheck,
   Lock,
@@ -19,8 +19,13 @@ import { benchmarkPbkdf2 } from '../../lib/crypto/benchmarks';
 import type { BenchmarkResult } from '../../lib/crypto/benchmarks';
 import { NetworkAuditor } from '../../lib/privacy/networkAuditor';
 import type { EncryptedPayload, NetworkRequestLog } from '../../types';
+import type { ActiveTab } from '../common/Header';
 
-export const PrivacyLab: React.FC = () => {
+interface PrivacyLabProps {
+  setActiveTab?: (tab: ActiveTab) => void;
+}
+
+export const PrivacyLab: React.FC<PrivacyLabProps> = ({ setActiveTab }) => {
   // 1. Integrity Digest Demo State
   const [digestInput, setDigestInput] = useState(
     '  Artificial   Intelligence and Cryptographic Privacy.  \n'
@@ -50,27 +55,49 @@ export const PrivacyLab: React.FC = () => {
   // 5. Network Logs State
   const [networkLogs, setNetworkLogs] = useState<NetworkRequestLog[]>([]);
 
-  // Update digest demo
+  // Update digest demo with cancellation
   useEffect(() => {
+    let isCancelled = false;
     computeDocumentDigests(digestInput).then((res) => {
-      setRawHash(res.rawSha256);
-      setNormHash(res.normalizedSha256);
+      if (!isCancelled) {
+        setRawHash(res.rawSha256);
+        setNormHash(res.normalizedSha256);
+      }
     });
+    return () => {
+      isCancelled = true;
+    };
   }, [digestInput]);
 
   // Update HMAC demo
-  const refreshSessionKey = async () => {
+  const refreshSessionKey = useCallback(async () => {
     const session = await generateComparisonSessionKey();
+    const [unkeyed, keyed] = await Promise.all([
+      computeUnkeyedDigest(samplePhrase),
+      computeHmac(session.key, samplePhrase),
+    ]);
     setSessionKeyFp(session.keyFingerprint);
-
-    const unkeyed = await computeUnkeyedDigest(samplePhrase);
-    const keyed = await computeHmac(session.key, samplePhrase);
     setUnkeyedHash(unkeyed);
     setHmacHash(keyed);
-  };
+  }, [samplePhrase]);
 
   useEffect(() => {
-    refreshSessionKey();
+    let isCancelled = false;
+    (async () => {
+      const session = await generateComparisonSessionKey();
+      const [unkeyed, keyed] = await Promise.all([
+        computeUnkeyedDigest(samplePhrase),
+        computeHmac(session.key, samplePhrase),
+      ]);
+      if (!isCancelled) {
+        setSessionKeyFp(session.keyFingerprint);
+        setUnkeyedHash(unkeyed);
+        setHmacHash(keyed);
+      }
+    })();
+    return () => {
+      isCancelled = true;
+    };
   }, [samplePhrase]);
 
   // Monitor network auditor
@@ -145,6 +172,23 @@ export const PrivacyLab: React.FC = () => {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+      {/* Wayfinding Breadcrumbs */}
+      {setActiveTab && (
+        <nav aria-label="Breadcrumb" className="mb-4 flex items-center gap-1.5 text-xs text-[var(--text-muted)]">
+          <button
+            type="button"
+            onClick={() => setActiveTab('humanizer')}
+            className="hover:text-[var(--accent)] transition-colors focus:outline-hidden"
+          >
+            Home
+          </button>
+          <span>/</span>
+          <span className="text-[var(--text-secondary)]">Security &amp; Privacy</span>
+          <span>/</span>
+          <span className="font-medium text-[var(--text-primary)]" aria-current="page">Privacy Lab</span>
+        </nav>
+      )}
+
       {/* Page Title */}
       <div className="mb-8">
         <div className="flex items-center space-x-2">

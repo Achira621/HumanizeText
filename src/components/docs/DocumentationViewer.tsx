@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BookOpen, Shield, Cpu, Lock, FileText, Cloud } from 'lucide-react';
+import type { ActiveTab } from '../common/Header';
 
 type DocSection =
   | 'architecture'
@@ -9,7 +10,11 @@ type DocSection =
   | 'crypto-future'
   | 'deployment';
 
-export const DocumentationViewer: React.FC = () => {
+interface DocumentationViewerProps {
+  setActiveTab?: (tab: ActiveTab) => void;
+}
+
+export const DocumentationViewer: React.FC<DocumentationViewerProps> = ({ setActiveTab }) => {
   const [activeSection, setActiveSection] = useState<DocSection>('architecture');
 
   const sections: { id: DocSection; title: string; icon: any }[] = [
@@ -23,6 +28,23 @@ export const DocumentationViewer: React.FC = () => {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+      {/* Wayfinding Breadcrumbs */}
+      {setActiveTab && (
+        <nav aria-label="Breadcrumb" className="mb-4 flex items-center gap-1.5 text-xs text-[var(--text-muted)]">
+          <button
+            type="button"
+            onClick={() => setActiveTab('humanizer')}
+            className="hover:text-[var(--accent)] transition-colors focus:outline-hidden"
+          >
+            Home
+          </button>
+          <span>/</span>
+          <span className="text-[var(--text-secondary)]">Security &amp; Privacy</span>
+          <span>/</span>
+          <span className="font-medium text-[var(--text-primary)]" aria-current="page">Documentation</span>
+        </nav>
+      )}
+
       <div className="mb-6">
         <h1 className="text-2xl font-bold tracking-tight text-[var(--text-primary)]">
           Security, Architecture &amp; Research Documentation
@@ -34,13 +56,17 @@ export const DocumentationViewer: React.FC = () => {
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-4">
         {/* Navigation Sidebar */}
-        <div className="space-y-1">
+        <div role="tablist" aria-label="Documentation Sections" className="space-y-1">
           {sections.map((sec) => {
             const Icon = sec.icon;
             const isSelected = activeSection === sec.id;
             return (
               <button
                 key={sec.id}
+                role="tab"
+                id={`tab-${sec.id}`}
+                aria-selected={isSelected}
+                aria-controls={`panel-${sec.id}`}
                 onClick={() => setActiveSection(sec.id)}
                 className={`flex w-full items-center space-x-2 rounded-lg px-3 py-2.5 text-left text-xs font-medium transition-colors ${
                   isSelected

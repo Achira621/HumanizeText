@@ -164,18 +164,62 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
     return Math.min(97, Math.max(s, 91));
   }, [improvedText, resultData, inputScore]);
 
-  const getScoreLabel = (score: number) => {
-    if (score < 30) return { label: 'AI-Detectable', color: '#ef4444' };
-    if (score < 55) return { label: 'Partially Humanized', color: '#f59e0b' };
-    if (score < 75) return { label: 'Human-Level', color: '#10b981' };
-    return { label: 'Highly Human', color: '#059669' };
+  const getScoreBadge = (score: number) => {
+    if (score < 30) {
+      return {
+        label: 'AI-Detectable',
+        badgeClass: 'bg-red-500/15 text-red-700 dark:text-red-300 border border-red-500/30',
+        barColor: '#EF4444',
+      };
+    }
+    if (score < 55) {
+      return {
+        label: 'Partially Humanized',
+        badgeClass: 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30',
+        barColor: '#F59E0B',
+      };
+    }
+    if (score < 75) {
+      return {
+        label: 'Human-Level',
+        badgeClass: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30',
+        barColor: '#10B981',
+      };
+    }
+    return {
+      label: 'Highly Human',
+      badgeClass: 'bg-emerald-600/20 text-emerald-800 dark:text-emerald-200 border border-emerald-600/30',
+      barColor: '#059669',
+    };
   };
 
-  const getPlagiarismColor = (overlap: number) => {
-    if (overlap <= 5) return { label: 'Clean & Original', bg: '#dcfce7', text: '#15803d', bar: '#10b981' };
-    if (overlap <= 18) return { label: 'Low / Common Phrasing', bg: '#ecfdf5', text: '#047857', bar: '#059669' };
-    if (overlap <= 35) return { label: 'Moderate Overlap', bg: '#fef3c7', text: '#b45309', bar: '#f59e0b' };
-    return { label: 'High Plagiarism', bg: '#fee2e2', text: '#b91c1c', bar: '#ef4444' };
+  const getPlagiarismBadge = (overlap: number) => {
+    if (overlap <= 5) {
+      return {
+        label: 'Clean & Original',
+        badgeClass: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30',
+        barColor: '#10B981',
+      };
+    }
+    if (overlap <= 18) {
+      return {
+        label: 'Low / Common Phrasing',
+        badgeClass: 'bg-teal-500/15 text-teal-700 dark:text-teal-300 border border-teal-500/30',
+        barColor: '#14B8A6',
+      };
+    }
+    if (overlap <= 35) {
+      return {
+        label: 'Moderate Overlap',
+        badgeClass: 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30',
+        barColor: '#F59E0B',
+      };
+    }
+    return {
+      label: 'High Plagiarism',
+      badgeClass: 'bg-red-500/15 text-red-700 dark:text-red-300 border border-red-500/30',
+      barColor: '#EF4444',
+    };
   };
 
   // Text statistics
@@ -597,6 +641,7 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
 
             <textarea
               id="humanizer-input-text"
+              aria-label="Enter or paste text to humanize"
               value={currentText}
               onChange={(e) => {
                 setCurrentText(e.target.value);
@@ -808,25 +853,19 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
                       Plagiarism Score
                     </span>
                   </div>
-                  {plagiarismReport ? (
-                    <span
-                      className="rounded-full px-2.5 py-0.5 text-[11px] font-bold"
-                      style={{
-                        backgroundColor: getPlagiarismColor(
-                          outputPlagiarismReport?.estimatedOverlapPercentage ??
-                            plagiarismReport.estimatedOverlapPercentage
-                        ).bg,
-                        color: getPlagiarismColor(
-                          outputPlagiarismReport?.estimatedOverlapPercentage ??
-                            plagiarismReport.estimatedOverlapPercentage
-                        ).text,
-                      }}
-                    >
-                      {outputPlagiarismReport
-                        ? `${outputPlagiarismReport.estimatedOverlapPercentage.toFixed(1)}% (After Humanizing)`
-                        : `${plagiarismReport.estimatedOverlapPercentage.toFixed(1)}% Overlap`}
-                    </span>
-                  ) : (
+                  {plagiarismReport ? (() => {
+                    const plagBadge = getPlagiarismBadge(
+                      outputPlagiarismReport?.estimatedOverlapPercentage ??
+                        plagiarismReport.estimatedOverlapPercentage
+                    );
+                    return (
+                      <span className={`rounded-full px-2.5 py-0.5 text-[11px] font-bold ${plagBadge.badgeClass}`}>
+                        {outputPlagiarismReport
+                          ? `${outputPlagiarismReport.estimatedOverlapPercentage.toFixed(1)}% (After Humanizing)`
+                          : `${plagiarismReport.estimatedOverlapPercentage.toFixed(1)}% Overlap`}
+                      </span>
+                    );
+                  })() : (
                     <span className="rounded-full bg-slate-200 px-2 py-0.5 text-[10px] font-bold text-slate-600 dark:bg-slate-700 dark:text-slate-300">
                       Pending Scan
                     </span>
@@ -884,10 +923,10 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
                               outputPlagiarismReport?.estimatedOverlapPercentage ??
                                 plagiarismReport.estimatedOverlapPercentage
                             )}%`,
-                            backgroundColor: getPlagiarismColor(
+                            backgroundColor: getPlagiarismBadge(
                               outputPlagiarismReport?.estimatedOverlapPercentage ??
                                 plagiarismReport.estimatedOverlapPercentage
-                            ).bar,
+                            ).barColor,
                           }}
                         />
                       </div>
@@ -908,17 +947,14 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
                       AI Detectability Score
                     </span>
                   </div>
-                  {(outputScore !== null || inputScore !== null) && (
-                    <span
-                      className="rounded-full px-2.5 py-0.5 text-[11px] font-bold"
-                      style={{
-                        backgroundColor: getScoreLabel(outputScore ?? inputScore!).color + '20',
-                        color: getScoreLabel(outputScore ?? inputScore!).color,
-                      }}
-                    >
-                      {outputScore !== null ? `${outputScore}% Human` : `${inputScore}% Human`}
-                    </span>
-                  )}
+                  {(outputScore !== null || inputScore !== null) && (() => {
+                    const aiBadge = getScoreBadge(outputScore ?? inputScore!);
+                    return (
+                      <span className={`rounded-full px-2.5 py-0.5 text-[11px] font-bold ${aiBadge.badgeClass}`}>
+                        {outputScore !== null ? `${outputScore}% Human` : `${inputScore}% Human`}
+                      </span>
+                    );
+                  })()}
                 </div>
 
                 {inputScore !== null || outputScore !== null ? (
@@ -927,11 +963,11 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
                       <span>
                         {outputScore !== null ? (
                           <span>
-                            Before: <strong>{inputScore}%</strong> ({getScoreLabel(inputScore!).label}) ➔ After: <strong className="text-emerald-700 dark:text-emerald-300">{outputScore}% ({getScoreLabel(outputScore).label})</strong>
+                            Before: <strong>{inputScore}%</strong> ({getScoreBadge(inputScore!).label}) ➔ After: <strong className="text-emerald-700 dark:text-emerald-300">{outputScore}% ({getScoreBadge(outputScore).label})</strong>
                           </span>
                         ) : (
                           <span>
-                            Input: <strong>{inputScore}%</strong> — {getScoreLabel(inputScore!).label}
+                            Input: <strong>{inputScore}%</strong> — {getScoreBadge(inputScore!).label}
                           </span>
                         )}
                       </span>
@@ -943,7 +979,7 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
                         className="h-full rounded-full transition-all duration-700"
                         style={{
                           width: `${outputScore ?? inputScore!}%`,
-                          backgroundColor: getScoreLabel(outputScore ?? inputScore!).color,
+                          backgroundColor: getScoreBadge(outputScore ?? inputScore!).barColor,
                         }}
                       />
                     </div>
@@ -1314,18 +1350,25 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
                   className="rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-subtle)] transition-colors"
                 >
                   <button
+                    type="button"
                     onClick={() => setOpenFaq(isOpen ? null : index)}
-                    className="flex w-full items-center justify-between p-4 text-left text-sm font-semibold text-[var(--text-primary)]"
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-answer-${index}`}
+                    className="flex w-full items-center justify-between p-4 text-left text-sm font-semibold text-[var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] rounded-lg"
                   >
                     <span>{faq.q}</span>
                     {isOpen ? (
-                      <ChevronUp className="h-4 w-4 shrink-0 text-[var(--accent)]" />
+                      <ChevronUp className="h-4 w-4 shrink-0 text-[var(--accent)]" aria-hidden="true" />
                     ) : (
-                      <ChevronDown className="h-4 w-4 shrink-0 text-[var(--text-muted)]" />
+                      <ChevronDown className="h-4 w-4 shrink-0 text-[var(--text-muted)]" aria-hidden="true" />
                     )}
                   </button>
                   {isOpen && (
-                    <div className="border-t border-[var(--border-subtle)] px-4 pb-4 pt-2 text-xs leading-relaxed text-[var(--text-secondary)]">
+                    <div
+                      id={`faq-answer-${index}`}
+                      role="region"
+                      className="border-t border-[var(--border-subtle)] px-4 pb-4 pt-2 text-xs leading-relaxed text-[var(--text-secondary)]"
+                    >
                       {faq.a}
                     </div>
                   )}

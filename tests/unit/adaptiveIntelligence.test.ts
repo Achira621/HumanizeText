@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { defaultAdaptiveCoordinator, AdaptiveIntelligenceCoordinator } from '../../src/lib/intelligence/coordinator';
+import { AdaptiveIntelligenceCoordinator } from '../../src/lib/intelligence/coordinator';
 import { defaultModelRegistry, ModelRegistry } from '../../src/lib/intelligence/modelRegistry';
-import { defaultFeatureFlags, FeatureFlagsManager } from '../../src/lib/intelligence/featureFlags';
-import { defaultFeedbackPipeline, FeedbackPipeline } from '../../src/lib/intelligence/feedbackPipeline';
+import { FeatureFlagsManager } from '../../src/lib/intelligence/featureFlags';
+import { FeedbackPipeline } from '../../src/lib/intelligence/feedbackPipeline';
 import { HybridInferenceRouter } from '../../src/lib/detector/router';
 import { TEXT_DETECTOR_MANIFEST } from '../../src/lib/detector/manifest';
 
