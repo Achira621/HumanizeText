@@ -169,7 +169,7 @@ export const VaultWorkspace: React.FC<VaultWorkspaceProps> = ({
           <span>/</span>
           <span className="text-[var(--text-secondary)]">Security &amp; Privacy</span>
           <span>/</span>
-          <span className="font-medium text-[var(--text-primary)]" aria-current="page">Encrypted Vault</span>
+          <span className="font-medium text-[var(--text-primary)]" aria-current="page">Security Vault &amp; Writing Assistant</span>
         </nav>
       )}
 
@@ -179,11 +179,11 @@ export const VaultWorkspace: React.FC<VaultWorkspaceProps> = ({
           <div className="flex items-center space-x-2">
             <Lock className="h-6 w-6 text-[var(--accent)]" />
             <h1 className="text-2xl font-bold tracking-tight text-[var(--text-primary)]">
-              Encrypted Local Vault
+              Security Vault &amp; Writing Assistant
             </h1>
           </div>
           <p className="mt-1 text-xs text-[var(--text-muted)]">
-            Store documents securely in browser IndexedDB. Zero plaintext storage. Authenticated with AES-256-GCM and PBKDF2 (600,000 iterations).
+            Store documents securely in browser IndexedDB with on-device writing feedback. Zero plaintext storage. Authenticated with AES-256-GCM and PBKDF2 (600,000 iterations).
           </p>
         </div>
 

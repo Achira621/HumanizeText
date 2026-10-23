@@ -333,9 +333,9 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
     },
   },
   vault: {
-    title: 'Encrypted Local Vault — Zero-Knowledge AES-256-GCM Storage | HumanizeText',
+    title: 'Security Vault & Writing Assistant — Zero-Knowledge AES-256-GCM Storage | HumanizeText',
     description:
-      'Store confidential manuscripts securely in browser IndexedDB with AES-256-GCM encryption and 600,000 PBKDF2 iterations. Zero cloud storage, zero password transmission.',
+      'Store confidential manuscripts securely in browser IndexedDB with AES-256-GCM encryption and on-device writing analysis. Zero cloud storage, zero password transmission.',
     canonicalPath: '/vault',
     ogType: 'website',
     schema: {
@@ -343,7 +343,7 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
       '@graph': [
         {
           '@type': 'SoftwareApplication',
-          name: 'HumanizeText Encrypted Local Vault',
+          name: 'HumanizeText Security Vault & Writing Assistant',
           applicationCategory: 'SecurityApplication',
           operatingSystem: 'Any (Web Browser)',
           offers: {
@@ -352,7 +352,7 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
             priceCurrency: 'USD',
           },
           description:
-            'Zero-knowledge client-side encrypted document store utilizing AES-256-GCM and PBKDF2 key derivation within browser IndexedDB.',
+            'Zero-knowledge client-side encrypted document store and writing assistant utilizing AES-256-GCM and PBKDF2 key derivation within browser IndexedDB.',
         },
         {
           '@type': 'BreadcrumbList',
@@ -366,7 +366,7 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
             {
               '@type': 'ListItem',
               position: 2,
-              name: 'Vault',
+              name: 'Security Vault & Writing Assistant',
               item: `${SITE_DOMAIN}/vault`,
             },
           ],

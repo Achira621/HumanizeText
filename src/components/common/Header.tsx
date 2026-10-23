@@ -65,12 +65,19 @@ export const Header: React.FC<HeaderProps> = ({
   const primaryNavItems: Array<{
     id: ActiveTab;
     label: string;
+    shortLabel?: string;
     href: string;
     icon: React.ComponentType<{ className?: string }>;
   }> = [
     { id: 'humanizer', label: 'AI Humanizer', href: '/', icon: Sparkles },
     { id: 'ai-detector', label: 'AI Detector', href: '/ai-detector', icon: Cpu },
-    { id: 'plagiarism-checker', label: 'Plagiarism Checker', href: '/plagiarism-checker', icon: FileSearch },
+    {
+      id: 'vault',
+      label: 'Security Vault & Writing Assistant',
+      shortLabel: 'Security Vault',
+      href: '/vault',
+      icon: Lock,
+    },
   ];
 
   // Secondary "Writing & Tools" dropdown items
@@ -101,11 +108,11 @@ export const Header: React.FC<HeaderProps> = ({
   // Secondary "Security & Privacy" dropdown items
   const securityItems: DropdownItem[] = [
     {
-      id: 'vault',
-      label: 'Encrypted Vault',
-      href: '/vault',
-      description: 'Zero-knowledge AES-256-GCM local manuscript storage in IndexedDB',
-      icon: Lock,
+      id: 'plagiarism-checker',
+      label: 'Plagiarism Checker',
+      href: '/plagiarism-checker',
+      description: 'Zero-upload document comparison via cryptographic Winnowing',
+      icon: FileSearch,
     },
     {
       id: 'privacy-lab',
@@ -166,7 +173,14 @@ export const Header: React.FC<HeaderProps> = ({
                   }`}
                 >
                   <Icon className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-                  <span>{item.label}</span>
+                  {item.shortLabel ? (
+                    <>
+                      <span className="hidden xl:inline">{item.label}</span>
+                      <span className="xl:hidden">{item.shortLabel}</span>
+                    </>
+                  ) : (
+                    <span>{item.label}</span>
+                  )}
                 </a>
               );
             })}

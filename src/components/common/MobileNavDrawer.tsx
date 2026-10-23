@@ -94,9 +94,9 @@ const SECTIONS: NavSection[] = [
     items: [
       {
         id: 'vault',
-        label: 'Encrypted Vault',
+        label: 'Security Vault & Writing Assistant',
         href: '/vault',
-        description: 'AES-256-GCM zero-knowledge document store & studio',
+        description: 'Zero-knowledge AES-256-GCM storage with on-device writing assistant',
         icon: Lock,
       },
       {

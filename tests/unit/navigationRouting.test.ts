@@ -174,7 +174,7 @@ describe('Navigation & Information Architecture Routing Tests', () => {
     expect((globalThis as any).document.title).toContain('AI Detector');
 
     updatePageMeta('vault');
-    expect((globalThis as any).document.title).toContain('Encrypted Local Vault');
+    expect((globalThis as any).document.title).toContain('Security Vault & Writing Assistant');
 
     updatePageMeta('humanizer');
     expect((globalThis as any).document.title).toContain('HumanizeText');

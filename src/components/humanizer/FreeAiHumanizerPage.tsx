@@ -1381,16 +1381,16 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
         {/* Quick Nav Cards */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <button
-            onClick={() => setActiveTab('plagiarism-checker')}
+            onClick={() => setActiveTab('vault')}
             className="flex items-center justify-between rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-5 text-left transition-all hover:border-[var(--accent)] hover:shadow-xs"
           >
             <div>
               <div className="flex items-center space-x-2 font-bold text-[var(--text-primary)]">
-                <FileSearch className="h-4 w-4 text-[var(--accent)]" />
-                <span>Free Plagiarism Checker</span>
+                <Lock className="h-4 w-4 text-[var(--accent)]" />
+                <span>Security Vault &amp; Writing Assistant</span>
               </div>
               <p className="mt-1 text-xs text-[var(--text-secondary)]">
-                Compare documents privately using cryptographic Winnowing with zero server uploads.
+                Store manuscripts in browser IndexedDB with real-time on-device writing feedback.
               </p>
             </div>
             <ArrowRight className="h-5 w-5 shrink-0 text-[var(--accent)]" />

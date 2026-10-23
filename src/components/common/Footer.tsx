@@ -129,7 +129,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
                   }}
                   className="hover:text-[var(--accent)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
                 >
-                  AES-256-GCM Local Vault
+                  Security Vault &amp; Writing Assistant
                 </a>
               </li>
               <li>
