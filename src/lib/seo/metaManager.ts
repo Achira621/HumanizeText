@@ -12,28 +12,45 @@ export const SITE_DOMAIN = 'https://humanizetext-nine.vercel.app';
 
 export const PAGE_METADATA: Record<string, PageMeta> = {
   humanizer: {
-    title: 'HumanizeText | Free AI Text Detector & Text Humanizer',
+    title: 'AI Humanizer — Free AI Text Humanizer & Bypass AI Detectors | HumanizeText',
     description:
-      'Check text for AI-like writing patterns and make your writing sound more natural with HumanizeText. Explore privacy-focused text tools online.',
+      'Free AI Humanizer & AI Text Converter. Convert ChatGPT, Claude, and Gemini text into 100% human-sounding writing to bypass Turnitin, GPTZero, ZeroGPT, and Copyleaks. 100% free, undetectable, and private.',
     canonicalPath: '/',
     ogType: 'website',
     schema: {
       '@context': 'https://schema.org',
       '@graph': [
         {
+          '@type': 'Organization',
+          '@id': `${SITE_DOMAIN}/#organization`,
+          name: 'HumanizeText',
+          url: `${SITE_DOMAIN}/`,
+          logo: {
+            '@type': 'ImageObject',
+            url: `${SITE_DOMAIN}/logo.png`,
+            width: 512,
+            height: 512,
+          },
+          image: `${SITE_DOMAIN}/logo.png`,
+          sameAs: ['https://github.com/Achira621/HumanizeText'],
+        },
+        {
           '@type': 'WebSite',
           '@id': `${SITE_DOMAIN}/#website`,
           url: `${SITE_DOMAIN}/`,
-          name: 'HumanizeText',
+          name: 'HumanizeText — Free AI Humanizer & Bypass AI Detectors',
           description:
-            'Privacy-first platform for making writing sound natural, checking AI-generated patterns, and comparing document similarity.',
+            'The leading free AI text humanizer and undetectable writing platform. Convert AI text to 100% human score and bypass GPTZero, Turnitin, and Copyleaks.',
           inLanguage: 'en-US',
+          publisher: { '@id': `${SITE_DOMAIN}/#organization` },
+          sameAs: ['https://github.com/Achira621/HumanizeText'],
         },
         {
           '@type': 'SoftwareApplication',
           '@id': `${SITE_DOMAIN}/#software`,
           name: 'HumanizeText Free AI Humanizer & Detector',
           applicationCategory: 'ProductivityApplication',
+          applicationSubCategory: 'AI Writing Assistant & Text Humanizer',
           operatingSystem: 'Any (Web Browser)',
           offers: {
             '@type': 'Offer',
@@ -41,12 +58,66 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
             priceCurrency: 'USD',
           },
           description:
-            'Free privacy-first AI text humanizer, AI detector, and similarity scanner with local in-browser heuristics and ephemeral zero-log Cloudflare edge inference.',
+            'Free privacy-first AI text humanizer, AI detector, and similarity scanner. Makes AI text undetectable on Turnitin, GPTZero, ZeroGPT, and Copyleaks using local heuristics or ephemeral zero-retention cloud AI.',
+          sameAs: ['https://github.com/Achira621/HumanizeText'],
+          keywords:
+            'ai humanizer, humanizer, humanize ai, free ai humanizer, ai text humanizer, bypass ai detector, undetectable ai, bypass turnitin, gptzero bypass, convert ai to human text',
+        },
+        {
+          '@type': 'HowTo',
+          '@id': `${SITE_DOMAIN}/#howto`,
+          name: 'How to Humanize AI Text & Bypass AI Detectors for Free',
+          description:
+            'Step-by-step tutorial on converting ChatGPT, Claude, or Gemini writing into 100% human-like text that bypasses all major AI content detectors.',
+          step: [
+            {
+              '@type': 'HowToStep',
+              position: 1,
+              name: 'Paste your AI text',
+              text: 'Paste your generated draft from ChatGPT, Gemini, or Claude into the HumanizeText editor.',
+            },
+            {
+              '@type': 'HowToStep',
+              position: 2,
+              name: 'Choose humanizer mode and synonym intensity',
+              text: 'Select your target style (Natural, Academic, Creative, or Executive) and set your synonym intensity level.',
+            },
+            {
+              '@type': 'HowToStep',
+              position: 3,
+              name: 'Humanize text and bypass AI detectors',
+              text: 'Click "Humanize Text" to transform robotic AI patterns into authentic human phrasing that scores 100% human on Turnitin, GPTZero, and Copyleaks.',
+            },
+          ],
         },
         {
           '@type': 'FAQPage',
           '@id': `${SITE_DOMAIN}/#faq`,
           mainEntity: [
+            {
+              '@type': 'Question',
+              name: 'What is an AI Humanizer and how does it bypass AI detectors?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'An AI humanizer is a specialized writing tool that restructures synthetic AI text to match the natural rhythm, sentence length variance (burstiness), and vocabulary diversity (perplexity) of human authors. By eliminating robotic clichés and predictable token distributions, it allows text to score 100% human and pass detectors like Turnitin, GPTZero, ZeroGPT, and Copyleaks.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'How do I bypass AI detectors like Turnitin and GPTZero for free?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Paste your text into HumanizeText, select Natural or Academic mode, and click Humanize. The engine varies sentence lengths, removes repetitive transition words like "delve into" and "testament to", and adjusts phrasing so AI detectors classify the writing as authentic human prose.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Is HumanizeText completely free with no word limits or sign-up?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Yes! HumanizeText is 100% free with no credit card, no email registration, and no mandatory subscription. You can humanize unlimited essays, articles, and drafts.',
+              },
+            },
             {
               '@type': 'Question',
               name: 'Does HumanizeText store or upload my text to remote servers?',
@@ -57,18 +128,10 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
             },
             {
               '@type': 'Question',
-              name: 'How does the AI text humanizer make writing sound natural?',
+              name: 'Does Google penalize humanized AI text in search rankings?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'The engine analyzes sentence length variance (burstiness), vocabulary entropy (perplexity), repetitive transitions, and robotic AI clichés. It restructures sentences with natural human cadence, active voice, and diverse vocabulary.',
-              },
-            },
-            {
-              '@type': 'Question',
-              name: 'Is HumanizeText free to use?',
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: 'Yes. All core writing tools—including the AI Humanizer, Plagiarism Checker, AI Detector, and Paraphraser—are 100% free with no account creation or subscription required.',
+                text: 'Google Search guidelines state that Google rewards helpful, high-quality content regardless of how it is produced. Humanizing AI text improves readability, vocabulary variance, and engagement, which helps content satisfy Google E-E-A-T quality standards.',
               },
             },
           ],
@@ -422,7 +485,7 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
 export function updatePageMeta(tab: string): void {
   const meta = PAGE_METADATA[tab] || PAGE_METADATA.humanizer;
   const canonicalUrl = `${SITE_DOMAIN}${meta.canonicalPath === '/' ? '/' : meta.canonicalPath}`;
-  const socialImage = `${SITE_DOMAIN}/favicon.svg`;
+  const socialImage = `${SITE_DOMAIN}/logo.png`;
 
   // Update Title
   document.title = meta.title;

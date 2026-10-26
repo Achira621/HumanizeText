@@ -462,6 +462,22 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
 
   const faqs = [
     {
+      q: 'What is an AI Humanizer and how does it bypass AI detectors?',
+      a: 'An AI humanizer is an intelligent writing tool that restructures synthetic AI text to mirror natural human syntax, sentence length variance (burstiness), and vocabulary depth (perplexity). By eliminating predictable token distributions and robotic clichés like "delve into" and "testament to", it ensures text scores 100% human and bypasses detectors like Turnitin, GPTZero, ZeroGPT, and Copyleaks.',
+    },
+    {
+      q: 'How do I bypass Turnitin, GPTZero, and Copyleaks for free?',
+      a: 'Simply paste your draft into the input editor, select Natural or Academic mode, and click Humanize. HumanizeText rewrites repetitive transitional formulas and varies cadence while protecting your factual meaning and citations, producing undetectable human-quality prose.',
+    },
+    {
+      q: 'Is HumanizeText completely free with no word limits or sign-up?',
+      a: 'Yes! HumanizeText is 100% free with no account creation, no subscriptions, and no paywalls. You can humanize unlimited essays, articles, and documents without word restrictions.',
+    },
+    {
+      q: 'How does HumanizeText compare to Undetectable AI, QuillBot, and StealthWriter?',
+      a: 'Unlike commercial tools that require monthly subscriptions and harvest your writing on remote servers, HumanizeText is 100% free and privacy-first. It offers an on-device local engine (zero data transmitted) and an ephemeral, zero-log Cloudflare Workers AI edge model that never trains on or stores your manuscripts.',
+    },
+    {
       q: 'Why does HumanizeText check for plagiarism before humanizing?',
       a: 'AI generators frequently repeat verbatim sequences from their training data. By running an instant cryptographic Winnowing scan first, you see exactly what passages match known sources. Humanizing then rewrites these exact passages with fresh syntactic structures, lowering plagiarism to 0% while raising human flow.',
     },
@@ -472,10 +488,6 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
     {
       q: 'How does the Free Cloud AI (Cloudflare Workers AI) protect my privacy?',
       a: 'When you use Free Cloud AI, your text is processed ephemerally on Cloudflare edge servers to perform neural restructuring. Our Worker code has zero logging enabled, never stores user text to disk or databases, and does not train on your inputs. If your workflow requires zero network transmission, toggle to the Local Offline Engine for 100% in-browser processing.',
-    },
-    {
-      q: 'Can I use an AI Cloud API like Gemini or Groq if I want to bring my own key?',
-      a: 'Yes! In addition to our Free Cloud AI and Local Offline Engine, you can toggle "Custom API Key" and provide your own Google Gemini or Groq API key. Your key is stored securely in your browser and connects directly to the provider.',
     },
     {
       q: 'Will humanizing my text alter my factual arguments or academic citations?',
@@ -518,10 +530,10 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
         </div>
 
         <h1 className="text-3xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-4xl md:text-5xl">
-          Check Plagiarism &amp; <span className="text-[#059669] dark:text-[#34D399]">Humanize AI Text</span>
+          AI Humanizer — <span className="text-[#059669] dark:text-[#34D399]">Humanize AI Text &amp; Bypass Detectors</span>
         </h1>
         <p className="mx-auto mt-2.5 max-w-2xl text-sm text-[var(--text-secondary)] sm:text-base">
-          Scan your writing for duplicate passages and robotic AI patterns, then humanize it instantly using either 100% offline local heuristics or zero-retention Cloudflare AI edge inference.
+          Convert ChatGPT, Claude, and Gemini text into 100% human-sounding writing. Bypass GPTZero, Turnitin, Copyleaks, and ZeroGPT with free in-browser privacy or zero-retention cloud AI.
         </p>
       </div>
 

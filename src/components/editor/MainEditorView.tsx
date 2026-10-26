@@ -77,11 +77,11 @@ export const MainEditorView: React.FC<MainEditorViewProps> = ({
       {/* Hero header */}
       <div className="mb-6 text-center">
         <h1 className="text-3xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-4xl">
-          Write naturally. Check privately.
+          Free AI Humanizer &amp; Writing Assistant
         </h1>
         <p className="mx-auto mt-2 max-w-2xl text-sm text-[var(--text-secondary)]">
-          Free, zero-server writing humanizer and cryptographic plagiarism checker.
-          Your private documents never leave your browser.
+          Humanize AI text, bypass AI detectors, and verify originality locally in your browser.
+          100% private, free, and zero-server document processing.
         </p>
       </div>
 
