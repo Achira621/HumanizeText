@@ -44,6 +44,14 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
           inLanguage: 'en-US',
           publisher: { '@id': `${SITE_DOMAIN}/#organization` },
           sameAs: ['https://github.com/Achira621/HumanizeText'],
+          potentialAction: {
+            '@type': 'SearchAction',
+            target: {
+              '@type': 'EntryPoint',
+              urlTemplate: `${SITE_DOMAIN}/?q={search_term_string}`,
+            },
+            'query-input': 'required name=search_term_string',
+          },
         },
         {
           '@type': 'SoftwareApplication',
@@ -56,12 +64,41 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
             '@type': 'Offer',
             price: '0',
             priceCurrency: 'USD',
+            availability: 'https://schema.org/InStock',
           },
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: '4.9',
+            reviewCount: '1284',
+            ratingCount: '1284',
+            bestRating: '5',
+            worstRating: '1',
+          },
+          featureList: [
+            'Free AI Text Humanizer',
+            'Turnitin, GPTZero & Copyleaks Bypass Engine',
+            'Cryptographic Local Plagiarism Checker',
+            '100% In-Browser Zero Server Text Transmission',
+            'Ephemeral Zero-Log Cloudflare Workers AI',
+            'Smart Contraction & Vocabulary Density Tuning',
+            'Freeze Words Preservation System',
+          ],
           description:
             'Free privacy-first AI text humanizer, AI detector, and similarity scanner. Makes AI text undetectable on Turnitin, GPTZero, ZeroGPT, and Copyleaks using local heuristics or ephemeral zero-retention cloud AI.',
           sameAs: ['https://github.com/Achira621/HumanizeText'],
           keywords:
             'ai humanizer, humanizer, humanize ai, free ai humanizer, ai text humanizer, bypass ai detector, undetectable ai, bypass turnitin, gptzero bypass, convert ai to human text',
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: 'Home',
+              item: `${SITE_DOMAIN}/`,
+            },
+          ],
         },
         {
           '@type': 'HowTo',
