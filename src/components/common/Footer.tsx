@@ -1,5 +1,4 @@
 import React from 'react';
-import { Terminal, Shield } from 'lucide-react';
 import type { ActiveTab } from './Header';
 import { HumanizeLogo } from './HumanizeLogo';
 
@@ -11,9 +10,9 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
   return (
     <footer className="mt-auto border-t border-[var(--border-subtle)] bg-[var(--bg-surface)] py-8 text-xs text-[var(--text-secondary)] transition-colors">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-5">
           {/* Col 1: Brand & Philosophy */}
-          <div>
+          <div className="md:col-span-1">
             <a
               href="/"
               onClick={(e) => {
@@ -26,11 +25,11 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
               <HumanizeLogo variant="horizontal" size="sm" showTagline={true} />
             </a>
             <p className="mt-2.5 text-[11px] leading-relaxed text-[var(--text-muted)]">
-              Privacy-first writing humanization, AI content detection, and cryptographic similarity scanning. Offers 100% on-device offline tools alongside ephemeral, zero-retention Cloudflare edge AI.
+              Privacy-first writing clarity, factual invariant preservation, AI pattern diagnostics, and cryptographic document similarity. Open source under Apache 2.0.
             </p>
           </div>
 
-          {/* Col 2: Writing Studio */}
+          {/* Col 2: Writing & Paraphrasing Tools */}
           <div>
             <span className="font-semibold text-[var(--text-primary)]">Writing Studio</span>
             <ul className="mt-2.5 space-y-2 text-[11px]">
@@ -43,7 +42,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
                   }}
                   className="hover:text-[var(--accent)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
                 >
-                  Free AI Humanizer
+                  AI Humanizer
                 </a>
               </li>
               <li>
@@ -55,7 +54,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
                   }}
                   className="hover:text-[var(--accent)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
                 >
-                  Free Paraphrasing Tool
+                  Paraphrasing Tool
                 </a>
               </li>
               <li>
@@ -67,7 +66,19 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
                   }}
                   className="hover:text-[var(--accent)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
                 >
-                  How to Humanize AI Writing
+                  Writing Quality Guide
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/vault"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTab('vault');
+                  }}
+                  className="hover:text-[var(--accent)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
+                >
+                  Security Vault &amp; Assistant
                 </a>
               </li>
             </ul>
@@ -86,7 +97,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
                   }}
                   className="hover:text-[var(--accent)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
                 >
-                  AI Text &amp; Image Detector
+                  AI Content Detector
                 </a>
               </li>
               <li>
@@ -98,7 +109,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
                   }}
                   className="hover:text-[var(--accent)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
                 >
-                  Cryptographic Plagiarism Checker
+                  Plagiarism Checker
                 </a>
               </li>
               <li>
@@ -110,26 +121,50 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
                   }}
                   className="hover:text-[var(--accent)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
                 >
-                  Metadata &amp; Signature Inspector
+                  Metadata Inspector
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/detector-limitations"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTab('detector-limitations');
+                  }}
+                  className="hover:text-[var(--accent)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
+                >
+                  Detector Limitations
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Col 4: Privacy & Security */}
+          {/* Col 4: Research & Methodology */}
           <div>
-            <span className="font-semibold text-[var(--text-primary)]">Privacy &amp; Cryptography</span>
+            <span className="font-semibold text-[var(--text-primary)]">Research &amp; Guides</span>
             <ul className="mt-2.5 space-y-2 text-[11px]">
               <li>
                 <a
-                  href="/vault"
+                  href="/resources"
                   onClick={(e) => {
                     e.preventDefault();
-                    setActiveTab('vault');
+                    setActiveTab('resources');
                   }}
                   className="hover:text-[var(--accent)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
                 >
-                  Security Vault &amp; Writing Assistant
+                  Writing &amp; Research Hub
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/methodology"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTab('methodology');
+                  }}
+                  className="hover:text-[var(--accent)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
+                >
+                  Testing Methodology
                 </a>
               </li>
               <li>
@@ -153,46 +188,100 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
                   }}
                   className="hover:text-[var(--accent)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
                 >
-                  Threat Model &amp; Cryptography
+                  Security Documentation
                 </a>
               </li>
             </ul>
+          </div>
 
-            <div className="mt-4 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-2.5 text-[11px] leading-relaxed">
-              <div className="flex items-center space-x-1.5 font-mono text-[10px] text-[var(--accent)] font-bold">
-                <Terminal className="h-3 w-3" aria-hidden="true" />
-                <span>HYBRID_PRIVACY_GUARANTEE</span>
-              </div>
-              <p className="mt-1 text-[var(--text-muted)] text-[10.5px]">
-                100% offline in-browser execution or ephemeral zero-log Cloudflare Workers AI edge models. Never stored or used for training.
-              </p>
-            </div>
+          {/* Col 5: Trust & Organization */}
+          <div>
+            <span className="font-semibold text-[var(--text-primary)]">Trust &amp; Organization</span>
+            <ul className="mt-2.5 space-y-2 text-[11px]">
+              <li>
+                <a
+                  href="/about"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTab('about');
+                  }}
+                  className="hover:text-[var(--accent)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
+                >
+                  About HumanizeText
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/contact"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTab('contact');
+                  }}
+                  className="hover:text-[var(--accent)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
+                >
+                  Contact &amp; Support
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/privacy-policy"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTab('privacy-policy');
+                  }}
+                  className="hover:text-[var(--accent)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
+                >
+                  Privacy Policy &amp; Cookies
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/terms"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTab('terms');
+                  }}
+                  className="hover:text-[var(--accent)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
+                >
+                  Terms of Service
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
         <div className="mt-8 flex flex-col items-center justify-between border-t border-[var(--border-subtle)] pt-4 text-[11px] text-[var(--text-muted)] sm:flex-row">
-          <div>© 2026 HumanizeText. Open source under Apache 2.0 license.</div>
+          <div>© 2026 HumanizeText. Maintained by Achira621 under Apache 2.0.</div>
           <div className="mt-2 flex items-center space-x-4 sm:mt-0">
             <a
-              href="/docs"
+              href="/privacy-policy"
               onClick={(e) => {
                 e.preventDefault();
-                setActiveTab('docs');
+                setActiveTab('privacy-policy');
               }}
               className="hover:text-[var(--text-primary)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
             >
-              Security Documentation
+              Privacy &amp; Cookie Disclosure
             </a>
             <a
-              href="/privacy-lab"
+              href="/terms"
               onClick={(e) => {
                 e.preventDefault();
-                setActiveTab('privacy-lab');
+                setActiveTab('terms');
               }}
-              className="flex items-center space-x-1 hover:text-[var(--text-primary)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
+              className="hover:text-[var(--text-primary)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
             >
-              <Shield className="h-3 w-3 text-[var(--accent)]" aria-hidden="true" />
-              <span>Verify Zero-Egress</span>
+              Terms of Service
+            </a>
+            <a
+              href="/contact"
+              onClick={(e) => {
+                e.preventDefault();
+                setActiveTab('contact');
+              }}
+              className="hover:text-[var(--text-primary)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] rounded"
+            >
+              Contact Maintainer
             </a>
           </div>
         </div>

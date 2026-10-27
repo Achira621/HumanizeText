@@ -12,9 +12,9 @@ export const SITE_DOMAIN = 'https://humanizetext-nine.vercel.app';
 
 export const PAGE_METADATA: Record<string, PageMeta> = {
   humanizer: {
-    title: 'AI Humanizer — Free AI Text Humanizer & Bypass AI Detectors | HumanizeText',
+    title: 'AI Humanizer & Writing Assistant — Improve Clarity, Flow & Invariants | HumanizeText',
     description:
-      'Free AI Humanizer & AI Text Converter. Convert ChatGPT, Claude, and Gemini text into 100% human-sounding writing to bypass Turnitin, GPTZero, ZeroGPT, and Copyleaks. 100% free, undetectable, and private.',
+      'Improve sentence rhythm, burstiness, and natural human flow while preserving facts, citations, and numbers. Choose between 100% private on-device processing or ephemeral Cloudflare Workers AI.',
     canonicalPath: '/',
     ogType: 'website',
     schema: {
@@ -38,9 +38,9 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
           '@type': 'WebSite',
           '@id': `${SITE_DOMAIN}/#website`,
           url: `${SITE_DOMAIN}/`,
-          name: 'HumanizeText — Free AI Humanizer & Bypass AI Detectors',
+          name: 'HumanizeText — Privacy-Focused Writing Quality Suite',
           description:
-            'The leading free AI text humanizer and undetectable writing platform. Convert AI text to 100% human score and bypass GPTZero, Turnitin, and Copyleaks.',
+            'A privacy-conscious writing suite offering AI text humanization, burstiness analysis, local document similarity comparison, and zero-egress cryptographic tools.',
           inLanguage: 'en-US',
           publisher: { '@id': `${SITE_DOMAIN}/#organization` },
           sameAs: ['https://github.com/Achira621/HumanizeText'],
@@ -56,9 +56,9 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
         {
           '@type': 'SoftwareApplication',
           '@id': `${SITE_DOMAIN}/#software`,
-          name: 'HumanizeText Free AI Humanizer & Detector',
+          name: 'HumanizeText Writing Suite & Humanizer',
           applicationCategory: 'ProductivityApplication',
-          applicationSubCategory: 'AI Writing Assistant & Text Humanizer',
+          applicationSubCategory: 'Writing Assistant & Privacy Utility',
           operatingSystem: 'Any (Web Browser)',
           offers: {
             '@type': 'Offer',
@@ -66,28 +66,19 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
             priceCurrency: 'USD',
             availability: 'https://schema.org/InStock',
           },
-          aggregateRating: {
-            '@type': 'AggregateRating',
-            ratingValue: '4.9',
-            reviewCount: '1284',
-            ratingCount: '1284',
-            bestRating: '5',
-            worstRating: '1',
-          },
           featureList: [
-            'Free AI Text Humanizer',
-            'Turnitin, GPTZero & Copyleaks Bypass Engine',
-            'Cryptographic Local Plagiarism Checker',
-            '100% In-Browser Zero Server Text Transmission',
-            'Ephemeral Zero-Log Cloudflare Workers AI',
-            'Smart Contraction & Vocabulary Density Tuning',
-            'Freeze Words Preservation System',
+            'On-Device Local AI Text Humanizer (zero network egress)',
+            'Ephemeral Cloudflare Workers AI with Bounded Concurrency',
+            'Factual Invariant Preservation (Citations, Numbers, Negations)',
+            'Perplexity & Burstiness Diagnostic Metrics',
+            'Schleimer et al. Winnowing Document Similarity Checker',
+            'IndexedDB AES-256-GCM Encrypted Security Vault',
           ],
           description:
-            'Free privacy-first AI text humanizer, AI detector, and similarity scanner. Makes AI text undetectable on Turnitin, GPTZero, ZeroGPT, and Copyleaks using local heuristics or ephemeral zero-retention cloud AI.',
+            'Free, open-source writing assistant providing on-device text humanization, stylistic refinement, probabilistic AI detection diagnostics, and cryptographic document similarity.',
           sameAs: ['https://github.com/Achira621/HumanizeText'],
           keywords:
-            'ai humanizer, humanizer, humanize ai, free ai humanizer, ai text humanizer, bypass ai detector, undetectable ai, bypass turnitin, gptzero bypass, convert ai to human text',
+            'ai humanizer, text humanizer, sentence burstiness, writing assistant, privacy-first writing tool, document similarity, factual invariant preservation',
         },
         {
           '@type': 'BreadcrumbList',
@@ -103,27 +94,27 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
         {
           '@type': 'HowTo',
           '@id': `${SITE_DOMAIN}/#howto`,
-          name: 'How to Humanize AI Text & Bypass AI Detectors for Free',
+          name: 'How to Improve AI-Assisted Writing Clarity & Flow for Free',
           description:
-            'Step-by-step tutorial on converting ChatGPT, Claude, or Gemini writing into 100% human-like text that bypasses all major AI content detectors.',
+            'Step-by-step tutorial on refining AI drafts into clear, authentic, and naturally flowing human prose with invariant preservation.',
           step: [
             {
               '@type': 'HowToStep',
               position: 1,
-              name: 'Paste your AI text',
-              text: 'Paste your generated draft from ChatGPT, Gemini, or Claude into the HumanizeText editor.',
+              name: 'Paste your draft text',
+              text: 'Paste your draft into the HumanizeText editor. In Local mode, text never leaves your browser.',
             },
             {
               '@type': 'HowToStep',
               position: 2,
-              name: 'Choose humanizer mode and synonym intensity',
-              text: 'Select your target style (Natural, Academic, Creative, or Executive) and set your synonym intensity level.',
+              name: 'Choose processing mode and style',
+              text: 'Select on-device local heuristics or cloud AI inference, then configure your target tone (Natural, Academic, Creative, or Executive).',
             },
             {
               '@type': 'HowToStep',
               position: 3,
-              name: 'Humanize text and bypass AI detectors',
-              text: 'Click "Humanize Text" to transform robotic AI patterns into authentic human phrasing that scores 100% human on Turnitin, GPTZero, and Copyleaks.',
+              name: 'Review sentence flow and factual integrity',
+              text: 'Inspect side-by-side diffs to verify that key facts, statistics, citations, and terminology remain completely intact while sentence rhythm is improved.',
             },
           ],
         },
@@ -133,42 +124,42 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
           mainEntity: [
             {
               '@type': 'Question',
-              name: 'What is an AI Humanizer and how does it bypass AI detectors?',
+              name: 'What does HumanizeText do and how does it improve writing?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'An AI humanizer is a specialized writing tool that restructures synthetic AI text to match the natural rhythm, sentence length variance (burstiness), and vocabulary diversity (perplexity) of human authors. By eliminating robotic clichés and predictable token distributions, it allows text to score 100% human and pass detectors like Turnitin, GPTZero, ZeroGPT, and Copyleaks.',
+                text: 'HumanizeText is an editorial and writing assistant designed to address mechanical, repetitive AI phrasing. It varies sentence length (burstiness), introduces natural stylistic transitions, and replaces generic AI cliches while enforcing strict preservation of factual invariants such as numbers, names, citations, and bracketed references.',
               },
             },
             {
               '@type': 'Question',
-              name: 'How do I bypass AI detectors like Turnitin and GPTZero for free?',
+              name: 'Does HumanizeText guarantee that text will bypass all AI detectors?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Paste your text into HumanizeText, select Natural or Academic mode, and click Humanize. The engine varies sentence lengths, removes repetitive transition words like "delve into" and "testament to", and adjusts phrasing so AI detectors classify the writing as authentic human prose.',
+                text: 'No tool can honestly guarantee a 100% bypass rate. AI detectors operate on statistical heuristics (perplexity and burstiness) that produce frequent false positives and false negatives. HumanizeText focuses on genuine stylistic improvement, clarity, and readability rather than deceptive evasion.',
               },
             },
             {
               '@type': 'Question',
-              name: 'Is HumanizeText completely free with no word limits or sign-up?',
+              name: 'Is HumanizeText free to use?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Yes! HumanizeText is 100% free with no credit card, no email registration, and no mandatory subscription. You can humanize unlimited essays, articles, and drafts.',
+                text: 'Yes. HumanizeText is completely free and open-source under the Apache 2.0 license. There are no paid tiers, no forced account signups, and no artificial paywalls.',
               },
             },
             {
               '@type': 'Question',
-              name: 'Does HumanizeText store or upload my text to remote servers?',
+              name: 'What happens to my text when I use HumanizeText?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'No. HumanizeText provides a 100% on-device local engine (zero bytes transmitted) alongside an ephemeral, zero-retention Cloudflare Workers AI edge model. Under neither mode is your text stored, logged to disk, or used for model training.',
+                text: 'In Local Engine mode, your text is processed entirely within your browser JavaScript runtime with zero network transmission. If you select Cloudflare Workers AI mode, text is sent over HTTPS to an ephemeral edge worker in RAM, processed without disk persistence or model training, and immediately returned.',
               },
             },
             {
               '@type': 'Question',
-              name: 'Does Google penalize humanized AI text in search rankings?',
+              name: 'How does the document similarity checker work?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Google Search guidelines state that Google rewards helpful, high-quality content regardless of how it is produced. Humanizing AI text improves readability, vocabulary variance, and engagement, which helps content satisfy Google E-E-A-T quality standards.',
+                text: 'HumanizeText uses client-side cryptographic Winnowing (Schleimer et al.) with ephemeral HMAC-SHA-256 fingerprints to compare two documents locally. Documents are never uploaded to an external database or shared with third parties.',
               },
             },
           ],
@@ -517,6 +508,67 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
       ],
     },
   },
+  resources: {
+    title: 'Writing & Research Resources Hub — Guides, Methodologies & Analysis | HumanizeText',
+    description:
+      'In-depth editorial guides on meaning preservation, probabilistic AI detector limitations, local vs cloud data boundaries, and cryptographic text similarity.',
+    canonicalPath: '/resources',
+    ogType: 'website',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'CollectionPage',
+          name: 'HumanizeText Research & Editorial Hub',
+          description:
+            'Original articles and technical guides exploring algorithmic text analysis, stylometry, privacy-preserving cryptography, and responsible writing workflows.',
+          url: `${SITE_DOMAIN}/resources`,
+        },
+      ],
+    },
+  },
+  about: {
+    title: 'About HumanizeText — Open-Source Mission, Maintainers & Architecture',
+    description:
+      'Learn about HumanizeText, an independent open-source writing utility built for genuine privacy, transparent stylometric analysis, and cryptographic document protection.',
+    canonicalPath: '/about',
+    ogType: 'website',
+  },
+  contact: {
+    title: 'Contact & Support — Maintainer Communications & Issue Tracker | HumanizeText',
+    description:
+      'Reach the maintainer of HumanizeText for inquiries, technical support, bug reports, and security vulnerability disclosures.',
+    canonicalPath: '/contact',
+    ogType: 'website',
+  },
+  'privacy-policy': {
+    title: 'Privacy Policy & Cookie Disclosures — Local vs Cloud Data Flow | HumanizeText',
+    description:
+      'Comprehensive privacy policy detailing on-device execution, ephemeral Cloudflare Workers AI processing, local IndexedDB encryption, and Google AdSense cookie disclosures.',
+    canonicalPath: '/privacy-policy',
+    ogType: 'website',
+  },
+  terms: {
+    title: 'Terms of Service & Acceptable Use — Apache 2.0 Open Source | HumanizeText',
+    description:
+      'Terms of service, academic integrity guidance, probabilistic disclaimers, and open-source licensing terms for HumanizeText.',
+    canonicalPath: '/terms',
+    ogType: 'website',
+  },
+  methodology: {
+    title: 'Editorial & Testing Methodology — Invariant Verification & Benchmarks | HumanizeText',
+    description:
+      'How HumanizeText verifies factual invariants, evaluates burstiness variance, implements Schleimer et al. Winnowing, and prevents text degradation.',
+    canonicalPath: '/methodology',
+    ogType: 'article',
+  },
+  'detector-limitations': {
+    title: 'AI Detector Limitations & Scientific Evaluation — Why Classifiers Fail | HumanizeText',
+    description:
+      'Technical critique of AI text detectors: perplexity biases, non-native English false positives, false negatives, and responsible interpretation of similarity metrics.',
+    canonicalPath: '/detector-limitations',
+    ogType: 'article',
+  },
 };
 
 export function updatePageMeta(tab: string): void {
@@ -594,7 +646,7 @@ export function updatePageMeta(tab: string): void {
 export function getTabFromLocation(): ActiveTab {
   if (typeof window === 'undefined') return 'humanizer';
 
-  // Check standard clean pathname first (e.g. /ai-detector, /plagiarism-checker)
+  // Check standard clean pathname first (e.g. /ai-detector, /plagiarism-checker, /resources, /about)
   const pathname = window.location.pathname.replace(/^\/+|\/+$/g, '').trim().toLowerCase();
   if (pathname === 'ai-detector' || pathname === 'detector') return 'ai-detector';
   if (pathname === 'metadata-inspector' || pathname === 'metadata') return 'metadata-inspector';
@@ -604,6 +656,13 @@ export function getTabFromLocation(): ActiveTab {
   if (pathname === 'privacy-lab') return 'privacy-lab';
   if (pathname === 'vault') return 'vault';
   if (pathname === 'docs' || pathname === 'threat-model') return 'docs';
+  if (pathname === 'resources' || pathname === 'editorial' || pathname === 'guides') return 'resources';
+  if (pathname === 'about') return 'about';
+  if (pathname === 'contact' || pathname === 'support') return 'contact';
+  if (pathname === 'privacy-policy' || pathname === 'privacy') return 'privacy-policy';
+  if (pathname === 'terms' || pathname === 'terms-of-service') return 'terms';
+  if (pathname === 'methodology') return 'methodology';
+  if (pathname === 'detector-limitations') return 'detector-limitations';
 
   // Fallback to checking hash for backwards compatibility (e.g. #/ai-detector)
   const rawHash = window.location.hash.replace(/^#\/?/, '').trim().toLowerCase();
@@ -615,6 +674,13 @@ export function getTabFromLocation(): ActiveTab {
   if (rawHash === 'privacy-lab') return 'privacy-lab';
   if (rawHash === 'vault') return 'vault';
   if (rawHash === 'docs' || rawHash === 'threat-model') return 'docs';
+  if (rawHash === 'resources' || rawHash === 'editorial' || rawHash === 'guides') return 'resources';
+  if (rawHash === 'about') return 'about';
+  if (rawHash === 'contact' || rawHash === 'support') return 'contact';
+  if (rawHash === 'privacy-policy' || rawHash === 'privacy') return 'privacy-policy';
+  if (rawHash === 'terms' || rawHash === 'terms-of-service') return 'terms';
+  if (rawHash === 'methodology') return 'methodology';
+  if (rawHash === 'detector-limitations') return 'detector-limitations';
 
   return 'humanizer';
 }
@@ -629,5 +695,12 @@ export function getPathFromTab(tab: ActiveTab): string {
   if (tab === 'privacy-lab') return '/privacy-lab';
   if (tab === 'vault') return '/vault';
   if (tab === 'docs') return '/docs';
+  if (tab === 'resources') return '/resources';
+  if (tab === 'about') return '/about';
+  if (tab === 'contact') return '/contact';
+  if (tab === 'privacy-policy') return '/privacy-policy';
+  if (tab === 'terms') return '/terms';
+  if (tab === 'methodology') return '/methodology';
+  if (tab === 'detector-limitations') return '/detector-limitations';
   return '/';
 }

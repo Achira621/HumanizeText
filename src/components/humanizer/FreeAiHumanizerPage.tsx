@@ -462,36 +462,36 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
 
   const faqs = [
     {
-      q: 'What is an AI Humanizer and how does it bypass AI detectors?',
-      a: 'An AI humanizer is an intelligent writing tool that restructures synthetic AI text to mirror natural human syntax, sentence length variance (burstiness), and vocabulary depth (perplexity). By eliminating predictable token distributions and robotic clichés like "delve into" and "testament to", it ensures text scores 100% human and bypasses detectors like Turnitin, GPTZero, ZeroGPT, and Copyleaks.',
+      q: 'What is an AI Humanizer and what does it do?',
+      a: 'An AI humanizer is an editorial tool designed to address mechanical, repetitive phrasing in AI drafts. It increases sentence length variation (burstiness), introduces natural stylistic rhythm, and replaces formulaic clichés like "delve into" or "testament to" while preserving facts, technical terminology, and citations.',
     },
     {
-      q: 'How do I bypass Turnitin, GPTZero, and Copyleaks for free?',
-      a: 'Simply paste your draft into the input editor, select Natural or Academic mode, and click Humanize. HumanizeText rewrites repetitive transitional formulas and varies cadence while protecting your factual meaning and citations, producing undetectable human-quality prose.',
+      q: 'Can any tool guarantee a 100% bypass rate on AI detectors?',
+      a: 'No tool can honestly guarantee a 100% bypass rate. AI detectors rely on probabilistic classifiers and statistical perplexity metrics that generate frequent false positives and false negatives. HumanizeText focuses on genuine clarity, rhythm, and readable prose rather than deceptive circumvention.',
     },
     {
       q: 'Is HumanizeText completely free with no word limits or sign-up?',
-      a: 'Yes! HumanizeText is 100% free with no account creation, no subscriptions, and no paywalls. You can humanize unlimited essays, articles, and documents without word restrictions.',
+      a: 'Yes. HumanizeText is completely free and open-source under the Apache 2.0 license. There are no subscriptions, paywalls, or mandatory accounts.',
     },
     {
-      q: 'How does HumanizeText compare to Undetectable AI, QuillBot, and StealthWriter?',
-      a: 'Unlike commercial tools that require monthly subscriptions and harvest your writing on remote servers, HumanizeText is 100% free and privacy-first. It offers an on-device local engine (zero data transmitted) and an ephemeral, zero-log Cloudflare Workers AI edge model that never trains on or stores your manuscripts.',
+      q: 'How does HumanizeText differ from conventional cloud writing tools?',
+      a: 'Unlike tools that require accounts and store user text on remote servers, HumanizeText defaults to an on-device local engine (zero data transmitted). For users desiring neural rewriting, it offers an ephemeral Cloudflare Workers AI edge model that runs in RAM without disk logging, storage, or training.',
     },
     {
-      q: 'Why does HumanizeText check for plagiarism before humanizing?',
-      a: 'AI generators frequently repeat verbatim sequences from their training data. By running an instant cryptographic Winnowing scan first, you see exactly what passages match known sources. Humanizing then rewrites these exact passages with fresh syntactic structures, lowering plagiarism to 0% while raising human flow.',
+      q: 'Why does HumanizeText include a document similarity scanner?',
+      a: 'Language models often generate repetitive phrases that mirror training texts. Running a client-side cryptographic Winnowing comparison against reference materials helps identify overlapping passages so you can rewrite them with authentic phrasing.',
     },
     {
-      q: 'How does the on-device Cryptographic Plagiarism Checker work?',
-      a: 'Unlike Turnitin or cloud plagiarism databases that store your document, our checker runs entirely inside your browser. It uses the Winnowing algorithm and ephemeral in-memory HMAC-SHA-256 session keys to compare word shingles against reference sources without ever uploading your text to any server.',
+      q: 'How does the on-device similarity comparison work?',
+      a: 'The similarity tool runs entirely inside your browser using the Winnowing algorithm and ephemeral in-memory HMAC-SHA-256 session keys. Your documents are never uploaded to a remote database or shared with third parties.',
     },
     {
-      q: 'How does the Free Cloud AI (Cloudflare Workers AI) protect my privacy?',
-      a: 'When you use Free Cloud AI, your text is processed ephemerally on Cloudflare edge servers to perform neural restructuring. Our Worker code has zero logging enabled, never stores user text to disk or databases, and does not train on your inputs. If your workflow requires zero network transmission, toggle to the Local Offline Engine for 100% in-browser processing.',
+      q: 'What happens to my text when using Cloudflare Workers AI?',
+      a: 'In Cloud AI mode, your text is sent over HTTPS to an ephemeral edge worker in RAM. The worker transforms the text using bounded concurrency and returns the result immediately. Our worker code does not persist text to disk, does not maintain a database, and does not train machine learning models.',
     },
     {
-      q: 'Will humanizing my text alter my factual arguments or academic citations?',
-      a: 'No. HumanizeText enforces a strict factual preservation constraint. It restructures syntactic transitions and removes synthetic boilerplate while safeguarding all proper nouns, numbers, arguments, and citation markers like [1] or (Author, 2024).',
+      q: 'Will humanizing alter my factual arguments or academic citations?',
+      a: 'No. HumanizeText enforces factual invariant preservation. The system protects numbers, dates, equations, proper nouns, and bracketed citation markers (e.g. [1], (Smith, 2024)) from modification.',
     },
   ];
 
@@ -526,14 +526,14 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
 
         <div className="mx-auto mb-3 inline-flex items-center space-x-2 rounded-full border border-[var(--accent-border)] bg-[var(--accent-light)] px-3.5 py-1 text-xs font-bold text-[var(--text-primary)] dark:text-[#34D399]">
           <ShieldCheck className="h-4 w-4 text-[#34D399]" />
-          <span>Hybrid Privacy Architecture • Zero Data Retention • Cryptographic Plagiarism Scan</span>
+          <span>Privacy Architecture • Zero Persistent Storage • Invariant Preservation</span>
         </div>
 
         <h1 className="text-3xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-4xl md:text-5xl">
-          AI Humanizer — <span className="text-[#059669] dark:text-[#34D399]">Humanize AI Text &amp; Bypass Detectors</span>
+          AI Humanizer — <span className="text-[#059669] dark:text-[#34D399]">Refine AI Text &amp; Sentence Rhythm</span>
         </h1>
         <p className="mx-auto mt-2.5 max-w-2xl text-sm text-[var(--text-secondary)] sm:text-base">
-          Convert ChatGPT, Claude, and Gemini text into 100% human-sounding writing. Bypass GPTZero, Turnitin, Copyleaks, and ZeroGPT with free in-browser privacy or zero-retention cloud AI.
+          Refine synthetic AI drafts into natural, human-flowing writing with enhanced burstiness, clarity, and factual invariant preservation. Process locally on your device or via ephemeral edge AI.
         </p>
       </div>
 

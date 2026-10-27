@@ -13,6 +13,13 @@ import { PrivacyLab } from './components/privacyLab/PrivacyLab';
 import { VaultWorkspace } from './components/vault/VaultWorkspace';
 import { DocumentationViewer } from './components/docs/DocumentationViewer';
 import { FlowingWavesBackground } from './components/common/FlowingWavesBackground';
+import { AboutPage } from './components/site/AboutPage';
+import { ContactPage } from './components/site/ContactPage';
+import { PrivacyPolicyPage } from './components/site/PrivacyPolicyPage';
+import { TermsOfServicePage } from './components/site/TermsOfServicePage';
+import { MethodologyPage } from './components/site/MethodologyPage';
+import { DetectorLimitationsPage } from './components/site/DetectorLimitationsPage';
+import { EditorialHub } from './components/resources/EditorialHub';
 import { updatePageMeta, getTabFromLocation, getPathFromTab } from './lib/seo/metaManager';
 
 export function App() {
@@ -139,6 +146,22 @@ export function App() {
         )}
 
         {activeTab === 'privacy-lab' && <PrivacyLab setActiveTab={setActiveTab} />}
+
+        {activeTab === 'resources' && <EditorialHub setActiveTab={setActiveTab} />}
+
+        {activeTab === 'about' && <AboutPage setActiveTab={setActiveTab} />}
+
+        {activeTab === 'contact' && <ContactPage setActiveTab={setActiveTab} />}
+
+        {activeTab === 'privacy-policy' && <PrivacyPolicyPage setActiveTab={setActiveTab} />}
+
+        {activeTab === 'terms' && <TermsOfServicePage setActiveTab={setActiveTab} />}
+
+        {activeTab === 'methodology' && <MethodologyPage setActiveTab={setActiveTab} />}
+
+        {activeTab === 'detector-limitations' && (
+          <DetectorLimitationsPage setActiveTab={setActiveTab} />
+        )}
 
         {activeTab === 'vault' && (
           <VaultWorkspace

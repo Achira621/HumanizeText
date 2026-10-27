@@ -14,6 +14,7 @@ import type {
 import { RuleBasedHumanizerEngine } from '../humanizer/ruleEngine';
 import { validateInvariants } from '../pipeline/invariants';
 import { analyzeWritingContext, buildRewritePlan } from '../pipeline/contextEngine';
+import { parseDocumentToBlocks } from '../pipeline/documentModel';
 
 export interface WorkerApiConfig {
   baseUrl?: string;
@@ -261,6 +262,8 @@ export class WorkerApiClient {
             causalityPreserved: data.invariants.causalityPreserved ?? true,
           }
         : undefined,
+      document: parseDocumentToBlocks(data.rewrittenText),
+      telemetry: data.telemetry,
     };
   }
 

@@ -80,8 +80,7 @@ export const MainEditorView: React.FC<MainEditorViewProps> = ({
           Free AI Humanizer &amp; Writing Assistant
         </h1>
         <p className="mx-auto mt-2 max-w-2xl text-sm text-[var(--text-secondary)]">
-          Humanize AI text, bypass AI detectors, and verify originality locally in your browser.
-          100% private, free, and zero-server document processing.
+          Refine synthetic AI drafts for natural flow, burstiness, and clarity with verifiable on-device privacy.
         </p>
       </div>
 

@@ -7,6 +7,11 @@ import type {
   DiffToken,
   AiSignalPhrase,
 } from '../../types';
+import {
+  parseDocumentToBlocks,
+  projectBlocksToPlainText,
+  validateDocumentStructure,
+} from '../pipeline/documentModel';
 
 interface ReplacementPattern {
   pattern: RegExp;
@@ -2003,111 +2008,239 @@ export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
     // Clean authorial prose preservation: If plan identifies zero writing issues, preserve authorial voice
     const isCleanProse = Boolean(options.plan && options.plan.issuesToFix && options.plan.issuesToFix.length === 0);
 
-    // ── PASS 1: Pool-based cliché replacements ───────────────────────────────
+    const isConversational = options.context?.genre === 'conversational' || tone === 'conversational' || mode === 'conversational';
+    const isAcademic = (options.context?.genre === 'academic' || tone === 'academic' || tone === 'formal' || mode === 'formal') && !isConversational;
+    const shouldContract = smartContractions || isConversational;
+    const shouldExpand = isAcademic;
+
+    // Parse into structured content blocks so paragraph breaks, headings, lists & code survive
+    const doc = parseDocumentToBlocks(modified);
+
+    for (const block of doc.blocks) {
+      if (block.isProtected) {
+        block.rewrittenText = block.rawText;
+        block.status = 'preserved';
+        continue;
+      }
+
+      if (block.type === 'heading') {
+        const match = block.rawText.match(/^(#{1,6}\s+)(.*)$/);
+        const prefix = match ? match[1] : '';
+        const hText = match ? match[2] : block.rawText;
+        const transformed = this.transformBlockText(
+          hText,
+          false,
+          mode,
+          intensityFactor,
+          isCleanProse,
+          shouldContract,
+          shouldExpand,
+          recordedChanges
+        );
+        block.rewrittenText = prefix + transformed.trim();
+        block.status = 'rewritten';
+      } else if (block.type === 'list_item') {
+        const marker = block.listMarker || '';
+        const itemText = block.rawText.slice(marker.length);
+        const transformed = this.transformBlockText(
+          itemText,
+          false,
+          mode,
+          intensityFactor,
+          isCleanProse,
+          shouldContract,
+          shouldExpand,
+          recordedChanges
+        );
+        block.rewrittenText = marker + transformed.trim();
+        block.status = 'rewritten';
+      } else if (block.type === 'quote') {
+        const quoteText = block.rawText.replace(/^>\s*/, '');
+        const transformed = this.transformBlockText(
+          quoteText,
+          true,
+          mode,
+          intensityFactor,
+          isCleanProse,
+          shouldContract,
+          shouldExpand,
+          recordedChanges
+        );
+        block.rewrittenText = '> ' + transformed.trim();
+        block.status = 'rewritten';
+      } else {
+        // Paragraph prose
+        const transformed = this.transformBlockText(
+          block.rawText,
+          true,
+          mode,
+          intensityFactor,
+          isCleanProse,
+          shouldContract,
+          shouldExpand,
+          recordedChanges
+        );
+        block.rewrittenText = transformed;
+        block.status = 'rewritten';
+      }
+    }
+
+    // Deterministically reassemble output keeping paragraphs separated by \n\n and lists separated by \n
+    modified = projectBlocksToPlainText(doc, true);
+
+    // ── STEP 4: RESTORE UNCHANGED SECTIONS & FROZEN TOKENS ───────────────────
+    for (const mask of sectionMasks) {
+      modified = modified.replace(new RegExp(mask.placeholder, 'g'), mask.original);
+    }
+    for (const mask of frozenMasks) {
+      modified = modified.replace(new RegExp(mask.placeholder, 'g'), mask.original);
+    }
+
+    // ── STRUCTURAL INVARIANT VALIDATION & REPAIR ─────────────────────────────
+    const structVal = validateDocumentStructure(doc, modified);
+    if (structVal.hasCollapseAnomaly && structVal.repairedText) {
+      modified = structVal.repairedText;
+    }
+
+    // ── STEP 6: COMPUTE INTERACTIVE DIFF TOKENS ──────────────────────────────
+    const diffTokens = computeDiffTokens(text, modified, recordedChanges, validFrozenWords);
+
+    // ── STATS ─────────────────────────────────────────────────────────────────
+    const origWords = text.trim().split(/\s+/).filter(Boolean).length;
+    const impWords = modified.trim().split(/\s+/).filter(Boolean).length;
+    const wordDiff = origWords - impWords;
+    const reductionPercentage = origWords > 0 ? Math.round((wordDiff / origWords) * 100) : 0;
+    const readingTimeSeconds = Math.round((impWords / 200) * 60);
+
+    return {
+      originalText: text,
+      improvedText: modified,
+      mode,
+      changes: recordedChanges,
+      diffTokens,
+      stats: {
+        originalWords: origWords,
+        improvedWords: impWords,
+        reductionPercentage,
+        readingTimeSeconds,
+      },
+      engineName: this.name,
+      engineType: 'deterministic-rules',
+      processedLocally: true,
+      context: options.context as any,
+      plan: options.plan as any,
+      executionEnvironment: 'local-emulation-fallback',
+      fallbackTriggered: true,
+      mockEngine: true,
+      document: doc,
+    };
+  }
+
+  private transformBlockText(
+    blockText: string,
+    isProse: boolean,
+    mode: HumanizerMode,
+    intensityFactor: number,
+    isCleanProse: boolean,
+    shouldContract: boolean,
+    shouldExpand: boolean,
+    recordedChanges: HumanizerChange[]
+  ): string {
+    let content = blockText;
+
+    // PASS 1: Pool-based cliché replacements
     let ruleIdx = 0;
     if (!isCleanProse) {
       for (const rule of CLICHE_POOLS) {
         ruleIdx++;
         if (rule.pool.length === 0 || !rule.modes.includes(mode)) continue;
 
-      let matchCount = 0;
-      modified = modified.replace(rule.pattern, (match) => {
-        // Modulate with vocabulary intensity slider
-        if (matchCount > 0 && (ruleIdx * 17 + matchCount * 13) % 100 > intensityFactor * 100) {
-          return match;
-        }
+        let matchCount = 0;
+        content = content.replace(rule.pattern, (match) => {
+          if (matchCount > 0 && (ruleIdx * 17 + matchCount * 13) % 100 > intensityFactor * 100) {
+            return match;
+          }
+          const rep = pick(rule.pool, matchCount++);
+          const formatted =
+            match[0] === match[0].toUpperCase() && rep.length > 0
+              ? rep.charAt(0).toUpperCase() + rep.slice(1)
+              : rep;
 
-        const rep = pick(rule.pool, matchCount++);
-        const formatted =
-          match[0] === match[0].toUpperCase() && rep.length > 0
-            ? rep.charAt(0).toUpperCase() + rep.slice(1)
-            : rep;
+          const candidateAlts = rule.pool
+            .filter((p) => p.toLowerCase() !== rep.toLowerCase())
+            .map((p) =>
+              match[0] === match[0].toUpperCase() && p.length > 0
+                ? p.charAt(0).toUpperCase() + p.slice(1)
+                : p
+            );
 
-        // Provide alternative candidate synonyms for the interactive popover
-        const candidateAlts = rule.pool
-          .filter((p) => p.toLowerCase() !== rep.toLowerCase())
-          .map((p) =>
-            match[0] === match[0].toUpperCase() && p.length > 0
-              ? p.charAt(0).toUpperCase() + p.slice(1)
-              : p
-          );
-
-        recordedChanges.push({
-          original: match,
-          replacement: formatted,
-          reason: rule.reason,
-          category: rule.category,
-          index: 0,
-          alternatives: candidateAlts,
-        });
-        return formatted;
-      });
-    }
-
-    // ── PASS 2: Deterministic rules ──────────────────────────────────────────
-    for (const rule of DETERMINISTIC_RULES) {
-      if (!rule.modes.includes(mode)) continue;
-      modified = modified.replace(rule.pattern, (m, ...args) => {
-        const rep = typeof rule.replacement === 'function' ? rule.replacement(m, ...args) : rule.replacement;
-        const formatted =
-          m[0] === m[0].toUpperCase() && rep.length > 0
-            ? rep.charAt(0).toUpperCase() + rep.slice(1)
-            : rep;
-        if (rep !== m) {
           recordedChanges.push({
-            original: m,
+            original: match,
             replacement: formatted,
             reason: rule.reason,
             category: rule.category,
             index: 0,
-            alternatives: [m],
+            alternatives: candidateAlts,
           });
-        }
-        return formatted;
-      });
-    }
-  }
+          return formatted;
+        });
+      }
 
-    // ── PASS 3: Sentence-level structural transforms ──────────────────────────
-    if (mode === 'natural' || mode === 'flow' || mode === 'conversational') {
-      // Robust sentence segmentation that protects URLs, decimals, and abbreviations
+      // PASS 2: Deterministic rules
+      for (const rule of DETERMINISTIC_RULES) {
+        if (!rule.modes.includes(mode)) continue;
+        content = content.replace(rule.pattern, (m, ...args) => {
+          const rep = typeof rule.replacement === 'function' ? rule.replacement(m, ...args) : rule.replacement;
+          const formatted =
+            m[0] === m[0].toUpperCase() && rep.length > 0
+              ? rep.charAt(0).toUpperCase() + rep.slice(1)
+              : rep;
+          if (rep !== m) {
+            recordedChanges.push({
+              original: m,
+              replacement: formatted,
+              reason: rule.reason,
+              category: rule.category,
+              index: 0,
+              alternatives: [m],
+            });
+          }
+          return formatted;
+        });
+      }
+    }
+
+    // PASS 3: Sentence-level structural transforms (prose paragraphs only)
+    if (isProse && (mode === 'natural' || mode === 'flow' || mode === 'conversational')) {
       const sentenceRegex = /.*?(?:(?<!\b(?:et al|Dr|Mr|Mrs|Ms|Prof|vs|e\.g|i\.e))[.!?]+)(?=\s+[A-Z"'([0-9]|$)/gi;
       const sentenceParts: string[] = [];
       let lastIndex = 0;
       let m: RegExpExecArray | null;
 
-      while ((m = sentenceRegex.exec(modified)) !== null) {
+      while ((m = sentenceRegex.exec(content)) !== null) {
         sentenceParts.push(m[0]);
         lastIndex = m.index + m[0].length;
       }
-      const remainder = modified.slice(lastIndex).trim();
+      const remainder = content.slice(lastIndex).trim();
       if (remainder) sentenceParts.push(remainder);
 
       let sentences = sentenceParts.map((s) => s.trim()).filter(Boolean);
 
       // 3a. Split long sentences for burstiness
       sentences = sentences.map((s) => maybeSplitLongSentence(s, mode));
-
       // 3b. Merge tiny sentence pairs
       sentences = mergeShortSentencePairs(sentences);
-
       // 3c. Vary monotonous "The" starters
       sentences = varyMonotonousStarters(sentences);
-
       // 3d. Add hedges for natural/conversational modes
       if (mode === 'natural' || mode === 'conversational') {
         sentences = sentences.map((s, i) => maybeAddHedge(s, i, sentences.length));
       }
 
-      modified = sentences.join(' ').replace(/ {2,}/g, ' ').trim();
+      content = sentences.join(' ').replace(/ {2,}/g, ' ').trim();
     }
 
-    // ── STEP 3.5: CONTRACTIONS NORMALIZATION (QuillBot ProcessContractions) ─────
-    const isConversational = options.context?.genre === 'conversational' || tone === 'conversational' || mode === 'conversational';
-    const isAcademic = (options.context?.genre === 'academic' || tone === 'academic' || tone === 'formal' || mode === 'formal') && !isConversational;
-    const shouldContract = smartContractions || isConversational;
-    const shouldExpand = isAcademic;
-
+    // STEP 3.5: CONTRACTIONS NORMALIZATION
     if (shouldContract) {
       const contractMap: [RegExp, string][] = [
         [/\bdo not\b/gi, "don't"],
@@ -2132,7 +2265,7 @@ export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
         [/\bthere is\b/gi, "there's"],
       ];
       for (const [re, rep] of contractMap) {
-        modified = modified.replace(re, (m) => {
+        content = content.replace(re, (m) => {
           recordedChanges.push({
             original: m,
             replacement: rep,
@@ -2165,7 +2298,7 @@ export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
         [/\bit's\b/gi, 'it is'],
       ];
       for (const [re, rep] of expandMap) {
-        modified = modified.replace(re, (m) => {
+        content = content.replace(re, (m) => {
           recordedChanges.push({
             original: m,
             replacement: rep,
@@ -2178,52 +2311,14 @@ export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
       }
     }
 
-    // ── STEP 4: RESTORE UNCHANGED SECTIONS & FROZEN TOKENS ───────────────────
-    for (const mask of sectionMasks) {
-      modified = modified.replace(new RegExp(mask.placeholder, 'g'), mask.original);
-    }
-    for (const mask of frozenMasks) {
-      modified = modified.replace(new RegExp(mask.placeholder, 'g'), mask.original);
-    }
+    // PASS 5: Final cleanup (horizontal whitespace only, preserving all newline boundaries!)
+    content = content.replace(/ {2,}/g, ' ');
+    content = content.replace(/\.{2,}/g, '.');
+    content = content.replace(/,{2,}/g, ',');
+    content = content.replace(/[^\S\r\n]+([,.:;!?])/g, '$1');
+    content = content.replace(/([.!?])[^\S\r\n]+([a-z])/g, (_, punc, letter) => `${punc} ${letter.toUpperCase()}`);
 
-    // ── PASS 5: Final cleanup ─────────────────────────────────────────────────
-    modified = modified.replace(/ {2,}/g, ' ');
-    modified = modified.replace(/\.{2,}/g, '.');
-    modified = modified.replace(/,{2,}/g, ',');
-    modified = modified.replace(/\s+([,.:;!?])/g, '$1');
-    modified = modified.replace(/([.!?])\s+([a-z])/g, (_, punc, letter) => `${punc} ${letter.toUpperCase()}`);
-
-    // ── STEP 6: COMPUTE INTERACTIVE DIFF TOKENS ──────────────────────────────
-    const diffTokens = computeDiffTokens(text, modified, recordedChanges, validFrozenWords);
-
-    // ── STATS ─────────────────────────────────────────────────────────────────
-    const origWords = text.trim().split(/\s+/).filter(Boolean).length;
-    const impWords = modified.trim().split(/\s+/).filter(Boolean).length;
-    const wordDiff = origWords - impWords;
-    const reductionPercentage = origWords > 0 ? Math.round((wordDiff / origWords) * 100) : 0;
-    const readingTimeSeconds = Math.round((impWords / 200) * 60);
-
-    return {
-      originalText: text,
-      improvedText: modified,
-      mode,
-      changes: recordedChanges,
-      diffTokens,
-      stats: {
-        originalWords: origWords,
-        improvedWords: impWords,
-        reductionPercentage,
-        readingTimeSeconds,
-      },
-      engineName: this.name,
-      engineType: 'deterministic-rules',
-      processedLocally: true,
-      context: options.context as any,
-      plan: options.plan as any,
-      executionEnvironment: 'local-emulation-fallback',
-      fallbackTriggered: true,
-      mockEngine: true,
-    };
+    return content;
   }
 }
 

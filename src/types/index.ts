@@ -246,7 +246,29 @@ export interface HumanizerResult {
     unitsPreserved: boolean;
     causalityPreserved: boolean;
   };
+  document?: import('../lib/pipeline/documentModel').StructuredDocument;
+  telemetry?: InferenceTelemetry;
 }
+
+export interface InferenceTelemetry {
+  requestCount: number;
+  successfulBlockRewrites: number;
+  failedBlockRewrites: number;
+  totalRetries: number;
+  modelErrorsCount: number;
+  concurrencyLimit: number;
+  elapsedInferenceMs: number;
+  modelUsed: string;
+  fallbackTriggered: boolean;
+  estimatedNeuronUsage?: number;
+}
+
+export type {
+  ContentBlockType,
+  ContentBlock,
+  StructuredDocument,
+  StructuralValidationResult,
+} from '../lib/pipeline/documentModel';
 
 export interface LocalHumanizerEngine {
   readonly id: string;

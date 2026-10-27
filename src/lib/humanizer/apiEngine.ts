@@ -73,8 +73,8 @@ function buildSystemPrompt(mode: HumanizerMode, options?: HumanizerOptions): str
       ? '\nApply comprehensive stylistic humanization: completely reconstruct sentences with rich, natural vocabulary and rhythmic variety.'
       : '';
 
-  return `You are a world-class professional editor and human writing specialist.
-Your task is to rewrite the provided text so that it reads 100% like authentic human writing and bypasses all AI detectors with 0% plagiarism.
+  return `You are a professional editor and human writing specialist.
+Your task is to rewrite the provided text so that it reads with authentic human cadence, natural rhythm, and clarity while preserving all facts, terminology, and citations.
 
 CRITICAL INSTRUCTIONS:
 1. Eradicate all AI clichés and formulaic markers:

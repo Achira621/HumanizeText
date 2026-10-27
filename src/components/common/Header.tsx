@@ -28,7 +28,14 @@ export type ActiveTab =
   | 'vault'
   | 'docs'
   | 'editor'
-  | 'similarity';
+  | 'similarity'
+  | 'resources'
+  | 'about'
+  | 'contact'
+  | 'privacy-policy'
+  | 'terms'
+  | 'methodology'
+  | 'detector-limitations';
 
 interface HeaderProps {
   activeTab: ActiveTab;
@@ -71,10 +78,11 @@ export const Header: React.FC<HeaderProps> = ({
   }> = [
     { id: 'humanizer', label: 'AI Humanizer', href: '/', icon: Sparkles },
     { id: 'ai-detector', label: 'AI Detector', href: '/ai-detector', icon: Cpu },
+    { id: 'resources', label: 'Research & Guides', shortLabel: 'Research', href: '/resources', icon: BookOpen },
     {
       id: 'vault',
-      label: 'Security Vault & Writing Assistant',
-      shortLabel: 'Security Vault',
+      label: 'Security Vault',
+      shortLabel: 'Vault',
       href: '/vault',
       icon: Lock,
     },

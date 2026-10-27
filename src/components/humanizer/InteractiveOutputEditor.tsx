@@ -152,61 +152,72 @@ export const InteractiveOutputEditor: React.FC<InteractiveOutputEditorProps> = (
             placeholder="Humanized text..."
           />
         ) : diffTokens && diffTokens.length > 0 ? (
-          <div className="whitespace-pre-wrap select-text">
-            {diffTokens.map((token) => {
-              if (token.type === 'frozen') {
-                return (
-                  <span
-                    key={token.id}
-                    title="Frozen Term (Verbatim)"
-                    className="inline-block rounded-xs bg-purple-500/15 px-1 py-0.5 font-medium text-purple-700 dark:text-purple-300 border border-purple-500/30"
-                  >
-                    {token.text}
-                  </span>
-                );
-              }
+          <div className="whitespace-pre-wrap select-text leading-relaxed">
+            {(() => {
+              const hasWhitespaceTokens = diffTokens.some((t) => /^\s+$/.test(t.text));
+              return diffTokens.map((token, index) => {
+                let tokenElement = null;
 
-              if (token.type === 'changed') {
-                const isActive = activeToken?.id === token.id;
-                return (
-                  <span
-                    key={token.id}
-                    onClick={(e) => handleTokenClick(e, token)}
-                    title={token.reason || 'Click to view synonym alternatives'}
-                    className={`interactive-token-btn inline-block cursor-pointer rounded-xs px-1 py-0.5 font-medium text-amber-900 dark:text-amber-200 transition-all ${
-                      isActive
-                        ? 'bg-amber-500/30 ring-2 ring-amber-500'
-                        : 'bg-amber-500/15 underline decoration-amber-400 decoration-1 underline-offset-3 hover:bg-amber-500/25'
-                    }`}
-                  >
-                    {token.text}
-                  </span>
-                );
-              }
+                if (token.type === 'frozen') {
+                  tokenElement = (
+                    <span
+                      key={token.id}
+                      title="Frozen Term (Verbatim)"
+                      className="inline-block rounded-xs bg-purple-500/15 px-1 py-0.5 font-medium text-purple-700 dark:text-purple-300 border border-purple-500/30"
+                    >
+                      {token.text}
+                    </span>
+                  );
+                } else if (token.type === 'changed') {
+                  const isActive = activeToken?.id === token.id;
+                  tokenElement = (
+                    <span
+                      key={token.id}
+                      onClick={(e) => handleTokenClick(e, token)}
+                      title={token.reason || 'Click to view synonym alternatives'}
+                      className={`interactive-token-btn inline-block cursor-pointer rounded-xs px-1 py-0.5 font-medium text-amber-900 dark:text-amber-200 transition-all ${
+                        isActive
+                          ? 'bg-amber-500/30 ring-2 ring-amber-500'
+                          : 'bg-amber-500/15 underline decoration-amber-400 decoration-1 underline-offset-3 hover:bg-amber-500/25'
+                      }`}
+                    >
+                      {token.text}
+                    </span>
+                  );
+                } else if (token.type === 'structural') {
+                  const isActive = activeToken?.id === token.id;
+                  tokenElement = (
+                    <span
+                      key={token.id}
+                      onClick={(e) => handleTokenClick(e, token)}
+                      title={token.reason || 'Cadence / Structural transform'}
+                      className={`interactive-token-btn inline-block cursor-pointer rounded-xs px-1 py-0.5 text-sky-900 dark:text-sky-200 transition-all ${
+                        isActive
+                          ? 'bg-sky-500/30 ring-2 ring-sky-500'
+                          : 'bg-sky-500/10 underline decoration-sky-400 decoration-1 underline-offset-3 hover:bg-sky-500/20'
+                      }`}
+                    >
+                      {token.text}
+                    </span>
+                  );
+                } else {
+                  tokenElement = <span key={token.id}>{token.text}</span>;
+                }
 
-              if (token.type === 'structural') {
-                const isActive = activeToken?.id === token.id;
-                return (
-                  <span
-                    key={token.id}
-                    onClick={(e) => handleTokenClick(e, token)}
-                    title={token.reason || 'Cadence / Structural transform'}
-                    className={`interactive-token-btn inline-block cursor-pointer rounded-xs px-1 py-0.5 text-sky-900 dark:text-sky-200 transition-all ${
-                      isActive
-                        ? 'bg-sky-500/30 ring-2 ring-sky-500'
-                        : 'bg-sky-500/10 underline decoration-sky-400 decoration-1 underline-offset-3 hover:bg-sky-500/20'
-                    }`}
-                  >
-                    {token.text}
-                  </span>
-                );
-              }
-
-              return <span key={token.id}>{token.text}</span>;
-            })}
+                if (!hasWhitespaceTokens && index < diffTokens.length - 1) {
+                  return (
+                    <React.Fragment key={token.id}>
+                      {tokenElement}
+                      {' '}
+                    </React.Fragment>
+                  );
+                }
+                return tokenElement;
+              });
+            })()}
           </div>
         ) : (
-          <div className="whitespace-pre-wrap">{improvedText}</div>
+          <div className="whitespace-pre-wrap leading-relaxed">{improvedText}</div>
         )}
 
         {/* Floating QuillBot-style Synonyms Popover */}
