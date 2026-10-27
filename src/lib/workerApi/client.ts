@@ -263,7 +263,7 @@ export class WorkerApiClient {
           }
         : undefined,
       document: parseDocumentToBlocks(data.rewrittenText),
-      telemetry: data.telemetry,
+      telemetry: (data as any).telemetry,
     };
   }
 
