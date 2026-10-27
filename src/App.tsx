@@ -22,8 +22,8 @@ import { DetectorLimitationsPage } from './components/site/DetectorLimitationsPa
 import { EditorialHub } from './components/resources/EditorialHub';
 import { updatePageMeta, getTabFromLocation, getPathFromTab } from './lib/seo/metaManager';
 
-export function App() {
-  const [activeTab, setActiveTabState] = useState<ActiveTab>(() => getTabFromLocation());
+export function App({ initialTab }: { initialTab?: ActiveTab } = {}) {
+  const [activeTab, setActiveTabState] = useState<ActiveTab>(() => initialTab || getTabFromLocation());
   const [currentText, setCurrentText] = useState('');
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined') {

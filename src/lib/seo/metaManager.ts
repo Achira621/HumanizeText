@@ -148,10 +148,10 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
             },
             {
               '@type': 'Question',
-              name: 'What happens to my text when I use HumanizeText?',
+              name: 'Does HumanizeText store or upload my text to remote servers?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'In Local Engine mode, your text is processed entirely within your browser JavaScript runtime with zero network transmission. If you select Cloudflare Workers AI mode, text is sent over HTTPS to an ephemeral edge worker in RAM, processed without disk persistence or model training, and immediately returned.',
+                text: 'It depends strictly on the mode you select: In Local Engine mode (and for all plagiarism checking, metadata inspection, and vault storage), your text never leaves your device (0 bytes transmitted). When you select Cloud AI mode, submitted text is transmitted over HTTPS to our Cloudflare Workers AI edge endpoint for neural processing in volatile worker memory. Our worker application configures no database bindings and does not store or log your text.',
               },
             },
             {
@@ -533,6 +533,20 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
       'Learn about HumanizeText, an independent open-source writing utility built for genuine privacy, transparent stylometric analysis, and cryptographic document protection.',
     canonicalPath: '/about',
     ogType: 'website',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'AboutPage',
+          '@id': `${SITE_DOMAIN}/about`,
+          name: 'About HumanizeText',
+          url: `${SITE_DOMAIN}/about`,
+          description:
+            'Open-source, privacy-first software project created to give writers, students, researchers, and professionals transparent control over their digital drafts.',
+          publisher: { '@id': `${SITE_DOMAIN}/#organization` },
+        },
+      ],
+    },
   },
   contact: {
     title: 'Contact & Support — Maintainer Communications & Issue Tracker | HumanizeText',
@@ -540,6 +554,23 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
       'Reach the maintainer of HumanizeText for inquiries, technical support, bug reports, and security vulnerability disclosures.',
     canonicalPath: '/contact',
     ogType: 'website',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'ContactPage',
+          '@id': `${SITE_DOMAIN}/contact`,
+          name: 'Contact & Technical Support',
+          url: `${SITE_DOMAIN}/contact`,
+          description: 'Direct maintainer communication and vulnerability disclosures for HumanizeText.',
+          mainEntity: {
+            '@type': 'Person',
+            name: 'Achira621',
+            email: 'varaddalvi10@gmail.com',
+          },
+        },
+      ],
+    },
   },
   'privacy-policy': {
     title: 'Privacy Policy & Cookie Disclosures — Local vs Cloud Data Flow | HumanizeText',
@@ -547,6 +578,19 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
       'Comprehensive privacy policy detailing on-device execution, ephemeral Cloudflare Workers AI processing, local IndexedDB encryption, and Google AdSense cookie disclosures.',
     canonicalPath: '/privacy-policy',
     ogType: 'website',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': `${SITE_DOMAIN}/privacy-policy`,
+          name: 'Privacy Policy & Data Disclosures',
+          url: `${SITE_DOMAIN}/privacy-policy`,
+          description:
+            'Comprehensive disclosure of local on-device execution, ephemeral Cloudflare Workers AI processing, and third-party advertising cookies.',
+        },
+      ],
+    },
   },
   terms: {
     title: 'Terms of Service & Acceptable Use — Apache 2.0 Open Source | HumanizeText',
@@ -554,6 +598,19 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
       'Terms of service, academic integrity guidance, probabilistic disclaimers, and open-source licensing terms for HumanizeText.',
     canonicalPath: '/terms',
     ogType: 'website',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': `${SITE_DOMAIN}/terms`,
+          name: 'Terms of Service & Acceptable Use',
+          url: `${SITE_DOMAIN}/terms`,
+          description:
+            'Open-source licensing, acceptable use policies, and ethical authorship guidelines for HumanizeText.',
+        },
+      ],
+    },
   },
   methodology: {
     title: 'Editorial & Testing Methodology — Invariant Verification & Benchmarks | HumanizeText',
@@ -561,6 +618,24 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
       'How HumanizeText verifies factual invariants, evaluates burstiness variance, implements Schleimer et al. Winnowing, and prevents text degradation.',
     canonicalPath: '/methodology',
     ogType: 'article',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'TechArticle',
+          '@id': `${SITE_DOMAIN}/methodology`,
+          headline: 'Editorial & Testing Methodology: Invariant Verification, Burstiness Math, and Winnowing',
+          url: `${SITE_DOMAIN}/methodology`,
+          description:
+            'Transparent documentation of the HumanizeText invariant validation pipeline, sentence length variance calculations, and regression test suites.',
+          author: {
+            '@type': 'Organization',
+            name: 'HumanizeText Research Team',
+          },
+          publisher: { '@id': `${SITE_DOMAIN}/#organization` },
+        },
+      ],
+    },
   },
   'detector-limitations': {
     title: 'AI Detector Limitations & Scientific Evaluation — Why Classifiers Fail | HumanizeText',
@@ -568,6 +643,24 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
       'Technical critique of AI text detectors: perplexity biases, non-native English false positives, false negatives, and responsible interpretation of similarity metrics.',
     canonicalPath: '/detector-limitations',
     ogType: 'article',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'TechArticle',
+          '@id': `${SITE_DOMAIN}/detector-limitations`,
+          headline: 'AI Detector Limitations & Scientific Evaluation: Why Classifiers Fail',
+          url: `${SITE_DOMAIN}/detector-limitations`,
+          description:
+            'Scientific evaluation of why statistical AI detectors produce high false positive rates on non-native English writing and technical standards.',
+          author: {
+            '@type': 'Organization',
+            name: 'HumanizeText Research Team',
+          },
+          publisher: { '@id': `${SITE_DOMAIN}/#organization` },
+        },
+      ],
+    },
   },
 };
 

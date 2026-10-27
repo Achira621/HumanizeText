@@ -74,8 +74,8 @@ export const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ setActiveT
               </p>
               <ul className="list-disc pl-5 text-xs text-[var(--text-muted)] space-y-1">
                 <li><strong>Transmission:</strong> Your text is transmitted over an encrypted HTTPS connection (TLS 1.3) to our Cloudflare Worker endpoint (<code>humanizetext-api.humanizetext.workers.dev</code>).</li>
-                <li><strong>In-Memory Processing:</strong> Inference runs in an ephemeral serverless V8 isolate. The Worker implementation has zero persistent storage bindings (no Cloudflare KV, D1 SQL, Vectorize, or Durable Objects).</li>
-                <li><strong>Zero Retention &amp; No Retraining:</strong> Text is processed in volatile memory to generate the rewrite and is discarded immediately after returning the HTTP response. We do not log document text or use submissions to train AI models.</li>
+                <li><strong>In-Memory Processing:</strong> Inference runs in an ephemeral serverless V8 isolate. The Worker implementation configures zero persistent storage bindings (no Cloudflare KV, D1 SQL, Vectorize, or Durable Objects).</li>
+                <li><strong>Application Data Boundaries:</strong> Text is processed in volatile worker memory to generate the rewrite and is discarded immediately after returning the HTTP response. Our application configures no database bindings, does not log manuscript text, and does not retain submissions for AI training. Inferences are executed according to Cloudflare Workers AI standard data processing terms.</li>
               </ul>
             </div>
           </div>

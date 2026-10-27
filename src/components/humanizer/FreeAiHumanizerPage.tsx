@@ -475,7 +475,7 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
     },
     {
       q: 'How does HumanizeText differ from conventional cloud writing tools?',
-      a: 'Unlike tools that require accounts and store user text on remote servers, HumanizeText defaults to an on-device local engine (zero data transmitted). For users desiring neural rewriting, it offers an ephemeral Cloudflare Workers AI edge model that runs in RAM without disk logging, storage, or training.',
+      a: 'Unlike tools that require accounts and store user text on remote servers, HumanizeText defaults to an on-device local engine (zero data transmitted). For users desiring neural rewriting, it offers an optional Cloudflare Workers AI edge model that transmits text over HTTPS for ephemeral processing in RAM, without persistent database storage or mandatory accounts.',
     },
     {
       q: 'Why does HumanizeText include a document similarity scanner?',
@@ -486,8 +486,8 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
       a: 'The similarity tool runs entirely inside your browser using the Winnowing algorithm and ephemeral in-memory HMAC-SHA-256 session keys. Your documents are never uploaded to a remote database or shared with third parties.',
     },
     {
-      q: 'What happens to my text when using Cloudflare Workers AI?',
-      a: 'In Cloud AI mode, your text is sent over HTTPS to an ephemeral edge worker in RAM. The worker transforms the text using bounded concurrency and returns the result immediately. Our worker code does not persist text to disk, does not maintain a database, and does not train machine learning models.',
+      q: 'Does HumanizeText store or upload my text to remote servers?',
+      a: 'It depends strictly on the mode you select: In Local Engine mode (and for all plagiarism checking, metadata inspection, and vault storage), your text never leaves your device (0 bytes transmitted). When you select Cloud AI mode, submitted text is transmitted over HTTPS to our Cloudflare Workers AI edge endpoint for neural processing in volatile worker memory. Our worker application configures no database bindings and does not store or log your text.',
     },
     {
       q: 'Will humanizing alter my factual arguments or academic citations?',
@@ -1308,43 +1308,49 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
             <span className="text-xs font-bold uppercase tracking-wider">Cybersecurity &amp; Privacy</span>
           </div>
           <h2 className="mt-2 text-xl font-bold text-[var(--text-primary)] sm:text-2xl">
-            Why Privacy Matters in AI Humanizers
+            Data Architecture: Local Engine vs. Ephemeral Cloud AI
           </h2>
           <p className="mt-3 text-sm text-[var(--text-secondary)]">
-            Commercial AI humanizers operate on cloud servers, meaning every paragraph you paste is
-            transmitted over the internet, logged into corporate databases, and potentially used to
-            train commercial AI models.
+            Cloud-based writing tools typically operate on remote servers, transmitting manuscript text across
+            the network where retention, logging, and model-training practices depend on each service&rsquo;s terms
+            and privacy policies. HumanizeText provides transparency by offering a fully on-device local engine alongside
+            an optional ephemeral cloud inference mode.
           </p>
 
           <div className="mt-6 overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead className="border-b border-[var(--border-strong)] bg-[var(--bg-subtle)] text-[var(--text-primary)]">
                 <tr>
-                  <th className="py-2.5 px-3 font-semibold">Security Feature</th>
-                  <th className="py-2.5 px-3 font-semibold text-[var(--accent)]">HumanizeText (This Tool)</th>
-                  <th className="py-2.5 px-3 font-semibold text-[var(--text-muted)]">Commercial Cloud Humanizers</th>
+                  <th className="py-2.5 px-3 font-semibold">Security Dimension</th>
+                  <th className="py-2.5 px-3 font-semibold text-[var(--accent)]">HumanizeText (Local Engine)</th>
+                  <th className="py-2.5 px-3 font-semibold text-[var(--accent)]">HumanizeText (Cloud AI Mode)</th>
+                  <th className="py-2.5 px-3 font-semibold text-[var(--text-muted)]">Conventional Cloud Writing Tools</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[var(--border-subtle)] text-[var(--text-secondary)]">
                 <tr>
-                  <td className="py-2.5 px-3 font-medium text-[var(--text-primary)]">Text Transmission</td>
-                  <td className="py-2.5 px-3 font-semibold text-[var(--accent)]">0 Bytes (Local Engine) or Ephemeral Zero-Log Edge (Cloudflare AI)</td>
-                  <td className="py-2.5 px-3 text-red-600 dark:text-red-400">100% uploaded to remote databases</td>
+                  <td className="py-2.5 px-3 font-medium text-[var(--text-primary)]">Network Transmission</td>
+                  <td className="py-2.5 px-3 font-semibold text-[var(--accent)]">0 Bytes (Executed entirely in browser RAM)</td>
+                  <td className="py-2.5 px-3">Transmitted via HTTPS (TLS 1.3) to Cloudflare Workers AI</td>
+                  <td className="py-2.5 px-3">Transmitted via HTTPS to centralized cloud servers</td>
                 </tr>
                 <tr>
-                  <td className="py-2.5 px-3 font-medium text-[var(--text-primary)]">Manuscript Storage</td>
-                  <td className="py-2.5 px-3 font-semibold text-[var(--accent)]">None on servers / Encrypted locally in IndexedDB</td>
-                  <td className="py-2.5 px-3 text-red-600 dark:text-red-400">Stored in server databases</td>
+                  <td className="py-2.5 px-3 font-medium text-[var(--text-primary)]">Text Persistence</td>
+                  <td className="py-2.5 px-3 font-semibold text-[var(--accent)]">None (Browser memory only)</td>
+                  <td className="py-2.5 px-3">Ephemeral in serverless memory; no database bindings configured</td>
+                  <td className="py-2.5 px-3">Varies by provider; typically stored per service retention terms</td>
                 </tr>
                 <tr>
                   <td className="py-2.5 px-3 font-medium text-[var(--text-primary)]">Account Requirement</td>
-                  <td className="py-2.5 px-3 font-semibold text-[var(--accent)]">No login / No email needed</td>
-                  <td className="py-2.5 px-3">Requires email signup &amp; billing</td>
+                  <td className="py-2.5 px-3 font-semibold text-[var(--accent)]">No account or login required</td>
+                  <td className="py-2.5 px-3">No account or login required</td>
+                  <td className="py-2.5 px-3">Frequently requires account registration and credentials</td>
                 </tr>
                 <tr>
-                  <td className="py-2.5 px-3 font-medium text-[var(--text-primary)]">Data Harvesting</td>
-                  <td className="py-2.5 px-3 font-semibold text-[var(--accent)]">Zero telemetry or AI retraining (server never logs inputs)</td>
-                  <td className="py-2.5 px-3 text-red-600 dark:text-red-400">Data used for model training</td>
+                  <td className="py-2.5 px-3 font-medium text-[var(--text-primary)]">Model Training &amp; Telemetry</td>
+                  <td className="py-2.5 px-3 font-semibold text-[var(--accent)]">No network telemetry; no model training</td>
+                  <td className="py-2.5 px-3">Application logs no user training data; relies on standard Workers AI inference</td>
+                  <td className="py-2.5 px-3">Varies by provider terms; some services reserve training rights unless opted out</td>
                 </tr>
               </tbody>
             </table>
