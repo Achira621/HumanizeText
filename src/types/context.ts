@@ -71,6 +71,11 @@ export interface WritingContext {
   negationMarkers: string[];
   /** Editing depth requested */
   editingIntensity: EditingIntensity;
+  /** Explicit 5-level user rewrite strength */
+  rewriteStrength?: 'minimal' | 'light' | 'balanced' | 'strong' | 'extensive';
+  /** Optional sliding-window sentence context (QuillBot prevSentence / nextSentence architecture) */
+  prevSentence?: string;
+  nextSentence?: string;
   /** Optional explicit user instructions */
   explicitInstructions?: string;
   /** Flags for missing or ambiguous context (e.g., "author_intent_unspecified") */

@@ -15,11 +15,54 @@ export interface Env {
   ALLOWED_ORIGINS?: string;
   MAX_INPUT_CHARS?: string;
   MAX_OUTPUT_TOKENS?: string;
+  MAX_CONCURRENT_INFERENCE?: string;
   RATE_LIMIT_PER_MINUTE?: string;
 }
 
 export type WritingMode = 'natural' | 'concise' | 'conversational' | 'formal' | 'flow';
 export type VocabularyIntensity = 'conservative' | 'balanced' | 'dynamic' | 'maximum';
+export type RewriteStrength = 'minimal' | 'light' | 'balanced' | 'strong' | 'extensive';
+
+export type AlternativeScope = 'document' | 'passage' | 'sentence' | 'phrase' | 'none';
+
+export interface CandidateScoreBreakdown {
+  grammarFluency: number;
+  semanticPreservation: number;
+  contextualFit: number;
+  readabilityScore: number;
+  conciseness: number;
+  strengthAlignment: number;
+  overallScore: number;
+}
+
+export interface AlternativeCandidate {
+  id: string;
+  text: string;
+  scope: AlternativeScope;
+  label?: string;
+  isValid: boolean;
+  validationWarnings?: string[];
+  rejectionReason?: string;
+  scoreBreakdown?: CandidateScoreBreakdown;
+  rank?: number;
+}
+
+export interface TargetSpan {
+  startIndex: number;
+  endIndex: number;
+  text: string;
+  sentenceIndex?: number;
+  blockId?: string;
+}
+
+export interface AlternativesMetadata {
+  scope: AlternativeScope;
+  candidates: AlternativeCandidate[];
+  selectedIndex: number;
+  originalTargetText?: string;
+  sourceFingerprint?: string;
+  targetSpan?: TargetSpan;
+}
 
 export type WritingGenre =
   | 'academic'
@@ -99,15 +142,26 @@ export interface RewritePlanDto {
   isFallback: boolean;
 }
 
+export type GenerationProfile = 'conservative' | 'balanced' | 'creative';
+
 export interface HumanizerRequest {
   text: string;
   mode?: WritingMode;
   vocabularyIntensity?: VocabularyIntensity;
+  rewriteStrength?: RewriteStrength;
+  generationProfile?: GenerationProfile;
+  temperature?: number;
+  topP?: number;
+  seed?: number;
   frozenWords?: string[];
+  freezeQuotes?: boolean;
   smartContractions?: boolean;
   enableSemanticComparison?: boolean;
   context?: Partial<WritingContextDto>;
   plan?: Partial<RewritePlanDto>;
+  prevSentence?: string;
+  nextSentence?: string;
+  multiCandidate?: boolean;
 }
 
 export interface DiffTokenDto {
@@ -146,6 +200,8 @@ export interface HumanizerResponse {
   context?: WritingContextDto;
   plan?: RewritePlanDto;
   diffTokens?: DiffTokenDto[];
+  alternatives?: string[];
+  alternativesMetadata?: AlternativesMetadata;
   stats: {
     originalWords: number;
     improvedWords: number;
@@ -165,6 +221,20 @@ export interface HumanizerResponse {
     embeddingMs?: number;
     overheadMs: number;
   };
+  telemetry?: InferenceTelemetryDto;
+}
+
+export interface InferenceTelemetryDto {
+  requestCount: number;
+  successfulBlockRewrites: number;
+  failedBlockRewrites: number;
+  totalRetries: number;
+  modelErrorsCount: number;
+  concurrencyLimit: number;
+  elapsedInferenceMs: number;
+  modelUsed: string;
+  fallbackTriggered: boolean;
+  estimatedNeuronUsage?: number;
 }
 
 export interface CompareMeaningRequest {

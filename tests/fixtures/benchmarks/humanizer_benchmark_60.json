@@ -1,0 +1,1052 @@
+[
+  {
+    "id": "bench_acad_01",
+    "category": "academic",
+    "name": "Neural Network Loss Function Analysis",
+    "inputAiText": "It is important to note that neural network convergence serves as a testament to gradient descent efficiency. Furthermore, we must delve into the multifaceted dynamics of stochastic optimization, which plays a pivotal role in training stability. The empirical loss decreased to 0.042 across 1,500 training epochs.",
+    "expectedPreservations": [
+      "neural network convergence",
+      "gradient descent",
+      "0.042",
+      "1,500 training epochs"
+    ],
+    "sourceWeaknesses": [
+      "it is important to note",
+      "serves as a testament to",
+      "furthermore",
+      "delve into",
+      "multifaceted",
+      "plays a pivotal role"
+    ],
+    "recommendedMode": "formal",
+    "targetReadingLevel": "academic"
+  },
+  {
+    "id": "bench_acad_02",
+    "category": "academic",
+    "name": "CRISPR Cas9 Gene Editing Specificity",
+    "inputAiText": "In the realm of genomic engineering, CRISPR-Cas9 technology stands as a beacon of biomedical advancement. In order to evaluate off-target cutting frequencies, researchers conducted deep sequencing across 25 target loci, demonstrating a precision threshold of 99.4% [12].",
+    "expectedPreservations": [
+      "CRISPR-Cas9",
+      "25 target loci",
+      "99.4%",
+      "[12]"
+    ],
+    "sourceWeaknesses": [
+      "in the realm of",
+      "stands as a beacon of",
+      "in order to"
+    ],
+    "recommendedMode": "formal",
+    "targetReadingLevel": "academic"
+  },
+  {
+    "id": "bench_acad_03",
+    "category": "academic",
+    "name": "Macroeconomic Inflationary Expectations",
+    "inputAiText": "Consequently, the central bank policy committee observed that core inflation hovered at 3.8% in Q3 2024. Moreover, it is crucial to understand that consumer sentiment remains deeply anchored in historical wage elasticity (Smith & Taylor, 2023).",
+    "expectedPreservations": [
+      "3.8%",
+      "Q3 2024",
+      "(Smith & Taylor, 2023)",
+      "wage elasticity"
+    ],
+    "sourceWeaknesses": [
+      "consequently",
+      "moreover",
+      "it is crucial to understand"
+    ],
+    "recommendedMode": "formal",
+    "targetReadingLevel": "academic"
+  },
+  {
+    "id": "bench_acad_04",
+    "category": "academic",
+    "name": "Quantum Decoherence Mitigation",
+    "inputAiText": "Superconducting qubits exhibit an average coherence time of 120 microseconds. Nevertheless, quantum error correction protocols are of paramount importance to counteract phase noise without altering the underlying Hamiltonian dynamics.",
+    "expectedPreservations": [
+      "120 microseconds",
+      "Hamiltonian dynamics",
+      "quantum error correction"
+    ],
+    "sourceWeaknesses": [
+      "nevertheless",
+      "of paramount importance"
+    ],
+    "recommendedMode": "formal",
+    "targetReadingLevel": "academic"
+  },
+  {
+    "id": "bench_acad_05",
+    "category": "academic",
+    "name": "Cognitive Behavioral Therapy for Anxiety",
+    "inputAiText": "First and foremost, randomized controlled trials indicate that digital CBT interventions yielded an effect size of d = 0.68. It goes without saying that patient adherence is vital for sustained therapeutic outcomes across the 12-week intervention period.",
+    "expectedPreservations": [
+      "d = 0.68",
+      "12-week intervention period",
+      "CBT"
+    ],
+    "sourceWeaknesses": [
+      "first and foremost",
+      "it goes without saying that"
+    ],
+    "recommendedMode": "formal",
+    "targetReadingLevel": "academic"
+  },
+  {
+    "id": "bench_acad_06",
+    "category": "academic",
+    "name": "Atmospheric Aerosol Radiative Forcing",
+    "inputAiText": "Ultimately, anthropogenic aerosol emissions exert a net cooling influence estimated at -0.9 W/m^2. In essence, cloud droplet condensation nuclei alter regional albedo significantly, as demonstrated in IPCC Working Group I models.",
+    "expectedPreservations": [
+      "-0.9 W/m^2",
+      "IPCC Working Group I",
+      "albedo"
+    ],
+    "sourceWeaknesses": [
+      "ultimately",
+      "in essence"
+    ],
+    "recommendedMode": "formal",
+    "targetReadingLevel": "academic"
+  },
+  {
+    "id": "bench_acad_07",
+    "category": "academic",
+    "name": "Lithium Sulfur Battery Cathode Degradation",
+    "inputAiText": "Due to the fact that polysulfide shuttle effects degrade cycle longevity, capacity dropped to 72% after 400 charge-discharge cycles. Therefore, polymer coatings were synthesized to encapsulate sulfur nanoparticles with a thickness of 15 nm.",
+    "expectedPreservations": [
+      "72%",
+      "400 charge-discharge cycles",
+      "15 nm"
+    ],
+    "sourceWeaknesses": [
+      "due to the fact that",
+      "therefore"
+    ],
+    "recommendedMode": "formal",
+    "targetReadingLevel": "academic"
+  },
+  {
+    "id": "bench_acad_08",
+    "category": "academic",
+    "name": "Early Childhood Bilingual Phonology",
+    "inputAiText": "Bilingual infants discriminate non-native phonemic contrasts up to 10 months of age. Hence, it is widely acknowledged that dual-language exposure enriches auditory processing architectures, according to recent fMRI findings.",
+    "expectedPreservations": [
+      "10 months of age",
+      "fMRI findings"
+    ],
+    "sourceWeaknesses": [
+      "hence",
+      "it is widely acknowledged that"
+    ],
+    "recommendedMode": "formal",
+    "targetReadingLevel": "academic"
+  },
+  {
+    "id": "bench_acad_09",
+    "category": "academic",
+    "name": "Algorithmic Fairness in Credit Scoring",
+    "inputAiText": "In light of disparate impact regulations, credit scoring classifiers must satisfy demographic parity metrics within a tolerance margin of epsilon = 0.02. Nonetheless, unobserved proxy variables continue to introduce subtle selection bias.",
+    "expectedPreservations": [
+      "epsilon = 0.02",
+      "demographic parity"
+    ],
+    "sourceWeaknesses": [
+      "in light of",
+      "nonetheless"
+    ],
+    "recommendedMode": "formal",
+    "targetReadingLevel": "academic"
+  },
+  {
+    "id": "bench_acad_10",
+    "category": "academic",
+    "name": "Paleoclimatology Sediment Core Analysis",
+    "inputAiText": "The delta 18-O isotopic ratio in benthic foraminifera shifted by 0.45 per mil during the mid-Pleistocene transition. As a matter of fact, glacial periodicity shifted from 41-kyr to 100-kyr cycles under sustained orbital obliquity changes [15-18].",
+    "expectedPreservations": [
+      "delta 18-O",
+      "0.45 per mil",
+      "41-kyr",
+      "100-kyr",
+      "[15-18]"
+    ],
+    "sourceWeaknesses": [
+      "as a matter of fact"
+    ],
+    "recommendedMode": "formal",
+    "targetReadingLevel": "academic"
+  },
+  {
+    "id": "bench_tech_01",
+    "category": "technical",
+    "name": "PostgreSQL Database Connection Pooling",
+    "inputAiText": "When configuring the connection pool, it is paramount that max_connections does not exceed 100 concurrent sessions. In order to prevent socket starvation, set pool_timeout to 5000ms. Failure to do so will result in unhandled ECONNREFUSED exceptions.",
+    "expectedPreservations": [
+      "max_connections",
+      "100",
+      "pool_timeout",
+      "5000ms",
+      "ECONNREFUSED"
+    ],
+    "sourceWeaknesses": [
+      "it is paramount that",
+      "in order to"
+    ],
+    "recommendedMode": "concise",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_tech_02",
+    "category": "technical",
+    "name": "Docker Container Resource Constraints",
+    "inputAiText": "It should be noted that production containers must specify --memory=\"2g\" and --cpus=\"1.5\" to avoid host memory exhaustion. Furthermore, Kubernetes probes utilize the /healthz endpoint on port 8080 to trigger automated restarts.",
+    "expectedPreservations": [
+      "--memory=\"2g\"",
+      "--cpus=\"1.5\"",
+      "/healthz",
+      "8080"
+    ],
+    "sourceWeaknesses": [
+      "it should be noted that",
+      "furthermore",
+      "utilize"
+    ],
+    "recommendedMode": "concise",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_tech_03",
+    "category": "technical",
+    "name": "OAuth 2.0 PKCE Authorization Flow",
+    "inputAiText": "For native mobile applications, clients must generate a code_verifier with at least 43 characters and calculate a SHA-256 code_challenge. In today’s fast-paced digital world, implicit grant flows are strictly deprecated under RFC 8252.",
+    "expectedPreservations": [
+      "code_verifier",
+      "43 characters",
+      "code_challenge",
+      "SHA-256",
+      "RFC 8252"
+    ],
+    "sourceWeaknesses": [
+      "in today’s fast-paced digital world"
+    ],
+    "recommendedMode": "concise",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_tech_04",
+    "category": "technical",
+    "name": "AWS S3 Bucket Lifecycle Policy",
+    "inputAiText": "Log archives stored in s3://telemetry-archive/ are automatically transitioned to Glacier Flexible Retrieval after 90 days. Needless to say, objects are permanently deleted after 365 days pursuant to retention rule S3-DEL-90.",
+    "expectedPreservations": [
+      "s3://telemetry-archive/",
+      "Glacier Flexible Retrieval",
+      "90 days",
+      "365 days",
+      "S3-DEL-90"
+    ],
+    "sourceWeaknesses": [
+      "needless to say"
+    ],
+    "recommendedMode": "concise",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_tech_05",
+    "category": "technical",
+    "name": "Linux Systemd Service Unit Configuration",
+    "inputAiText": "The custom daemon unit file located at /etc/systemd/system/worker.service requires Restart=on-failure with RestartSec=5s. In essence, the ExecStart command spawns /usr/local/bin/worker-agent with standard output redirected to syslog.",
+    "expectedPreservations": [
+      "/etc/systemd/system/worker.service",
+      "Restart=on-failure",
+      "RestartSec=5s",
+      "/usr/local/bin/worker-agent"
+    ],
+    "sourceWeaknesses": [
+      "in essence"
+    ],
+    "recommendedMode": "concise",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_tech_06",
+    "category": "technical",
+    "name": "gRPC Protobuf Service Definition",
+    "inputAiText": "By utilizing protobuf v3 syntax, the UserService definition establishes a bidirectional stream endpoint StreamAudits over HTTP/2. However, field tags 1 through 15 consume only one byte on the wire, making them optimal for high-frequency payloads.",
+    "expectedPreservations": [
+      "protobuf v3",
+      "UserService",
+      "StreamAudits",
+      "HTTP/2",
+      "1 through 15"
+    ],
+    "sourceWeaknesses": [
+      "by utilizing",
+      "however"
+    ],
+    "recommendedMode": "concise",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_tech_07",
+    "category": "technical",
+    "name": "Redis Cache Eviction Policy",
+    "inputAiText": "To ensure low-latency cache invalidation, Redis instances allocate 4GB of RAM with maxmemory-policy volatile-lru. It is worth mentioning that keys without TTL flags will never be evicted under this configuration.",
+    "expectedPreservations": [
+      "4GB",
+      "maxmemory-policy volatile-lru",
+      "TTL"
+    ],
+    "sourceWeaknesses": [
+      "it is worth mentioning that"
+    ],
+    "recommendedMode": "concise",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_tech_08",
+    "category": "technical",
+    "name": "React 19 Server Components Serialization",
+    "inputAiText": "Props passed across Server-to-Client boundaries must be JSON-serializable. More specifically, functions, class instances, and Symbols will trigger hydration mismatch error #418 during initial client rendering.",
+    "expectedPreservations": [
+      "Server-to-Client",
+      "Symbols",
+      "#418"
+    ],
+    "sourceWeaknesses": [
+      "more specifically"
+    ],
+    "recommendedMode": "concise",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_tech_09",
+    "category": "technical",
+    "name": "Git Merge Rebase Conflict Resolution",
+    "inputAiText": "Developers should execute git fetch origin followed by git rebase origin/main rather than creating superfluous merge commits. In the event that conflicts arise in src/index.ts, resolve them manually and run git rebase --continue.",
+    "expectedPreservations": [
+      "git fetch origin",
+      "git rebase origin/main",
+      "src/index.ts",
+      "git rebase --continue"
+    ],
+    "sourceWeaknesses": [
+      "in the event that"
+    ],
+    "recommendedMode": "concise",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_tech_10",
+    "category": "technical",
+    "name": "TLS 1.3 Cipher Suite Hardening",
+    "inputAiText": "The web server must disable legacy TLS 1.0 and 1.1 protocols, enforcing TLS_AES_256_GCM_SHA384 and TLS_CHACHA20_POLY1305_SHA256. As we delve into network security, ECDH key exchange over X25519 ensures forward secrecy for all sessions.",
+    "expectedPreservations": [
+      "TLS 1.0 and 1.1",
+      "TLS_AES_256_GCM_SHA384",
+      "TLS_CHACHA20_POLY1305_SHA256",
+      "X25519"
+    ],
+    "sourceWeaknesses": [
+      "as we delve into"
+    ],
+    "recommendedMode": "concise",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_prof_01",
+    "category": "professional",
+    "name": "Quarterly Executive Project Status Email",
+    "inputAiText": "I hope this email finds you well. I am reaching out to provide a comprehensive update regarding Project Apollo. In spite of the fact that we encountered unforeseen blockers with vendor integration, the team delivered milestone Phase 2 on October 24 within the allocated budget of $45,000.",
+    "expectedPreservations": [
+      "Project Apollo",
+      "Phase 2",
+      "October 24",
+      "$45,000"
+    ],
+    "sourceWeaknesses": [
+      "I hope this email finds you well",
+      "I am reaching out to provide",
+      "in spite of the fact that"
+    ],
+    "recommendedMode": "natural",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_prof_02",
+    "category": "professional",
+    "name": "Client RFP Proposal Cover Letter",
+    "inputAiText": "We are delighted to submit our technical proposal for RFP-2024-88. It is abundantly clear that our firm brings a rich tapestry of engineering talent capable of migrating your legacy ERP within 6 months while preserving 99.95% system uptime.",
+    "expectedPreservations": [
+      "RFP-2024-88",
+      "6 months",
+      "99.95%"
+    ],
+    "sourceWeaknesses": [
+      "it is abundantly clear that",
+      "rich tapestry of"
+    ],
+    "recommendedMode": "formal",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_prof_03",
+    "category": "professional",
+    "name": "Incident Post-Mortem Summary",
+    "inputAiText": "At the end of the day, the primary root cause of the billing outage on November 12 was a misconfigured database migration script. In conclusion, engineers rolled back the release within 14 minutes, limiting financial exposure to under $1,200.",
+    "expectedPreservations": [
+      "November 12",
+      "14 minutes",
+      "$1,200"
+    ],
+    "sourceWeaknesses": [
+      "at the end of the day",
+      "in conclusion"
+    ],
+    "recommendedMode": "concise",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_prof_04",
+    "category": "professional",
+    "name": "Performance Review Feedback Memo",
+    "inputAiText": "Throughout the past annual cycle, Sarah has proven to be a vital asset across cross-functional sprints. Taking everything into consideration, her leadership on the SOC2 Type II audit saved approximately 120 consulting hours.",
+    "expectedPreservations": [
+      "Sarah",
+      "SOC2 Type II",
+      "120 consulting hours"
+    ],
+    "sourceWeaknesses": [
+      "vital asset",
+      "taking everything into consideration"
+    ],
+    "recommendedMode": "natural",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_prof_05",
+    "category": "professional",
+    "name": "Budget Reallocation Request",
+    "inputAiText": "Please accept this request to reallocate $15,000 from the Q4 travel budget to cloud infrastructure tooling. Due to the rapid growth of daily active users to 250,000, server autoscaling costs have exceeded initial quarterly projections.",
+    "expectedPreservations": [
+      "$15,000",
+      "Q4",
+      "250,000"
+    ],
+    "sourceWeaknesses": [
+      "please accept this request to",
+      "due to the rapid growth"
+    ],
+    "recommendedMode": "concise",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_prof_06",
+    "category": "professional",
+    "name": "Customer Onboarding Handover",
+    "inputAiText": "We are pleased to introduce your dedicated customer success manager, Alex Chen, who will guide your enterprise deployment. Moving forward, bi-weekly status syncs will take place on Tuesdays at 10:00 AM EST via Zoom.",
+    "expectedPreservations": [
+      "Alex Chen",
+      "Tuesdays at 10:00 AM EST",
+      "Zoom"
+    ],
+    "sourceWeaknesses": [
+      "we are pleased to introduce",
+      "moving forward"
+    ],
+    "recommendedMode": "natural",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_prof_07",
+    "category": "professional",
+    "name": "Vendor Service Level Agreement Renegotiation",
+    "inputAiText": "Pursuant to Section 8.3 of our Master Services Agreement, we hereby request an amendment to the guaranteed resolution SLA for severity 1 tickets from 4 hours to 60 minutes.",
+    "expectedPreservations": [
+      "Section 8.3",
+      "Master Services Agreement",
+      "severity 1",
+      "4 hours",
+      "60 minutes"
+    ],
+    "sourceWeaknesses": [
+      "pursuant to",
+      "we hereby request an amendment"
+    ],
+    "recommendedMode": "formal",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_prof_08",
+    "category": "professional",
+    "name": "Product Launch Press Release Excerpt",
+    "inputAiText": "Today marks an exciting milestone as Acme Corp announces the general availability of CloudSync Pro. In today’s competitive marketplace, businesses can now synchronize multicloud buckets with sub-second latency across 14 global regions.",
+    "expectedPreservations": [
+      "Acme Corp",
+      "CloudSync Pro",
+      "14 global regions"
+    ],
+    "sourceWeaknesses": [
+      "today marks an exciting milestone",
+      "in today’s competitive marketplace"
+    ],
+    "recommendedMode": "flow",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_prof_09",
+    "category": "professional",
+    "name": "Board of Directors Audit Report",
+    "inputAiText": "The external audit committee concluded its review of fiscal year 2024 financial controls with zero material deficiencies identified. All internal controls complied fully with GAAP standards across the 12 operating subsidiaries.",
+    "expectedPreservations": [
+      "fiscal year 2024",
+      "zero material deficiencies",
+      "GAAP",
+      "12 operating subsidiaries"
+    ],
+    "sourceWeaknesses": [
+      "concluded its review of",
+      "complied fully with"
+    ],
+    "recommendedMode": "formal",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_prof_10",
+    "category": "professional",
+    "name": "Contract Renewal Reminder Notice",
+    "inputAiText": "This correspondence serves as a formal reminder that subscription agreement #SUB-9021 will renew automatically on December 1, 2024, unless written notice of cancellation is received 30 days prior.",
+    "expectedPreservations": [
+      "#SUB-9021",
+      "December 1, 2024",
+      "30 days"
+    ],
+    "sourceWeaknesses": [
+      "this correspondence serves as a formal reminder that"
+    ],
+    "recommendedMode": "concise",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_conv_01",
+    "category": "conversational",
+    "name": "Casual Travel Advice Post",
+    "inputAiText": "It is important to remember that visiting Tokyo in November is truly wonderful. If you do not book your bullet train tickets to Kyoto at least 3 days in advance, you will not find any reserved seats.",
+    "expectedPreservations": [
+      "Tokyo",
+      "November",
+      "Kyoto",
+      "3 days in advance"
+    ],
+    "sourceWeaknesses": [
+      "it is important to remember that",
+      "do not",
+      "will not"
+    ],
+    "recommendedMode": "conversational",
+    "targetReadingLevel": "casual"
+  },
+  {
+    "id": "bench_conv_02",
+    "category": "conversational",
+    "name": "Community Forum Tech Troubleshooting",
+    "inputAiText": "I would like to point out that I had the exact same issue with my MacBook Pro yesterday. You should restart into Recovery Mode and run Disk First Aid; it does not take more than 5 minutes to finish.",
+    "expectedPreservations": [
+      "MacBook Pro",
+      "Recovery Mode",
+      "Disk First Aid",
+      "5 minutes"
+    ],
+    "sourceWeaknesses": [
+      "I would like to point out that",
+      "does not"
+    ],
+    "recommendedMode": "conversational",
+    "targetReadingLevel": "casual"
+  },
+  {
+    "id": "bench_conv_03",
+    "category": "conversational",
+    "name": "Personal Fitness Blog Introduction",
+    "inputAiText": "In today’s fast-paced world, staying consistent with daily workouts is easier said than done. However, I have discovered that committing to just 20 minutes of morning kettlebell swings makes a world of difference.",
+    "expectedPreservations": [
+      "20 minutes",
+      "kettlebell swings"
+    ],
+    "sourceWeaknesses": [
+      "in today’s fast-paced world",
+      "easier said than done",
+      "however",
+      "makes a world of difference"
+    ],
+    "recommendedMode": "conversational",
+    "targetReadingLevel": "casual"
+  },
+  {
+    "id": "bench_conv_04",
+    "category": "conversational",
+    "name": "Coffee Brewing Enthusiast Guide",
+    "inputAiText": "You do not need an expensive $1,000 espresso machine to brew fantastic coffee at home. An ordinary AeroPress paired with freshly ground Ethiopian Yirgacheffe beans will blow your mind every single morning.",
+    "expectedPreservations": [
+      "$1,000",
+      "AeroPress",
+      "Ethiopian Yirgacheffe"
+    ],
+    "sourceWeaknesses": [
+      "do not",
+      "will blow your mind"
+    ],
+    "recommendedMode": "conversational",
+    "targetReadingLevel": "casual"
+  },
+  {
+    "id": "bench_conv_05",
+    "category": "conversational",
+    "name": "Movie Review Discussion Note",
+    "inputAiText": "The director’s latest sci-fi flick is a visual masterpiece, but the third act falls flat on its face. The pacing drags for nearly 45 minutes before reaching an unsatisfying cliffhanger.",
+    "expectedPreservations": [
+      "45 minutes",
+      "third act"
+    ],
+    "sourceWeaknesses": [
+      "visual masterpiece",
+      "falls flat on its face"
+    ],
+    "recommendedMode": "conversational",
+    "targetReadingLevel": "casual"
+  },
+  {
+    "id": "bench_conv_06",
+    "category": "conversational",
+    "name": "Home Gardening Experience Share",
+    "inputAiText": "If you are wondering why your tomato plants look wilted, you are probably overwatering them. I made that exact same mistake during my first season back in 2021, losing over 12 heirloom plants.",
+    "expectedPreservations": [
+      "2021",
+      "12 heirloom plants"
+    ],
+    "sourceWeaknesses": [
+      "you are wondering",
+      "you are probably"
+    ],
+    "recommendedMode": "conversational",
+    "targetReadingLevel": "casual"
+  },
+  {
+    "id": "bench_conv_07",
+    "category": "conversational",
+    "name": "Podcast Host Mid-Show Banter",
+    "inputAiText": "Before we dive into our listener mailbag, I want to give a massive shoutout to everyone who rated us 5 stars on Spotify. We just crossed 50,000 downloads, and honestly, we cannot thank you enough.",
+    "expectedPreservations": [
+      "5 stars",
+      "Spotify",
+      "50,000 downloads"
+    ],
+    "sourceWeaknesses": [
+      "before we dive into",
+      "massive shoutout",
+      "cannot"
+    ],
+    "recommendedMode": "conversational",
+    "targetReadingLevel": "casual"
+  },
+  {
+    "id": "bench_conv_08",
+    "category": "conversational",
+    "name": "Cooking Recipe Casual Tip",
+    "inputAiText": "Here is a quick kitchen secret that will change how you make garlic bread forever. Grate fresh cloves directly into warm salted butter rather than chopping them; the flavor difference is night and day.",
+    "expectedPreservations": [
+      "garlic bread",
+      "salted butter"
+    ],
+    "sourceWeaknesses": [
+      "change how you make",
+      "forever",
+      "night and day"
+    ],
+    "recommendedMode": "conversational",
+    "targetReadingLevel": "casual"
+  },
+  {
+    "id": "bench_creat_01",
+    "category": "creative",
+    "name": "Harbor Fog Atmospheric Vignette",
+    "inputAiText": "A thick blanket of fog wrapped around the sleeping harbor like an icy shroud. The solitary lighthouse beam cut through the murky dampness every 12 seconds, illuminating the rusted hull of the sunken schooner Mary Ellen.",
+    "expectedPreservations": [
+      "12 seconds",
+      "Mary Ellen"
+    ],
+    "sourceWeaknesses": [
+      "blanket of fog",
+      "like an icy shroud",
+      "solitary beam cut through"
+    ],
+    "recommendedMode": "flow",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_creat_02",
+    "category": "creative",
+    "name": "Desert Stargazing Narrative",
+    "inputAiText": "The desert night sky unveiled a breathtaking celestial tapestry of innumerable twinkling stars. Beneath the jagged silhouette of Mount Charleston, campfires flickered against the biting 28-degree chill.",
+    "expectedPreservations": [
+      "Mount Charleston",
+      "28-degree"
+    ],
+    "sourceWeaknesses": [
+      "breathtaking celestial tapestry",
+      "innumerable twinkling stars"
+    ],
+    "recommendedMode": "flow",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_creat_03",
+    "category": "creative",
+    "name": "Urban Midnight Rain Scene",
+    "inputAiText": "Neon reflections danced gracefully across the rain-slicked asphalt of 5th Avenue. Sirens wailed distantly in the damp air as yellow cabs sped past the grand entrance of the St. Regis hotel.",
+    "expectedPreservations": [
+      "5th Avenue",
+      "St. Regis"
+    ],
+    "sourceWeaknesses": [
+      "danced gracefully across",
+      "rain-slicked asphalt"
+    ],
+    "recommendedMode": "flow",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_creat_04",
+    "category": "creative",
+    "name": "Antique Clockmaker Workshop Description",
+    "inputAiText": "The workshop was a treasure trove of forgotten memories and ticking brass gears. Master Horologist Julian Vance adjusted a 200-year-old pendulum escapement with trembling, ink-stained fingers.",
+    "expectedPreservations": [
+      "Julian Vance",
+      "200-year-old pendulum escapement"
+    ],
+    "sourceWeaknesses": [
+      "treasure trove of forgotten memories"
+    ],
+    "recommendedMode": "flow",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_creat_05",
+    "category": "creative",
+    "name": "Mountain Summit Dawn Solitude",
+    "inputAiText": "Golden sunlight spilled over the alpine ridge at precisely 5:48 AM, bathing the glacial valley in warm amber hues. The crisp mountain breeze carried the faint pine scent of ancient bristlecone groves.",
+    "expectedPreservations": [
+      "5:48 AM",
+      "bristlecone groves"
+    ],
+    "sourceWeaknesses": [
+      "spilled over",
+      "warm amber hues"
+    ],
+    "recommendedMode": "flow",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_creat_06",
+    "category": "creative",
+    "name": "Abandoned Victorian Library Setting",
+    "inputAiText": "Dust motes drifted through shafts of faded afternoon light that slanted through cracked stained glass windows. Over 10,000 leather-bound volumes lined the mahogany shelves of Blackwood Manor.",
+    "expectedPreservations": [
+      "10,000 leather-bound volumes",
+      "Blackwood Manor"
+    ],
+    "sourceWeaknesses": [
+      "dust motes drifted through shafts of faded light"
+    ],
+    "recommendedMode": "flow",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_creat_07",
+    "category": "creative",
+    "name": "Stormy Sea Captain Log Entry",
+    "inputAiText": "Thirty-foot swells battered the starboard bow as gale-force winds howled through the rigging. Captain Joshua Drake gripped the teak helm with white knuckles, steering toward the safe harbor of Portsmouth.",
+    "expectedPreservations": [
+      "Thirty-foot swells",
+      "Captain Joshua Drake",
+      "Portsmouth"
+    ],
+    "sourceWeaknesses": [
+      "battered the starboard bow",
+      "howled through the rigging",
+      "white knuckles"
+    ],
+    "recommendedMode": "flow",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_awk_01",
+    "category": "awkward",
+    "name": "Repetitive Sentence Starter Monotony",
+    "inputAiText": "The system processes incoming webhooks. The system verifies the cryptographic signature. The system writes the payload to PostgreSQL. The system returns an HTTP 200 OK acknowledgment within 45ms.",
+    "expectedPreservations": [
+      "PostgreSQL",
+      "HTTP 200 OK",
+      "45ms"
+    ],
+    "sourceWeaknesses": [
+      "monotonous \"The system\" starter in 4 consecutive sentences"
+    ],
+    "recommendedMode": "flow",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_awk_02",
+    "category": "awkward",
+    "name": "Overloaded Prepositional Chain",
+    "inputAiText": "The implementation of the monitoring of the status of the clusters in the data center by the operations team occurred on Tuesday.",
+    "expectedPreservations": [
+      "Tuesday"
+    ],
+    "sourceWeaknesses": [
+      "excessive \"of the\" prepositional stacking (5 chains in one clause)"
+    ],
+    "recommendedMode": "concise",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_awk_03",
+    "category": "awkward",
+    "name": "Cluttered Passive Voice Bureaucracy",
+    "inputAiText": "It was determined by the regional oversight committee that an investigation should be conducted by outside legal counsel into the $2.4M discrepancy.",
+    "expectedPreservations": [
+      "$2.4M discrepancy"
+    ],
+    "sourceWeaknesses": [
+      "double passive voice construction (\"was determined by\", \"be conducted by\")"
+    ],
+    "recommendedMode": "concise",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_awk_04",
+    "category": "awkward",
+    "name": "Wordy Pleonasms and Tautologies",
+    "inputAiText": "At this present point in time, we must combine together all past historical records into an advance preview before making a final end decision.",
+    "expectedPreservations": [
+      "historical records"
+    ],
+    "sourceWeaknesses": [
+      "at this present point in time",
+      "combine together",
+      "past historical",
+      "advance preview",
+      "final end decision"
+    ],
+    "recommendedMode": "concise",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_awk_05",
+    "category": "awkward",
+    "name": "Run-On Rambling Sentence Structure",
+    "inputAiText": "Because the shipment arrived late and because the warehouse was short-staffed and because the forklift broke down, we could not unload the 500 crates on schedule, so the distribution manager had to reschedule the delivery for Thursday.",
+    "expectedPreservations": [
+      "500 crates",
+      "Thursday"
+    ],
+    "sourceWeaknesses": [
+      "repetitive \"and because\" conjunction chaining across 42 words"
+    ],
+    "recommendedMode": "flow",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_inv_01",
+    "category": "invariant_heavy",
+    "name": "Numerical Statistics and Confidence Intervals",
+    "inputAiText": "In today’s fast-paced clinical world, the primary trial endpoint achieved a hazard ratio of 0.68 (95% CI: 0.52 to 0.88, p = 0.003). Crucially, overall survival reached 24.2 months in Cohort A versus 16.8 months in Cohort B.",
+    "expectedPreservations": [
+      "0.68",
+      "95% CI: 0.52 to 0.88",
+      "p = 0.003",
+      "24.2 months",
+      "Cohort A",
+      "16.8 months",
+      "Cohort B"
+    ],
+    "sourceWeaknesses": [
+      "in today’s fast-paced clinical world"
+    ],
+    "recommendedMode": "formal",
+    "targetReadingLevel": "academic"
+  },
+  {
+    "id": "bench_inv_02",
+    "category": "invariant_heavy",
+    "name": "Verbatim Quotes and Authorial Attribution",
+    "inputAiText": "As CEO Maria Santos famously proclaimed, \"We will never sacrifice user privacy for ad revenue under any circumstances.\" This philosophy serves as a beacon of trust for over 4.2 million subscribed members.",
+    "expectedPreservations": [
+      "Maria Santos",
+      "\"We will never sacrifice user privacy for ad revenue under any circumstances.\"",
+      "4.2 million"
+    ],
+    "sourceWeaknesses": [
+      "serves as a beacon of trust"
+    ],
+    "recommendedMode": "natural",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_inv_03",
+    "category": "invariant_heavy",
+    "name": "Academic Citation Markers and References",
+    "inputAiText": "Delving into cellular autophagy mechanisms reveals lysosomal degradation pathways [4, 7-9]. Similar observations were corroborated by Kowalski et al. (2022) in mammalian neurodegenerative models.",
+    "expectedPreservations": [
+      "[4, 7-9]",
+      "Kowalski et al. (2022)"
+    ],
+    "sourceWeaknesses": [
+      "delving into",
+      "cellular autophagy mechanisms reveals"
+    ],
+    "recommendedMode": "formal",
+    "targetReadingLevel": "academic"
+  },
+  {
+    "id": "bench_inv_04",
+    "category": "invariant_heavy",
+    "name": "Physical Units and Chemical Formulas",
+    "inputAiText": "The catalyst oxidized aqueous H2O2 at 350 K under a constant pressure of 2.5 MPa, producing O2 gas at a reaction rate of 0.42 mol/(L*s). Furthermore, copper doping increased selectivity by 14.8%.",
+    "expectedPreservations": [
+      "H2O2",
+      "350 K",
+      "2.5 MPa",
+      "O2",
+      "0.42 mol/(L*s)",
+      "14.8%"
+    ],
+    "sourceWeaknesses": [
+      "furthermore"
+    ],
+    "recommendedMode": "formal",
+    "targetReadingLevel": "academic"
+  },
+  {
+    "id": "bench_inv_05",
+    "category": "invariant_heavy",
+    "name": "Markdown Formatting Lists and Code Spans",
+    "inputAiText": "To deploy the microservice, developers must follow three essential guidelines:\n- Run `docker compose up -d --build`\n- Verify database migration status via `npm run migrate:status`\n- Confirm Prometheus metrics on `http://localhost:9090/metrics` within 30s",
+    "expectedPreservations": [
+      "`docker compose up -d --build`",
+      "`npm run migrate:status`",
+      "`http://localhost:9090/metrics`",
+      "30s"
+    ],
+    "sourceWeaknesses": [
+      "three essential guidelines"
+    ],
+    "recommendedMode": "concise",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_long_01",
+    "category": "long_document",
+    "name": "Renewable Energy Grid Transition Report",
+    "inputAiText": "In today’s rapidly evolving world, modern power grids face unprecedented challenges transitioning from fossil fuels to intermittent renewable sources. It is important to note that solar and wind generation fluctuate based on diurnal and meteorological patterns, requiring rapid-response reserve capacity.\n\nFurthermore, lithium-ion battery storage facilities have expanded exponentially, reaching 12.4 GW of installed capacity in Q2 2024. Grid operators utilize smart inverters to stabilize AC frequency at 60 Hz (+/- 0.05 Hz), mitigating sudden phase angle deviations.\n\nIn conclusion, long-duration energy storage and HVDC transmission links across regional interconnections serve as a beacon of hope for carbon-neutral power reliability by 2035.",
+    "expectedPreservations": [
+      "12.4 GW",
+      "Q2 2024",
+      "60 Hz (+/- 0.05 Hz)",
+      "HVDC",
+      "2035"
+    ],
+    "sourceWeaknesses": [
+      "in today’s rapidly evolving world",
+      "it is important to note",
+      "furthermore",
+      "utilize",
+      "in conclusion",
+      "serve as a beacon of hope"
+    ],
+    "recommendedMode": "natural",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_long_02",
+    "category": "long_document",
+    "name": "Autonomous Vehicle Safety Architecture Memo",
+    "inputAiText": "First and foremost, Level 4 autonomous driving systems depend on redundant sensor suites comprising LiDAR, radar, and 8 high-resolution cameras. In order to process 2.5 gigabytes of point cloud telemetry per second, the onboard compute platform utilizes dual redundant ASICs.\n\nMoreover, pedestrian intent detection relies on temporal transformer networks with a 99.2% accuracy threshold. When unexpected occlusions occur, the safety fallback controller triggers a minimum risk maneuver within 250 milliseconds.\n\nUltimately, safety validation requires over 10 million simulation miles in addition to closed-course track testing under adverse weather conditions.",
+    "expectedPreservations": [
+      "Level 4",
+      "8 high-resolution cameras",
+      "2.5 gigabytes",
+      "99.2%",
+      "250 milliseconds",
+      "10 million simulation miles"
+    ],
+    "sourceWeaknesses": [
+      "first and foremost",
+      "in order to",
+      "utilizes",
+      "moreover",
+      "ultimately"
+    ],
+    "recommendedMode": "formal",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_long_03",
+    "category": "long_document",
+    "name": "Telemedicine Adoption Post-Pandemic Analysis",
+    "inputAiText": "The widespread adoption of virtual outpatient consultations fundamentally reshaped healthcare delivery across North America. Prior to 2020, virtual visits accounted for less than 1.5% of total primary care appointments.\n\nHowever, between 2021 and 2023, telehealth utilization stabilized at approximately 18.2% across urban and rural demographics alike. Patients saved an average of 42 minutes in commute time per clinical visit, while clinic no-show rates plummeted from 14% to 5.8%.\n\nTaking everything into consideration, digital health platforms must resolve lingering licensure reciprocity and reimbursement parity barriers to maintain long-term financial viability.",
+    "expectedPreservations": [
+      "1.5%",
+      "2021 and 2023",
+      "18.2%",
+      "42 minutes",
+      "14% to 5.8%"
+    ],
+    "sourceWeaknesses": [
+      "prior to 2020",
+      "however",
+      "taking everything into consideration"
+    ],
+    "recommendedMode": "natural",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_long_04",
+    "category": "long_document",
+    "name": "Cybersecurity Zero-Trust Architecture Strategy",
+    "inputAiText": "In the realm of enterprise cybersecurity, perimeter-based network defense models are thoroughly obsolete. Modern zero-trust architecture operates on the explicit premise: \"never trust, always verify.\"\n\nEvery single network request must be authenticated and authorized using micro-segmentation, mutual TLS, and continuous device health telemetry. Over 85% of corporate credential breaches exploit stale session tokens or unrotated API keys.\n\nTherefore, enforcing ephemeral 15-minute access tokens and biometric FIDO2 hardware keys serves as a vital safeguard against lateral threat movement across VPC boundaries.",
+    "expectedPreservations": [
+      "\"never trust, always verify.\"",
+      "85%",
+      "15-minute access tokens",
+      "FIDO2",
+      "VPC"
+    ],
+    "sourceWeaknesses": [
+      "in the realm of",
+      "therefore",
+      "serves as a vital safeguard"
+    ],
+    "recommendedMode": "concise",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "bench_long_05",
+    "category": "long_document",
+    "name": "Semiconductor Fabrication Nanometer Scaling Overview",
+    "inputAiText": "Extreme ultraviolet (EUV) lithography utilizing 13.5 nm wavelengths has enabled commercial production of 3nm gate-all-around (GAA) nanosheet transistors. At these sub-atomic dimensions, quantum tunneling and heat dissipation pose formidable physical hurdles.\n\nNevertheless, backside power delivery networks (BSPDN) decouple signal routing from power distribution lines, reducing resistive IR drop by up to 30% across the silicon die. Foundry yields at the 3nm node have reportedly surpassed 70% for mobile applications.\n\nIn essence, continuous material innovation in high-k metal gates and 2D transition metal dichalcogenides ensures that Moore’s Law principles persist into the angstrom era.",
+    "expectedPreservations": [
+      "13.5 nm",
+      "3nm",
+      "30%",
+      "70%"
+    ],
+    "sourceWeaknesses": [
+      "utilizing",
+      "nevertheless",
+      "in essence"
+    ],
+    "recommendedMode": "formal",
+    "targetReadingLevel": "academic"
+  }
+]

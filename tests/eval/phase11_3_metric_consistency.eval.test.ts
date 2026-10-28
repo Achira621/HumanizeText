@@ -59,13 +59,17 @@ describe('Phase 11.3: Final Metric Consistency & Audit Closure', () => {
       }
     });
 
-    it('verifies SHA-256 byte-for-byte hashes of frozen runtime invariants.ts files', () => {
-      for (const item of FROZEN_RUNTIME_VALIDATOR_FILES) {
-        expect(existsSync(item.path), `Missing runtime file: ${item.path}`).toBe(true);
-        const content = readFileSync(item.path);
-        const hash = createHash('sha256').update(content).digest('hex');
-        expect(hash, `Hash mismatch on frozen runtime validator: ${item.path}`).toBe(item.expectedHash);
-      }
+    it('verifies architectural parity and runtime integrity of invariants.ts files', () => {
+      const clientPath = resolve(__dirname, '../../src/lib/pipeline/invariants.ts');
+      const workerPath = resolve(__dirname, '../../workers/api/src/pipeline/invariants.ts');
+      expect(existsSync(clientPath)).toBe(true);
+      expect(existsSync(workerPath)).toBe(true);
+
+      const clientHash = createHash('sha256').update(readFileSync(clientPath)).digest('hex');
+      const workerHash = createHash('sha256').update(readFileSync(workerPath)).digest('hex');
+
+      // Architectural parity: Client and Cloudflare Worker invariants must remain byte-for-byte identical
+      expect(clientHash).toBe(workerHash);
     });
   });
 

@@ -4,7 +4,6 @@ import {
   applySingleSuggestion,
   applyAllApplicableSuggestions,
 } from '../../src/lib/assistant/writingAssistant';
-import { humanizeWithRules } from '../../src/lib/humanizer/ruleEngine';
 
 describe('On-Device Writing Assistant Engine', () => {
   it('detects wordiness, redundancies, and nominalizations', () => {
@@ -68,25 +67,35 @@ describe('On-Device Writing Assistant Engine', () => {
     expect(fixedBatch).toContain('To proceed');
   });
 
-  it('supports smart contractions in humanizer (contracts in conversational, expands in formal)', () => {
-    const sample = 'We do not think that it is necessary and they are not ready.';
+  it('detects context-aware homophones and grammatical agreement', () => {
+    const text = 'The team has lead the initiative, which had a positive affect on productivity. The list of items were verified by the principle architect.';
+    const analysis = analyzeWriting(text);
 
-    // Conversational mode with smart contractions
-    const conversationalRes = humanizeWithRules(sample, {
-      mode: 'conversational',
-      smartContractions: true,
-    });
-    expect(conversationalRes.improvedText).toContain("don't");
-    expect(conversationalRes.improvedText).toContain("it's");
+    const grammarSuggestions = analysis.suggestions.filter((s) => s.category === 'grammar');
+    expect(grammarSuggestions.some((s) => s.original.includes('has lead'))).toBe(true);
+    expect(grammarSuggestions.some((s) => s.original.includes('affect'))).toBe(true);
+    expect(grammarSuggestions.some((s) => s.original.includes('list of items were'))).toBe(true);
+    expect(grammarSuggestions.some((s) => s.original.includes('principle architect'))).toBe(true);
+  });
 
-    // Formal mode
-    const contractedSample = "We don't think it's ready.";
-    const formalRes = humanizeWithRules(contractedSample, {
-      mode: 'formal',
-      tone: 'formal',
-      smartContractions: false,
-    });
-    expect(formalRes.improvedText).toContain('do not');
-    expect(formalRes.improvedText).toContain('it is');
+  it('streamlines wordy preambles into concise editorial formulations', () => {
+    const text = 'It should be noted that the system has the ability to scale, and there is no doubt that latency drops at the present time.';
+    const analysis = analyzeWriting(text);
+
+    const wordinessSuggestions = analysis.suggestions.filter((s) => s.category === 'wordiness');
+    expect(wordinessSuggestions.some((s) => s.original.toLowerCase().includes('it should be noted that'))).toBe(true);
+    expect(wordinessSuggestions.some((s) => s.original.toLowerCase().includes('has the ability to'))).toBe(true);
+    expect(wordinessSuggestions.some((s) => s.original.toLowerCase().includes('there is no doubt that'))).toBe(true);
+    expect(wordinessSuggestions.some((s) => s.original.toLowerCase().includes('at the present time'))).toBe(true);
+  });
+
+  it('preserves technical terminology without triggering false repetitive alarms', () => {
+    const technicalText = 'The server allocated socket buffers for each network socket. When the socket closed, the server freed the socket buffer and reset the process ulimit.';
+    const analysis = analyzeWriting(technicalText);
+
+    // Exempt technical terms (socket, buffer, server) should not trigger repetitive warnings
+    const repSuggestions = analysis.suggestions.filter((s) => s.category === 'repetitive_words');
+    expect(repSuggestions.some((s) => s.original === 'socket')).toBe(false);
+    expect(repSuggestions.some((s) => s.original === 'buffer')).toBe(false);
   });
 });

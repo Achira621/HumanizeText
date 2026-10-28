@@ -130,6 +130,8 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
           classification,
           perplexityScore: fullDocScore.perplexityScore,
           burstinessScore: fullDocScore.burstinessScore,
+          sampleSufficiency: fullDocScore.sampleSufficiency,
+          uncertaintyMargin: fullDocScore.uncertaintyMargin,
         },
         chunkBreakdown: chunks.length > 1 ? chunkScores : undefined,
         sentenceBreakdown: sentenceScores.length > 0 ? sentenceScores : undefined,

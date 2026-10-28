@@ -14,6 +14,7 @@
     "ALLOWED_ORIGINS": "https://humanizetext-nine.vercel.app,http://localhost:5173,http://localhost:4173",
     "MAX_INPUT_CHARS": "5000",
     "MAX_OUTPUT_TOKENS": "1536",
+    "MAX_CONCURRENT_INFERENCE": "3",
     "RATE_LIMIT_PER_MINUTE": "15"
   },
   "observability": {

@@ -1,0 +1,117 @@
+[
+  {
+    "id": "intel_acad_01",
+    "category": "academic",
+    "name": "Transformer Attention Head Pruning",
+    "inputText": "It is important to note that multi-head attention serves as a testament to deep representation capacity in modern transformers. Furthermore, we must delve into the multifaceted mechanisms of cross-entropy optimization, which plays a pivotal role in empirical loss minimization (p < 0.001) across 45,000 steps [8].",
+    "expectedPreservations": ["multi-head attention", "p < 0.001", "45,000 steps", "[8]"],
+    "criticalInvariants": ["citations", "numbers"],
+    "forbiddenClichés": ["serves as a testament to", "delve into", "plays a pivotal role in", "it is important to note that"],
+    "mode": "formal",
+    "targetReadingLevel": "academic"
+  },
+  {
+    "id": "intel_tech_02",
+    "category": "technical",
+    "name": "Distributed Raft Consensus Latency",
+    "inputText": "In today's fast-paced digital era, high-availability storage clusters utilize the Raft consensus protocol. In order to ensure quorum safety, the leader node broadcasts heartbeats every 50ms across 5 regional availability zones. The p99 commit latency stabilized at 14.8 ms.",
+    "expectedPreservations": ["Raft", "50ms", "5 regional availability zones", "14.8 ms"],
+    "criticalInvariants": ["units", "numbers"],
+    "forbiddenClichés": ["in today's fast-paced digital era", "utilize", "in order to"],
+    "mode": "natural",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "intel_prof_03",
+    "category": "professional",
+    "name": "Q3 Enterprise Revenue & Operating Margins",
+    "inputText": "Moreover, taking everything into consideration, the enterprise software segment delivered $48.5M in recurring revenue with an adjusted EBITDA margin of 28.4%. It goes without saying that customer expansion in the APAC region was a vital asset to our quarterly earnings trajectory.",
+    "expectedPreservations": ["$48.5M", "28.4%", "EBITDA", "APAC"],
+    "criticalInvariants": ["numbers", "units"],
+    "forbiddenClichés": ["taking everything into consideration", "it goes without saying that", "vital asset"],
+    "mode": "formal",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "intel_conv_04",
+    "category": "conversational",
+    "name": "Team Standup Reflection",
+    "inputText": "It is evident that we cannot finish all these tasks today, and it is crucial to understand that we do not have enough coffee. Furthermore, I am honestly exhausted from yesterday's release, but we will make it through the sprint.",
+    "expectedPreservations": ["sprint", "coffee", "yesterday's release"],
+    "criticalInvariants": ["contractions_expected"],
+    "forbiddenClichés": ["it is evident that", "it is crucial to understand that", "furthermore"],
+    "mode": "conversational",
+    "targetReadingLevel": "casual"
+  },
+  {
+    "id": "intel_creat_05",
+    "category": "creative",
+    "name": "Harbor Twilight Atmosphere",
+    "inputText": "A blanket of fog drifted across the harbor as the amber sunset danced gracefully across the tidal inlet. In essence, the quiet murmurs of returning fishing trawlers served as a testament to the enduring rhythm of the coastal sanctuary.",
+    "expectedPreservations": ["harbor", "amber sunset", "fishing trawlers"],
+    "criticalInvariants": [],
+    "forbiddenClichés": ["blanket of fog", "danced gracefully across", "in essence", "served as a testament to"],
+    "mode": "flow",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "intel_neg_06",
+    "category": "negation_modality",
+    "name": "Clinical Pharmacokinetics & Qualified Claims",
+    "inputText": "Preliminary chromatography suggests that the synthetic compound may not inhibit mitochondrial respiration under nominal temperatures. Crucially, not all patient samples exhibited elevated serum markers, and it is not impossible that renal clearance rates will normalize within 48 hours.",
+    "expectedPreservations": ["48 hours", "mitochondrial respiration", "renal clearance"],
+    "criticalInvariants": ["negations", "hedges"],
+    "forbiddenClichés": [],
+    "mode": "formal",
+    "targetReadingLevel": "academic"
+  },
+  {
+    "id": "intel_nums_07",
+    "category": "numbers_dates_units",
+    "name": "Semiconductor Thermal Dissipation",
+    "inputText": "On 2024-09-15, the cryogenic chamber maintained a steady flux of 450 W/m^2 while operating at -196.2 °C. Test coupon #A-89 recorded a tensile yield strength of 780 MPa, representing a 14.5% improvement over the baseline alloy standard [4, 7-9].",
+    "expectedPreservations": ["2024-09-15", "450 W/m^2", "-196.2 °C", "#A-89", "780 MPa", "14.5%", "[4, 7-9]"],
+    "criticalInvariants": ["numbers", "dates", "units", "citations"],
+    "forbiddenClichés": [],
+    "mode": "formal",
+    "targetReadingLevel": "academic"
+  },
+  {
+    "id": "intel_quote_08",
+    "category": "quotes_protected",
+    "name": "Verbatim Quote and Frozen Terms",
+    "inputText": "\"Our preliminary benchmarks demonstrate that distributed consensus requires sub-millisecond network fabric,\" stated Chief Architect Dr. Evelyn Vance. For this microservice, developers configured `PostgreSQL` and `RedisCluster` with strict horizontal read replicas.",
+    "expectedPreservations": [
+      "\"Our preliminary benchmarks demonstrate that distributed consensus requires sub-millisecond network fabric,\"",
+      "Dr. Evelyn Vance",
+      "`PostgreSQL`",
+      "`RedisCluster`"
+    ],
+    "criticalInvariants": ["quotes", "code"],
+    "forbiddenClichés": [],
+    "mode": "natural",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "intel_gram_09",
+    "category": "grammar_edge_cases",
+    "name": "Demonstrative Agreement, Mass Nouns and Phrasal Verbs",
+    "inputText": "The researchers conducted the primary analysis. The researchers observed that the laboratory had a lot of water on the floor. Furthermore, the technicians had to get rid of the contaminated samples so the team could get better experimental readings.",
+    "expectedPreservations": ["water", "laboratory", "contaminated samples"],
+    "criticalInvariants": ["grammar", "phrasal_verbs"],
+    "forbiddenClichés": ["furthermore"],
+    "mode": "formal",
+    "targetReadingLevel": "general"
+  },
+  {
+    "id": "intel_doc_10",
+    "category": "multi_sentence_consistency",
+    "name": "Multi-Sentence Discourse Terminology Consistency",
+    "inputText": "In today's fast-paced world, software engineering teams must utilize deterministic compilers to guarantee build reproducibility. Furthermore, organizations that utilize deterministic compilers can eliminate subtle packaging drift across distributed build farms. Moreover, engineering leaders recognize that deterministic compilers safeguard continuous integration security.",
+    "expectedPreservations": ["deterministic compilers", "build reproducibility", "build farms", "continuous integration security"],
+    "criticalInvariants": ["terminology_consistency", "transition_dedup"],
+    "forbiddenClichés": ["in today's fast-paced world", "furthermore", "moreover"],
+    "mode": "natural",
+    "targetReadingLevel": "general"
+  }
+]

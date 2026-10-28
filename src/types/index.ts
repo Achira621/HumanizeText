@@ -129,6 +129,8 @@ export type HumanizerMode =
 
 export type VocabularyIntensity = 'conservative' | 'balanced' | 'dynamic' | 'maximum';
 
+export type RewriteStrength = 'minimal' | 'light' | 'balanced' | 'strong' | 'extensive';
+
 export interface DiffToken {
   id: string;
   text: string;
@@ -137,6 +139,9 @@ export interface DiffToken {
   alternatives?: string[];
   reason?: string;
   category?: 'filler' | 'passive' | 'phrasing' | 'redundancy' | 'flow' | 'formality' | 'contraction' | 'frozen';
+  startIndex?: number;
+  endIndex?: number;
+  scope?: 'phrase' | 'word';
 }
 
 export interface AiSignalPhrase {
@@ -150,13 +155,66 @@ export interface AiSignalPhrase {
 
 export * from './context';
 import type { WritingContext, RewritePlan } from './context';
+export type GenerationProfile = 'conservative' | 'balanced' | 'creative';
+
+export type AlternativeScope = 'document' | 'passage' | 'sentence' | 'phrase' | 'none';
+
+export interface CandidateScoreBreakdown {
+  grammarFluency: number;
+  semanticPreservation: number;
+  contextualFit: number;
+  readabilityScore: number;
+  conciseness: number;
+  strengthAlignment: number;
+  overallScore: number;
+}
+
+export interface AlternativeCandidate {
+  id: string;
+  text: string;
+  scope: AlternativeScope;
+  label?: string;
+  isValid: boolean;
+  validationWarnings?: string[];
+  rejectionReason?: string;
+  scoreBreakdown?: CandidateScoreBreakdown;
+  rank?: number;
+}
+
+export interface TargetSpan {
+  startIndex: number;
+  endIndex: number;
+  text: string;
+  sentenceIndex?: number;
+  blockId?: string;
+}
+
+export interface AlternativesMetadata {
+  scope: AlternativeScope;
+  candidates: AlternativeCandidate[];
+  selectedIndex: number;
+  originalTargetText?: string;
+  sourceFingerprint?: string;
+  targetSpan?: TargetSpan;
+}
 
 export interface HumanizerOptions {
   mode: HumanizerMode;
   targetReadingLevel?: 'general' | 'academic' | 'casual';
   preserveTechnicalTerms?: boolean;
   frozenWords?: string[];
+  freezeQuotes?: boolean;
+  slidingContext?: boolean;
+  prevSentence?: string;
+  nextSentence?: string;
+  multiCandidate?: boolean;
+  preferActive?: boolean;
   vocabularyIntensity?: VocabularyIntensity;
+  rewriteStrength?: RewriteStrength;
+  generationProfile?: GenerationProfile;
+  temperature?: number;
+  topP?: number;
+  seed?: number;
   tone?: 'conversational' | 'academic' | 'formal' | 'creative' | 'concise';
   smartContractions?: boolean;
   context?: Partial<WritingContext>;
@@ -219,6 +277,8 @@ export interface HumanizerResult {
   mode: HumanizerMode;
   changes: HumanizerChange[];
   diffTokens?: DiffToken[];
+  alternatives?: string[];
+  alternativesMetadata?: AlternativesMetadata;
   stats: {
     originalWords: number;
     improvedWords: number;

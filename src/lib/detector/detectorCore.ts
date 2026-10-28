@@ -266,6 +266,9 @@ export interface AiAnalysisResult {
   signalBreakdown: Record<string, number>;
   keywordHits: number;
   matchingSignatures: string[];
+  sampleSufficiency: 'insufficient' | 'limited' | 'sufficient';
+  uncertaintyMargin: number;
+  wordCount: number;
 }
 
 export function computeAiScore(text: string): AiAnalysisResult {
@@ -409,8 +412,16 @@ export function computeAiScore(text: string): AiAnalysisResult {
     calibratedAi = Math.max(0.04, calibratedAi - 0.22);
   }
 
+  let sampleSufficiency: 'insufficient' | 'limited' | 'sufficient' = 'sufficient';
+  let uncertaintyMargin = 0.08;
+
   if (wordCount < 25) {
+    sampleSufficiency = 'insufficient';
+    uncertaintyMargin = 0.28;
     calibratedAi = calibratedAi * 0.8 + 0.1;
+  } else if (wordCount < 50) {
+    sampleSufficiency = 'limited';
+    uncertaintyMargin = 0.16;
   }
 
   const aiProbability = Math.max(0.02, Math.min(0.98, Math.round(calibratedAi * 100) / 100));
@@ -450,5 +461,8 @@ export function computeAiScore(text: string): AiAnalysisResult {
     },
     keywordHits,
     matchingSignatures,
+    sampleSufficiency,
+    uncertaintyMargin,
+    wordCount,
   };
 }

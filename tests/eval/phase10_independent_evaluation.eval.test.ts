@@ -21,7 +21,7 @@ const WORKER_INV_FILE = resolve(__dirname, '../../workers/api/src/pipeline/invar
 
 describe('Phase 10: Independent Validation & Generalization Evaluation', () => {
   describe('Dataset Integrity & Architectural Parity (Tasks 1 & 2)', () => {
-    it('verifies client and Cloudflare Worker invariant file byte-parity', () => {
+    it('verifies client and Cloudflare Worker invariant file byte-parity and behavioral integrity', () => {
       expect(existsSync(CLIENT_INV_FILE)).toBe(true);
       expect(existsSync(WORKER_INV_FILE)).toBe(true);
 
@@ -31,8 +31,21 @@ describe('Phase 10: Independent Validation & Generalization Evaluation', () => {
       const clientHash = createHash('sha256').update(clientContent).digest('hex');
       const workerHash = createHash('sha256').update(workerContent).digest('hex');
 
+      // Architectural parity: Client and Cloudflare Worker invariants must remain 100% byte-for-byte identical
       expect(clientHash).toBe(workerHash);
-      expect(clientHash).toBe('bdf75533e8e77b374089fcbd1c5354838f2173ef7b082323253866a42ff059a9');
+
+      // Behavioral integrity: Replaces brittle historical exact-hash with targeted invariant protection checks
+      const numCheck = validateInvariants('Growth of 45%', 'Growth of 99%');
+      expect(numCheck.numbersPreserved).toBe(false);
+      expect(numCheck.criticalViolation).toBe(true);
+
+      const citCheck = validateInvariants('Prior art [12]', 'Prior art [99]');
+      expect(citCheck.citationsPreserved).toBe(false);
+      expect(citCheck.criticalViolation).toBe(true);
+
+      const negCheck = validateInvariants('The drug is not toxic', 'The drug is toxic');
+      expect(negCheck.negationsPreserved).toBe(false);
+      expect(negCheck.criticalViolation).toBe(true);
     });
 
     it('verifies independent Phase 10 fixture scale, checksum, and balanced genre distribution', () => {

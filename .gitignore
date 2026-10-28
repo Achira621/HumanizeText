@@ -27,3 +27,23 @@ dist-ssr
 .wrangler/
 __pycache__/
 *.pyc
+
+# Confidential Human Evaluation Study Materials (Kept uncommitted until study completion)
+docs/humanizer-research/
+tests/fixtures/benchmarks/intelligence_v1_3_private_manifest.json
+tests/fixtures/benchmarks/intelligence_v1_3_2_reviewer_crosswalk.json
+tests/fixtures/benchmarks/intelligence_v1_3_human_eval.json
+tests/fixtures/eval_responses_mock/
+tests/eval/reviewerDistributionAndMerging.test.ts
+tests/eval/human_eval_pipeline.test.ts
+scripts/*human_eval*
+scripts/*reviewer*
+scripts/*pilot*
+scripts/*mock*
+scripts/generate_v1_3*
+scripts/merge_and_validate_responses.mjs
+scripts/audit_claims.mjs
+scripts/audit_production_routes.mjs
+scripts/verify_live_routes.mjs
+scratch/
+

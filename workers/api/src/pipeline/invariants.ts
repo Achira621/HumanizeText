@@ -515,15 +515,15 @@ export function checkNegationTargetPreservation(
   }
 
   // 3. Negated verb target affirmed in rewrite without governing negation
-  const negVerbPattern = /\b(?:did\s+not|does\s+not|do\s+not|will\s+not|cannot|can't|could\s+not|should\s+not|never)\s+([a-z]+(?:\s+[a-z]+)?)\b/gi;
+  const negVerbPattern = /\b(?:did\s+not|does\s+not|do\s+not|will\s+not|cannot|can't|could\s+not|should\s+not|never|is\s+not|was\s+not|are\s+not|were\s+not|has\s+not|have\s+not|had\s+not|isn't|wasn't|aren't|weren't|hasn't|haven't|hadn't)\s+([a-z]+(?:\s+[a-z]+)?)\b/gi;
   let match: RegExpExecArray | null;
   while ((match = negVerbPattern.exec(normSource)) !== null) {
     const negPhrase = match[0].toLowerCase();
     const action = match[1].toLowerCase();
-
-    if (/^(?:have|be|seem|appear|exist)\b/.test(action)) continue;
-
     const verbRoot = action.split(/\s+/)[0];
+
+    if (/^(?:have|be|seem|appear|exist)$/.test(verbRoot)) continue;
+
     const affirmativeForms: string[] = [verbRoot];
     if (verbRoot.endsWith('e')) {
       affirmativeForms.push(`${verbRoot}d`, `${verbRoot}s`);
@@ -718,6 +718,18 @@ export function extractCausalClauses(text: string): CausalClause[] {
       effect: match[2].trim().toLowerCase(),
       raw: match[0],
     });
+  }
+
+  // Mid-sentence because / due to: "Effect occurred because Cause."
+  const midBecausePattern = /([^.;]+?)\s+\b(?:because|due to)\s+([^.;]+)/gi;
+  while ((match = midBecausePattern.exec(text)) !== null) {
+    if (match[1].length > 4 && match[2].length > 4) {
+      clauses.push({
+        cause: match[2].trim().toLowerCase(),
+        effect: match[1].trim().toLowerCase(),
+        raw: match[0],
+      });
+    }
   }
 
   const activePattern = /([^.;]+?)(?:,\s*which|\s+that)?\s+(?<!\b(?:was|is|were|been|being)\s+)(?:caused(?!\s+by)|led to|resulted in)\s+([^,.;]+)/gi;
@@ -1071,9 +1083,18 @@ export function validateInvariants(
 
   if (orig.negations.length > 0) {
     if (rewr.negations.length === 0) {
-      // Check if antonym polarity rules account for the negative qualification
+      // Check if antonym polarity rules or affirmative rhetorical idioms account for the negative qualification
+      const isAffirmativeIdiom = /\b(?:goes\s+without\s+saying|without\s+a\s+doubt|without\s+question|not\s+to\s+mention)\b/i.test(originalText);
       const antonymCheck = checkAntonymPolarityEquivalence(originalText, rewrittenText);
-      if (antonymCheck.matched) {
+      if (isAffirmativeIdiom && orig.negations.every((n) => /without\s+(?:saying|a\s+doubt|question)|not\s+to\s+mention/i.test(n))) {
+        traces.push({
+          rationale: 'Rhetorical affirmative idiom preserved via affirmative transition.',
+          sourceSpan: orig.negations[0],
+          outputSpan: 'affirmative',
+          normalizationRuleApplied: 'AFFIRMATIVE_IDIOM_PRESERVATION',
+          severity: 'advisory',
+        });
+      } else if (antonymCheck.matched) {
         traces.push({
           rationale: antonymCheck.rationale || 'Negative qualification preserved via bounded antonym equivalence.',
           sourceSpan: antonymCheck.sourceSpan || orig.negations[0],
@@ -1124,14 +1145,19 @@ export function validateInvariants(
   const origCausal = extractCausalClauses(originalText);
   const rewrCausal = extractCausalClauses(rewrittenText);
   for (const oc of origCausal) {
-    const causeWords = oc.cause.split(/\s+/).filter((w) => w.length > 3);
-    const effectWords = oc.effect.split(/\s+/).filter((w) => w.length > 3);
+    const stemWord = (w: string) => w.toLowerCase().replace(/(?:ing|ed|s|er|tion|ure|ment|ity|al)$/, '');
+    const causeWords = oc.cause.split(/\s+/).filter((w) => w.length > 3).map(stemWord);
+    const effectWords = oc.effect.split(/\s+/).filter((w) => w.length > 3).map(stemWord);
 
     for (const rc of rewrCausal) {
-      const matchEffectInCause = effectWords.filter((w) => rc.cause.includes(w)).length;
-      const matchCauseInEffect = causeWords.filter((w) => rc.effect.includes(w)).length;
+      const rcCauseStems = rc.cause.split(/\s+/).filter((w) => w.length > 3).map(stemWord);
+      const rcEffectStems = rc.effect.split(/\s+/).filter((w) => w.length > 3).map(stemWord);
 
-      if (matchEffectInCause >= 2 && matchCauseInEffect >= 2) {
+      const matchEffectInCause = effectWords.filter((w) => rcCauseStems.some((s) => s.includes(w) || w.includes(s))).length;
+      const matchCauseInEffect = causeWords.filter((w) => rcEffectStems.some((s) => s.includes(w) || w.includes(s))).length;
+
+      const threshold = Math.min(2, Math.max(1, Math.min(causeWords.length, effectWords.length)));
+      if (matchEffectInCause >= threshold && matchCauseInEffect >= threshold) {
         causalityPreserved = false;
         const msg = `Reversed causality detected: Cause and effect relationships were inverted in the rewrite (original cause became effect).`;
         causalityWarnings.push(msg);
@@ -1193,7 +1219,7 @@ export function validateInvariants(
     const missingFrozen: string[] = [];
     for (const fw of options.frozenWords) {
       const regex = new RegExp(`\\b${fw}\\b`, 'i');
-      if (!regex.test(rewrittenText)) {
+      if (regex.test(originalText) && !regex.test(rewrittenText)) {
         missingFrozen.push(fw);
       }
     }
@@ -1539,7 +1565,7 @@ export function validateInvariantsLegacy(
     const missingFrozen: string[] = [];
     for (const fw of options.frozenWords) {
       const regex = new RegExp(`\\b${fw}\\b`, 'i');
-      if (!regex.test(rewrittenText)) {
+      if (regex.test(originalText) && !regex.test(rewrittenText)) {
         missingFrozen.push(fw);
       }
     }

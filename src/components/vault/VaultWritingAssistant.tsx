@@ -11,6 +11,8 @@ import {
   Gauge,
   ArrowRight,
   ShieldCheck,
+  Undo,
+  Redo,
 } from 'lucide-react';
 import type { VaultRecord, WritingSuggestion, WritingIssueCategory, HumanizerMode, VocabularyIntensity } from '../../types';
 import { analyzeWriting, applySingleSuggestion, applyAllApplicableSuggestions } from '../../lib/assistant/writingAssistant';
@@ -51,6 +53,30 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
   const [paraResult, setParaResult] = useState<string | null>(null);
   const [isParaphrasing, setIsParaphrasing] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [history, setHistory] = useState<string[]>([initialRecord.content]);
+  const [historyIndex, setHistoryIndex] = useState<number>(0);
+
+  const updateContentWithHistory = (newText: string) => {
+    setContent(newText);
+    setHistory((prev) => [...prev.slice(0, historyIndex + 1), newText]);
+    setHistoryIndex((prev) => prev + 1);
+  };
+
+  const handleUndo = () => {
+    if (historyIndex > 0) {
+      const prevText = history[historyIndex - 1];
+      setHistoryIndex((prev) => prev - 1);
+      setContent(prevText);
+    }
+  };
+
+  const handleRedo = () => {
+    if (historyIndex < history.length - 1) {
+      const nextText = history[historyIndex + 1];
+      setHistoryIndex((prev) => prev + 1);
+      setContent(nextText);
+    }
+  };
 
   // Real-time on-device writing analysis
   const analysis = useMemo(() => {
@@ -88,7 +114,7 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
   // Accept single suggestion
   const handleAcceptSuggestion = (suggestion: WritingSuggestion) => {
     const updated = applySingleSuggestion(content, suggestion);
-    setContent(updated);
+    updateContentWithHistory(updated);
     setDismissedSuggestionIds((prev) => new Set(prev).add(suggestion.id));
   };
 
@@ -100,7 +126,7 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
   // Apply all suggestions
   const handleApplyAll = () => {
     const updated = applyAllApplicableSuggestions(content, activeSuggestions);
-    setContent(updated);
+    updateContentWithHistory(updated);
     const newDismissed = new Set(dismissedSuggestionIds);
     activeSuggestions.forEach((s) => newDismissed.add(s.id));
     setDismissedSuggestionIds(newDismissed);
@@ -126,11 +152,10 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
   // Replace text from paraphraser
   const handleApplyParaphraseResult = () => {
     if (!paraResult) return;
-    if (paraInputSelection.trim() && content.includes(paraInputSelection.trim())) {
-      setContent(content.replace(paraInputSelection.trim(), paraResult));
-    } else {
-      setContent(paraResult);
-    }
+    const updated = paraInputSelection.trim() && content.includes(paraInputSelection.trim())
+      ? content.replace(paraInputSelection.trim(), paraResult)
+      : paraResult;
+    updateContentWithHistory(updated);
     setParaResult(null);
     setParaInputSelection('');
   };
@@ -225,7 +250,30 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
         {/* Left: Document Editor Area (7 Cols) */}
         <div className="flex flex-col lg:col-span-7">
           <div className="flex items-center justify-between border-b border-[var(--border-subtle)] pb-2 text-xs font-bold text-[var(--text-secondary)]">
-            <span>Decrypted Document Editor</span>
+            <div className="flex items-center space-x-2">
+              <span>Decrypted Document Editor</span>
+              {/* Undo / Redo History Controls */}
+              <div className="flex items-center space-x-1 pl-2 border-l border-[var(--border-subtle)]">
+                <button
+                  type="button"
+                  onClick={handleUndo}
+                  disabled={historyIndex <= 0}
+                  className="rounded p-1 text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-subtle)] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                  title="Undo last change (Ctrl+Z)"
+                >
+                  <Undo className="h-3.5 w-3.5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={handleRedo}
+                  disabled={historyIndex >= history.length - 1}
+                  className="rounded p-1 text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-subtle)] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                  title="Redo change (Ctrl+Y)"
+                >
+                  <Redo className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            </div>
             <div className="flex items-center space-x-2 text-[11px] font-normal text-[var(--text-muted)]">
               <span>Flesch Score:</span>
               <span className="font-bold text-[var(--text-primary)] font-mono">{analysis.readability.fleschKincaidScore} / 100</span>
@@ -236,6 +284,20 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
+            onKeyDown={(e) => {
+              if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
+                if (e.shiftKey) {
+                  e.preventDefault();
+                  handleRedo();
+                } else {
+                  e.preventDefault();
+                  handleUndo();
+                }
+              } else if ((e.ctrlKey || e.metaKey) && e.key === 'y') {
+                e.preventDefault();
+                handleRedo();
+              }
+            }}
             onSelect={(e) => {
               const target = e.target as HTMLTextAreaElement;
               const sel = target.value.substring(target.selectionStart, target.selectionEnd);

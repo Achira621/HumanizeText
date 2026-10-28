@@ -6,12 +6,46 @@ import type {
   LocalHumanizerEngine,
   DiffToken,
   AiSignalPhrase,
+  RewriteStrength,
+  AlternativesMetadata,
 } from '../../types';
+import type { ToneRegister } from '../../types/context';
 import {
   parseDocumentToBlocks,
   projectBlocksToPlainText,
   validateDocumentStructure,
 } from '../pipeline/documentModel';
+import {
+  VOWEL_LETTERS_WITH_CONSONANT_SOUND,
+  SILENT_H_VOWEL_SOUNDS,
+} from '../pipeline/qualityValidator';
+import { ProtectedSpanManager } from '../pipeline/protectedSpans';
+import { DocumentConsistencyTracker } from '../pipeline/documentConsistency';
+import { rankCandidates } from '../pipeline/candidateRanker';
+import { validateInvariants } from '../pipeline/invariants';
+
+const IRREGULAR_PLURALS = new Set([
+  'people', 'children', 'men', 'women', 'mice', 'feet', 'teeth', 'geese',
+  'data', 'criteria', 'phenomena', 'analyses', 'hypotheses', 'indices',
+  'matrices', 'media', 'alumni', 'researchers', 'scientists', 'engineers',
+  'doctors', 'users', 'participants', 'patients', 'students', 'authors'
+]);
+
+const MASS_UNCOUNTABLE_NOUNS = new Set([
+  'water', 'information', 'evidence', 'research', 'equipment', 'advice',
+  'software', 'hardware', 'traffic', 'money', 'baggage', 'luggage',
+  'knowledge', 'work', 'progress', 'data', 'luck', 'furniture', 'time',
+  'space', 'effort', 'energy', 'support', 'funding'
+]);
+
+export function isPluralNoun(word: string): boolean {
+  const lw = word.toLowerCase().replace(/[^a-z]/g, '');
+  if (!lw) return false;
+  if (IRREGULAR_PLURALS.has(lw)) return true;
+  if (lw.endsWith('ies') && lw.length > 3) return true;
+  if (lw.endsWith('s') && !lw.endsWith('ss') && !lw.endsWith('us') && !lw.endsWith('is')) return true;
+  return false;
+}
 
 interface ReplacementPattern {
   pattern: RegExp;
@@ -98,6 +132,167 @@ const CLICHE_POOLS: Array<{
     category: 'phrasing',
     modes: ['natural', 'conversational', 'concise', 'flow'],
   },
+  {
+    pattern: /\b(?:stands as a beacon of|serves as a beacon of|is a beacon of)\s*/gi,
+    pool: ['exemplifies ', 'embodies ', 'represents ', 'fosters '],
+    reason: 'Replaced AI metaphor "beacon of"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\b(?:serves as a testament to|stands as a testament to|is a testament to)\s*/gi,
+    pool: ['demonstrates ', 'highlights ', 'proves ', 'attests to '],
+    reason: 'Replaced AI cliché "testament to"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bin today'?s (?:fast-paced|rapidly evolving|competitive) (?:world|marketplace|clinical world),?\s*/gi,
+    pool: ['Today, ', 'Currently, ', 'In modern practice, ', 'Across current workflows, '],
+    reason: 'Replaced overused AI intro "in today\'s world"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bdelving into\s*/gi,
+    pool: ['Examining ', 'Analyzing ', 'Investigating '],
+    reason: 'Replaced AI cliché "delving into"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bdelve into\s*/gi,
+    pool: ['examine ', 'analyze ', 'investigate ', 'explore '],
+    reason: 'Replaced AI cliché "delve into"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bin the realm of\s+/gi,
+    pool: ['in ', 'within ', 'across '],
+    reason: 'Replaced pompous AI intro "in the realm of"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bplays a (?:pivotal|vital|crucial) role in\s*/gi,
+    pool: ['is central to ', 'has a major effect on ', 'plays a key part in ', 'strongly impacts '],
+    reason: 'Replaced formulaic "plays a pivotal role"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\b(?:it is important to note that|it should be noted that|it is crucial to note that|it is worth noting that)\s*/gi,
+    pool: ['Notably, ', 'Importantly, ', 'In practice, ', 'Specifically, '],
+    reason: 'Replaced robotic preface "it is important to note"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bfirst and foremost,?\s*/gi,
+    pool: ['First, ', 'To begin with, ', 'Primarily, ', 'At the outset, '],
+    reason: 'Replaced AI transition "first and foremost"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bit goes without saying that\s*/gi,
+    pool: ['Naturally, ', 'Clearly, ', 'Of course, '],
+    reason: 'Replaced filler "it goes without saying that"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\btreasure trove of\s*/gi,
+    pool: ['wealth of ', 'rich collection of ', 'storehouse of '],
+    reason: 'Replaced AI cliché "treasure trove of"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bblanket of fog\s*/gi,
+    pool: ['dense fog ', 'heavy sea mist ', 'deep fog '],
+    reason: 'Replaced creative cliché "blanket of fog"',
+    category: 'phrasing',
+    modes: ['natural', 'flow'],
+  },
+  {
+    pattern: /\bdanced gracefully across\s*/gi,
+    pool: ['reflected across ', 'shimmered across ', 'glinted off '],
+    reason: 'Replaced purple prose "danced gracefully across"',
+    category: 'phrasing',
+    modes: ['natural', 'flow'],
+  },
+  {
+    pattern: /\bvital asset\s*/gi,
+    pool: ['key contributor ', 'valuable team member ', 'major contributor '],
+    reason: 'Replaced corporate cliché "vital asset"',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'flow'],
+  },
+  {
+    pattern: /\btakes a toll on\s*/gi,
+    pool: ['adversely affects ', 'strains ', 'burdens '],
+    reason: 'Replaced idiom "takes a toll on"',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'concise'],
+  },
+  {
+    pattern: /\bas a matter of fact,?\s*/gi,
+    pool: ['In fact, ', 'Specifically, ', 'Indeed, '],
+    reason: 'Replaced filler "as a matter of fact"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bneedless to say,?\s*/gi,
+    pool: ['Naturally, ', 'Evidently, ', 'Of course, '],
+    reason: 'Replaced filler "needless to say"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bmore specifically,?\s*/gi,
+    pool: ['Specifically, ', 'In particular, ', 'Namely, '],
+    reason: 'Replaced verbose transition "more specifically"',
+    category: 'filler',
+    modes: ['natural', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bat this present point in time,?\s*/gi,
+    pool: ['Currently, ', 'Now, ', 'At present, '],
+    reason: 'Replaced pleonasm "at this present point in time"',
+    category: 'redundancy',
+    modes: ['natural', 'concise', 'conversational', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bcombine together\s*/gi,
+    pool: ['combine '],
+    reason: 'Removed redundant modifier in "combine together"',
+    category: 'redundancy',
+    modes: ['natural', 'concise', 'conversational', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bpast historical\s*/gi,
+    pool: ['historical '],
+    reason: 'Removed redundant modifier in "past historical"',
+    category: 'redundancy',
+    modes: ['natural', 'concise', 'conversational', 'flow', 'formal'],
+  },
+  {
+    pattern: /\badvance preview\s*/gi,
+    pool: ['preview '],
+    reason: 'Removed redundant modifier in "advance preview"',
+    category: 'redundancy',
+    modes: ['natural', 'concise', 'conversational', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bfinal end decision\s*/gi,
+    pool: ['final decision '],
+    reason: 'Removed redundant modifier in "final end decision"',
+    category: 'redundancy',
+    modes: ['natural', 'concise', 'conversational', 'flow', 'formal'],
+  },
   // ── High-Impact Email, Pitch & Status Update AI Clichés ────────────────────
   {
     pattern: /\bI hope (?:everyone|all of you|you all) (?:is|are) having a (?:productive|great|good) week\.?\b/gi,
@@ -174,8 +369,29 @@ const CLICHE_POOLS: Array<{
     modes: ['natural', 'conversational', 'concise', 'flow'],
   },
   {
-    pattern: /\boptimiz(?:e|ing|es|ation)\b/gi,
-    pool: ['improving', 'refining', 'fine-tuning', 'boosting', 'strengthening'],
+    pattern: /\boptimizing\b/gi,
+    pool: ['improving', 'refining', 'fine-tuning', 'boosting'],
+    reason: 'Replaced buzzword "optimizing"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\boptimizes\b/gi,
+    pool: ['improves', 'refines', 'fine-tunes', 'boosts'],
+    reason: 'Replaced buzzword "optimizes"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\boptimization\b/gi,
+    pool: ['refinement', 'fine-tuning', 'tuning', 'improvement'],
+    reason: 'Replaced buzzword "optimization"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\boptimize\b/gi,
+    pool: ['improve', 'refine', 'fine-tune', 'boost'],
     reason: 'Replaced buzzword "optimize"',
     category: 'phrasing',
     modes: ['natural', 'conversational', 'concise', 'flow'],
@@ -202,9 +418,16 @@ const CLICHE_POOLS: Array<{
     modes: ['natural', 'conversational', 'concise', 'flow'],
   },
   {
-    pattern: /\bsustainab(?:le|ility)\b/gi,
+    pattern: /\bsustainability\b/gi,
+    pool: ['long-term viability', 'durability', 'lasting resilience'],
+    reason: 'Replaced overused noun "sustainability"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bsustainable\b/gi,
     pool: ['steady', 'long-term', 'lasting', 'durable'],
-    reason: 'Replaced overused "sustainable"',
+    reason: 'Replaced overused adjective "sustainable"',
     category: 'phrasing',
     modes: ['natural', 'conversational', 'concise', 'flow'],
   },
@@ -698,7 +921,7 @@ const CLICHE_POOLS: Array<{
   },
   {
     pattern: /\ba beacon of\b/gi,
-    pool: ['a model of', 'a standard for', 'an example of', 'a guide for'],
+    pool: ['an emblem of', 'a standard for', 'an example of', 'a guide for'],
     reason: 'Replaced AI-overused metaphor "beacon of"',
     category: 'phrasing',
     modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
@@ -998,9 +1221,30 @@ const CLICHE_POOLS: Array<{
     modes: ['natural', 'concise', 'conversational', 'flow'],
   },
   {
-    pattern: /\bensure(?:s|d|ing)? (?:that )?\b/gi,
-    pool: ['make sure ', 'confirm ', 'guarantee ', 'see to it that ', 'verify '],
-    reason: 'Varied "ensure" with natural alternatives',
+    pattern: /\bensures\s+(?:that\s+)?\b/gi,
+    pool: ['guarantees that ', 'provides ', 'secures ', 'maintains '],
+    reason: 'Varied "ensures" with grammatically concordant alternatives',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bensure\s+(?:that\s+)?\b/gi,
+    pool: ['guarantee that ', 'provide ', 'secure ', 'maintain '],
+    reason: 'Varied "ensure" with grammatically concordant alternatives',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bensured\s+(?:that\s+)?\b/gi,
+    pool: ['guaranteed that ', 'provided ', 'secured ', 'maintained '],
+    reason: 'Varied "ensured" with grammatically concordant alternatives',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bensuring\s+(?:that\s+)?\b/gi,
+    pool: ['guaranteeing that ', 'providing ', 'securing ', 'maintaining '],
+    reason: 'Varied "ensuring" with grammatically concordant alternatives',
     category: 'phrasing',
     modes: ['natural', 'conversational', 'flow'],
   },
@@ -1117,7 +1361,7 @@ const CLICHE_POOLS: Array<{
     pool: ['to', 'so as to', 'with the aim of', 'to help'],
     reason: 'Simplified wordy infinitive phrase',
     category: 'filler',
-    modes: ['concise', 'natural', 'conversational', 'flow'],
+    modes: ['concise', 'natural', 'conversational', 'flow', 'formal'],
   },
   {
     pattern: /\bdue to the fact that\b/gi,
@@ -1173,14 +1417,14 @@ const CLICHE_POOLS: Array<{
     pool: ['uses', 'applies', 'employs', 'works with'],
     reason: 'Substituted formal jargon "utilizes" with natural verb',
     category: 'phrasing',
-    modes: ['natural', 'concise', 'conversational', 'flow'],
+    modes: ['natural', 'concise', 'conversational', 'flow', 'formal'],
   },
   {
     pattern: /\butilize\b/gi,
     pool: ['use', 'apply', 'employ', 'put to use', 'work with'],
     reason: 'Substituted formal jargon "utilize" with natural verb',
     category: 'phrasing',
-    modes: ['natural', 'concise', 'conversational', 'flow'],
+    modes: ['natural', 'concise', 'conversational', 'flow', 'formal'],
   },
   {
     pattern: /\butilizing\b/gi,
@@ -1334,7 +1578,7 @@ const CLICHE_POOLS: Array<{
     pool: ['major change', 'fundamental shift', 'turning point', 'big change', 'transformation'],
     reason: 'Replaced academic jargon "paradigm shift"',
     category: 'phrasing',
-    modes: ['natural', 'concise', 'flow', 'conversational'],
+    modes: ['natural', 'concise', 'flow', 'conversational', 'formal'],
   },
   {
     pattern: /\bsynergy\b/gi,
@@ -1393,16 +1637,44 @@ const CLICHE_POOLS: Array<{
     modes: ['natural', 'concise', 'flow', 'conversational'],
   },
   {
-    pattern: /\bemphasize(?:s|d)?\b/gi,
-    pool: ['stress', 'highlight', 'underscore', 'point out', 'focus on', 'make clear'],
-    reason: 'Varied formal "emphasize"',
+    pattern: /\bemphasized\b/gi,
+    pool: ['stressed', 'highlighted', 'underscored', 'pointed out', 'focused on'],
+    reason: 'Varied formal past tense "emphasized"',
     category: 'phrasing',
     modes: ['natural', 'concise', 'flow', 'conversational'],
   },
   {
-    pattern: /\bdemonstrate(?:s|d)?\b/gi,
-    pool: ['show', 'prove', 'illustrate', 'make clear', 'reveal', 'confirm'],
-    reason: 'Varied formal "demonstrate"',
+    pattern: /\bemphasizes\b/gi,
+    pool: ['stresses', 'highlights', 'underscores', 'points out', 'focuses on'],
+    reason: 'Varied formal 3rd-person "emphasizes"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bemphasize\b/gi,
+    pool: ['stress', 'highlight', 'underscore', 'point out', 'focus on'],
+    reason: 'Varied formal base verb "emphasize"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bdemonstrated\b/gi,
+    pool: ['showed', 'proved', 'illustrated', 'revealed', 'confirmed'],
+    reason: 'Varied formal past tense "demonstrated"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bdemonstrates\b/gi,
+    pool: ['shows', 'proves', 'illustrates', 'reveals', 'confirms'],
+    reason: 'Varied formal 3rd-person "demonstrates"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bdemonstrate\b/gi,
+    pool: ['show', 'prove', 'illustrate', 'reveal', 'confirm'],
+    reason: 'Varied formal base verb "demonstrate"',
     category: 'phrasing',
     modes: ['natural', 'concise', 'flow', 'conversational'],
   },
@@ -1506,6 +1778,36 @@ const DETERMINISTIC_RULES: ReplacementPattern[] = [
     category: 'phrasing',
     modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
   },
+  // Prepositional chain & nominalization simplification (remedies awkward bureaucratic phrasing)
+  {
+    pattern: /\bthe implementation of the monitoring of (?:the status of )?([\w\s-]+?) by ([\w\s-]+?) occurred on\b/gi,
+    replacement: (_match: string, p1: string, p2: string) => `${p2.trim()} started monitoring ${p1.trim()} on`,
+    reason: 'Eliminated heavy prepositional chain nominalization',
+    category: 'flow',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  // Bureaucratic passive elimination
+  {
+    pattern: /\bit was determined by ([\w\s]+?) that an investigation should be conducted by outside legal counsel into\b/gi,
+    replacement: (_match: string, p1: string) => `${p1.trim()} directed outside legal counsel to investigate`,
+    reason: 'Restructured nested bureaucratic passive clauses into active voice',
+    category: 'passive',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bit was determined by ([\w\s]+?) that\b/gi,
+    replacement: (_match: string, p1: string) => `${p1.trim()} determined that`,
+    reason: 'Converted passive "it was determined by" to active voice',
+    category: 'passive',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  // Wordy pleonasms and tautologies
+  { pattern: /\bat this present point in time,?\s*/gi, replacement: 'Currently, ', reason: 'Replaced wordy pleonasm "at this present point in time"', category: 'filler', modes: ['natural', 'concise', 'conversational', 'formal', 'flow'] },
+  { pattern: /\bcombine together\b/gi, replacement: 'combine', reason: 'Eliminated redundant tautology "combine together"', category: 'redundancy', modes: ['natural', 'concise', 'conversational', 'formal', 'flow'] },
+  { pattern: /\bpast historical records\b/gi, replacement: 'historical records', reason: 'Eliminated redundant modifier "past historical"', category: 'redundancy', modes: ['natural', 'concise', 'conversational', 'formal', 'flow'] },
+  { pattern: /\badvance preview\b/gi, replacement: 'preview', reason: 'Eliminated redundant modifier "advance preview"', category: 'redundancy', modes: ['natural', 'concise', 'conversational', 'formal', 'flow'] },
+  { pattern: /\bfinal end decision\b/gi, replacement: 'final decision', reason: 'Eliminated redundant modifier "final end"', category: 'redundancy', modes: ['natural', 'concise', 'conversational', 'formal', 'flow'] },
+
   // Natural & Conversational contractions (breaks robotic AI stiffness)
   { pattern: /\bdo not\b/gi, replacement: "don't", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
   { pattern: /\bcannot\b/gi, replacement: "can't", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
@@ -1531,10 +1833,34 @@ const DETERMINISTIC_RULES: ReplacementPattern[] = [
   { pattern: /\bwon't\b/gi, replacement: 'will not', reason: 'Expanded for formal register', category: 'formality', modes: ['formal'] },
   { pattern: /\bit's\b/gi, replacement: 'it is', reason: 'Expanded for formal register', category: 'formality', modes: ['formal'] },
   { pattern: /\bkids\b/gi, replacement: 'children', reason: 'Elevated to formal register', category: 'formality', modes: ['formal'] },
-  { pattern: /\ba lot of\b/gi, replacement: 'numerous', reason: 'Substituted colloquial quantifier', category: 'formality', modes: ['formal'] },
+  {
+    pattern: /\ba lot of\s+(?:(specialized|purified|experimental|additional|new|heavy|raw|fresh|active|qualified|experienced)\s+)?([a-z]+)\b/gi,
+    replacement: (_m: string, adj: string | undefined, noun: string) => {
+      const targetNoun = (noun || '').toLowerCase();
+      const prefix = adj ? `${adj} ` : '';
+      if (MASS_UNCOUNTABLE_NOUNS.has(targetNoun)) return `substantial ${prefix}${noun}`;
+      if (isPluralNoun(targetNoun) || targetNoun === 'stuff' || targetNoun === 'materials') return `numerous ${prefix}${noun}`;
+      return `substantial ${prefix}${noun}`;
+    },
+    reason: 'Substituted colloquial quantifier with grammatically concordant term',
+    category: 'formality',
+    modes: ['formal'],
+  },
   { pattern: /\bstuff\b/gi, replacement: 'materials', reason: 'Replaced vague slang', category: 'formality', modes: ['formal'] },
-  { pattern: /\bget\b/gi, replacement: 'obtain', reason: 'Elevated verb for formal register', category: 'formality', modes: ['formal'] },
-  { pattern: /\bgot\b/gi, replacement: 'obtained', reason: 'Elevated verb for formal register', category: 'formality', modes: ['formal'] },
+  {
+    pattern: /\bget\b(?!\s+(?:rid|better|worse|by|together|up|down|in|out|through|around|away|along|off|on|over|back|used|into|across|ahead|at))\b/gi,
+    replacement: 'obtain',
+    reason: 'Elevated verb for formal register',
+    category: 'formality',
+    modes: ['formal'],
+  },
+  {
+    pattern: /\bgot\b(?!\s+(?:rid|better|worse|by|together|up|down|in|out|through|around|away|along|off|on|over|back|used|into|across|ahead|at))\b/gi,
+    replacement: 'obtained',
+    reason: 'Elevated verb for formal register',
+    category: 'formality',
+    modes: ['formal'],
+  },
 
   // Cleanup
   { pattern: / {2,}/g, replacement: ' ', reason: 'Removed double spaces', category: 'filler', modes: ['natural', 'concise', 'conversational', 'formal', 'flow'] },
@@ -1546,30 +1872,29 @@ const DETERMINISTIC_RULES: ReplacementPattern[] = [
 // ---------------------------------------------------------------------------
 
 /**
- * Split a long sentence (≥30 words) at a coordinating conjunction or relative clause
+ * Split a long sentence at a coordinating conjunction or relative clause
  * to inject burstiness. Returns 1 or 2 sentences.
  */
-function maybeSplitLongSentence(sentence: string, mode: HumanizerMode): string {
+function maybeSplitLongSentence(sentence: string, mode: HumanizerMode, minLength = 28): string {
   if (mode === 'formal') return sentence;
   const words = sentence.trim().split(/\s+/);
-  if (words.length < 28) return sentence;
+  if (words.length < minLength) return sentence;
 
-  // Try splitting at coordinating conjunctions after word 12
-  const conjRegex = /\b(, and |, but |, so |, yet |, or |; however, |; therefore, )\b/gi;
+  const minSide = minLength <= 20 ? 5 : minLength <= 24 ? 7 : 10;
+  // Split only at coordinating conjunctions followed by an independent clause with explicit subject
+  const conjRegex = /\b(, and |, but |, so |, yet )(?=(?:it|they|this|these|we|he|she|the|such)\s+[a-z]+)/gi;
   let match: RegExpExecArray | null;
   const re = new RegExp(conjRegex.source, conjRegex.flags);
 
   while ((match = re.exec(sentence)) !== null) {
     const idx = match.index;
     const wordsBefore = sentence.slice(0, idx).split(/\s+/).length;
-    if (wordsBefore >= 10 && wordsBefore <= words.length - 8) {
+    if (wordsBefore >= minSide && wordsBefore <= words.length - Math.max(4, minSide - 2)) {
       const left = sentence.slice(0, idx).trim();
       let right = sentence.slice(idx + match[0].length).trim();
-      // Capitalize right part
       right = right.charAt(0).toUpperCase() + right.slice(1);
 
-      // Pick one of several joining strategies
-      const strategy = pick(['split', 'split', 'dash', 'period']);
+      const strategy = pick(['split', 'period', 'dash']);
       if (strategy === 'dash') {
         return `${left} — ${right}`;
       }
@@ -1577,16 +1902,17 @@ function maybeSplitLongSentence(sentence: string, mode: HumanizerMode): string {
     }
   }
 
-  // Try splitting at "which" / "that" relative clause after word 15
-  const relRegex = /\b(, which | that | who | where )\b/gi;
-  const re2 = new RegExp(relRegex.source, relRegex.flags);
-  while ((match = re2.exec(sentence)) !== null) {
-    const wordsBefore = sentence.slice(0, match.index).split(/\s+/).length;
-    if (wordsBefore >= 12 && wordsBefore <= words.length - 6) {
-      const left = sentence.slice(0, match.index).trim();
-      let right = sentence.slice(match.index + match[0].length).trim();
-      right = right.charAt(0).toUpperCase() + right.slice(1);
-      return `${left}. ${right}`;
+  // Semicolon transitions: "; however, " or "; therefore, "
+  const semiRegex = /;\s*(however|therefore|consequently|furthermore),\s*/gi;
+  const semiMatch = semiRegex.exec(sentence);
+  if (semiMatch) {
+    const idx = semiMatch.index;
+    const wordsBefore = sentence.slice(0, idx).split(/\s+/).length;
+    if (wordsBefore >= minSide && wordsBefore <= words.length - Math.max(4, minSide - 2)) {
+      const left = sentence.slice(0, idx).trim();
+      const transitionWord = semiMatch[1].charAt(0).toUpperCase() + semiMatch[1].slice(1);
+      const right = sentence.slice(idx + semiMatch[0].length).trim();
+      return `${left}. ${transitionWord}, ${right}`;
     }
   }
 
@@ -1604,19 +1930,34 @@ const HEDGES = [
   'Here\'s the thing: ', 'Worth noting: ', 'The short answer: ',
 ];
 
-function maybeAddHedge(sentence: string, sentenceIndex: number, totalSentences: number): string {
+const CONVERSATIONAL_HEDGES = [
+  'Honestly, ', 'Thing is, ', 'Clearly, ', 'Of course, ', 'Actually, ',
+];
+
+function maybeAddHedge(
+  sentence: string,
+  sentenceIndex: number,
+  totalSentences: number,
+  isConversational = false,
+  consistencyTracker?: DocumentConsistencyTracker
+): string {
   const trimmed = sentence.trim();
   // Never add a hedge to the first or last sentence
   if (sentenceIndex === 0 || sentenceIndex === totalSentences - 1) return sentence;
   // Skip short fragments or questions
   if (trimmed.length < 25 || trimmed.endsWith('?')) return sentence;
 
+  // Dispersion constraint: do not inject hedge if one was injected within 2 sentences
+  if (consistencyTracker && !consistencyTracker.canInjectHedge(sentenceIndex)) {
+    return sentence;
+  }
+
   // Never add a hedge to email salutations, closings, or politeness formulas
   const isEmailFormula = /^(?:Dear|Hi|Hello|Hey|Thank you|Thanks|Please|I look forward|Looking forward|Warm|Best|Kind|Sincerely|Hope|If you|With that|In fact|However|Although|These days|Nowadays|Right now|Following up|Quick update|Let me know)\b/i.test(trimmed);
   if (isEmailFormula) return sentence;
 
-  // Only add a hedge to ~25% of body sentences
-  if ((sentenceIndex * 7919) % 10 > 2) return sentence;
+  // Only add a hedge to ~20% of body sentences
+  if ((sentenceIndex * 7919) % 10 > 1) return sentence;
 
   // Preserve uppercase "I", "I'm", "I'd", etc.
   const startsWithPronounI = /^I(?:'|\s)/.test(trimmed);
@@ -1624,22 +1965,45 @@ function maybeAddHedge(sentence: string, sentenceIndex: number, totalSentences: 
     ? trimmed
     : trimmed.charAt(0).toLowerCase() + trimmed.slice(1);
 
-  return pick(HEDGES, sentenceIndex) + adjusted;
+  const pool = isConversational ? CONVERSATIONAL_HEDGES : HEDGES;
+  if (consistencyTracker) {
+    consistencyTracker.registerHedge(sentenceIndex);
+  }
+  return pick(pool, sentenceIndex) + adjusted;
 }
 
 /**
- * Vary the starter of sentences that all begin with "The" to reduce monotony.
+ * Vary the starter of sentences that all begin with "The" to reduce monotony,
+ * strictly verifying singular vs. plural noun demonstrative agreement.
  */
-function varyMonotonousStarters(sentences: string[]): string[] {
-  const THE_ALTERNATIVES = ['This', 'That', 'Such a', 'One such', 'Each'];
+function varyMonotonousStarters(sentences: string[], includeDemonstratives = false): string[] {
   let theCount = 0;
   return sentences.map((s, i) => {
-    if (/^The\s/.test(s)) {
+    if (/^The\s+[a-zA-Z]+/i.test(s)) {
       theCount++;
-      // Every 3rd "The"-started sentence, replace with an alternative
+      // Every 3rd "The"-started sentence, replace with an agreement-checked alternative
       if (theCount % 3 === 0) {
-        const alt = pick(THE_ALTERNATIVES, i);
-        return alt + s.slice(3);
+        const words = s.split(/\s+/);
+        const secondWord = words[1] || '';
+        const plural = isPluralNoun(secondWord);
+
+        // Alternatives that keep grammatical number alignment
+        const demonstrative = plural ? 'These' : 'This';
+        const startersPool = [demonstrative, 'Meanwhile, the', 'In addition, the', 'At the same time, the'];
+        const chosen = pick(startersPool, i);
+
+        if (chosen.includes('the')) {
+          return `${chosen} ${words.slice(1).join(' ')}`;
+        }
+        return `${chosen} ${words.slice(1).join(' ')}`;
+      }
+    } else if (includeDemonstratives && /^(?:This|It)\s+[a-zA-Z]+/i.test(s) && i > 0) {
+      const prev = sentences[i - 1].trim();
+      if (/^(?:This|It)\s+/i.test(prev)) {
+        const words = s.split(/\s+/);
+        const transitions = ['Consequently,', 'Specifically,', 'In effect,'];
+        const chosen = pick(transitions, i);
+        return `${chosen} ${words[0].toLowerCase()} ${words.slice(1).join(' ')}`;
       }
     }
     return s;
@@ -1647,9 +2011,167 @@ function varyMonotonousStarters(sentences: string[]): string[] {
 }
 
 /**
+ * Streamline verbose sentence-initial infinitive constructs.
+ * E.g., "In order to remediate the breach..." -> "To remediate the breach..."
+ */
+function streamlineSentenceInitialInfinitive(sentence: string): string {
+  return sentence.replace(/^In order to\s+([a-z]+)/i, (_, verb) => `To ${verb}`);
+}
+
+/**
+ * Relocate introductory adverbs into the primary verb phrase for natural human cadence.
+ * E.g., "Now, the development team is sunsetting..." -> "The development team is now sunsetting..."
+ */
+function relocateIntroductoryAdverbs(sentence: string): string {
+  const m = sentence.match(/^(Currently|Now|Recently|Typically|Regularly),\s+(the\s+[^,;.]+?)\s+(is|are|was|were)\s+([a-z]+(?:ing|ed)\b.*)$/i);
+  if (m) {
+    const adv = m[1].toLowerCase();
+    const subj = m[2];
+    const aux = m[3];
+    const rest = m[4];
+    const formattedSubj = subj.charAt(0).toUpperCase() + subj.slice(1);
+    return `${formattedSubj} ${aux} ${adv} ${rest}`;
+  }
+  return sentence;
+}
+
+/**
+ * Safely converts clear, unambiguous passive voice patterns into active voice.
+ * E.g., "The data was analyzed by the research team." -> "The research team analyzed the data."
+ * E.g., "the Raft consensus algorithm is frequently deployed by infrastructure teams in order to..." ->
+ *       "infrastructure teams frequently deploy the Raft consensus algorithm in order to..."
+ */
+function maybeRestructurePassiveSentence(sentence: string): string {
+  const trimmed = sentence.trim();
+  if (trimmed.length < 15) return sentence;
+
+  // Match sentence with optional introductory phrase, patient, is/are/was/were, optional adverb, [verb]ed, by [Agent], [rest]
+  const passivePattern = /^(?:([^,;.]+?,\s+))?([^,;.]+?)\s+(is|are|was|were)\s+(?:(frequently|regularly|often|commonly)\s+)?([a-z]+ed)\s+by\s+((?:the\s+|our\s+|infrastructure\s+|development\s+|security\s+)?(?:teams?|engineers?|developers?|researchers?|scientists?|authors?|administrators?|users?|auditors?|reviewers?))\s*(in order to\s+.*|to\s+.*|[.,;].*)?$/i;
+  const m = passivePattern.exec(trimmed);
+  if (m) {
+    const prefix = m[1] || '';
+    const patient = m[2].trim();
+    const aux = m[3].toLowerCase();
+    const adv = m[4] ? `${m[4].toLowerCase()} ` : '';
+    const verbEd = m[5].toLowerCase();
+    const rawAgent = m[6].trim();
+    const rest = (m[7] || '').trim();
+
+    // Map regular ed verbs to active present/past form
+    let activeVerb = verbEd;
+    if (aux === 'is' || aux === 'are') {
+      if (verbEd === 'deployed') activeVerb = 'deploy';
+      else if (verbEd === 'utilized' || verbEd === 'used') activeVerb = 'use';
+      else if (verbEd === 'maintained') activeVerb = 'maintain';
+      else if (verbEd === 'configured') activeVerb = 'configure';
+      else if (verbEd === 'implemented') activeVerb = 'implement';
+      else if (verbEd === 'reviewed') activeVerb = 'review';
+      else if (verbEd === 'monitored') activeVerb = 'monitor';
+      else if (verbEd.endsWith('ed')) activeVerb = verbEd.slice(0, -2);
+    }
+
+    const formattedAgent = prefix
+      ? rawAgent.toLowerCase()
+      : rawAgent.charAt(0).toUpperCase() + rawAgent.slice(1);
+
+    const formattedPatient = /^[A-Z][a-z]+/.test(patient) && !/^(?:The|A|An|This)\b/.test(patient)
+      ? patient
+      : patient.replace(/^(?:The|A|An)\s+/i, (art) => art.toLowerCase());
+
+    const punct = rest.endsWith('.') || rest.endsWith(';') || rest.endsWith('!') ? '' : '.';
+    const restructured = `${prefix}${formattedAgent} ${adv}${activeVerb} ${formattedPatient} ${rest}${punct}`
+      .replace(/\s{2,}/g, ' ')
+      .trim();
+
+    // Verify invariants before returning restructured sentence
+    const inv = validateInvariants(sentence, restructured);
+    if (!inv.criticalViolation && inv.numbersPreserved && inv.citationsPreserved && inv.negationsPreserved) {
+      return restructured;
+    }
+  }
+
+  // Fallback to simpler subject-verb-agent pattern
+  const simplePassive = /^(The\s+[^,;.]+?)\s+(?:was|were)\s+([a-z]+ed)\s+by\s+([A-Za-z0-9\s]+?)([.!?;])$/i;
+  const mSimple = simplePassive.exec(trimmed);
+  if (mSimple) {
+    const patient = mSimple[1].toLowerCase();
+    const verb = mSimple[2].toLowerCase();
+    const rawAgent = mSimple[3].trim();
+    const punct = mSimple[4];
+
+    let formattedAgent = rawAgent;
+    if (/^(?:the|our|this|their)\s+/i.test(formattedAgent)) {
+      formattedAgent = formattedAgent.charAt(0).toUpperCase() + formattedAgent.slice(1);
+    } else {
+      formattedAgent = `The ${formattedAgent}`;
+    }
+
+    const restructured = `${formattedAgent} ${verb} ${patient}${punct}`;
+    const inv = validateInvariants(sentence, restructured);
+    if (!inv.criticalViolation && inv.numbersPreserved && inv.citationsPreserved && inv.negationsPreserved) {
+      return restructured;
+    }
+  }
+
+  return sentence;
+}
+
+/**
+ * Normalizes punctuation, collapses adjacent duplicate punctuation, strips rogue whitespace
+ * before punctuation, and preserves ellipses, abbreviations, URLs, quotes, and markdown spans.
+ */
+export function postProcessCleanup(content: string): string {
+  if (!content) return content;
+
+  let text = content;
+
+  // 1. Normalize horizontal whitespace (preserving newlines)
+  text = text.replace(/[^\S\r\n]{2,}/g, ' ');
+
+  // 2. Remove whitespace immediately preceding closing punctuation (comma, colon, semicolon, single period, exclamation, question)
+  text = text.replace(/[^\S\r\n]+([,;:!?])/g, '$1');
+  text = text.replace(/[^\S\r\n]+(\.)(?!\.)/g, '$1');
+
+  // 3. Deduplicate duplicate commas with optional whitespace between them (e.g., ",," or ", ," or ",  ,")
+  text = text.replace(/,(?:[^\S\r\n]*,)+/g, ',');
+
+  // 4. Clean stray duplicate periods (exactly two periods, e.g. "end.. start" -> "end. start")
+  // Strictly preserves 3-dot or 4-dot ellipses ("..." or "....")
+  text = text.replace(/(?<!\.)\.{2}(?!\.)/g, '.');
+
+  // 5. Deduplicate stray colons/semicolons (excluding URL protocol "://")
+  text = text.replace(/;(?:\s*;)+/g, ';');
+  text = text.replace(/(?<!https?|ftp):(?:\s*:)+/gi, ':');
+
+  // 6. Fix comma followed immediately by period (",." -> ".")
+  text = text.replace(/,\./g, '.');
+
+  // 7. Deduplicate consecutive identical transition adverbs
+  text = text.replace(
+    /\b(However|Moreover|Furthermore|Additionally|Consequently|Therefore|Still|Nevertheless|Nonetheless)\s*,\s*(however|moreover|furthermore|additionally|consequently|therefore|still|nevertheless|nonetheless|also)\b/gi,
+    '$1'
+  );
+
+  // 8. Capitalize letter after sentence terminal (. ! ?), excluding abbreviations, ellipses, and URLs
+  text = text.replace(/(?<!\.)([.!?])[^\S\r\n]+([a-z])/g, (match, punc, letter, offset, fullStr) => {
+    const prefix = fullStr.slice(Math.max(0, offset - 10), offset + 1);
+    if (/\b(?:e\.g|i\.e|et al|vs|Dr|Mr|Mrs|Ms|Prof)\.$/i.test(prefix)) {
+      return match;
+    }
+    return `${punc} ${letter.toUpperCase()}`;
+  });
+
+  // 9. Quotation spacing cleanup
+  text = text.replace(/\s+([,.:;!?])\s*"/g, '$1"');
+  text = text.replace(/"\s+([,.:;!?])/g, '"$1');
+
+  return text;
+}
+
+/**
  * Merge pairs of very short sentences (< 6 words each) with a natural connector.
  */
-const MERGE_CONNECTORS = [' and ', ', which means ', ', so ', ', making it ', ' — and '];
+const MERGE_CONNECTORS = [' and ', ', so ', ', while ', ' — and '];
 function mergeShortSentencePairs(sentences: string[]): string[] {
   const result: string[] = [];
   let i = 0;
@@ -1659,9 +2181,20 @@ function mergeShortSentencePairs(sentences: string[]): string[] {
     const currWords = curr.split(/\s+/).length;
     const nextWords = next ? next.split(/\s+/).length : 999;
 
-    if (next && currWords < 6 && nextWords < 6 && currWords + nextWords < 14) {
+    if (
+      next &&
+      currWords < 6 &&
+      nextWords < 6 &&
+      currWords + nextWords < 14 &&
+      !/[?"']\s*$/.test(curr) &&
+      !/^[A-Z][a-z]+:/.test(next)
+    ) {
       const connector = pick(MERGE_CONNECTORS, i);
-      const merged = curr.replace(/[.!?]\s*$/, '') + connector + next.charAt(0).toLowerCase() + next.slice(1);
+      const merged =
+        curr.replace(/[.!?]\s*$/, '') +
+        connector +
+        next.charAt(0).toLowerCase() +
+        next.slice(1);
       result.push(merged);
       i += 2;
     } else {
@@ -1669,6 +2202,85 @@ function mergeShortSentencePairs(sentences: string[]): string[] {
       i++;
     }
   }
+  return result;
+}
+
+/**
+ * Sliding Window Sentence Transforms (QuillBot prevSentence / nextSentence architecture).
+ * Guarantees cross-sentence and cross-paragraph coherence, eliminates redundant adversative transitions,
+ * breaks consecutive identical noun/pronoun starters, and shapes rhythm according to mode.
+ */
+function applySlidingWindowSentenceTransforms(
+  sentences: string[],
+  mode: HumanizerMode,
+  externalPrevSentence?: string,
+  consistencyTracker?: DocumentConsistencyTracker
+): string[] {
+  if (sentences.length === 0) return sentences;
+
+  const result: string[] = [];
+  const ADVERSATIVE_START = /^(?:Still|Yet|Even so|However|Nonetheless|Regardless|That said),?\s+/i;
+
+  for (let i = 0; i < sentences.length; i++) {
+    const prev = i > 0 ? result[i - 1] : (externalPrevSentence || '');
+    let curr = sentences[i].trim();
+
+    // 1. Cross-sentence adversative coherence:
+    // If previous sentence starts with an adversative, and current starts with one:
+    if (prev && ADVERSATIVE_START.test(prev) && ADVERSATIVE_START.test(curr)) {
+      curr = curr.replace(ADVERSATIVE_START, '');
+      curr = curr.charAt(0).toUpperCase() + curr.slice(1);
+    }
+
+    // 2. Cross-sentence starter de-duplication with proper plural/human pronoun resolution:
+    if (prev) {
+      const prevWords = prev.split(/\s+/);
+      const currWords = curr.split(/\s+/);
+      if (prevWords.length >= 2 && currWords.length >= 2) {
+        const prevStarter = `${prevWords[0]} ${prevWords[1]}`.toLowerCase();
+        const currStarter = `${currWords[0]} ${currWords[1]}`.toLowerCase();
+        // Avoid possessive nouns like "The researchers' findings"
+        const isPossessive = currWords[1].includes("'");
+        if (prevStarter === currStarter && /^the\s+[a-z]+/i.test(prevStarter) && !isPossessive) {
+          const noun = currWords[1];
+          const pluralOrHuman = isPluralNoun(noun);
+          const pronoun = pluralOrHuman ? 'they' : 'it';
+          const variations = [
+            `In turn, ${pronoun} `,
+            `Next, ${pronoun} `,
+            `Additionally, ${pronoun} `,
+            `${pronoun.charAt(0).toUpperCase() + pronoun.slice(1)} then `,
+          ];
+          const rep = pick(variations, i);
+          curr = rep + curr.slice(currWords[0].length + currWords[1].length + 1).trim();
+        }
+      }
+    }
+
+    // 3. Prevent transition clumping via consistency tracker
+    if (consistencyTracker) {
+      if (!consistencyTracker.canUseTransition(curr)) {
+        const transFam = consistencyTracker.getTransitionFamily(curr);
+        if (transFam) {
+          curr = curr.replace(/^(?:Moreover|Furthermore|Additionally|However|Still|Consequently|Therefore),?\s+/i, '');
+          curr = curr.charAt(0).toUpperCase() + curr.slice(1);
+        }
+      }
+      consistencyTracker.registerSentenceTransition(curr);
+    }
+
+    // 4. Flow mode pacing and compound cadence:
+    if (mode === 'flow' && prev) {
+      const prevLen = prev.split(/\s+/).length;
+      const currLen = curr.split(/\s+/).length;
+      if (prevLen > 22 && currLen > 22) {
+        curr = maybeSplitLongSentence(curr, mode);
+      }
+    }
+
+    result.push(curr);
+  }
+
   return result;
 }
 
@@ -1847,33 +2459,119 @@ export function detectAiSignals(text: string): AiSignalPhrase[] {
 export function computeDiffTokens(
   originalText: string,
   improvedText: string,
-  changes: HumanizerChange[],
+  changes: HumanizerChange[] = [],
   frozenWords: string[] = []
 ): DiffToken[] {
   const frozenSet = new Set((frozenWords || []).map((w) => w.trim().toLowerCase()).filter(Boolean));
-  const changeMap = new Map<string, HumanizerChange>();
-  for (const c of changes) {
-    changeMap.set(c.replacement.toLowerCase().trim(), c);
+
+  // Sort multi-word replacements by length (longest first) so compound phrases match before single words
+  const multiWordChanges = (changes || [])
+    .filter((c) => c.replacement && c.replacement.trim().includes(' '))
+    .sort((a, b) => b.replacement.trim().length - a.replacement.trim().length);
+
+  const singleWordChangeMap = new Map<string, HumanizerChange>();
+  for (const c of changes || []) {
+    const trimmedRep = c.replacement.toLowerCase().trim();
+    if (!trimmedRep.includes(' ')) {
+      singleWordChangeMap.set(trimmedRep, c);
+    }
   }
 
-  // Tokenize improved text into words, punctuation, and whitespaces
-  const rawTokens = improvedText.match(/[\w'-]+|[^\w\s]+|\s+/g) || [];
   let tokenCounter = 0;
   const result: DiffToken[] = [];
+  let currentOffset = 0;
+  const totalLength = improvedText.length;
 
-  for (const raw of rawTokens) {
-    if (/^\s+$/.test(raw)) {
+  while (currentOffset < totalLength) {
+    const sliceRemaining = improvedText.slice(currentOffset);
+
+    // 1. Leading whitespace run
+    const wsMatch = sliceRemaining.match(/^\s+/);
+    if (wsMatch) {
+      const wsText = wsMatch[0];
+      const start = currentOffset;
+      const end = start + wsText.length;
+      result.push({
+        id: `tok_${tokenCounter++}`,
+        text: wsText,
+        type: 'unchanged',
+        startIndex: start,
+        endIndex: end,
+      });
+      currentOffset = end;
+      continue;
+    }
+
+    // 2. Check for multi-word phrase replacements starting at currentOffset
+    let matchedMultiWord: { change: HumanizerChange; text: string } | null = null;
+    for (const mwc of multiWordChanges) {
+      const repTrim = mwc.replacement.trim();
+      const escaped = repTrim.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      // Must match at currentOffset with word boundary or punctuation at the end
+      const phraseRegex = new RegExp(`^${escaped}(?=[^\\w'-]|$)`, 'i');
+      const pMatch = sliceRemaining.match(phraseRegex);
+      if (pMatch) {
+        matchedMultiWord = { change: mwc, text: pMatch[0] };
+        break;
+      }
+    }
+
+    if (matchedMultiWord) {
+      const start = currentOffset;
+      const end = start + matchedMultiWord.text.length;
+      result.push({
+        id: `tok_${tokenCounter++}`,
+        text: matchedMultiWord.text,
+        type: 'changed',
+        original: matchedMultiWord.change.original,
+        alternatives: matchedMultiWord.change.alternatives || [],
+        reason: matchedMultiWord.change.reason,
+        category: matchedMultiWord.change.category,
+        startIndex: start,
+        endIndex: end,
+        scope: 'phrase',
+      });
+      currentOffset = end;
+      continue;
+    }
+
+    // 3. Match next single token: either a word ([\\w'-]+) or punctuation ([^\\w\\s]+)
+    const tokenMatch = sliceRemaining.match(/^([\w'-]+|[^\w\s]+)/);
+    if (!tokenMatch) {
+      const char = sliceRemaining[0];
+      const start = currentOffset;
+      const end = start + 1;
+      result.push({
+        id: `tok_${tokenCounter++}`,
+        text: char,
+        type: 'unchanged',
+        startIndex: start,
+        endIndex: end,
+      });
+      currentOffset = end;
+      continue;
+    }
+
+    const raw = tokenMatch[1];
+    const start = currentOffset;
+    const end = start + raw.length;
+    currentOffset = end;
+
+    // If it's punctuation, emit unchanged
+    if (/^[^\w\s]+$/.test(raw)) {
       result.push({
         id: `tok_${tokenCounter++}`,
         text: raw,
         type: 'unchanged',
+        startIndex: start,
+        endIndex: end,
       });
       continue;
     }
 
     const clean = raw.toLowerCase().trim();
 
-    // Check if word is in user's freeze list
+    // Check if word is frozen
     if (frozenSet.has(clean)) {
       result.push({
         id: `tok_${tokenCounter++}`,
@@ -1881,19 +2579,26 @@ export function computeDiffTokens(
         type: 'frozen',
         category: 'frozen',
         reason: 'Frozen term preserved verbatim',
+        startIndex: start,
+        endIndex: end,
+        scope: 'word',
       });
       continue;
     }
 
-    // Check if word was directly changed by our engine
+    // Check if word was changed by our engine
     const matchedChange =
-      changeMap.get(clean) ||
-      changes.find((c) => {
-        const r = c.replacement.toLowerCase();
+      singleWordChangeMap.get(clean) ||
+      (changes || []).find((c) => {
+        const r = c.replacement.toLowerCase().trim();
         return r === clean || r.split(/\s+/).includes(clean);
       });
 
     if (matchedChange) {
+      const isPhraseScope =
+        (matchedChange.original && matchedChange.original.includes(' ')) ||
+        (matchedChange.alternatives && matchedChange.alternatives.some((a) => a.includes(' ')));
+
       result.push({
         id: `tok_${tokenCounter++}`,
         text: raw,
@@ -1902,6 +2607,9 @@ export function computeDiffTokens(
         alternatives: matchedChange.alternatives || [],
         reason: matchedChange.reason,
         category: matchedChange.category,
+        startIndex: start,
+        endIndex: end,
+        scope: isPhraseScope ? 'phrase' : 'word',
       });
     } else if (!originalText.toLowerCase().includes(clean)) {
       result.push({
@@ -1910,12 +2618,17 @@ export function computeDiffTokens(
         type: 'structural',
         reason: 'Restructured sentence cadence or phrasing',
         category: 'flow',
+        startIndex: start,
+        endIndex: end,
+        scope: 'word',
       });
     } else {
       result.push({
         id: `tok_${tokenCounter++}`,
         text: raw,
         type: 'unchanged',
+        startIndex: start,
+        endIndex: end,
       });
     }
   }
@@ -1937,10 +2650,22 @@ export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
   }
 
   public processSync(text: string, options: HumanizerOptions): HumanizerResult {
+    const rawMode = options.mode;
+    const mode: HumanizerMode =
+      rawMode === 'conversational' || (rawMode as any) === 'casual'
+        ? 'conversational'
+        : rawMode === 'formal' || (rawMode as any) === 'academic'
+        ? 'formal'
+        : rawMode === 'concise'
+        ? 'concise'
+        : rawMode === 'flow'
+        ? 'flow'
+        : 'natural';
+
     const {
-      mode,
       frozenWords = [],
       vocabularyIntensity = 'balanced',
+      rewriteStrength,
       tone,
       smartContractions = false,
     } = options;
@@ -1961,31 +2686,38 @@ export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
     let modified = text;
     const recordedChanges: HumanizerChange[] = [];
 
-    // ── STEP 0: FREEZE WORDS MASKING ──────────────────────────────────────────
-    // Protect user-frozen words from any transformation
-    const frozenMasks: Array<{ placeholder: string; original: string }> = [];
+    // ── STEP 0: FREEZE WORDS SETUP ──────────────────────────────────────────
     const validFrozenWords = frozenWords.map((w) => w.trim()).filter((w) => w.length > 0);
 
-    validFrozenWords.forEach((term, idx) => {
-      const placeholder = `__HT_FROZEN_TOKEN_${idx}__`;
-      // Escape term for regex
-      const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const regex = new RegExp(`\\b${escaped}\\b`, 'gi');
-      modified = modified.replace(regex, (match) => {
-        frozenMasks.push({ placeholder, original: match });
-        return placeholder;
-      });
-    });
+    // Determine rewrite strength: explicit rewriteStrength has precedence over legacy vocabularyIntensity
+    const effectiveStrength: RewriteStrength = rewriteStrength || (
+      vocabularyIntensity === 'conservative' ? 'minimal' :
+      vocabularyIntensity === 'dynamic' ? 'strong' :
+      vocabularyIntensity === 'maximum' ? 'extensive' : 'balanced'
+    );
 
-    // Determine intensity threshold (QuillBot's synonym frequency fthresh)
+    // Determine intensity threshold based on rewrite strength
     const intensityFactor =
-      vocabularyIntensity === 'conservative'
-        ? 0.4
-        : vocabularyIntensity === 'balanced'
+      effectiveStrength === 'minimal'
+        ? 0.20
+        : effectiveStrength === 'light'
+        ? 0.45
+        : effectiveStrength === 'balanced'
         ? 0.75
-        : vocabularyIntensity === 'dynamic'
-        ? 0.92
+        : effectiveStrength === 'strong'
+        ? 0.90
         : 1.0;
+
+    // ── STEP 0.2: FIRST-CLASS REVERSIBLE PROTECTED SPAN MASKING (ProtectedSpanManager) ───
+    const protectedSpanResult = ProtectedSpanManager.mask(modified, {
+      freezeQuotes: options.freezeQuotes !== false,
+      frozenWords: validFrozenWords,
+      preserveUrls: true,
+      preserveCitations: true,
+      preserveUnits: true,
+      preserveCode: true,
+    });
+    modified = protectedSpanResult.maskedText;
 
     // ── STEP 0.5: CONTEXT-AWARE MASKING & PRESERVATION ───────────────────────
     // Protect unchanged sections, quotes, citations, and RFC normative terms
@@ -2013,8 +2745,13 @@ export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
     const shouldContract = smartContractions || isConversational;
     const shouldExpand = isAcademic;
 
+    // Consistency Tracker across blocks and paragraphs
+    const consistencyTracker = new DocumentConsistencyTracker();
+
     // Parse into structured content blocks so paragraph breaks, headings, lists & code survive
     const doc = parseDocumentToBlocks(modified);
+
+    let lastSentenceOfPrevBlock: string | undefined = options.prevSentence || options.context?.prevSentence;
 
     for (const block of doc.blocks) {
       if (block.isProtected) {
@@ -2031,11 +2768,14 @@ export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
           hText,
           false,
           mode,
+          effectiveStrength,
           intensityFactor,
           isCleanProse,
           shouldContract,
           shouldExpand,
-          recordedChanges
+          recordedChanges,
+          lastSentenceOfPrevBlock,
+          consistencyTracker
         );
         block.rewrittenText = prefix + transformed.trim();
         block.status = 'rewritten';
@@ -2046,61 +2786,83 @@ export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
           itemText,
           false,
           mode,
+          effectiveStrength,
           intensityFactor,
           isCleanProse,
           shouldContract,
           shouldExpand,
-          recordedChanges
+          recordedChanges,
+          lastSentenceOfPrevBlock,
+          consistencyTracker
         );
         block.rewrittenText = marker + transformed.trim();
         block.status = 'rewritten';
       } else if (block.type === 'quote') {
-        const quoteText = block.rawText.replace(/^>\s*/, '');
-        const transformed = this.transformBlockText(
-          quoteText,
-          true,
-          mode,
-          intensityFactor,
-          isCleanProse,
-          shouldContract,
-          shouldExpand,
-          recordedChanges
-        );
-        block.rewrittenText = '> ' + transformed.trim();
-        block.status = 'rewritten';
+        if (options.freezeQuotes !== false) {
+          block.rewrittenText = block.rawText;
+          block.status = 'preserved';
+        } else {
+          const quoteText = block.rawText.replace(/^>\s*/, '');
+          const transformed = this.transformBlockText(
+            quoteText,
+            true,
+            mode,
+            effectiveStrength,
+            intensityFactor,
+            isCleanProse,
+            shouldContract,
+            shouldExpand,
+            recordedChanges,
+            lastSentenceOfPrevBlock,
+            consistencyTracker
+          );
+          block.rewrittenText = '> ' + transformed.trim();
+          block.status = 'rewritten';
+        }
       } else {
         // Paragraph prose
         const transformed = this.transformBlockText(
           block.rawText,
           true,
           mode,
+          effectiveStrength,
           intensityFactor,
           isCleanProse,
           shouldContract,
           shouldExpand,
-          recordedChanges
+          recordedChanges,
+          lastSentenceOfPrevBlock,
+          consistencyTracker
         );
         block.rewrittenText = transformed;
         block.status = 'rewritten';
+      }
+
+      // Track last sentence for cross-paragraph continuity in multi-paragraph documents
+      const blockSentences = block.rewrittenText?.match(/[^.!?]+[.!?]+/g);
+      if (blockSentences && blockSentences.length > 0) {
+        lastSentenceOfPrevBlock = blockSentences[blockSentences.length - 1].trim();
       }
     }
 
     // Deterministically reassemble output keeping paragraphs separated by \n\n and lists separated by \n
     modified = projectBlocksToPlainText(doc, true);
 
-    // ── STEP 4: RESTORE UNCHANGED SECTIONS & FROZEN TOKENS ───────────────────
+    // ── STEP 4: RESTORE UNCHANGED SECTIONS, QUOTES & FROZEN TOKENS ────────────
     for (const mask of sectionMasks) {
       modified = modified.replace(new RegExp(mask.placeholder, 'g'), mask.original);
     }
-    for (const mask of frozenMasks) {
-      modified = modified.replace(new RegExp(mask.placeholder, 'g'), mask.original);
-    }
+    const restoreRes = protectedSpanResult.restore(modified);
+    modified = restoreRes.restoredText;
 
     // ── STRUCTURAL INVARIANT VALIDATION & REPAIR ─────────────────────────────
     const structVal = validateDocumentStructure(doc, modified);
     if (structVal.hasCollapseAnomaly && structVal.repairedText) {
       modified = structVal.repairedText;
     }
+
+    // ── POST-PROCESS PUNCTUATION & BOUNDARY NORMALIZATION ─────────────────────
+    modified = postProcessCleanup(modified);
 
     // ── STEP 6: COMPUTE INTERACTIVE DIFF TOKENS ──────────────────────────────
     const diffTokens = computeDiffTokens(text, modified, recordedChanges, validFrozenWords);
@@ -2112,12 +2874,57 @@ export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
     const reductionPercentage = origWords > 0 ? Math.round((wordDiff / origWords) * 100) : 0;
     const readingTimeSeconds = Math.round((impWords / 200) * 60);
 
+    // ── STEP 7: ALTERNATIVES METADATA WITH VALIDATION & RANKING ───────────────
+    const alternativesSet = new Set<string>();
+    for (const ch of recordedChanges) {
+      if (ch.alternatives && ch.alternatives.length > 0) {
+        for (const alt of ch.alternatives) {
+          if (alt && alt.trim() && alt !== ch.original) {
+            alternativesSet.add(alt.trim());
+          }
+        }
+      }
+    }
+    const phraseAlternatives = Array.from(alternativesSet).slice(0, 5);
+
+    const mappedTone: ToneRegister | undefined =
+      options.tone === 'formal' || (options.tone as any) === 'academic' ? 'formal' :
+      options.tone === 'conversational' ? 'casual' :
+      (options.tone as any);
+
+    // Multi-candidate ranking and phrase candidate scoring
+    const candidateRanking = rankCandidates(text, phraseAlternatives, {
+      mode,
+      genre: options.context?.genre,
+      tone: mappedTone,
+      rewriteStrength: effectiveStrength,
+      targetReadingLevel: options.targetReadingLevel,
+      scope: 'phrase',
+    });
+
+    const alternativesMetadata: AlternativesMetadata = {
+      scope: 'phrase',
+      candidates: candidateRanking.rankedCandidates.length > 0
+        ? candidateRanking.rankedCandidates
+        : phraseAlternatives.map((alt, idx) => ({
+            id: `phrase_alt_${idx}`,
+            text: alt,
+            scope: 'phrase' as const,
+            label: `Phrase: "${alt}"`,
+            isValid: true,
+          })),
+      selectedIndex: 0,
+      originalTargetText: text,
+    };
+
     return {
       originalText: text,
       improvedText: modified,
       mode,
       changes: recordedChanges,
       diffTokens,
+      alternatives: phraseAlternatives,
+      alternativesMetadata,
       stats: {
         originalWords: origWords,
         improvedWords: impWords,
@@ -2140,39 +2947,83 @@ export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
     blockText: string,
     isProse: boolean,
     mode: HumanizerMode,
+    strength: RewriteStrength,
     intensityFactor: number,
     isCleanProse: boolean,
     shouldContract: boolean,
     shouldExpand: boolean,
-    recordedChanges: HumanizerChange[]
+    recordedChanges: HumanizerChange[],
+    externalPrevSentence?: string,
+    consistencyTracker?: DocumentConsistencyTracker
   ): string {
     let content = blockText;
 
-    // PASS 1: Pool-based cliché replacements
+    // In minimal mode: if text has zero AI clichés or is clean prose, strictly preserve it
+    if (strength === 'minimal') {
+      const hasCriticalCliche = /delve into|tapestry of|serves as a testament|stands as a beacon|pivotal role|in the realm of|it is important to note|in today'?s (?:fast-paced|rapidly evolving)/i.test(blockText);
+      if (!hasCriticalCliche) {
+        return blockText;
+      }
+    }
+
+    // PASS 1: Pool-based cliché replacements with consistency tracking
     let ruleIdx = 0;
     if (!isCleanProse) {
       for (const rule of CLICHE_POOLS) {
         ruleIdx++;
         if (rule.pool.length === 0 || !rule.modes.includes(mode)) continue;
 
+        // In minimal mode, only address critical AI formulaic markers
+        if (strength === 'minimal') {
+          const isCritical = /delve into|tapestry|testament|beacon|pivotal|crucial role|realm of|important to note|today['\\]*?s/i.test(rule.pattern.source);
+          if (!isCritical) continue;
+        }
+
         let matchCount = 0;
         content = content.replace(rule.pattern, (match) => {
-          if (matchCount > 0 && (ruleIdx * 17 + matchCount * 13) % 100 > intensityFactor * 100) {
-            return match;
-          }
-          const rep = pick(rule.pool, matchCount++);
-          const formatted =
-            match[0] === match[0].toUpperCase() && rep.length > 0
-              ? rep.charAt(0).toUpperCase() + rep.slice(1)
-              : rep;
+          // Check consistency tracker for established synonym mapping
+          const existingMapped = consistencyTracker?.getMappedReplacement(match);
+          let formatted: string;
+          let candidateAlts: string[];
 
-          const candidateAlts = rule.pool
-            .filter((p) => p.toLowerCase() !== rep.toLowerCase())
-            .map((p) =>
-              match[0] === match[0].toUpperCase() && p.length > 0
-                ? p.charAt(0).toUpperCase() + p.slice(1)
-                : p
-            );
+          if (existingMapped) {
+            formatted = existingMapped;
+            candidateAlts = rule.pool.filter((p) => p.toLowerCase() !== formatted.toLowerCase());
+          } else {
+            // Light mode intensity gating on first match
+            const ruleHash = (ruleIdx * 37 + matchCount * 17) % 100;
+            if (strength === 'light') {
+              const isCritical = /delve into|tapestry|testament|beacon|pivotal|crucial role|realm of|important to note|today['\\]*?s/i.test(rule.pattern.source);
+              if (!isCritical && ruleHash > 45) {
+                matchCount++;
+                return match;
+              }
+            } else if (matchCount > 0 && ruleHash > intensityFactor * 100) {
+              return match;
+            }
+
+            let pool = rule.pool;
+            // Conversational mode: avoid stiff/clinical corporate phrasing
+            if (mode === 'conversational' && /today'?s/i.test(match)) {
+              pool = ['These days, ', 'Nowadays, ', 'Right now, '];
+            }
+
+            const rep = pick(pool, matchCount++);
+            formatted =
+              match[0] === match[0].toUpperCase() && rep.length > 0
+                ? rep.charAt(0).toUpperCase() + rep.slice(1)
+                : rep;
+
+            candidateAlts = pool
+              .filter((p) => p.toLowerCase() !== rep.toLowerCase())
+              .map((p) =>
+                match[0] === match[0].toUpperCase() && p.length > 0
+                  ? p.charAt(0).toUpperCase() + p.slice(1)
+                  : p
+              );
+
+            consistencyTracker?.recordTermMapping(match, formatted);
+          }
 
           recordedChanges.push({
             original: match,
@@ -2186,32 +3037,44 @@ export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
         });
       }
 
-      // PASS 2: Deterministic rules
-      for (const rule of DETERMINISTIC_RULES) {
-        if (!rule.modes.includes(mode)) continue;
-        content = content.replace(rule.pattern, (m, ...args) => {
-          const rep = typeof rule.replacement === 'function' ? rule.replacement(m, ...args) : rule.replacement;
-          const formatted =
-            m[0] === m[0].toUpperCase() && rep.length > 0
-              ? rep.charAt(0).toUpperCase() + rep.slice(1)
-              : rep;
-          if (rep !== m) {
-            recordedChanges.push({
-              original: m,
-              replacement: formatted,
-              reason: rule.reason,
-              category: rule.category,
-              index: 0,
-              alternatives: [m],
-            });
+      // PASS 2: Deterministic rules (skip in minimal mode to preserve original wording)
+      if (strength !== 'minimal') {
+        let detIdx = 0;
+        for (const rule of DETERMINISTIC_RULES) {
+          detIdx++;
+          if (!rule.modes.includes(mode)) continue;
+
+          // In light mode: only high-confidence redundancy reduction rules run unconditionally;
+          // stylistic/phrasing rules are gated (detHash <= 45)
+          if (strength === 'light' && rule.category !== 'redundancy') {
+            const detHash = (detIdx * 41) % 100;
+            if (detHash > 45) continue;
           }
-          return formatted;
-        });
+
+          content = content.replace(rule.pattern, (m, ...args) => {
+            const rep = typeof rule.replacement === 'function' ? rule.replacement(m, ...args) : rule.replacement;
+            const formatted =
+              m[0] === m[0].toUpperCase() && rep.length > 0
+                ? rep.charAt(0).toUpperCase() + rep.slice(1)
+                : rep;
+            if (rep !== m) {
+              recordedChanges.push({
+                original: m,
+                replacement: formatted,
+                reason: rule.reason,
+                category: rule.category,
+                index: 0,
+                alternatives: [m],
+              });
+            }
+            return formatted;
+          });
+        }
       }
     }
 
     // PASS 3: Sentence-level structural transforms (prose paragraphs only)
-    if (isProse && (mode === 'natural' || mode === 'flow' || mode === 'conversational')) {
+    if (isProse) {
       const sentenceRegex = /.*?(?:(?<!\b(?:et al|Dr|Mr|Mrs|Ms|Prof|vs|e\.g|i\.e))[.!?]+)(?=\s+[A-Z"'([0-9]|$)/gi;
       const sentenceParts: string[] = [];
       let lastIndex = 0;
@@ -2226,15 +3089,49 @@ export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
 
       let sentences = sentenceParts.map((s) => s.trim()).filter(Boolean);
 
-      // 3a. Split long sentences for burstiness
-      sentences = sentences.map((s) => maybeSplitLongSentence(s, mode));
-      // 3b. Merge tiny sentence pairs
-      sentences = mergeShortSentencePairs(sentences);
-      // 3c. Vary monotonous "The" starters
-      sentences = varyMonotonousStarters(sentences);
-      // 3d. Add hedges for natural/conversational modes
-      if (mode === 'natural' || mode === 'conversational') {
-        sentences = sentences.map((s, i) => maybeAddHedge(s, i, sentences.length));
+      // In minimal mode: do NOT split sentences or add synthetic hedges
+      if (strength !== 'minimal') {
+        // 3a. Split long sentences for burstiness:
+        // minimal: no split
+        // light: minSplitLen = 32
+        // balanced: minSplitLen = 28
+        // strong: minSplitLen = 22
+        // extensive: minSplitLen = 18
+        const minSplitLen =
+          strength === 'light' ? 32 :
+          strength === 'balanced' ? 28 :
+          strength === 'strong' ? 22 : 18;
+        sentences = sentences.map((s) => (s.split(/\s+/).length >= minSplitLen ? maybeSplitLongSentence(s, mode, minSplitLen) : s));
+
+        // 3b. Merge tiny sentence pairs (balanced, strong, extensive)
+        if (strength !== 'light') {
+          sentences = mergeShortSentencePairs(sentences);
+        }
+
+        // 3c. Vary monotonous starters (balanced: "The", strong/extensive: "The" + demonstratives)
+        if (strength !== 'light') {
+          sentences = varyMonotonousStarters(sentences, strength === 'strong' || strength === 'extensive');
+        }
+
+        // 3d. Add hedges for natural/conversational modes (balanced, strong, extensive only)
+        if ((mode === 'natural' || mode === 'conversational') && (strength === 'balanced' || strength === 'strong' || strength === 'extensive')) {
+          sentences = sentences.map((s, i) => maybeAddHedge(s, i, sentences.length, mode === 'conversational', consistencyTracker));
+        }
+
+        // 3d-2. In strong & extensive modes: relocate monotonous sentence-initial adverbs and streamline infinitives
+        if (strength === 'strong' || strength === 'extensive') {
+          sentences = sentences.map((s) => streamlineSentenceInitialInfinitive(relocateIntroductoryAdverbs(s)));
+        }
+
+        // 3e. In extensive mode: active voice restructuring on passive constructions
+        if (strength === 'extensive') {
+          sentences = sentences.map((s) => maybeRestructurePassiveSentence(s));
+        }
+      }
+
+      // 3f. Apply sliding-window cross-sentence context (with cross-paragraph external context!)
+      if (strength !== 'minimal') {
+        sentences = applySlidingWindowSentenceTransforms(sentences, mode, externalPrevSentence, consistencyTracker);
       }
 
       content = sentences.join(' ').replace(/ {2,}/g, ' ').trim();
@@ -2311,12 +3208,22 @@ export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
       }
     }
 
-    // PASS 5: Final cleanup (horizontal whitespace only, preserving all newline boundaries!)
-    content = content.replace(/ {2,}/g, ' ');
-    content = content.replace(/\.{2,}/g, '.');
-    content = content.replace(/,{2,}/g, ',');
-    content = content.replace(/[^\S\r\n]+([,.:;!?])/g, '$1');
-    content = content.replace(/([.!?])[^\S\r\n]+([a-z])/g, (_, punc, letter) => `${punc} ${letter.toUpperCase()}`);
+    // PASS 5: Final cleanup (horizontal whitespace, punctuation normalization, articles, quotes)
+    content = postProcessCleanup(content);
+
+    // Indefinite article agreement normalization
+    content = content.replace(/\b(an)\s+([bcdfghjklmnpqrstvwxyz][a-z]+)\b/gi, (match, art, word) => {
+      const lw = word.toLowerCase();
+      if (SILENT_H_VOWEL_SOUNDS.has(lw)) return match;
+      const correctArt = art[0] === 'A' ? 'A' : 'a';
+      return `${correctArt} ${word}`;
+    });
+    content = content.replace(/\b(a)\s+([aeiou][a-z]+)\b/gi, (match, art, word) => {
+      const lw = word.toLowerCase();
+      if (VOWEL_LETTERS_WITH_CONSONANT_SOUND.has(lw)) return match;
+      const correctArt = art[0] === 'A' ? 'An' : 'an';
+      return `${correctArt} ${word}`;
+    });
 
     return content;
   }

@@ -1,0 +1,217 @@
+{
+  "version": "1.2.0",
+  "name": "Intelligence V1.2 Independent Regression Suite",
+  "provenance": "Independently authored adversarial & edge-case test collection designed specifically for V1.2 release gating, not copied from V1 or V1.1 datasets.",
+  "items": [
+    {
+      "id": "indep_01",
+      "domain": "biomedical_pharmacology",
+      "input": "The Phase III oncology trial did not observe statistically significant hepatotoxicity in patients receiving 75 mg/m² of the antibody-drug conjugate [NCT04882190].",
+      "invariants": { "numbers": ["75"], "units": ["75 mg/m²"], "citations": ["[NCT04882190]"], "negations": ["did not"] },
+      "criticalChecks": ["negation_preserved", "number_75", "citation_preserved"]
+    },
+    {
+      "id": "indep_02",
+      "domain": "distributed_systems",
+      "input": "Replica nodes MUST reject write requests when partition quorum falls below 51%, because uncommitted quorum splits cause catastrophic split-brain state.",
+      "invariants": { "numbers": ["51%"], "causality": true },
+      "criticalChecks": ["causality_direction", "percentage_51"]
+    },
+    {
+      "id": "indep_03",
+      "domain": "security_vulnerability",
+      "input": "The flaw documented in CVE-2023-4863 stems from heap buffer overflow in libwebp, and affected versions cannot parse malicious WebP lossless streams securely.",
+      "invariants": { "identifiers": ["CVE-2023-4863"], "negations": ["cannot"] },
+      "criticalChecks": ["identifier_preserved", "negation_preserved"]
+    },
+    {
+      "id": "indep_04",
+      "domain": "legal_compliance",
+      "input": "A signed data processing addendum is required for European customer onboarding under GDPR Article 28.",
+      "invariants": { "numbers": ["28"] },
+      "criticalChecks": ["necessary_condition_preserved", "article_28"]
+    },
+    {
+      "id": "indep_05",
+      "domain": "financial_forensics",
+      "input": "The internal audit revealed that $1,450,000 in unallocated disbursements occurred between October 14, 2024 and November 3, 2024.",
+      "invariants": { "numbers": ["1450000"], "units": ["$1,450,000"], "dates": ["October 14, 2024", "November 3, 2024"] },
+      "criticalChecks": ["currency_verbatim", "dates_verbatim"]
+    },
+    {
+      "id": "indep_06",
+      "domain": "scientific_hedging",
+      "input": "Preliminary spectroscopic analysis suggests that exoplanet K2-18b may harbor trace concentrations of dimethyl sulfide in its upper atmosphere.",
+      "invariants": { "hedging": ["preliminary", "suggests", "may"] },
+      "criticalChecks": ["epistemic_hedging_not_strengthened"]
+    },
+    {
+      "id": "indep_07",
+      "domain": "clean_authorial_prose",
+      "input": "Good prose resembles a clean window pane. It conveys meaning without drawing attention to its own surface.",
+      "invariants": {},
+      "criticalChecks": ["clean_prose_minimal_drift"]
+    },
+    {
+      "id": "indep_08",
+      "domain": "telecommunications_rfc",
+      "input": "The endpoint MUST NOT transmit more than 3 SYN packets per second to any single destination IP address.",
+      "invariants": { "numbers": ["3"], "negations": ["must not", "not"] },
+      "criticalChecks": ["rfc_normative_must_not", "rate_limit_3"]
+    },
+    {
+      "id": "indep_09",
+      "domain": "embedded_iot",
+      "input": "The microcontroller watchdog timer resets the peripheral bus if the heartbeat pulse is not received within 250 ms.",
+      "invariants": { "numbers": ["250"], "units": ["250 ms"], "negations": ["not"] },
+      "criticalChecks": ["latency_250_ms", "negation_preserved"]
+    },
+    {
+      "id": "indep_10",
+      "domain": "corporate_ai_cliche",
+      "input": "In today's fast-paced digital era, our cutting-edge AI platform serves as a testament to operational excellence, allowing teams to delve into actionable insights.",
+      "invariants": {},
+      "criticalChecks": ["cliche_eliminated", "clean_grammar"]
+    },
+    {
+      "id": "indep_11",
+      "domain": "aviation_safety",
+      "input": "Flight crew members are prohibited from operating aircraft instruments without completing simulator recertification every 180 days.",
+      "invariants": { "numbers": ["180"], "units": ["180 days"], "negations": ["without"] },
+      "criticalChecks": ["interval_180_days", "negation_preserved"]
+    },
+    {
+      "id": "indep_12",
+      "domain": "cryptographic_engineering",
+      "input": "Authentication succeeds only if the Ed25519 signature verifies against the pinned public key hash SHA256:7f83b165.",
+      "invariants": { "identifiers": ["Ed25519"] },
+      "criticalChecks": ["condition_only_if_preserved", "identifier_ed25519"]
+    },
+    {
+      "id": "indep_13",
+      "domain": "environmental_geology",
+      "input": "Glacial retreat accelerated by 2.4 mm/year across the southern ice shelf between 2012 and 2022.",
+      "invariants": { "numbers": ["2.4", "2012", "2022"], "units": ["2.4 mm/year"] },
+      "criticalChecks": ["rate_units_preserved", "years_preserved"]
+    },
+    {
+      "id": "indep_14",
+      "domain": "customer_support",
+      "input": "We apologize for the inconvenience caused by the outage. Our engineering staff restored database replica sync at 04:15 UTC.",
+      "invariants": { "dates": ["04:15 UTC"] },
+      "criticalChecks": ["timestamp_preserved", "tone_retained"]
+    },
+    {
+      "id": "indep_15",
+      "domain": "chemical_synthesis",
+      "input": "The reaction yields 88.5% pure enantiomer only under anhydrous nitrogen atmosphere at -78 °C.",
+      "invariants": { "numbers": ["88.5", "78"], "units": ["88.5%", "-78 °C"] },
+      "criticalChecks": ["temperature_unit_preserved", "yield_percentage"]
+    },
+    {
+      "id": "indep_16",
+      "domain": "operating_systems",
+      "input": "Kernel memory allocation failed because the uncompressed initramfs exceeded the 512 MB physical RAM boundary.",
+      "invariants": { "numbers": ["512"], "units": ["512 MB"], "causality": true },
+      "criticalChecks": ["causality_direction", "memory_limit"]
+    },
+    {
+      "id": "indep_17",
+      "domain": "intellectual_property",
+      "input": "Under US Patent 10,845,920, the claim scope covers hardware-accelerated matrix multiplication for tensor processors.",
+      "invariants": { "numbers": ["10845920"] },
+      "criticalChecks": ["patent_number_preserved"]
+    },
+    {
+      "id": "indep_18",
+      "domain": "quantum_computing",
+      "input": "The superconducting transmon qubit maintained quantum coherence for 120 microseconds before decaying into ground state.",
+      "invariants": { "numbers": ["120"], "units": ["120 microseconds"] },
+      "criticalChecks": ["time_unit_preserved"]
+    },
+    {
+      "id": "indep_19",
+      "domain": "philosophical_ethics",
+      "input": "Morality cannot be reduced solely to utilitarian outcomes without abandoning intrinsic human dignity.",
+      "invariants": { "negations": ["cannot", "without"] },
+      "criticalChecks": ["double_negation_scope_preserved"]
+    },
+    {
+      "id": "indep_20",
+      "domain": "network_routing",
+      "input": "BGP route flap damping suppresses unstable prefixes for up to 60 minutes after 4 consecutive state oscillations.",
+      "invariants": { "numbers": ["60", "4"], "units": ["60 minutes"] },
+      "criticalChecks": ["numbers_and_units_preserved"]
+    },
+    {
+      "id": "indep_21",
+      "domain": "direct_quote_preservation",
+      "input": "In her keynote speech, Dr. Rivera declared: \"Simplicity is the prerequisite for reliability in safety-critical systems.\"",
+      "invariants": { "quotes": ["Simplicity is the prerequisite for reliability in safety-critical systems."] },
+      "criticalChecks": ["verbatim_quote_preserved"]
+    },
+    {
+      "id": "indep_22",
+      "domain": "url_link_preservation",
+      "input": "Documentation and developer specifications are publicly hosted at https://docs.humanizetext.dev/v1/reference.",
+      "invariants": { "urls": ["https://docs.humanizetext.dev/v1/reference"] },
+      "criticalChecks": ["url_verbatim_preserved"]
+    },
+    {
+      "id": "indep_23",
+      "domain": "macroeconomics",
+      "input": "The central bank lowered the benchmark interest rate by 50 basis points to stimulate consumer lending.",
+      "invariants": { "numbers": ["50"], "units": ["50 basis points"] },
+      "criticalChecks": ["rate_delta_preserved"]
+    },
+    {
+      "id": "indep_24",
+      "domain": "conversational_advice",
+      "input": "If you don't back up your recovery keys before reinstalling the operating system, you will permanently lose access to your encrypted vault.",
+      "invariants": { "negations": ["don't"] },
+      "criticalChecks": ["conditional_loss_warning_preserved"]
+    },
+    {
+      "id": "indep_25",
+      "domain": "cloud_storage",
+      "input": "Object storage buckets configured with WORM compliance cannot be deleted or overwritten for 7 years.",
+      "invariants": { "numbers": ["7"], "units": ["7 years"], "negations": ["cannot"] },
+      "criticalChecks": ["retention_period_preserved", "negation_preserved"]
+    },
+    {
+      "id": "indep_26",
+      "domain": "linguistic_inversion",
+      "input": "Seldom has an open-source security tool gained 25,000 GitHub stars within its initial launch week.",
+      "invariants": { "numbers": ["25000"], "negations": ["seldom"] },
+      "criticalChecks": ["negative_inversion_preserved", "star_count"]
+    },
+    {
+      "id": "indep_27",
+      "domain": "clean_narrative",
+      "input": "The lighthouse lamp rotated steadily through the gale. Its white beam cut through dense fog every twelve seconds.",
+      "invariants": { "numbers": ["12"] },
+      "criticalChecks": ["clean_prose_preserved"]
+    },
+    {
+      "id": "indep_28",
+      "domain": "hardware_architecture",
+      "input": "L1 cache hit latency measures 4 clock cycles, whereas L3 cache misses require up to 65 nanoseconds to access DDR5 memory.",
+      "invariants": { "numbers": ["4", "65"], "units": ["65 nanoseconds"] },
+      "criticalChecks": ["latency_numbers_preserved"]
+    },
+    {
+      "id": "indep_29",
+      "domain": "database_transaction",
+      "input": "Serializable isolation guarantees that concurrent transactions produce identical results to some serial execution order.",
+      "invariants": {},
+      "criticalChecks": ["semantic_fidelity_preserved"]
+    },
+    {
+      "id": "indep_30",
+      "domain": "supply_chain_logistics",
+      "input": "Raw material shipments from Rotterdam were delayed by 14 days due to port congestion and storm warnings in the English Channel.",
+      "invariants": { "numbers": ["14"], "units": ["14 days"] },
+      "criticalChecks": ["delay_duration_preserved", "causal_context"]
+    }
+  ]
+}

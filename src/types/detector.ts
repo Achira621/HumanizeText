@@ -72,6 +72,8 @@ export interface TextDetectionScore {
   classification: 'likely-human' | 'inconclusive' | 'likely-ai';
   perplexityScore?: number;
   burstinessScore?: number;
+  sampleSufficiency?: 'insufficient' | 'limited' | 'sufficient';
+  uncertaintyMargin?: number;
 }
 
 export interface TextChunkScore {

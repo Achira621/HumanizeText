@@ -493,14 +493,14 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
                       </div>
                       <div>
                         <h4 className="text-lg font-black tracking-tight">
-                          {isHuman && `Likely 100% Human Written (${humanPct}% Human)`}
-                          {isAi && `High AI Generated Content (${aiPct}% AI Score)`}
-                          {isMixed && `Mixed Content (${humanPct}% Human / ${aiPct}% AI)`}
+                          {isHuman && `Low AI Likelihood (${aiPct}% AI Pattern Match)`}
+                          {isAi && `High AI Pattern Match (${aiPct}% AI Score)`}
+                          {isMixed && `Mixed / Inconclusive (${humanPct}% Human / ${aiPct}% AI)`}
                         </h4>
                         <p className="mt-0.5 text-xs opacity-90">
-                          {isHuman && 'Safe & authentic! No significant robotic or repetitive machine patterns detected.'}
-                          {isAi && 'Significant AI patterns detected. Phrases match typical LLM generation (ChatGPT, Claude, etc.).'}
-                          {isMixed && 'Shows a blend of natural human cadence and predictable AI-like phrasing.'}
+                          {isHuman && 'Text exhibits natural sentence length variation, vocabulary richness, and minimal synthetic signatures.'}
+                          {isAi && 'Text exhibits formulaic transitions, uniform sentence rhythms, or characteristic LLM phrasing.'}
+                          {isMixed && 'Shows a mixture of natural human cadence and predictable AI-like phrasing.'}
                         </p>
                       </div>
                     </div>
@@ -515,6 +515,16 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
                     </span>
                   </div>
                 </div>
+
+                {/* Sample Size & Statistical Uncertainty Warning */}
+                {(textResult.inputWordCount < 30 || textResult.score.sampleSufficiency === 'insufficient') && (
+                  <div className="flex items-start space-x-2 rounded-xl border border-amber-300 bg-amber-50/90 p-3.5 text-xs text-amber-950 dark:border-amber-800/60 dark:bg-amber-950/30 dark:text-amber-200">
+                    <Info className="mt-0.5 h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
+                    <div>
+                      <strong>Limited Sample Warning ({textResult.inputWordCount} words):</strong> Text samples under 30 words exhibit high statistical variance for burstiness and perplexity. Stylometric indicators on short passages should be evaluated as preliminary rather than definitive proof of origin.
+                    </div>
+                  </div>
+                )}
 
                 {/* DUAL METER CARDS */}
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

@@ -28,15 +28,24 @@ import type {
   HumanizerChange,
   SimilarityReport,
   VocabularyIntensity,
+  RewriteStrength,
+  DiffToken,
+  TargetSpan,
 } from '../../types';
 import { defaultHumanizerManager } from '../../lib/humanizer/manager';
 import { scoreHumanization, detectAiSignals } from '../../lib/humanizer/ruleEngine';
 import { SimilarityEngine } from '../../lib/similarity/engine';
 import { humanizeWithApi, getStoredApiConfig } from '../../lib/humanizer/apiEngine';
 import type { ApiEngineConfig } from '../../lib/humanizer/apiEngine';
+import {
+  applyScopedAlternative,
+  applyInlinePhraseReplacement,
+  computeTextFingerprint,
+} from '../../lib/pipeline/scopedReplacement';
 import { ApiSettingsModal } from './ApiSettingsModal';
 import { FreezeWordsModal } from './FreezeWordsModal';
 import { InteractiveOutputEditor } from './InteractiveOutputEditor';
+import { AlternativeSelector } from './AlternativeSelector';
 import { AiSignalsInspector } from './AiSignalsInspector';
 import { FileDropzone } from '../common/FileDropzone';
 import { HumanizeLogo } from '../common/HumanizeLogo';
@@ -72,6 +81,13 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
     return [];
   });
   const [showFreezeModal, setShowFreezeModal] = useState(false);
+  const [freezeQuotes, setFreezeQuotes] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('humanizetext_freeze_quotes');
+      if (stored !== null) return stored === 'true';
+    }
+    return true;
+  });
 
   const [vocabularyIntensity, setVocabularyIntensity] = useState<VocabularyIntensity>(() => {
     if (typeof window !== 'undefined') {
@@ -113,11 +129,29 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
     }
   };
 
-  const handleSetVocabIntensity = (intensity: VocabularyIntensity) => {
-    setVocabularyIntensity(intensity);
+  const [rewriteStrength, setRewriteStrength] = useState<RewriteStrength>(() => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('humanizetext_vocab_intensity', intensity);
+      const stored = localStorage.getItem('humanizetext_rewrite_strength') as RewriteStrength;
+      if (stored && ['minimal', 'light', 'balanced', 'strong', 'extensive'].includes(stored)) {
+        return stored;
+      }
     }
+    return 'balanced';
+  });
+
+  const handleSetRewriteStrength = (strength: RewriteStrength) => {
+    setRewriteStrength(strength);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('humanizetext_rewrite_strength', strength);
+    }
+    const legacyMap: Record<RewriteStrength, VocabularyIntensity> = {
+      minimal: 'conservative',
+      light: 'conservative',
+      balanced: 'balanced',
+      strong: 'dynamic',
+      extensive: 'maximum',
+    };
+    setVocabularyIntensity(legacyMap[strength]);
   };
 
   // Smart Contractions toggle (QuillBot ProcessContractions)
@@ -147,6 +181,26 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
   const [showApiModal, setShowApiModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isRegeneratingSentence, setIsRegeneratingSentence] = useState(false);
+
+  interface AltHistoryEntry {
+    text: string;
+    selectedIndex: number;
+    stats: HumanizerResult['stats'];
+    diffTokens?: DiffToken[];
+    targetSpan?: TargetSpan;
+    sourceFingerprint?: string;
+  }
+
+  // Alternative candidate undo and redo history
+  const [altUndoStack, setAltUndoStack] = useState<AltHistoryEntry[]>([]);
+  const [altRedoStack, setAltRedoStack] = useState<AltHistoryEntry[]>([]);
+  const [altActionError, setAltActionError] = useState<string | null>(null);
+
+  // Staleness check: true if source text was edited after alternatives were generated
+  const isAlternativesStale = Boolean(
+    resultData?.alternativesMetadata?.originalTargetText &&
+      resultData.alternativesMetadata.originalTargetText.trim() !== currentText.trim()
+  );
 
   // Live humanization AI scores
   const inputScore = useMemo(
@@ -329,11 +383,15 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
     setErrorMessage(null);
 
     try {
+      setAltUndoStack([]);
       const options = {
         mode: selectedMode,
         frozenWords,
+        freezeQuotes,
+        rewriteStrength,
         vocabularyIntensity,
         smartContractions,
+        multiCandidate: true,
       };
 
       let res: HumanizerResult;
@@ -343,6 +401,22 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
         res = await defaultHumanizerManager.humanize(textToProcess, options, 'cloudflare-workers-ai');
       } else {
         res = await defaultHumanizerManager.humanize(textToProcess, options, 'deterministic-rules');
+      }
+
+      if (res.alternativesMetadata) {
+        if (!res.alternativesMetadata.sourceFingerprint) {
+          res.alternativesMetadata.sourceFingerprint = computeTextFingerprint(res.improvedText);
+        }
+        if (
+          !res.alternativesMetadata.targetSpan &&
+          (res.alternativesMetadata.scope === 'document' || res.alternativesMetadata.scope === 'passage')
+        ) {
+          res.alternativesMetadata.targetSpan = {
+            startIndex: 0,
+            endIndex: res.improvedText.length,
+            text: res.improvedText,
+          };
+        }
       }
 
       setResultData(res);
@@ -387,8 +461,14 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
       const options = {
         mode: selectedMode,
         frozenWords,
+        freezeQuotes,
+        rewriteStrength,
         vocabularyIntensity,
         smartContractions,
+        context: {
+          prevSentence: sentenceIndex > 0 ? sentences[sentenceIndex - 1]?.trim() : undefined,
+          nextSentence: sentenceIndex < sentences.length - 1 ? sentences[sentenceIndex + 1]?.trim() : undefined,
+        },
       };
 
       let res: HumanizerResult;
@@ -418,6 +498,184 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
   const handleRevertToPass = (histItem: { pass: number; score: number; overlap: number; text: string }) => {
     setImprovedText(histItem.text);
     setPassCount(histItem.pass);
+  };
+
+  // Alternative candidate selection with safe diff and word count recomputation
+  const handleSelectAlternativeCandidate = (candidateIndex: number) => {
+    if (!resultData || !resultData.alternativesMetadata) return;
+    const metadata = resultData.alternativesMetadata;
+    const candidate = metadata.candidates[candidateIndex];
+    if (!candidate || !candidate.text) return;
+    if (candidateIndex === metadata.selectedIndex) return;
+
+    // Apply via safe target contract
+    const appResult = applyScopedAlternative({
+      currentText: improvedText,
+      originalDraftText: currentText,
+      candidate,
+      candidateIndex,
+      metadata,
+      frozenWords,
+      changes: resultData.changes,
+    });
+
+    if (!appResult.success) {
+      setAltActionError(appResult.error || 'Failed to apply candidate.');
+      return;
+    }
+
+    setAltActionError(null);
+
+    // Record previous state on undo stack and clear redo stack
+    setAltUndoStack((prev) => [
+      ...prev,
+      {
+        text: improvedText,
+        selectedIndex: metadata.selectedIndex,
+        stats: resultData.stats,
+        diffTokens: resultData.diffTokens,
+        targetSpan: metadata.targetSpan,
+        sourceFingerprint: metadata.sourceFingerprint,
+      },
+    ]);
+    setAltRedoStack([]);
+
+    setImprovedText(appResult.newText!);
+    setResultData({
+      ...resultData,
+      improvedText: appResult.newText!,
+      diffTokens: appResult.diffTokens,
+      stats: appResult.stats!,
+      alternativesMetadata: appResult.updatedMetadata,
+    });
+  };
+
+  // Undo candidate selection
+  const handleUndoAlternativeCandidate = () => {
+    if (altUndoStack.length === 0 || !resultData || !resultData.alternativesMetadata) return;
+    const previous = altUndoStack[altUndoStack.length - 1];
+    setAltUndoStack((prev) => prev.slice(0, prev.length - 1));
+
+    // Record current state on redo stack
+    setAltRedoStack((prev) => [
+      ...prev,
+      {
+        text: improvedText,
+        selectedIndex: resultData.alternativesMetadata!.selectedIndex,
+        stats: resultData.stats,
+        diffTokens: resultData.diffTokens,
+        targetSpan: resultData.alternativesMetadata!.targetSpan,
+        sourceFingerprint: resultData.alternativesMetadata!.sourceFingerprint,
+      },
+    ]);
+
+    setAltActionError(null);
+    setImprovedText(previous.text);
+    setResultData({
+      ...resultData,
+      improvedText: previous.text,
+      diffTokens: previous.diffTokens,
+      stats: previous.stats,
+      alternativesMetadata: {
+        ...resultData.alternativesMetadata,
+        selectedIndex: previous.selectedIndex,
+        targetSpan: previous.targetSpan,
+        sourceFingerprint: previous.sourceFingerprint,
+      },
+    });
+  };
+
+  // Redo candidate selection
+  const handleRedoAlternativeCandidate = () => {
+    if (altRedoStack.length === 0 || !resultData || !resultData.alternativesMetadata) return;
+    const next = altRedoStack[altRedoStack.length - 1];
+    setAltRedoStack((prev) => prev.slice(0, prev.length - 1));
+
+    // Record current state on undo stack
+    setAltUndoStack((prev) => [
+      ...prev,
+      {
+        text: improvedText,
+        selectedIndex: resultData.alternativesMetadata!.selectedIndex,
+        stats: resultData.stats,
+        diffTokens: resultData.diffTokens,
+        targetSpan: resultData.alternativesMetadata!.targetSpan,
+        sourceFingerprint: resultData.alternativesMetadata!.sourceFingerprint,
+      },
+    ]);
+
+    setAltActionError(null);
+    setImprovedText(next.text);
+    setResultData({
+      ...resultData,
+      improvedText: next.text,
+      diffTokens: next.diffTokens,
+      stats: next.stats,
+      alternativesMetadata: {
+        ...resultData.alternativesMetadata,
+        selectedIndex: next.selectedIndex,
+        targetSpan: next.targetSpan,
+        sourceFingerprint: next.sourceFingerprint,
+      },
+    });
+  };
+
+  // Inline phrase suggestion application from InteractiveOutputEditor
+  const handleApplyPhraseAlternative = (token: DiffToken, replacementText: string): boolean => {
+    if (!resultData) return false;
+
+    const res = applyInlinePhraseReplacement({
+      currentText: improvedText,
+      originalDraftText: currentText,
+      token,
+      replacementText,
+      sourceFingerprint: resultData.alternativesMetadata?.sourceFingerprint,
+      frozenWords,
+      changes: resultData.changes,
+    });
+
+    if (!res.success) {
+      setAltActionError(res.error || 'Failed to apply phrase alternative.');
+      return false;
+    }
+
+    setAltActionError(null);
+
+    // Push previous editor state onto undo stack
+    setAltUndoStack((prev) => [
+      ...prev,
+      {
+        text: improvedText,
+        selectedIndex: resultData.alternativesMetadata?.selectedIndex ?? 0,
+        stats: resultData.stats,
+        diffTokens: resultData.diffTokens,
+        targetSpan: resultData.alternativesMetadata?.targetSpan,
+        sourceFingerprint: resultData.alternativesMetadata?.sourceFingerprint,
+      },
+    ]);
+    setAltRedoStack([]);
+
+    setImprovedText(res.newText!);
+    setResultData({
+      ...resultData,
+      improvedText: res.newText!,
+      diffTokens: res.newDiffTokens,
+      stats: res.stats!,
+      alternativesMetadata: resultData.alternativesMetadata
+        ? {
+            ...resultData.alternativesMetadata,
+            sourceFingerprint: res.newFingerprint,
+          }
+        : undefined,
+    });
+
+    return true;
+  };
+
+  // Revert a token back to its original phrasing
+  const handleRevertToken = (token: DiffToken): boolean => {
+    if (!token.original) return false;
+    return handleApplyPhraseAlternative(token, token.original);
   };
 
   const handleCopy = () => {
@@ -565,24 +823,30 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
 
             {/* Right: Synonym Slider & Freeze Words */}
             <div className="flex flex-wrap items-center gap-2">
-              {/* Synonym Frequency Intensity */}
+              {/* User-Controlled 5-Level Rewrite Strength Control */}
               <div className="flex items-center space-x-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-2.5 py-1 text-xs shadow-2xs">
                 <Sliders className="h-3.5 w-3.5 text-[var(--accent)]" />
-                <span className="text-[11px] font-semibold text-[var(--text-muted)]">Synonyms:</span>
+                <span className="text-[11px] font-semibold text-[var(--text-muted)]">Rewrite strength:</span>
                 <div className="flex items-center space-x-1">
-                  {(['conservative', 'balanced', 'dynamic', 'maximum'] as VocabularyIntensity[]).map((level) => (
+                  {([
+                    { id: 'minimal', label: 'Minimal', tooltip: '1. Minimal: Correct clear issues while preserving original wording wherever possible' },
+                    { id: 'light', label: 'Light', tooltip: '2. Light: Small clarity and fluency improvements' },
+                    { id: 'balanced', label: 'Balanced', tooltip: '3. Balanced: Improve sentence construction and natural phrasing' },
+                    { id: 'strong', label: 'Strong', tooltip: '4. Strong: Substantial restructuring while preserving meaning' },
+                    { id: 'extensive', label: 'Extensive', tooltip: '5. Extensive: Broader paraphrasing, subject to strict factual and structural checks' },
+                  ] as Array<{ id: RewriteStrength; label: string; tooltip: string }>).map((lvl) => (
                     <button
-                      key={level}
+                      key={lvl.id}
                       type="button"
-                      onClick={() => handleSetVocabIntensity(level)}
+                      onClick={() => handleSetRewriteStrength(lvl.id)}
                       className={`rounded px-1.5 py-0.5 text-[10px] font-bold capitalize transition-all ${
-                        vocabularyIntensity === level
+                        rewriteStrength === lvl.id
                           ? 'bg-[var(--accent)] text-[var(--accent-contrast)] shadow-2xs'
                           : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                       }`}
-                      title={`Synonym replacement level: ${level}`}
+                      title={lvl.tooltip}
                     >
-                      {level === 'conservative' ? 'Low' : level === 'balanced' ? 'Med' : level === 'dynamic' ? 'High' : 'Max'}
+                      {lvl.label}
                     </button>
                   ))}
                 </div>
@@ -606,6 +870,29 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
                     {frozenWords.length}
                   </span>
                 )}
+              </button>
+
+              {/* Freeze Quotes Toggle (QuillBot freezeQuotes) */}
+              <button
+                type="button"
+                onClick={() => {
+                  const nextVal = !freezeQuotes;
+                  setFreezeQuotes(nextVal);
+                  if (typeof window !== 'undefined') {
+                    localStorage.setItem('humanizetext_freeze_quotes', String(nextVal));
+                  }
+                }}
+                className={`flex items-center space-x-1.5 rounded-lg border px-2.5 py-1 text-xs font-semibold transition-all ${
+                  freezeQuotes
+                    ? 'border-indigo-500/40 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 shadow-2xs'
+                    : 'border-[var(--border-subtle)] bg-[var(--bg-surface)] text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                }`}
+                title="Freeze Quotes: Locks all quoted text ('...' and '“...”') and blockquotes so they are preserved verbatim"
+              >
+                <span>Freeze Quotes:</span>
+                <span className={`font-bold ${freezeQuotes ? 'text-indigo-600 dark:text-indigo-400' : 'text-[var(--text-muted)]'}`}>
+                  {freezeQuotes ? 'ON' : 'OFF'}
+                </span>
               </button>
 
               {/* Smart Contractions Toggle */}
@@ -778,6 +1065,21 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
               </div>
             )}
 
+            {/* Alternative Candidate Versions Selector */}
+            {resultData?.alternativesMetadata && (
+              <AlternativeSelector
+                metadata={resultData.alternativesMetadata}
+                isStale={isAlternativesStale}
+                errorMessage={altActionError}
+                onSelectCandidate={handleSelectAlternativeCandidate}
+                onUndo={handleUndoAlternativeCandidate}
+                canUndo={altUndoStack.length > 0}
+                onRedo={handleRedoAlternativeCandidate}
+                canRedo={altRedoStack.length > 0}
+                onRegenerateAlternatives={() => handleRunHumanizer(false)}
+              />
+            )}
+
             <div className="relative flex-1">
               {improvedText ? (
                 <InteractiveOutputEditor
@@ -792,6 +1094,12 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
                   onFreezeWord={(word) => {
                     handleAddFrozenWord(word);
                   }}
+                  onApplyPhraseAlternative={handleApplyPhraseAlternative}
+                  onRevertToken={handleRevertToken}
+                  canUndo={altUndoStack.length > 0}
+                  onUndo={handleUndoAlternativeCandidate}
+                  canRedo={altRedoStack.length > 0}
+                  onRedo={handleRedoAlternativeCandidate}
                   isProcessing={isProcessing}
                 />
               ) : (

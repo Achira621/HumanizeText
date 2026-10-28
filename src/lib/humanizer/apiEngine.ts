@@ -66,11 +66,48 @@ function buildSystemPrompt(mode: HumanizerMode, options?: HumanizerOptions): str
       ? `\nCRITICAL - FROZEN WORDS TO PRESERVE VERBATIM:\nDo NOT change, rephrase, translate, or substitute the following words/terms under any circumstances: [${options.frozenWords.join(', ')}]. Leave them exactly as they appear in the source text.`
       : '';
 
-  const intensityGuidance =
-    options?.vocabularyIntensity === 'conservative'
-      ? '\nMaintain a gentle transformation: preserve original sentences where possible and only replace clear AI formulaic markers.'
-      : options?.vocabularyIntensity === 'maximum'
-      ? '\nApply comprehensive stylistic humanization: completely reconstruct sentences with rich, natural vocabulary and rhythmic variety.'
+  const strength = options?.rewriteStrength || (
+    options?.vocabularyIntensity === 'conservative' ? 'minimal' :
+    options?.vocabularyIntensity === 'dynamic' ? 'strong' :
+    options?.vocabularyIntensity === 'maximum' ? 'extensive' : 'balanced'
+  );
+
+  let strengthGuidance = '';
+  switch (strength) {
+    case 'minimal':
+      strengthGuidance = '\nREWRITE STRENGTH - MINIMAL: Preserve the original wording and sentence structures wherever possible. Only correct blatant AI markers and severe grammatical issues.';
+      break;
+    case 'light':
+      strengthGuidance = '\nREWRITE STRENGTH - LIGHT: Make subtle clarity and fluency improvements while keeping sentence construction close to the original.';
+      break;
+    case 'balanced':
+      strengthGuidance = '\nREWRITE STRENGTH - BALANCED: Improve sentence construction, rhythm, and natural phrasing while maintaining the author’s clear voice.';
+      break;
+    case 'strong':
+      strengthGuidance = '\nREWRITE STRENGTH - STRONG: Allow substantial restructuring and dynamic paraphrasing for authentic human cadence, converting passive to active voice.';
+      break;
+    case 'extensive':
+      strengthGuidance = '\nREWRITE STRENGTH - EXTENSIVE: Broadly paraphrase and rephrase the entire passage for maximum fluency and human expressiveness, subject to strict factual and quotation preservation.';
+      break;
+  }
+
+  const freezeQuotesGuidance =
+    options?.freezeQuotes !== false
+      ? '\nCRITICAL - PRESERVE ALL QUOTATIONS VERBATIM:\nDo NOT modify, translate, or rewrite text inside quotation marks ("...", “...”, \'...\') or Markdown blockquotes (> ...). Retain all quoted authorial text with 100% fidelity.'
+      : '';
+
+  const activeVoiceGuidance =
+    options?.preferActive
+      ? '\nPREFER ACTIVE VOICE: Convert passive structures into dynamic active voice wherever it enhances directness and clarity.'
+      : '';
+
+  const slidingContextGuidance =
+    (options?.prevSentence && options.prevSentence.trim().length > 0) ||
+    (options?.nextSentence && options.nextSentence.trim().length > 0)
+      ? `\nSLIDING WINDOW BOUNDED CONTEXT (CRITICAL: DO NOT REWRITE OR ECHO THIS SURROUNDING CONTEXT - REWRITE ONLY THE TARGET TEXT):\n` +
+        (options.prevSentence ? `- Preceding Sentence/Context: "${options.prevSentence.trim()}"\n` : '') +
+        (options.nextSentence ? `- Following Sentence/Context: "${options.nextSentence.trim()}"\n` : '') +
+        `Ensure cohesive discourse flow, correct pronoun antecedents, and domain terminology alignment with this surrounding context.`
       : '';
 
   return `You are a professional editor and human writing specialist.
@@ -83,7 +120,7 @@ CRITICAL INSTRUCTIONS:
    - NO stiff transitional clutter: "furthermore", "moreover", "consequently", "in conclusion"
 2. Maximize burstiness: Dramatically vary sentence length. Pair short 4-8 word punchy sentences with longer 20+ word complex thoughts.
 3. Natural phrasing: Use natural English idioms, conversational contractions (it's, don't, can't, we're) unless in strict formal mode.
-4. Factual and Citation Preservation: Retain all names, facts, statistics, citations (e.g. [1], (Author, 2024)), and core meaning with 100% accuracy.${frozenSection}${intensityGuidance}
+4. Factual and Citation Preservation: Retain all names, facts, statistics, citations (e.g. [1], (Author, 2024)), and core meaning with 100% accuracy.${frozenSection}${freezeQuotesGuidance}${activeVoiceGuidance}${strengthGuidance}${slidingContextGuidance}
 5. Specific style mode: ${modeGuidance}
 6. Output format: Return ONLY the rewritten text. Do NOT include introductory phrases, conversational remarks, or markdown code fences.`;
 }
@@ -252,6 +289,13 @@ export async function humanizeWithApi(
     mode,
     changes,
     diffTokens,
+    alternatives: undefined,
+    alternativesMetadata: {
+      scope: 'none',
+      candidates: [],
+      selectedIndex: 0,
+      originalTargetText: text,
+    },
     stats: {
       originalWords,
       improvedWords,

@@ -133,6 +133,29 @@ const WORDINESS_PATTERNS: { regex: RegExp; replacement: string; alternatives?: s
     replacement: 'facts',
     explanation: 'Facts are true by definition. Use "facts".',
   },
+  {
+    regex: /\bit\s+should\s+be\s+noted\s+that\b/gi,
+    replacement: 'note that',
+    alternatives: ['importantly', 'observe that'],
+    explanation: 'Verbose framing: simplify "it should be noted that" to "note that" or omit.',
+  },
+  {
+    regex: /\bhas\s+the\s+ability\s+to\b/gi,
+    replacement: 'can',
+    explanation: 'Streamline wordy phrase "has the ability to" to the direct modal "can".',
+  },
+  {
+    regex: /\bat\s+the\s+present\s+time\b/gi,
+    replacement: 'currently',
+    alternatives: ['now'],
+    explanation: 'Replace temporal filler "at the present time" with "currently" or "now".',
+  },
+  {
+    regex: /\bthere\s+is\s+no\s+doubt\s+that\b/gi,
+    replacement: 'undoubtedly',
+    alternatives: ['certainly', 'clearly'],
+    explanation: 'Replace wordy clause "there is no doubt that" with "undoubtedly" or "certainly".',
+  },
 ];
 
 // Grammar and spelling confusions
@@ -198,6 +221,51 @@ const GRAMMAR_CONFUSIONS: { regex: RegExp; replacement: string; alternatives?: s
     replacement: 'challenging',
     alternatives: ['arduous', 'demanding'],
     explanation: 'Replace "very difficult" with "challenging" or "arduous".',
+  },
+  {
+    regex: /\b(has|have|had|having)\s+lead\b/gi,
+    replacement: '$1 led',
+    explanation: 'Past participle of the verb "to lead" is "led", not "lead".',
+  },
+  {
+    regex: /\b(a|an|the|this|that|these|those|positive|negative|adverse|profound|direct|significant|side)\s+affect\b/gi,
+    replacement: '$1 effect',
+    explanation: 'In this noun position, use "effect" (a result or outcome) rather than "affect" (a verb meaning to influence).',
+  },
+  {
+    regex: /\b(will|to|may|might|could|should|would|can)\s+effect\s+(the|a|our|their|its|your)\b/gi,
+    replacement: '$1 affect $2',
+    explanation: 'In this verb position, use "affect" (to influence) rather than "effect" (to bring about).',
+  },
+  {
+    regex: /\bthe\s+principle\s+(reason|cause|factor|investigator|architect|engineer|objective|finding|driver)\b/gi,
+    replacement: 'the principal $1',
+    explanation: 'Use "principal" (meaning primary or main) instead of "principle" (a doctrine or rule).',
+  },
+  {
+    regex: /\bprincipal\s+of\s+(operation|conservation|relativity|fairness|justice|least\s+privilege)\b/gi,
+    replacement: 'principle of $1',
+    explanation: 'Use "principle" (a fundamental rule or law) instead of "principal" (head of school or main entity).',
+  },
+  {
+    regex: /\bpaid\s+(?:him|her|them|me|us)\s+a\s+complement\b/gi,
+    replacement: 'compliment',
+    explanation: 'Use "compliment" (praise) instead of "complement" (something that completes).',
+  },
+  {
+    regex: /\b(a\s+perfect|an\s+ideal)\s+compliment\s+to\b/gi,
+    replacement: '$1 complement to',
+    explanation: 'Use "complement" (that which enhances or completes) rather than "compliment" (praise).',
+  },
+  {
+    regex: /\b(peak|peek)\s+(my|our|their|his|her)\s+interest\b/gi,
+    replacement: 'pique $2 interest',
+    explanation: 'The idiom is "pique one\'s interest" (stimulate curiosity), not "peak" or "peek".',
+  },
+  {
+    regex: /\b(the\s+list|a\s+collection|the\s+series|the\s+group|the\s+set|a\s+batch)\s+of\s+([a-z]+s)\s+(were|are)\b/gi,
+    replacement: '$1 of $2 was',
+    explanation: 'Subject-verb agreement: the singular collective subject ("$1") takes a singular verb ("was"), not plural ("$3").',
   },
 ];
 
@@ -311,8 +379,10 @@ export function analyzeWriting(text: string): WritingAnalysis {
     const re = new RegExp(item.regex.source, 'gi');
     while ((match = re.exec(text)) !== null) {
       let rep = item.replacement;
-      if (rep.includes('$1') && match[1]) {
-        rep = rep.replace('$1', match[1]);
+      for (let g = 1; g < match.length; g++) {
+        if (match[g] !== undefined) {
+          rep = rep.split(`$${g}`).join(match[g]);
+        }
       }
       suggestions.push({
         id: `sug_gram_${match.index}_${Date.now()}`,
@@ -403,6 +473,9 @@ export function analyzeWriting(text: string): WritingAnalysis {
     'my', 'one', 'all', 'would', 'there', 'their', 'what', 'so', 'up', 'out', 'if', 'about', 'who', 'get', 'which',
     'go', 'me', 'when', 'make', 'can', 'like', 'time', 'no', 'just', 'him', 'know', 'take', 'people', 'into', 'year',
     'your', 'good', 'some', 'could', 'them', 'see', 'other', 'than', 'then', 'now', 'look', 'only', 'come', 'its',
+    // Technical terms exempted from repetitive flags
+    'server', 'client', 'system', 'socket', 'buffer', 'network', 'model', 'table',
+    'query', 'index', 'value', 'error', 'memory', 'thread', 'process', 'ulimit',
   ]);
 
   for (const w of words) {

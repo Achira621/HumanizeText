@@ -1,0 +1,295 @@
+{
+  "version": "1.2.0",
+  "name": "Rewrite Strength Matched 32 Benchmark",
+  "description": "32 matched inputs across 7 writing categories to evaluate minimal, light, balanced, strong, and extensive modes under identical conditions.",
+  "items": [
+    {
+      "id": "acad_01",
+      "category": "academic",
+      "genre": "academic",
+      "mode": "formal",
+      "isCleanAuthorial": false,
+      "text": "It is important to note that the empirical findings serve as a testament to the efficacy of the proposed transformer architecture [Smith et al., 2023]. The model demonstrates a 14.8% reduction in inference latency across 1,024 test sequences.",
+      "invariants": { "numbers": ["14.8%", "1024"], "citations": ["[Smith et al., 2023]"] }
+    },
+    {
+      "id": "acad_02",
+      "category": "academic",
+      "genre": "academic",
+      "mode": "formal",
+      "isCleanAuthorial": false,
+      "text": "In the realm of cognitive neuroscience, researchers delve into the multifaceted mechanisms of memory consolidation. Preliminary evidence suggests that slow-wave sleep plays a pivotal role in synaptic pruning.",
+      "invariants": { "hedging": ["suggests", "preliminary"] }
+    },
+    {
+      "id": "acad_03",
+      "category": "academic",
+      "genre": "academic",
+      "mode": "natural",
+      "isCleanAuthorial": false,
+      "text": "Furthermore, the synthesized polymer exhibited exceptional tensile strength under standard pressure. The authors hypothesize that covalent cross-linking prevents micro-fracture propagation across the lattice.",
+      "invariants": { "hedging": ["hypothesize"] }
+    },
+    {
+      "id": "acad_04",
+      "category": "academic",
+      "genre": "academic",
+      "mode": "formal",
+      "isCleanAuthorial": false,
+      "text": "Due to the fact that sample sizes remained constrained to 45 participants, the investigators could not definitively rule out confounding variables. Additional replication trials are urgently needed.",
+      "invariants": { "numbers": ["45"], "negations": ["could not"] }
+    },
+    {
+      "id": "acad_05",
+      "category": "academic",
+      "genre": "academic",
+      "mode": "formal",
+      "isCleanAuthorial": true,
+      "text": "Three independent cohorts completed the randomized trial over eighteen months. Each patient received 250 mg of the active formulation daily.",
+      "invariants": { "numbers": ["3", "18", "250"], "units": ["250 mg"] }
+    },
+    {
+      "id": "tech_01",
+      "category": "technical",
+      "genre": "technical",
+      "mode": "flow",
+      "isCleanAuthorial": false,
+      "text": "In today's fast-paced digital landscape, distributed microservices leverage container orchestration in order to achieve seamless fault tolerance, and the control plane constantly monitors heartbeat latency across all active worker nodes.",
+      "invariants": {}
+    },
+    {
+      "id": "tech_02",
+      "category": "technical",
+      "genre": "technical",
+      "mode": "natural",
+      "isCleanAuthorial": false,
+      "text": "The vulnerability designated as CVE-2024-3094 stems from an obfuscated upstream payload in the liblzma build system, but downstream packagers quickly quarantined the compromised tarball before production deployment.",
+      "invariants": { "identifiers": ["CVE-2024-3094"] }
+    },
+    {
+      "id": "tech_03",
+      "category": "technical",
+      "genre": "technical",
+      "mode": "concise",
+      "isCleanAuthorial": false,
+      "text": "The gateway utilizes caching mechanisms in order to expedite response serialization. It has the ability to handle up to 50,000 requests per second.",
+      "invariants": { "numbers": ["50000"] }
+    },
+    {
+      "id": "tech_04",
+      "category": "technical",
+      "genre": "technical",
+      "mode": "flow",
+      "isCleanAuthorial": false,
+      "text": "A TCP implementation MUST be capable of processing incoming segments while maintaining a sliding window of at least 65,535 octets. Failure to implement flow control will cause packet loss.",
+      "invariants": { "numbers": ["65535"] }
+    },
+    {
+      "id": "tech_05",
+      "category": "technical",
+      "genre": "technical",
+      "mode": "natural",
+      "isCleanAuthorial": true,
+      "text": "The raft consensus log commits entries strictly in monotonic term order. Nodes reject log append requests when the leader term precedes their local term.",
+      "invariants": {}
+    },
+    {
+      "id": "prof_01",
+      "category": "professional",
+      "genre": "corporate",
+      "mode": "natural",
+      "isCleanAuthorial": false,
+      "text": "Our Q3 strategic initiatives foster synergy across functional business units, unlocking the full potential of enterprise data assets while delivering optimal outcomes for our primary stakeholders.",
+      "invariants": {}
+    },
+    {
+      "id": "prof_02",
+      "category": "professional",
+      "genre": "corporate",
+      "mode": "formal",
+      "isCleanAuthorial": false,
+      "text": "It goes without saying that rigorous compliance audits stand as a beacon of institutional integrity, and the executive board has committed $4.2 million toward automated governance tooling.",
+      "invariants": { "numbers": ["4.2"], "units": ["$4.2 million"] }
+    },
+    {
+      "id": "prof_03",
+      "category": "professional",
+      "genre": "corporate",
+      "mode": "concise",
+      "isCleanAuthorial": false,
+      "text": "At this point in time, the organization is proactively exploring new commercial partnerships in order to drive higher profitability across the European sector.",
+      "invariants": {}
+    },
+    {
+      "id": "prof_04",
+      "category": "professional",
+      "genre": "corporate",
+      "mode": "formal",
+      "isCleanAuthorial": false,
+      "text": "In conclusion, the restructuring of customer support workflows reduced average ticket resolution time by 34%, thereby demonstrating our commitment to operational excellence.",
+      "invariants": { "numbers": ["34%"] }
+    },
+    {
+      "id": "prof_05",
+      "category": "professional",
+      "genre": "corporate",
+      "mode": "natural",
+      "isCleanAuthorial": true,
+      "text": "The quarterly review begins on Monday at 9:00 AM. Department heads must submit headcount projections by Friday afternoon.",
+      "invariants": { "dates": ["Monday", "Friday"] }
+    },
+    {
+      "id": "conv_01",
+      "category": "conversational",
+      "genre": "conversational",
+      "mode": "conversational",
+      "isCleanAuthorial": false,
+      "text": "In today's fast-paced world, it is important to remember that people cannot work twelve hours every day without experiencing severe burnout.",
+      "invariants": { "numbers": ["12"] }
+    },
+    {
+      "id": "conv_02",
+      "category": "conversational",
+      "genre": "conversational",
+      "mode": "conversational",
+      "isCleanAuthorial": false,
+      "text": "Needless to say, I was delighted to delve into your recommended book series, and it certainly provided a plethora of fascinating historical insights.",
+      "invariants": {}
+    },
+    {
+      "id": "conv_03",
+      "category": "conversational",
+      "genre": "conversational",
+      "mode": "conversational",
+      "isCleanAuthorial": false,
+      "text": "Hey Sarah, I am writing to provide you with a quick update regarding our weekend road trip plans to Lake Tahoe. Do not worry about packing camping chairs because we already have four in the trunk.",
+      "invariants": { "numbers": ["4"], "namedEntities": ["Sarah", "Lake Tahoe"] }
+    },
+    {
+      "id": "conv_04",
+      "category": "conversational",
+      "genre": "conversational",
+      "mode": "conversational",
+      "isCleanAuthorial": false,
+      "text": "To be completely honest, I do not think we have the ability to finish this migration before next Tuesday, but we can definitely complete the database indexing portion.",
+      "invariants": { "dates": ["Tuesday"] }
+    },
+    {
+      "id": "conv_05",
+      "category": "conversational",
+      "genre": "conversational",
+      "mode": "conversational",
+      "isCleanAuthorial": true,
+      "text": "We grabbed coffee near the park yesterday morning. The bakery down the street has the best sourdough croissants in town.",
+      "invariants": {}
+    },
+    {
+      "id": "creat_01",
+      "category": "creative",
+      "genre": "creative",
+      "mode": "flow",
+      "isCleanAuthorial": false,
+      "text": "The nocturnal city stood as a beacon of hope against the encroaching shadows, its illuminated avenues weaving a rich tapestry of human ambition and quiet longing.",
+      "invariants": {}
+    },
+    {
+      "id": "creat_02",
+      "category": "creative",
+      "genre": "creative",
+      "mode": "flow",
+      "isCleanAuthorial": false,
+      "text": "Old Captain Miller embarked on a perilous voyage across the turbulent Atlantic ocean, and the weathered schooner groaned beneath the onslaught of towering 30-foot waves.",
+      "invariants": { "numbers": ["30"], "units": ["30-foot"] }
+    },
+    {
+      "id": "creat_03",
+      "category": "creative",
+      "genre": "creative",
+      "mode": "natural",
+      "isCleanAuthorial": false,
+      "text": "In the realm of forgotten legends, the ancient oak tree serves as a testament to centuries of silent watchfulness over the valley.",
+      "invariants": {}
+    },
+    {
+      "id": "creat_04",
+      "category": "creative",
+      "genre": "creative",
+      "mode": "flow",
+      "isCleanAuthorial": true,
+      "text": "Sunlight filtered through the morning pines, casting long amber ribbons across the damp meadow grass. A solitary heron lifted silently from the shallows.",
+      "invariants": {}
+    },
+    {
+      "id": "diff_01",
+      "category": "difficult_syntax",
+      "genre": "academic",
+      "mode": "formal",
+      "isCleanAuthorial": false,
+      "text": "Never before had the clinical advisory committee observed such a rapid escalation in adverse event reporting, yet it is important to remember that retrospective self-reporting inherently biases voluntary registries.",
+      "invariants": { "negations": ["never"] }
+    },
+    {
+      "id": "diff_02",
+      "category": "difficult_syntax",
+      "genre": "technical",
+      "mode": "natural",
+      "isCleanAuthorial": false,
+      "text": "The telemetry data was analyzed by the security response team over an extended duration of time, and the anomalous packet burst was found to have originated from an unauthenticated internal endpoint.",
+      "invariants": {}
+    },
+    {
+      "id": "diff_03",
+      "category": "difficult_syntax",
+      "genre": "formal",
+      "mode": "formal",
+      "isCleanAuthorial": false,
+      "text": "Under no circumstances may an unauthorized user access the cryptographic root keys, because an inadvertent disclosure serves to compromise the entire public key infrastructure.",
+      "invariants": { "negations": ["under no circumstances", "no"] }
+    },
+    {
+      "id": "diff_04",
+      "category": "difficult_syntax",
+      "genre": "academic",
+      "mode": "flow",
+      "isCleanAuthorial": false,
+      "text": "Hardly had the sensor array stabilized its baseline thermal reading when the primary calibration laser malfunctioned, necessitating immediate manual intervention by the telemetry operators.",
+      "invariants": { "negations": ["hardly"] }
+    },
+    {
+      "id": "clean_01",
+      "category": "clean_prose",
+      "genre": "general",
+      "mode": "natural",
+      "isCleanAuthorial": true,
+      "text": "Clear writing reflects clear thinking. When an engineer understands a problem deeply, the resulting explanation is concise, direct, and unpretentious.",
+      "invariants": {}
+    },
+    {
+      "id": "clean_02",
+      "category": "clean_prose",
+      "genre": "general",
+      "mode": "natural",
+      "isCleanAuthorial": true,
+      "text": "The train arrived seven minutes late because of signal maintenance outside the central terminal. Passengers waited quietly on the platform.",
+      "invariants": { "numbers": ["7"] }
+    },
+    {
+      "id": "clean_03",
+      "category": "clean_prose",
+      "genre": "academic",
+      "mode": "formal",
+      "isCleanAuthorial": true,
+      "text": "We measured the electrical conductivity of graphene sheets at 4 Kelvin. The resistance dropped below 0.05 ohms as expected.",
+      "invariants": { "numbers": ["4", "0.05"], "units": ["4 Kelvin", "0.05 ohms"] }
+    },
+    {
+      "id": "clean_04",
+      "category": "clean_prose",
+      "genre": "conversational",
+      "mode": "conversational",
+      "isCleanAuthorial": true,
+      "text": "Let's meet tomorrow at noon in front of the library. Bring your laptop and your notes so we can review the slides together.",
+      "invariants": { "dates": ["tomorrow"] }
+    }
+  ]
+}
