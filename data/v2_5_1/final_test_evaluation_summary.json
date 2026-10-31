@@ -1,0 +1,383 @@
+{
+  "milestone": "V2.5.1",
+  "evaluationDate": "2026-10-31",
+  "modelArtifactSha256": "b3c25ce60e2e32e437c1f425fc6b165154165bd258ecfff15a76b0313aba1190",
+  "denseMetrics": {
+    "sampleCount": 62,
+    "confusionMatrix": {
+      "tp": 28,
+      "fp": 6,
+      "tn": 25,
+      "fn": 3
+    },
+    "accuracy": 0.8548387096774194,
+    "balancedAccuracy": 0.8548387096774193,
+    "precision": 0.8235294117647058,
+    "recall": 0.9032258064516129,
+    "specificity": 0.8064516129032258,
+    "fpr": 0.1935483870967742,
+    "fnr": 0.0967741935483871,
+    "aucRoc": 0.9271592091571279,
+    "brierScore": 0.1116055544114389,
+    "logLoss": 0.3420331525676886,
+    "ece": 0.37945684318198863
+  },
+  "selectiveMetrics": {
+    "totalSamples": 62,
+    "decidedCount": 50,
+    "inconclusiveCount": 12,
+    "coverage": {
+      "overall": 0.8064516129032258,
+      "human": 0.7741935483870968,
+      "ai": 0.8387096774193549
+    },
+    "confusionMatrix": {
+      "tp": 23,
+      "fp": 2,
+      "tn": 22,
+      "fn": 3
+    },
+    "selectiveAccuracy": 0.9,
+    "selectiveBalancedAccuracy": 0.9006410256410255,
+    "selectivePrecision": 0.92,
+    "selectiveRecall": 0.8846153846153846,
+    "selectiveSpecificity": 0.9166666666666666,
+    "selectiveFpr": 0.08333333333333333,
+    "selectiveFnr": 0.11538461538461539,
+    "effectiveAiRecall": 0.7419354838709677,
+    "effectiveHumanFalseAlarmRate": 0.06451612903225806
+  },
+  "confidenceIntervals": {
+    "densePrecision": {
+      "value": 0.8235294117647058,
+      "ci95": [
+        0.6648626260015724,
+        0.9165103095462768
+      ]
+    },
+    "denseRecall": {
+      "value": 0.9032258064516129,
+      "ci95": [
+        0.7510006155660716,
+        0.9665353558368026
+      ]
+    },
+    "denseSpecificity": {
+      "value": 0.8064516129032258,
+      "ci95": [
+        0.6371974218820453,
+        0.9081299163841389
+      ]
+    },
+    "denseFpr": {
+      "value": 0.1935483870967742,
+      "ci95": [
+        0.09187008361586095,
+        0.36280257811795463
+      ]
+    },
+    "denseFnr": {
+      "value": 0.0967741935483871,
+      "ci95": [
+        0.03346464416319738,
+        0.24899938443392836
+      ]
+    },
+    "denseBalancedAccuracy": {
+      "value": 0.8548387096774193,
+      "ci95": [
+        0.7679859778089461,
+        0.9416914415458925
+      ]
+    },
+    "overallCoverage": {
+      "value": 0.8064516129032258,
+      "ci95": [
+        0.6914820382117387,
+        0.8856619175970974
+      ]
+    },
+    "humanCoverage": {
+      "value": 0.7741935483870968,
+      "ci95": [
+        0.6018758161665795,
+        0.886048644387375
+      ]
+    },
+    "aiCoverage": {
+      "value": 0.8387096774193549,
+      "ci95": [
+        0.6736564604120674,
+        0.9290737555663471
+      ]
+    },
+    "selectivePrecision": {
+      "value": 0.92,
+      "ci95": [
+        0.750338910496047,
+        0.9777795987151525
+      ]
+    },
+    "selectiveRecall": {
+      "value": 0.8846153846153846,
+      "ci95": [
+        0.7102409678828635,
+        0.9599675537638938
+      ]
+    },
+    "selectiveSpecificity": {
+      "value": 0.9166666666666666,
+      "ci95": [
+        0.741511978067893,
+        0.9768411847029566
+      ]
+    },
+    "selectiveFpr": {
+      "value": 0.08333333333333333,
+      "ci95": [
+        0.023158815297043313,
+        0.2584880219321068
+      ]
+    },
+    "selectiveFnr": {
+      "value": 0.11538461538461539,
+      "ci95": [
+        0.04003244623610616,
+        0.2897590321171364
+      ]
+    },
+    "selectiveBalancedAccuracy": {
+      "value": 0.9006410256410255,
+      "ci95": [
+        0.8180158253060181,
+        0.983266225976033
+      ]
+    },
+    "effectiveAiRecall": {
+      "value": 0.7419354838709677,
+      "ci95": [
+        0.567538641905662,
+        0.8629829409360625
+      ]
+    },
+    "effectiveHumanFalseAlarmRate": {
+      "value": 0.06451612903225806,
+      "ci95": [
+        0.01787478352191458,
+        0.2071863673629813
+      ]
+    }
+  },
+  "calibrationEvaluation": {
+    "brierScore": 0.1116055544114389,
+    "logLoss": 0.3420331525676886,
+    "ece": 0.37945684318198863,
+    "reliabilityBins": [
+      {
+        "bin": "[0.0, 0.1]",
+        "sampleCount": 14,
+        "meanConfidence": 0.030055858630196147,
+        "observedAccuracy": 1.0,
+        "observedAiFrequency": 0.0
+      },
+      {
+        "bin": "[0.1, 0.2]",
+        "sampleCount": 8,
+        "meanConfidence": 0.15311510652479693,
+        "observedAccuracy": 0.75,
+        "observedAiFrequency": 0.25
+      },
+      {
+        "bin": "[0.2, 0.3]",
+        "sampleCount": 2,
+        "meanConfidence": 0.2836930550838494,
+        "observedAccuracy": 1.0,
+        "observedAiFrequency": 0.0
+      },
+      {
+        "bin": "[0.3, 0.4]",
+        "sampleCount": 2,
+        "meanConfidence": 0.3323586348218005,
+        "observedAccuracy": 0.5,
+        "observedAiFrequency": 0.5
+      },
+      {
+        "bin": "[0.4, 0.5]",
+        "sampleCount": 2,
+        "meanConfidence": 0.4487627533169677,
+        "observedAccuracy": 1.0,
+        "observedAiFrequency": 0.0
+      },
+      {
+        "bin": "[0.5, 0.6]",
+        "sampleCount": 5,
+        "meanConfidence": 0.5396598824479882,
+        "observedAccuracy": 0.6,
+        "observedAiFrequency": 0.6
+      },
+      {
+        "bin": "[0.7, 0.8]",
+        "sampleCount": 7,
+        "meanConfidence": 0.7748303137382049,
+        "observedAccuracy": 0.7142857142857143,
+        "observedAiFrequency": 0.7142857142857143
+      },
+      {
+        "bin": "[0.8, 0.9]",
+        "sampleCount": 7,
+        "meanConfidence": 0.845976435963103,
+        "observedAccuracy": 0.7142857142857143,
+        "observedAiFrequency": 0.7142857142857143
+      },
+      {
+        "bin": "[0.9, 1.0]",
+        "sampleCount": 15,
+        "meanConfidence": 0.9563794532613039,
+        "observedAccuracy": 1.0,
+        "observedAiFrequency": 1.0
+      }
+    ],
+    "assessment": "First independent out-of-sample calibration assessment. ECE=0.3340 indicates residual overconfidence on borderline samples."
+  },
+  "subgroupMetrics": {
+    "claude_family": {
+      "sampleCount": 5,
+      "status": "REPORTED",
+      "coverage": 0.8,
+      "denseAccuracy": 0.6,
+      "meanProbability": 0.5947963335517195,
+      "decidedCount": 4,
+      "decidedAccuracy": 0.5
+    },
+    "corporate_human_proxy": {
+      "sampleCount": 3,
+      "status": "EXPLORATORY_SMALL_SAMPLE",
+      "coverage": 0.3333333333333333,
+      "denseAccuracy": 0.3333333333333333,
+      "meanProbability": 0.4678021837474054,
+      "decidedCount": 1,
+      "decidedAccuracy": 1.0
+    },
+    "gpt4_family": {
+      "sampleCount": 10,
+      "status": "REPORTED",
+      "coverage": 0.8,
+      "denseAccuracy": 1.0,
+      "meanProbability": 0.8860788634399714,
+      "decidedCount": 8,
+      "decidedAccuracy": 1.0
+    },
+    "heuristic_seed": {
+      "sampleCount": 2,
+      "status": "EXPLORATORY_SMALL_SAMPLE",
+      "coverage": 1.0,
+      "denseAccuracy": 1.0,
+      "meanProbability": 0.7689171455264838,
+      "decidedCount": 2,
+      "decidedAccuracy": 1.0
+    },
+    "historical_human_proxy": {
+      "sampleCount": 21,
+      "status": "REPORTED",
+      "coverage": 1.0,
+      "denseAccuracy": 0.9523809523809523,
+      "meanProbability": 0.11505692016984945,
+      "decidedCount": 21,
+      "decidedAccuracy": 0.9523809523809523
+    },
+    "llama_family": {
+      "sampleCount": 5,
+      "status": "REPORTED",
+      "coverage": 0.6,
+      "denseAccuracy": 1.0,
+      "meanProbability": 0.8279841853577583,
+      "decidedCount": 3,
+      "decidedAccuracy": 1.0
+    },
+    "mistral_family": {
+      "sampleCount": 9,
+      "status": "REPORTED",
+      "coverage": 1.0,
+      "denseAccuracy": 0.8888888888888888,
+      "meanProbability": 0.8038111343831882,
+      "decidedCount": 9,
+      "decidedAccuracy": 0.8888888888888888
+    },
+    "verified_human": {
+      "sampleCount": 7,
+      "status": "REPORTED",
+      "coverage": 0.2857142857142857,
+      "denseAccuracy": 0.5714285714285714,
+      "meanProbability": 0.5140775163253135,
+      "decidedCount": 2,
+      "decidedAccuracy": 0.5
+    }
+  },
+  "genreMetrics": {
+    "academic": {
+      "sampleCount": 10,
+      "status": "REPORTED",
+      "coverage": 1.0,
+      "denseAccuracy": 0.9,
+      "meanProbability": 0.4439237534983226
+    },
+    "conversational": {
+      "sampleCount": 8,
+      "status": "REPORTED",
+      "coverage": 0.625,
+      "denseAccuracy": 0.625,
+      "meanProbability": 0.6964561425386033
+    },
+    "creative": {
+      "sampleCount": 13,
+      "status": "REPORTED",
+      "coverage": 0.9230769230769231,
+      "denseAccuracy": 0.9230769230769231,
+      "meanProbability": 0.34378604599964874
+    },
+    "explanatory": {
+      "sampleCount": 9,
+      "status": "REPORTED",
+      "coverage": 0.7777777777777778,
+      "denseAccuracy": 1.0,
+      "meanProbability": 0.6791458826585026
+    },
+    "professional": {
+      "sampleCount": 9,
+      "status": "REPORTED",
+      "coverage": 0.6666666666666666,
+      "denseAccuracy": 0.7777777777777778,
+      "meanProbability": 0.5746260105851022
+    },
+    "technical": {
+      "sampleCount": 13,
+      "status": "REPORTED",
+      "coverage": 0.7692307692307693,
+      "denseAccuracy": 0.8461538461538461,
+      "meanProbability": 0.4923783004657757
+    }
+  },
+  "lengthMetrics": {
+    "short (<100w)": {
+      "sampleCount": 55,
+      "status": "REPORTED",
+      "coverage": 0.7818181818181819,
+      "denseAccuracy": 0.8727272727272727,
+      "meanProbability": 0.5740224747979055
+    },
+    "medium (100-250w)": {
+      "sampleCount": 5,
+      "status": "REPORTED",
+      "coverage": 1.0,
+      "denseAccuracy": 0.6,
+      "meanProbability": 0.11818687030170646
+    },
+    "long (>250w)": {
+      "sampleCount": 2,
+      "status": "EXPLORATORY_SMALL_SAMPLE",
+      "coverage": 1.0,
+      "denseAccuracy": 1.0,
+      "meanProbability": 0.001399876570841217
+    }
+  }
+}

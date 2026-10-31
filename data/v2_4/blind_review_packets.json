@@ -1,0 +1,1624 @@
+{
+  "packetVersion": "2.4.0",
+  "generatedDate": "2026-10-31T13:11:43.305Z",
+  "itemCount": 77,
+  "blindedItems": [
+    {
+      "reviewItemId": "BLIND_ITEM_001",
+      "genre": "academic",
+      "wordCount": 153,
+      "promptText": "Prompt: TASK_ACAD_01",
+      "text": "Epigenetic modifications regulate gene expression by changing how accessible DNA is to the cell’s transcription machinery, without changing the nucleotide sequence itself. DNA methylation adds methyl groups, commonly to cytosine bases in CpG sites. In many promoter regions, increased methylation is associated with reduced transcription because it can obstruct transcription-factor binding and recruit proteins that promote compact chromatin. Its effect depends on genomic context, so methylation is not a universal off switch.\n\nHistone acetylation adds acetyl groups to lysine residues on histone proteins, which package DNA into nucleosomes. Acetylation reduces the positive charge on histones, weakening their attraction to negatively charged DNA. This generally loosens chromatin and makes regulatory sequences more accessible to transcription factors and RNA polymerase.\n\nEuchromatin is comparatively open and often transcriptionally active, whereas heterochromatin is more condensed and usually less active. Together, methylation and histone modification help cells regulate which genes are expressed in particular tissues or developmental conditions.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_002",
+      "genre": "academic",
+      "wordCount": 171,
+      "promptText": "Prompt: TASK_ACAD_02",
+      "text": "A binding rent ceiling sets the legal rent below the market-clearing level. In the short run, the number of homes is relatively fixed, so tenant demand rises while the available quantity cannot adjust quickly. The result is a shortage, often allocated through waiting lists, personal connections, screening, or other non-price mechanisms rather than price.\n\nOver time, housing supply is more elastic. Owners may convert rental units to other uses, defer maintenance, or reduce new construction when expected returns fall. These responses can shrink the quantity or quality of rental housing, although the size of the effect depends on policy design, exemptions, and market conditions.\n\nA ceiling can benefit tenants who secure a controlled unit, but access is uneven. Some landlords may demand key money or impose stricter selection, while waiting lists lengthen. If fewer mutually beneficial rentals occur than would under the market-clearing price, the policy can create deadweight loss. The overall outcome therefore depends not only on the nominal ceiling but also on enforcement, complementary housing supply, and tenant protections.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_003",
+      "genre": "technical",
+      "wordCount": 168,
+      "promptText": "Prompt: TASK_TECH_01",
+      "text": "For a payment request, generate a unique, unpredictable idempotency key and send it in the `Idempotency-Key` header with the HTTP POST. Reuse that same key when retrying the same logical transaction after a timeout; create a new key for a genuinely new payment. Never generate a fresh key for every network attempt, or a retry could create a second charge.\n\nOn the server, scope the key to the merchant or account and store it with a request fingerprint and processing state. Use an atomic insert or unique constraint in SQL so concurrent requests cannot both claim the same key. Set a documented TTL that exceeds the client retry window. Do not expire an in-flight operation.\n\nIf the key is new, process the payment and persist the final status and response. If the same key and same request arrive again, return the stored result, or report that the original request is still processing. If the key is reused with different parameters, reject it rather than silently changing the transaction.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_004",
+      "genre": "technical",
+      "wordCount": 158,
+      "promptText": "Prompt: TASK_TECH_02",
+      "text": "Size a connection pool from measured database capacity and application concurrency, not from the maximum number of web threads. Each database connection consumes server memory and can add scheduling, context-switching, and lock-management overhead. An oversized pool may therefore increase contention instead of improving throughput; requests can queue while connections are busy, creating apparent starvation.\n\nA commonly cited starting heuristic is `Connections = (CoreCount × 2) + DiskEffectiveSpindle`. Treat it as a benchmark-derived starting point, not a universal law. The original assumptions may not fit SSDs, cloud storage, modern database engines, or workloads dominated by network waits. Measure query latency, CPU saturation, active sessions, and queue time, then load-test incremental pool sizes.\n\nWith HikariCP, configure `maximumPoolSize`, `connectionTimeout`, and `maxLifetime` deliberately. Set connection lifetime below infrastructure-imposed limits, and make acquisition timeouts reflect the request budget. Detect leaks with monitoring rather than compensating with an enormous pool. For PostgreSQL, PgBouncer can also multiplex many client connections over a smaller server-side pool.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_005",
+      "genre": "corporate",
+      "wordCount": 161,
+      "promptText": "Prompt: TASK_CORP_01",
+      "text": "**Executive briefing: database cutover schedule adjustment**\n\nThe enterprise database cutover will move by three weeks following stress tests that exposed cross-region replication lag above our service-level thresholds during peak-load scenarios. Proceeding on the original timetable would increase the risk of stale reads, inconsistent failover behaviour, and disruption during migration.\n\nThe revised plan adds a focused remediation period. Engineering will tune read-replica configuration, review workload distribution, and repeat peak-load tests across all participating regions. We will also conduct additional dry-run cutovers to validate replication recovery, rollback procedures, and operational ownership before production migration.\n\nThe delivery milestone is now scheduled three weeks later than the previously approved date. The program team will publish the updated milestone calendar and readiness criteria to workstream leads. Current estimates indicate that the adjustment can be absorbed within the approved budget by reallocating planned testing capacity; no additional funding is requested.\n\nWe will confirm readiness only after replication performance remains within the agreed SLA during the final rehearsals.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_006",
+      "genre": "corporate",
+      "wordCount": 166,
+      "promptText": "Prompt: TASK_CORP_02",
+      "text": "**Subject: Update to audit log retention policy**\n\nWe are updating the default retention period for audit logs to a rolling 90-day window. The change will take effect 60 days from this notice. After the transition, older logs will no longer remain indefinitely available in the standard service interface.\n\nThis policy supports data minimisation and more deliberate retention practices under GDPR principles. It also helps us document access, monitoring, and retention controls relevant to our SOC 2 Type II control environment. Neither GDPR nor SOC 2 prescribes a universal 90-day period; the selected window reflects our service policy and documented operational requirements.\n\nCustomers that require longer retention can export logs through the self-service archive tools before the applicable expiry date. You may forward exports to a customer-managed Amazon S3 or Google Cloud Storage bucket for longer-term preservation, subject to your own access controls and retention schedule.\n\nPlease review your internal audit needs and configure exports before the effective date. Our support team can help with the transition.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_007",
+      "genre": "conversational",
+      "wordCount": 152,
+      "promptText": "Prompt: TASK_CONV_01",
+      "text": "Think of public-key cryptography as a mailbox with a special slot and a private key. You can give anyone a copy of the mailbox’s open padlock, and they can use it to secure a message in a box for you. Once locked, the box cannot be opened with that public padlock. Only your private key, which you keep to yourself, can unlock it.\n\nIn a real cryptographic system, the “lock” and “key” are mathematical values that work together, rather than physical objects. The public key can be shared openly because knowing it does not make it practical to calculate the private key. Someone can use your public key to encrypt a message, while you use the matching private key to decrypt it.\n\nThe analogy is not perfect, but it captures the important idea: sharing the public key lets people send you protected information without giving them the secret needed to read it.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_008",
+      "genre": "conversational",
+      "wordCount": 151,
+      "promptText": "Prompt: TASK_CONV_02",
+      "text": "Intermittent video-call drops can come from weak signal, interference, or a busy router. The 2.4 GHz Wi-Fi band usually reaches farther and passes through walls better, but it is often crowded by nearby networks and household devices. The 5 GHz band can offer faster connections and less congestion, though its signal usually weakens more quickly through walls.\n\nTry these three steps:\n\n1. Move the router into an open, elevated position, away from cupboards, metal objects, and appliances. Keep it closer to the room where you make calls.\n2. Check your router’s channel settings. Use a Wi-Fi analyser to find less crowded channels, especially on 2.4 GHz, and let the router choose a clean channel if it supports automatic selection.\n3. Connect your laptop to the 5 GHz network when you are close enough for a strong signal.\n\nIf drops continue, compare a wired Ethernet call with Wi-Fi to isolate the cause.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_009",
+      "genre": "creative",
+      "wordCount": 155,
+      "promptText": "Prompt: TASK_CREAT_01",
+      "text": "At dusk, Elias tilted the pocket watch beneath the green-shaded lamp. Its brass gears caught the light one tooth at a time, small fields of gold turning beneath the jeweler’s loupe. The case smelled faintly of oil and old leather. He listened before touching anything: tick, tick, tick, then a pause so slight that a younger repairer might have missed it.\n\nHe steadied the watch on the velvet bench and followed the balance spring to the escapement wheel. One tooth carried a thin crescent of blue enamel. It was not a scratch, nor a fragment of paint. The mark sat beneath the metal surface, as if the brass had grown around it.\n\nElias stopped the wheel with a wooden peg. The ticking ceased, but from inside the closed case came one last, delicate click. He checked the winding crown. It had not moved. Outside, the workshop window reflected only the lamp and his still face.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_010",
+      "genre": "creative",
+      "wordCount": 167,
+      "promptText": "Prompt: TASK_CREAT_02",
+      "text": "The blizzard pressed against the greenhouse in white, shifting walls. Mara brushed condensation from a pane with her sleeve and watched the storm erase the mountain path. Outside, the thermometer had fallen well below freezing; inside, warm air carried the damp scent of compost and crushed leaves.\n\nShe moved between trays of alpine seedlings, checking each label against her notebook. The heating system clicked on, then settled into a low hum. Near the far bench, a small cushion of moss had lifted around a narrow stem. Its bud had opened overnight: pale violet petals cupped around a bright, almost translucent centre.\n\nMara touched the soil, careful not to disturb the roots. The specimen was not expected to flower until the brief summer thaw. She checked the temperature log, then the humidity sensor. Both readings were ordinary. For a moment she simply watched the flower hold its shape against the glass, while snow gathered on the other side. Then she reached for her camera and recorded the time.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_011",
+      "genre": "general",
+      "wordCount": 40,
+      "promptText": "Prompt: PROMPT_SEED_climate_change",
+      "text": "Last July the river behind our house dried up completely, something the old farmers said they'd never seen. Nobody argues about whether it's changing anymore, at least not around here. We just argue about who should pay for the pumps.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_012",
+      "genre": "general",
+      "wordCount": 44,
+      "promptText": "Prompt: PROMPT_SEED_climate_change",
+      "text": "Climate change is one of the most pressing challenges facing humanity today. Rising global temperatures contribute to extreme weather events, sea level rise, and loss of biodiversity. Therefore, it is essential for governments and individuals to take decisive action to reduce greenhouse gas emissions.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_013",
+      "genre": "general",
+      "wordCount": 44,
+      "promptText": "Prompt: PROMPT_SEED_climate_change",
+      "text": "Climate change is one of the most pressing challenges facing humanity today. Rising global temperatures contribute to extreme weather events, sea level rise, and loss of biodiversity. Therefore, it is essential for governments and individuals to take decisive action to reduce greenhouse gas emissions.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_014",
+      "genre": "general",
+      "wordCount": 34,
+      "promptText": "Prompt: PROMPT_SEED_climate_change",
+      "text": "Climate change is one of the most pressing challenges facing humanity today. Nobody argues about whether it's changing anymore, at least not around here. We just argue about who should pay for the pumps.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_015",
+      "genre": "general",
+      "wordCount": 38,
+      "promptText": "Prompt: PROMPT_SEED_languages",
+      "text": "I've been learning Portuguese for eight months and I can order food, argue about football, and absolutely nothing else. My teacher says that's normal. Last week a taxi driver complimented my accent and I floated for an hour.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_016",
+      "genre": "general",
+      "wordCount": 37,
+      "promptText": "Prompt: PROMPT_SEED_languages",
+      "text": "Learning a new language is a rewarding endeavor that offers numerous cognitive and cultural benefits. It enhances memory, improves problem-solving skills, and opens doors to new opportunities. Consistent practice and immersion are key factors in achieving fluency.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_017",
+      "genre": "general",
+      "wordCount": 37,
+      "promptText": "Prompt: PROMPT_SEED_languages",
+      "text": "Learning a new language is a rewarding endeavor that offers numerous cognitive and cultural benefits. It enhances memory, improves problem-solving skills, and opens doors to new opportunities. Consistent practice and immersion are key factors in achieving fluency.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_018",
+      "genre": "general",
+      "wordCount": 34,
+      "promptText": "Prompt: PROMPT_SEED_languages",
+      "text": "Learning a new language is a rewarding endeavor that offers numerous cognitive and cultural benefits. My teacher says that's normal. Last week a taxi driver complimented my accent and I floated for an hour.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_019",
+      "genre": "general",
+      "wordCount": 41,
+      "promptText": "Prompt: PROMPT_SEED_sleep",
+      "text": "Sleep was never a problem until I turned thirty-five. Now I'm awake at 3 a.m. replaying an awkward thing I said in 2011. The doctor says cut the late coffee, which is rude because it's the best part of my evening.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_020",
+      "genre": "general",
+      "wordCount": 39,
+      "promptText": "Prompt: PROMPT_SEED_sleep",
+      "text": "Sleep is a fundamental aspect of human health that is often overlooked. Adequate rest supports memory consolidation, immune function, and emotional regulation. It is therefore recommended that adults aim for seven to nine hours of quality sleep each night.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_021",
+      "genre": "general",
+      "wordCount": 39,
+      "promptText": "Prompt: PROMPT_SEED_sleep",
+      "text": "Sleep is a fundamental aspect of human health that is often overlooked. Adequate rest supports memory consolidation, immune function, and emotional regulation. It is therefore recommended that adults aim for seven to nine hours of quality sleep each night.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_022",
+      "genre": "general",
+      "wordCount": 44,
+      "promptText": "Prompt: PROMPT_SEED_sleep",
+      "text": "Sleep is a fundamental aspect of human health that is often overlooked. Now I'm awake at 3 a.m. replaying an awkward thing I said in 2011. The doctor says cut the late coffee, which is rude because it's the best part of my evening.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_023",
+      "genre": "general",
+      "wordCount": 30,
+      "promptText": "Prompt: PROMPT_SEED_home_cooking",
+      "text": "Cooking at home saves money, sure, but that's not why I do it. It's the forty minutes where nobody asks me anything. Chopping onions is basically therapy, minus the invoice.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_024",
+      "genre": "general",
+      "wordCount": 36,
+      "promptText": "Prompt: PROMPT_SEED_home_cooking",
+      "text": "Cooking at home offers a variety of benefits, including cost savings and healthier eating habits. It allows individuals to control ingredients and portion sizes while exploring new cuisines. Additionally, preparing meals together can strengthen family bonds.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_025",
+      "genre": "general",
+      "wordCount": 36,
+      "promptText": "Prompt: PROMPT_SEED_home_cooking",
+      "text": "Cooking at home offers a variety of benefits, including cost savings and healthier eating habits. It allows individuals to control ingredients and portion sizes while exploring new cuisines. Additionally, preparing meals together can strengthen family bonds.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_026",
+      "genre": "general",
+      "wordCount": 32,
+      "promptText": "Prompt: PROMPT_SEED_home_cooking",
+      "text": "Cooking at home offers a variety of benefits, including cost savings and healthier eating habits. It's the forty minutes where nobody asks me anything. Chopping onions is basically therapy, minus the invoice.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_027",
+      "genre": "general",
+      "wordCount": 42,
+      "promptText": "Prompt: PROMPT_SEED_city_vs_country",
+      "text": "We moved out to the countryside for the quiet and now I'm kept awake by owls. The nearest shop is a twenty-minute drive and I miss being able to get noodles at midnight. But the stars are ridiculous, I'll give it that.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_028",
+      "genre": "general",
+      "wordCount": 41,
+      "promptText": "Prompt: PROMPT_SEED_city_vs_country",
+      "text": "The decision between urban and rural living involves weighing numerous factors. Cities offer greater access to employment, culture, and services, while rural areas provide tranquility and closer connection to nature. Ultimately, the ideal choice depends on individual priorities and lifestyle preferences.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_029",
+      "genre": "general",
+      "wordCount": 41,
+      "promptText": "Prompt: PROMPT_SEED_city_vs_country",
+      "text": "The decision between urban and rural living involves weighing numerous factors. Cities offer greater access to employment, culture, and services, while rural areas provide tranquility and closer connection to nature. Ultimately, the ideal choice depends on individual priorities and lifestyle preferences.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_030",
+      "genre": "general",
+      "wordCount": 37,
+      "promptText": "Prompt: PROMPT_SEED_city_vs_country",
+      "text": "The decision between urban and rural living involves weighing numerous factors. The nearest shop is a twenty-minute drive and I miss being able to get noodles at midnight. But the stars are ridiculous, I'll give it that.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_031",
+      "genre": "general",
+      "wordCount": 49,
+      "promptText": "Prompt: PROMPT_SEED_volunteering",
+      "text": "I started volunteering at the food bank because my company gave us a day off for it. I kept going because of a woman named Marta who bosses everyone around and keeps a tin of toffees under the counter. Best Saturday job I've ever had, and it pays nothing.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_032",
+      "genre": "general",
+      "wordCount": 44,
+      "promptText": "Prompt: PROMPT_SEED_volunteering",
+      "text": "Volunteering is a meaningful way to give back to the community and make a positive impact. It provides individuals with opportunities to develop new skills, build relationships, and gain a sense of purpose. Furthermore, organizations rely heavily on volunteers to carry out their missions.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_033",
+      "genre": "general",
+      "wordCount": 44,
+      "promptText": "Prompt: PROMPT_SEED_volunteering",
+      "text": "Volunteering is a meaningful way to give back to the community and make a positive impact. It provides individuals with opportunities to develop new skills, build relationships, and gain a sense of purpose. Furthermore, organizations rely heavily on volunteers to carry out their missions.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_034",
+      "genre": "general",
+      "wordCount": 48,
+      "promptText": "Prompt: PROMPT_SEED_volunteering",
+      "text": "Volunteering is a meaningful way to give back to the community and make a positive impact. I kept going because of a woman named Marta who bosses everyone around and keeps a tin of toffees under the counter. Best Saturday job I've ever had, and it pays nothing.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_035",
+      "genre": "general",
+      "wordCount": 47,
+      "promptText": "Prompt: PROMPT_SEED_space_exploration",
+      "text": "When I was nine my uncle took me to see a rocket launch from a beach, miles away, and the sound arrived a full ten seconds after the light. I still remember my ribs buzzing. I don't care what it costs, I want kids to see that.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_036",
+      "genre": "general",
+      "wordCount": 40,
+      "promptText": "Prompt: PROMPT_SEED_space_exploration",
+      "text": "Space exploration represents one of humanity's most ambitious and inspiring endeavors. It drives technological innovation, expands scientific knowledge, and fosters international collaboration. Looking ahead, continued investment in this field is likely to yield benefits that extend far beyond our planet.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_037",
+      "genre": "general",
+      "wordCount": 40,
+      "promptText": "Prompt: PROMPT_SEED_space_exploration",
+      "text": "Space exploration represents one of humanity's most ambitious and inspiring endeavors. It drives technological innovation, expands scientific knowledge, and fosters international collaboration. Looking ahead, continued investment in this field is likely to yield benefits that extend far beyond our planet.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_038",
+      "genre": "general",
+      "wordCount": 29,
+      "promptText": "Prompt: PROMPT_SEED_space_exploration",
+      "text": "Space exploration represents one of humanity's most ambitious and inspiring endeavors. I still remember my ribs buzzing. I don't care what it costs, I want kids to see that.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_039",
+      "genre": "corporate",
+      "wordCount": 104,
+      "promptText": null,
+      "text": "Operating income decreased by fourteen percent during the fiscal year ended December 31, primarily reflecting higher freight costs, elevated wage rates in distribution centers, and increased marketing expenditures. Gross margin contracted eighty basis points to thirty-eight point two percent, as price increases implemented in the third quarter only partially offset raw material inflation in our packaging division. Selling, general, and administrative expenses rose five percent year over year, driven by non-cash stock compensation and investments in enterprise cloud infrastructure. We anticipate capital expenditures for the upcoming fiscal period to range between eighty-five and ninety-five million dollars, directed toward automation across three regional fulfillment hubs.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_040",
+      "genre": "corporate",
+      "wordCount": 66,
+      "promptText": null,
+      "text": "Commercial Cloud revenue was sixty-nine billion dollars, an increase of thirty-four percent, driven by growth in Azure and other cloud services. Server products and cloud services revenue increased twenty-seven percent driven by Azure revenue growth of fifty percent. Operating income increased thirty-two percent driven by growth across all segments, offset in part by an increased investment in cloud infrastructure and scaling capacity across international datacenter regions.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_041",
+      "genre": "conversational",
+      "wordCount": 58,
+      "promptText": null,
+      "text": "I spent three hours yesterday desoldering an old IBM Model M board I found in my uncle's basement. Half the rivet posts had snapped off, which is pretty typical for boards that sat in a damp garage for twenty years. Re-screwing thirty-eight tiny M2 nuts onto the backplate was torture, but the buckling springs feel brand new now.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_042",
+      "genre": "conversational",
+      "wordCount": 36,
+      "promptText": null,
+      "text": "Flattening the sole of an old cast iron plane takes way more patience than sandpaper. You have to clamp down on plate glass and use lots of mineral spirits so the paper doesn't load up immediately.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_043",
+      "genre": "creative",
+      "wordCount": 92,
+      "promptText": null,
+      "text": "The sun had not yet risen. The sea was indistinguishable from the sky, except that the sea was slightly creased as if a cloth had wrinkles in it. Gradually as the sky whitened a dark bar lay on the horizon dividing the sea from the sky and the grey cloth became barred with gold strokes like the incisions of a knife. Behind it the hills gathered shadows, and the trees stirred their leaves in the early cold air. A bird chirped suddenly from a thick branch, stopped, and then called again twice.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_044",
+      "genre": "creative",
+      "wordCount": 85,
+      "promptText": null,
+      "text": "Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; then, I account it high time to get to sea.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_045",
+      "genre": "corporate",
+      "wordCount": 86,
+      "promptText": null,
+      "text": "In today's fast-paced digital landscape, enterprises must navigate an ever-evolving ecosystem of technological disruption. To stay competitive, organizations must harness cutting-edge analytics to streamline operational workflows and foster cross-functional collaboration. By leveraging a holistic cloud platform, companies can unlock actionable insights that drive sustainable revenue growth and enhance customer engagement. Furthermore, establishing a proactive governance framework ensures that digital transformation initiatives remain aligned with overarching strategic priorities. It is imperative to cultivate a culture of innovation that empowers distributed teams to deliver measurable value at scale.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_046",
+      "genre": "conversational",
+      "wordCount": 39,
+      "promptText": null,
+      "text": "If you are looking for a relaxing weekend pastime, indoor gardening is definitely worth exploring. It is a wonderful way to bring vibrant greenery into your living space, and caring for succulents requires minimal effort while offering immense satisfaction.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_047",
+      "genre": "academic",
+      "wordCount": 45,
+      "promptText": null,
+      "text": "Chromatin regulation plays an established part in cell division, though our focus was specifically on fibroblast viability under serum starvation. Western blotting indicated measurable depletion in telomeric acetylation, supporting our hypothesis that replication arrest occurs before any detectable apoptotic cascade begins in these cell lines.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_048",
+      "genre": "conversational",
+      "wordCount": 39,
+      "promptText": null,
+      "text": "If you are visiting Kyoto in November, book the morning train to Arashiyama before eight o'clock. The bamboo grove gets completely packed with tour buses by nine, but walking through the path at dawn in the fog is unforgettable.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_049",
+      "genre": "conversational",
+      "wordCount": 83,
+      "promptText": null,
+      "text": "My sourdough starter smelled like acetone on day four, and I almost threw the whole jar into the compost bin. A friend told me that just meant the yeast culture was starving because room temperature was sitting around seventy-six degrees. I switched to feeding it equal parts whole rye and unbleached bread flour every twelve hours instead of once a day. By Saturday morning it had tripled in volume with huge bubbly pockets, and the acidic smell mellowed into a pleasant fruity aroma.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_050",
+      "genre": "technical",
+      "wordCount": 40,
+      "promptText": null,
+      "text": "Relational databases utilize B-tree indexes to optimize query execution and facilitate rapid record retrieval. By maintaining a balanced tree structure, the database engine significantly reduces disk input operations, ensuring predictable logarithmic lookup times across vast volumes of stored enterprise records.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_051",
+      "genre": "academic",
+      "wordCount": 48,
+      "promptText": null,
+      "text": "Our study examined how hybrid work schedules affected tenure-track faculty across five Midwestern state universities. Semi-structured interviews with forty-two junior professors indicated that while remote work reduced commuting fatigue, it significantly increased teaching-related administrative messaging during evenings, eroding hours previously dedicated to peer-reviewed laboratory research and grant writing.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_052",
+      "genre": "technical",
+      "wordCount": 79,
+      "promptText": null,
+      "text": "We propose migrating our distributed task queues from Redis pub-sub to Apache Kafka partitions to guarantee strict ordering for financial settlement events. Under our current architecture, Redis connection drops during node failovers occasionally cause out-of-order execution for invoice webhooks. By utilizing Kafka consumer groups with partitioned consumer offsets, worker nodes can replay unacknowledged messages without duplicating debit entries. Initial load testing indicates that a three-broker cluster sustains forty-five thousand events per second with sub-ten-millisecond end-to-end latency across availability zones.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_053",
+      "genre": "academic",
+      "wordCount": 68,
+      "promptText": null,
+      "text": "Archaeological excavations conducted along the lower Danube valley throughout the 1990s unsettled longstanding assumptions about Neolithic pottery diffusion. While earlier typology assumed an eastward migration pattern driven by agricultural displacement, stratigraphic carbon dates from four newly unearthed hearth sites placed ceramic production at least three centuries earlier than comparable Aegean finds. These findings complicate simplistic unidirectional models of cultural diffusion across southeastern Europe and suggest localized technological innovation.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_054",
+      "genre": "technical",
+      "wordCount": 73,
+      "promptText": null,
+      "text": "When configuring Raft consensus for an active distributed cluster, the heartbeat interval must remain substantially shorter than the election timeout to prevent split-vote thrashing. In our benchmark environment with 12 nodes across three availability zones, setting the heartbeat to 50ms and the randomized election timeout between 250ms and 400ms eliminated spurious leader changes during minor network blips. Nodes that miss more than three consecutive heartbeats transition into candidate state and broadcast RequestVote RPCs.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_055",
+      "genre": "corporate",
+      "wordCount": 51,
+      "promptText": null,
+      "text": "Accounts receivable increased twelve million dollars during the second quarter, primarily due to timing differences in client invoicing across our enterprise consulting contracts. Allowance for doubtful accounts remained unchanged at two point four percent of gross receivables, reflecting consistent historical collection rates and healthy counterparty credit profiles across all operating jurisdictions.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_056",
+      "genre": "academic",
+      "wordCount": 86,
+      "promptText": null,
+      "text": "Archaeological discoveries in modern historical scholarship provide a compelling testament to the multifaceted nature of ancient societies. Ceramic artifacts serve as an indicator of cultural expression, allowing researchers to trace community settlement patterns across diverse geographic regions. It is important to note that prehistoric communities engaged in a vast array of exchange networks, which ultimately paved the way for transformative societal advancements across the region. By examining subtle stylistic shifts in decorative pottery, contemporary anthropologists can unravel the complex socio-economic dynamics that shaped early human civilizations.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_057",
+      "genre": "conversational",
+      "wordCount": 44,
+      "promptText": null,
+      "text": "Keeping your bicycle chain clean is essential for ensuring smooth shifting and prolonging drivetrain life. Over time, road grit combines with chain lubricant to create an abrasive paste that wears down cassette teeth, so a quick wipe-down after wet rides makes a huge difference.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_058",
+      "genre": "creative",
+      "wordCount": 63,
+      "promptText": null,
+      "text": "Golden leaves drifted lazily through the crisp October air, blanketing the cobblestone path in a rich tapestry of autumn hues. A cool breeze whispered through the whispering branches, carrying the earthy fragrance of damp pine needles and impending frost. In this peaceful haven, the hurried pace of daily life melted away, replaced by the soothing rhythm of gentle footsteps against the frost-dusted gravel.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_059",
+      "genre": "technical",
+      "wordCount": 51,
+      "promptText": null,
+      "text": "In a Raft cluster, election timers must be randomized to prevent split-vote deadlocks when the active leader fails. We set our election timeout range between three hundred and five hundred milliseconds, which gives followers sufficient window to elect a replacement coordinator without triggering redundant voting rounds during routine network latency hiccups.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_060",
+      "genre": "conversational",
+      "wordCount": 41,
+      "promptText": null,
+      "text": "When planing figured maple, take very light passes with a high-angle frog to avoid tear-out along curly grain lines. Skewing the plane slightly across the board and taking fine shavings gives you a glassy finish without requiring hours of aggressive sanding.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_061",
+      "genre": "conversational",
+      "wordCount": 39,
+      "promptText": null,
+      "text": "Caring for a cast iron skillet is surprisingly simple once you get the hang of it. Just rinse it with hot water, dry it thoroughly on the stovetop, and rub in a drop of neutral oil while it's warm.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_062",
+      "genre": "creative",
+      "wordCount": 76,
+      "promptText": null,
+      "text": "Perched high atop the rugged sea cliffs, the weathered lighthouse stood as a lonely testament to generations of seafaring history. As twilight deepened into violet shadows, its luminous beam swept across the restless expanse of ocean swells, cutting through the encroaching coastal fog. In this quiet sanctuary between sea and sky, the distant cry of gulls blended seamlessly with the rhythmic roar of surf breaking against the rocks below, creating a rich tapestry of maritime solitude.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_063",
+      "genre": "conversational",
+      "wordCount": 32,
+      "promptText": null,
+      "text": "Before pitching a three-season tent on rocky ground, always sweep away sharp granite chips and pinecones. A lightweight polycro groundsheet weighs only four ounces and prevents tiny punctures along the floor seams.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_064",
+      "genre": "creative",
+      "wordCount": 78,
+      "promptText": null,
+      "text": "My grandfather had a workshop behind the barn that smelled of sawdust, creosote, and old motor oil. He could mend anything from broken sickle bars to grandfather clocks with just a ball-peen hammer and a drawer full of mismatched brass screws.\n\nIn that tranquil retreat, centuries of mechanical ingenuity seemed to coalesce into a timeless sanctuary of honest labor. The rustic tools hanging against weathered barn-wood shelves stood as an enduring testament to the quiet dignity of self-reliance.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_065",
+      "genre": "academic",
+      "wordCount": 93,
+      "promptText": null,
+      "text": "When we look at living creatures from an outward point of view, one of the first things that strike us is that they are bundles of habits. In wild animals, the habitual character of their actions is largely due to the characters of their nerve-centres being inherited. In civilized man, the habits of the individual are largely acquired through education. The moment one contemplates all these habits from an anatomical point of view, one sees that they are all due to the plasticity of the organic materials of which their bodies are composed.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_066",
+      "genre": "conversational",
+      "wordCount": 35,
+      "promptText": null,
+      "text": "If you're getting channeling at nine bars, back the OPV screw out until the gauge reads six. Lighter roasts flow much more evenly at lower brew pressure, and the espresso tastes noticeably sweeter without astringency.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_067",
+      "genre": "technical",
+      "wordCount": 58,
+      "promptText": null,
+      "text": "Write-ahead logging (WAL) serves as a robust mechanism to guarantee transaction durability and atomic recovery in modern database engines. By recording state modifications to disk sequentially before mutating actual data pages, the system seamlessly mitigates crash vulnerabilities. This proactive architecture ensures that uncommitted transactions are rolled back effectively during restart, preserving relational data integrity across enterprise cloud environments.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_068",
+      "genre": "corporate",
+      "wordCount": 85,
+      "promptText": null,
+      "text": "In today's volatile global landscape, enterprises are proactively rethinking traditional logistics paradigms to build resilient supply chains. To safeguard operational continuity, forward-looking organizations must harness cutting-edge predictive analytics and diversify supplier networks. By adopting a holistic procurement strategy, companies can gain end-to-end visibility and swiftly navigate geopolitical friction. Moreover, fostering strategic partnerships with regional logistics providers creates synergistic value, enabling seamless adaptations during unforeseen disruptions. It is imperative that leadership teams invest in agile fulfillment infrastructure to protect customer trust and drive sustainable long-term profitability.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_069",
+      "genre": "creative",
+      "wordCount": 64,
+      "promptText": null,
+      "text": "A solemn hush settled over the snow-covered pine ridges as dawn broke behind silver clouds. Silent snowflakes drifted lazily through the hemlock boughs, blanketing the forest floor in a rich tapestry of pristine winter white. In this peaceful haven far removed from civilization, the icy mountain stream whispered against frosted boulders, reminding any wandering traveler of the quiet majesty that dwells within untouched wilderness.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_070",
+      "genre": "academic",
+      "wordCount": 83,
+      "promptText": null,
+      "text": "In the Phase II double-blind trial, forty-eight hypertensive patients received fifty milligrams of the candidate ACE inhibitor daily for twelve weeks. Mean seated systolic blood pressure dropped by fourteen point two millimeters of mercury compared to placebo, with no serious adverse renal events reported.\n\nIn conclusion, exploring novel pharmacological agents plays a pivotal role in advancing therapeutic paradigms for cardiovascular health. Continued clinical evaluation remains imperative to foster comprehensive disease management and pave the way for optimized patient outcomes across global healthcare systems.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_071",
+      "genre": "conversational",
+      "wordCount": 41,
+      "promptText": null,
+      "text": "Don't bother driving six ground rods into dry clay if you can lay down four radial wires along the grass instead. RF return paths care about surface area in the first few inches of soil, not how deep you hammer copper.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_072",
+      "genre": "corporate",
+      "wordCount": 91,
+      "promptText": null,
+      "text": "In the modern enterprise landscape, maintaining a robust cybersecurity posture is paramount to safeguarding organizational assets and shareholder value. As threat actors deploy ever-evolving attack vectors, leadership teams must proactively embrace zero-trust architectures and cutting-edge threat intelligence. By implementing a holistic risk management framework, companies can seamlessly identify network vulnerabilities and mitigate potential breach fallout before operational disruption occurs. Furthermore, fostering cross-functional alignment between engineering and executive teams ensures that security protocols remain closely coupled with strategic business goals. Continuous monitoring and rigorous compliance audits are imperative to sustain stakeholder trust.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_073",
+      "genre": "conversational",
+      "wordCount": 37,
+      "promptText": null,
+      "text": "Running shoes gradually lose their midsole cushioning after three hundred miles, even if the outer tread still looks intact. Once the foam packs down, your knees and shins absorb more impact, increasing your risk of shin splints.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_074",
+      "genre": "creative",
+      "wordCount": 74,
+      "promptText": null,
+      "text": "Crimson rays of setting sunlight ignited the towering sandstone amphitheater, casting long, dramatic shadows across the canyon floor. Weathered canyon walls rose like a timeless testament to eons of wind and water carving silent passages through the desert bedrock. In this tranquil sanctuary of stone, the dry evening breeze whispered through twisted juniper branches, weaving a rich tapestry of desert silence that captivated the soul and melted away the hurried rhythms of the world.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_075",
+      "genre": "academic",
+      "wordCount": 44,
+      "promptText": null,
+      "text": "Superconducting transmon qubits fabricated on sapphire substrates achieved energy relaxation times exceeding eighty microseconds at twenty millikelvin. Two-qubit cross-resonance gate fidelity reached ninety-nine point four percent under randomized benchmarking, demonstrating that capacitive coupling suppression mitigated residual parasitic ZZ interactions across the active quantum register.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_076",
+      "genre": "technical",
+      "wordCount": 49,
+      "promptText": null,
+      "text": "Under high packet loss on mobile cellular links, HTTP/2 multiplexing suffered head-of-line blocking at the TCP layer, where one lost packet stalled all concurrent streams in the receive window. Migrating latency-critical API endpoints to HTTP/3 over QUIC restored independent packet delivery and reduced p99 tail latency by thirty-five percent.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    },
+    {
+      "reviewItemId": "BLIND_ITEM_077",
+      "genre": "corporate",
+      "wordCount": 49,
+      "promptText": null,
+      "text": "We completed the rollout of hardware security keys across all engineering and production access accounts on Friday. Mandatory FIDO2 authentication eliminated credential phishing attempts during the quarterly penetration test, while self-service token enrollment achieved ninety-eight percent user adoption within the ten-day onboarding window without generating escalated IT helpdesk tickets.",
+      "instructions": "Rate this passage strictly on linguistic quality. Do NOT guess authorship. Ground truth labels and detector predictions have been completely removed.",
+      "scoringDimensions": {
+        "d1_grammar_mechanics": "1 (Poor) to 5 (Flawless)",
+        "d2_coherence_continuity": "1 (Disjointed) to 5 (Seamless)",
+        "d3_vocabulary_precision": "1 (Vague/Cliché) to 5 (Nuanced/Precise)",
+        "d4_structural_cadence": "1 (Monotonous) to 5 (Dynamic/Varied)",
+        "d5_naturalness_rhythm": "1 (Artificial/Stilted) to 5 (Idiomatic/Organic)"
+      },
+      "overallQualityRatingAllowed": [
+        "imperfect",
+        "competent",
+        "polished",
+        "not_assessable"
+      ]
+    }
+  ]
+}

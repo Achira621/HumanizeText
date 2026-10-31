@@ -1,0 +1,12 @@
+{
+  "reportVersion": "2.4.3",
+  "generatedDate": "2026-10-31T15:06:36.298831+00:00",
+  "embargoPolicy": "Fail-Closed Cryptographic Holdout Protection",
+  "embargoedRecordsCount": 120,
+  "acquiredRecordsChecked": 532,
+  "exactSha256Matches": 0,
+  "normalizedSha256Matches": 0,
+  "nearDuplicateJaccardMatches": 0,
+  "embargoStatus": "PASSED_STRICT_EMBARGO",
+  "verifierSignature": "v2_4_2_embargo_guard_cryptographic_verification"
+}

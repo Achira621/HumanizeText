@@ -1,0 +1,59 @@
+{
+  "validationStrategy": "GroupKFold (5 folds)",
+  "groupCount": 228,
+  "totalTrainSamples": 254,
+  "gridSearchResults": [
+    {
+      "C": 0.001,
+      "meanBalancedAccuracy": 0.8030383111252675,
+      "stdBalancedAccuracy": 0.022945624507700935
+    },
+    {
+      "C": 0.01,
+      "meanBalancedAccuracy": 0.8181709932579497,
+      "stdBalancedAccuracy": 0.015922765605164632
+    },
+    {
+      "C": 0.05,
+      "meanBalancedAccuracy": 0.8390962379005857,
+      "stdBalancedAccuracy": 0.02312896041696604
+    },
+    {
+      "C": 0.1,
+      "meanBalancedAccuracy": 0.8427612323264497,
+      "stdBalancedAccuracy": 0.012826812136311856
+    },
+    {
+      "C": 0.2,
+      "meanBalancedAccuracy": 0.8471090584134062,
+      "stdBalancedAccuracy": 0.015335396268607436
+    },
+    {
+      "C": 0.5,
+      "meanBalancedAccuracy": 0.8322598520641998,
+      "stdBalancedAccuracy": 0.009983089563284869
+    },
+    {
+      "C": 1.0,
+      "meanBalancedAccuracy": 0.8399979473022953,
+      "stdBalancedAccuracy": 0.02123404044229509
+    },
+    {
+      "C": 2.0,
+      "meanBalancedAccuracy": 0.8360124400559183,
+      "stdBalancedAccuracy": 0.029447306676209904
+    },
+    {
+      "C": 5.0,
+      "meanBalancedAccuracy": 0.8398585939020722,
+      "stdBalancedAccuracy": 0.03131545377605989
+    },
+    {
+      "C": 10.0,
+      "meanBalancedAccuracy": 0.8318457733892515,
+      "stdBalancedAccuracy": 0.02697096073187964
+    }
+  ],
+  "bestC": 0.2,
+  "bestCvBalancedAccuracy": 0.8471090584134062
+}

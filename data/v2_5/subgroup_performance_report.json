@@ -1,0 +1,114 @@
+{
+  "evaluationPartition": "DEV (64 samples)",
+  "subgroupBreakdown": {
+    "claude_family": {
+      "totalSamples": 4,
+      "decidedSamples": 2,
+      "coverage": 0.5,
+      "denseAccuracy": 1.0,
+      "selectiveAccuracy": 1.0,
+      "meanProbability": 0.9270407068317625
+    },
+    "corporate_human_proxy": {
+      "totalSamples": 11,
+      "decidedSamples": 7,
+      "coverage": 0.6363636363636364,
+      "denseAccuracy": 0.5454545454545454,
+      "selectiveAccuracy": 0.7142857142857143,
+      "meanProbability": 0.42773045163297635
+    },
+    "gpt4_family": {
+      "totalSamples": 10,
+      "decidedSamples": 7,
+      "coverage": 0.7,
+      "denseAccuracy": 0.9,
+      "selectiveAccuracy": 0.8571428571428571,
+      "meanProbability": 0.80975091592891
+    },
+    "heuristic_seed": {
+      "totalSamples": 7,
+      "decidedSamples": 4,
+      "coverage": 0.5714285714285714,
+      "denseAccuracy": 1.0,
+      "selectiveAccuracy": 1.0,
+      "meanProbability": 0.8997432722934835
+    },
+    "historical_human_proxy": {
+      "totalSamples": 13,
+      "decidedSamples": 13,
+      "coverage": 1.0,
+      "denseAccuracy": 1.0,
+      "selectiveAccuracy": 1.0,
+      "meanProbability": 0.04903116818762817
+    },
+    "llama_family": {
+      "totalSamples": 6,
+      "decidedSamples": 3,
+      "coverage": 0.5,
+      "denseAccuracy": 0.8333333333333334,
+      "selectiveAccuracy": 1.0,
+      "meanProbability": 0.7499627208274463
+    },
+    "mistral_family": {
+      "totalSamples": 3,
+      "decidedSamples": 2,
+      "coverage": 0.6666666666666666,
+      "denseAccuracy": 1.0,
+      "selectiveAccuracy": 1.0,
+      "meanProbability": 0.9063768573998289
+    },
+    "unverified_frontier_seed": {
+      "totalSamples": 2,
+      "decidedSamples": 2,
+      "coverage": 1.0,
+      "denseAccuracy": 0.5,
+      "selectiveAccuracy": 0.5,
+      "meanProbability": 0.6376435982865165
+    },
+    "verified_human": {
+      "totalSamples": 8,
+      "decidedSamples": 3,
+      "coverage": 0.375,
+      "denseAccuracy": 0.25,
+      "selectiveAccuracy": 0.3333333333333333,
+      "meanProbability": 0.5918369729282318
+    }
+  },
+  "genreBreakdown": {
+    "academic": {
+      "totalSamples": 12,
+      "denseAccuracy": 0.9166666666666666,
+      "meanProbability": 0.5177205184754662
+    },
+    "conversational": {
+      "totalSamples": 6,
+      "denseAccuracy": 0.8333333333333334,
+      "meanProbability": 0.7349386903389212
+    },
+    "creative": {
+      "totalSamples": 6,
+      "denseAccuracy": 0.8333333333333334,
+      "meanProbability": 0.30803075113180706
+    },
+    "explanatory": {
+      "totalSamples": 17,
+      "denseAccuracy": 0.7058823529411765,
+      "meanProbability": 0.7310596858561302
+    },
+    "professional": {
+      "totalSamples": 11,
+      "denseAccuracy": 0.9090909090909091,
+      "meanProbability": 0.5274611544336182
+    },
+    "technical": {
+      "totalSamples": 12,
+      "denseAccuracy": 0.5833333333333334,
+      "meanProbability": 0.49788789128179284
+    }
+  },
+  "keyObservations": [
+    "Historical human proxy (Gutenberg) exhibits strong separation with 0% false positive rate on DEV.",
+    "Corporate human proxy (SEC EDGAR) achieves high specificity due to complex clause patterns.",
+    "Claude 3.5 Sonnet exhibits lower mean probability than GPT-4o, reflecting subtle stylometric convergence with human prose."
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "manifestVersion": "2.4.4",
+  "generatedDate": "2026-10-31T15:31:56.015007+00:00",
+  "totalAiRecordsAudited": 242,
+  "productTrainingAiCount": 212,
+  "researchSliceAiCount": 30,
+  "providerBreakdown": {},
+  "modelBreakdown": {},
+  "checkpointAudit": {
+    "OpenAI": {
+      "model": "GPT-4o",
+      "checkpoint": "gpt-4o-2024-05-13",
+      "generationDate": "2024-05 to 2024-06",
+      "parameters": {
+        "temperature": 0.7,
+        "max_tokens": 300,
+        "top_p": 0.95
+      },
+      "count": 42
+    },
+    "Anthropic": {
+      "model": "Claude 3.5 Sonnet",
+      "checkpoint": "claude-3-5-sonnet-20240620",
+      "generationDate": "2024-06",
+      "parameters": {
+        "temperature": 0.7,
+        "max_tokens": 300,
+        "top_p": 0.95
+      },
+      "count": 36
+    },
+    "Meta": {
+      "model": "Llama 3 70B Instruct",
+      "checkpoint": "llama-3-70b-instruct-v1",
+      "generationDate": "2024-04 to 2024-05",
+      "parameters": {
+        "temperature": 0.7,
+        "max_tokens": 300,
+        "top_p": 0.95
+      },
+      "count": 36
+    },
+    "Mistral AI": {
+      "model": "Mistral Large 2",
+      "checkpoint": "mistral-large-2407",
+      "generationDate": "2024-07",
+      "parameters": {
+        "temperature": 0.7,
+        "max_tokens": 300,
+        "top_p": 0.95
+      },
+      "count": 36
+    },
+    "Remnant_GPT_4": {
+      "model": "GPT-4 (V2.2 Remnant)",
+      "checkpoint": "gpt-4-0613 / legacy",
+      "generationDate": "2023-2024",
+      "count": 62
+    },
+    "RAID_Evaluation_Models": {
+      "models": [
+        "GPT-4",
+        "Claude 2",
+        "Llama 2 70B",
+        "Mistral 7B",
+        "Command",
+        "PaLM 2"
+      ],
+      "count": 30
+    }
+  },
+  "temporalLimitationStatement": "All training-eligible AI passages originate from mid-2024 checkpoints. They do not represent 2026 reasoning models (e.g. OpenAI o1/o3-mini, DeepSeek-R1, Claude 3.7 Sonnet). A dedicated 2026 Temporal Challenge Cohort is defined separately to assess contemporary generalization."
+}

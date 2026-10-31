@@ -12,6 +12,7 @@ import type {
 import { MODEL_REGISTRY, TEXT_DETECTOR_MANIFEST, IMAGE_DETECTOR_MANIFEST } from './manifest';
 import { analyzeImageForensics } from './imageAnalysis';
 import { computeAiScore, GPT_SIGNATURES } from './detectorCore';
+import { executeDetectorEngine } from './candidateIntegrationBoundary';
 
 export interface ServerApiConfig {
   baseUrl?: string;
@@ -78,7 +79,7 @@ export class ServerInferenceApi {
    */
   public async detectText(
     text: string,
-    options: { modelId?: string; signal?: AbortSignal } = {}
+    options: { modelId?: string; engineId?: 'v2_5_public_beta' | 'production_default'; signal?: AbortSignal } = {}
   ): Promise<DetectionResult> {
     const trimmed = text.trim();
     if (!trimmed) {
@@ -88,7 +89,7 @@ export class ServerInferenceApi {
       throw new Error('Input exceeds maximum server payload length limit of 50,000 characters.');
     }
 
-    const modelId = options.modelId || TEXT_DETECTOR_MANIFEST.modelId;
+    const modelId = options.modelId || (options.engineId === 'v2_5_public_beta' ? 'humanizetext-detector-v2-5-0' : TEXT_DETECTOR_MANIFEST.modelId);
     const requestId = `srv_req_${Date.now()}_${++this.requestCounter}`;
     const startTime = performance.now();
 
@@ -97,7 +98,7 @@ export class ServerInferenceApi {
       const res = await fetch(`${this.baseUrl}/v1/detect/text`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'X-Request-ID': requestId },
-        body: JSON.stringify({ text: trimmed, modelId }),
+        body: JSON.stringify({ text: trimmed, modelId, engineId: options.engineId }),
         signal: options.signal,
       });
 
@@ -121,20 +122,26 @@ export class ServerInferenceApi {
     const words = trimmed.split(/\s+/).filter(Boolean);
     const wordCount = words.length;
 
-// Use unified linguistic AI detection core
+    // Route through engine dispatcher
+    const engineMode = options.engineId ?? 'production_default';
+    const engineRes = executeDetectorEngine(trimmed, { engineId: engineMode });
+
     const coreResult = computeAiScore(trimmed);
-    const aiProb = coreResult.aiProbability;
-    const humanProb = Math.round((1 - aiProb) * 100) / 100;
+    const aiProb = Number(engineRes.score.toFixed(3));
+    const humanProb = Math.max(0, Math.min(1, Number((1 - aiProb).toFixed(3))));
 
     let classification: TextDetectionScore['classification'] = 'likely-human';
     let confidence: TextDetectionScore['confidence'] = 'high';
 
-    if (aiProb > 0.60) {
-      classification = 'likely-ai';
-      confidence = aiProb > 0.80 ? 'high' : 'moderate';
-    } else if (aiProb >= 0.30) {
+    if (engineRes.isAbstained || engineRes.verdict === 'inconclusive' || engineRes.verdict === 'abstained') {
       classification = 'inconclusive';
       confidence = 'low';
+    } else if (engineRes.verdict === 'ai' || aiProb >= 0.65) {
+      classification = 'likely-ai';
+      confidence = aiProb > 0.80 ? 'high' : 'moderate';
+    } else {
+      classification = 'likely-human';
+      confidence = aiProb < 0.20 ? 'high' : 'moderate';
     }
 
     // Sentence-by-sentence analysis for heatmap visualization

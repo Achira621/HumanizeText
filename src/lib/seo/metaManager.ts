@@ -168,9 +168,9 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
     },
   },
   'ai-detector': {
-    title: 'AI Detector — Free AI Text & Image Detection | HumanizeText',
+    title: 'AI Detector (Public Beta) — Free Stylometric Text & Image Analysis | HumanizeText',
     description:
-      'Scan text and images for ChatGPT, Claude, and synthetic generation patterns using hybrid on-device neural analysis, stylistic heuristics, and image forensics.',
+      'Analyze text for synthetic AI writing patterns using our calibrated V2.5 regularized stylometric classifier with selective confidence gating and local-first privacy. Zero text logging.',
     canonicalPath: '/ai-detector',
     ogType: 'website',
     schema: {
@@ -178,7 +178,7 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
       '@graph': [
         {
           '@type': 'SoftwareApplication',
-          name: 'HumanizeText AI Detector',
+          name: 'HumanizeText AI Detector (Public Beta)',
           applicationCategory: 'UtilityApplication',
           operatingSystem: 'Any (Web Browser)',
           offers: {
@@ -187,7 +187,7 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
             priceCurrency: 'USD',
           },
           description:
-            'Hybrid AI detection engine analyzing vocabulary uniformity, burstiness, repetitive phraseology, and high-frequency Fourier image artifacts.',
+            'Calibrated 21-feature stylometric machine-learning detector with selective confidence gating, local privacy guarantees, and heuristic fallback.',
         },
         {
           '@type': 'BreadcrumbList',

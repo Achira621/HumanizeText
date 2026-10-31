@@ -1,0 +1,433 @@
+{
+  "manifestVersion": "2.5.0",
+  "partitionName": "CAL",
+  "description": "V2.5 Platt Scaling Probability Calibration Partition (42 samples)",
+  "sampleCount": 42,
+  "humanCount": 21,
+  "aiCount": 21,
+  "independenceGroupCount": 37,
+  "baseDocumentCount": 38,
+  "samples": [
+    {
+      "sampleId": "rem_seeds_social_media_h",
+      "baseDocumentId": "seed_topic_social_media",
+      "independenceGroupId": "cluster_seeds_social_media_mixed",
+      "authorClass": "verified_human",
+      "subgroup": "verified_human",
+      "genre": "explanatory",
+      "wordCount": 43,
+      "binaryLabel": 0
+    },
+    {
+      "sampleId": "rem_seeds_social_media_a",
+      "baseDocumentId": "seed_topic_social_media",
+      "independenceGroupId": "cluster_seeds_social_media_mixed",
+      "authorClass": "verified_ai",
+      "subgroup": "heuristic_seed",
+      "genre": "explanatory",
+      "wordCount": 40,
+      "binaryLabel": 1
+    },
+    {
+      "sampleId": "rem_seeds_languages_h",
+      "baseDocumentId": "seed_topic_languages",
+      "independenceGroupId": "cluster_seeds_languages_mixed",
+      "authorClass": "verified_human",
+      "subgroup": "verified_human",
+      "genre": "explanatory",
+      "wordCount": 38,
+      "binaryLabel": 0
+    },
+    {
+      "sampleId": "rem_seeds_languages_a",
+      "baseDocumentId": "seed_topic_languages",
+      "independenceGroupId": "cluster_seeds_languages_mixed",
+      "authorClass": "verified_ai",
+      "subgroup": "heuristic_seed",
+      "genre": "explanatory",
+      "wordCount": 37,
+      "binaryLabel": 1
+    },
+    {
+      "sampleId": "rem_v22_dev_h_acad_01",
+      "baseDocumentId": "doc_v22_acad_01",
+      "independenceGroupId": "cluster_v221_holdout_h_acad_08",
+      "authorClass": "verified_human",
+      "subgroup": "verified_human",
+      "genre": "academic",
+      "wordCount": 81,
+      "binaryLabel": 0
+    },
+    {
+      "sampleId": "rem_v22_dev_h_creat_05",
+      "baseDocumentId": "doc_v22_creat_05",
+      "independenceGroupId": "cluster_v22_fdev_h_creat_05",
+      "authorClass": "verified_human",
+      "subgroup": "verified_human",
+      "genre": "creative",
+      "wordCount": 92,
+      "binaryLabel": 0
+    },
+    {
+      "sampleId": "rem_v22_dev_ai_tech_07",
+      "baseDocumentId": "doc_v22_dev_ai_tech_07",
+      "independenceGroupId": "cluster_v22_dev_ai_tech_07",
+      "authorClass": "verified_ai",
+      "subgroup": "gpt4_family",
+      "genre": "technical",
+      "wordCount": 62,
+      "binaryLabel": 1
+    },
+    {
+      "sampleId": "rem_v22_dev_ai_creat_10",
+      "baseDocumentId": "doc_v22_dev_ai_creat_10",
+      "independenceGroupId": "cluster_v22_dev_ai_creat_10",
+      "authorClass": "verified_ai",
+      "subgroup": "gpt4_family",
+      "genre": "creative",
+      "wordCount": 82,
+      "binaryLabel": 1
+    },
+    {
+      "sampleId": "rem_v22_calib_h_creat_20",
+      "baseDocumentId": "doc_v22_calib_h_creat_20",
+      "independenceGroupId": "cluster_v22_calib_h_creat_20",
+      "authorClass": "verified_human",
+      "subgroup": "verified_human",
+      "genre": "creative",
+      "wordCount": 68,
+      "binaryLabel": 0
+    },
+    {
+      "sampleId": "rem_v22_held_h_conv_34",
+      "baseDocumentId": "doc_v22_held_h_conv_34",
+      "independenceGroupId": "cluster_v22_held_h_conv_34",
+      "authorClass": "verified_human",
+      "subgroup": "verified_human",
+      "genre": "conversational",
+      "wordCount": 44,
+      "binaryLabel": 0
+    },
+    {
+      "sampleId": "rem_v22_held_ai_conv_39",
+      "baseDocumentId": "doc_v22_held_ai_conv_39",
+      "independenceGroupId": "cluster_v22_held_ai_conv_39",
+      "authorClass": "verified_ai",
+      "subgroup": "gpt4_family",
+      "genre": "conversational",
+      "wordCount": 44,
+      "binaryLabel": 1
+    },
+    {
+      "sampleId": "rem_v22_fdev_h_acad_01",
+      "baseDocumentId": "doc_v22_acad_01",
+      "independenceGroupId": "cluster_v221_holdout_h_acad_08",
+      "authorClass": "verified_human",
+      "subgroup": "verified_human",
+      "genre": "academic",
+      "wordCount": 97,
+      "binaryLabel": 0
+    },
+    {
+      "sampleId": "rem_v22_fdev_h_creat_05",
+      "baseDocumentId": "doc_v22_creat_05",
+      "independenceGroupId": "cluster_v22_fdev_h_creat_05",
+      "authorClass": "verified_human",
+      "subgroup": "verified_human",
+      "genre": "creative",
+      "wordCount": 85,
+      "binaryLabel": 0
+    },
+    {
+      "sampleId": "rem_v22_fcalib_ai_tech_22",
+      "baseDocumentId": "doc_v22_fcalib_ai_tech_22",
+      "independenceGroupId": "cluster_v22_fcalib_ai_tech_22",
+      "authorClass": "verified_ai",
+      "subgroup": "gpt4_family",
+      "genre": "technical",
+      "wordCount": 58,
+      "binaryLabel": 1
+    },
+    {
+      "sampleId": "rem_v22_fcalib_ai_creat_25",
+      "baseDocumentId": "doc_v22_fcalib_ai_creat_25",
+      "independenceGroupId": "cluster_v22_fcalib_ai_creat_25",
+      "authorClass": "verified_ai",
+      "subgroup": "gpt4_family",
+      "genre": "creative",
+      "wordCount": 64,
+      "binaryLabel": 1
+    },
+    {
+      "sampleId": "rem_v22_fheld_h_creat_35",
+      "baseDocumentId": "doc_v22_fheld_h_creat_35",
+      "independenceGroupId": "cluster_v22_fheld_h_creat_35",
+      "authorClass": "verified_human",
+      "subgroup": "verified_human",
+      "genre": "creative",
+      "wordCount": 75,
+      "binaryLabel": 0
+    },
+    {
+      "sampleId": "gutenberg_2701_004",
+      "baseDocumentId": "gutenberg_ebook_2701",
+      "independenceGroupId": "author_herman_melville",
+      "authorClass": "historical_human_proxy",
+      "subgroup": "historical_human_proxy",
+      "genre": "creative",
+      "wordCount": 323,
+      "binaryLabel": 0
+    },
+    {
+      "sampleId": "gutenberg_174_013",
+      "baseDocumentId": "gutenberg_ebook_174",
+      "independenceGroupId": "author_oscar_wilde",
+      "authorClass": "historical_human_proxy",
+      "subgroup": "historical_human_proxy",
+      "genre": "creative",
+      "wordCount": 310,
+      "binaryLabel": 0
+    },
+    {
+      "sampleId": "gutenberg_829_016",
+      "baseDocumentId": "gutenberg_ebook_829",
+      "independenceGroupId": "author_jonathan_swift",
+      "authorClass": "historical_human_proxy",
+      "subgroup": "historical_human_proxy",
+      "genre": "creative",
+      "wordCount": 125,
+      "binaryLabel": 0
+    },
+    {
+      "sampleId": "gutenberg_3300_032",
+      "baseDocumentId": "gutenberg_ebook_3300",
+      "independenceGroupId": "author_adam_smith",
+      "authorClass": "historical_human_proxy",
+      "subgroup": "historical_human_proxy",
+      "genre": "academic",
+      "wordCount": 283,
+      "binaryLabel": 0
+    },
+    {
+      "sampleId": "gutenberg_7370_047",
+      "baseDocumentId": "gutenberg_ebook_7370",
+      "independenceGroupId": "author_arthur_schopenhauer",
+      "authorClass": "historical_human_proxy",
+      "subgroup": "historical_human_proxy",
+      "genre": "academic",
+      "wordCount": 105,
+      "binaryLabel": 0
+    },
+    {
+      "sampleId": "gutenberg_852_050",
+      "baseDocumentId": "gutenberg_ebook_852",
+      "independenceGroupId": "author_alexis_de_tocqueville",
+      "authorClass": "historical_human_proxy",
+      "subgroup": "historical_human_proxy",
+      "genre": "academic",
+      "wordCount": 93,
+      "binaryLabel": 0
+    },
+    {
+      "sampleId": "gutenberg_36284_066",
+      "baseDocumentId": "gutenberg_ebook_36284",
+      "independenceGroupId": "author_louis_pasteur",
+      "authorClass": "historical_human_proxy",
+      "subgroup": "historical_human_proxy",
+      "genre": "technical",
+      "wordCount": 80,
+      "binaryLabel": 0
+    },
+    {
+      "sampleId": "gutenberg_7849_092",
+      "baseDocumentId": "gutenberg_ebook_7849",
+      "independenceGroupId": "author_james_madison",
+      "authorClass": "historical_human_proxy",
+      "subgroup": "historical_human_proxy",
+      "genre": "professional",
+      "wordCount": 104,
+      "binaryLabel": 0
+    },
+    {
+      "sampleId": "gutenberg_161_109",
+      "baseDocumentId": "gutenberg_ebook_161",
+      "independenceGroupId": "author_jonathan_swift",
+      "authorClass": "historical_human_proxy",
+      "subgroup": "historical_human_proxy",
+      "genre": "explanatory",
+      "wordCount": 105,
+      "binaryLabel": 0
+    },
+    {
+      "sampleId": "sec_edgar_0000034088_2023",
+      "baseDocumentId": "sec_10k_0000034088-24-000012",
+      "independenceGroupId": "corp_exxon_mobil_corporat",
+      "authorClass": "historical_human_proxy",
+      "subgroup": "corporate_human_proxy",
+      "genre": "professional",
+      "wordCount": 61,
+      "binaryLabel": 0
+    },
+    {
+      "sampleId": "sec_edgar_0000093410_2023",
+      "baseDocumentId": "sec_10k_0000093410-24-000010",
+      "independenceGroupId": "corp_chevron_corporation",
+      "authorClass": "historical_human_proxy",
+      "subgroup": "corporate_human_proxy",
+      "genre": "professional",
+      "wordCount": 61,
+      "binaryLabel": 0
+    },
+    {
+      "sampleId": "sec_edgar_0000002488_2023",
+      "baseDocumentId": "sec_10k_0000002488-24-000012",
+      "independenceGroupId": "corp_advanced_micro_devic",
+      "authorClass": "historical_human_proxy",
+      "subgroup": "corporate_human_proxy",
+      "genre": "technical",
+      "wordCount": 55,
+      "binaryLabel": 0
+    },
+    {
+      "sampleId": "ai_gen_acad_03",
+      "baseDocumentId": "doc_ai_acad_03",
+      "independenceGroupId": "family_ai_acad_03",
+      "authorClass": "verified_ai",
+      "subgroup": "llama_family",
+      "genre": "academic",
+      "wordCount": 111,
+      "binaryLabel": 1
+    },
+    {
+      "sampleId": "ai_gen_acad_15",
+      "baseDocumentId": "doc_ai_acad_15",
+      "independenceGroupId": "family_ai_acad_15",
+      "authorClass": "verified_ai",
+      "subgroup": "llama_family",
+      "genre": "academic",
+      "wordCount": 44,
+      "binaryLabel": 1
+    },
+    {
+      "sampleId": "ai_gen_acad_19",
+      "baseDocumentId": "doc_ai_acad_19",
+      "independenceGroupId": "family_ai_acad_19",
+      "authorClass": "verified_ai",
+      "subgroup": "llama_family",
+      "genre": "academic",
+      "wordCount": 48,
+      "binaryLabel": 1
+    },
+    {
+      "sampleId": "ai_gen_acad_25",
+      "baseDocumentId": "doc_ai_acad_25",
+      "independenceGroupId": "family_ai_acad_25",
+      "authorClass": "verified_ai",
+      "subgroup": "gpt4_family",
+      "genre": "academic",
+      "wordCount": 44,
+      "binaryLabel": 1
+    },
+    {
+      "sampleId": "ai_gen_tech_21",
+      "baseDocumentId": "doc_ai_tech_21",
+      "independenceGroupId": "family_ai_tech_21",
+      "authorClass": "verified_ai",
+      "subgroup": "gpt4_family",
+      "genre": "technical",
+      "wordCount": 41,
+      "binaryLabel": 1
+    },
+    {
+      "sampleId": "ai_gen_conv_05",
+      "baseDocumentId": "doc_ai_conv_05",
+      "independenceGroupId": "family_ai_conv_05",
+      "authorClass": "verified_ai",
+      "subgroup": "gpt4_family",
+      "genre": "conversational",
+      "wordCount": 52,
+      "binaryLabel": 1
+    },
+    {
+      "sampleId": "ai_gen_conv_12",
+      "baseDocumentId": "doc_ai_conv_12",
+      "independenceGroupId": "family_ai_conv_12",
+      "authorClass": "verified_ai",
+      "subgroup": "mistral_family",
+      "genre": "conversational",
+      "wordCount": 49,
+      "binaryLabel": 1
+    },
+    {
+      "sampleId": "ai_gen_creat_06",
+      "baseDocumentId": "doc_ai_creat_06",
+      "independenceGroupId": "family_ai_creat_06",
+      "authorClass": "verified_ai",
+      "subgroup": "claude_family",
+      "genre": "creative",
+      "wordCount": 50,
+      "binaryLabel": 1
+    },
+    {
+      "sampleId": "ai_gen_creat_10",
+      "baseDocumentId": "doc_ai_creat_10",
+      "independenceGroupId": "family_ai_creat_10",
+      "authorClass": "verified_ai",
+      "subgroup": "claude_family",
+      "genre": "creative",
+      "wordCount": 53,
+      "binaryLabel": 1
+    },
+    {
+      "sampleId": "ai_gen_creat_25",
+      "baseDocumentId": "doc_ai_creat_25",
+      "independenceGroupId": "family_ai_creat_25",
+      "authorClass": "verified_ai",
+      "subgroup": "gpt4_family",
+      "genre": "creative",
+      "wordCount": 52,
+      "binaryLabel": 1
+    },
+    {
+      "sampleId": "ai_gen_expl_02",
+      "baseDocumentId": "doc_ai_expl_02",
+      "independenceGroupId": "family_ai_expl_02",
+      "authorClass": "verified_ai",
+      "subgroup": "claude_family",
+      "genre": "explanatory",
+      "wordCount": 109,
+      "binaryLabel": 1
+    },
+    {
+      "sampleId": "ai_gen_expl_09",
+      "baseDocumentId": "doc_ai_expl_09",
+      "independenceGroupId": "family_ai_expl_09",
+      "authorClass": "verified_ai",
+      "subgroup": "gpt4_family",
+      "genre": "explanatory",
+      "wordCount": 51,
+      "binaryLabel": 1
+    },
+    {
+      "sampleId": "ai_gen_expl_11",
+      "baseDocumentId": "doc_ai_expl_11",
+      "independenceGroupId": "family_ai_expl_11",
+      "authorClass": "verified_ai",
+      "subgroup": "llama_family",
+      "genre": "explanatory",
+      "wordCount": 53,
+      "binaryLabel": 1
+    },
+    {
+      "sampleId": "ai_gen_expl_15",
+      "baseDocumentId": "doc_ai_expl_15",
+      "independenceGroupId": "family_ai_expl_15",
+      "authorClass": "verified_ai",
+      "subgroup": "llama_family",
+      "genre": "explanatory",
+      "wordCount": 51,
+      "binaryLabel": 1
+    }
+  ],
+  "sha256": "8cc4a1c942c5757aa7f7af4dc61f07febaddcf460fa4855db602fbbff8cc9528"
+}

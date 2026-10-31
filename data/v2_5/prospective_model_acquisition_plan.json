@@ -1,0 +1,54 @@
+{
+  "manifestVersion": "2.5.0",
+  "generatedDate": "2026-10-31",
+  "planTitle": "Prospective Frontier Model Corpus Acquisition Plan (2026+)",
+  "objective": "Formulate a systematic acquisition, provenance qualification, and benchmark evaluation protocol for emerging frontier model families (e.g. GPT-5 / o3, Claude 4, Gemini 3, DeepSeek V4) to extend HumanizeText detection resilience without test leakage.",
+  "status": "APPROVED_PROSPECTIVE",
+  "targetFrontierFamilies": [
+    {
+      "family": "OpenAI Reasoning & Frontier",
+      "candidateModels": ["o3", "o3-mini", "GPT-5-preview", "GPT-4.5"],
+      "focus": "Deliberative test-time compute outputs, structured chain-of-thought summaries, advanced technical prose",
+      "targetSampleCount": 60,
+      "samplingGenres": ["academic", "technical_explanation", "corporate_disclosure", "conversational", "creative"]
+    },
+    {
+      "family": "Anthropic Claude Next",
+      "candidateModels": ["Claude 3.7 Sonnet", "Claude 4 Opus"],
+      "focus": "Nuanced human-style pacing, self-correction traces, low cliché density",
+      "targetSampleCount": 50,
+      "samplingGenres": ["creative_fiction", "academic_critique", "corporate_analysis", "conversational_dialogue"]
+    },
+    {
+      "family": "Google DeepMind Gemini 2/3",
+      "candidateModels": ["Gemini 2.5 Flash", "Gemini 2.5 Pro", "Gemini 3 Ultra"],
+      "focus": "Multimodal synthesis transcripts, long-context corporate summaries, agentic workflow logs",
+      "targetSampleCount": 50,
+      "samplingGenres": ["technical_documentation", "legal_brief", "executive_summary", "conversational"]
+    },
+    {
+      "family": "Open Weights & Global Frontier",
+      "candidateModels": ["DeepSeek V3", "DeepSeek R1", "Llama 4", "Mistral Next"],
+      "focus": "Cost-optimized open-source enterprise outputs, localized and bilingual English generation",
+      "targetSampleCount": 50,
+      "samplingGenres": ["coding_explanation", "academic_essay", "business_proposal", "creative_nonfiction"]
+    }
+  ],
+  "acquisitionProtocol": {
+    "generationControlled": true,
+    "temperatureSettings": [0.3, 0.7, 1.0],
+    "promptLineageTracking": "Hash-linked prompt ID and system prompt recording",
+    "authorshipEvidence": "Cryptographic API response logging with timestamp and model response headers",
+    "licensingPreclearance": "Generated under commercial API terms allowing model evaluation and research benchmark dissemination",
+    "leakagePrevention": "Strictly quarantined into TEMPORAL_CHALLENGE / FRONTIER_CHALLENGE partition. Zero inclusion in TRAIN, DEV, or CAL."
+  },
+  "evaluationStrategy": {
+    "quarantinedBenchmark": "External challenge suite evaluated strictly after model freeze",
+    "metricReporting": [
+      "Dense Recall at fixed 1% and 5% Human FPR",
+      "Selective Recall at tau_ai=0.65 with Abstention Rate",
+      "Distribution shift divergence (Wasserstein distance on 21 stylometric features vs V2.5 baseline)"
+    ]
+  }
+}
+

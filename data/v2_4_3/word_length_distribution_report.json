@@ -1,0 +1,78 @@
+{
+  "reportVersion": "2.4.3",
+  "generatedDate": "2026-10-31T15:06:36.298831+00:00",
+  "overallStats": {
+    "count": 532,
+    "min": 18,
+    "max": 323,
+    "mean": 69.1,
+    "std": 51.2,
+    "p10": 27,
+    "p25": 41,
+    "median": 51,
+    "p75": 86,
+    "p90": 107
+  },
+  "byAuthorClass": {
+    "humanCombined": {
+      "count": 240,
+      "min": 19,
+      "max": 323,
+      "mean": 88.9,
+      "std": 64.2,
+      "p10": 27,
+      "p25": 51,
+      "median": 79,
+      "p75": 99,
+      "p90": 167
+    },
+    "verifiedAi": {
+      "count": 242,
+      "min": 18,
+      "max": 171,
+      "mean": 53.6,
+      "std": 30.1,
+      "p10": 26,
+      "p25": 39,
+      "median": 46,
+      "p75": 53,
+      "p90": 95
+    },
+    "collaborative": {
+      "count": 50,
+      "min": 29,
+      "max": 98,
+      "mean": 48.5,
+      "std": 16.9,
+      "p10": 34,
+      "p25": 36,
+      "median": 44,
+      "p75": 49,
+      "p90": 79
+    }
+  },
+  "lengthCategoryBreakdown": {
+    "medium": 143,
+    "short": 373,
+    "long": 16
+  },
+  "lengthCategoryByClass": {
+    "verified_ai": {
+      "medium": 36,
+      "short": 206
+    },
+    "verified_human": {
+      "short": 41,
+      "medium": 9
+    },
+    "collaborative": {
+      "short": 46,
+      "medium": 4
+    },
+    "historical_human_proxy": {
+      "long": 16,
+      "medium": 94,
+      "short": 80
+    }
+  }
+}

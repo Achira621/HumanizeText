@@ -1,0 +1,88 @@
+{
+  "manifestVersion": "2.4.4",
+  "generatedDate": "2026-10-31T15:31:56.015007+00:00",
+  "classStatistics": {
+    "verified_human": {
+      "count": 50,
+      "min": 30,
+      "max": 104,
+      "mean": 57.6,
+      "std": 20.1,
+      "p10": 38,
+      "p25": 40,
+      "median": 51,
+      "p75": 73,
+      "p90": 92
+    },
+    "historical_human_proxy_gutenberg": {
+      "count": 110,
+      "min": 64,
+      "max": 323,
+      "mean": 125.2,
+      "std": 70.6,
+      "p10": 80,
+      "p25": 86,
+      "median": 97,
+      "p75": 106,
+      "p90": 268
+    },
+    "historical_human_proxy_sec_corporate": {
+      "count": 50,
+      "min": 47,
+      "max": 204,
+      "mean": 79.5,
+      "std": 43.6,
+      "p10": 53,
+      "p25": 55,
+      "median": 61,
+      "p75": 66,
+      "p90": 166
+    },
+    "approved_product_training_ai": {
+      "count": 212,
+      "min": 30,
+      "max": 171,
+      "mean": 58.0,
+      "std": 29.7,
+      "p10": 38,
+      "p25": 42,
+      "median": 47,
+      "p75": 56,
+      "p90": 98
+    },
+    "collaborative": {
+      "count": 50,
+      "min": 29,
+      "max": 98,
+      "mean": 48.5,
+      "std": 16.9,
+      "p10": 34,
+      "p25": 36,
+      "median": 44,
+      "p75": 49,
+      "p90": 79
+    },
+    "research_only_raid": {
+      "count": 60,
+      "min": 18,
+      "max": 32,
+      "mean": 23.4,
+      "std": 3.0,
+      "p10": 19,
+      "p25": 21,
+      "median": 23,
+      "p75": 26,
+      "p90": 27
+    }
+  },
+  "lengthCategoryCounts": {
+    "short": 373,
+    "medium": 143,
+    "long": 16
+  },
+  "abstentionProtocolDesign": {
+    "minimumEvaluatedLength": 50,
+    "abstentionThreshold": "< 40 words",
+    "rationale": "Stylometric perplexity and burstiness metrics exhibit high variance under 40 words; low-length samples must produce abstention or confidence warnings."
+  }
+}

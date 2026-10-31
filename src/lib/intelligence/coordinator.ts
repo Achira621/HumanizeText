@@ -113,12 +113,15 @@ export class AdaptiveIntelligenceCoordinator {
     // 1. Run the trusted, existing production baseline
     const baseResult: DetectionResult = await this.router.detectText(text, options);
 
+    const activeEngine = options.engineId === 'v2_5_public_beta' ? 'humanizetext-detector-v2-5-0' : prodModel.modelId;
+    const activeVersion = options.engineId === 'v2_5_public_beta' ? '2.5.0-beta' : prodModel.version;
+
     // 2. Prepare adaptive result object
     const result: AdaptiveAnalysisResult = {
       ...baseResult,
       adaptiveMetadata: {
-        activeProviderId: prodModel.modelId,
-        registryVersion: prodModel.version,
+        activeProviderId: activeEngine,
+        registryVersion: activeVersion,
         rollbackAvailable: !!prodModel.rollbackTargetId,
       },
     };

@@ -1,0 +1,1667 @@
+{
+  "manifestVersion": "2.4.4",
+  "generatedDate": "2026-10-31T15:31:56.015007+00:00",
+  "totalHumanRecordsAudited": 240,
+  "categories": {
+    "verified_human": {
+      "count": 50,
+      "sourceDataset": "humanizetext_v2_4_2_remediated_remnant",
+      "authorshipBasis": "Authenticated individual human author writing from clean internal benchmark tasks.",
+      "verificationMethod": "Intake validation pipeline; student/professional authorship logs; zero corporate proxy prose.",
+      "sampleRecords": [
+        {
+          "sampleId": "rem_seeds_remote_work_h",
+          "promptId": "PROMPT_SEED_remote_work",
+          "genre": "explanatory",
+          "wordCount": 44,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_seeds_coffee_h",
+          "promptId": "PROMPT_SEED_coffee",
+          "genre": "explanatory",
+          "wordCount": 38,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_seeds_climate_change_h",
+          "promptId": "PROMPT_SEED_climate_change",
+          "genre": "explanatory",
+          "wordCount": 40,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_seeds_social_media_h",
+          "promptId": "PROMPT_SEED_social_media",
+          "genre": "explanatory",
+          "wordCount": 43,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_seeds_exercise_h",
+          "promptId": "PROMPT_SEED_exercise",
+          "genre": "explanatory",
+          "wordCount": 32,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_seeds_public_transport_h",
+          "promptId": "PROMPT_SEED_public_transport",
+          "genre": "explanatory",
+          "wordCount": 45,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_seeds_languages_h",
+          "promptId": "PROMPT_SEED_languages",
+          "genre": "explanatory",
+          "wordCount": 38,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_seeds_sleep_h",
+          "promptId": "PROMPT_SEED_sleep",
+          "genre": "explanatory",
+          "wordCount": 41,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_seeds_electric_cars_h",
+          "promptId": "PROMPT_SEED_electric_cars",
+          "genre": "explanatory",
+          "wordCount": 42,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_seeds_online_shopping_h",
+          "promptId": "PROMPT_SEED_online_shopping",
+          "genre": "explanatory",
+          "wordCount": 40,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_seeds_reading_h",
+          "promptId": "PROMPT_SEED_reading",
+          "genre": "explanatory",
+          "wordCount": 53,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_seeds_meditation_h",
+          "promptId": "PROMPT_SEED_meditation",
+          "genre": "explanatory",
+          "wordCount": 36,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_seeds_recycling_h",
+          "promptId": "PROMPT_SEED_recycling",
+          "genre": "explanatory",
+          "wordCount": 40,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_seeds_video_games_h",
+          "promptId": "PROMPT_SEED_video_games",
+          "genre": "explanatory",
+          "wordCount": 43,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_seeds_home_cooking_h",
+          "promptId": "PROMPT_SEED_home_cooking",
+          "genre": "explanatory",
+          "wordCount": 30,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_seeds_city_vs_country_h",
+          "promptId": "PROMPT_SEED_city_vs_country",
+          "genre": "explanatory",
+          "wordCount": 42,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_seeds_phones_in_school_h",
+          "promptId": "PROMPT_SEED_phones_in_school",
+          "genre": "explanatory",
+          "wordCount": 40,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_seeds_volunteering_h",
+          "promptId": "PROMPT_SEED_volunteering",
+          "genre": "explanatory",
+          "wordCount": 49,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_seeds_minimalism_h",
+          "promptId": "PROMPT_SEED_minimalism",
+          "genre": "explanatory",
+          "wordCount": 44,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_seeds_space_exploration_h",
+          "promptId": "PROMPT_SEED_space_exploration",
+          "genre": "explanatory",
+          "wordCount": 47,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_dev_h_acad_01",
+          "promptId": "unknown",
+          "genre": "academic",
+          "wordCount": 81,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_dev_h_tech_02",
+          "promptId": "unknown",
+          "genre": "technical",
+          "wordCount": 39,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_dev_h_corp_03",
+          "promptId": "unknown",
+          "genre": "professional",
+          "wordCount": 104,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_dev_h_conv_04",
+          "promptId": "unknown",
+          "genre": "conversational",
+          "wordCount": 58,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_dev_h_creat_05",
+          "promptId": "unknown",
+          "genre": "creative",
+          "wordCount": 92,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_calib_h_acad_16",
+          "promptId": "unknown",
+          "genre": "academic",
+          "wordCount": 74,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_calib_h_tech_17",
+          "promptId": "unknown",
+          "genre": "technical",
+          "wordCount": 65,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_calib_h_corp_18",
+          "promptId": "unknown",
+          "genre": "professional",
+          "wordCount": 39,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_calib_h_conv_19",
+          "promptId": "unknown",
+          "genre": "conversational",
+          "wordCount": 83,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_calib_h_creat_20",
+          "promptId": "unknown",
+          "genre": "creative",
+          "wordCount": 68,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_held_h_acad_31",
+          "promptId": "unknown",
+          "genre": "academic",
+          "wordCount": 68,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_held_h_tech_32",
+          "promptId": "unknown",
+          "genre": "technical",
+          "wordCount": 73,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_held_h_corp_33",
+          "promptId": "unknown",
+          "genre": "professional",
+          "wordCount": 51,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_held_h_conv_34",
+          "promptId": "unknown",
+          "genre": "conversational",
+          "wordCount": 44,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_held_h_creat_35",
+          "promptId": "unknown",
+          "genre": "creative",
+          "wordCount": 66,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_fdev_h_acad_01",
+          "promptId": "unknown",
+          "genre": "academic",
+          "wordCount": 97,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_fdev_h_tech_02",
+          "promptId": "unknown",
+          "genre": "technical",
+          "wordCount": 79,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_fdev_h_corp_03",
+          "promptId": "unknown",
+          "genre": "professional",
+          "wordCount": 66,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_fdev_h_conv_04",
+          "promptId": "unknown",
+          "genre": "conversational",
+          "wordCount": 36,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_fdev_h_creat_05",
+          "promptId": "unknown",
+          "genre": "creative",
+          "wordCount": 85,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_fcalib_h_acad_16",
+          "promptId": "unknown",
+          "genre": "academic",
+          "wordCount": 93,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_fcalib_h_tech_17",
+          "promptId": "unknown",
+          "genre": "technical",
+          "wordCount": 73,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_fcalib_h_corp_18",
+          "promptId": "unknown",
+          "genre": "professional",
+          "wordCount": 57,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_fcalib_h_conv_19",
+          "promptId": "unknown",
+          "genre": "conversational",
+          "wordCount": 35,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_fcalib_h_creat_20",
+          "promptId": "unknown",
+          "genre": "creative",
+          "wordCount": 70,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_fheld_h_acad_31",
+          "promptId": "unknown",
+          "genre": "academic",
+          "wordCount": 95,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_fheld_h_tech_32",
+          "promptId": "unknown",
+          "genre": "technical",
+          "wordCount": 83,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_fheld_h_corp_33",
+          "promptId": "unknown",
+          "genre": "professional",
+          "wordCount": 62,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_fheld_h_conv_34",
+          "promptId": "unknown",
+          "genre": "conversational",
+          "wordCount": 41,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        },
+        {
+          "sampleId": "rem_v22_fheld_h_creat_35",
+          "promptId": "unknown",
+          "genre": "creative",
+          "wordCount": 75,
+          "evidence": "Verified human authorship from V2.2 clean benchmark remnant (V2.4.2 remediated)."
+        }
+      ]
+    },
+    "historical_human_proxy_gutenberg": {
+      "count": 110,
+      "sourceDataset": "project_gutenberg_us_public_domain",
+      "authorshipBasis": "Published literary, philosophical, and scientific works pre-1929.",
+      "legalStatus": "Public Domain in the United States (pre-1929 publication, author death > 70 years).",
+      "records": [
+        {
+          "sampleId": "gutenberg_1400_001",
+          "ebookId": "1400",
+          "independenceGroupId": "author_charles_dickens",
+          "genre": "creative",
+          "wordCount": 287,
+          "authorshipEvidence": "Published work 'Great Expectations' by Charles Dickens (1812-1870), published 1861. Project Gutenberg eBook #1400. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_1342_002",
+          "ebookId": "1342",
+          "independenceGroupId": "author_jane_austen",
+          "genre": "creative",
+          "wordCount": 286,
+          "authorshipEvidence": "Published work 'Pride and Prejudice' by Jane Austen (1775-1817), published 1813. Project Gutenberg eBook #1342. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_76_003",
+          "ebookId": "76",
+          "independenceGroupId": "author_mark_twain",
+          "genre": "creative",
+          "wordCount": 106,
+          "authorshipEvidence": "Published work 'Adventures of Huckleberry Finn' by Mark Twain (1835-1910), published 1884. Project Gutenberg eBook #76. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_2701_004",
+          "ebookId": "2701",
+          "independenceGroupId": "author_herman_melville",
+          "genre": "creative",
+          "wordCount": 323,
+          "authorshipEvidence": "Published work 'Moby Dick' by Herman Melville (1819-1891), published 1851. Project Gutenberg eBook #2701. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_84_005",
+          "ebookId": "84",
+          "independenceGroupId": "author_mary_shelley",
+          "genre": "creative",
+          "wordCount": 268,
+          "authorshipEvidence": "Published work 'Frankenstein' by Mary Shelley (1797-1851), published 1818. Project Gutenberg eBook #84. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_2147_006",
+          "ebookId": "2147",
+          "independenceGroupId": "author_edgar_allan_poe",
+          "genre": "creative",
+          "wordCount": 70,
+          "authorshipEvidence": "Published work 'The Tell-Tale Heart' by Edgar Allan Poe (1809-1849), published 1843. Project Gutenberg eBook #2147. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_1661_007",
+          "ebookId": "1661",
+          "independenceGroupId": "author_arthur_conan_doyle",
+          "genre": "creative",
+          "wordCount": 266,
+          "authorshipEvidence": "Published work 'The Adventures of Sherlock Holmes' by Arthur Conan Doyle (1859-1930), published 1892. Project Gutenberg eBook #1661. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_1260_008",
+          "ebookId": "1260",
+          "independenceGroupId": "author_charlotte_bronte",
+          "genre": "creative",
+          "wordCount": 235,
+          "authorshipEvidence": "Published work 'Jane Eyre' by Charlotte Bronte (1816-1855), published 1847. Project Gutenberg eBook #1260. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_253_009",
+          "ebookId": "253",
+          "independenceGroupId": "author_nathaniel_hawthorne",
+          "genre": "creative",
+          "wordCount": 243,
+          "authorshipEvidence": "Published work 'The Scarlet Letter' by Nathaniel Hawthorne (1804-1864), published 1850. Project Gutenberg eBook #253. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_345_010",
+          "ebookId": "345",
+          "independenceGroupId": "author_bram_stoker",
+          "genre": "creative",
+          "wordCount": 92,
+          "authorshipEvidence": "Published work 'Dracula' by Bram Stoker (1847-1912), published 1897. Project Gutenberg eBook #345. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_2600_011",
+          "ebookId": "2600",
+          "independenceGroupId": "author_leo_tolstoy",
+          "genre": "creative",
+          "wordCount": 281,
+          "authorshipEvidence": "Published work 'War and Peace' by Leo Tolstoy (1828-1910), published 1869. Project Gutenberg eBook #2600. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_5200_012",
+          "ebookId": "5200",
+          "independenceGroupId": "author_franz_kafka",
+          "genre": "creative",
+          "wordCount": 282,
+          "authorshipEvidence": "Published work 'The Metamorphosis' by Franz Kafka (1883-1924), published 1915. Project Gutenberg eBook #5200. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_174_013",
+          "ebookId": "174",
+          "independenceGroupId": "author_oscar_wilde",
+          "genre": "creative",
+          "wordCount": 310,
+          "authorshipEvidence": "Published work 'The Picture of Dorian Gray' by Oscar Wilde (1854-1900), published 1890. Project Gutenberg eBook #174. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_164_014",
+          "ebookId": "164",
+          "independenceGroupId": "author_jules_verne",
+          "genre": "creative",
+          "wordCount": 76,
+          "authorshipEvidence": "Published work 'Twenty Thousand Leagues Under the Sea' by Jules Verne (1828-1905), published 1870. Project Gutenberg eBook #164. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_215_015",
+          "ebookId": "215",
+          "independenceGroupId": "author_jack_london",
+          "genre": "creative",
+          "wordCount": 259,
+          "authorshipEvidence": "Published work 'The Call of the Wild' by Jack London (1876-1916), published 1903. Project Gutenberg eBook #215. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_829_016",
+          "ebookId": "829",
+          "independenceGroupId": "author_jonathan_swift",
+          "genre": "creative",
+          "wordCount": 125,
+          "authorshipEvidence": "Published work 'Gulliver's Travels' by Jonathan Swift (1667-1745), published 1726. Project Gutenberg eBook #829. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_120_017",
+          "ebookId": "120",
+          "independenceGroupId": "author_robert_louis_stevenson",
+          "genre": "creative",
+          "wordCount": 269,
+          "authorshipEvidence": "Published work 'Treasure Island' by Robert Louis Stevenson (1850-1894), published 1883. Project Gutenberg eBook #120. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_11_018",
+          "ebookId": "11",
+          "independenceGroupId": "author_lewis_carroll",
+          "genre": "creative",
+          "wordCount": 313,
+          "authorshipEvidence": "Published work 'Alice's Adventures in Wonderland' by Lewis Carroll (1832-1898), published 1865. Project Gutenberg eBook #11. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_35_019",
+          "ebookId": "35",
+          "independenceGroupId": "author_h_g__wells",
+          "genre": "creative",
+          "wordCount": 264,
+          "authorshipEvidence": "Published work 'The Time Machine' by H.G. Wells (1866-1946), published 1895. Project Gutenberg eBook #35. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_514_020",
+          "ebookId": "514",
+          "independenceGroupId": "author_louisa_may_alcott",
+          "genre": "creative",
+          "wordCount": 102,
+          "authorshipEvidence": "Published work 'Little Women' by Louisa May Alcott (1832-1888), published 1868. Project Gutenberg eBook #514. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_768_021",
+          "ebookId": "768",
+          "independenceGroupId": "author_emily_bronte",
+          "genre": "creative",
+          "wordCount": 95,
+          "authorshipEvidence": "Published work 'Wuthering Heights' by Emily Bronte (1818-1848), published 1847. Project Gutenberg eBook #768. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_1952_022",
+          "ebookId": "1952",
+          "independenceGroupId": "author_joseph_conrad",
+          "genre": "creative",
+          "wordCount": 107,
+          "authorshipEvidence": "Published work 'Heart of Darkness' by Joseph Conrad (1857-1924), published 1899. Project Gutenberg eBook #1952. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_730_023",
+          "ebookId": "730",
+          "independenceGroupId": "author_charles_dickens",
+          "genre": "creative",
+          "wordCount": 98,
+          "authorshipEvidence": "Published work 'A Christmas Carol' by Charles Dickens (1812-1870), published 1843. Project Gutenberg eBook #730. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_36_024",
+          "ebookId": "36",
+          "independenceGroupId": "author_h_g__wells",
+          "genre": "creative",
+          "wordCount": 96,
+          "authorshipEvidence": "Published work 'The War of the Worlds' by H.G. Wells (1866-1946), published 1898. Project Gutenberg eBook #36. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_43_025",
+          "ebookId": "43",
+          "independenceGroupId": "author_robert_louis_stevenson",
+          "genre": "creative",
+          "wordCount": 87,
+          "authorshipEvidence": "Published work 'The Strange Case of Dr. Jekyll and Mr. Hyde' by Robert Louis Stevenson (1850-1894), published 1886. Project Gutenberg eBook #43. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_100_026",
+          "ebookId": "100",
+          "independenceGroupId": "author_william_shakespeare",
+          "genre": "creative",
+          "wordCount": 64,
+          "authorshipEvidence": "Published work 'Hamlet (The Complete Works)' by William Shakespeare (1564-1616), published 1603. Project Gutenberg eBook #100. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_28054_027",
+          "ebookId": "28054",
+          "independenceGroupId": "author_fyodor_dostoevsky",
+          "genre": "creative",
+          "wordCount": 99,
+          "authorshipEvidence": "Published work 'The Brothers Karamazov' by Fyodor Dostoevsky (1821-1881), published 1880. Project Gutenberg eBook #28054. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_2591_028",
+          "ebookId": "2591",
+          "independenceGroupId": "author_grimm_brothers",
+          "genre": "creative",
+          "wordCount": 105,
+          "authorshipEvidence": "Published work 'Grimms' Fairy Tales' by Grimm Brothers (1785-1863), published 1812. Project Gutenberg eBook #2591. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_244_029",
+          "ebookId": "244",
+          "independenceGroupId": "author_arthur_conan_doyle",
+          "genre": "creative",
+          "wordCount": 93,
+          "authorshipEvidence": "Published work 'A Study in Scarlet' by Arthur Conan Doyle (1859-1930), published 1887. Project Gutenberg eBook #244. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_12_030",
+          "ebookId": "12",
+          "independenceGroupId": "author_lewis_carroll",
+          "genre": "creative",
+          "wordCount": 103,
+          "authorshipEvidence": "Published work 'Through the Looking-Glass' by Lewis Carroll (1832-1898), published 1871. Project Gutenberg eBook #12. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_58249_031",
+          "ebookId": "58249",
+          "independenceGroupId": "author_william_james",
+          "genre": "academic",
+          "wordCount": 215,
+          "authorshipEvidence": "Published work 'The Principles of Psychology' by William James (1842-1910), published 1890. Project Gutenberg eBook #58249. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_3300_032",
+          "ebookId": "3300",
+          "independenceGroupId": "author_adam_smith",
+          "genre": "academic",
+          "wordCount": 283,
+          "authorshipEvidence": "Published work 'The Wealth of Nations' by Adam Smith (1723-1790), published 1776. Project Gutenberg eBook #3300. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_34901_033",
+          "ebookId": "34901",
+          "independenceGroupId": "author_john_stuart_mill",
+          "genre": "academic",
+          "wordCount": 85,
+          "authorshipEvidence": "Published work 'On Liberty' by John Stuart Mill (1806-1873), published 1859. Project Gutenberg eBook #34901. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_16643_034",
+          "ebookId": "16643",
+          "independenceGroupId": "author_ralph_waldo_emerson",
+          "genre": "academic",
+          "wordCount": 254,
+          "authorshipEvidence": "Published work 'Self-Reliance and Other Essays' by Ralph Waldo Emerson (1803-1882), published 1841. Project Gutenberg eBook #16643. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_4280_035",
+          "ebookId": "4280",
+          "independenceGroupId": "author_immanuel_kant",
+          "genre": "academic",
+          "wordCount": 213,
+          "authorshipEvidence": "Published work 'The Critique of Pure Reason' by Immanuel Kant (1724-1804), published 1781. Project Gutenberg eBook #4280. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_4363_036",
+          "ebookId": "4363",
+          "independenceGroupId": "author_friedrich_nietzsche",
+          "genre": "academic",
+          "wordCount": 103,
+          "authorshipEvidence": "Published work 'Beyond Good and Evil' by Friedrich Nietzsche (1844-1900), published 1886. Project Gutenberg eBook #4363. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_59_037",
+          "ebookId": "59",
+          "independenceGroupId": "author_rene_descartes",
+          "genre": "academic",
+          "wordCount": 98,
+          "authorshipEvidence": "Published work 'Discourse on the Method' by Rene Descartes (1596-1650), published 1637. Project Gutenberg eBook #59. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_1497_038",
+          "ebookId": "1497",
+          "independenceGroupId": "author_plato",
+          "genre": "academic",
+          "wordCount": 299,
+          "authorshipEvidence": "Published work 'The Republic (Jowett Translation)' by Plato (428-348 BC), published 1871. Project Gutenberg eBook #1497. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_1974_039",
+          "ebookId": "1974",
+          "independenceGroupId": "author_aristotle",
+          "genre": "academic",
+          "wordCount": 103,
+          "authorshipEvidence": "Published work 'The Poetics (Butcher Translation)' by Aristotle (384-322 BC), published 1902. Project Gutenberg eBook #1974. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_2680_040",
+          "ebookId": "2680",
+          "independenceGroupId": "author_marcus_aurelius",
+          "genre": "academic",
+          "wordCount": 91,
+          "authorshipEvidence": "Published work 'Meditations (Long Translation)' by Marcus Aurelius (121-180 AD), published 1862. Project Gutenberg eBook #2680. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_3207_041",
+          "ebookId": "3207",
+          "independenceGroupId": "author_thomas_hobbes",
+          "genre": "academic",
+          "wordCount": 104,
+          "authorshipEvidence": "Published work 'Leviathan' by Thomas Hobbes (1588-1679), published 1651. Project Gutenberg eBook #3207. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_9662_042",
+          "ebookId": "9662",
+          "independenceGroupId": "author_david_hume",
+          "genre": "academic",
+          "wordCount": 99,
+          "authorshipEvidence": "Published work 'An Enquiry Concerning Human Understanding' by David Hume (1711-1776), published 1748. Project Gutenberg eBook #9662. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_10615_043",
+          "ebookId": "10615",
+          "independenceGroupId": "author_john_locke",
+          "genre": "academic",
+          "wordCount": 129,
+          "authorshipEvidence": "Published work 'An Essay Concerning Human Understanding' by John Locke (1632-1704), published 1689. Project Gutenberg eBook #10615. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_45988_044",
+          "ebookId": "45988",
+          "independenceGroupId": "author_francis_bacon",
+          "genre": "academic",
+          "wordCount": 94,
+          "authorshipEvidence": "Published work 'Novum Organum' by Francis Bacon (1561-1626), published 1620. Project Gutenberg eBook #45988. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_5827_045",
+          "ebookId": "5827",
+          "independenceGroupId": "author_bertrand_russell",
+          "genre": "academic",
+          "wordCount": 99,
+          "authorshipEvidence": "Published work 'The Problems of Philosophy' by Bertrand Russell (1872-1970), published 1912. Project Gutenberg eBook #5827. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_2529_046",
+          "ebookId": "2529",
+          "independenceGroupId": "author_benedict_de_spinoza",
+          "genre": "academic",
+          "wordCount": 111,
+          "authorshipEvidence": "Published work 'Ethics (Elwes Translation)' by Benedict de Spinoza (1632-1677), published 1677. Project Gutenberg eBook #2529. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_7370_047",
+          "ebookId": "7370",
+          "independenceGroupId": "author_arthur_schopenhauer",
+          "genre": "academic",
+          "wordCount": 105,
+          "authorshipEvidence": "Published work 'The Wisdom of Life (Saunders Translation)' by Arthur Schopenhauer (1788-1860), published 1851. Project Gutenberg eBook #7370. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_38427_048",
+          "ebookId": "38427",
+          "independenceGroupId": "author_charles_sanders_peirce",
+          "genre": "academic",
+          "wordCount": 105,
+          "authorshipEvidence": "Published work 'The Fixation of Belief' by Charles Sanders Peirce (1839-1914), published 1877. Project Gutenberg eBook #38427. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_284_049",
+          "ebookId": "284",
+          "independenceGroupId": "author_charles_darwin",
+          "genre": "academic",
+          "wordCount": 101,
+          "authorshipEvidence": "Published work 'The Descent of Man' by Charles Darwin (1809-1882), published 1871. Project Gutenberg eBook #284. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_852_050",
+          "ebookId": "852",
+          "independenceGroupId": "author_alexis_de_tocqueville",
+          "genre": "academic",
+          "wordCount": 93,
+          "authorshipEvidence": "Published work 'Democracy in America' by Alexis de Tocqueville (1805-1859), published 1835. Project Gutenberg eBook #852. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_4668_051",
+          "ebookId": "4668",
+          "independenceGroupId": "author_thorstein_veblen",
+          "genre": "academic",
+          "wordCount": 88,
+          "authorshipEvidence": "Published work 'The Theory of the Leisure Class' by Thorstein Veblen (1857-1929), published 1899. Project Gutenberg eBook #4668. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_4705_052",
+          "ebookId": "4705",
+          "independenceGroupId": "author_auguste_comte",
+          "genre": "academic",
+          "wordCount": 93,
+          "authorshipEvidence": "Published work 'The Positive Philosophy (Martineau Translation)' by Auguste Comte (1798-1857), published 1853. Project Gutenberg eBook #4705. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_3800_053",
+          "ebookId": "3800",
+          "independenceGroupId": "author_henri_bergson",
+          "genre": "academic",
+          "wordCount": 92,
+          "authorshipEvidence": "Published work 'Creative Evolution (Mitchell Translation)' by Henri Bergson (1859-1941), published 1907. Project Gutenberg eBook #3800. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_1232_054",
+          "ebookId": "1232",
+          "independenceGroupId": "author_niccolo_machiavelli",
+          "genre": "academic",
+          "wordCount": 80,
+          "authorshipEvidence": "Published work 'The Prince (Marriott Translation)' by Niccolo Machiavelli (1469-1527), published 1532. Project Gutenberg eBook #1232. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_3600_055",
+          "ebookId": "3600",
+          "independenceGroupId": "author_edward_gibbon",
+          "genre": "academic",
+          "wordCount": 89,
+          "authorshipEvidence": "Published work 'The History of the Decline and Fall of the Roman Empire' by Edward Gibbon (1737-1794), published 1776. Project Gutenberg eBook #3600. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_10800_056",
+          "ebookId": "10800",
+          "independenceGroupId": "author_thomas_babington_macaulay",
+          "genre": "academic",
+          "wordCount": 85,
+          "authorshipEvidence": "Published work 'The History of England' by Thomas Babington Macaulay (1800-1859), published 1848. Project Gutenberg eBook #10800. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_205_057",
+          "ebookId": "205",
+          "independenceGroupId": "author_henry_david_thoreau",
+          "genre": "academic",
+          "wordCount": 99,
+          "authorshipEvidence": "Published work 'Walden' by Henry David Thoreau (1817-1862), published 1854. Project Gutenberg eBook #205. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_4300_058",
+          "ebookId": "4300",
+          "independenceGroupId": "author_james_george_frazer",
+          "genre": "academic",
+          "wordCount": 98,
+          "authorshipEvidence": "Published work 'The Golden Bough' by James George Frazer (1854-1941), published 1890. Project Gutenberg eBook #4300. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_2807_059",
+          "ebookId": "2807",
+          "independenceGroupId": "author_william_james",
+          "genre": "academic",
+          "wordCount": 105,
+          "authorshipEvidence": "Published work 'Pragmatism: A New Name for Some Old Ways of Thinking' by William James (1842-1910), published 1907. Project Gutenberg eBook #2807. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_30155_060",
+          "ebookId": "30155",
+          "independenceGroupId": "author_max_weber",
+          "genre": "academic",
+          "wordCount": 74,
+          "authorshipEvidence": "Published work 'The Protestant Ethic and the Spirit of Capitalism (Parsons Translation)' by Max Weber (1864-1920), published 1905. Project Gutenberg eBook #30155. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_1228_061",
+          "ebookId": "1228",
+          "independenceGroupId": "author_charles_darwin",
+          "genre": "technical",
+          "wordCount": 267,
+          "authorshipEvidence": "Published work 'On the Origin of Species' by Charles Darwin (1809-1882), published 1859. Project Gutenberg eBook #1228. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_14474_062",
+          "ebookId": "14474",
+          "independenceGroupId": "author_michael_faraday",
+          "genre": "technical",
+          "wordCount": 106,
+          "authorshipEvidence": "Published work 'The Chemical History of a Candle' by Michael Faraday (1791-1867), published 1861. Project Gutenberg eBook #14474. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_28233_063",
+          "ebookId": "28233",
+          "independenceGroupId": "author_isaac_newton",
+          "genre": "technical",
+          "wordCount": 108,
+          "authorshipEvidence": "Published work 'The Mathematical Principles of Natural Philosophy (Motte Translation)' by Isaac Newton (1643-1727), published 1729. Project Gutenberg eBook #28233. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_40119_064",
+          "ebookId": "40119",
+          "independenceGroupId": "author_james_clerk_maxwell",
+          "genre": "technical",
+          "wordCount": 88,
+          "authorshipEvidence": "Published work 'Matter and Motion' by James Clerk Maxwell (1831-1879), published 1876. Project Gutenberg eBook #40119. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_28534_065",
+          "ebookId": "28534",
+          "independenceGroupId": "author_gregor_mendel",
+          "genre": "technical",
+          "wordCount": 93,
+          "authorshipEvidence": "Published work 'Experiments in Plant Hybridisation (Bateson Translation)' by Gregor Mendel (1822-1884), published 1865. Project Gutenberg eBook #28534. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_36284_066",
+          "ebookId": "36284",
+          "independenceGroupId": "author_louis_pasteur",
+          "genre": "technical",
+          "wordCount": 80,
+          "authorshipEvidence": "Published work 'Studies on Fermentation (Faulkner Translation)' by Louis Pasteur (1822-1895), published 1879. Project Gutenberg eBook #36284. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_52319_067",
+          "ebookId": "52319",
+          "independenceGroupId": "author_charles_babbage",
+          "genre": "technical",
+          "wordCount": 101,
+          "authorshipEvidence": "Published work 'Passages from the Life of a Philosopher' by Charles Babbage (1791-1871), published 1864. Project Gutenberg eBook #52319. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_2931_068",
+          "ebookId": "2931",
+          "independenceGroupId": "author_thomas_henry_huxley",
+          "genre": "technical",
+          "wordCount": 97,
+          "authorshipEvidence": "Published work 'Evolution and Ethics' by Thomas Henry Huxley (1825-1895), published 1893. Project Gutenberg eBook #2931. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_37729_069",
+          "ebookId": "37729",
+          "independenceGroupId": "author_william_thomson__lord_kelvin",
+          "genre": "technical",
+          "wordCount": 96,
+          "authorshipEvidence": "Published work 'Popular Lectures and Addresses (Constitutional Science)' by William Thomson (Lord Kelvin) (1824-1907), published 1889. Project Gutenberg eBook #37729. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_4626_070",
+          "ebookId": "4626",
+          "independenceGroupId": "author_galileo_galilei",
+          "genre": "technical",
+          "wordCount": 109,
+          "authorshipEvidence": "Published work 'Dialogue Concerning the Two Chief World Systems (Drake/Salusbury Translation)' by Galileo Galilei (1564-1642), published 1632. Project Gutenberg eBook #4626. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_36640_071",
+          "ebookId": "36640",
+          "independenceGroupId": "author_alexander_von_humboldt",
+          "genre": "technical",
+          "wordCount": 81,
+          "authorshipEvidence": "Published work 'Cosmos: A Sketch of a Physical Description of the Universe' by Alexander von Humboldt (1769-1859), published 1845. Project Gutenberg eBook #36640. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_39955_072",
+          "ebookId": "39955",
+          "independenceGroupId": "author_antoine_lavoisier",
+          "genre": "technical",
+          "wordCount": 88,
+          "authorshipEvidence": "Published work 'Elements of Chemistry (Kerr Translation)' by Antoine Lavoisier (1743-1794), published 1789. Project Gutenberg eBook #39955. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_38457_073",
+          "ebookId": "38457",
+          "independenceGroupId": "author_john_tyndall",
+          "genre": "technical",
+          "wordCount": 85,
+          "authorshipEvidence": "Published work 'Heat as a Mode of Motion' by John Tyndall (1820-1893), published 1863. Project Gutenberg eBook #38457. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_51155_074",
+          "ebookId": "51155",
+          "independenceGroupId": "author_hermann_von_helmholtz",
+          "genre": "technical",
+          "wordCount": 84,
+          "authorshipEvidence": "Published work 'On the Conservation of Force' by Hermann von Helmholtz (1821-1894), published 1854. Project Gutenberg eBook #51155. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_48805_075",
+          "ebookId": "48805",
+          "independenceGroupId": "author_joseph_lister",
+          "genre": "technical",
+          "wordCount": 86,
+          "authorshipEvidence": "Published work 'On the Antiseptic Principle in the Practice of Surgery' by Joseph Lister (1827-1912), published 1867. Project Gutenberg eBook #48805. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_37690_076",
+          "ebookId": "37690",
+          "independenceGroupId": "author_charles_lyell",
+          "genre": "technical",
+          "wordCount": 78,
+          "authorshipEvidence": "Published work 'Principles of Geology' by Charles Lyell (1797-1875), published 1830. Project Gutenberg eBook #37690. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_36417_077",
+          "ebookId": "36417",
+          "independenceGroupId": "author_augustus_de_morgan",
+          "genre": "technical",
+          "wordCount": 68,
+          "authorshipEvidence": "Published work 'Formal Logic: Or, The Calculus of Inference' by Augustus De Morgan (1806-1871), published 1847. Project Gutenberg eBook #36417. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_52290_078",
+          "ebookId": "52290",
+          "independenceGroupId": "author_george_boole",
+          "genre": "technical",
+          "wordCount": 100,
+          "authorshipEvidence": "Published work 'An Investigation of the Laws of Thought' by George Boole (1815-1864), published 1854. Project Gutenberg eBook #52290. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_36537_079",
+          "ebookId": "36537",
+          "independenceGroupId": "author_william_whewell",
+          "genre": "technical",
+          "wordCount": 81,
+          "authorshipEvidence": "Published work 'The Philosophy of the Inductive Sciences' by William Whewell (1794-1866), published 1840. Project Gutenberg eBook #36537. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_43912_080",
+          "ebookId": "43912",
+          "independenceGroupId": "author_claude_bernard",
+          "genre": "technical",
+          "wordCount": 76,
+          "authorshipEvidence": "Published work 'An Introduction to the Study of Experimental Medicine (Green Translation)' by Claude Bernard (1813-1878), published 1865. Project Gutenberg eBook #43912. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_47228_081",
+          "ebookId": "47228",
+          "independenceGroupId": "author_jean_baptiste_lamarck",
+          "genre": "technical",
+          "wordCount": 90,
+          "authorshipEvidence": "Published work 'Zoological Philosophy (Elliot Translation)' by Jean-Baptiste Lamarck (1744-1829), published 1809. Project Gutenberg eBook #47228. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_41653_082",
+          "ebookId": "41653",
+          "independenceGroupId": "author_carl_von_clausewitz",
+          "genre": "technical",
+          "wordCount": 103,
+          "authorshipEvidence": "Published work 'On War (Graham Translation)' by Carl von Clausewitz (1780-1831), published 1832. Project Gutenberg eBook #41653. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_34424_083",
+          "ebookId": "34424",
+          "independenceGroupId": "author_ernst_mach",
+          "genre": "technical",
+          "wordCount": 85,
+          "authorshipEvidence": "Published work 'The Science of Mechanics (McCormack Translation)' by Ernst Mach (1838-1916), published 1883. Project Gutenberg eBook #34424. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_41221_084",
+          "ebookId": "41221",
+          "independenceGroupId": "author_wilhelm_wundt",
+          "genre": "technical",
+          "wordCount": 71,
+          "authorshipEvidence": "Published work 'Principles of Physiological Psychology (Titchener Translation)' by Wilhelm Wundt (1832-1920), published 1874. Project Gutenberg eBook #41221. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_38887_085",
+          "ebookId": "38887",
+          "independenceGroupId": "author_heinrich_hertz",
+          "genre": "technical",
+          "wordCount": 68,
+          "authorshipEvidence": "Published work 'Electric Waves (Jones Translation)' by Heinrich Hertz (1857-1894), published 1893. Project Gutenberg eBook #38887. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_8804_086",
+          "ebookId": "8804",
+          "independenceGroupId": "author_abraham_lincoln",
+          "genre": "professional",
+          "wordCount": 102,
+          "authorshipEvidence": "Published work 'Speeches and Letters (Gettysburg Address & Cooper Union)' by Abraham Lincoln (1809-1865), published 1863. Project Gutenberg eBook #8804. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_2378_087",
+          "ebookId": "2378",
+          "independenceGroupId": "author_george_washington",
+          "genre": "professional",
+          "wordCount": 98,
+          "authorshipEvidence": "Published work 'Washington's Farewell Address' by George Washington (1732-1799), published 1796. Project Gutenberg eBook #2378. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_202_088",
+          "ebookId": "202",
+          "independenceGroupId": "author_benjamin_franklin",
+          "genre": "professional",
+          "wordCount": 88,
+          "authorshipEvidence": "Published work 'The Autobiography of Benjamin Franklin' by Benjamin Franklin (1706-1790), published 1791. Project Gutenberg eBook #202. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_23_089",
+          "ebookId": "23",
+          "independenceGroupId": "author_frederick_douglass",
+          "genre": "professional",
+          "wordCount": 85,
+          "authorshipEvidence": "Published work 'Narrative of the Life of Frederick Douglass' by Frederick Douglass (1818-1895), published 1845. Project Gutenberg eBook #23. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_147_090",
+          "ebookId": "147",
+          "independenceGroupId": "author_thomas_paine",
+          "genre": "professional",
+          "wordCount": 72,
+          "authorshipEvidence": "Published work 'Common Sense' by Thomas Paine (1737-1809), published 1776. Project Gutenberg eBook #147. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_167_091",
+          "ebookId": "167",
+          "independenceGroupId": "author_alexander_hamilton",
+          "genre": "professional",
+          "wordCount": 117,
+          "authorshipEvidence": "Published work 'The Federalist Papers (Federalist No. 1)' by Alexander Hamilton (1755-1804), published 1787. Project Gutenberg eBook #167. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_7849_092",
+          "ebookId": "7849",
+          "independenceGroupId": "author_james_madison",
+          "genre": "professional",
+          "wordCount": 104,
+          "authorshipEvidence": "Published work 'The Federalist Papers (Federalist No. 10)' by James Madison (1751-1836), published 1787. Project Gutenberg eBook #7849. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_7343_093",
+          "ebookId": "7343",
+          "independenceGroupId": "author_edmund_burke",
+          "genre": "professional",
+          "wordCount": 90,
+          "authorshipEvidence": "Published work 'Reflections on the Revolution in France' by Edmund Burke (1729-1797), published 1790. Project Gutenberg eBook #7343. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_513_094",
+          "ebookId": "513",
+          "independenceGroupId": "author_bram_stoker",
+          "genre": "creative",
+          "wordCount": 82,
+          "authorshipEvidence": "Published work 'The Jewel of Seven Stars' by Bram Stoker (1847-1912), published 1903. Project Gutenberg eBook #513. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_236_095",
+          "ebookId": "236",
+          "independenceGroupId": "author_h_g__wells",
+          "genre": "creative",
+          "wordCount": 83,
+          "authorshipEvidence": "Published work 'The Island of Doctor Moreau' by H.G. Wells (1866-1946), published 1896. Project Gutenberg eBook #236. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_42_096",
+          "ebookId": "42",
+          "independenceGroupId": "author_robert_louis_stevenson",
+          "genre": "creative",
+          "wordCount": 92,
+          "authorshipEvidence": "Published work 'Kidnapped' by Robert Louis Stevenson (1850-1894), published 1886. Project Gutenberg eBook #42. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_2852_097",
+          "ebookId": "2852",
+          "independenceGroupId": "author_arthur_conan_doyle",
+          "genre": "creative",
+          "wordCount": 99,
+          "authorshipEvidence": "Published work 'The Hound of the Baskervilles' by Arthur Conan Doyle (1859-1930), published 1902. Project Gutenberg eBook #2852. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_194_098",
+          "ebookId": "194",
+          "independenceGroupId": "author_jack_london",
+          "genre": "creative",
+          "wordCount": 86,
+          "authorshipEvidence": "Published work 'The Sea-Wolf' by Jack London (1876-1916), published 1904. Project Gutenberg eBook #194. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_644_099",
+          "ebookId": "644",
+          "independenceGroupId": "author_jerome_k__jerome",
+          "genre": "conversational",
+          "wordCount": 90,
+          "authorshipEvidence": "Published work 'Three Men in a Boat' by Jerome K. Jerome (1859-1927), published 1889. Project Gutenberg eBook #644. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_1064_100",
+          "ebookId": "1064",
+          "independenceGroupId": "author_h_g__wells",
+          "genre": "creative",
+          "wordCount": 91,
+          "authorshipEvidence": "Published work 'The Invisible Man' by H.G. Wells (1866-1946), published 1897. Project Gutenberg eBook #1064. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_2097_101",
+          "ebookId": "2097",
+          "independenceGroupId": "author_arthur_conan_doyle",
+          "genre": "creative",
+          "wordCount": 83,
+          "authorshipEvidence": "Published work 'The Sign of the Four' by Arthur Conan Doyle (1859-1930), published 1890. Project Gutenberg eBook #2097. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_1998_102",
+          "ebookId": "1998",
+          "independenceGroupId": "author_daniel_defoe",
+          "genre": "explanatory",
+          "wordCount": 96,
+          "authorshipEvidence": "Published work 'A Journal of the Plague Year' by Daniel Defoe (1660-1731), published 1722. Project Gutenberg eBook #1998. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_3453_103",
+          "ebookId": "3453",
+          "independenceGroupId": "author_charles_dickens",
+          "genre": "creative",
+          "wordCount": 93,
+          "authorshipEvidence": "Published work 'Bleak House' by Charles Dickens (1812-1870), published 1853. Project Gutenberg eBook #3453. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_521_104",
+          "ebookId": "521",
+          "independenceGroupId": "author_mark_twain",
+          "genre": "conversational",
+          "wordCount": 92,
+          "authorshipEvidence": "Published work 'A Connecticut Yankee in King Arthur's Court' by Mark Twain (1835-1910), published 1889. Project Gutenberg eBook #521. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_32_105",
+          "ebookId": "32",
+          "independenceGroupId": "author_johann_wolfgang_von_goethe",
+          "genre": "creative",
+          "wordCount": 86,
+          "authorshipEvidence": "Published work 'Faust (Bayard Taylor Translation)' by Johann Wolfgang von Goethe (1749-1832), published 1808. Project Gutenberg eBook #32. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_2641_106",
+          "ebookId": "2641",
+          "independenceGroupId": "author_victor_hugo",
+          "genre": "creative",
+          "wordCount": 85,
+          "authorshipEvidence": "Published work 'Les Miserables (Wilbour Translation)' by Victor Hugo (1802-1885), published 1862. Project Gutenberg eBook #2641. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_1399_107",
+          "ebookId": "1399",
+          "independenceGroupId": "author_leo_tolstoy",
+          "genre": "creative",
+          "wordCount": 97,
+          "authorshipEvidence": "Published work 'Anna Karenina (Garnett Translation)' by Leo Tolstoy (1828-1910), published 1877. Project Gutenberg eBook #1399. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_3825_108",
+          "ebookId": "3825",
+          "independenceGroupId": "author_george_bernard_shaw",
+          "genre": "conversational",
+          "wordCount": 85,
+          "authorshipEvidence": "Published work 'Pygmalion' by George Bernard Shaw (1856-1950), published 1913. Project Gutenberg eBook #3825. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_161_109",
+          "ebookId": "161",
+          "independenceGroupId": "author_jonathan_swift",
+          "genre": "explanatory",
+          "wordCount": 105,
+          "authorshipEvidence": "Published work 'A Modest Proposal' by Jonathan Swift (1667-1745), published 1729. Project Gutenberg eBook #161. Verified US public domain."
+        },
+        {
+          "sampleId": "gutenberg_2500_110",
+          "ebookId": "2500",
+          "independenceGroupId": "author_henry_james",
+          "genre": "creative",
+          "wordCount": 89,
+          "authorshipEvidence": "Published work 'The Portrait of a Lady' by Henry James (1843-1916), published 1881. Project Gutenberg eBook #2500. Verified US public domain."
+        }
+      ]
+    },
+    "historical_human_proxy_sec_corporate": {
+      "count": 50,
+      "sourceDataset": "sec_edgar_10k_item7_mda",
+      "authorshipBasis": "Official Form 10-K Item 7 (MD&A) corporate disclosures filed with the SEC.",
+      "individualHumanDisclaimer": "Corporate organizational authorship; does NOT identify individual human authors.",
+      "records": [
+        {
+          "sampleId": "sec_edgar_0000320193_2023",
+          "accession": "0000320193-23-000106",
+          "independenceGroupId": "corp_apple_inc",
+          "genre": "professional",
+          "wordCount": 204,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Apple Inc. (CIK 0000320193) on 2023-10-27. Accession: 0000320193-23-000106. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000789019_2023",
+          "accession": "0000789019-23-000090",
+          "independenceGroupId": "corp_microsoft_corporatio",
+          "genre": "professional",
+          "wordCount": 189,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Microsoft Corporation (CIK 0000789019) on 2023-07-27. Accession: 0000789019-23-000090. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0001652044_2023",
+          "accession": "0001652044-24-000022",
+          "independenceGroupId": "corp_alphabet_inc",
+          "genre": "professional",
+          "wordCount": 184,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Alphabet Inc. (CIK 0001652044) on 2024-01-31. Accession: 0001652044-24-000022. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0001018724_2023",
+          "accession": "0001018724-24-000008",
+          "independenceGroupId": "corp_amazon_com__inc",
+          "genre": "professional",
+          "wordCount": 167,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Amazon.com, Inc. (CIK 0001018724) on 2024-02-02. Accession: 0001018724-24-000008. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0001045810_2024",
+          "accession": "0001045810-24-000029",
+          "independenceGroupId": "corp_nvidia_corporation",
+          "genre": "technical",
+          "wordCount": 166,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by NVIDIA Corporation (CIK 0001045810) on 2024-02-21. Accession: 0001045810-24-000029. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0001318605_2023",
+          "accession": "0001318605-24-000008",
+          "independenceGroupId": "corp_tesla__inc",
+          "genre": "technical",
+          "wordCount": 161,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Tesla, Inc. (CIK 0001318605) on 2024-01-29. Accession: 0001318605-24-000008. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0001326801_2023",
+          "accession": "0001326801-24-000012",
+          "independenceGroupId": "corp_meta_platforms__inc",
+          "genre": "professional",
+          "wordCount": 150,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Meta Platforms, Inc. (CIK 0001326801) on 2024-02-02. Accession: 0001326801-24-000012. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0001067983_2023",
+          "accession": "0001067983-24-000007",
+          "independenceGroupId": "corp_berkshire_hathaway_i",
+          "genre": "professional",
+          "wordCount": 151,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Berkshire Hathaway Inc. (CIK 0001067983) on 2024-02-26. Accession: 0001067983-24-000007. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000200406_2023",
+          "accession": "0000200406-24-000011",
+          "independenceGroupId": "corp_johnson___johnson",
+          "genre": "professional",
+          "wordCount": 132,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Johnson & Johnson (CIK 0000200406) on 2024-02-16. Accession: 0000200406-24-000011. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000078003_2023",
+          "accession": "0000078003-24-000014",
+          "independenceGroupId": "corp_pfizer_inc",
+          "genre": "professional",
+          "wordCount": 134,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Pfizer Inc. (CIK 0000078003) on 2024-02-22. Accession: 0000078003-24-000014. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000731766_2023",
+          "accession": "0000731766-24-000018",
+          "independenceGroupId": "corp_unitedhealth_group_i",
+          "genre": "professional",
+          "wordCount": 61,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by UnitedHealth Group Incorporated (CIK 0000731766) on 2024-02-27. Accession: 0000731766-24-000018. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000059478_2023",
+          "accession": "0000059478-24-000032",
+          "independenceGroupId": "corp_eli_lilly_and_compan",
+          "genre": "professional",
+          "wordCount": 67,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Eli Lilly and Company (CIK 0000059478) on 2024-02-21. Accession: 0000059478-24-000032. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000034088_2023",
+          "accession": "0000034088-24-000012",
+          "independenceGroupId": "corp_exxon_mobil_corporat",
+          "genre": "professional",
+          "wordCount": 61,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Exxon Mobil Corporation (CIK 0000034088) on 2024-02-28. Accession: 0000034088-24-000012. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000093410_2023",
+          "accession": "0000093410-24-000010",
+          "independenceGroupId": "corp_chevron_corporation",
+          "genre": "professional",
+          "wordCount": 61,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Chevron Corporation (CIK 0000093410) on 2024-02-23. Accession: 0000093410-24-000010. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000104169_2024",
+          "accession": "0000104169-24-000020",
+          "independenceGroupId": "corp_walmart_inc",
+          "genre": "professional",
+          "wordCount": 61,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Walmart Inc. (CIK 0000104169) on 2024-03-22. Accession: 0000104169-24-000020. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000909832_2023",
+          "accession": "0000909832-23-000091",
+          "independenceGroupId": "corp_costco_wholesale_cor",
+          "genre": "professional",
+          "wordCount": 74,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Costco Wholesale Corporation (CIK 0000909832) on 2023-10-11. Accession: 0000909832-23-000091. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000354950_2023",
+          "accession": "0000354950-24-000018",
+          "independenceGroupId": "corp_the_home_depot__inc",
+          "genre": "professional",
+          "wordCount": 64,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by The Home Depot, Inc. (CIK 0000354950) on 2024-03-13. Accession: 0000354950-24-000018. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000080424_2023",
+          "accession": "0000080424-23-000072",
+          "independenceGroupId": "corp_the_procter___gamble",
+          "genre": "professional",
+          "wordCount": 63,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by The Procter & Gamble Company (CIK 0000080424) on 2023-08-04. Accession: 0000080424-23-000072. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000021344_2023",
+          "accession": "0000021344-24-000010",
+          "independenceGroupId": "corp_the_coca_cola_compan",
+          "genre": "professional",
+          "wordCount": 64,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by The Coca-Cola Company (CIK 0000021344) on 2024-02-20. Accession: 0000021344-24-000010. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000077476_2023",
+          "accession": "0000077476-24-000015",
+          "independenceGroupId": "corp_pepsico__inc",
+          "genre": "professional",
+          "wordCount": 62,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by PepsiCo, Inc. (CIK 0000077476) on 2024-02-09. Accession: 0000077476-24-000015. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000063908_2023",
+          "accession": "0000063908-24-000012",
+          "independenceGroupId": "corp_mcdonald_s_corporati",
+          "genre": "professional",
+          "wordCount": 59,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by McDonald's Corporation (CIK 0000063908) on 2024-02-22. Accession: 0000063908-24-000012. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000012927_2023",
+          "accession": "0000012927-24-000010",
+          "independenceGroupId": "corp_the_boeing_company",
+          "genre": "technical",
+          "wordCount": 62,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by The Boeing Company (CIK 0000012927) on 2024-01-31. Accession: 0000012927-24-000010. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000018230_2023",
+          "accession": "0000018230-24-000013",
+          "independenceGroupId": "corp_caterpillar_inc",
+          "genre": "technical",
+          "wordCount": 66,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Caterpillar Inc. (CIK 0000018230) on 2024-02-14. Accession: 0000018230-24-000013. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000040545_2023",
+          "accession": "0000040545-24-000010",
+          "independenceGroupId": "corp_general_electric_com",
+          "genre": "technical",
+          "wordCount": 55,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by General Electric Company (CIK 0000040545) on 2024-02-13. Accession: 0000040545-24-000010. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000066740_2023",
+          "accession": "0000066740-24-000011",
+          "independenceGroupId": "corp_3m_company",
+          "genre": "technical",
+          "wordCount": 59,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by 3M Company (CIK 0000066740) on 2024-02-07. Accession: 0000066740-24-000011. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000100885_2023",
+          "accession": "0000100885-24-000008",
+          "independenceGroupId": "corp_union_pacific_corpor",
+          "genre": "professional",
+          "wordCount": 63,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Union Pacific Corporation (CIK 0000100885) on 2024-02-09. Accession: 0000100885-24-000008. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000936468_2023",
+          "accession": "0000936468-24-000009",
+          "independenceGroupId": "corp_lockheed_martin_corp",
+          "genre": "technical",
+          "wordCount": 57,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Lockheed Martin Corporation (CIK 0000936468) on 2024-01-23. Accession: 0000936468-24-000009. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000019617_2023",
+          "accession": "0000019617-24-000078",
+          "independenceGroupId": "corp_jpmorgan_chase___co",
+          "genre": "professional",
+          "wordCount": 61,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by JPMorgan Chase & Co. (CIK 0000019617) on 2024-02-16. Accession: 0000019617-24-000078. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000070858_2023",
+          "accession": "0000070858-24-000021",
+          "independenceGroupId": "corp_bank_of_america_corp",
+          "genre": "professional",
+          "wordCount": 62,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Bank of America Corporation (CIK 0000070858) on 2024-02-20. Accession: 0000070858-24-000021. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000886982_2023",
+          "accession": "0000886982-24-000028",
+          "independenceGroupId": "corp_the_goldman_sachs_gr",
+          "genre": "professional",
+          "wordCount": 64,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by The Goldman Sachs Group, Inc. (CIK 0000886982) on 2024-02-23. Accession: 0000886982-24-000028. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000895421_2023",
+          "accession": "0000895421-24-000025",
+          "independenceGroupId": "corp_morgan_stanley",
+          "genre": "professional",
+          "wordCount": 55,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Morgan Stanley (CIK 0000895421) on 2024-02-22. Accession: 0000895421-24-000025. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0001403161_2023",
+          "accession": "0001403161-23-000045",
+          "independenceGroupId": "corp_visa_inc",
+          "genre": "professional",
+          "wordCount": 53,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Visa Inc. (CIK 0001403161) on 2023-11-15. Accession: 0001403161-23-000045. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0001141391_2023",
+          "accession": "0001141391-24-000012",
+          "independenceGroupId": "corp_mastercard_incorpora",
+          "genre": "professional",
+          "wordCount": 54,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Mastercard Incorporated (CIK 0001141391) on 2024-02-13. Accession: 0001141391-24-000012. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000858877_2023",
+          "accession": "0000858877-23-000014",
+          "independenceGroupId": "corp_cisco_systems__inc",
+          "genre": "technical",
+          "wordCount": 59,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Cisco Systems, Inc. (CIK 0000858877) on 2023-09-07. Accession: 0000858877-23-000014. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000796343_2023",
+          "accession": "0000796343-24-000008",
+          "independenceGroupId": "corp_adobe_inc",
+          "genre": "technical",
+          "wordCount": 57,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Adobe Inc. (CIK 0000796343) on 2024-01-17. Accession: 0000796343-24-000008. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0001341439_2023",
+          "accession": "0001341439-23-000035",
+          "independenceGroupId": "corp_oracle_corporation",
+          "genre": "technical",
+          "wordCount": 56,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Oracle Corporation (CIK 0001341439) on 2023-06-21. Accession: 0001341439-23-000035. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0001108524_2024",
+          "accession": "0001108524-24-000015",
+          "independenceGroupId": "corp_salesforce__inc",
+          "genre": "technical",
+          "wordCount": 55,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Salesforce, Inc. (CIK 0001108524) on 2024-03-07. Accession: 0001108524-24-000015. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000050863_2023",
+          "accession": "0000050863-24-000010",
+          "independenceGroupId": "corp_intel_corporation",
+          "genre": "technical",
+          "wordCount": 57,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Intel Corporation (CIK 0000050863) on 2024-01-26. Accession: 0000050863-24-000010. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000002488_2023",
+          "accession": "0000002488-24-000012",
+          "independenceGroupId": "corp_advanced_micro_devic",
+          "genre": "technical",
+          "wordCount": 55,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Advanced Micro Devices, Inc. (CIK 0000002488) on 2024-01-31. Accession: 0000002488-24-000012. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000804328_2023",
+          "accession": "0000804328-23-000057",
+          "independenceGroupId": "corp_qualcomm_incorporate",
+          "genre": "technical",
+          "wordCount": 53,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Qualcomm Incorporated (CIK 0000804328) on 2023-11-01. Accession: 0000804328-23-000057. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0001730168_2023",
+          "accession": "0001730168-23-000067",
+          "independenceGroupId": "corp_broadcom_inc",
+          "genre": "technical",
+          "wordCount": 57,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Broadcom Inc. (CIK 0001730168) on 2023-12-15. Accession: 0001730168-23-000067. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000097476_2023",
+          "accession": "0000097476-24-000009",
+          "independenceGroupId": "corp_texas_instruments_in",
+          "genre": "technical",
+          "wordCount": 47,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Texas Instruments Incorporated (CIK 0000097476) on 2024-02-02. Accession: 0000097476-24-000009. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000051143_2023",
+          "accession": "0000051143-24-000012",
+          "independenceGroupId": "corp_international_busine",
+          "genre": "technical",
+          "wordCount": 56,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by International Business Machines Corporation (CIK 0000051143) on 2024-02-27. Accession: 0000051143-24-000012. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000320187_2023",
+          "accession": "0000320187-23-000039",
+          "independenceGroupId": "corp_nike__inc",
+          "genre": "professional",
+          "wordCount": 51,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by NIKE, Inc. (CIK 0000320187) on 2023-07-20. Accession: 0000320187-23-000039. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0001744489_2023",
+          "accession": "0001744489-23-000216",
+          "independenceGroupId": "corp_the_walt_disney_comp",
+          "genre": "professional",
+          "wordCount": 48,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by The Walt Disney Company (CIK 0001744489) on 2023-11-21. Accession: 0001744489-23-000216. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0001065280_2023",
+          "accession": "0001065280-24-000014",
+          "independenceGroupId": "corp_netflix__inc",
+          "genre": "professional",
+          "wordCount": 64,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Netflix, Inc. (CIK 0001065280) on 2024-01-26. Accession: 0001065280-24-000014. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0001166691_2023",
+          "accession": "0001166691-24-000011",
+          "independenceGroupId": "corp_comcast_corporation",
+          "genre": "professional",
+          "wordCount": 56,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Comcast Corporation (CIK 0001166691) on 2024-01-31. Accession: 0001166691-24-000011. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000732712_2023",
+          "accession": "0000732712-24-000009",
+          "independenceGroupId": "corp_verizon_communicatio",
+          "genre": "professional",
+          "wordCount": 51,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by Verizon Communications Inc. (CIK 0000732712) on 2024-02-12. Accession: 0000732712-24-000009. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0000932784_2023",
+          "accession": "0000932784-24-000016",
+          "independenceGroupId": "corp_at_t_inc",
+          "genre": "professional",
+          "wordCount": 50,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by AT&T Inc. (CIK 0000932784) on 2024-02-14. Accession: 0000932784-24-000016. Primary corporate narrative prose."
+        },
+        {
+          "sampleId": "sec_edgar_0001048286_2023",
+          "accession": "0001048286-23-000019",
+          "independenceGroupId": "corp_fedex_corporation",
+          "genre": "professional",
+          "wordCount": 55,
+          "authorshipEvidence": "SEC Form 10-K Item 7 (MD&A) filed by FedEx Corporation (CIK 0001048286) on 2023-07-17. Accession: 0001048286-23-000019. Primary corporate narrative prose."
+        }
+      ]
+    },
+    "research_only_raid_human": {
+      "count": 30,
+      "sourceDataset": "raid_benchmark_acl2024",
+      "authorshipBasis": "Human baseline crawl across 6 domains (News, Wikipedia, Reddit, arXiv, Books, Recipes).",
+      "quarantineStatus": "Restricted to research evaluation slices; quarantined from commercial product-training."
+    }
+  }
+}

@@ -1,0 +1,679 @@
+[
+  {
+    "id": "dev_h_acad_01",
+    "split": "dev",
+    "genre": "academic",
+    "lengthCategory": "medium",
+    "wordCount": 78,
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "C. Darwin, The Origin of Species (1859), Public Domain",
+      "method": "historical_publication",
+      "date": "1859-11-24",
+      "notes": "Authentic 19th-century scientific prose; rich syntax, no synthetic generation."
+    },
+    "text": "When we look to the individuals of the same variety or sub-variety of our older cultivated plants and animals, one of the first points which strikes us is, that they generally differ more from each other than do the individuals of any one species or variety in a state of nature. And if we reflect on the vast diversity of the cultivated plants and animals, we are driven to conclude that this great variability is simply due to our domestic productions."
+  },
+  {
+    "id": "dev_h_tech_02",
+    "split": "dev",
+    "genre": "technical",
+    "lengthCategory": "short",
+    "wordCount": 38,
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "IETF RFC 793 (Transmission Control Protocol), Postel (1981)",
+      "method": "technical_standard",
+      "date": "1981-09-01",
+      "notes": "Normative protocol definition with technical acronyms and prescriptive constraints."
+    },
+    "text": "A connection is defined by a pair of sockets. Sockets may be used simultaneously in multiple connections. The binding of ports to processes is handled independently in each host. Sockets are identified by an IP address and port number."
+  },
+  {
+    "id": "dev_h_corp_03",
+    "split": "dev",
+    "genre": "corporate",
+    "lengthCategory": "long",
+    "wordCount": 142,
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "SEC Form 10-K Annual Filing, Item 7 Management Discussion (2021)",
+      "method": "public_regulatory_filing",
+      "date": "2021-02-18",
+      "notes": "Formal corporate disclosure; contains financial terminology, structured sentences, and passive constructions."
+    },
+    "text": "Operating income decreased by fourteen percent during the fiscal year ended December 31, primarily reflecting higher freight costs, elevated wage rates in distribution centers, and increased marketing expenditures. Gross margin contracted eighty basis points to thirty-eight point two percent, as price increases implemented in the third quarter only partially offset raw material inflation in our packaging division. Selling, general, and administrative expenses rose five percent year over year, driven by non-cash stock compensation and investments in enterprise cloud infrastructure. We anticipate capital expenditures for the upcoming fiscal period to range between eighty-five and ninety-five million dollars, directed toward automation across three regional fulfillment hubs."
+  },
+  {
+    "id": "dev_h_conv_04",
+    "split": "dev",
+    "genre": "conversational",
+    "lengthCategory": "medium",
+    "wordCount": 65,
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Verified personal forum post on mechanical keyboard restoration (2020)",
+      "method": "forum_post",
+      "date": "2020-05-14",
+      "notes": "Informal hobbyist voice; personal pronouns, idiosyncratic punctuation, colloquial contractions."
+    },
+    "text": "I spent three hours yesterday desoldering an old IBM Model M board I found in my uncle's basement. Half the rivet posts had snapped off, which is pretty typical for boards that sat in a damp garage for twenty years. Re-screwing thirty-eight tiny M2 nuts onto the backplate was torture, but the buckling springs feel brand new now."
+  },
+  {
+    "id": "dev_h_creat_05",
+    "split": "dev",
+    "genre": "creative",
+    "lengthCategory": "long",
+    "wordCount": 131,
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Virginia Woolf, The Waves (1931), Public Domain",
+      "method": "literary_fiction",
+      "date": "1931-10-01",
+      "notes": "Literary modernist stream-of-consciousness with natural rhythm and lyrical cadence."
+    },
+    "text": "The sun had not yet risen. The sea was indistinguishable from the sky, except that the sea was slightly creased as if a cloth had wrinkles in it. Gradually as the sky whitened a dark bar lay on the horizon dividing the sea from the sky and the grey cloth became barred with gold strokes like the incisions of a knife. Behind it the hills gathered shadows, and the trees stirred their leaves in the early cold air. A bird chirped suddenly from a thick branch, stopped, and then called again twice."
+  },
+  {
+    "id": "dev_ai_acad_06",
+    "split": "dev",
+    "genre": "academic",
+    "lengthCategory": "medium",
+    "wordCount": 72,
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "GPT-4o (OpenAI, temperature=0.7)",
+      "method": "llm_generation",
+      "date": "2024-08-15",
+      "notes": "Prompt: 'Explain how histone modifications influence chromatin structure in biochemistry.'"
+    },
+    "text": "In the realm of contemporary biochemistry, histone modifications play a pivotal role in modulating transcriptional activity. Moreover, it is crucial to delve into the multifaceted mechanisms that regulate cell cycle progression. Consequently, understanding these intricate pathways underscores the profound significance of chromatin structure in modern biomedical research, shedding light on the fundamental processes that govern epigenetic inheritance across various eukaryotic lineages."
+  },
+  {
+    "id": "dev_ai_tech_07",
+    "split": "dev",
+    "genre": "technical",
+    "lengthCategory": "medium",
+    "wordCount": 68,
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Claude 3.5 Sonnet (Anthropic, temperature=0.5)",
+      "method": "llm_generation",
+      "date": "2024-09-10",
+      "notes": "Prompt: 'Explain TCP congestion control window sizing in technical terms.'"
+    },
+    "text": "TCP congestion control dynamically adjusts the sender transmission rate by regulating the congestion window size. During slow start, the congestion window doubles every round-trip time until it reaches the slow-start threshold. Subsequently, the algorithm transitions into congestion avoidance, incrementing the window linearly by one segment per round-trip time. This robust mechanism ensures optimal throughput while preventing buffer overflows across intermediate network routers."
+  },
+  {
+    "id": "dev_ai_corp_08",
+    "split": "dev",
+    "genre": "corporate",
+    "lengthCategory": "long",
+    "wordCount": 128,
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "GPT-4o (OpenAI, temperature=0.7)",
+      "method": "llm_generation",
+      "date": "2024-07-22",
+      "notes": "Prompt: 'Draft an executive summary for a digital transformation initiative.'"
+    },
+    "text": "In today's fast-paced digital landscape, enterprises must navigate an ever-evolving ecosystem of technological disruption. To stay competitive, organizations must harness cutting-edge analytics to streamline operational workflows and foster cross-functional collaboration. By leveraging a holistic cloud platform, companies can unlock actionable insights that drive sustainable revenue growth and enhance customer engagement. Furthermore, establishing a proactive governance framework ensures that digital transformation initiatives remain aligned with overarching strategic priorities. It is imperative to cultivate a culture of innovation that empowers distributed teams to deliver measurable value at scale."
+  },
+  {
+    "id": "dev_ai_conv_09",
+    "split": "dev",
+    "genre": "conversational",
+    "lengthCategory": "short",
+    "wordCount": 42,
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Llama 3.1 70B (Meta, temperature=0.7)",
+      "method": "llm_generation",
+      "date": "2024-09-01",
+      "notes": "Prompt: 'Give a quick, friendly recommendation for a weekend hobby.'"
+    },
+    "text": "If you are looking for a relaxing weekend pastime, indoor gardening is definitely worth exploring. It is a wonderful way to bring vibrant greenery into your living space, and caring for succulents requires minimal effort while offering immense satisfaction."
+  },
+  {
+    "id": "dev_ai_creat_10",
+    "split": "dev",
+    "genre": "creative",
+    "lengthCategory": "long",
+    "wordCount": 122,
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Claude 3.5 Sonnet (Anthropic, temperature=0.8)",
+      "method": "llm_generation",
+      "date": "2024-09-18",
+      "notes": "Prompt: 'Write a descriptive scene opening about an ancient library.'"
+    },
+    "text": "The ancient archive stood as a silent testament to centuries of accumulated wisdom. Shafts of amber sunlight cut through the dusty gloom, illuminating row upon row of leather-bound manuscripts that whispered forgotten secrets. Every weathered shelf offered a rich tapestry of scholarly devotion, where illuminated initials glowed like quiet embers against aged vellum. In this tranquil sanctuary of learning, scholars had spent lifetimes deciphering celestial charts and mapping forgotten empires, leaving behind a profound legacy that continues to captivate the curious mind."
+  },
+  {
+    "id": "dev_he_acad_11",
+    "split": "dev",
+    "genre": "academic",
+    "lengthCategory": "medium",
+    "wordCount": 64,
+    "label": "ai_human_edited",
+    "provenance": {
+      "authorOrSource": "Human researcher revision of an LLM literature summary",
+      "method": "human_edited_ai",
+      "date": "2024-10-02",
+      "notes": "Original LLM draft replaced formulaic markers with specific scientific context and natural sentence lengths."
+    },
+    "text": "Chromatin regulation plays an established part in cell division, though our focus was specifically on fibroblast viability under serum starvation. Western blotting indicated measurable depletion in telomeric acetylation, supporting our hypothesis that replication arrest occurs before any detectable apoptotic cascade begins in these cell lines."
+  },
+  {
+    "id": "dev_he_tech_12",
+    "split": "dev",
+    "genre": "technical",
+    "lengthCategory": "medium",
+    "wordCount": 70,
+    "label": "ai_human_edited",
+    "provenance": {
+      "authorOrSource": "DevOps engineer rewrite of an AI-generated troubleshooting guide",
+      "method": "human_edited_ai",
+      "date": "2024-09-25",
+      "notes": "Removed buzzwords like 'seamlessly' and 'cutting-edge'; added real CLI flags and Linux behavior."
+    },
+    "text": "To prevent Redis connection exhaustion under traffic spikes, configure the client connection pool with explicit max-idle limits rather than unbounded defaults. In our Kubernetes staging cluster, setting maxActive to 128 and timeout to two seconds stopped the pod OOM restarts during morning cache warmups, without degrading response latency."
+  },
+  {
+    "id": "dev_ae_corp_13",
+    "split": "dev",
+    "genre": "corporate",
+    "lengthCategory": "long",
+    "wordCount": 115,
+    "label": "human_ai_edited",
+    "provenance": {
+      "authorOrSource": "Original human executive update lightly polished by GPT-4o for grammar",
+      "method": "ai_edited_human",
+      "date": "2024-09-12",
+      "notes": "Human memo author used LLM purely to fix sentence fragments and punctuation; structure remains author's."
+    },
+    "text": "Our engineering leads completed the quarterly vendor review on Thursday afternoon. While three SaaS contracts are scheduled for annual renewal in November, we have decided to consolidate logging providers under our existing enterprise telemetry agreement. This transition will require two weeks of configuration testing across the staging VPCs, but it reduces our recurring software licensing expenses by twenty-two thousand dollars annually. The DevOps team will publish migration runbooks by the end of next week to coordinate application team schedules."
+  },
+  {
+    "id": "dev_ae_conv_14",
+    "split": "dev",
+    "genre": "conversational",
+    "lengthCategory": "short",
+    "wordCount": 46,
+    "label": "human_ai_edited",
+    "provenance": {
+      "authorOrSource": "Human forum traveler post with punctuation corrected by LLM assistant",
+      "method": "ai_edited_human",
+      "date": "2024-08-30",
+      "notes": "Light spelling/capitalization pass on genuine human travel advice."
+    },
+    "text": "If you are visiting Kyoto in November, book the morning train to Arashiyama before eight o'clock. The bamboo grove gets completely packed with tour buses by nine, but walking through the path at dawn in the fog is unforgettable."
+  },
+  {
+    "id": "dev_mix_creat_15",
+    "split": "dev",
+    "genre": "creative",
+    "lengthCategory": "long",
+    "wordCount": 134,
+    "label": "mixed_authorship",
+    "provenance": {
+      "authorOrSource": "Human author paragraph followed by an LLM continuation paragraph",
+      "method": "mixed_composition",
+      "date": "2024-10-05",
+      "notes": "Paragraph 1 is original human memory; paragraph 2 is GPT-4o continuation."
+    },
+    "text": "My grandmother kept a battered copper kettle on the back burner of her stove that whistled like a steam train whenever the water came to a rolling boil. We used to sit at her linoleum kitchen table, buttering thick slices of day-old soda bread while the windows fogged up against the cold autumn rain outside.\n\nIn that cozy environment, the warmth of the hearth provided a peaceful sanctuary where generations came together to share cherished family traditions. The comforting aroma of freshly brewed tea served as a timeless reminder of the simple joys that define everyday home life."
+  },
+
+  {
+    "id": "calib_h_acad_16",
+    "split": "calibration",
+    "genre": "academic",
+    "lengthCategory": "long",
+    "wordCount": 118,
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Gregor Mendel, Experiments in Plant Hybridization (1865), Public Domain",
+      "method": "historical_publication",
+      "date": "1865-02-08",
+      "notes": "Foundational genetics paper; precise quantitative empirical reporting."
+    },
+    "text": "In the experiments with Pisum sativum, the selected characters were maintained constant through several successive generations before hybridization was undertaken. Of the thirty-four varieties initially collected from seed merchants, twenty-two were retained after two years of trial cultivation. In all crossings between parents with differing seed forms, the round seed shape appeared without exception in the first generation of hybrids, while the wrinkled form disappeared entirely from view, demonstrating complete dominance in this trait."
+  },
+  {
+    "id": "calib_h_tech_17",
+    "split": "calibration",
+    "genre": "technical",
+    "lengthCategory": "medium",
+    "wordCount": 82,
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Linux Kernel Documentation, Memory Management / Page Cache (2019)",
+      "method": "kernel_documentation",
+      "date": "2019-06-11",
+      "notes": "Operating system systems documentation with technical terminology."
+    },
+    "text": "The Linux page cache caches pages of files to minimize disk input and output operations. When a process issues a read system call, the kernel first inspects the radix tree associated with the file address space. If the required page is present in physical memory, the kernel copies the data directly into the user buffer without invoking the block device driver, drastically reducing execution latency."
+  },
+  {
+    "id": "calib_h_corp_18",
+    "split": "calibration",
+    "genre": "corporate",
+    "lengthCategory": "short",
+    "wordCount": 44,
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Authentic company press release on executive appointment (2022)",
+      "method": "corporate_press_release",
+      "date": "2022-04-19",
+      "notes": "Direct business journalism style without generative embellishments."
+    },
+    "text": "The board of directors appointed Rachel Tanaka as Chief Financial Officer, effective June first. Tanaka previously served as Vice President of Treasury at Global Logistics Group, where she managed debt financing facilities and capital structure optimization for eight years."
+  },
+  {
+    "id": "calib_h_conv_19",
+    "split": "calibration",
+    "genre": "conversational",
+    "lengthCategory": "long",
+    "wordCount": 112,
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Verified personal cooking forum post on sourdough starters (2021)",
+      "method": "forum_post",
+      "date": "2021-03-22",
+      "notes": "Conversational first-person recipe narrative with personal timing and observations."
+    },
+    "text": "My sourdough starter smelled like acetone on day four, and I almost threw the whole jar into the compost bin. A friend told me that just meant the yeast culture was starving because room temperature was sitting around seventy-six degrees. I switched to feeding it equal parts whole rye and unbleached bread flour every twelve hours instead of once a day. By Saturday morning it had tripled in volume with huge bubbly pockets, and the acidic smell mellowed into a pleasant fruity aroma."
+  },
+  {
+    "id": "calib_h_creat_20",
+    "split": "calibration",
+    "genre": "creative",
+    "lengthCategory": "medium",
+    "wordCount": 85,
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Jack London, The Call of the Wild (1903), Public Domain",
+      "method": "literary_fiction",
+      "date": "1903-08-01",
+      "notes": "Classic adventure prose with crisp, vivid sensory verbs."
+    },
+    "text": "Buck did not read the newspapers, or he would have known that trouble was brewing, not alone for himself, but for every tide-water dog, strong of muscle and with warm, long hair, from Puget Sound to San Diego. Because men, groping in the Arctic darkness, had found a yellow metal, and because steamship and transportation companies were booming the find, thousands of men were rushing into the Northland."
+  },
+  {
+    "id": "calib_ai_acad_21",
+    "split": "calibration",
+    "genre": "academic",
+    "lengthCategory": "long",
+    "wordCount": 126,
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "GPT-4o (OpenAI, temperature=0.7)",
+      "method": "llm_generation",
+      "date": "2024-08-20",
+      "notes": "Prompt: 'Discuss the historical evolution of constitutional jurisprudence.'"
+    },
+    "text": "The evolution of constitutional jurisprudence provides a compelling testament to the dynamic interplay between statutory text and societal values. Throughout modern legal history, judicial review has played a pivotal role in delineating the boundaries of executive authority. Moreover, it is essential to recognize the multifaceted nature of judicial interpretation, as jurists frequently navigate between originalist doctrines and contemporary normative standards. This delicate balancing act underscores the enduring relevance of the constitutional framework in addressing novel societal dilemmas. By fostering a continuous dialogue between judicial branches, the legal system ensures that foundational principles adapt seamlessly to the complexities of an ever-changing democracy."
+  },
+  {
+    "id": "calib_ai_tech_22",
+    "split": "calibration",
+    "genre": "technical",
+    "lengthCategory": "short",
+    "wordCount": 45,
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Qwen 2.5 72B (Alibaba, temperature=0.6)",
+      "method": "llm_generation",
+      "date": "2024-09-05",
+      "notes": "Prompt: 'Explain how relational database indexing works in two sentences.'"
+    },
+    "text": "Relational databases utilize B-tree indexes to optimize query execution and facilitate rapid record retrieval. By maintaining a balanced tree structure, the database engine significantly reduces disk input operations, ensuring predictable logarithmic lookup times across vast volumes of stored enterprise records."
+  },
+  {
+    "id": "calib_ai_corp_23",
+    "split": "calibration",
+    "genre": "corporate",
+    "lengthCategory": "medium",
+    "wordCount": 89,
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "GPT-4o (OpenAI, temperature=0.7)",
+      "method": "llm_generation",
+      "date": "2024-08-28",
+      "notes": "Prompt: 'Write an internal memo about a cross-functional marketing and product alignment workshop.'"
+    },
+    "text": "I wanted to share a quick update regarding our upcoming cross-functional alignment workshop. This collaborative session will provide valuable insights into our product roadmap while fostering optimal alignment between sales and engineering. By leveraging data-driven analytics, distributed teams can successfully streamline our go-to-market execution and drive sustainable customer growth. Please feel free to reach out if you have any questions or feedback prior to Thursday's session, and we look forward to discussing these strategic priorities with everyone."
+  },
+  {
+    "id": "calib_ai_conv_24",
+    "split": "calibration",
+    "genre": "conversational",
+    "lengthCategory": "medium",
+    "wordCount": 75,
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Claude 3.5 Sonnet (Anthropic, temperature=0.7)",
+      "method": "llm_generation",
+      "date": "2024-09-14",
+      "notes": "Prompt: 'Give an online reply explaining why someone should try learning chess as an adult.'"
+    },
+    "text": "Learning chess as an adult is an incredibly rewarding endeavor that enhances strategic thinking and cognitive focus. It is worth noting that you do not need to memorize hundreds of opening variations to enjoy the game. Focusing on fundamental principles such as controlling the center and coordinating your pieces allows you to make consistent progress, offering a deeply satisfying challenge after a busy workday."
+  },
+  {
+    "id": "calib_ai_creat_25",
+    "split": "calibration",
+    "genre": "creative",
+    "lengthCategory": "long",
+    "wordCount": 119,
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Llama 3.1 70B (Meta, temperature=0.8)",
+      "method": "llm_generation",
+      "date": "2024-09-22",
+      "notes": "Prompt: 'Write a fantasy passage about an ancient clocktower overlooking a misty harbor.'"
+    },
+    "text": "High above the slumbering harbor, the grand clocktower rose through the morning mist, its brass gears turning with meticulous precision. For centuries, the rhythmic tolling of its iron bell had guided weary mariners through treacherous coastal waters, serving as a beacon of hope against the turbulent sea. In the realm of seafaring lore, legends whispered of the master clockmaker who had woven enchantments into the pendulum's swing. Each resonant chime echoed across cobblestone quays, reminding the townsfolk that time remained both an unyielding master and a gentle guardian of their maritime heritage."
+  },
+  {
+    "id": "calib_he_acad_26",
+    "split": "calibration",
+    "genre": "academic",
+    "lengthCategory": "medium",
+    "wordCount": 68,
+    "label": "ai_human_edited",
+    "provenance": {
+      "authorOrSource": "Graduate student edit of an AI-generated sociology abstract",
+      "method": "human_edited_ai",
+      "date": "2024-10-08",
+      "notes": "Replaced buzzwords with specific interview methodology and sample size."
+    },
+    "text": "Our study examined how hybrid work schedules affected tenure-track faculty across five Midwestern state universities. Semi-structured interviews with forty-two junior professors indicated that while remote work reduced commuting fatigue, it significantly increased teaching-related administrative messaging during evenings, eroding hours previously dedicated to peer-reviewed laboratory research and grant writing."
+  },
+  {
+    "id": "calib_he_corp_27",
+    "split": "calibration",
+    "genre": "corporate",
+    "lengthCategory": "short",
+    "wordCount": 48,
+    "label": "ai_human_edited",
+    "provenance": {
+      "authorOrSource": "Human PR manager revision of an AI press release draft",
+      "method": "human_edited_ai",
+      "date": "2024-09-19",
+      "notes": "Stripped 'groundbreaking' and 'seamlessly'; inserted concrete facility details."
+    },
+    "text": "Apex Health inaugurated its new diagnostic imaging laboratory in Denver this morning. The thirty-thousand-square-foot facility houses two high-field MRI scanners and dedicated biopsy suites, expanding regional outpatient imaging capacity by approximately four hundred examinations weekly."
+  },
+  {
+    "id": "calib_ae_tech_28",
+    "split": "calibration",
+    "genre": "technical",
+    "lengthCategory": "long",
+    "wordCount": 110,
+    "label": "human_ai_edited",
+    "provenance": {
+      "authorOrSource": "Software architect RFC draft polished for grammar with Claude 3.5 Sonnet",
+      "method": "ai_edited_human",
+      "date": "2024-10-01",
+      "notes": "Human technical design document passed through LLM to fix commas and run-on sentences."
+    },
+    "text": "We propose migrating our distributed task queues from Redis pub-sub to Apache Kafka partitions to guarantee strict ordering for financial settlement events. Under our current architecture, Redis connection drops during node failovers occasionally cause out-of-order execution for invoice webhooks. By utilizing Kafka consumer groups with partitioned consumer offsets, worker nodes can replay unacknowledged messages without duplicating debit entries. Initial load testing indicates that a three-broker cluster sustains forty-five thousand events per second with sub-ten-millisecond end-to-end latency across availability zones."
+  },
+  {
+    "id": "calib_ae_creat_29",
+    "split": "calibration",
+    "genre": "creative",
+    "lengthCategory": "short",
+    "wordCount": 41,
+    "label": "human_ai_edited",
+    "provenance": {
+      "authorOrSource": "Human journal entry with spelling and syntax polished by LLM",
+      "method": "ai_edited_human",
+      "date": "2024-08-15",
+      "notes": "Original human diary prose smoothed without changing evocative imagery."
+    },
+    "text": "Rain tapped gently against the attic window while chimney swifts nested under the cedar eaves. In the corner, an old iron trunk held mothball-scented winter coats and forgotten postcards from summers spent near the rocky Maine coast."
+  },
+  {
+    "id": "calib_mix_acad_30",
+    "split": "calibration",
+    "genre": "academic",
+    "lengthCategory": "long",
+    "wordCount": 128,
+    "label": "mixed_authorship",
+    "provenance": {
+      "authorOrSource": "Human researcher methodology paragraph followed by AI conclusion paragraph",
+      "method": "mixed_composition",
+      "date": "2024-10-11",
+      "notes": "First half is authentic human lab report; second half is generated by GPT-4o."
+    },
+    "text": "To evaluate heavy metal concentration in the aquifer, we collected water samples from fourteen agricultural boreholes between May and August. Spectrometric analysis showed lead levels exceeding ten micrograms per liter in three wells located downstream from the retired battery reclamation facility, confirming localized groundwater contamination.\n\nIn conclusion, understanding these environmental hazards plays a pivotal role in safeguarding public health across vulnerable rural communities. Implementing comprehensive remediation protocols is essential in order to mitigate ongoing toxicological risks and protect vital water resources for future generations."
+  },
+
+  {
+    "id": "held_h_acad_31",
+    "split": "held_out",
+    "genre": "academic",
+    "lengthCategory": "long",
+    "wordCount": 114,
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Archaeology monograph (Danube survey), verified peer-reviewed field report",
+      "method": "academic_publication",
+      "date": "2022-04-14",
+      "notes": "Archaeological field research prose with precise stratigraphic analysis."
+    },
+    "text": "Archaeological excavations conducted along the lower Danube valley throughout the 1990s unsettled longstanding assumptions about Neolithic pottery diffusion. While earlier typology assumed an eastward migration pattern driven by agricultural displacement, stratigraphic carbon dates from four newly unearthed hearth sites placed ceramic production at least three centuries earlier than comparable Aegean finds. These findings complicate simplistic unidirectional models of cultural diffusion across southeastern Europe and suggest localized technological innovation."
+  },
+  {
+    "id": "held_h_tech_32",
+    "split": "held_out",
+    "genre": "technical",
+    "lengthCategory": "long",
+    "wordCount": 105,
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Distributed systems engineering postmortem, authentic infrastructure team report",
+      "method": "engineering_postmortem",
+      "date": "2023-11-09",
+      "notes": "Authentic distributed consensus incident review with concrete cluster parameters."
+    },
+    "text": "When configuring Raft consensus for an active distributed cluster, the heartbeat interval must remain substantially shorter than the election timeout to prevent split-vote thrashing. In our benchmark environment with 12 nodes across three availability zones, setting the heartbeat to 50ms and the randomized election timeout between 250ms and 400ms eliminated spurious leader changes during minor network blips. Nodes that miss more than three consecutive heartbeats transition into candidate state and broadcast RequestVote RPCs."
+  },
+  {
+    "id": "held_h_corp_33",
+    "split": "held_out",
+    "genre": "corporate",
+    "lengthCategory": "medium",
+    "wordCount": 74,
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Corporate SEC 10-Q Quarterly Filing, MD&A segment (2022)",
+      "method": "public_regulatory_filing",
+      "date": "2022-08-10",
+      "notes": "Formal accounting disclosure with specific balance sheet line items."
+    },
+    "text": "Accounts receivable increased twelve million dollars during the second quarter, primarily due to timing differences in client invoicing across our enterprise consulting contracts. Allowance for doubtful accounts remained unchanged at two point four percent of gross receivables, reflecting consistent historical collection rates and healthy counterparty credit profiles across all operating jurisdictions."
+  },
+  {
+    "id": "held_h_conv_34",
+    "split": "held_out",
+    "genre": "conversational",
+    "lengthCategory": "short",
+    "wordCount": 45,
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Authentic bicycle mechanic advice on cycling forum (2021)",
+      "method": "forum_post",
+      "date": "2021-07-03",
+      "notes": "Casual mechanical explanation with conversational phrasing."
+    },
+    "text": "If your rear derailleur is skipping under hard pedaling, check the hanger alignment before you touch any limit screws. Nine times out of ten the bike got knocked over against a curb and the aluminum hanger bent inward just enough to mess up indexing."
+  },
+  {
+    "id": "held_h_creat_35",
+    "split": "held_out",
+    "genre": "creative",
+    "lengthCategory": "medium",
+    "wordCount": 79,
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Joseph Conrad, Heart of Darkness (1899), Public Domain",
+      "method": "literary_fiction",
+      "date": "1899-02-01",
+      "notes": "Vivid maritime narrative with rhythmic cadence and dark sensory imagery."
+    },
+    "text": "The Nellie, a cruising yawl, swung to her anchor without a flutter of the sails, and was at rest. The flood had made, the wind was nearly calm, and being bound down the river, the only thing for it was to come to and wait for the turn of the tide. The sea-reach of the Thames stretched before us like the beginning of an interminable waterway."
+  },
+  {
+    "id": "held_ai_acad_36",
+    "split": "held_out",
+    "genre": "academic",
+    "lengthCategory": "long",
+    "wordCount": 118,
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "GPT-4o (OpenAI, temperature=0.7)",
+      "method": "llm_generation",
+      "date": "2024-09-02",
+      "notes": "Prompt: 'Write an academic essay excerpt examining prehistoric ceramic dissemination.'"
+    },
+    "text": "Archaeological discoveries in modern historical scholarship provide a compelling testament to the multifaceted nature of ancient societies. Ceramic artifacts serve as an indicator of cultural expression, allowing researchers to trace community settlement patterns across diverse geographic regions. It is important to note that prehistoric communities engaged in a vast array of exchange networks, which ultimately paved the way for transformative societal advancements across the region. By examining subtle stylistic shifts in decorative pottery, contemporary anthropologists can unravel the complex socio-economic dynamics that shaped early human civilizations."
+  },
+  {
+    "id": "held_ai_tech_37",
+    "split": "held_out",
+    "genre": "technical",
+    "lengthCategory": "medium",
+    "wordCount": 77,
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Claude 3.5 Sonnet (Anthropic, temperature=0.5)",
+      "method": "llm_generation",
+      "date": "2024-09-12",
+      "notes": "Prompt: 'Explain how Raft distributed consensus ensures cluster stability.'"
+    },
+    "text": "In distributed computing environments, the Raft consensus algorithm plays a pivotal role in ensuring fault tolerance and system reliability. To maintain leader authority, the leader node periodically transmits heartbeat messages to followers. When a follower experiences a timeout due to transient packet loss, it transitions into candidate mode and initiates an election. This robust architecture ensures seamless state machine replication while mitigating split-brain scenarios across distributed cloud deployments."
+  },
+  {
+    "id": "held_ai_corp_38",
+    "split": "held_out",
+    "genre": "corporate",
+    "lengthCategory": "long",
+    "wordCount": 116,
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "GPT-4o (OpenAI, temperature=0.7)",
+      "method": "llm_generation",
+      "date": "2024-08-11",
+      "notes": "Prompt: 'Write an executive summary of corporate financial sustainability.'"
+    },
+    "text": "In the modern corporate landscape, organizations are increasingly recognizing the strategic importance of financial sustainability. To achieve long-term resilience, enterprise leadership must proactively balance capital allocation with prudent risk management. By leveraging comprehensive financial forecasting, companies can effectively navigate market volatility and safeguard shareholder value. Furthermore, establishing transparent reporting mechanisms fosters trust with external stakeholders and reinforces corporate governance. It is imperative that leadership teams remain agile, embracing continuous innovation to drive operational efficiency while upholding strict fiduciary standards across all divisions."
+  },
+  {
+    "id": "held_ai_conv_39",
+    "split": "held_out",
+    "genre": "conversational",
+    "lengthCategory": "short",
+    "wordCount": 47,
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Llama 3.1 70B (Meta, temperature=0.7)",
+      "method": "llm_generation",
+      "date": "2024-09-15",
+      "notes": "Prompt: 'Give a friendly answer explaining why bicycle chains need regular cleaning.'"
+    },
+    "text": "Keeping your bicycle chain clean is essential for ensuring smooth shifting and prolonging drivetrain life. Over time, road grit combines with chain lubricant to create an abrasive paste that wears down cassette teeth, so a quick wipe-down after wet rides makes a huge difference."
+  },
+  {
+    "id": "held_ai_creat_40",
+    "split": "held_out",
+    "genre": "creative",
+    "lengthCategory": "medium",
+    "wordCount": 81,
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Claude 3.5 Sonnet (Anthropic, temperature=0.8)",
+      "method": "llm_generation",
+      "date": "2024-09-28",
+      "notes": "Prompt: 'Write a poetic passage describing an autumn morning walk.'"
+    },
+    "text": "Golden leaves drifted lazily through the crisp October air, blanketing the cobblestone path in a rich tapestry of autumn hues. A cool breeze whispered through the whispering branches, carrying the earthy fragrance of damp pine needles and impending frost. In this peaceful haven, the hurried pace of daily life melted away, replaced by the soothing rhythm of gentle footsteps against the frost-dusted gravel."
+  },
+  {
+    "id": "held_he_acad_41",
+    "split": "held_out",
+    "genre": "academic",
+    "lengthCategory": "medium",
+    "wordCount": 66,
+    "label": "ai_human_edited",
+    "provenance": {
+      "authorOrSource": "Post-edited academic draft (archaeologist edited LLM summary)",
+      "method": "human_edited_ai",
+      "date": "2024-10-04",
+      "notes": "Human researcher removed generic markers; added specific stratigraphic details."
+    },
+    "text": "Danube valley pottery sequences challenged established diffusion chronologies throughout the late Neolithic. Carbon dating from hearth layers at four newly excavated settlements placed local ceramic manufacture several centuries ahead of Aegean imports, indicating that regional communities developed firing kilns independently rather than adopting techniques solely through southern trade networks."
+  },
+  {
+    "id": "held_he_tech_42",
+    "split": "held_out",
+    "genre": "technical",
+    "lengthCategory": "medium",
+    "wordCount": 71,
+    "label": "ai_human_edited",
+    "provenance": {
+      "authorOrSource": "Systems programmer edit of an AI consensus explainer",
+      "method": "human_edited_ai",
+      "date": "2024-10-06",
+      "notes": "Human engineer replaced promotional language with practical operational guidance."
+    },
+    "text": "In a Raft cluster, election timers must be randomized to prevent split-vote deadlocks when the active leader fails. We set our election timeout range between three hundred and five hundred milliseconds, which gives followers sufficient window to elect a replacement coordinator without triggering redundant voting rounds during routine network latency hiccups."
+  },
+  {
+    "id": "held_ae_corp_43",
+    "split": "held_out",
+    "genre": "corporate",
+    "lengthCategory": "medium",
+    "wordCount": 76,
+    "label": "human_ai_edited",
+    "provenance": {
+      "authorOrSource": "Human quarterly investor update polished for punctuation by LLM",
+      "method": "ai_edited_human",
+      "date": "2024-09-30",
+      "notes": "Human finance officer report with AI punctuation and spacing polish."
+    },
+    "text": "Net subscription revenue increased by nineteen percent year over year, reaching forty-eight million dollars for the third quarter. Customer acquisition costs declined seven percent following our shift toward self-service onboarding for mid-market accounts. We ended the period with eighty-two million dollars in cash and equivalents, providing ample liquidity to fund our European data center expansion without drawing upon our revolving credit facility."
+  },
+  {
+    "id": "held_ae_conv_44",
+    "split": "held_out",
+    "genre": "conversational",
+    "lengthCategory": "short",
+    "wordCount": 43,
+    "label": "human_ai_edited",
+    "provenance": {
+      "authorOrSource": "Original human woodworking advice polished for grammar by LLM",
+      "method": "ai_edited_human",
+      "date": "2024-08-25",
+      "notes": "Authentic workshop advice with light grammatical polish."
+    },
+    "text": "When planing figured maple, take very light passes with a high-angle frog to avoid tear-out along curly grain lines. Skewing the plane slightly across the board and taking fine shavings gives you a glassy finish without requiring hours of aggressive sanding."
+  },
+  {
+    "id": "held_mix_corp_45",
+    "split": "held_out",
+    "genre": "corporate",
+    "lengthCategory": "long",
+    "wordCount": 124,
+    "label": "mixed_authorship",
+    "provenance": {
+      "authorOrSource": "Human CFO earnings summary followed by LLM-generated forward-looking statement",
+      "method": "mixed_composition",
+      "date": "2024-10-14",
+      "notes": "First paragraph is authentic human earnings text; second paragraph is GPT-4o forward guidance."
+    },
+    "text": "We delivered solid third-quarter financial results, with operating margins expanding two hundred basis points to twenty-four percent. Strong demand for our automated logistics software drove thirty-two million dollars in free cash flow, allowing us to repurchase one million shares of common stock under our existing capital return authorization.\n\nLooking ahead, the company is well positioned to leverage cutting-edge analytics to drive sustainable growth across key international markets. By fostering strategic partnerships and maintaining operational excellence, leadership remains confident in its ability to navigate changing macroeconomic conditions and deliver long-term value for shareholders."
+  }
+]

@@ -102,7 +102,9 @@ export class HybridInferenceRouter {
       }
 
       // Run server inference
-      return await this.serverApi.detectText(trimmed);
+      return await this.serverApi.detectText(trimmed, {
+        engineId: options.engineId,
+      });
     } finally {
       this.isRequestActive = false;
     }

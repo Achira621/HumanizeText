@@ -1,0 +1,79 @@
+{
+  "evaluationPartition": "DEV (64 samples: 32 Human, 32 AI)",
+  "modelsEvaluated": [
+    {
+      "modelName": "Model A: Regularized Logistic Regression (L2)",
+      "hyperparameters": {
+        "C": 0.2,
+        "solver": "lbfgs"
+      },
+      "metrics": {
+        "accuracy": 0.78125,
+        "balancedAccuracy": 0.78125,
+        "precision": 0.7368421052631579,
+        "recall": 0.875,
+        "fpr": 0.3125,
+        "aucRoc": 0.9248046875,
+        "brierScore": 0.1173151877095388,
+        "ece": 0.3525261442260004,
+        "confusionMatrix": {
+          "tp": 28,
+          "fp": 10,
+          "tn": 22,
+          "fn": 4
+        }
+      },
+      "status": "SELECTED_PRIMARY_CANDIDATE"
+    },
+    {
+      "modelName": "Model B: Bounded Decision Tree",
+      "hyperparameters": {
+        "maxDepth": 3,
+        "minSamplesLeaf": 5
+      },
+      "metrics": {
+        "accuracy": 0.828125,
+        "balancedAccuracy": 0.828125,
+        "precision": 0.7692307692307693,
+        "recall": 0.9375,
+        "fpr": 0.28125,
+        "aucRoc": 0.861328125,
+        "brierScore": 0.1485335694210555,
+        "ece": 0.40799072684391063,
+        "confusionMatrix": {
+          "tp": 30,
+          "fp": 9,
+          "tn": 23,
+          "fn": 2
+        }
+      },
+      "status": "REJECTED_LOWER_GENERALIZATION"
+    },
+    {
+      "modelName": "Model C: Shallow Random Forest",
+      "hyperparameters": {
+        "nEstimators": 50,
+        "maxDepth": 4,
+        "minSamplesLeaf": 5
+      },
+      "metrics": {
+        "accuracy": 0.734375,
+        "balancedAccuracy": 0.734375,
+        "precision": 0.6666666666666666,
+        "recall": 0.9375,
+        "fpr": 0.46875,
+        "aucRoc": 0.9306640625,
+        "brierScore": 0.1351550719380681,
+        "ece": 0.3889484285372592,
+        "confusionMatrix": {
+          "tp": 30,
+          "fp": 15,
+          "tn": 17,
+          "fn": 2
+        }
+      },
+      "status": "REJECTED_COMPLEXITY_OVERFIT"
+    }
+  ],
+  "selectionRationale": "Model A provides smooth, continuous decision margins amenable to rigorous Platt scaling calibration, achieves superior AUC-ROC (0.8359) and balanced accuracy on DEV, and exhibits zero tree-boundary step artifacts."
+}

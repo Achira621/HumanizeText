@@ -1,0 +1,20 @@
+{
+  "manifestVersion": "2.5.2",
+  "generatedDate": "2026-10-31",
+  "partitionName": "FINAL_TEST",
+  "status": "EXPOSED_CONSUMED_FOR_V2_5_1_EVALUATION",
+  "warning": "This partition was unsealed and evaluated during milestone V2.5.1. It is permanently burned and contaminated for any future model selection, tuning, or comparative claims. A newly collected and independently sourced cohort must be acquired for any future release readiness evaluation.",
+  "sampleCount": 62,
+  "humanCount": 31,
+  "aiCount": 31,
+  "evaluatedModelId": "humanizetext-detector-v2-5-0",
+  "modelArtifactSha256": "B3C25CE60E2E32E437C1F425FC6B165154165BD258ECFFF15A76B0313ABA1190",
+  "evaluationTimestamp": "2026-10-31T21:48:03Z",
+  "evaluationDeliverables": {
+    "predictionResults": "data/v2_5_1/final_test_prediction_level_results.json",
+    "evaluationSummary": "data/v2_5_1/final_test_evaluation_summary.json",
+    "evaluationReport": "docs/humanizer-research/detector-v2-5-1-frozen-candidate-evaluation.md",
+    "reconciliationReport": "docs/humanizer-research/detector-v2-5-2-integrity-reconciliation.md"
+  }
+}
+

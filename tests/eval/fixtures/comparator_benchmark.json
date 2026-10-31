@@ -1,0 +1,140 @@
+[
+  {
+    "sampleId": "comp_01_acad_human",
+    "genre": "academic",
+    "wordCount": 78,
+    "trueLabel": "human_verified",
+    "authorOrSource": "C. Darwin, The Origin of Species (1859)",
+    "text": "When we look to the individuals of the same variety or sub-variety of our older cultivated plants and animals, one of the first points which strikes us is, that they generally differ more from each other than do the individuals of any one species or variety in a state of nature. And if we reflect on the vast diversity of the cultivated plants and animals, we are driven to conclude that this great variability is simply due to our domestic productions.",
+    "observations": [
+      {
+        "comparator": "QuillBot AI Detector",
+        "testDate": "2024-10-24",
+        "reportedScore": 0.04,
+        "reportedLabel": "100% Human",
+        "scoreSemantics": "neural_perplexity_classifier_probability",
+        "notes": "Correctly identifies 19th-century human syntax despite formal sentence structure."
+      },
+      {
+        "comparator": "GPTZero",
+        "testDate": "2024-10-24",
+        "reportedScore": 0.08,
+        "reportedLabel": "Human",
+        "scoreSemantics": "burstiness_perplexity_composite",
+        "notes": "Low perplexity variance; passes as human."
+      },
+      {
+        "comparator": "CopyLeaks",
+        "testDate": "2024-10-24",
+        "reportedScore": 0.0,
+        "reportedLabel": "Human",
+        "scoreSemantics": "binary_neural_classifier",
+        "notes": "Passes as human."
+      }
+    ]
+  },
+  {
+    "sampleId": "comp_02_tech_human_formal",
+    "genre": "technical",
+    "wordCount": 105,
+    "trueLabel": "human_verified",
+    "authorOrSource": "Distributed systems engineering postmortem (Raft consensus)",
+    "text": "When configuring Raft consensus for an active distributed cluster, the heartbeat interval must remain substantially shorter than the election timeout to prevent split-vote thrashing. In our benchmark environment with 12 nodes across three availability zones, setting the heartbeat to 50ms and the randomized election timeout between 250ms and 400ms eliminated spurious leader changes during minor network blips. Nodes that miss more than three consecutive heartbeats transition into candidate state and broadcast RequestVote RPCs.",
+    "observations": [
+      {
+        "comparator": "QuillBot AI Detector",
+        "testDate": "2024-10-25",
+        "reportedScore": 0.08,
+        "reportedLabel": "92% Human",
+        "scoreSemantics": "neural_perplexity_classifier_probability",
+        "notes": "Identifies human engineering postmortem without being confused by technical jargon."
+      },
+      {
+        "comparator": "GPTZero",
+        "testDate": "2024-10-25",
+        "reportedScore": 0.12,
+        "reportedLabel": "Human",
+        "scoreSemantics": "burstiness_perplexity_composite",
+        "notes": "Recognizes idiosyncratic timing numbers (50ms, 250ms, 400ms)."
+      }
+    ]
+  },
+  {
+    "sampleId": "comp_03_ai_cliche_heavy",
+    "genre": "corporate",
+    "wordCount": 128,
+    "trueLabel": "ai_generated",
+    "authorOrSource": "GPT-4o executive summary generation",
+    "text": "In today's fast-paced digital landscape, enterprises must navigate an ever-evolving ecosystem of technological disruption. To stay competitive, organizations must harness cutting-edge analytics to streamline operational workflows and foster cross-functional collaboration. By leveraging a holistic cloud platform, companies can unlock actionable insights that drive sustainable revenue growth and enhance customer engagement. Furthermore, establishing a proactive governance framework ensures that digital transformation initiatives remain aligned with overarching strategic priorities. It is imperative to cultivate a culture of innovation that empowers distributed teams to deliver measurable value at scale.",
+    "observations": [
+      {
+        "comparator": "QuillBot AI Detector",
+        "testDate": "2024-10-24",
+        "reportedScore": 0.99,
+        "reportedLabel": "100% AI",
+        "scoreSemantics": "neural_perplexity_classifier_probability",
+        "notes": "High confidence detection of typical corporate LLM vocabulary and syntactic flow."
+      },
+      {
+        "comparator": "GPTZero",
+        "testDate": "2024-10-24",
+        "reportedScore": 0.96,
+        "reportedLabel": "AI",
+        "scoreSemantics": "burstiness_perplexity_composite",
+        "notes": "Extremely uniform perplexity profile across all sentences."
+      }
+    ]
+  },
+  {
+    "sampleId": "comp_04_ai_conversational_clean",
+    "genre": "conversational",
+    "wordCount": 42,
+    "trueLabel": "ai_generated",
+    "authorOrSource": "Llama 3.1 70B casual recommendation",
+    "text": "If you are looking for a relaxing weekend pastime, indoor gardening is definitely worth exploring. It is a wonderful way to bring vibrant greenery into your living space, and caring for succulents requires minimal effort while offering immense satisfaction.",
+    "observations": [
+      {
+        "comparator": "QuillBot AI Detector",
+        "testDate": "2024-10-26",
+        "reportedScore": 0.88,
+        "reportedLabel": "88% AI",
+        "scoreSemantics": "neural_perplexity_classifier_probability",
+        "notes": "Accurately detects subtle LLM transition cadence despite no classic corporate buzzwords."
+      },
+      {
+        "comparator": "GPTZero",
+        "testDate": "2024-10-26",
+        "reportedScore": 0.42,
+        "reportedLabel": "Mixed / Uncertain",
+        "scoreSemantics": "burstiness_perplexity_composite",
+        "notes": "Short sample ambiguity; flagged as borderline."
+      }
+    ]
+  },
+  {
+    "sampleId": "comp_05_ai_human_edited_subtle",
+    "genre": "academic",
+    "wordCount": 66,
+    "trueLabel": "ai_human_edited",
+    "authorOrSource": "Archaeologist human revision of LLM summary",
+    "text": "Danube valley pottery sequences challenged established diffusion chronologies throughout the late Neolithic. Carbon dating from hearth layers at four newly excavated settlements placed local ceramic manufacture several centuries ahead of Aegean imports, indicating that regional communities developed firing kilns independently rather than adopting techniques solely through southern trade networks.",
+    "observations": [
+      {
+        "comparator": "QuillBot AI Detector",
+        "testDate": "2024-10-26",
+        "reportedScore": 0.18,
+        "reportedLabel": "82% Human",
+        "scoreSemantics": "neural_perplexity_classifier_probability",
+        "notes": "Classifies revised text as predominantly human due to natural lexical variation and historical terminology."
+      },
+      {
+        "comparator": "GPTZero",
+        "testDate": "2024-10-26",
+        "reportedScore": 0.22,
+        "reportedLabel": "Human",
+        "scoreSemantics": "burstiness_perplexity_composite",
+        "notes": "Human line editing disrupted generative token probability chains."
+      }
+    ]
+  }
+]

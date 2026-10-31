@@ -1,0 +1,72 @@
+{
+  "manifestVersion": "2.4.3",
+  "generatedDate": "2026-10-31T15:06:36.298831+00:00",
+  "reviewedSources": [
+    {
+      "sourceName": "RAID Benchmark (ACL 2024)",
+      "codeLicense": "MIT",
+      "paperLicense": "CC-BY-4.0",
+      "textLicense": "Web/Mixed (8 source domains: News, Wikipedia, Reddit, ArXiv, Books, etc.)",
+      "intendedUseApproval": "RESEARCH_ONLY_PENDING_REVIEW",
+      "approvedForCommercialTraining": false,
+      "approvedForEvaluationBenchmarks": true,
+      "reviewStatus": "Raw text quarantined from commercial product-training; permitted for evaluation slices only.",
+      "action": "Quarantine raw RAID text from training split; evaluate on benchmark slice."
+    },
+    {
+      "sourceName": "Project Gutenberg (Pre-1929 Publications)",
+      "codeLicense": "N/A (Document Archive)",
+      "paperLicense": "N/A",
+      "textLicense": "Public Domain in the United States (pre-1929 publication, author death > 70 years)",
+      "intendedUseApproval": "APPROVED_PRODUCT_TRAINING",
+      "approvedForCommercialTraining": true,
+      "approvedForEvaluationBenchmarks": true,
+      "reviewStatus": "Fully verified public domain per title, ebook ID, publication date, and author death date.",
+      "action": "Approved for training and evaluation as 'historical_human_proxy'."
+    },
+    {
+      "sourceName": "SEC EDGAR Form 10-K Item 7 (MD&A)",
+      "codeLicense": "N/A (Regulatory Filing)",
+      "paperLicense": "N/A",
+      "textLicense": "Public Corporate Disclosures (US SEC Public Guidance)",
+      "intendedUseApproval": "APPROVED_PRODUCT_TRAINING",
+      "approvedForCommercialTraining": true,
+      "approvedForEvaluationBenchmarks": true,
+      "reviewStatus": "Primary corporate narrative prose extracted. Third-party tables, reports, and attachments excluded.",
+      "action": "Approved for training and evaluation as corporate 'historical_human_proxy'."
+    },
+    {
+      "sourceName": "AITDNA Dataset",
+      "codeLicense": "GPL-2.0",
+      "paperLicense": "CC-BY-SA-4.0",
+      "textLicense": "Disputed / Viral Copyleft",
+      "intendedUseApproval": "REJECTED_QUARANTINED",
+      "approvedForCommercialTraining": false,
+      "approvedForEvaluationBenchmarks": false,
+      "reviewStatus": "Permanently quarantined due to irrevocable copyleft contamination risks.",
+      "action": "Strictly excluded from all partitions."
+    },
+    {
+      "sourceName": "Verified Synthetic Generations (V2.4.3)",
+      "codeLicense": "MIT",
+      "paperLicense": "N/A",
+      "textLicense": "CC0-1.0 (Public Domain Dedication by Generator)",
+      "intendedUseApproval": "APPROVED_PRODUCT_TRAINING",
+      "approvedForCommercialTraining": true,
+      "approvedForEvaluationBenchmarks": true,
+      "reviewStatus": "Generated via direct API invocation with logged prompt parameters, timestamps, and model checkpoints.",
+      "action": "Approved for training and evaluation as 'verified_ai'."
+    },
+    {
+      "sourceName": "Remediated Clean Remnant (V2.4.2)",
+      "codeLicense": "MIT",
+      "paperLicense": "N/A",
+      "textLicense": "CC-BY-4.0 (Project Internal Remnant)",
+      "intendedUseApproval": "APPROVED_PRODUCT_TRAINING",
+      "approvedForCommercialTraining": true,
+      "approvedForEvaluationBenchmarks": true,
+      "reviewStatus": "Historical holdout purged; 18 duplicates isolated; clean human and AI remnant approved.",
+      "action": "Approved for training and evaluation."
+    }
+  ]
+}

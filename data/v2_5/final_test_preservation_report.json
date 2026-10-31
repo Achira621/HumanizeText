@@ -1,0 +1,12 @@
+{
+  "manifestVersion": "2.5.0",
+  "finalTestPartition": "FINAL_TEST (62 samples: 31 Human, 31 AI)",
+  "embargoStatus": "SEALED_PRESERVED",
+  "zeroInferenceEnforced": true,
+  "predictionsRun": 0,
+  "labelsExposed": false,
+  "hashVerification": {
+    "final_test_features_sha256": "e2760ed80343dfd53e6786699cb5cf35a53029a226fd735b04d6618164c4a91c"
+  },
+  "statement": "FINAL_TEST partition remained strictly sealed. No feature weights, hyperparameters, decision thresholds, or calibration parameters were tuned against or evaluated on FINAL_TEST."
+}

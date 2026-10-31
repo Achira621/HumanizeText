@@ -1,0 +1,25 @@
+{
+  "reportVersion": "2.4.3",
+  "generatedDate": "2026-10-31T15:06:36.298831+00:00",
+  "totalAcquiredRecords": 532,
+  "totalUniqueBaseDocuments": 485,
+  "totalUniqueIndependenceGroups": 467,
+  "sourceBreakdown": {
+    "humanizetext_v2_4_2_remediated_remnant": 162,
+    "project_gutenberg_us_public_domain": 110,
+    "sec_edgar_10k_item7_mda": 50,
+    "verified_synthetic_acquisition_v2_4_3": 150,
+    "raid_benchmark_acl2024": 60
+  },
+  "intendedUseBreakdown": {
+    "APPROVED_PRODUCT_TRAINING": 422,
+    "RESEARCH_ONLY_PENDING_REVIEW": 110
+  },
+  "classBreakdown": {
+    "verified_ai": 242,
+    "verified_human": 50,
+    "collaborative": 50,
+    "historical_human_proxy": 190
+  },
+  "provenanceAssuranceLevel": "HIGH - All records carry full URL, license, author verification, and cryptographic hash."
+}

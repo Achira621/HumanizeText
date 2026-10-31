@@ -181,6 +181,16 @@ npm run preview
 
 ---
 
+## 📚 Project History & Development Context
+
+For a detailed chronological account of the last 10 agent development sessions, architectural decisions (ADRs), evaluation benchmark ledgers, and candidate ranking evolution, see:
+- 📖 [**Master Project Context & 10-Session History (`CONTEXT.md`)**](CONTEXT.md)
+- 🏗️ [**Architecture Guide (`docs/ARCHITECTURE.md`)**](docs/ARCHITECTURE.md)
+- 🔒 [**Threat Model & Cryptographic Verification (`docs/THREAT_MODEL.md`)**](docs/THREAT_MODEL.md)
+- 📊 [**Humanizer Research & Evaluation Hub (`docs/humanizer-research/`)**](docs/humanizer-research/)
+
+---
+
 ## 🌐 Environment Variables
 
 Create a `.env` file in the root directory (optional):

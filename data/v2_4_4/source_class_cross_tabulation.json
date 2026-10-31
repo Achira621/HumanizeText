@@ -1,0 +1,49 @@
+{
+  "manifestVersion": "2.4.4",
+  "generatedDate": "2026-10-31T15:31:56.015007+00:00",
+  "sources": [
+    "sec_edgar_10k_item7_mda",
+    "verified_synthetic_acquisition_v2_4_3",
+    "raid_benchmark_acl2024",
+    "project_gutenberg_us_public_domain",
+    "humanizetext_v2_4_2_remediated_remnant"
+  ],
+  "authorshipClasses": [
+    "verified_human",
+    "historical_human_proxy",
+    "verified_ai",
+    "collaborative"
+  ],
+  "matrix": {
+    "sec_edgar_10k_item7_mda": {
+      "verified_human": 0,
+      "historical_human_proxy": 50,
+      "verified_ai": 0,
+      "collaborative": 0
+    },
+    "verified_synthetic_acquisition_v2_4_3": {
+      "verified_human": 0,
+      "historical_human_proxy": 0,
+      "verified_ai": 150,
+      "collaborative": 0
+    },
+    "raid_benchmark_acl2024": {
+      "verified_human": 0,
+      "historical_human_proxy": 30,
+      "verified_ai": 30,
+      "collaborative": 0
+    },
+    "project_gutenberg_us_public_domain": {
+      "verified_human": 0,
+      "historical_human_proxy": 110,
+      "verified_ai": 0,
+      "collaborative": 0
+    },
+    "humanizetext_v2_4_2_remediated_remnant": {
+      "verified_human": 50,
+      "historical_human_proxy": 0,
+      "verified_ai": 62,
+      "collaborative": 50
+    }
+  }
+}

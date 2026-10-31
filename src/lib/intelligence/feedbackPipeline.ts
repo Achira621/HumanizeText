@@ -4,7 +4,7 @@
 // User feedback is evidence to inspect, never automatic ground-truth
 // ============================================================================
 
-import type { ConsentedFeedbackItem } from './types';
+import type { ConsentedFeedbackItem, ProvenanceCategory } from './types';
 
 const STORAGE_KEY = 'humanizetext_consented_feedback';
 const MAX_FEEDBACK_ITEMS = 50;
@@ -15,6 +15,7 @@ export class FeedbackPipeline {
   /**
    * Submit voluntary user feedback on a detection result.
    * Keeps raw user text out of storage; stores only cryptographic hash snippet and label.
+   * User feedback is treated strictly as subjective diagnostic evidence, NOT verified ground truth.
    */
   public async submitFeedback(
     textSnippet: string,
@@ -22,6 +23,8 @@ export class FeedbackPipeline {
     predictedClassification: string,
     userPerceivedLabel: 'human' | 'ai' | 'mixed',
     options?: {
+      provenanceCategory?: ProvenanceCategory;
+      disagreementReason?: string;
       userNotes?: string;
       modelId?: string;
       modelVersion?: string;
@@ -37,14 +40,36 @@ export class FeedbackPipeline {
       predictedAiScore,
       predictedClassification,
       userPerceivedLabel,
+      provenanceCategory: options?.provenanceCategory || 'undisclosed',
+      disagreementReason: options?.disagreementReason?.slice(0, 200),
       userNotes: options?.userNotes?.slice(0, 300),
-      modelId: options?.modelId || 'tmr-ai-text-detector-v1',
-      modelVersion: options?.modelVersion || '1.0.4',
+      modelId: options?.modelId || 'humanizetext-linguistic-core-v2',
+      modelVersion: options?.modelVersion || '2.4.0',
       consentedToAnonymousResearch: !!options?.consentedToAnonymousResearch,
+      reviewedForEvaluation: false, // Explicit gate: unverified user submissions are never automatically promoted to ground truth
     };
 
     this.saveItem(item);
     return item;
+  }
+
+  /**
+   * Export all locally stored feedback records as formatted JSON for manual audit or review.
+   */
+  public exportFeedbackAsJson(): string {
+    const history = this.getFeedbackHistory();
+    return JSON.stringify(
+      {
+        exportTimestamp: new Date().toISOString(),
+        detectorVersion: '2.4.0',
+        recordCount: history.length,
+        privacyNotice:
+          'Contains voluntary feedback records stored locally in browser storage. Plain text was hashed client-side before recording.',
+        records: history,
+      },
+      null,
+      2
+    );
   }
 
   public getFeedbackHistory(): ConsentedFeedbackItem[] {

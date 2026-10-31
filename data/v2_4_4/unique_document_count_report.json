@@ -1,0 +1,14 @@
+{
+  "reportVersion": "2.4.4",
+  "generatedDate": "2026-10-31T15:31:56.015007+00:00",
+  "metricSummary": {
+    "totalRegistryRecords": 532,
+    "uniqueExactTextHashes": 532,
+    "uniqueBaseDocuments": 485,
+    "uniqueSourceWorks": 485,
+    "uniqueAuthorsOrCreators": 260,
+    "uniqueIndependenceGroups": 467,
+    "uniqueSourceDatasets": 5
+  },
+  "nonEquivalenceDisclosure": "WARNING: Registry record count (532) does NOT equal independent document count (487 independence groups, 442 base documents). Evaluation partitions must group strictly by independenceGroupId."
+}

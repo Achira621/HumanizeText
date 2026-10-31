@@ -63,6 +63,7 @@ export interface DetectionOptions {
   allowServerFallback?: boolean;
   userConsentedToServer?: boolean;
   timeoutMs?: number;
+  engineId?: 'v2_5_public_beta' | 'production_default';
 }
 
 export interface TextDetectionScore {

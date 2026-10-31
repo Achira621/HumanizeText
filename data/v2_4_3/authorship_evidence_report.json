@@ -1,0 +1,41 @@
+{
+  "reportVersion": "2.4.3",
+  "generatedDate": "2026-10-31T15:06:36.298831+00:00",
+  "authorClassBreakdown": {
+    "verified_ai": 242,
+    "verified_human": 50,
+    "collaborative": 50,
+    "historical_human_proxy": 190
+  },
+  "authorshipEvidenceCategories": {
+    "verified_human": {
+      "count": 50,
+      "evidenceType": "Direct authenticated individual human authorship from V2.2 clean benchmark archive.",
+      "corporateSeparation": "Confirmed individual human writers; no corporate proxy prose."
+    },
+    "historical_human_proxy": {
+      "count": 190,
+      "subcategories": {
+        "project_gutenberg": 110,
+        "sec_edgar_corporate_mda": 50,
+        "raid_human_web": 30
+      },
+      "evidenceType": "Pre-1929 published literature / official corporate SEC disclosures / web crawl baselines.",
+      "corporateSeparation": "50 corporate SEC passages explicitly labeled as corporate disclosures, distinguished from individual human literature."
+    },
+    "verified_ai": {
+      "count": 242,
+      "evidenceType": "Direct API programmatic generation with recorded model version, checkpoint, prompt ID, and temperature.",
+      "modelBreakdown": {
+        "OpenAI_GPT_4o": 42,
+        "Anthropic_Claude_3_5_Sonnet": 36,
+        "Meta_Llama_3_70B": 36,
+        "Mistral_Large": 41
+      }
+    },
+    "collaborative": {
+      "count": 50,
+      "evidenceType": "Human base essay revised with AI polish / paraphrase transformation from V2.2 benchmark archive."
+    }
+  }
+}

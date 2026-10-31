@@ -90,3 +90,20 @@ export function loadHumanizer(): HumanizerRow[] {
     markers: strArray(r, 'markers'),
   }));
 }
+
+export function loadDetectorV2Benchmark(): import('./types').DetectorV2BenchmarkRow[] {
+  return readJson('detector_v2_benchmark') as unknown as import('./types').DetectorV2BenchmarkRow[];
+}
+
+export function loadComparatorBenchmark(): import('./types').ComparatorBenchmarkRow[] {
+  return readJson('comparator_benchmark') as unknown as import('./types').ComparatorBenchmarkRow[];
+}
+
+export function loadDetectorV2_2Benchmark(): import('./types').DetectorV2_2BenchmarkRow[] {
+  return readJson('detector_v2_2_benchmark') as unknown as import('./types').DetectorV2_2BenchmarkRow[];
+}
+
+export function loadDetectorV2_2_1Holdout(): import('./types').DetectorV2_2_1HoldoutRow[] {
+  return readJson('detector_v2_2_1_holdout') as unknown as import('./types').DetectorV2_2_1HoldoutRow[];
+}
+

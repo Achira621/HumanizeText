@@ -1,0 +1,90 @@
+{
+  "matrixVersion": "2.4.2",
+  "generatedDate": "2026-10-31T14:05:00.815Z",
+  "approvedSources": [
+    {
+      "candidateId": "CORPUS_RAID_BENCHMARK",
+      "name": "RAID: A Shared Benchmark for Robust Evaluation of Machine-Generated Text Detectors",
+      "publicationOrRepository": "ACL Anthology: aclanthology.org/2024.acl-long.674/ | GitHub: liamdugan/raid",
+      "datasetVersion": "v1.0 (ACL 2024 release)",
+      "textLicense": "CC-BY-4.0",
+      "codeLicense": "MIT",
+      "commercialUseAllowed": true,
+      "attributionObligations": "Citation of Dugan et al., ACL 2024 and repository link required.",
+      "shareAlikeObligations": "None (CC-BY-4.0, not CC-BY-SA)",
+      "authorshipLabelingMethodology": "Matched generation from known models (GPT-4, Claude, Llama 2, Mistral, Cohere) against authentic human baseline sources across 8 domains.",
+      "rawRecordAvailability": "HuggingFace datasets / raw JSONL dumps available.",
+      "genreCoverage": [
+        "academic",
+        "news",
+        "creative",
+        "general",
+        "conversational"
+      ],
+      "recommendationStatus": "APPROVED_FOR_ACQUISITION",
+      "suitability": "Suitable for Research and Product Training (CC-BY-4.0)"
+    },
+    {
+      "candidateId": "CORPUS_GUTENBERG_OPEN_LIT",
+      "name": "Project Gutenberg Curated Pre-1929 English Literature Archive",
+      "publicationOrRepository": "gutenberg.org",
+      "datasetVersion": "Continuous Archive (Standard Pre-1929 US Public Domain)",
+      "textLicense": "Public Domain / CC0 equivalent",
+      "codeLicense": "N/A",
+      "commercialUseAllowed": true,
+      "attributionObligations": "None for text, voluntary scholarship attribution.",
+      "shareAlikeObligations": "None",
+      "authorshipLabelingMethodology": "Historical human publication verified prior to machine generation era.",
+      "rawRecordAvailability": "Direct plain-text and UTF-8 mirrors.",
+      "genreCoverage": [
+        "academic",
+        "creative",
+        "explanatory",
+        "conversational"
+      ],
+      "recommendationStatus": "APPROVED_FOR_ACQUISITION",
+      "suitability": "Suitable for Research and Product Training"
+    },
+    {
+      "candidateId": "CORPUS_SEC_EDGAR_DISCLOSURES",
+      "name": "SEC EDGAR Corporate Financial Disclosures (Item 7 MD&A)",
+      "publicationOrRepository": "sec.gov/edgar",
+      "datasetVersion": "Annual 10-K Filings (2018-2024)",
+      "textLicense": "Public Domain (US Government Regulatory Data)",
+      "codeLicense": "N/A",
+      "commercialUseAllowed": true,
+      "attributionObligations": "None",
+      "shareAlikeObligations": "None",
+      "authorshipLabelingMethodology": "Corporate legal and executive human drafting.",
+      "rawRecordAvailability": "EDGAR public API and filings archive.",
+      "genreCoverage": [
+        "corporate",
+        "professional",
+        "technical"
+      ],
+      "recommendationStatus": "APPROVED_FOR_ACQUISITION",
+      "suitability": "Suitable for Research and Product Training"
+    }
+  ],
+  "quarantinedSources": [
+    {
+      "candidateId": "CORPUS_AITDNA_UKPLAB",
+      "name": "AITDNA: Analyzing Human-AI Collaborative Writing and Interaction Histories",
+      "publicationOrRepository": "github.com/UKPLab/arxiv2026-aitdna | huggingface.co/datasets/UKPLab/AITDNA",
+      "datasetVersion": "2026 pre-release",
+      "textLicense": "Disputed (CC-BY-SA-4.0 vs GPL-2.0 repository license vs proprietary prompt inputs)",
+      "codeLicense": "GPL-2.0",
+      "commercialUseAllowed": false,
+      "attributionObligations": "Disputed",
+      "shareAlikeObligations": "Strong Copyleft risk (GPL-2.0 / CC-BY-SA-4.0 taint)",
+      "authorshipLabelingMethodology": "Human-AI interaction logs with mixed authorship definitions.",
+      "rawRecordAvailability": "HuggingFace repository.",
+      "genreCoverage": [
+        "collaborative",
+        "general"
+      ],
+      "recommendationStatus": "REJECTED_AND_QUARANTINED",
+      "suitability": "NEITHER Product Training nor Production Release. Do NOT bundle or ship."
+    }
+  ]
+}

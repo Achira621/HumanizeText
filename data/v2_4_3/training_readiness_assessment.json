@@ -1,0 +1,41 @@
+{
+  "assessmentVersion": "2.4.3",
+  "generatedDate": "2026-10-31T15:06:36.298831+00:00",
+  "trainingGateChecklist": {
+    "targetHumanPassagesMet": {
+      "required": 200,
+      "achieved": 210,
+      "status": "PASSED",
+      "deficit": 0
+    },
+    "targetAiPassagesMet": {
+      "required": 200,
+      "achieved": 212,
+      "status": "PASSED",
+      "deficit": 0
+    },
+    "documentLevelIndependenceVerified": {
+      "status": "PASSED",
+      "uniqueIndependenceGroups": 467,
+      "note": "Document clusters verified. No cross-split leakage."
+    },
+    "licensingApprovalEstablished": {
+      "status": "PASSED",
+      "note": "Project Gutenberg (Public Domain) and SEC EDGAR approved. RAID quarantined to evaluation slice. AITDNA rejected."
+    },
+    "historicalHoldoutEmbargoVerified": {
+      "status": "PASSED",
+      "note": "Zero collisions with 120 historical holdout records."
+    },
+    "sourceAndAuthorshipProvenanceReviewed": {
+      "status": "PASSED",
+      "note": "Source-qualified classes (verified_human, historical_human_proxy, verified_ai) established."
+    },
+    "newTrainingSplitDesignDocumented": {
+      "status": "PENDING_V2_5_PREREGISTRATION",
+      "note": "V2.4.3 is an acquisition milestone. Split design and training reserved for V2.5."
+    }
+  },
+  "readinessStatus": "COLLECTION_TARGET_REACHED_PROVENANCE_REVIEW_PENDING",
+  "recommendation": "Corpus collection targets (>=200 human, >=200 AI) successfully achieved. Do NOT train model in V2.4.3. Proceed to V2.5 preregistered split design."
+}

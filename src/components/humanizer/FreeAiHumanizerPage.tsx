@@ -793,6 +793,25 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
         <p className="mx-auto mt-2.5 max-w-2xl text-sm text-[var(--text-secondary)] sm:text-base">
           Refine synthetic AI drafts into natural, human-flowing writing with enhanced burstiness, clarity, and factual invariant preservation. Process locally on your device or via ephemeral edge AI.
         </p>
+
+        {/* Public Beta Announcement CTA Banner */}
+        <div className="mx-auto mt-5 max-w-2xl rounded-xl border border-[var(--accent-border)] bg-[var(--accent-light)] p-3 text-xs flex flex-col sm:flex-row items-center justify-between gap-2 shadow-xs">
+          <div className="flex items-center space-x-2 text-left">
+            <span className="rounded-full bg-[var(--accent)] px-2.5 py-0.5 text-[10px] font-bold text-[var(--accent-contrast)] uppercase tracking-wide">
+              Public Beta
+            </span>
+            <span className="font-semibold text-[var(--text-primary)]">
+              Try our new V2.5 Stylometric AI Detector with selective confidence gating.
+            </span>
+          </div>
+          <button
+            onClick={() => setActiveTab('ai-detector')}
+            className="shrink-0 flex items-center space-x-1 font-bold text-[var(--accent)] hover:underline"
+          >
+            <span>Launch Detector</span>
+            <ArrowRight className="h-3.5 w-3.5" />
+          </button>
+        </div>
       </div>
 
       {/* Main Workspace Card */}

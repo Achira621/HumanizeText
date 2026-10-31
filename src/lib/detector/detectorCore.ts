@@ -103,6 +103,8 @@ export const GPT_SIGNATURES: RegExp[] = [
 ];
 
 // High-confidence formulaic AI signatures that are strong indicators of LLM generation
+// Note: Standard academic discourse markers (moreover, furthermore, consequently, in conclusion)
+// are intentionally excluded from high-confidence status to prevent false positives on human non-fiction.
 export const HIGH_CONFIDENCE_SIGNATURES: RegExp[] = [
   /\bdelve\b/i, /\btapestry\b/i, /\btestament\b/i, /\bmultifaceted\b/i,
   /\bseamlessly?\b/i, /\bharnessing\b/i, /\blandscape\b/i, /\brobust\b/i,
@@ -110,7 +112,6 @@ export const HIGH_CONFIDENCE_SIGNATURES: RegExp[] = [
   /\bunderscores?\b/i, /\bpivotal\b/i, /\bintricate\b/i, /\bmeticulou(?:s|sly)\b/i,
   /\bfostering\b/i, /\brealm\b/i, /\bever-(?:evolving|changing|growing)\b/i,
   /\bcutting[- ]edge\b/i, /\bgroundbreaking\b/i,
-  /\bleverag(?:e|ing|es)\b/i, /\bstream(?:line|lining)\b/i, /\bholistic\b/i, /\bsynergy\b/i,
   /\btransformative\b/i, /\bactionable\b/i,
   /\bin today(?:'s| ?s) (?:world|age|era|society|landscape)\b/i,
   /\bin (?:the )?(?:modern|contemporary|digital|current) (?:world|age|era|landscape)\b/i,
@@ -124,14 +125,6 @@ export const HIGH_CONFIDENCE_SIGNATURES: RegExp[] = [
   /\bmoreover\b/i, /\bfurthermore\b/i, /\bnevertheless\b/i,
   /\bnonetheless\b/i, /\bconversely\b/i, /\bsubsequently\b/i,
   /\bin conclusion\b/i, /\bin summary\b/i, /\bto summarize\b/i,
-  /\bin essence\b/i, /\bin light of\b/i, /\bby and large\b/i,
-  /\bthat being said\b/i, /\bthis ensures\b/i, /\bthis allows\b/i,
-  /\bthis enables\b/i, /\bthis helps\b/i,
-  /\bI(?:'d| would) be happy to\b/i, /\bI hope this (?:helps|email|message|finds)\b/i,
-  /\bplease (?:don't|do not) hesitate\b/i,
-  /\bif you have any (?:questions|concerns|further)\b/i,
-  /\bplease let me know if\b/i,
-  /\bhope this (?:finds you well|helps|email)\b/i,
   /\bit(?:'s| is) (?:no secret|clear|evident|apparent|obvious) that\b/i,
   /\bwhen it comes to\b/i, /\bin the realm of\b/i,
   /\bpaving the way\b/i, /\blay the groundwork\b/i,
@@ -296,7 +289,7 @@ export function computeAiScore(text: string): AiAnalysisResult {
     }
   }
 
-  const effectiveHits = highConfidenceHits + lowConfidenceHits * 0.35;
+  const effectiveHits = highConfidenceHits * 1.0 + lowConfidenceHits * 0.22;
   const densityPer100 = (keywordHits / Math.max(1, wordCount)) * 100;
   const keywordDensity = Math.min(1, keywordHits / Math.max(1, Math.ceil(wordCount / 50)));
 
@@ -309,11 +302,12 @@ export function computeAiScore(text: string): AiAnalysisResult {
   const clauseDensity = computeClauseDensity(sentences);
 
   let sigKeyword: number;
-  if (highConfidenceHits >= 5 || (densityPer100 >= 3.5 && effectiveHits >= 3.0)) sigKeyword = 0.98;
-  else if (highConfidenceHits >= 3 || (densityPer100 >= 2.0 && effectiveHits >= 2.2)) sigKeyword = 0.92;
-  else if (highConfidenceHits >= 2 || (densityPer100 >= 1.4 && effectiveHits >= 1.6)) sigKeyword = 0.82;
-  else if (highConfidenceHits >= 1 || effectiveHits >= 0.9) sigKeyword = 0.40;
-  else if (effectiveHits > 0) sigKeyword = 0.18;
+  if (highConfidenceHits >= 4 || (densityPer100 >= 3.0 && highConfidenceHits >= 3)) sigKeyword = 0.94;
+  else if (highConfidenceHits >= 3 || (densityPer100 >= 2.0 && highConfidenceHits >= 2)) sigKeyword = 0.86;
+  else if (highConfidenceHits >= 2 || (densityPer100 >= 1.4 && effectiveHits >= 1.8)) sigKeyword = 0.74;
+  else if (highConfidenceHits >= 1) sigKeyword = 0.58;
+  else if (effectiveHits >= 0.85) sigKeyword = 0.38;
+  else if (effectiveHits > 0) sigKeyword = 0.16;
   else sigKeyword = 0.05;
 
   let sigBurst: number;
@@ -363,8 +357,8 @@ export function computeAiScore(text: string): AiAnalysisResult {
   else sigClause = 0.35;
 
   const weights = {
-    keyword:     0.42,
-    burstiness:  0.15,
+    keyword:     0.40,
+    burstiness:  0.17,
     vocabulary:  0.12,
     opening:     0.07,
     paragraph:   0.06,
@@ -384,12 +378,15 @@ export function computeAiScore(text: string): AiAnalysisResult {
     sigClause      * weights.clause;
 
   let calibratedAi = rawAi;
-  if (sigKeyword >= 0.82 && (highConfidenceHits >= 2 || (densityPer100 >= 1.8 && wordCount >= 30))) {
-    calibratedAi = Math.max(calibratedAi, sigKeyword * 0.95);
-  } else if (sigKeyword >= 0.65 && (highConfidenceHits >= 1 || densityPer100 >= 1.2)) {
-    calibratedAi = Math.max(calibratedAi, 0.65);
+  if (highConfidenceHits >= 3 && densityPer100 >= 1.5) {
+    calibratedAi = Math.max(calibratedAi, 0.84 + Math.min(0.12, (highConfidenceHits - 2) * 0.04));
+  } else if (highConfidenceHits >= 2 && densityPer100 >= 1.2) {
+    calibratedAi = Math.max(calibratedAi, 0.72 + Math.min(0.12, densityPer100 * 0.04));
+  } else if (highConfidenceHits >= 2) {
+    calibratedAi = Math.max(calibratedAi, 0.60);
+  } else if (highConfidenceHits >= 1 && densityPer100 >= 1.2) {
+    calibratedAi = Math.max(calibratedAi, 0.52);
   } else if (keywordHits === 0) {
-    // If no AI keywords and high burstiness / conversational indicators, sharply lower score
     if (text.includes("I ") || text.includes("I'd") || text.includes("I'm") || text.includes("my ")) {
       calibratedAi = Math.min(calibratedAi, 0.16);
     } else if (vocab.typeTokenRatio > 0.60) {
@@ -401,24 +398,28 @@ export function computeAiScore(text: string): AiAnalysisResult {
 
   // If text exhibits strong human burstiness & diversity with zero high-confidence AI clichés,
   // do not let secondary vocabulary penalize it
-  if (burst.coeffOfVariation >= 0.42 && highConfidenceHits === 0 && densityPer100 < 2.0) {
-    calibratedAi = Math.min(calibratedAi, 0.28);
+  if (burst.coeffOfVariation >= 0.40 && highConfidenceHits === 0 && densityPer100 < 2.0) {
+    calibratedAi = Math.min(calibratedAi, 0.24);
   }
 
   // Technical normative specification discount: RFC normative words & protocol symbols
   const hasRfcNormative = /\b(?:MUST|MUST NOT|SHOULD|SHOULD NOT|SHALL|SHALL NOT)\b/.test(text);
   const technicalTerms = text.match(/\b(?:TCP|UDP|IP|HTTP|HTTPS|DNS|RFC|SQL|API|SDK|p99|latency|socket|buffer|deadlock|half-duplex|mutex)\b/gi) || [];
   if (hasRfcNormative || technicalTerms.length >= 2) {
-    calibratedAi = Math.max(0.04, calibratedAi - 0.22);
+    if (highConfidenceHits === 0) {
+      calibratedAi = Math.max(0.04, calibratedAi - 0.20);
+    } else if (highConfidenceHits === 1 && densityPer100 < 1.0) {
+      calibratedAi = Math.max(0.04, calibratedAi - 0.10);
+    }
   }
 
   let sampleSufficiency: 'insufficient' | 'limited' | 'sufficient' = 'sufficient';
   let uncertaintyMargin = 0.08;
 
-  if (wordCount < 25) {
+  if (wordCount < 35) {
     sampleSufficiency = 'insufficient';
     uncertaintyMargin = 0.28;
-    calibratedAi = calibratedAi * 0.8 + 0.1;
+    calibratedAi = calibratedAi * 0.70 + 0.15;
   } else if (wordCount < 50) {
     sampleSufficiency = 'limited';
     uncertaintyMargin = 0.16;

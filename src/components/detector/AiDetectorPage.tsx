@@ -19,8 +19,9 @@ import {
   Check,
   ThumbsUp,
   ThumbsDown,
+  X,
 } from 'lucide-react';
-import type { AdaptiveAnalysisResult } from '../../lib/intelligence/types';
+import type { AdaptiveAnalysisResult, ProvenanceCategory } from '../../lib/intelligence/types';
 import type {
   ImageDetectionResult,
   ModelDownloadProgress,
@@ -42,6 +43,7 @@ interface AiDetectorPageProps {
 
 export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanizer, setActiveTab: onNavigateTab }) => {
   const [activeTab, setActiveTab] = useState<'text' | 'image'>('text');
+  const [selectedEngine, setSelectedEngine] = useState<'v2_5_public_beta' | 'production_default'>('v2_5_public_beta');
   const [inputText, setInputText] = useState('');
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -51,6 +53,11 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
   const [sentenceCopied, setSentenceCopied] = useState(false);
   const [heatmapFilter, setHeatmapFilter] = useState<'all' | 'ai' | 'human'>('all');
   const [feedbackSent, setFeedbackSent] = useState<'human' | 'ai' | null>(null);
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+  const [feedbackAccuracy, setFeedbackAccuracy] = useState<'accurate' | 'inaccurate' | null>(null);
+  const [feedbackProvenance, setFeedbackProvenance] = useState<ProvenanceCategory>('undisclosed');
+  const [feedbackNotes, setFeedbackNotes] = useState('');
+  const [feedbackExportCopied, setFeedbackExportCopied] = useState(false);
 
   // Model & Router State
   const [textModelProgress, setTextModelProgress] = useState<ModelDownloadProgress>(() => ({
@@ -137,6 +144,7 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
           preferMode: isLocalReady ? 'local-only' : 'auto',
           userConsentedToServer: hasConsent,
           allowServerFallback: true,
+          engineId: selectedEngine,
         });
 
         setTextResult(res);
@@ -221,16 +229,16 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
 
       {/* Hero Header */}
       <div className="mb-8 text-center">
-        <div className="mx-auto mb-3 inline-flex items-center space-x-2 rounded-full border border-[var(--accent-border)] bg-[var(--accent-light)] px-3.5 py-1 text-xs font-bold text-[var(--text-primary)]">
-          <Cpu className="h-4 w-4 text-[var(--accent)]" />
-          <span>Hybrid Inference Router • Local-First Architecture • Zero Mandatory Cloud</span>
+        <div className="mx-auto mb-3 inline-flex items-center space-x-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1 text-xs font-bold text-emerald-700 dark:text-emerald-300">
+          <Sparkles className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+          <span>Public Beta • V2.5 Stylometric ML Detector</span>
         </div>
         <h1 className="text-3xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-4xl">
-          Hybrid AI <span className="text-[var(--accent)]">Detection Platform</span>
+          AI Text &amp; Image <span className="text-[var(--accent)]">Detection Platform</span>
         </h1>
         <p className="mx-auto mt-2 max-w-2xl text-sm text-[var(--text-secondary)]">
-          Run high-accuracy AI classification on your device with local models, or seamlessly route through encrypted
-          server inference with privacy controls.
+          Analyze writing style patterns for synthetic generator signatures using our calibrated V2.5 stylometric
+          classifier or local heuristics. Built with selective confidence gating, local privacy, and zero raw text logging.
         </p>
 
         {/* Text / Image Switcher */}
@@ -264,6 +272,43 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
             <span>AI Image Detector</span>
           </button>
         </div>
+
+        {/* Engine Switcher (When Text Detector Active) */}
+        {activeTab === 'text' && (
+          <div className="mt-4 flex flex-col items-center justify-center space-y-1.5">
+            <div className="inline-flex rounded-lg border border-[var(--border-strong)] bg-[var(--bg-surface)] p-1 shadow-2xs">
+              <button
+                type="button"
+                onClick={() => setSelectedEngine('v2_5_public_beta')}
+                className={`flex items-center space-x-1.5 rounded-md px-3 py-1.5 text-xs font-bold transition-all ${
+                  selectedEngine === 'v2_5_public_beta'
+                    ? 'bg-[var(--accent)] text-[var(--accent-contrast)] shadow-xs'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                }`}
+              >
+                <Sparkles className="h-3.5 w-3.5" />
+                <span>V2.5 Public Beta (Trained ML)</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setSelectedEngine('production_default')}
+                className={`flex items-center space-x-1.5 rounded-md px-3 py-1.5 text-xs font-bold transition-all ${
+                  selectedEngine === 'production_default'
+                    ? 'bg-[var(--accent)] text-[var(--accent-contrast)] shadow-xs'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                }`}
+              >
+                <Cpu className="h-3.5 w-3.5" />
+                <span>Production Baseline (Heuristic)</span>
+              </button>
+            </div>
+            <p className="text-center text-[11px] text-[var(--text-muted)]">
+              {selectedEngine === 'v2_5_public_beta'
+                ? 'V2.5: 21-feature regularized logistic regression, Platt scaling, and selective decision policy (min 40 words).'
+                : 'Baseline: Multi-signal perplexity, burstiness, and heuristic pattern scanner.'}
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Model Lifecycle Banner & Storage Manager */}
@@ -464,21 +509,24 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
           {activeTab === 'text' && textResult && (() => {
             const aiPct = Math.round(textResult.score.aiProbability * 100);
             const humanPct = Math.round(textResult.score.humanProbability * 100);
-            const isHuman = aiPct < 25;
-            const isAi = aiPct >= 60;
-            const isMixed = !isHuman && !isAi;
+            const classification = textResult.score.classification;
+            const isHuman = classification === 'likely-human';
+            const isAi = classification === 'likely-ai';
+            const isInconclusive = classification === 'inconclusive' || (!isHuman && !isAi);
+            const isMixed = isInconclusive;
+            const isShortText = textResult.inputWordCount < 40;
             const perpScore = textResult.score.perplexityScore ?? 85;
             const burstScore = textResult.score.burstinessScore ?? 85;
 
             return (
               <div className="mt-5 space-y-6">
-                {/* HERO VERDICT BANNER - Instantly readable Green vs Red */}
+                {/* HERO VERDICT BANNER - Calm non-alarmist styling */}
                 <div className={`rounded-xl border p-5 ${
                   isHuman 
                     ? 'border-emerald-300 bg-emerald-50/80 text-emerald-950 dark:border-emerald-800/60 dark:bg-emerald-950/25 dark:text-emerald-200' 
                     : isAi
-                      ? 'border-red-300 bg-red-50/80 text-red-950 dark:border-red-800/60 dark:bg-red-950/25 dark:text-red-200'
-                      : 'border-amber-300 bg-amber-50/80 text-amber-950 dark:border-amber-800/60 dark:bg-amber-950/25 dark:text-amber-200'
+                      ? 'border-amber-300/80 bg-amber-50/70 text-amber-950 dark:border-amber-800/60 dark:bg-amber-950/25 dark:text-amber-200'
+                      : 'border-slate-300 bg-slate-50/80 text-slate-900 dark:border-slate-700/60 dark:bg-slate-900/30 dark:text-slate-200'
                 }`}>
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <div className="flex items-center space-x-3">
@@ -486,42 +534,49 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
                         {isHuman ? (
                           <CheckCircle2 className="h-6 w-6 text-emerald-600 dark:text-emerald-400" aria-hidden="true" />
                         ) : isAi ? (
-                          <AlertCircle className="h-6 w-6 text-red-600 dark:text-red-400" aria-hidden="true" />
+                          <AlertCircle className="h-6 w-6 text-amber-600 dark:text-amber-400" aria-hidden="true" />
                         ) : (
-                          <Info className="h-6 w-6 text-amber-600 dark:text-amber-400" aria-hidden="true" />
+                          <Info className="h-6 w-6 text-slate-600 dark:text-slate-400" aria-hidden="true" />
                         )}
                       </div>
                       <div>
                         <h4 className="text-lg font-black tracking-tight">
-                          {isHuman && `Low AI Likelihood (${aiPct}% AI Pattern Match)`}
-                          {isAi && `High AI Pattern Match (${aiPct}% AI Score)`}
-                          {isMixed && `Mixed / Inconclusive (${humanPct}% Human / ${aiPct}% AI)`}
+                          {isHuman && `Likely Human-Pattern Match (~${humanPct}% Human Style)`}
+                          {isAi && `Likely AI-Pattern Match (~${aiPct}% Stylistic AI Index)`}
+                          {isInconclusive && `Inconclusive / Mixed Style (~${aiPct}% AI Index)`}
                         </h4>
                         <p className="mt-0.5 text-xs opacity-90">
-                          {isHuman && 'Text exhibits natural sentence length variation, vocabulary richness, and minimal synthetic signatures.'}
-                          {isAi && 'Text exhibits formulaic transitions, uniform sentence rhythms, or characteristic LLM phrasing.'}
-                          {isMixed && 'Shows a mixture of natural human cadence and predictable AI-like phrasing.'}
+                          {isHuman && 'Text exhibits natural sentence length variation, rich vocabulary, and organic syntax rhythm.'}
+                          {isAi && 'Text exhibits formulaic transitions, low perplexity, or uniform sentence rhythms typical of generative AI.'}
+                          {isInconclusive && 'Detector abstains: passage shows mixed stylistic cadence or falls within the selective confidence abstain margin (35%–65%).'}
                         </p>
                       </div>
                     </div>
-                    <span className={`rounded-full px-3 py-1 text-xs font-black uppercase tracking-wider ${
-                      isHuman
-                        ? 'bg-emerald-600 text-white dark:bg-emerald-500'
-                        : isAi
-                          ? 'bg-red-600 text-white dark:bg-red-500'
-                          : 'bg-amber-600 text-white dark:bg-amber-500'
-                    }`}>
-                      {textResult.score.classification}
-                    </span>
+                    <div className="flex items-center space-x-2">
+                      <span className="rounded-md border border-current/20 px-2.5 py-0.5 text-[11px] font-medium opacity-90" title="Qualitative sample reliability based on input length">
+                        {isShortText
+                          ? 'Short text sample (<40 words)'
+                          : 'Selective Confidence Gated'}
+                      </span>
+                      <span className={`rounded-full px-3 py-1 text-xs font-black uppercase tracking-wider ${
+                        isHuman
+                          ? 'bg-emerald-600 text-white dark:bg-emerald-500'
+                          : isAi
+                            ? 'bg-amber-600 text-white dark:bg-amber-500'
+                            : 'bg-slate-600 text-white dark:bg-slate-500'
+                      }`}>
+                        {classification === 'likely-ai' ? 'Likely AI' : classification === 'likely-human' ? 'Likely Human' : 'Inconclusive'}
+                      </span>
+                    </div>
                   </div>
                 </div>
 
                 {/* Sample Size & Statistical Uncertainty Warning */}
-                {(textResult.inputWordCount < 30 || textResult.score.sampleSufficiency === 'insufficient') && (
+                {isShortText && (
                   <div className="flex items-start space-x-2 rounded-xl border border-amber-300 bg-amber-50/90 p-3.5 text-xs text-amber-950 dark:border-amber-800/60 dark:bg-amber-950/30 dark:text-amber-200">
                     <Info className="mt-0.5 h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
                     <div>
-                      <strong>Limited Sample Warning ({textResult.inputWordCount} words):</strong> Text samples under 30 words exhibit high statistical variance for burstiness and perplexity. Stylometric indicators on short passages should be evaluated as preliminary rather than definitive proof of origin.
+                      <strong>Short Text Notice ({textResult.inputWordCount} words):</strong> Text samples under 40 words have insufficient statistical data for reliable burstiness and stylometric feature extraction. The selective decision policy classifies samples under 40 words as inconclusive to avoid false alarms.
                     </div>
                   </div>
                 )}
@@ -559,7 +614,12 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
                   {/* AI Match Card (Green when low, Red when high) */}
                   <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-4">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-semibold text-[var(--text-muted)]">AI Pattern Match</span>
+                      <div className="flex items-center space-x-1.5">
+                        <span className="text-xs font-semibold text-[var(--text-muted)]">Stylistic AI Match Indicator</span>
+                        <span className="text-[10px] text-[var(--text-muted)]" title="Deterministic stylometric heuristic index (not a statistical posterior probability)">
+                          (Heuristic)
+                        </span>
+                      </div>
                       <span className="text-[11px] font-bold text-[var(--text-muted)]">
                         Lower is better
                       </span>
@@ -571,7 +631,7 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
                         {aiPct}%
                       </span>
                       <span className="text-xs font-bold text-[var(--text-secondary)]">
-                        {isHuman ? 'Virtually No AI' : isMixed ? 'Moderate AI Likelihood' : 'Strong AI Signatures'}
+                        {isHuman ? 'Virtually No AI Signatures' : isMixed ? 'Moderate AI Likelihood' : 'Strong AI Signatures'}
                       </span>
                     </div>
                     <div className="mt-2 h-2.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
@@ -882,7 +942,15 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
             <div className="flex items-center space-x-2 text-[var(--text-secondary)]">
               <ShieldCheck className="h-4 w-4 text-[var(--accent)]" />
               <span>
-                Active Detector: <strong className="text-[var(--text-primary)]">{defaultModelRegistry.getProductionDefault('text-detection').displayName}</strong> (v{defaultModelRegistry.getProductionDefault('text-detection').version})
+                Active Engine:{' '}
+                <strong className="text-[var(--text-primary)]">
+                  {activeTab === 'text'
+                    ? textResult?.modelId === 'humanizetext-detector-v2-5-0' ||
+                      textResult?.adaptiveMetadata?.activeProviderId === 'humanizetext-detector-v2-5-0'
+                      ? 'V2.5 Public Beta (21-Feature Stylometric Logistic Regression)'
+                      : 'Production Baseline (Perplexity & Burstiness Heuristic)'
+                    : `${defaultModelRegistry.getProductionDefault('image-detection')?.displayName || 'Image Forensics'} (v${defaultModelRegistry.getProductionDefault('image-detection')?.version || '1.0.0'})`}
+                </strong>
               </span>
             </div>
 
@@ -890,22 +958,15 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
               {feedbackSent ? (
                 <span className="flex items-center space-x-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
                   <CheckCircle2 className="h-3.5 w-3.5" />
-                  <span>Thank you! Feedback recorded for model evaluation.</span>
+                  <span>Feedback recorded for evaluation review (stored locally).</span>
                 </span>
               ) : (
                 <>
                   <span className="text-[11px] text-[var(--text-muted)]">Was this assessment accurate?</span>
                   <button
                     onClick={() => {
-                      if (textResult) {
-                        defaultFeedbackPipeline.submitFeedback(
-                          inputText,
-                          textResult.score.aiProbability,
-                          textResult.score.classification,
-                          textResult.score.classification === 'likely-ai' ? 'ai' : 'human'
-                        );
-                        setFeedbackSent(textResult.score.classification === 'likely-ai' ? 'ai' : 'human');
-                      }
+                      setFeedbackAccuracy('accurate');
+                      setShowFeedbackModal(true);
                     }}
                     title="Accurate assessment"
                     className="flex items-center space-x-1 rounded-md border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-2.5 py-1 text-xs font-medium text-[var(--text-secondary)] hover:text-emerald-600 dark:hover:text-emerald-400 hover:border-emerald-500 transition-colors"
@@ -915,15 +976,8 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
                   </button>
                   <button
                     onClick={() => {
-                      if (textResult) {
-                        defaultFeedbackPipeline.submitFeedback(
-                          inputText,
-                          textResult.score.aiProbability,
-                          textResult.score.classification,
-                          textResult.score.classification === 'likely-ai' ? 'human' : 'ai'
-                        );
-                        setFeedbackSent(textResult.score.classification === 'likely-ai' ? 'human' : 'ai');
-                      }
+                      setFeedbackAccuracy('inaccurate');
+                      setShowFeedbackModal(true);
                     }}
                     title="Inaccurate assessment"
                     className="flex items-center space-x-1 rounded-md border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-2.5 py-1 text-xs font-medium text-[var(--text-secondary)] hover:text-amber-600 dark:hover:text-amber-400 hover:border-amber-500 transition-colors"
@@ -933,16 +987,34 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
                   </button>
                 </>
               )}
+
+              <button
+                onClick={() => {
+                  const json = defaultFeedbackPipeline.exportFeedbackAsJson();
+                  navigator.clipboard?.writeText(json);
+                  setFeedbackExportCopied(true);
+                  setTimeout(() => setFeedbackExportCopied(false), 2500);
+                }}
+                title="Export all locally recorded feedback entries as JSON"
+                className="flex items-center space-x-1 rounded-md border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-2 py-1 text-[11px] font-medium text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors"
+              >
+                <Download className="h-3 w-3" />
+                <span>{feedbackExportCopied ? 'Export Copied!' : 'Export JSON'}</span>
+              </button>
             </div>
           </div>
 
-          {/* Limitations Disclosure */}
-          <div className="mt-5 flex items-start space-x-2 rounded-lg bg-[var(--bg-subtle)] p-3 text-[11px] text-[var(--text-secondary)]">
-            <Info className="mt-0.5 h-4 w-4 shrink-0 text-[var(--accent)]" />
-            <p>
-              <strong>Evaluation Notice:</strong> AI detectors produce probabilistic assessments and cannot conclusively
-              determine human authorship. Edits, paraphrasing, translation, and non-native English grammar patterns can
-              shift detector scores. Use this tool as a diagnostic guide, not definitive proof.
+          {/* Public Beta Limitations & Ethics Guidance */}
+          <div className="mt-5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-4 text-xs space-y-2">
+            <div className="flex items-center space-x-2 font-bold text-[var(--text-primary)]">
+              <Info className="h-4 w-4 text-[var(--accent)] shrink-0" />
+              <span>Public Beta Notice &amp; Responsible Use Guidelines</span>
+            </div>
+            <p className="text-[var(--text-secondary)] leading-relaxed">
+              <strong>Probabilistic Style Estimate, Not Authorship Proof:</strong> AI detection models evaluate statistical writing patterns (vocabulary perplexity, sentence burstiness, and formulaic transitions). They do not measure factual authorship and produce both false positives and false negatives.
+            </p>
+            <p className="text-[var(--text-muted)] leading-relaxed">
+              <strong>No High-Stakes Reliance:</strong> Results from this tool must never be used as sole or definitive evidence in academic honor code proceedings, employment terminations, or punitive disciplinary evaluations.
             </p>
           </div>
         </div>
@@ -993,6 +1065,123 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
                 className="btn-brand-pill px-5 py-2 text-xs font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
               >
                 Consent & Analyze on Server
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Voluntary Provenance Feedback Modal */}
+      {showFeedbackModal && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="feedback-dialog-title"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs"
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') setShowFeedbackModal(false);
+          }}
+        >
+          <div className="max-w-md w-full rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-surface)] p-6 shadow-2xl">
+            <div className="flex items-center justify-between pb-3 border-b border-[var(--border-subtle)]">
+              <div className="flex items-center space-x-2">
+                <ShieldCheck className="h-5 w-5 text-[var(--accent)]" />
+                <h3 id="feedback-dialog-title" className="text-sm font-bold text-[var(--text-primary)]">
+                  Diagnostic Feedback ({feedbackAccuracy === 'accurate' ? 'Accurate' : 'Inaccurate'})
+                </h3>
+              </div>
+              <button
+                onClick={() => setShowFeedbackModal(false)}
+                className="rounded-md p-1 text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                aria-label="Close dialog"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            <p className="mt-3 text-xs text-[var(--text-secondary)] leading-relaxed">
+              Help calibrate HumanizeText's detector. User feedback is treated strictly as subjective diagnostic evidence for evaluation review and never automatically alters detector weights.
+            </p>
+
+            <div className="mt-4 space-y-3 text-xs">
+              <div>
+                <label className="font-semibold text-[var(--text-primary)] block mb-1">
+                  Actual Authorship Provenance (Optional):
+                </label>
+                <select
+                  value={feedbackProvenance}
+                  onChange={(e) => setFeedbackProvenance(e.target.value as ProvenanceCategory)}
+                  className="w-full rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-subtle)] px-3 py-1.5 text-xs text-[var(--text-primary)] focus:outline-hidden focus:border-[var(--accent)]"
+                >
+                  <option value="human_original">I wrote this myself from scratch</option>
+                  <option value="ai_generated">Generated by an AI model (e.g. GPT, Claude, Llama)</option>
+                  <option value="ai_assisted">Drafted or edited with AI assistance</option>
+                  <option value="undisclosed">Prefer not to disclose / Unknown</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="font-semibold text-[var(--text-primary)] block mb-1">
+                  Observations / Reason for Disagreement (Optional):
+                </label>
+                <textarea
+                  value={feedbackNotes}
+                  onChange={(e) => setFeedbackNotes(e.target.value.slice(0, 300))}
+                  placeholder="e.g. Formal academic paper with natural burstiness, or Claude 3.5 without buzzwords..."
+                  rows={3}
+                  className="w-full rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-2.5 text-xs text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-hidden focus:border-[var(--accent)]"
+                />
+              </div>
+
+              <div className="rounded-lg bg-[var(--bg-subtle)] p-3 text-[11px] text-[var(--text-muted)] space-y-1">
+                <div>✓ Stored locally on this browser (max 50 records)</div>
+                <div>✓ Raw text is NEVER uploaded (stored only as a 16-hex SHA-256 hash)</div>
+                <div>✓ Never automatically modifies model weights or thresholds</div>
+              </div>
+            </div>
+
+            <div className="mt-5 flex items-center justify-end space-x-2">
+              <button
+                type="button"
+                onClick={() => setShowFeedbackModal(false)}
+                className="rounded-lg px-3 py-1.5 text-xs font-semibold text-[var(--text-secondary)] hover:bg-[var(--bg-subtle)] transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={async () => {
+                  if (textResult) {
+                    const perceivedLabel: 'human' | 'ai' | 'mixed' =
+                      feedbackProvenance === 'human_original'
+                        ? 'human'
+                        : feedbackProvenance === 'ai_generated'
+                          ? 'ai'
+                          : feedbackProvenance === 'ai_assisted'
+                            ? 'mixed'
+                            : feedbackAccuracy === 'accurate'
+                              ? textResult.score.classification === 'likely-ai' ? 'ai' : 'human'
+                              : textResult.score.classification === 'likely-ai' ? 'human' : 'ai';
+
+                    await defaultFeedbackPipeline.submitFeedback(
+                      inputText,
+                      textResult.score.aiProbability,
+                      textResult.score.classification,
+                      perceivedLabel,
+                      {
+                        provenanceCategory: feedbackProvenance,
+                        userNotes: feedbackNotes,
+                        disagreementReason: feedbackAccuracy === 'inaccurate' ? 'User reported inaccurate assessment' : undefined,
+                      }
+                    );
+                    setFeedbackSent(perceivedLabel === 'ai' ? 'ai' : 'human');
+                    setShowFeedbackModal(false);
+                    setFeedbackNotes('');
+                  }
+                }}
+                className="rounded-lg bg-[var(--accent)] px-4 py-1.5 text-xs font-bold text-[var(--accent-contrast)] shadow-xs hover:opacity-90 transition-opacity"
+              >
+                Submit Feedback
               </button>
             </div>
           </div>

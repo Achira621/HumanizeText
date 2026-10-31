@@ -1,0 +1,20 @@
+{
+  "manifestVersion": "2.4.4",
+  "generatedDate": "2026-10-31T15:31:56.015007+00:00",
+  "leakageAuditStatus": "PASSED_ZERO_LEAKAGE",
+  "partitionGroupCounts": {
+    "TRAIN": 228,
+    "DEV": 57,
+    "CAL": 37,
+    "FINAL_TEST": 55
+  },
+  "pairwiseGroupOverlaps": {
+    "train_vs_dev": [],
+    "train_vs_cal": [],
+    "train_vs_test": [],
+    "dev_vs_cal": [],
+    "dev_vs_test": [],
+    "cal_vs_test": []
+  },
+  "verificationStatement": "Mathematical proof: Disjoint partition sets guarantee zero document, author, company, or prompt-family leakage between Train, Dev, Calibration, and Final Test."
+}

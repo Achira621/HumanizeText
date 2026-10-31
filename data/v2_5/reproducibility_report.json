@@ -1,0 +1,14 @@
+{
+  "randomState": 42,
+  "pythonPackages": {
+    "numpy": "2.4.4",
+    "scikit-learn": "1.9.1"
+  },
+  "dataManifestHashes": {
+    "train_features.json": "2a4d90d834b568f5f1f0dc7325c6fd054623849fbb4bb5318d2734615e6b7e4a",
+    "dev_features.json": "771dad4b5f2e9edc0e0cc02ced777e1dc3f3ef21afd489118ec0b3bbaa4c42d6",
+    "cal_features.json": "75ddac0b9a9d57c93c6daf52ea3cda679c19e4f557493bd347fb262f61695a01",
+    "final_test_features.json": "e2760ed80343dfd53e6786699cb5cf35a53029a226fd735b04d6618164c4a91c"
+  },
+  "modelArtifactSha256": "cdea27482f82249bb2476ff8d0fcb03b72ae36042f02a1beb1ba331a17f46a86"
+}

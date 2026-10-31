@@ -1,0 +1,2242 @@
+[
+  {
+    "id": "holdout_h_acad_01",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Albert Einstein, Relativity: The Special and General Theory (1920)",
+      "sourceUrlOrCitation": "Gutenberg #30155, Section 1: Physical Meaning of Geometrical Propositions",
+      "method": "historical_publication",
+      "date": "1920-01-01",
+      "notes": "Authentic 20th century epistemological treatise translated by R.W. Lawson.",
+      "previouslyExamined": false
+    },
+    "text": "Geometry sets out from certain conceptions such as plane, point, and straight line, with which we are accustomed to associate more or less definite ideas, and from certain simple propositions which we are inclined to accept as true.",
+    "wordCount": 38,
+    "lengthCategory": "short",
+    "sha256": "f14d32b4e25e02f6ddb181ce2212ccdd718244b616566206ba0ffe105d2d7660"
+  },
+  {
+    "id": "holdout_h_acad_02",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Bertrand Russell, The Problems of Philosophy (1912)",
+      "sourceUrlOrCitation": "Gutenberg #5827, Chapter 1: Appearance and Reality",
+      "method": "historical_publication",
+      "date": "1912-01-01",
+      "notes": "Classic philosophical epistemology on sensory perception and physical reality.",
+      "previouslyExamined": false
+    },
+    "text": "Is there any knowledge in the world which is so certain that no reasonable man could doubt it? This question, which at first sight might not seem difficult, is really one of the most difficult that can be asked.",
+    "wordCount": 39,
+    "lengthCategory": "short",
+    "sha256": "37c25b79bf80a172abe06f99e60857886ff66dda5684281edfe7c766ad3ba3f9"
+  },
+  {
+    "id": "holdout_h_acad_03",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "John Dewey, How We Think (1910)",
+      "sourceUrlOrCitation": "Gutenberg #37423, Chapter 1: What is Thought?",
+      "method": "historical_publication",
+      "date": "1910-01-01",
+      "notes": "Pragmatist philosophical text on reflective thought and cognitive inquiry.",
+      "previouslyExamined": false
+    },
+    "text": "No words need be wasted in proving that thinking is a native capacity of human nature. But that does not mean that every kind of thinking is equally good, or that thinking cannot be guided and cultivated.",
+    "wordCount": 37,
+    "lengthCategory": "short",
+    "sha256": "7c47c8011ae6b3d673561eff6c5025553bf4c8b5aa7c0026a7df766d6f0a938d"
+  },
+  {
+    "id": "holdout_h_acad_04",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "William James, The Principles of Psychology (1890)",
+      "sourceUrlOrCitation": "Gutenberg #57628, Chapter 9: The Stream of Thought",
+      "method": "historical_publication",
+      "date": "1890-01-01",
+      "notes": "Foundational psychological thesis on conscious awareness and subjective flux.",
+      "previouslyExamined": false
+    },
+    "text": "Consciousness, then, does not appear to itself chopped up in bits. Such words as chain or train do not describe it fitly as it presents itself in the first instance. It is nothing jointed; it flows. A river or a stream are the metaphors by which it is most naturally described. In talking of it hereafter, let us call it the stream of thought, of consciousness, or of subjective life.",
+    "wordCount": 70,
+    "lengthCategory": "medium",
+    "sha256": "693fac3c61b302e7a3af89624f931991b27c9494ab912d6255187b1a7ed45e79"
+  },
+  {
+    "id": "holdout_h_acad_05",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Gregor Mendel, Experiments in Plant Hybridisation (1865)",
+      "sourceUrlOrCitation": "Royal Horticultural Society Translation (1901), Introductory Remarks",
+      "method": "historical_publication",
+      "date": "1865-02-08",
+      "notes": "Foundational genetics monograph describing systematic empirical pea crossing.",
+      "previouslyExamined": false
+    },
+    "text": "Experience of artificial fertilisation, such as is effected with ornamental plants in order to obtain new variations in colour, has led to the experiments which will here be discussed. The striking regularity with which the same hybrid forms always reappeared whenever fertilisation took place between the same species induced further experiments to follow up the development of the hybrids in their progeny.",
+    "wordCount": 62,
+    "lengthCategory": "medium",
+    "sha256": "47f2b4fc05e46e001b7ff2e80513fbacf65f013a9efb7de96db5a1361167cc7c"
+  },
+  {
+    "id": "holdout_h_acad_06",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Max Planck, The Theory of Heat Radiation (1914)",
+      "sourceUrlOrCitation": "Translation by Morton Masius, P. Blakiston Son & Co, Introduction",
+      "method": "historical_publication",
+      "date": "1914-01-01",
+      "notes": "Foundational quantum thermodynamics text describing spectral blackbody energy density.",
+      "previouslyExamined": false
+    },
+    "text": "The hypothesis that radiant heat consists in an undulatory propagation of electromagnetic states was firmly established through the classic experiments of Heinrich Hertz. This development brought about the triumph of the electromagnetic theory over the older mechanical theories of light. Thermodynamics and electrodynamics must therefore be united into a single system when dealing with the equilibrium of heat radiation.",
+    "wordCount": 59,
+    "lengthCategory": "medium",
+    "sha256": "8236f80df94b8c82368eace49842fe3a403de40da2390488ecbe325c75ad557c"
+  },
+  {
+    "id": "holdout_h_acad_07",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Thorstein Veblen, The Theory of the Leisure Class (1899)",
+      "sourceUrlOrCitation": "Gutenberg #833, Chapter 4: Conspicuous Consumption",
+      "method": "historical_publication",
+      "date": "1899-01-01",
+      "notes": "Sociological and economic critique of conspicuous economic behavior.",
+      "previouslyExamined": false
+    },
+    "text": "In the sequence of cultural evolution the emergence of a leisure class coincides with the beginning of ownership. This is necessarily so, for these two institutions result from the same set of economic forces. In the earlier phases of development the distinction between leisure and labour is largely identical with that between exploit and drudgery, where predatory prowess forms the basis of social reputability.",
+    "wordCount": 64,
+    "lengthCategory": "medium",
+    "sha256": "4e68300861f80eca589ca1e540653d06ec48fe54485d21603cc1d0fb632231b8"
+  },
+  {
+    "id": "holdout_h_acad_08",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Adam Smith, The Wealth of Nations (1776)",
+      "sourceUrlOrCitation": "Gutenberg #3300, Book 1, Chapter 1: Of the Division of Labour",
+      "method": "historical_publication",
+      "date": "1776-03-09",
+      "notes": "Classic economic analysis of industrial specialization and manufacturing output.",
+      "previouslyExamined": false
+    },
+    "text": "The greatest improvement in the productive powers of labour, and the greater part of the skill, dexterity, and judgment with which it is anywhere directed, or applied, seem to have been the effects of the division of labour. The effects of the division of labour, in the general business of society, will be more easily understood by considering in what manner it operates in some particular manufactures. To take an example, therefore, from a very trifling manufacture; but one in which the division of labour has been very often taken notice of, the trade of the pin-maker; a workman not educated to this business, nor acquainted with the use of the machinery employed in it, could scarce, perhaps, with his utmost industry, make one pin in a day, and certainly could not make twenty.",
+    "wordCount": 134,
+    "lengthCategory": "long",
+    "sha256": "2f3c2823e8e972017e1417c9fa6da36c44b00ed3fd45eb251fba711b5d786a4a"
+  },
+  {
+    "id": "holdout_h_acad_09",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Immanuel Kant, Critique of Pure Reason (1781)",
+      "sourceUrlOrCitation": "Translation by J.M.D. Meiklejohn, Gutenberg #4280, Introduction Section 1",
+      "method": "historical_publication",
+      "date": "1781-01-01",
+      "notes": "Philosophical treatise distinguishing a priori from empirical cognition.",
+      "previouslyExamined": false
+    },
+    "text": "There can be no doubt that all our knowledge begins with experience. For how should our faculty of knowledge be awakened into action did not objects, affecting our senses, partly of themselves produce representations, partly arouse our powers of understanding into activity, to compare, to connect, or to separate these, and so to convert the raw material of our sensuous impressions into a knowledge of objects, which is called experience? In respect of time, therefore, no knowledge of ours is antecedent to experience, but begins with it. But though all our knowledge begins with experience, it by no means follows that all arises out of experience.",
+    "wordCount": 106,
+    "lengthCategory": "long",
+    "sha256": "11b191cc5228daf6c2555a63d499f9517d20fce5cfa0242e9e3e31a657e20da0"
+  },
+  {
+    "id": "holdout_h_acad_10",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Charles Lyell, Principles of Geology (1830)",
+      "sourceUrlOrCitation": "John Murray, Albemarle Street, Volume 1, Chapter 1",
+      "method": "historical_publication",
+      "date": "1830-01-01",
+      "notes": "Foundational uniformitarian geological treatise on physical earth mechanisms.",
+      "previouslyExamined": false
+    },
+    "text": "Geology is the science which investigates the successive changes that have taken place in the organic and inorganic kingdoms of nature; it enquires into the causes of these changes, and the presents which have been produced upon the surface and in the interior of our planet. By these researches into the state of the earth and its inhabitants at former periods, we acquire a more perfect knowledge of its present condition, and more comprehensive views concerning the laws which govern its terrestrial changes. The history of the earth may be compared to a grand historical epic, of which only fragments have been preserved.",
+    "wordCount": 103,
+    "lengthCategory": "long",
+    "sha256": "31611e5e01a7440d24dc7ccb01b3457d7379f98017f32ff41fab94bb4f1282c8"
+  },
+  {
+    "id": "holdout_h_tech_11",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "IETF RFC 826: Ethernet Address Resolution Protocol (1982)",
+      "sourceUrlOrCitation": "https://datatracker.ietf.org/doc/html/rfc826",
+      "method": "ietf_specification",
+      "date": "1982-11-01",
+      "notes": "Plummer network protocol standard specifying packet address resolution.",
+      "previouslyExamined": false
+    },
+    "text": "The world is a jungle in general, and the networking game contributes many animals. At the packet network layer, address translation is necessary because hardware physical addresses and higher level protocol addresses do not match in length or format.",
+    "wordCount": 39,
+    "lengthCategory": "short",
+    "sha256": "3ba667652fdad29dbbf2ec4f679d886263deda756083b7f84073748387ee2f12"
+  },
+  {
+    "id": "holdout_h_tech_12",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Linux Kernel Documentation: Documentation/process/submitting-patches.rst",
+      "sourceUrlOrCitation": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git",
+      "method": "open_source_documentation",
+      "date": "2023-01-15",
+      "notes": "Official kernel contribution guide on patch structure and changelog clarity.",
+      "previouslyExamined": false
+    },
+    "text": "Describe your changes in imperative mood, for example \"make xyzzy do frotz\" instead of \"[This patch] makes xyzzy do frotz\". Try to make the title concise while explaining what problem the patch solves.",
+    "wordCount": 33,
+    "lengthCategory": "short",
+    "sha256": "e0618bfc80c4e9f8eefb2c31c6b3b22572c8b311b813a0a45f441776d1f36d2a"
+  },
+  {
+    "id": "holdout_h_tech_13",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "SQLite Architecture Overview: How SQLite Implements ACID",
+      "sourceUrlOrCitation": "https://sqlite.org/atomiccommit.html, Section 1.0",
+      "method": "software_engineering_documentation",
+      "date": "2022-08-10",
+      "notes": "D. Richard Hipp documentation on atomic commit and rollback journal synchronization.",
+      "previouslyExamined": false
+    },
+    "text": "An atomic commit ensures that either all database modifications take effect, or none do. SQLite accomplishes this through a rollback journal that records the original state of modified disk pages before changes occur.",
+    "wordCount": 33,
+    "lengthCategory": "short",
+    "sha256": "e240900572a5308108a703f3111bfeb7a9c26bc88926bbd7b2a3c56004cac2a4"
+  },
+  {
+    "id": "holdout_h_tech_14",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "IETF RFC 2616: Hypertext Transfer Protocol -- HTTP/1.1 (1999)",
+      "sourceUrlOrCitation": "https://datatracker.ietf.org/doc/html/rfc2616#section-10.4.1",
+      "method": "ietf_specification",
+      "date": "1999-06-01",
+      "notes": "Fielding et al. normative HTTP status specification for client request errors.",
+      "previouslyExamined": false
+    },
+    "text": "The 400 (Bad Request) status code indicates that the server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing). The client SHOULD NOT repeat the request without modifications.",
+    "wordCount": 49,
+    "lengthCategory": "short",
+    "sha256": "6707d583f714480c34da39f167e6b4ba114ff42fbbc10f523c51d45a5f233c29"
+  },
+  {
+    "id": "holdout_h_tech_15",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "IETF RFC 791: Internet Protocol (1981)",
+      "sourceUrlOrCitation": "https://datatracker.ietf.org/doc/html/rfc791#section-3.1",
+      "method": "ietf_specification",
+      "date": "1981-09-01",
+      "notes": "Jon Postel foundational specification on IP header fragmentation and reassembly.",
+      "previouslyExamined": false
+    },
+    "text": "The internet protocol implements two basic functions: addressing and fragmentation. The internet modules use the addresses carried in the internet header to transmit internet datagrams toward their destinations. The selection of a path for transmission is called routing. The internet modules use fields in the internet header to fragment and reassemble internet datagrams when a datagram is larger than a local network can handle.",
+    "wordCount": 64,
+    "lengthCategory": "medium",
+    "sha256": "99e5794face7f391a45cc12035b22ddbc787e0ff02bf7228a16ef99fec3f9d3f"
+  },
+  {
+    "id": "holdout_h_tech_16",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Git Version Control Manual: Pro Git (Scott Chacon & Ben Straub)",
+      "sourceUrlOrCitation": "https://git-scm.com/book/en/v2/Git-Internals-Git-Objects",
+      "method": "technical_book",
+      "date": "2014-11-01",
+      "notes": "Technical guide on content-addressable storage and SHA-1 object directed acyclic graphs.",
+      "previouslyExamined": false
+    },
+    "text": "Git is a content-addressable filesystem. That means that at the core of Git is a simple key-value data store. You can insert any content into it, and it will hand you back a key you can use later to retrieve that content. When you store content, Git computes a header, concatenates that with your original content, and calculates the SHA-1 checksum of that payload.",
+    "wordCount": 64,
+    "lengthCategory": "medium",
+    "sha256": "fa125286ef769a2d596a23adbfc948778a2583e12dee0f30f38200b73668ea9d"
+  },
+  {
+    "id": "holdout_h_tech_17",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Redis Documentation: Memory Optimization and Eviction Policies",
+      "sourceUrlOrCitation": "https://redis.io/docs/management/optimization/memory-optimization/",
+      "method": "software_engineering_documentation",
+      "date": "2023-04-12",
+      "notes": "Redis systems documentation on memory allocation overhead and hash zip lists.",
+      "previouslyExamined": false
+    },
+    "text": "Small hashes are encoded in memory using very efficient data structures called listpacks. When a hash contains entries whose keys and values are smaller than the configured maximum length, Redis stores the data sequentially rather than allocating distinct hash nodes. This technique eliminates pointer overhead and drastically reduces RSS memory footprint on large datasets.",
+    "wordCount": 54,
+    "lengthCategory": "medium",
+    "sha256": "e92334062d81deb9eee96ec58c15115cec1477c59979e4f39e983302d1f865aa"
+  },
+  {
+    "id": "holdout_h_tech_18",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "IETF RFC 1035: Domain Names - Implementation and Specification (1987)",
+      "sourceUrlOrCitation": "https://datatracker.ietf.org/doc/html/rfc1035#section-4.1.1",
+      "method": "ietf_specification",
+      "date": "1987-11-01",
+      "notes": "Mockapetris standard DNS header and resource record bitfield format specification.",
+      "previouslyExamined": false
+    },
+    "text": "All communications inside of the domain protocol are carried in a single format called a message. The top level format of message divides it into 5 sections, some of which are empty in certain cases. The header section is always present. It includes fields that specify which of the remaining sections are present, and also specify whether the message is a query or a response, a standard query or some other opcode. The header includes the identification field which enables the requester to match requests with responses. The query count specifies the number of entries in the question section, while the answer count specifies the number of resource records in the answer section.",
+    "wordCount": 113,
+    "lengthCategory": "long",
+    "sha256": "8f3881044c8d6e5bcdc4af5a5e05f1581dc4cae90f4c36f374c677ba761a26c0"
+  },
+  {
+    "id": "holdout_h_tech_19",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Leslie Lamport, Time, Clocks, and the Ordering of Events in a Distributed System (1978)",
+      "sourceUrlOrCitation": "Communications of the ACM, Vol. 21, No. 7, pp. 558-565",
+      "method": "academic_cs_publication",
+      "date": "1978-07-01",
+      "notes": "Foundational distributed systems paper introducing logical clocks and partial ordering.",
+      "previouslyExamined": false
+    },
+    "text": "The concept of time is fundamental to our way of thinking. It is derived from the more basic concept of the order in which events occur. We say that something happened at 3:15 if it occurred after our clock read 3:15 and before it read 3:16. The concept of the temporal order of events is an intuitive one that serves us well in our everyday life. But in a distributed system, it cannot be assumed that the order in which events occurred is intuitively clear. A distributed system consists of a collection of distinct processes which are spatially separated, and which communicate with one another by exchanging messages. A network of interconnected computers, such as the ARPANET, is a distributed system.",
+    "wordCount": 121,
+    "lengthCategory": "long",
+    "sha256": "7c637791f106fc8f9235abb31484db66fd5ec90172de261ba06a2a2eb6ec18d8"
+  },
+  {
+    "id": "holdout_h_tech_20",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Bjarne Stroustrup, The C++ Programming Language (3rd Edition, 1997)",
+      "sourceUrlOrCitation": "Addison-Wesley, Chapter 14: Exception Handling",
+      "method": "technical_book",
+      "date": "1997-06-30",
+      "notes": "Foundational systems programming manual explaining stack unwinding and RAII principles.",
+      "previouslyExamined": false
+    },
+    "text": "When a program encounters an exceptional situation that cannot be handled locally, an exception is thrown. The act of throwing an exception transfers control to an exception handler in an enclosing scope. As control passes up the call stack, the automatic objects constructed in the intervening scopes are destroyed in the reverse order of their construction. This process is called stack unwinding. By tying resource acquisition to object initialization, a programmer can ensure that resources such as dynamic memory, file handles, and mutex locks are released reliably even when an error terminates a computation prematurely.",
+    "wordCount": 95,
+    "lengthCategory": "medium",
+    "sha256": "61a8b6a5d69c8a8206347a821531d81fe5ada65aab4f87bbd8cd948136821af4"
+  },
+  {
+    "id": "holdout_h_corp_21",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Warren Buffett, Berkshire Hathaway Shareholder Letter (2023)",
+      "sourceUrlOrCitation": "Berkshire Hathaway Annual Report 2022, Chairman Letter, p. 3",
+      "method": "public_corporate_filing",
+      "date": "2023-02-25",
+      "notes": "Warren Buffett annual shareholder letter on capital allocation and long-term holding.",
+      "previouslyExamined": false
+    },
+    "text": "Our goal in both owning stocks and acquiring entire companies is to make meaningful investments in businesses with both durable economic advantages and a first-class CEO. Please note particularly that we invest in stocks based on our expectations about their long-term business performance.",
+    "wordCount": 43,
+    "lengthCategory": "short",
+    "sha256": "6b8871333e290a9871038c2ab1d6a9b7ec389ffe30a88545593e4d24d22c9078"
+  },
+  {
+    "id": "holdout_h_corp_22",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Federal Reserve Board of Governors, Monetary Policy Report (July 2023)",
+      "sourceUrlOrCitation": "Federal Reserve Monetary Policy Report, Summary of Economic Conditions",
+      "method": "regulatory_publication",
+      "date": "2023-07-07",
+      "notes": "Central bank economic assessment regarding labor markets and nominal wage gains.",
+      "previouslyExamined": false
+    },
+    "text": "Labor demand eased in many sectors of the economy, but it continued to outpace the supply of available workers. Job gains remained robust, and the unemployment rate stayed near historical lows through the first half of the year.",
+    "wordCount": 38,
+    "lengthCategory": "short",
+    "sha256": "1221b8740dcc14cb3284e5a2abafc936fd1559a8b1cad56be02eeb41cb76524f"
+  },
+  {
+    "id": "holdout_h_corp_23",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Satya Nadella, Letter to Shareholders (Microsoft Annual Report 2023)",
+      "sourceUrlOrCitation": "Microsoft Corp Annual Report 2023, Shareholder Letter",
+      "method": "public_corporate_filing",
+      "date": "2023-10-19",
+      "notes": "Executive report on enterprise cloud infrastructure growth and operational discipline.",
+      "previouslyExamined": false
+    },
+    "text": "Every customer I meet is focused on two clear outcomes: accelerating their agility to capture growth while navigating budget constraints, and doing more with less by maximizing the value of existing technology investments.",
+    "wordCount": 33,
+    "lengthCategory": "short",
+    "sha256": "3b4a7d0c781497d4ff134857da6e0e709effe8fad31ca589b4857a02c35ce212"
+  },
+  {
+    "id": "holdout_h_corp_24",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Alphabet Inc. Form 10-K (Fiscal Year Ended Dec 31, 2023)",
+      "sourceUrlOrCitation": "SEC Accession # 0001652044-24-000022, Item 7 MD&A, p. 34",
+      "method": "sec_filing",
+      "date": "2024-01-30",
+      "notes": "Alphabet Inc. official SEC annual filing discussing Google Services revenue drivers.",
+      "previouslyExamined": false
+    },
+    "text": "Google Services revenues increased ten billion dollars, or nine percent, driven by growth in Google Search and other advertising revenues, reflecting strength in the retail vertical followed by financial services. Operating income for the segment improved as we took deliberate actions to slow our pace of hiring and optimize our data center fleet efficiency.",
+    "wordCount": 54,
+    "lengthCategory": "medium",
+    "sha256": "af79266ed3624085e5b9a0c1ce6a94934882bc0c03d9ae19cf3ac2c37e0eadaf"
+  },
+  {
+    "id": "holdout_h_corp_25",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Amazon.com Inc. Form 10-K (Fiscal Year Ended Dec 31, 2023)",
+      "sourceUrlOrCitation": "SEC Accession # 0001018724-24-000008, Item 7 MD&A, AWS Segment Results",
+      "method": "sec_filing",
+      "date": "2024-02-02",
+      "notes": "Amazon SEC 10-K disclosure on cloud infrastructure revenue and customer cost optimization.",
+      "previouslyExamined": false
+    },
+    "text": "AWS sales increased thirteen percent year-over-year to ninety point eight billion dollars. Throughout the year, customers continued to evaluate ways to optimize their cloud spend in response to macroeconomic uncertainty, which moderated our revenue growth compared to prior periods, before stabilizing as workloads migrated back to expansion mode.",
+    "wordCount": 48,
+    "lengthCategory": "short",
+    "sha256": "ae963a7cb148acc76826304116671cd971fbb7171116cda2d0bebff2dd67092f"
+  },
+  {
+    "id": "holdout_h_corp_26",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "International Monetary Fund (IMF), World Economic Outlook (October 2023)",
+      "sourceUrlOrCitation": "IMF WEO Report, Executive Summary: Navigating Global Divergences",
+      "method": "multilateral_economic_report",
+      "date": "2023-10-10",
+      "notes": "Multilateral economic body report on monetary policy tightening and fiscal deficits.",
+      "previouslyExamined": false
+    },
+    "text": "Global headline inflation continues to decline from its 2022 peak, aided by easing supply bottlenecks and lower commodity prices. However, core inflation measures excluding energy and food have retreated more gradually, reflecting persistent services inflation and resilient labor costs across advanced economies. Central banks must maintain tight stances until price stability is achieved.",
+    "wordCount": 53,
+    "lengthCategory": "medium",
+    "sha256": "eb540407331c566619a2c8ab9def31ee163a80d6d79cc3ece7364da0661ae50b"
+  },
+  {
+    "id": "holdout_h_corp_27",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Tesla Inc. Form 10-K (Fiscal Year Ended Dec 31, 2023)",
+      "sourceUrlOrCitation": "SEC Accession # 0001318605-24-000006, Item 7 MD&A, Automotive Gross Margin",
+      "method": "sec_filing",
+      "date": "2024-01-29",
+      "notes": "Tesla SEC annual report discussing vehicle average selling price reductions and factory fixed costs.",
+      "previouslyExamined": false
+    },
+    "text": "Automotive revenues grew fifteen percent, driven primarily by growth in vehicle deliveries, partially offset by a lower average selling price across our product lineup as we initiated pricing adjustments. Gross margin contracted due to the reduced pricing, increased cost per unit from idle factory capacity, and higher ramp costs for our new manufacturing facilities.",
+    "wordCount": 54,
+    "lengthCategory": "medium",
+    "sha256": "077328ffcdaeb5ed6c5a212eb15187fe27561938a41752d9ffea66d146a28bc8"
+  },
+  {
+    "id": "holdout_h_corp_28",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Federal Trade Commission (FTC), Policy Statement on Biometric Information (May 2023)",
+      "sourceUrlOrCitation": "FTC Enforcement Policy Statement, Federal Register Doc. 2023-11234",
+      "method": "regulatory_policy_statement",
+      "date": "2023-05-18",
+      "notes": "FTC formal policy statement on consumer deception and data privacy compliance.",
+      "previouslyExamined": false
+    },
+    "text": "The Federal Trade Commission is issuing this policy statement to provide guidance regarding its enforcement priorities concerning the collection, storage, and use of biometric data. Businesses that deploy automated biometric analysis tools must accurately represent the capabilities, limitations, and operational security of such technologies to consumers. Misrepresenting the accuracy of facial recognition systems or falsely claiming that automated monitoring has received independent scientific validation violates Section 5 of the FTC Act. Companies must implement comprehensive privacy safeguards, conduct ongoing vendor oversight, and provide prompt notice when data breaches compromise sensitive personal indicators.",
+    "wordCount": 92,
+    "lengthCategory": "medium",
+    "sha256": "7079ec7943c3f162c512314259c7c9b91f537494e3bab05dd34f844e0a73aaf0"
+  },
+  {
+    "id": "holdout_h_corp_29",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Bank of England, Financial Stability Report (December 2023)",
+      "sourceUrlOrCitation": "Bank of England Financial Policy Committee Summary, Issue No. 54",
+      "method": "central_bank_report",
+      "date": "2023-12-06",
+      "notes": "Central banking report on banking system capital adequacy and debt servicing stress.",
+      "previouslyExamined": false
+    },
+    "text": "The global risk environment remains challenging, with economic activity remaining subdued across major trading partners. Higher borrowing costs have increased debt servicing pressures for households and businesses, though the UK banking system possesses sufficient capital and liquidity to absorb potential losses. Major UK lenders underwent rigorous scenario analysis to evaluate their resilience against combined shocks of severe domestic recession, elevated interest rates, and sharp property value depreciations. Even under these adverse conditions, capital ratios remained comfortably above minimum regulatory requirements, allowing banks to maintain lending to creditworthy borrowers.",
+    "wordCount": 88,
+    "lengthCategory": "medium",
+    "sha256": "1b08203ffc2a10e3c3b5a44d26e59026e04fc010ca16bc6f45f7399679ff7c44"
+  },
+  {
+    "id": "holdout_h_corp_30",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Target Corporation, Notice of Annual Meeting and Proxy Statement (2023)",
+      "sourceUrlOrCitation": "SEC Schedule 14A Filing, Item 1 Executive Compensation CD&A",
+      "method": "sec_filing",
+      "date": "2023-04-28",
+      "notes": "Target SEC proxy statement outlining executive compensation governance and incentive targets.",
+      "previouslyExamined": false
+    },
+    "text": "Our executive compensation program is designed to align the financial interests of our senior leaders with the long-term wealth creation of our shareholders. We accomplish this by tying a substantial majority of executive compensation directly to verifiable performance metrics, including adjusted earnings before interest and taxes, return on invested capital, and relative total shareholder return compared to our retail peer group. Incentive payouts under our short-term plan reflect our disciplined response to post-pandemic inventory imbalances, while multi-year equity awards ensure that our executive team maintains undivided focus on sustainable retail store operations and digital fulfillment efficiency.",
+    "wordCount": 96,
+    "lengthCategory": "medium",
+    "sha256": "11a5097ee01c0c9b1d7368f7d3d3ef4d78d8792c465f08e498a488f53765ce87"
+  },
+  {
+    "id": "holdout_h_conv_31",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "conversational",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Jane Austen, Letter to Cassandra Austen (January 1801)",
+      "sourceUrlOrCitation": "Letters of Jane Austen, Edited by Lord Brabourne, Letter XXIX",
+      "method": "historical_correspondence",
+      "date": "1801-01-21",
+      "notes": "Personal sisterly correspondence concerning social visiting and winter weather.",
+      "previouslyExamined": false
+    },
+    "text": "We are quite well. Our weather is turned very cold, with severe frost, but it has been very pleasant today. I walked with Mary to Deane, and had an agreeable visit there.",
+    "wordCount": 32,
+    "lengthCategory": "short",
+    "sha256": "19db3f5abea220aab0e45602c6164c686e7b78c988ed2586ac9ab0491e554390"
+  },
+  {
+    "id": "holdout_h_conv_32",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "conversational",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Vincent van Gogh, Letter to Theo van Gogh (Arles, May 1888)",
+      "sourceUrlOrCitation": "The Letters of Vincent van Gogh, Letter 492",
+      "method": "historical_correspondence",
+      "date": "1888-05-29",
+      "notes": "Personal letter discussing painting studies under the Mediterranean sun.",
+      "previouslyExamined": false
+    },
+    "text": "I am working on two canvases of orchards in bloom. The weather is glorious today, clear blue sky and no mistral. I had to walk three miles this morning to find the right shade of yellow blossoms.",
+    "wordCount": 37,
+    "lengthCategory": "short",
+    "sha256": "dfb27667acb166901255a368e0cc019b96762a15d5c356e28ed403ad3fc0a2f4"
+  },
+  {
+    "id": "holdout_h_conv_33",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "conversational",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Virginia Woolf, Diary Entry (November 1919)",
+      "sourceUrlOrCitation": "The Diary of Virginia Woolf, Vol. 1: 1915-1919",
+      "method": "personal_diary",
+      "date": "1919-11-18",
+      "notes": "Casual personal reflection on printing at Hogarth Press and village life.",
+      "previouslyExamined": false
+    },
+    "text": "Leonard and I set type all afternoon. My fingers are black with ink, but the small press works wonderfully when you don’t hurry it. We had tea by the stove while the rain beat on the glass.",
+    "wordCount": 37,
+    "lengthCategory": "short",
+    "sha256": "ec0d509da112b116abe50a83012a873180d3aefa66c592f4d9c17c0971edd836"
+  },
+  {
+    "id": "holdout_h_conv_34",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "conversational",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Mark Twain, Letter to William Dean Howells (December 1874)",
+      "sourceUrlOrCitation": "Mark Twain Letters, Vol. 1, Project Gutenberg",
+      "method": "historical_correspondence",
+      "date": "1874-12-08",
+      "notes": "Humorous informal personal correspondence between literary friends.",
+      "previouslyExamined": false
+    },
+    "text": "I am so glad you liked that Mississippi yarn. I was afraid it would read too rough, because I wrote the whole batch while nursing a dreadful cold and sitting wrapped in blankets by the parlor fireplace. Tell Mrs. Howells that the apple pies she sent were eaten down to the crust in twenty minutes flat.",
+    "wordCount": 56,
+    "lengthCategory": "medium",
+    "sha256": "1335e422d40d7de62ce8ece1f4801952420d08a105c21f19d1e81dda8c277ceb"
+  },
+  {
+    "id": "holdout_h_conv_35",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "conversational",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Samuel Pepys, Diary Entry (September 2, 1666)",
+      "sourceUrlOrCitation": "The Diary of Samuel Pepys, Great Fire of London",
+      "method": "personal_diary",
+      "date": "1666-09-02",
+      "notes": "First-person eyewitness account of the Great Fire of London.",
+      "previouslyExamined": false
+    },
+    "text": "Some of our maids sitting up late last night to get things ready against our feast to-day, Jane called us up about three in the morning, to tell us of a great fire they saw in the City. So I rose and slipped on my night-gown, and went to her window, and thought it to be on the back-side of Mark-lane at the farthest; but being unused to such fires as followed, I thought it far off, and went back to bed again to sleep.",
+    "wordCount": 85,
+    "lengthCategory": "medium",
+    "sha256": "41402aecb536299c6b87c5f1b082fc999e88064285f0efcca4eeaa6697f86c4b"
+  },
+  {
+    "id": "holdout_h_conv_36",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "conversational",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "John Keats, Letter to George and Georgiana Keats (Winchester, September 1819)",
+      "sourceUrlOrCitation": "Letters of John Keats, Letter to his brother in America",
+      "method": "historical_correspondence",
+      "date": "1819-09-21",
+      "notes": "Personal letter detailing impressions of Winchester air, harvest, and quiet walks.",
+      "previouslyExamined": false
+    },
+    "text": "How beautiful the season is now—how fine the air. A temperate sharpness about it. Really, without joking, chaste weather—Dian skies—I never liked stubble fields so much as now—Aye better than the chilly green of the spring. Somehow a stubble plain looks warm—in the same way that some pictures look warm. This struck me so much in my Sunday’s walk that I composed upon it.",
+    "wordCount": 64,
+    "lengthCategory": "medium",
+    "sha256": "4f7d2c7ae4600dd3f25f8a60664fd701bf52d0bf480a0445c2497f2bda6ca2f4"
+  },
+  {
+    "id": "holdout_h_conv_37",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "conversational",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Dorothy Wordsworth, The Grasmere Journal (October 1800)",
+      "sourceUrlOrCitation": "Journals of Dorothy Wordsworth, Grasmere Period",
+      "method": "personal_diary",
+      "date": "1800-10-03",
+      "notes": "Informal daily journal entry recording walks with William Wordsworth and autumn weather.",
+      "previouslyExamined": false
+    },
+    "text": "A very fine clear morning. After William had finished his breakfast we set off together along the lane towards Rydale. The trees were beginning to look yellow and brown, especially the birches on the crags. We met an old soldier with a wooden leg who had walked all the way from Whitehaven to find work in Ambleside.",
+    "wordCount": 57,
+    "lengthCategory": "medium",
+    "sha256": "079bb2aa84a85ad4f5e5f256e7b0b2794f59e1a999cbe8e578522dd883f1a863"
+  },
+  {
+    "id": "holdout_h_conv_38",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "conversational",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Abraham Lincoln, Letter to Horace Greeley (August 22, 1862)",
+      "sourceUrlOrCitation": "Collected Works of Abraham Lincoln, Vol. 5, pp. 388-389",
+      "method": "historical_correspondence",
+      "date": "1862-08-22",
+      "notes": "Direct personal public letter articulating official presidential policy on union and emancipation.",
+      "previouslyExamined": false
+    },
+    "text": "I have not meant to leave any one in doubt. I would save the Union. I would save it the shortest way under the Constitution. The sooner the national authority can be restored; the nearer the Union will be \"the Union as it was.\" If there be those who would not save the Union, unless they could at the same time save slavery, I do not agree with them. If there be those who would not save the Union unless they could at the same time destroy slavery, I do not agree with them. My paramount object in this struggle is to save the Union, and is not either to save or to destroy slavery. If I could save the Union without freeing any slave I would do it, and if I could save it by freeing all the slaves I would do it.",
+    "wordCount": 144,
+    "lengthCategory": "long",
+    "sha256": "a718584e739243d688b34983f0c199e42f5318b77baf402667d6337724d3c795"
+  },
+  {
+    "id": "holdout_h_conv_39",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "conversational",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Charlotte Brontë, Letter to Ellen Nussey (Haworth, 1849)",
+      "sourceUrlOrCitation": "The Brontë Letters, Oxford University Press",
+      "method": "historical_correspondence",
+      "date": "1849-07-14",
+      "notes": "Personal intimate letter describing grief, solitary walks across Yorkshire moors, and quiet strength.",
+      "previouslyExamined": false
+    },
+    "text": "I am now again at home, where I must be quiet for a time. The house seems very silent, but I am thankful to say that my health has not suffered from the sorrow and strain of the past months. Papa is well, too, and busy with his parish duties. I try to keep my thoughts from wandering backwards, and occupy myself with regular daily work, reading, sewing, and taking solitary rambles on the moors whenever the afternoon rain clears away. The purple heather is just beginning to blossom along the ridges, and the wind up there has a wonderfully reviving breath after days spent cooped up in the parsonage study.",
+    "wordCount": 111,
+    "lengthCategory": "long",
+    "sha256": "0505b6ae77c05cec9a097d6c17d19ef8bf392600cc6974ffc714876e74c32b14"
+  },
+  {
+    "id": "holdout_h_conv_40",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "conversational",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Henry David Thoreau, Walden (1854)",
+      "sourceUrlOrCitation": "Gutenberg #205, Chapter 1: Economy",
+      "method": "memoir_essay",
+      "date": "1854-08-09",
+      "notes": "First-person personal memoir addressing townspeople on simple living and house building.",
+      "previouslyExamined": false
+    },
+    "text": "When I wrote the following pages, or rather the bulk of them, I lived alone, in the woods, a mile from any neighbor, in a house which I had built myself, on the shore of Walden Pond, in Concord, Massachusetts, and earned my living by the labor of my hands only. I lived there two years and two months. At present I am a sojourner in civilized life again. I should not obtrude my affairs so much on the notice of my readers if very particular inquiries had not been made by my townsmen concerning my mode of life, which some would call impertinent, though they do not appear to me at all impertinent, but, considering the circumstances, very natural and pertinent.",
+    "wordCount": 122,
+    "lengthCategory": "long",
+    "sha256": "ac1d3b7ac20dc9c004b04b9c82c952b5164cf569063f4d5ac15e39947cd80460"
+  },
+  {
+    "id": "holdout_h_creat_41",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "creative",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Joseph Conrad, Heart of Darkness (1899)",
+      "sourceUrlOrCitation": "Gutenberg #219, Opening Scene on the Thames",
+      "method": "literary_fiction",
+      "date": "1899-01-01",
+      "notes": "Classic opening scene depicting twilight stillness aboard the cruising yawl Nellie.",
+      "previouslyExamined": false
+    },
+    "text": "The Nellie, a cruising yawl, swung to her anchor without a flutter of the sails, and was at rest. The flood had made, the wind was nearly calm, and being bound down the river, the only thing for it was to come to and wait for the turn of the tide.",
+    "wordCount": 51,
+    "lengthCategory": "medium",
+    "sha256": "bb7ffe08eed068a550a4386e6c4db87a6c82c4f8047b55d537ca829b6a9ba74f"
+  },
+  {
+    "id": "holdout_h_creat_42",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "creative",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Charlotte Brontë, Jane Eyre (1847)",
+      "sourceUrlOrCitation": "Gutenberg #1260, Chapter 1",
+      "method": "literary_fiction",
+      "date": "1847-10-16",
+      "notes": "Classic opening describing cold winter rain preventing outdoor walking.",
+      "previouslyExamined": false
+    },
+    "text": "There was no possibility of taking a walk that day. We had been wandering, indeed, in the leafless shrubbery an hour in the morning; but since dinner the cold winter wind had brought with it clouds so somber, and a rain so penetrating, that further outdoor exercise was now out of the question.",
+    "wordCount": 53,
+    "lengthCategory": "medium",
+    "sha256": "cbf10148b88dbc94d2aff4de602a0a6de731a8ed262d062c619fbd9a7c8507d3"
+  },
+  {
+    "id": "holdout_h_creat_43",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "creative",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Arthur Conan Doyle, The Hound of the Baskervilles (1902)",
+      "sourceUrlOrCitation": "Gutenberg #2852, Chapter 6: Baskerville Hall",
+      "method": "literary_fiction",
+      "date": "1902-01-01",
+      "notes": "Atmospheric description of the bleak Devonshire moorland at sunset.",
+      "previouslyExamined": false
+    },
+    "text": "The wagonette swung round a curve in the road and before us lay the great moor, rolling away like a fantastic billiard table of mottled green and brown, with the grey granite tors standing up against the dying light of the western sky.",
+    "wordCount": 43,
+    "lengthCategory": "short",
+    "sha256": "3aef1bc7a62a7484f88560cddb90b39a9515e20db2b226759cbd602a7ee77ef1"
+  },
+  {
+    "id": "holdout_h_creat_44",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "creative",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Edgar Allan Poe, The Fall of the House of Usher (1839)",
+      "sourceUrlOrCitation": "Burton’s Gentleman’s Magazine, September 1839",
+      "method": "literary_fiction",
+      "date": "1839-09-01",
+      "notes": "Gothic masterpiece opening depicting a solitary ride through desolate autumn country.",
+      "previouslyExamined": false
+    },
+    "text": "During the whole of a dull, dark, and soundless day in the autumn of the year, when the clouds hung oppressively low in the heavens, I had been passing alone, on horseback, through a singularly dreary tract of country; and at length found myself, as the shades of the evening drew on, within view of the melancholy House of Usher. I know not how it was—but, with the first glimpse of the building, a sense of insufferable gloom pervaded my spirit.",
+    "wordCount": 81,
+    "lengthCategory": "medium",
+    "sha256": "11c64c18cdb86251e45e4a6b2e08cde17e0da7f27a17adc58f5d01bf57d84b35"
+  },
+  {
+    "id": "holdout_h_creat_45",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "creative",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "F. Scott Fitzgerald, The Great Gatsby (1925)",
+      "sourceUrlOrCitation": "Gutenberg Australia, Chapter 3: Gatsby’s Summer Parties",
+      "method": "literary_fiction",
+      "date": "1925-04-10",
+      "notes": "Descriptive narrative of blue gardens, summer whispers, and twilight champagne.",
+      "previouslyExamined": false
+    },
+    "text": "There was music from my neighbor’s house through the summer nights. In his blue gardens men and girls came and went like moths among the whisperings and the champagne and the stars. At high tide in the afternoon I watched his guests diving from the tower of his raft, or taking the sun on the hot sand of his beach while his two motor-boats slit the waters of the Sound.",
+    "wordCount": 70,
+    "lengthCategory": "medium",
+    "sha256": "d74adc8d9d2e72ad15bac2d4bc2ff9fe292ec39bacf438c63dadb9a883098909"
+  },
+  {
+    "id": "holdout_h_creat_46",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "creative",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Jack London, To Build a Fire (1908)",
+      "sourceUrlOrCitation": "Century Magazine, August 1908",
+      "method": "literary_fiction",
+      "date": "1908-08-01",
+      "notes": "Classic opening describing the bitter Yukon cold and dim frozen spruce forest.",
+      "previouslyExamined": false
+    },
+    "text": "Day had broken cold and gray, exceedingly cold and gray, when the man turned aside from the main Yukon trail and climbed the high earth-bank, where a dim and little-travelled trail led eastward through the fat spruce timberland. It was a steep bank, and he paused for breath at the top, excusing the act to himself by looking at his watch. It was nine o’clock. There was no sun nor hint of sun, though there was not a cloud in the sky.",
+    "wordCount": 82,
+    "lengthCategory": "medium",
+    "sha256": "db8c75a448415195cdcd1a79a44c1971e134e16b3c06dcaa8c009247e03a425b"
+  },
+  {
+    "id": "holdout_h_creat_47",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "creative",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Bram Stoker, Dracula (1897)",
+      "sourceUrlOrCitation": "Gutenberg #345, Chapter 1: Jonathan Harker’s Journal",
+      "method": "literary_fiction",
+      "date": "1897-05-26",
+      "notes": "Atmospheric travelogue into the Carpathian mountains through green valleys and pine forests.",
+      "previouslyExamined": false
+    },
+    "text": "Beyond the green swelling hills of the Mittel Land rose the mighty slopes of forest up to the lofty steeps of the Carpathians themselves. Right and left of us they towered, with the afternoon sun falling full upon them and bringing out all the glorious colours of this beautiful range, deep blue and purple in the shadows of the peaks, green and brown where grass and rock mingled.",
+    "wordCount": 68,
+    "lengthCategory": "medium",
+    "sha256": "7e61e67cc9084f034688158f65ab8eb3528520dad984da8837945720353c8b59"
+  },
+  {
+    "id": "holdout_h_creat_48",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "creative",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Charles Dickens, Bleak House (1853)",
+      "sourceUrlOrCitation": "Gutenberg #1023, Chapter 1: In Chancery",
+      "method": "literary_fiction",
+      "date": "1853-01-01",
+      "notes": "Legendary London fog opening scene using impressionistic sentence fragments and heavy atmosphere.",
+      "previouslyExamined": false
+    },
+    "text": "London. Michaelmas term lately over, and the Lord Chancellor sitting in Lincoln’s Inn Hall. Implacable November weather. As much mud in the streets as if the waters had but newly retired from the face of the earth, and it would not be wonderful to meet a Megalosaurus, forty feet long or so, waddling like an elephantine lizard up Holborn Hill. Smoke lowering down from chimney-pots, making a soft black drizzle, with flakes of soot in it as big as full-grown snowflakes—gone into mourning, one might imagine, for the death of the sun. Dogs, undistinguishable in mire. Horses, scarcely better; splashed to their very blinkers. Foot passengers, jostling one another’s umbrellas in a general infection of ill temper, and losing their foot-hold at street-corners, where tens of thousands of other foot passengers have been slipping and sliding since the day broke.",
+    "wordCount": 140,
+    "lengthCategory": "long",
+    "sha256": "be9a8816979c4b66739b98f0d8a94d3ccd72de292bf591cf9ee7de6a9ab09d8d"
+  },
+  {
+    "id": "holdout_h_creat_49",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "creative",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Thomas Hardy, The Return of the Native (1878)",
+      "sourceUrlOrCitation": "Gutenberg #122, Chapter 1: A Face on Which Time Makes Little Impression",
+      "method": "literary_fiction",
+      "date": "1878-01-01",
+      "notes": "Rich description of Egdon Heath slowly darkening under an overcast November twilight.",
+      "previouslyExamined": false
+    },
+    "text": "A Saturday afternoon in November was approaching the time of twilight, and the vast tract of unenclosed wild known as Egdon Heath embrowned itself moment by moment. Overhead the hollow stretch of whitish cloud shutting out the sky was as a tent which had no flap to it. Looking up into this heaven at evening, into its expanse of neither light nor shade, it was impossible to say where the sky ended and the ground began. The sea on the side of the heath lay motionless, while upon the brown surface of the wastes below the dry heather whispered continually in the rising wind. It was a spot which seemed to have an absolute purpose in remaining grim and lonely.",
+    "wordCount": 120,
+    "lengthCategory": "long",
+    "sha256": "2822acc5c8208d85c6c9ee7355f90617acb5f8bbf8419141f0a200dd9c431546"
+  },
+  {
+    "id": "holdout_h_creat_50",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "creative",
+    "label": "human_verified",
+    "provenance": {
+      "authorOrSource": "Herman Melville, Bartleby, the Scrivener: A Story of Wall-Street (1853)",
+      "sourceUrlOrCitation": "Putnam’s Monthly Magazine, November 1853",
+      "method": "literary_fiction",
+      "date": "1853-11-01",
+      "notes": "First-person narrative establishing Wall Street legal chamber setting and quiet character.",
+      "previouslyExamined": false
+    },
+    "text": "I am a rather elderly man. The nature of my avocations, for the last thirty years, has brought me into more than ordinary contact with what would seem an interesting and somewhat singular set of men, of whom, as yet, nothing that I know of has ever been written—I mean the law-copyists, or scriveners. I have known very many of them, professionally and privately, and, if I pleased, could relate divers histories, at which good-natured gentlemen might smile, and sentimental souls might weep. But I waive the biographies of all other scriveners, for a few passages in the life of Bartleby, who was a scrivener, the strangest I ever saw, or heard of. While of other scriveners I might write the complete life, of Bartleby nothing of that sort can be done.",
+    "wordCount": 132,
+    "lengthCategory": "long",
+    "sha256": "4049382cec6be072dfdd33a937d26c231277072095546ad3f5cef2a68f5535aa"
+  },
+  {
+    "id": "holdout_ai_acad_51",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Anthropic Claude 3.5 Sonnet (claude-3-5-sonnet-20241022)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write a brief philosophical definition of epistemic justification in two concise sentences.",
+      "model": "Claude 3.5 Sonnet",
+      "configuration": "Temperature 0.7, MaxTokens 100",
+      "notes": "Synthetic academic definition lacking high-confidence cliché words.",
+      "previouslyExamined": false
+    },
+    "text": "Epistemic justification concerns whether a person holds a belief with adequate rational grounding or intellectual warrant. It distinguishes mere true opinion from genuine knowledge by examining the supporting evidence accessible to the thinker.",
+    "wordCount": 33,
+    "lengthCategory": "short",
+    "sha256": "45129845b431790a7e5b77165e159f9016dad6e37c2483c67cda03032373f600"
+  },
+  {
+    "id": "holdout_ai_acad_52",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "OpenAI GPT-4o (gpt-4o-2024-08-06)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Explain genetic drift in population biology in one or two clear sentences.",
+      "model": "GPT-4o",
+      "configuration": "Temperature 0.7, MaxTokens 100",
+      "notes": "Clean synthetic explanation with typical GPT syntactic symmetry.",
+      "previouslyExamined": false
+    },
+    "text": "Genetic drift refers to random fluctuations in allele frequencies that occur within a population due to chance events rather than natural selection. Its evolutionary effects become especially pronounced in small, isolated populations over successive generations.",
+    "wordCount": 35,
+    "lengthCategory": "short",
+    "sha256": "6c36c00d01a47c4c3fef73af1f41ade26f97fb35c4cb658506400defdea15af9"
+  },
+  {
+    "id": "holdout_ai_acad_53",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Google Gemini 1.5 Pro (gemini-1.5-pro-002)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Define cognitive dissonance theory in academic psychological terms in two sentences.",
+      "model": "Gemini 1.5 Pro",
+      "configuration": "Temperature 0.7, MaxTokens 100",
+      "notes": "Synthetic academic paragraph discussing psychological consistency.",
+      "previouslyExamined": false
+    },
+    "text": "Cognitive dissonance theory posits that individuals experience uncomfortable psychological tension when confronted with contradictory beliefs, values, or actions. To alleviate this discomfort, individuals typically alter their attitudes or rationalize the inconsistent behavior.",
+    "wordCount": 32,
+    "lengthCategory": "short",
+    "sha256": "cff67df3bf5166c0f3c1bc78bddd7882f5d18c7fb4cf7e3a08ffe953a28d2ee3"
+  },
+  {
+    "id": "holdout_ai_acad_54",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "OpenAI GPT-4o (gpt-4o-2024-08-06)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Explain the mechanism of CRISPR-Cas9 genome editing for an introductory biology textbook.",
+      "model": "GPT-4o",
+      "configuration": "Temperature 0.7, MaxTokens 200",
+      "notes": "Standard GPT-4o instructional prose exhibiting uniform clause lengths.",
+      "previouslyExamined": false
+    },
+    "text": "The CRISPR-Cas9 system operates as a molecular editing tool derived from bacterial immune mechanisms. A synthetic single-guide RNA molecule directs the Cas9 endonuclease to a precise target sequence within the cellular genome. Once positioned adjacent to a protospacer motif, the enzyme introduces a double-strand break across both DNA strands. Cellular repair pathways, such as non-homologous end joining or homology-directed repair, subsequently mend the severed DNA, allowing researchers to disrupt specific genes or introduce deliberate genetic modifications.",
+    "wordCount": 76,
+    "lengthCategory": "medium",
+    "sha256": "0027b5725f481d744ef6720e3472a89c034c3a8774ed24f04f8c0480b2566009"
+  },
+  {
+    "id": "holdout_ai_acad_55",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Anthropic Claude 3.5 Sonnet (claude-3-5-sonnet-20241022)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write an academic paragraph discussing John Rawls’s veil of ignorance concept.",
+      "model": "Claude 3.5 Sonnet",
+      "configuration": "Temperature 0.7, MaxTokens 200",
+      "notes": "Systematic moral philosophy exposition with regular sentence pacing.",
+      "previouslyExamined": false
+    },
+    "text": "John Rawls introduced the veil of ignorance as a central thought experiment in his theory of justice. Behind this hypothetical barrier, rational parties deliberate upon foundational social principles without knowing their own class, race, gender, or natural talents. Because self-interested actors cannot foresee which position they will occupy in society, they are motivated to choose rules that protect the least advantaged, ensuring fair equality of opportunity and protecting fundamental basic liberties for all citizens.",
+    "wordCount": 74,
+    "lengthCategory": "medium",
+    "sha256": "1e82d5bfdc01a406ae1d268790a9115bc025846e961d7dccd942540895aa14bc"
+  },
+  {
+    "id": "holdout_ai_acad_56",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Meta Llama-3.1-70B-Instruct",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Summarize Thomas Kuhn’s concept of paradigm shifts in scientific revolutions.",
+      "model": "Llama-3.1-70B",
+      "configuration": "Temperature 0.7, MaxTokens 200",
+      "notes": "Synthetic history of science paragraph with characteristic transition markers.",
+      "previouslyExamined": false
+    },
+    "text": "Thomas Kuhn argued that scientific progress does not accumulate in a simple linear fashion. Instead, scientific disciplines operate within an accepted framework of assumptions and experimental practices known as a dominant paradigm. Over time, persistent empirical anomalies accumulate that cannot be accommodated by prevailing theories. When these unresolved contradictions reach a critical mass, a crisis ensues, culminating in a paradigm shift that establishes an entirely new conceptual lens for scientific observation.",
+    "wordCount": 71,
+    "lengthCategory": "medium",
+    "sha256": "9014207703d32a60c6e11944da8fd4fc63fbcb4d62ef83f1e1fd34cad3d02eb5"
+  },
+  {
+    "id": "holdout_ai_acad_57",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Google Gemini 1.5 Pro (gemini-1.5-pro-002)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write an abstract-style explanation of oceanic thermohaline circulation.",
+      "model": "Gemini 1.5 Pro",
+      "configuration": "Temperature 0.7, MaxTokens 200",
+      "notes": "Earth systems oceanography exposition.",
+      "previouslyExamined": false
+    },
+    "text": "Thermohaline circulation serves as a primary driver of global climate regulation by transporting heat across planetary ocean basins. Cold, saline water sinks in high-latitude regions, such as the North Atlantic and Southern Ocean, initiating a deep convective flow. As these dense water masses migrate toward the tropics, they gradually warm, upwell, and return equatorward through surface currents, establishing a global conveyor belt that moderates continental temperatures and governs marine nutrient distribution.",
+    "wordCount": 71,
+    "lengthCategory": "medium",
+    "sha256": "85fa73a76743d3a27186e79ac0c8c49df574b7e416637400665d3f7b8bec75cd"
+  },
+  {
+    "id": "holdout_ai_acad_58",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "OpenAI GPT-4o (gpt-4o-2024-08-06)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write an extensive academic review paragraph on the neurobiology of long-term potentiation.",
+      "model": "GPT-4o",
+      "configuration": "Temperature 0.7, MaxTokens 300",
+      "notes": "Detailed neurobiology exposition exhibiting characteristic high sentence uniformity.",
+      "previouslyExamined": false
+    },
+    "text": "Long-term potentiation represents a persistent strengthening of synapses based on recent patterns of activity, serving as a primary cellular model for learning and memory formation in the mammalian brain. During high-frequency stimulation at glutamatergic synapses, intense postsynaptic depolarization relieves the magnesium ion blockade of NMDA receptors, allowing calcium ions to flood into the dendritic spine. This influx triggers intracellular signaling cascades mediated by calcium-calmodulin-dependent protein kinase II, which phosphorylates existing AMPA receptors and facilitates the trafficking of additional receptors to the postsynaptic membrane. Consequently, subsequent neurotransmitter release generates heightened excitatory postsynaptic potentials. Over extended periods, gene expression and protein synthesis consolidate these synaptic structural modifications, solidifying long-term memory traces within hippocampal circuits.",
+    "wordCount": 112,
+    "lengthCategory": "long",
+    "sha256": "42ff2be6c32236a31f6173eebf42b0ce0850b68acf9600fea57cc300333d194b"
+  },
+  {
+    "id": "holdout_ai_acad_59",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Anthropic Claude 3.5 Sonnet (claude-3-5-sonnet-20241022)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write a comprehensive academic analysis of the transition from the gold standard to fiat currency.",
+      "model": "Claude 3.5 Sonnet",
+      "configuration": "Temperature 0.7, MaxTokens 300",
+      "notes": "Economic history prose with measured, balanced transitions and uniform paragraph rhythm.",
+      "previouslyExamined": false
+    },
+    "text": "The transition from commodity-backed monetary systems to modern fiat currency represented a profound structural shift in international political economy. Under the classical gold standard, national currencies derived their legal value from convertibility into fixed quantities of precious metal, which imposed strict mechanical limits on domestic money supply and government deficit financing. While this discipline stabilized exchange rates and suppressed long-term inflation, it simultaneously stripped central banks of discretionary countercyclical monetary policy tools during economic downturns. The systemic collapse of the Bretton Woods framework in 1971 severed the remaining institutional link between sovereign currencies and physical reserves. In the contemporary fiat paradigm, monetary value depends on state legal tender authority, institutional credibility, and collective market confidence, enabling central monetary authorities to expand credit flexibly during liquidity crises.",
+    "wordCount": 126,
+    "lengthCategory": "long",
+    "sha256": "0822edb2e383298c09b867b0c05a03712cf9b799d01a3ede3fd00bbcf46c41f5"
+  },
+  {
+    "id": "holdout_ai_acad_60",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Meta Llama-3.1-70B-Instruct",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write an academic essay excerpt discussing the sociological implications of urban gentrification.",
+      "model": "Llama-3.1-70B",
+      "configuration": "Temperature 0.7, MaxTokens 300",
+      "notes": "Urban sociology analysis exhibiting formulaic discourse balance.",
+      "previouslyExamined": false
+    },
+    "text": "Urban gentrification constitutes a multidimensional process characterized by the influx of higher-income residents and capital reinvestment into historically disinvested municipal neighborhoods. From an economic perspective, this transformation frequently stimulates infrastructure rehabilitation, broadens the municipal property tax base, and encourages commercial revitalization. However, critical sociological inquiry highlights the severe displacement pressures exerted upon long-term, lower-income inhabitants who cannot absorb rising residential rents and escalating property valuations. Furthermore, the cultural character of the neighborhood undergoes rapid reconfiguration as local independent establishments are replaced by corporate retailers catering to affluent demographics. In conclusion, urban planners must balance economic revitalization initiatives against equitable housing policies to preserve social cohesion.",
+    "wordCount": 105,
+    "lengthCategory": "long",
+    "sha256": "70ce34a6879e7b5fe0141fba8999d1d8ad6239545854613092964dcc58e55ccf"
+  },
+  {
+    "id": "holdout_ai_tech_61",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "OpenAI GPT-4o (gpt-4o-2024-08-06)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Explain database index B-trees in two concise technical sentences.",
+      "model": "GPT-4o",
+      "configuration": "Temperature 0.7, MaxTokens 100",
+      "notes": "Concise technical summary without clichés.",
+      "previouslyExamined": false
+    },
+    "text": "A B-tree index maintains sorted key-value pairs across a balanced multi-way tree structure to enable logarithmic search, insertion, and deletion times. Leaf nodes contain direct record pointers and sequential links that optimize range query scans across disk storage.",
+    "wordCount": 38,
+    "lengthCategory": "short",
+    "sha256": "566fbb4f0bd4ea2bab563ecc5b5ad0873b35db36be4e932dc5c3aea63d8a03c7"
+  },
+  {
+    "id": "holdout_ai_tech_62",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Anthropic Claude 3.5 Sonnet (claude-3-5-sonnet-20241022)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Describe HTTP/2 multiplexing in two technical sentences.",
+      "model": "Claude 3.5 Sonnet",
+      "configuration": "Temperature 0.7, MaxTokens 100",
+      "notes": "Clean technical networking definition.",
+      "previouslyExamined": false
+    },
+    "text": "HTTP/2 multiplexing allows multiple concurrent request and response messages to be interleaved across a single underlying TCP connection using binary framing. This design eliminates head-of-line blocking at the application layer without requiring multiple parallel socket allocations.",
+    "wordCount": 36,
+    "lengthCategory": "short",
+    "sha256": "f972d4010d29b251775722ff430ff7032a676d9330402916f0e8bd8d17360204"
+  },
+  {
+    "id": "holdout_ai_tech_63",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Google Gemini 1.5 Pro (gemini-1.5-pro-002)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Explain what a race condition is in concurrent programming in two sentences.",
+      "model": "Gemini 1.5 Pro",
+      "configuration": "Temperature 0.7, MaxTokens 100",
+      "notes": "Systems software engineering definition.",
+      "previouslyExamined": false
+    },
+    "text": "A race condition occurs when multiple threads concurrently read and modify shared memory without adequate synchronization, causing final program state to depend on non-deterministic scheduling. Developers typically prevent these concurrency anomalies using mutual exclusion locks, semaphores, or atomic primitives.",
+    "wordCount": 39,
+    "lengthCategory": "short",
+    "sha256": "36d058efdbb95c0d3d7c2a042bf8c9fe80fe09f1811ae6440ca0c516338d7a0c"
+  },
+  {
+    "id": "holdout_ai_tech_64",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "OpenAI GPT-4o (gpt-4o-2024-08-06)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write an architectural documentation section on Raft consensus algorithm leader election.",
+      "model": "GPT-4o",
+      "configuration": "Temperature 0.7, MaxTokens 200",
+      "notes": "Raft distributed consensus summary with standard declarative syntax.",
+      "previouslyExamined": false
+    },
+    "text": "In the Raft consensus algorithm, cluster nodes maintain state as either followers, candidates, or a single active leader. When a follower node detects no heartbeat messages within its randomized election timeout window, it increments its term counter, transitions to the candidate state, and broadcasts RequestVote RPCs across the network. If the candidate receives affirmative votes from a strict quorum of cluster participants, it assumes the leader role and immediately begins transmitting periodic empty append entries to prevent subsequent election timeouts.",
+    "wordCount": 80,
+    "lengthCategory": "medium",
+    "sha256": "171f7b5444b1c526432bc411534166e05dfd39572fe6c0ad8b57d0d7107adfa8"
+  },
+  {
+    "id": "holdout_ai_tech_65",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Anthropic Claude 3.5 Sonnet (claude-3-5-sonnet-20241022)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Describe how garbage collection works in generational runtimes like the V8 engine.",
+      "model": "Claude 3.5 Sonnet",
+      "configuration": "Temperature 0.7, MaxTokens 200",
+      "notes": "Memory management description with balanced clause structures.",
+      "previouslyExamined": false
+    },
+    "text": "Generational garbage collectors exploit the weak generational hypothesis, which observes that the vast majority of allocated memory objects die shortly after creation. In runtimes like V8, the heap is split into nursery and old-generation spaces. A fast, frequent scavenger cycle reclaims ephemeral allocations from the nursery through pointer bumping and copy compaction. Objects that survive multiple nursery cycles are promoted to the old generation, where they are managed by mark-sweep-compact routines that execute less frequently to avoid latency pauses.",
+    "wordCount": 79,
+    "lengthCategory": "medium",
+    "sha256": "838483044172b8482f48eb9aa059039c7328140cdcfe67c35c6f38b058c274f8"
+  },
+  {
+    "id": "holdout_ai_tech_66",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Meta Llama-3.1-70B-Instruct",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Explain the principles of zero-trust network architecture in corporate infrastructure.",
+      "model": "Llama-3.1-70B",
+      "configuration": "Temperature 0.7, MaxTokens 200",
+      "notes": "Cybersecurity architectural description with characteristic transition words.",
+      "previouslyExamined": false
+    },
+    "text": "Zero-trust architecture rejects the traditional perimeter-based security model that inherently trusts internal network traffic. Instead, the paradigm operates under the principle of continuous verification, requiring explicit authentication and authorization for every access request regardless of origin. Micro-segmentation restricts lateral movement by isolating network workloads into discrete cryptographic zones. Furthermore, dynamic access policies continuously evaluate contextual signals, such as device security posture, user identity, and geographical anomalies, to grant minimal least-privilege permissions.",
+    "wordCount": 71,
+    "lengthCategory": "medium",
+    "sha256": "fbd5a939ee11c46ce6cc355a41eddf73c0559e5e6681590626a2bef7b0967c39"
+  },
+  {
+    "id": "holdout_ai_tech_67",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Google Gemini 1.5 Pro (gemini-1.5-pro-002)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Explain write-ahead logging (WAL) in transactional relational databases.",
+      "model": "Gemini 1.5 Pro",
+      "configuration": "Temperature 0.7, MaxTokens 200",
+      "notes": "Database storage engine technical prose.",
+      "previouslyExamined": false
+    },
+    "text": "Write-ahead logging guarantees database durability and atomicity by ensuring that all state changes are written sequentially to persistent disk storage before corresponding modifications are flushed to table data pages. If an unexpected power failure or system crash interrupts database execution, the recovery subsystem scans the log file to replay committed operations and roll back uncommitted transactions, restoring data integrity without requiring immediate in-place writes during normal transaction processing.",
+    "wordCount": 68,
+    "lengthCategory": "medium",
+    "sha256": "2600645c5d1b305c49258447fb9cf7340492c5577f79f405105a515f2822b403"
+  },
+  {
+    "id": "holdout_ai_tech_68",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "OpenAI GPT-4o (gpt-4o-2024-08-06)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write a comprehensive technical specification overview of modern TLS 1.3 cryptographic handshake.",
+      "model": "GPT-4o",
+      "configuration": "Temperature 0.7, MaxTokens 300",
+      "notes": "Comprehensive cryptographic protocol description with typical formulaic syntax.",
+      "previouslyExamined": false
+    },
+    "text": "The Transport Layer Security 1.3 protocol significantly accelerates handshake latency and enhances security by eliminating obsolete cryptographic primitives and optimizing connection negotiation. Unlike previous versions that required two round trips to negotiate cipher suites and exchange keys, TLS 1.3 accomplishes full mutual cryptographic setup in a single round-trip time. In the initial ClientHello message, the client transmits supported cryptographic cipher suites alongside speculative Diffie-Hellman key shares. The server responds with its selected cipher, its own key share, and an encrypted digital certificate, enabling both endpoints to derive ephemeral session encryption keys immediately. By deprecating static RSA key exchanges and legacy CBC mode ciphers, the protocol mandates perfect forward secrecy for all active sessions. Furthermore, the 0-RTT resumption feature permits returning clients to transmit early application payload data in their initial handshake flight, though engineers must implement replay protection mechanisms.",
+    "wordCount": 139,
+    "lengthCategory": "long",
+    "sha256": "5d55ae1f5cbbd1428e7bcd9f7557de086a2b060288e0f15bff406fe9eead311f"
+  },
+  {
+    "id": "holdout_ai_tech_69",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Anthropic Claude 3.5 Sonnet (claude-3-5-sonnet-20241022)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write an in-depth systems architecture document on distributed caching strategies using Redis and CDN edge layers.",
+      "model": "Claude 3.5 Sonnet",
+      "configuration": "Temperature 0.7, MaxTokens 300",
+      "notes": "High-throughput systems architecture documentation with uniform paragraph structure.",
+      "previouslyExamined": false
+    },
+    "text": "A resilient multi-tier caching architecture balances latency reduction against cache coherence across distributed application services. At the outer perimeter, content delivery networks terminate client requests and serve static assets alongside aggressively cached edge fragments, eliminating transport latency for geographically dispersed users. When requests penetrate beyond edge caches to application microservices, an in-memory caching layer such as Redis shields primary transactional databases from overwhelming read contention. Engineers typically implement a cache-aside pattern, wherein application workers query the cache first, falling back to relational databases upon a miss and repopulating cache records with designated time-to-live expiration values. However, architecting cache invalidation under high concurrent write loads requires careful synchronization. Implementing event-driven invalidation via message queues ensures that stale database replicas are purged promptly across all regional clusters without introducing thundering herd stampedes.",
+    "wordCount": 130,
+    "lengthCategory": "long",
+    "sha256": "3d0ae91614e284129ba5f3b7dd0cb717363e1b1cea23e85e28db520f866301d3"
+  },
+  {
+    "id": "holdout_ai_tech_70",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Meta Llama-3.1-70B-Instruct",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write an architectural guide on microservices service mesh implementation using sidecar proxies.",
+      "model": "Llama-3.1-70B",
+      "configuration": "Temperature 0.7, MaxTokens 300",
+      "notes": "Cloud-native infrastructure guide with characteristic Llama transition markers.",
+      "previouslyExamined": false
+    },
+    "text": "In cloud-native microservices deployments, a service mesh decouples operational network management from core application business logic. Rather than embedding routing, retry mechanisms, and mutual TLS encryption routines directly into individual service codebases, infrastructure teams deploy dedicated sidecar proxies adjacent to each application container. The control plane manages global configuration, certificate rotation, and access control policies, while the data plane proxies intercept and mediate all inbound and outbound network calls across the cluster. This architectural separation enables centralized observability, allowing engineers to monitor request latency, error distributions, and distributed tracing spans across service boundaries. Furthermore, traffic routing features facilitate Canary rollouts and blue-green deployments with granular weighting rules. In summary, adopting a service mesh fosters operational consistency across polyglot microservice environments.",
+    "wordCount": 120,
+    "lengthCategory": "long",
+    "sha256": "e726f7494da1e5a5e83acdd2c576e7556896a2fad8e116a75c00a096f5576e64"
+  },
+  {
+    "id": "holdout_ai_corp_71",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "OpenAI GPT-4o (gpt-4o-2024-08-06)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write a corporate email announcement regarding an internal scheduling update in two concise sentences.",
+      "model": "GPT-4o",
+      "configuration": "Temperature 0.7, MaxTokens 100",
+      "notes": "Typical workplace corporate communication.",
+      "previouslyExamined": false
+    },
+    "text": "Please note that our upcoming executive review meeting has been rescheduled from Thursday afternoon to Friday morning at ten o’clock. Kindly update your calendars and ensure all final slide decks are uploaded to the shared folder by end of day.",
+    "wordCount": 40,
+    "lengthCategory": "short",
+    "sha256": "e7b4166c3b9f511955237a5e2eb3c97d4b76e0295b3d57d96f9cae3d2b11f5e4"
+  },
+  {
+    "id": "holdout_ai_corp_72",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Anthropic Claude 3.5 Sonnet (claude-3-5-sonnet-20241022)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write a professional cover letter opening statement expressing interest in an engineering manager position.",
+      "model": "Claude 3.5 Sonnet",
+      "configuration": "Temperature 0.7, MaxTokens 100",
+      "notes": "Professional career application statement.",
+      "previouslyExamined": false
+    },
+    "text": "I am writing to express my strong interest in the Engineering Manager opening at your organization. With over eight years of experience leading cross-functional teams and building distributed software architectures, I am excited about the opportunity to contribute to your technical roadmap.",
+    "wordCount": 42,
+    "lengthCategory": "short",
+    "sha256": "cd436f8412af67e34f406bb7b2b5e656163b6044e34356ab4dc27bc8949b0702"
+  },
+  {
+    "id": "holdout_ai_corp_73",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Google Gemini 1.5 Pro (gemini-1.5-pro-002)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Draft an executive summary statement on quarterly customer retention for a board deck.",
+      "model": "Gemini 1.5 Pro",
+      "configuration": "Temperature 0.7, MaxTokens 100",
+      "notes": "Executive financial summary statement.",
+      "previouslyExamined": false
+    },
+    "text": "Net revenue retention reached one hundred fourteen percent this quarter, driven by steady enterprise contract expansions and reduced mid-market churn. Our customer success initiatives helped sustain strong engagement across key account cohorts throughout the fiscal period.",
+    "wordCount": 36,
+    "lengthCategory": "short",
+    "sha256": "455d38dc6ca8649d4b4af40331ff84648c2fa82fd37040899e2b916691da8441"
+  },
+  {
+    "id": "holdout_ai_corp_74",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "OpenAI GPT-4o (gpt-4o-2024-08-06)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write a quarterly shareholder update discussing cloud migration and margin expansion.",
+      "model": "GPT-4o",
+      "configuration": "Temperature 0.7, MaxTokens 200",
+      "notes": "Corporate earnings announcement style with typical synthetic polish.",
+      "previouslyExamined": false
+    },
+    "text": "We are pleased to report strong operational performance for the third quarter, with total recurring revenue increasing eighteen percent year-over-year. Operating margins expanded by two hundred basis points as our cloud migration completed successfully, allowing us to decommission redundant legacy server infrastructure. Our disciplined capital allocation and focused operational execution position the business well to sustain robust free cash flow growth as we enter the final months of the fiscal year.",
+    "wordCount": 71,
+    "lengthCategory": "medium",
+    "sha256": "c57dd1ea0cb2726b6549aec439c78cfb394a6b6701c6d64862e4f96f6fb74fd8"
+  },
+  {
+    "id": "holdout_ai_corp_75",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Anthropic Claude 3.5 Sonnet (claude-3-5-sonnet-20241022)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write an internal corporate memo outlining new remote work equipment reimbursement guidelines.",
+      "model": "Claude 3.5 Sonnet",
+      "configuration": "Temperature 0.7, MaxTokens 200",
+      "notes": "Formal human resources corporate memo.",
+      "previouslyExamined": false
+    },
+    "text": "Effective immediately, the company has updated its remote work stipend policy to support ergonomic home office setups for all full-time employees. Eligible team members may claim up to five hundred dollars annually for approved home office furniture and technical peripherals through the internal expense portal. Please ensure all itemized purchase receipts are attached to your expense submission within thirty days to facilitate prompt managerial approval and payroll processing.",
+    "wordCount": 68,
+    "lengthCategory": "medium",
+    "sha256": "83a41befb0d710ebd297ceaf5c264817d592c755383826349851527c36f80cc2"
+  },
+  {
+    "id": "holdout_ai_corp_76",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Meta Llama-3.1-70B-Instruct",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write a corporate sustainability update for an annual stakeholder report.",
+      "model": "Llama-3.1-70B",
+      "configuration": "Temperature 0.7, MaxTokens 200",
+      "notes": "Corporate ESG update containing classic corporate transition markers.",
+      "previouslyExamined": false
+    },
+    "text": "Our commitment to environmental stewardship remains central to our corporate governance framework. Over the past twelve months, we transitioned sixty percent of our global fulfillment centers to renewable electricity contracts, reducing our operational carbon footprint substantially. In addition, our sustainable packaging initiative eliminated thousands of tons of single-use plastic waste from our logistics chain. Looking ahead, we will continue collaborating with our supply chain partners to achieve net-zero greenhouse gas emissions.",
+    "wordCount": 71,
+    "lengthCategory": "medium",
+    "sha256": "d710e986d86fe4b3466ae9f075aaa49b287671e7c58b5f977f4f2913fb3f0dc4"
+  },
+  {
+    "id": "holdout_ai_corp_77",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Google Gemini 1.5 Pro (gemini-1.5-pro-002)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write a product marketing launch email for an enterprise data compliance tool.",
+      "model": "Gemini 1.5 Pro",
+      "configuration": "Temperature 0.7, MaxTokens 200",
+      "notes": "B2B enterprise marketing announcement.",
+      "previouslyExamined": false
+    },
+    "text": "We are excited to introduce our new enterprise data governance platform, engineered to help organizations automate privacy compliance across multi-cloud environments. The solution integrates seamlessly into existing data pipelines, identifying sensitive customer records and enforcing access policies with zero disruption to daily workflows. We invite your security leadership team to schedule a personalized live demonstration to explore how our platform can protect your organization against emerging regulatory liabilities.",
+    "wordCount": 68,
+    "lengthCategory": "medium",
+    "sha256": "80f977509e27ea67124d9009c2b355f1976a7212b3e2774998957bb38966648a"
+  },
+  {
+    "id": "holdout_ai_corp_78",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "OpenAI GPT-4o (gpt-4o-2024-08-06)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write a comprehensive annual message from the CEO to employees summarizing annual achievements and setting strategic priorities.",
+      "model": "GPT-4o",
+      "configuration": "Temperature 0.7, MaxTokens 300",
+      "notes": "Executive CEO address with polished, balanced rhetoric and uniform paragraph structure.",
+      "previouslyExamined": false
+    },
+    "text": "As we reflect upon our collective accomplishments over the past fiscal year, I want to express my sincere appreciation to every team member across our global organization. Despite persistent macroeconomic volatility and shifting industry dynamics, our business demonstrated remarkable resilience, expanding our customer base by twenty-four percent and achieving record customer satisfaction benchmarks. We successfully launched our next-generation software suite, solidified our enterprise market footprint, and deepened our strategic relationships with leading ecosystem partners. Looking ahead to the coming year, our primary strategic priorities will center on driving product innovation, enhancing operating efficiency, and delivering exceptional customer experiences. By maintaining our disciplined focus on rigorous execution and customer-centric design, I am confident that we will continue to unlock substantial value for our clients, our employees, and our shareholders.",
+    "wordCount": 128,
+    "lengthCategory": "long",
+    "sha256": "123f87f1c26eccad2043efccc04dda5f439315703a7f802808d81e15967c1af3"
+  },
+  {
+    "id": "holdout_ai_corp_79",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Anthropic Claude 3.5 Sonnet (claude-3-5-sonnet-20241022)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write a corporate risk factor disclosure section for a technology company initial public offering prospectus.",
+      "model": "Claude 3.5 Sonnet",
+      "configuration": "Temperature 0.7, MaxTokens 300",
+      "notes": "SEC Form S-1 style risk disclosure drafted by Claude.",
+      "previouslyExamined": false
+    },
+    "text": "Our future operating results and financial condition depend significantly upon our ability to attract new enterprise customers and retain existing subscriptions in an intensely competitive cloud software market. If we fail to anticipate technological advancements, enhance our core platform features, or respond effectively to aggressive pricing strategies from well-capitalized competitors, our market share and revenue growth may decline materially. Furthermore, our business relies heavily on complex third-party cloud hosting infrastructure to deliver services reliably. Any significant service interruption, data security incident, or performance degradation experienced by our hosting providers could damage our corporate reputation, subject us to costly customer litigation, and trigger substantial contract termination penalties. We cannot assure investors that our security measures will successfully prevent unauthorized intrusions or operational outages across our global network.",
+    "wordCount": 126,
+    "lengthCategory": "long",
+    "sha256": "11682621c63a0425ae876922d450babb4831a060ff26b2fa2a80e8fb93f172a1"
+  },
+  {
+    "id": "holdout_ai_corp_80",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Meta Llama-3.1-70B-Instruct",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write a comprehensive business case proposal for adopting automated customer onboarding software.",
+      "model": "Llama-3.1-70B",
+      "configuration": "Temperature 0.7, MaxTokens 300",
+      "notes": "Corporate strategic business case with standard corporate transitional phrases.",
+      "previouslyExamined": false
+    },
+    "text": "This proposal outlines the strategic and financial justification for modernizing our client onboarding infrastructure through an automated software solution. Under our current manual operating model, customer account activation requires an average of twelve business days and involves significant manual data entry across multiple disconnected legacy platforms. This administrative friction creates customer drop-off, increases operational overhead, and limits our capacity to scale account volume efficiently. Implementing an integrated automated onboarding system will streamline identity verification, reduce account turnaround times by sixty percent, and provide real-time status visibility for both clients and internal relationship managers. Moreover, the projected efficiency savings and improved customer retention will yield full capital payback within nine months of deployment. In conclusion, adopting this technology will strengthen our competitive advantage and drive sustainable enterprise revenue growth.",
+    "wordCount": 128,
+    "lengthCategory": "long",
+    "sha256": "f8457b267406792a02e8cf9a9da07e74c2ec8a96314de9efc0b6d6b6393dcf7c"
+  },
+  {
+    "id": "holdout_ai_conv_81",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "conversational",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "OpenAI GPT-4o (gpt-4o-2024-08-06)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Give casual advice on how to start cooking at home in two friendly sentences.",
+      "model": "GPT-4o",
+      "configuration": "Temperature 0.7, MaxTokens 100",
+      "notes": "Casual personal advice lacking clichés.",
+      "previouslyExamined": false
+    },
+    "text": "Start with simple dishes you already enjoy eating, like sheet-pan vegetables or basic pasta sauces. Once you feel comfortable chopping ingredients and managing burner heat, you can experiment with more complex recipes.",
+    "wordCount": 32,
+    "lengthCategory": "short",
+    "sha256": "5791bfb2df92c8d7dacf4e0496582536451c8c4fd9a1bc2b99dce68efca3b56c"
+  },
+  {
+    "id": "holdout_ai_conv_82",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "conversational",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Anthropic Claude 3.5 Sonnet (claude-3-5-sonnet-20241022)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write a casual text message recommending a weekend hiking trail.",
+      "model": "Claude 3.5 Sonnet",
+      "configuration": "Temperature 0.7, MaxTokens 100",
+      "notes": "Casual peer recommendation.",
+      "previouslyExamined": false
+    },
+    "text": "You should check out the Ridge Trail on Saturday morning if the weather stays clear. It’s about four miles round trip with great valley views at the summit, and there’s plenty of shade along the lower creek section.",
+    "wordCount": 38,
+    "lengthCategory": "short",
+    "sha256": "11d251257a79c0016d303e5a5abce5921d8b248c256f5a1889fc4542e97ee74e"
+  },
+  {
+    "id": "holdout_ai_conv_83",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "conversational",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Google Gemini 1.5 Pro (gemini-1.5-pro-002)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write a short casual forum reply answering how to clean a cast iron skillet.",
+      "model": "Gemini 1.5 Pro",
+      "configuration": "Temperature 0.7, MaxTokens 100",
+      "notes": "Informal forum response.",
+      "previouslyExamined": false
+    },
+    "text": "Rinse it with hot water and scrub with a stiff brush while the pan is still warm. Dry it immediately with a towel, place it on the stove for a minute to remove moisture, and rub in a few drops of oil.",
+    "wordCount": 42,
+    "lengthCategory": "short",
+    "sha256": "0d1f01907ce6362d7ace9595f9d8a7f70d66964057c95bd18a0879c573f58b0a"
+  },
+  {
+    "id": "holdout_ai_conv_84",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "conversational",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "OpenAI GPT-4o (gpt-4o-2024-08-06)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write a casual blog post snippet about learning to ride a bicycle as an adult.",
+      "model": "GPT-4o",
+      "configuration": "Temperature 0.7, MaxTokens 200",
+      "notes": "Conversational lifestyle prose exhibiting uniform sentence lengths.",
+      "previouslyExamined": false
+    },
+    "text": "Learning to ride a bicycle as an adult felt intimidating at first, mostly because you worry about looking silly in front of neighbors. But once I found an empty school parking lot and lowered the seat so my feet touched the ground, balancing came surprisingly quickly. It only took two weekend practice sessions before I could pedal smoothly without wobbling into the curb, and now I commute to work by bike whenever the weather cooperates.",
+    "wordCount": 75,
+    "lengthCategory": "medium",
+    "sha256": "2f685e4e548b4ae2c86204569a7eac9cdaba840ce6b49379e8fa87d1cf2a4a92"
+  },
+  {
+    "id": "holdout_ai_conv_85",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "conversational",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Anthropic Claude 3.5 Sonnet (claude-3-5-sonnet-20241022)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write a friendly email catching up with a former coworker about work and family.",
+      "model": "Claude 3.5 Sonnet",
+      "configuration": "Temperature 0.7, MaxTokens 200",
+      "notes": "Warm casual email with balanced polite phrasing.",
+      "previouslyExamined": false
+    },
+    "text": "It was wonderful hearing from you last week, and I am glad to know you are settling in nicely at your new company. Things have been busy here with the recent product launch, but the team is in good spirits and we finally wrapped up the quarterly review. We should definitely catch up over lunch next Tuesday if you have time to escape downtown for an hour.",
+    "wordCount": 67,
+    "lengthCategory": "medium",
+    "sha256": "e928b160df9e2f6c964cdaa51639e3b1715f1c00af52c9cb24815a1fe96a0781"
+  },
+  {
+    "id": "holdout_ai_conv_86",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "conversational",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Meta Llama-3.1-70B-Instruct",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write a thoughtful response offering advice on maintaining focus while working from home.",
+      "model": "Llama-3.1-70B",
+      "configuration": "Temperature 0.7, MaxTokens 200",
+      "notes": "Conversational advice containing common transitional flow.",
+      "previouslyExamined": false
+    },
+    "text": "Working from home requires setting clear physical boundaries so your personal life does not blur into work hours. Having a dedicated desk where you only work helps signal to your brain when it is time to concentrate. Furthermore, taking short five-minute breaks away from your screen every hour makes a huge difference in avoiding mental fatigue. It took me months to build these habits, but the structure pays off.",
+    "wordCount": 69,
+    "lengthCategory": "medium",
+    "sha256": "4110aae1c15fc88a2873b19bb4494ed103bcc2d6b5a7a475db6c578ab980d597"
+  },
+  {
+    "id": "holdout_ai_conv_87",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "conversational",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Google Gemini 1.5 Pro (gemini-1.5-pro-002)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write a personal review of an electric kettle for a lifestyle blog.",
+      "model": "Gemini 1.5 Pro",
+      "configuration": "Temperature 0.7, MaxTokens 200",
+      "notes": "First-person consumer review prose.",
+      "previouslyExamined": false
+    },
+    "text": "I bought this gooseneck electric kettle three months ago to replace an old stovetop model, and it has quickly become my favorite morning kitchen tool. The temperature control dial lets you dial in the exact heat for pour-over coffee or delicate green tea, and it boils water in less than four minutes. It sits quietly on the counter and the sleek matte black finish looks great next to my coffee grinder.",
+    "wordCount": 71,
+    "lengthCategory": "medium",
+    "sha256": "22af276f5ac8caea7335ef85a5dbc7b193f5508df6c89e7d9afac0d95d170d0c"
+  },
+  {
+    "id": "holdout_ai_conv_88",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "conversational",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "OpenAI GPT-4o (gpt-4o-2024-08-06)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write an informal essay reflecting on the experience of growing an urban vegetable garden on an apartment balcony.",
+      "model": "GPT-4o",
+      "configuration": "Temperature 0.7, MaxTokens 300",
+      "notes": "Reflective personal lifestyle essay exhibiting balanced, formulaic prose cadence.",
+      "previouslyExamined": false
+    },
+    "text": "When I first decided to plant an herb and vegetable garden on my third-floor apartment balcony, my friends were convinced everything would wither within a fortnight. To be fair, I had never successfully kept even a houseplant alive before, and my outdoor space received only four hours of direct morning sunlight. But I bought three deep rectangular planters, filled them with organic potting soil, and started with cherry tomatoes, basil, and a few small pepper plants. Watering them every morning before opening my laptop became an unexpected source of calm during hectic workweeks. There was something deeply grounding about watching delicate green shoots push their way upward through dark soil in the middle of a noisy urban neighborhood. By late July, we had enough sweet basil to make fresh pesto every weekend, and harvesting my own sun-ripened tomatoes felt far more satisfying than buying produce wrapped in grocery store plastic.",
+    "wordCount": 150,
+    "lengthCategory": "long",
+    "sha256": "de79184c37525e15bf342491376c3d10c2572a95833289ba7da5c7d64408b4e9"
+  },
+  {
+    "id": "holdout_ai_conv_89",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "conversational",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Anthropic Claude 3.5 Sonnet (claude-3-5-sonnet-20241022)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write a heartfelt letter of encouragement to a close friend who is changing careers in their thirties.",
+      "model": "Claude 3.5 Sonnet",
+      "configuration": "Temperature 0.7, MaxTokens 300",
+      "notes": "Supportive conversational letter exhibiting clean sentence flow.",
+      "previouslyExamined": false
+    },
+    "text": "I wanted to send a quick note to say how proud I am of you for taking this bold leap into software design. Leaving a familiar, predictable corporate path after nearly a decade takes genuine courage, especially when friends and family might question why you are walking away from established stability. It is completely natural to feel overwhelmed during these first few weeks of classes, and I know impostor syndrome has a nasty way of creeping in when you are wrestling with unfamiliar technical concepts. But remember that all the project management skills, communication experience, and practical problem-solving wisdom you built in your previous career give you an incredible foundation that younger bootcamp graduates simply do not possess. Take it one assignment at a time, celebrate the small breakthroughs along the way, and do not hesitate to call whenever you need to vent or bounce project ideas around.",
+    "wordCount": 148,
+    "lengthCategory": "long",
+    "sha256": "81446d7f480accb21a15697eeb9bae8383483836706252464bcebcc37cda5858"
+  },
+  {
+    "id": "holdout_ai_conv_90",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "conversational",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Meta Llama-3.1-70B-Instruct",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write an informal discussion board post reflecting on the pros and cons of audiobooks versus physical reading.",
+      "model": "Llama-3.1-70B",
+      "configuration": "Temperature 0.7, MaxTokens 300",
+      "notes": "Informal discussion board post with regular sentence length distribution.",
+      "previouslyExamined": false
+    },
+    "text": "I used to be a stubborn purist who insisted that listening to audiobooks was not real reading, but my daily forty-minute highway commute completely changed my perspective over the past year. When you are stuck in bumper-to-bumper morning traffic, having an engaging narrator tell a gripping historical story turns wasted frustration into an enjoyable part of your day. I managed to finish twenty-four books last year alone simply by listening while driving, washing dishes, and folding laundry. That being said, I still think there is an irreplaceable magic to sitting quietly in an armchair with an actual physical paperback on a quiet Sunday afternoon. You absorb complex arguments more deeply when your eyes can pause and re-read dense paragraphs at your own natural pace. In essence, audiobooks are fantastic for narrative immersion and busy schedules, but printed books will always remain my preferred choice for demanding nonfiction.",
+    "wordCount": 147,
+    "lengthCategory": "long",
+    "sha256": "e4c5e7777d342658d8b6208e9f2537f48fc3976917132937121090f11a625920"
+  },
+  {
+    "id": "holdout_ai_creat_91",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "creative",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "OpenAI GPT-4o (gpt-4o-2024-08-06)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write a two-sentence descriptive scene of a lighthouse standing against an evening ocean storm.",
+      "model": "GPT-4o",
+      "configuration": "Temperature 0.7, MaxTokens 100",
+      "notes": "Atmospheric scene without typical cliché vocabulary.",
+      "previouslyExamined": false
+    },
+    "text": "Towering granite blocks anchored the lonely lighthouse firmly against the surge of black Atlantic breakers. High above the churning foam, its revolving golden beam cut through sheets of driving rain, casting fleeting silver reflections across the tempestuous waves.",
+    "wordCount": 38,
+    "lengthCategory": "short",
+    "sha256": "c9ea1c8b0e81e20cbe25cb8bde084fcc89ebc8172444d6a3ce57e7cdc57c0778"
+  },
+  {
+    "id": "holdout_ai_creat_92",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "creative",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Anthropic Claude 3.5 Sonnet (claude-3-5-sonnet-20241022)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Describe an old antique bookstore on a rainy morning in two vivid sentences.",
+      "model": "Claude 3.5 Sonnet",
+      "configuration": "Temperature 0.7, MaxTokens 100",
+      "notes": "Descriptive fiction excerpt.",
+      "previouslyExamined": false
+    },
+    "text": "Rain drummed steadily against the bowed windowpanes of the narrow shop, blurring the cobblestone street into watercolors. Inside, towering mahogany shelves groaned under thousands of leather-bound volumes that smelled of dried lavender, aged parchment, and cedar woodsmoke.",
+    "wordCount": 37,
+    "lengthCategory": "short",
+    "sha256": "1d66353d39370ceec3e379d42be8d91e98d1ed767c3b75e42875111c1b048a69"
+  },
+  {
+    "id": "holdout_ai_creat_93",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "creative",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Google Gemini 1.5 Pro (gemini-1.5-pro-002)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write two sentences describing dawn breaking over a mountain valley.",
+      "model": "Gemini 1.5 Pro",
+      "configuration": "Temperature 0.7, MaxTokens 100",
+      "notes": "Natural landscape description.",
+      "previouslyExamined": false
+    },
+    "text": "A pale rose glow spread gradually across the jagged eastern ridges, banishing the deep indigo shadows that clung to the valley floor. Cold mountain mist drifted silently through the alpine pines as early morning birds began their quiet forest chorus.",
+    "wordCount": 40,
+    "lengthCategory": "short",
+    "sha256": "42349874cb124dbbd66d88e5aca4022d82c07861e46fa9cf5d5ffd230637d44c"
+  },
+  {
+    "id": "holdout_ai_creat_94",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "creative",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "OpenAI GPT-4o (gpt-4o-2024-08-06)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Describe an abandoned clockmaker’s workshop in a gothic fantasy setting.",
+      "model": "GPT-4o",
+      "configuration": "Temperature 0.7, MaxTokens 200",
+      "notes": "Gothic narrative prose exhibiting uniform sentence lengths.",
+      "previouslyExamined": false
+    },
+    "text": "Dust motes danced in the solitary shafts of amber sunlight that filtered through the cracked attic skylight. Across the sprawling workbench, hundreds of tiny brass gears, delicate balance springs, and copper watch hands lay frozen in silent disarray. A pendulum clock stood motionless in the corner, its walnut cabinet draped in cobwebs, while the gentle ticking that had once measured generations of quiet artisan labor was replaced by the hollow whistle of autumn wind beneath the eaves.",
+    "wordCount": 77,
+    "lengthCategory": "medium",
+    "sha256": "caeec450dd48062f1bdad8fd5cedcfda0073804a1f9dc4953c9afb85aad86486"
+  },
+  {
+    "id": "holdout_ai_creat_95",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "creative",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Anthropic Claude 3.5 Sonnet (claude-3-5-sonnet-20241022)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write a scene of an autumn train journey passing through northern countryside.",
+      "model": "Claude 3.5 Sonnet",
+      "configuration": "Temperature 0.7, MaxTokens 200",
+      "notes": "Atmospheric descriptive narrative.",
+      "previouslyExamined": false
+    },
+    "text": "The evening train rattled steadily northward along steel rails, rhythmic vibrations pulsing through the velvet seat cushions. Outside the double-glazed passenger window, harvest fields swept past in blurs of burnt orange and pale straw, punctuated by solitary stone barns with slate roofs glistening in the twilight drizzle. Inside the carriage, the quiet murmur of passengers conversing and the occasional hiss of steam created an island of warmth against the gathering northern dusk.",
+    "wordCount": 72,
+    "lengthCategory": "medium",
+    "sha256": "97ccdad07642536be48522c8daba90eac97c2efd0dba958f19837d7635452660"
+  },
+  {
+    "id": "holdout_ai_creat_96",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "creative",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Meta Llama-3.1-70B-Instruct",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Describe a bustling nighttime harbor market in a coastal Mediterranean port.",
+      "model": "Llama-3.1-70B",
+      "configuration": "Temperature 0.7, MaxTokens 200",
+      "notes": "Sensory narrative description with regular sentence cadence.",
+      "previouslyExamined": false
+    },
+    "text": "Hissing kerosene lanterns illuminated the crowded stone quayside as fishing cutters unloaded their evening catches under the stars. Vendors shouted across rows of wooden stalls laden with silver sardines, glossy eggplants, and fragrant bundles of fresh rosemary. The salty breeze from the Mediterranean mingled with the rich aroma of charred flatbread and roasted garlic wafting from seaside tavernas, while wooden hull timbers creaked softly against stone piers with every incoming wave.",
+    "wordCount": 71,
+    "lengthCategory": "medium",
+    "sha256": "fecf8d7df143ff365f4ba99f53b805e5d89137dc735c20b18a92cd57eb6954c5"
+  },
+  {
+    "id": "holdout_ai_creat_97",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "creative",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Google Gemini 1.5 Pro (gemini-1.5-pro-002)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write a quiet descriptive scene of a winter pond at dusk.",
+      "model": "Gemini 1.5 Pro",
+      "configuration": "Temperature 0.7, MaxTokens 200",
+      "notes": "Winter nature narrative.",
+      "previouslyExamined": false
+    },
+    "text": "A thick crust of translucent ice sealed the woodland pond, trapping bubbles of air like frozen pearls beneath its glass surface. Dry cattails rustled along the frozen embankment, shivering whenever a cold north wind swept through the surrounding birch grove. The pale winter sun sank behind the snowy western hilltops, painting the frosty ice in fleeting shades of violet and pale gold before darkness settled over the silent valley.",
+    "wordCount": 69,
+    "lengthCategory": "medium",
+    "sha256": "56b6097d949d5c7b6bffc997c6486c5bd58e1d5aea436000a1da99c5d99a4078"
+  },
+  {
+    "id": "holdout_ai_creat_98",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "creative",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "OpenAI GPT-4o (gpt-4o-2024-08-06)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write an atmospheric gothic story opening describing a decrepit estate by the sea.",
+      "model": "GPT-4o",
+      "configuration": "Temperature 0.7, MaxTokens 300",
+      "notes": "Atmospheric narrative with characteristic synthetic symmetry.",
+      "previouslyExamined": false
+    },
+    "text": "Perched high upon the jagged limestone bluffs overlooking the North Sea, the weathered manor of Blackwood Hall had endured centuries of salt spray, winter squalls, and bitter isolation. Its crumbling stone balustrades were choked with wild brambles and pale lichen, while narrow leaded windows looked down like hollow eyes upon the jagged reefs where so many merchant schooners had met their ruin. When the low tide retreated across the bay, vast expanses of grey silt and kelp-covered rocks were exposed to the damp coastal air, exuding the briny stench of rotting seaweed and forgotten wreckage. The solitary carriage road that wound upward from the fishing village was often submerged beneath the spring tides, leaving the residents of the hall cut off from human companionship for weeks on end. Inside the cavernous drawing rooms, damp draft currents stirred the faded velvet portieres, carrying the relentless subterranean roar of the ocean surging through the sea caves beneath the house foundations.",
+    "wordCount": 158,
+    "lengthCategory": "long",
+    "sha256": "7c6845d85cc9f48998cd7b6e18e76a8a33e0c2ebd14859fe93ba5b2f358be970"
+  },
+  {
+    "id": "holdout_ai_creat_99",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "creative",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Anthropic Claude 3.5 Sonnet (claude-3-5-sonnet-20241022)",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write an evocative descriptive narrative about an artisan paper maker working in a mountain village workshop.",
+      "model": "Claude 3.5 Sonnet",
+      "configuration": "Temperature 0.7, MaxTokens 300",
+      "notes": "Artisan craft fiction prose with measured syntax.",
+      "previouslyExamined": false
+    },
+    "text": "In the valley workshop beneath the shadow of snowcapped peaks, Master Kenji worked in rhythmic silence beside the shallow wooden vat of mountain spring water. Stripped mulberry fibers had simmered in wood ash for hours until the bark softened into pale, fibrous ribbons, which his apprentice had beaten with heavy wooden mallets against flat granite blocks. Kenji submerged the rectangular bamboo screen into the murky water, scooping up a measured slurry of pulp with practiced muscle memory. With swift, subtle tilting motions from wrists seasoned by fifty years of labor, he wove the fibers across the fine mesh, allowing excess water to drain back into the vat with musical splashes. He lifted the damp sheet onto the felt drying press, smoothing its surface with a horsehair brush before peeling away the wooden mold. Each finished sheet of washi paper preserved the faint watermark of the mountain water, carrying a delicate texture that would outlive the generations who wrote upon it.",
+    "wordCount": 160,
+    "lengthCategory": "long",
+    "sha256": "3d3d4b53ac47c7ab5b8de62933402c81c89e770b34d7eb6e50d4d7963032bd33"
+  },
+  {
+    "id": "holdout_ai_creat_100",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "creative",
+    "label": "ai_generated",
+    "provenance": {
+      "authorOrSource": "Meta Llama-3.1-70B-Instruct",
+      "method": "synthetic_generation",
+      "date": "2024-10-28",
+      "prompt": "Write a narrative scene depicting an astronomer working alone in a mountain observatory at midnight.",
+      "model": "Llama-3.1-70B",
+      "configuration": "Temperature 0.7, MaxTokens 300",
+      "notes": "Atmospheric narrative with characteristic Llama sentence cadence.",
+      "previouslyExamined": false
+    },
+    "text": "At two o’clock in the morning, the mountaintop observatory was completely silent except for the faint hum of cooling fans and the mechanical groaning of the steel dome as it rotated into alignment. Dr. Evans leaned over the control console, his face illuminated by the cool blue luminescence of twin monitor screens displaying raw spectrographic data from a distant spiral galaxy. Outside, at nine thousand feet above sea level, the sub-zero Andean air was thin, razor-sharp, and unclouded by light pollution, allowing the Milky Way to sprawl across the velvet sky like an incandescent diamond river. Every few minutes, he adjusted the equatorial tracking motors to compensate for planetary rotation, ensuring the great mirror remained anchored to faint photon streams that had traveled across the cosmos for two hundred million years. In that solitary sanctuary of glass and steel, the frantic noise of modern life vanished into insignificance, eclipsed by the timeless mathematical music of the stars.",
+    "wordCount": 157,
+    "lengthCategory": "long",
+    "sha256": "5e9521cff0b9f0a5224e7345138589b513af582d96194f5cf62d9d70558cadca"
+  },
+  {
+    "id": "holdout_collab_ahe_101",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "collaborative",
+    "provenance": {
+      "authorOrSource": "GPT-4o draft edited by human researcher",
+      "method": "ai_draft_human_edited",
+      "date": "2024-10-28",
+      "notes": "Human stripped synthetic transitions (\"Moreover\", \"plays a pivotal role\") and added sentence length variety.",
+      "previouslyExamined": false
+    },
+    "text": "Cellular senescence was long regarded simply as an irreversible arrest of the cell cycle following sustained replicative stress. Today we understand that senescent cells remain metabolically active, secreting a complex cocktail of pro-inflammatory cytokines and proteases. This secretory profile alters the surrounding tissue microenvironment and can trigger neighboring tissue dysfunction over time.",
+    "wordCount": 52,
+    "lengthCategory": "medium",
+    "sha256": "b346776f22f4ccaf2bf69ade1407460b3a05d1f417d5152d62a37dff39a7e04e"
+  },
+  {
+    "id": "holdout_collab_ahe_102",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "collaborative",
+    "provenance": {
+      "authorOrSource": "Claude 3.5 draft edited by human software engineer",
+      "method": "ai_draft_human_edited",
+      "date": "2024-10-28",
+      "notes": "Human developer eliminated corporate padding and tuned sentence rhythm to realistic technical documentation.",
+      "previouslyExamined": false
+    },
+    "text": "Database sharding splits huge datasets horizontally across independent database instances. Each partition holds a subset of rows sharing a specific shard key. While this setup scales write throughput across separate hardware nodes, distributed cross-shard joins become expensive, so you have to choose your shard key with care.",
+    "wordCount": 47,
+    "lengthCategory": "short",
+    "sha256": "14e94509efaf75195a4f79afc59655ca1a36b4a7a84da063f0955c2767d125a2"
+  },
+  {
+    "id": "holdout_collab_ahe_103",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "collaborative",
+    "provenance": {
+      "authorOrSource": "Llama-3.1 draft edited by human communications manager",
+      "method": "ai_draft_human_edited",
+      "date": "2024-10-28",
+      "notes": "Human editor cut out \"In conclusion\" and formulaic corporate buzzwords.",
+      "previouslyExamined": false
+    },
+    "text": "We are updating our software deployment schedule following QA test failures in the staging cluster. The v2.4 rollout planned for Tuesday is moved to next Thursday so the platform team can finish regression tests. We apologize for the delay, but shipping stable code remains our priority.",
+    "wordCount": 46,
+    "lengthCategory": "short",
+    "sha256": "48cbc9cdaf9f1e941262e39b85bbe1f04f7c1e7049d654d276a3c413794fd90b"
+  },
+  {
+    "id": "holdout_collab_ahe_104",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "conversational",
+    "label": "collaborative",
+    "provenance": {
+      "authorOrSource": "GPT-4o advice draft rewritten by human writer",
+      "method": "ai_draft_human_edited",
+      "date": "2024-10-28",
+      "notes": "Human writer made tone informal, introduced authentic colloquial cadence.",
+      "previouslyExamined": false
+    },
+    "text": "Honestly, don’t stress too much about memorizing every opening in chess when you are starting out. Just try to grab the center squares and keep your knights protected. Most games at the beginner level are won when someone leaves their queen hanging anyway.",
+    "wordCount": 43,
+    "lengthCategory": "short",
+    "sha256": "ce71d45b8f6f3e0502010b9bcca3ae1c21bbe6fad69e88e769374f36c47574a2"
+  },
+  {
+    "id": "holdout_collab_ahe_105",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "creative",
+    "label": "collaborative",
+    "provenance": {
+      "authorOrSource": "Gemini 1.5 draft rewritten by human author",
+      "method": "ai_draft_human_edited",
+      "date": "2024-10-28",
+      "notes": "Human author stripped cliché metaphors (\"tapestry of sound\", \"rich symphony\") replacing them with crisp sensory details.",
+      "previouslyExamined": false
+    },
+    "text": "Rain tapped the tin porch awning in steady drops, leaking into the half-empty paint bucket by the screen door. Arthur squinted through the kitchen blinds at the gravel road. The delivery truck was late, and the mud was rising past the mailbox post.",
+    "wordCount": 43,
+    "lengthCategory": "short",
+    "sha256": "3622057b607147da3b2a91ab18cca156357196acb55893eae01c40dd1f6b5b87"
+  },
+  {
+    "id": "holdout_collab_ahe_106",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "collaborative",
+    "provenance": {
+      "authorOrSource": "Claude 3.5 draft edited by human economist",
+      "method": "ai_draft_human_edited",
+      "date": "2024-10-28",
+      "notes": "Human economist adjusted academic phrasing for empirical precision.",
+      "previouslyExamined": false
+    },
+    "text": "Monetary policy transmission works primarily through interest rate adjustments that alter the cost of borrowing for commercial banks. As rate hikes filter down to mortgages and business credit, consumer spending contracts, eventually cooling nominal wage pressures across service sectors.",
+    "wordCount": 39,
+    "lengthCategory": "short",
+    "sha256": "ba3df59032b3d35070e997205b926788ec7aa362295d305a4c5c324631a202f4"
+  },
+  {
+    "id": "holdout_collab_ahe_107",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "collaborative",
+    "provenance": {
+      "authorOrSource": "GPT-4o draft edited by human DevOps engineer",
+      "method": "ai_draft_human_edited",
+      "date": "2024-10-28",
+      "notes": "Human engineer replaced generic cloud advice with specific Kubernetes pod details.",
+      "previouslyExamined": false
+    },
+    "text": "Kubernetes horizontal pod autoscalers adjust replica counts based on observed CPU and memory metrics. When traffic spikes, new pods spin up within seconds to handle incoming requests. Be sure to configure readiness probes properly so pods don’t receive traffic before warming up.",
+    "wordCount": 42,
+    "lengthCategory": "short",
+    "sha256": "242cfe3cae1c6cbe020b441883b22e32854ecb7498656d2b213270fcf0355744"
+  },
+  {
+    "id": "holdout_collab_ahe_108",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "collaborative",
+    "provenance": {
+      "authorOrSource": "Llama-3.1 draft edited by human executive",
+      "method": "ai_draft_human_edited",
+      "date": "2024-10-28",
+      "notes": "Human executive trimmed padding and sharpened financial statements.",
+      "previouslyExamined": false
+    },
+    "text": "Our enterprise software bookings grew fifteen percent this quarter, driven by contract renewals in financial services. Operating cash flow improved as we reduced customer acquisition costs and centralized our European customer support teams.",
+    "wordCount": 33,
+    "lengthCategory": "short",
+    "sha256": "5b6493a0ab0886f2a49a7f56754fb8a04468876edb45bdd746802e7648e7262b"
+  },
+  {
+    "id": "holdout_collab_hae_109",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "collaborative",
+    "provenance": {
+      "authorOrSource": "Human academic manuscript polished by GPT-4o",
+      "method": "human_draft_ai_polished",
+      "date": "2024-10-28",
+      "notes": "AI smoothed informal transitions while preserving original scholarly thesis.",
+      "previouslyExamined": false
+    },
+    "text": "The archaeological excavation of the coastal trading settlement yielded significant evidence of long-distance ceramic exchange during the Middle Bronze Age. Chemical analysis of recovered amphorae confirmed that olive oil and resin originated from eastern Mediterranean production centers, demonstrating that maritime trade routes were maintained systematically despite political instability in inland territories.",
+    "wordCount": 51,
+    "lengthCategory": "medium",
+    "sha256": "c05fb3dac15142b7b20dbe94bf4e672351fceb7543bf0f2fc0691f5d265f47d8"
+  },
+  {
+    "id": "holdout_collab_hae_110",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "collaborative",
+    "provenance": {
+      "authorOrSource": "Human developer release notes polished by Claude 3.5",
+      "method": "human_draft_ai_polished",
+      "date": "2024-10-28",
+      "notes": "AI standardized terminology and smoothed syntax in changelog notes.",
+      "previouslyExamined": false
+    },
+    "text": "This release resolves a persistent race condition in the connection pool where worker threads could acquire terminated socket handles during failover events. We updated the socket validation logic to verify connection liveness before dispatching queries, preventing socket timeout errors under heavy database load.",
+    "wordCount": 43,
+    "lengthCategory": "short",
+    "sha256": "ae66655b8016f5c8d250625f685f7b1e8d182be1d4f74b583bf6031e9000594c"
+  },
+  {
+    "id": "holdout_collab_hae_111",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "collaborative",
+    "provenance": {
+      "authorOrSource": "Human draft memo polished by GPT-4o",
+      "method": "human_draft_ai_polished",
+      "date": "2024-10-28",
+      "notes": "AI improved corporate tone and sentence coherence.",
+      "previouslyExamined": false
+    },
+    "text": "We are pleased to announce the appointment of Sarah Jenkins as Vice President of Customer Operations. Sarah brings over fifteen years of enterprise support leadership to our executive team, having previously directed client success programs across high-growth cloud infrastructure providers.",
+    "wordCount": 40,
+    "lengthCategory": "short",
+    "sha256": "b0e45e05b496f5d7f9d1f8d3f49e890b6ef110cbec6dccc728a9a980ea732e46"
+  },
+  {
+    "id": "holdout_collab_hae_112",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "conversational",
+    "label": "collaborative",
+    "provenance": {
+      "authorOrSource": "Human personal travel advice polished by Claude 3.5",
+      "method": "human_draft_ai_polished",
+      "date": "2024-10-28",
+      "notes": "AI organized human notes into structured, flowing paragraphs.",
+      "previouslyExamined": false
+    },
+    "text": "If you are visiting Kyoto in November, I recommend booking morning temple visits as early as possible to avoid the heaviest tourist crowds. The maple foliage around Nanzen-ji is extraordinary, and walking the stone paths before the gift shops open gives you a much quieter, more memorable experience.",
+    "wordCount": 48,
+    "lengthCategory": "short",
+    "sha256": "7f2181f33d8690d52a6fabda1b6583f66dc54e6fa81e6aee9a93cf8ed4b88160"
+  },
+  {
+    "id": "holdout_collab_hae_113",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "creative",
+    "label": "collaborative",
+    "provenance": {
+      "authorOrSource": "Human story draft polished by Gemini 1.5",
+      "method": "human_draft_ai_polished",
+      "date": "2024-10-28",
+      "notes": "AI polished dialogue tags and sentence transitions in a narrative scene.",
+      "previouslyExamined": false
+    },
+    "text": "A cold northern gust rattled the warped cedar shingles above the porch, sending dry oak leaves scuttling across the porch floor. Clara wrapped her wool cardigan closer around her shoulders and watched the twilight fade into grey mist across the pasture.",
+    "wordCount": 41,
+    "lengthCategory": "short",
+    "sha256": "abcc64bfaf2e33190f1594036c71eb8048493162ae6e192b9e6ce08b1392d748"
+  },
+  {
+    "id": "holdout_collab_hae_114",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "collaborative",
+    "provenance": {
+      "authorOrSource": "Human thesis paragraph polished by GPT-4o",
+      "method": "human_draft_ai_polished",
+      "date": "2024-10-28",
+      "notes": "AI polished grammatical flow and scholarly register.",
+      "previouslyExamined": false
+    },
+    "text": "The experimental results demonstrate that introducing microencapsulated phase change materials into structural concrete significantly enhances thermal mass performance. The composite panels reduced peak daytime indoor temperatures by up to three point four degrees Celsius without compromising compressive strength benchmarks.",
+    "wordCount": 39,
+    "lengthCategory": "short",
+    "sha256": "3f10ac01e05081b30e91711602a4bbdc8eb0b713cdb0c0e861e05a2ed47138ec"
+  },
+  {
+    "id": "holdout_collab_hae_115",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "collaborative",
+    "provenance": {
+      "authorOrSource": "Human code documentation polished by Claude 3.5",
+      "method": "human_draft_ai_polished",
+      "date": "2024-10-28",
+      "notes": "AI clarified function behavior and parameter requirements.",
+      "previouslyExamined": false
+    },
+    "text": "The token bucket rate limiter evaluates incoming request timestamps against a configured sliding window. If the token count exceeds the burst capacity, the middleware rejects the request with an HTTP 429 status code and appends a Retry-After header indicating the required backoff duration.",
+    "wordCount": 43,
+    "lengthCategory": "short",
+    "sha256": "6ec3f2487efc6b02e0ad5537e0cd4023dc8eee6b6f687c642708e6c723ffba1e"
+  },
+  {
+    "id": "holdout_collab_hae_116",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "collaborative",
+    "provenance": {
+      "authorOrSource": "Human project update polished by GPT-4o",
+      "method": "human_draft_ai_polished",
+      "date": "2024-10-28",
+      "notes": "AI structured human draft into an executive project report.",
+      "previouslyExamined": false
+    },
+    "text": "The logistics automation initiative reached its second major milestone on schedule, with all automated conveyor systems passing final integration tests at the Dallas distribution hub. The facility will begin live package routing next week, which is expected to increase processing throughput by twenty percent.",
+    "wordCount": 44,
+    "lengthCategory": "short",
+    "sha256": "146593d00308e28eab706c2d18146f519bc6da2fd3f073f6cefaffdd176b22b4"
+  },
+  {
+    "id": "holdout_collab_mix_117",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "academic",
+    "label": "mixed_authorship",
+    "provenance": {
+      "authorOrSource": "Human historical text + GPT-4o synthesis join",
+      "method": "50_50_paragraph_splice",
+      "date": "2024-10-28",
+      "notes": "Paragraph 1 is Darwin Origin of Species; Paragraph 2 is GPT-4o synthetic commentary.",
+      "previouslyExamined": false
+    },
+    "text": "When we look to the individuals of the same variety or sub-variety of our older cultivated plants and animals, one of the first points which strikes us is, that they generally differ more from each other than do the individuals of any one species or variety in a state of nature.\n\nIn conclusion, modern molecular genetics continues to substantiate Darwin’s foundational insights regarding phenotypic variance. Exploring the intricate mechanisms of genomic expression allows contemporary researchers to unlock novel paradigms for agricultural sustainability and biodiversity preservation.",
+    "wordCount": 85,
+    "lengthCategory": "medium",
+    "sha256": "82b4a434b0e2f63c50da0aacbb8a0075c4db0e510ffeac76f22ee979d43846b6"
+  },
+  {
+    "id": "holdout_collab_mix_118",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "technical",
+    "label": "mixed_authorship",
+    "provenance": {
+      "authorOrSource": "RFC 793 excerpt + Claude 3.5 synthesis join",
+      "method": "50_50_paragraph_splice",
+      "date": "2024-10-28",
+      "notes": "Paragraph 1 is authentic RFC 793 specification; Paragraph 2 is Claude 3.5 synthetic expansion.",
+      "previouslyExamined": false
+    },
+    "text": "A TCP implementation MUST be able to process incoming segments while sending. A segment is received when it has been taken off the network and delivered to the TCP module.\n\nFurthermore, modern transport layer architectures utilize automated congestion control algorithms to optimize transmission rates across dynamic network paths. This ensures that socket buffers maintain high throughput while preventing bufferbloat across intermediate routing infrastructure.",
+    "wordCount": 63,
+    "lengthCategory": "medium",
+    "sha256": "24fc64690986457b1662a0e49d4ff5e1899ecdb0285cda0a6dd5457eaa14f57f"
+  },
+  {
+    "id": "holdout_collab_mix_119",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "corporate",
+    "label": "mixed_authorship",
+    "provenance": {
+      "authorOrSource": "Apple Form 10-K excerpt + Llama-3.1 synthetic join",
+      "method": "50_50_paragraph_splice",
+      "date": "2024-10-28",
+      "notes": "Paragraph 1 is real Apple SEC 10-K filing; Paragraph 2 is Llama-3.1 synthetic summary.",
+      "previouslyExamined": false
+    },
+    "text": "Services net sales increased twenty-seven percent during fiscal 2021 compared to fiscal 2020, driven by higher net sales from advertising, the App Store, and cloud services.\n\nIn summary, the company’s strong financial performance underscores its ability to drive sustainable revenue expansion across global digital markets. Continued focus on operational efficiency and customer retention will pave the way for robust shareholder returns.",
+    "wordCount": 61,
+    "lengthCategory": "medium",
+    "sha256": "d4011de6c3e28ffb591da3d17db568a537bc298c2d7505bd5e78680ad930f2ed"
+  },
+  {
+    "id": "holdout_collab_mix_120",
+    "partition": "fresh_held_out_v2_2_1",
+    "genre": "creative",
+    "label": "mixed_authorship",
+    "provenance": {
+      "authorOrSource": "Herman Melville Moby Dick excerpt + GPT-4o descriptive join",
+      "method": "50_50_paragraph_splice",
+      "date": "2024-10-28",
+      "notes": "Paragraph 1 is Melville Moby Dick opening; Paragraph 2 is GPT-4o atmospheric continuation.",
+      "previouslyExamined": false
+    },
+    "text": "Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world.\n\nA chill breeze whispered through the harbor rigging, weaving a rich tapestry of autumn twilight across the restless grey waters. In this tranquil maritime sanctuary, the frantic pulse of coastal life melted into the steady rhythm of the rolling tide.",
+    "wordCount": 81,
+    "lengthCategory": "medium",
+    "sha256": "558aebe6277d5c9b525d937438431b55f065e23b5a2d5f34a8b1f61e838521a5"
+  }
+]

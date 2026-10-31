@@ -1,0 +1,61 @@
+{
+  "manifestVersion": "2.4.0",
+  "generatedDate": "2026-10-31T13:07:39.278Z",
+  "registrySha256": "610534a920f23509f2369e07bda788d547c963a91ed2eabbd72bd3d1e0ec02e8",
+  "targetPerClassDevTarget": 200,
+  "corpusAdequacyStatus": "insufficient_data",
+  "classDeficits": {
+    "human": {
+      "availableUnique": 100,
+      "target": 200,
+      "deficit": 100
+    },
+    "ai": {
+      "availableUnique": 112,
+      "target": 200,
+      "deficit": 88
+    },
+    "collaborative": {
+      "availableUnique": 70,
+      "target": 200,
+      "deficit": 130
+    }
+  },
+  "partitionCounts": {
+    "train": {
+      "total": 100,
+      "human": 27,
+      "ai": 42,
+      "collaborative": 31,
+      "groups": 60
+    },
+    "dev": {
+      "total": 77,
+      "human": 20,
+      "ai": 38,
+      "collaborative": 19,
+      "groups": 53
+    },
+    "final_test": {
+      "total": 123,
+      "human": 53,
+      "ai": 50,
+      "collaborative": 20,
+      "groups": 119
+    }
+  },
+  "leakageChecks": {
+    "exactTextDuplicatesAcrossPartitions": 0,
+    "normalizedTextDuplicatesAcrossPartitions": 0,
+    "nearDuplicatesJaccard50AcrossPartitions": 0,
+    "sharedBaseDocumentIdsAcrossPartitions": 0,
+    "sharedIndependenceGroupIdsAcrossPartitions": 0,
+    "sharedPromptIdsAcrossPartitions": 0,
+    "passedAllLeakageChecks": true
+  },
+  "partitionHashes": {
+    "trainSha256": "53cbc9692beb12a6730f63871802a9b686c12bbfd5fe61ef625f2d5c023d24e7",
+    "devSha256": "f04306ea768c38fd4e402b46496db7039d487fd7f81bf29bf661fa4ab46de086",
+    "finalTestSha256": "236f9d9d7a89ea7540134324873ca3a1e5baf04000b3bef36c04ae3b02238802"
+  }
+}

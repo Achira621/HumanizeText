@@ -1,0 +1,52 @@
+{
+  "manifestVersion": "2.4.3",
+  "generatedDate": "2026-10-31T15:06:36.298831+00:00",
+  "acquisitionProtocols": {
+    "rateLimiting": "1 request/second with randomized backoff jitter (250-750ms)",
+    "retryHandling": "Exponential backoff up to 4 retries for HTTP 429/503 responses",
+    "bulkCrawlingPolicy": "Zero automated scraping of Gutenberg main site; curated mirrors used",
+    "dataIntegrity": "Cryptographic SHA-256 computed on exact UTF-8 byte stream",
+    "chunking": "Atomic document passage extraction (mean 80-250 words)"
+  },
+  "sources": [
+    {
+      "name": "Project Gutenberg",
+      "recordCount": 110,
+      "authorClass": "historical_human_proxy",
+      "intendedUseApproval": "APPROVED_PRODUCT_TRAINING",
+      "verifiedPre1929": true
+    },
+    {
+      "name": "SEC EDGAR Form 10-K",
+      "recordCount": 50,
+      "authorClass": "historical_human_proxy",
+      "intendedUseApproval": "APPROVED_PRODUCT_TRAINING",
+      "verifiedCorporateNarrative": true
+    },
+    {
+      "name": "Verified AI Generation Pipeline",
+      "recordCount": 150,
+      "authorClass": "verified_ai",
+      "intendedUseApproval": "APPROVED_PRODUCT_TRAINING",
+      "models": [
+        "GPT-4o",
+        "Claude 3.5 Sonnet",
+        "Llama 3 70B",
+        "Mistral Large 2"
+      ]
+    },
+    {
+      "name": "RAID Benchmark Slice",
+      "recordCount": 60,
+      "authorClass": "historical_human_proxy / verified_ai",
+      "intendedUseApproval": "RESEARCH_ONLY_PENDING_REVIEW",
+      "quarantinedFromProductTraining": true
+    },
+    {
+      "name": "Remediated Remnant V2.4.2",
+      "recordCount": 162,
+      "authorClass": "verified_human / verified_ai / collaborative",
+      "intendedUseApproval": "APPROVED_PRODUCT_TRAINING / RESEARCH_ONLY_PENDING_REVIEW"
+    }
+  ]
+}

@@ -1,0 +1,184 @@
+{
+  "manifestVersion": "2.5.3",
+  "auditDate": "2026-10-31",
+  "reconciliationScope": "Prediction-Level Subgroup and Statistical Audit",
+  "evaluatedCohort": "FINAL_TEST (62 samples: 31 Human, 31 AI)",
+  "exposureStatus": "EXPOSED_CONSUMED_FOR_V2_5_1_EVALUATION",
+  "denseConfusionMatrix": {
+    "total": 62,
+    "tp": 28,
+    "fp": 6,
+    "tn": 25,
+    "fn": 3,
+    "accuracy": 0.8548387096774194,
+    "balancedAccuracy": 0.8548387096774194,
+    "precision": 0.8235294117647058,
+    "recall": 0.9032258064516129,
+    "specificity": 0.8064516129032258,
+    "falsePositiveRate": 0.1935483870967742,
+    "falseNegativeRate": 0.0967741935483871,
+    "rocAuc": 0.927159209157128,
+    "brierScore": 0.1116055544114389,
+    "logLoss": 0.3420331525676886,
+    "correctedConfidenceEce": 0.1022064547214732,
+    "correctedClassProbabilityEce": 0.08544453531405942
+  },
+  "selectiveConfusionMatrix": {
+    "total": 62,
+    "decided": 50,
+    "abstained": 12,
+    "overallCoverage": 0.8064516129032258,
+    "humanCoverage": 0.7741935483870968,
+    "aiCoverage": 0.8387096774193549,
+    "tp": 23,
+    "fp": 2,
+    "tn": 22,
+    "fn": 3,
+    "selectiveAccuracy": 0.9,
+    "selectiveBalancedAccuracy": 0.9006410256410257,
+    "selectivePrecision": 0.92,
+    "selectiveRecall": 0.8846153846153846,
+    "selectiveSpecificity": 0.9166666666666666,
+    "selectiveFalsePositiveRate": 0.08333333333333333,
+    "selectiveFalseNegativeRate": 0.11538461538461539,
+    "cohortWideEffectiveAiRecall": 0.7419354838709677,
+    "cohortWideEffectiveHumanFalseAlarmRate": 0.06451612903225806
+  },
+  "aiModelFamilyBreakdown": [
+    {
+      "family": "Claude 3.5 Sonnet",
+      "modelProvider": "Anthropic",
+      "exactVersion": "claude-3-5-sonnet-20240620",
+      "sampleCount": 5,
+      "denseTp": 3,
+      "denseFn": 2,
+      "denseRecall": 0.6,
+      "abstainedCount": 1,
+      "decidedCount": 4,
+      "selectiveTp": 2,
+      "selectiveFn": 2,
+      "selectiveRecall": 0.5,
+      "effectiveCohortRecall": 0.4,
+      "minimumWordAbstentions": 0
+    },
+    {
+      "family": "Mistral Large 2",
+      "modelProvider": "Mistral AI",
+      "exactVersion": "mistral-large-2407",
+      "sampleCount": 9,
+      "denseTp": 8,
+      "denseFn": 1,
+      "denseRecall": 0.8888888888888888,
+      "abstainedCount": 0,
+      "decidedCount": 9,
+      "selectiveTp": 8,
+      "selectiveFn": 1,
+      "selectiveRecall": 0.8888888888888888,
+      "effectiveCohortRecall": 0.8888888888888888,
+      "minimumWordAbstentions": 0
+    },
+    {
+      "family": "GPT-4o",
+      "modelProvider": "OpenAI",
+      "exactVersion": "gpt-4o-2024-05-13 / unverified remnant",
+      "sampleCount": 10,
+      "denseTp": 10,
+      "denseFn": 0,
+      "denseRecall": 1.0,
+      "abstainedCount": 2,
+      "decidedCount": 8,
+      "selectiveTp": 8,
+      "selectiveFn": 0,
+      "selectiveRecall": 1.0,
+      "effectiveCohortRecall": 0.8,
+      "minimumWordAbstentions": 1
+    },
+    {
+      "family": "Llama 3 70B",
+      "modelProvider": "Meta",
+      "exactVersion": "llama-3-70b-instruct-v1",
+      "sampleCount": 5,
+      "denseTp": 5,
+      "denseFn": 0,
+      "denseRecall": 1.0,
+      "abstainedCount": 2,
+      "decidedCount": 3,
+      "selectiveTp": 3,
+      "selectiveFn": 0,
+      "selectiveRecall": 1.0,
+      "effectiveCohortRecall": 0.6,
+      "minimumWordAbstentions": 1
+    },
+    {
+      "family": "Heuristic Seeds",
+      "modelProvider": "Synthetic_Generator",
+      "exactVersion": "heuristic_seed_generator 1.0",
+      "sampleCount": 2,
+      "denseTp": 2,
+      "denseFn": 0,
+      "denseRecall": 1.0,
+      "abstainedCount": 0,
+      "decidedCount": 2,
+      "selectiveTp": 2,
+      "selectiveFn": 0,
+      "selectiveRecall": 1.0,
+      "effectiveCohortRecall": 1.0,
+      "minimumWordAbstentions": 0
+    }
+  ],
+  "humanSubgroupBreakdown": [
+    {
+      "subgroup": "historical_human_proxy",
+      "sourceDataset": "project_gutenberg_us_public_domain",
+      "sampleCount": 21,
+      "denseFp": 1,
+      "selectiveFp": 1,
+      "abstainedCount": 0,
+      "coverage": 1.0,
+      "fpSampleIds": ["gutenberg_43912_080"]
+    },
+    {
+      "subgroup": "verified_human",
+      "sourceDataset": "humanizetext_v2_4_2_remediated_remnant",
+      "sampleCount": 7,
+      "denseFp": 3,
+      "selectiveFp": 1,
+      "abstainedCount": 5,
+      "coverage": 0.2857142857142857,
+      "fpSampleIds": ["rem_v22_dev_h_conv_04", "rem_v22_fdev_h_conv_04", "rem_v22_fcalib_h_conv_19"]
+    },
+    {
+      "subgroup": "corporate_human_proxy",
+      "sourceDataset": "sec_edgar_10k_item7_mda",
+      "sampleCount": 3,
+      "denseFp": 2,
+      "selectiveFp": 0,
+      "abstainedCount": 2,
+      "coverage": 0.3333333333333333,
+      "fpSampleIds": ["sec_edgar_0000012927_2023", "sec_edgar_0000932784_2023"]
+    }
+  ],
+  "confidenceIntervalAudit": {
+    "denseFpr": {
+      "pointEstimate": 0.1935483870967742,
+      "wilson95": [0.0919, 0.3628],
+      "groupAwareBootstrap95": [0.0417, 0.3704]
+    },
+    "denseBalancedAccuracy": {
+      "pointEstimate": 0.8548387096774194,
+      "propagatedBinomial95": [0.7680, 0.9417],
+      "groupAwareBootstrap95": [0.7500, 0.9413]
+    },
+    "selectiveFpr": {
+      "pointEstimate": 0.08333333333333333,
+      "wilson95": [0.0232, 0.2585],
+      "groupAwareBootstrap95": [0.0000, 0.2174]
+    },
+    "selectiveBalancedAccuracy": {
+      "pointEstimate": 0.9006410256410257,
+      "propagatedBinomial95": [0.8180, 0.9833],
+      "groupAwareBootstrap95": [0.8075, 0.9783]
+    }
+  }
+}
+

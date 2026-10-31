@@ -1,0 +1,510 @@
+{
+  "manifestVersion": "2.4.4",
+  "generatedDate": "2026-10-31T15:31:56.015007+00:00",
+  "embargoPolicy": "FROZEN_FINAL_EVALUATION_SEAL",
+  "totalSealedRecords": 62,
+  "sealedPassages": [
+    {
+      "sampleId": "rem_seeds_remote_work_h",
+      "authorClass": "verified_human",
+      "genre": "explanatory",
+      "wordCount": 44,
+      "sha256": "afdb7f525a85280988a4f4cc2e3935439029d9e76e56bac40ffe1adef4edb5e2",
+      "normalizedSha256": "e9a4157f0b8400becc65673575c4100f58770e9ee4c55aa013bf175a0bc1996f"
+    },
+    {
+      "sampleId": "rem_seeds_remote_work_a",
+      "authorClass": "verified_ai",
+      "genre": "explanatory",
+      "wordCount": 40,
+      "sha256": "488575ad2c4189d89c5476429f678e31a20551ee4d4ab65cd9795a1db3d9f74b",
+      "normalizedSha256": "db7bcb04eba8f7985b24da5b976da969a46607dfec758db14c6e0d5be854b98a"
+    },
+    {
+      "sampleId": "rem_seeds_city_vs_country_h",
+      "authorClass": "verified_human",
+      "genre": "explanatory",
+      "wordCount": 42,
+      "sha256": "298f2fefe0cbdfa4f487e32a8006931c677b7b0fa6a8ebeec738fd3378206fec",
+      "normalizedSha256": "4f69a7290320196c37fa6017c0cf5a39798ef5d1779c6958d239fe2fac586d9a"
+    },
+    {
+      "sampleId": "rem_seeds_city_vs_country_a",
+      "authorClass": "verified_ai",
+      "genre": "explanatory",
+      "wordCount": 41,
+      "sha256": "03ae80fe813fc8934e5fc7939b90739cd3151330f34864c0097ee8f9fcd8b235",
+      "normalizedSha256": "934995528654e3297df6fa10af875abb040435c5c86a1ce0eb6847872c5dad9f"
+    },
+    {
+      "sampleId": "rem_v22_dev_h_tech_02",
+      "authorClass": "verified_human",
+      "genre": "technical",
+      "wordCount": 39,
+      "sha256": "eed4b789e7af28fb021d1b323974552b8eb2bed5668e4ae8cca854be7158152a",
+      "normalizedSha256": "33b8c3a22d4e24ca7e0fcad6583ab5c0d7996874ea12f4042d17d1fec43c8cff"
+    },
+    {
+      "sampleId": "rem_v22_dev_h_conv_04",
+      "authorClass": "verified_human",
+      "genre": "conversational",
+      "wordCount": 58,
+      "sha256": "1121a1ab12c84f1450c08bbc40835f6e66b4e7b9e90197499b6b659c23413a1a",
+      "normalizedSha256": "1f2a8854be2a124c5ad599100c3f471dba5d73f66e842d3093f4e483b358dd43"
+    },
+    {
+      "sampleId": "rem_v22_fdev_h_tech_02",
+      "authorClass": "verified_human",
+      "genre": "technical",
+      "wordCount": 79,
+      "sha256": "6950ac81791210a95f5a50e25b1bbab73e2de29135028f1780f96154be5f5c39",
+      "normalizedSha256": "5ec12b59c2231450b5b91098e323c4504a61bf5143d387e17e6433e761bbdb59"
+    },
+    {
+      "sampleId": "rem_v22_fdev_h_conv_04",
+      "authorClass": "verified_human",
+      "genre": "conversational",
+      "wordCount": 36,
+      "sha256": "0da2c0d6333d482e2f0cb887ad1417003ff13aecf81f3b3072b43570af785df3",
+      "normalizedSha256": "42a25741c2839b8a559ecba8ec2dd3f7f78af3005ad704a797e6bcb42bf19ad6"
+    },
+    {
+      "sampleId": "rem_v22_fdev_ai_tech_07",
+      "authorClass": "verified_ai",
+      "genre": "technical",
+      "wordCount": 57,
+      "sha256": "124a999a2d47f5aae888f07cc5245bb64c100aa9c4f7c5b79d8791ed86cb7c47",
+      "normalizedSha256": "252e49622998611c3e6b43c609a99ccf5b06786a13c64f6e1f5e1a7335c26533"
+    },
+    {
+      "sampleId": "rem_v22_fcalib_h_conv_19",
+      "authorClass": "verified_human",
+      "genre": "conversational",
+      "wordCount": 35,
+      "sha256": "a61ded65f0f511cf0e91868fa67aca56249b2ebb27f110723f0475705162f71b",
+      "normalizedSha256": "1e3e00a68c8ee801455744a28eb4ac3703862d19c8b1bd0d3c318d134e82cf3e"
+    },
+    {
+      "sampleId": "rem_v22_fcalib_ai_corp_23",
+      "authorClass": "verified_ai",
+      "genre": "professional",
+      "wordCount": 85,
+      "sha256": "4f79589d7caf31b4575093efddf6d11a58a8f9ce341e664b3f1468e5a1139fde",
+      "normalizedSha256": "e208b2b4374cbf418ca13af1ee1cc8838470ab9e86bbf3fb1a50254b5fe081d3"
+    },
+    {
+      "sampleId": "rem_v22_fheld_ai_acad_36",
+      "authorClass": "verified_ai",
+      "genre": "academic",
+      "wordCount": 90,
+      "sha256": "5ebddbab73e8159a0d3925d9df88a7f6dbcb1a7552a53dd688b0aac00612c882",
+      "normalizedSha256": "17ec443e8d8c964c110f1a944c89ac1bb85f5c0be87a5460f4c4f03a5863fce8"
+    },
+    {
+      "sampleId": "rem_v22_fheld_ai_corp_38",
+      "authorClass": "verified_ai",
+      "genre": "professional",
+      "wordCount": 91,
+      "sha256": "fb3c27fb5af3948ff537ba4c5a114c2eb2c2affc3e79ec0bc788957f010ff443",
+      "normalizedSha256": "de12035203063bbbac5876d7bb41bbc06eb5588fb95ce72f8f441f0c1e64a0d2"
+    },
+    {
+      "sampleId": "gutenberg_76_003",
+      "authorClass": "historical_human_proxy",
+      "genre": "creative",
+      "wordCount": 106,
+      "sha256": "de9e186e387d602610d1d96d9f3a34145f33c6943db3871cfed5476475c50975",
+      "normalizedSha256": "b373d5b21c82b800fcad38b97e32fb8a7b21e93120847e91253024b26fdcefec"
+    },
+    {
+      "sampleId": "gutenberg_2600_011",
+      "authorClass": "historical_human_proxy",
+      "genre": "creative",
+      "wordCount": 281,
+      "sha256": "60a0e2953cc42dab414db90e384444fd16b363b61a68cb3c5156083b99ce829c",
+      "normalizedSha256": "91309ce6d77e9fd0c31bb22ff9b078d5fa59af9c846c128c3aeffe431a606cfa"
+    },
+    {
+      "sampleId": "gutenberg_215_015",
+      "authorClass": "historical_human_proxy",
+      "genre": "creative",
+      "wordCount": 259,
+      "sha256": "4050f04232d9e8a9748d6e3ca8dc2d1521d91d2fdd8660cbd74c442d3f1fbb2b",
+      "normalizedSha256": "b4e7bd3ef03e482cc38a723e876da41d08b0be965415e649aee84435f9f0760d"
+    },
+    {
+      "sampleId": "gutenberg_100_026",
+      "authorClass": "historical_human_proxy",
+      "genre": "creative",
+      "wordCount": 64,
+      "sha256": "de845a56937e73c0b4adcbe3a917425abd83a650e3c03310257f6907543864c9",
+      "normalizedSha256": "f4b0e3c735981c1ac346fbc2eb63b120acdee01cee22ef4fd33c98a90a6466af"
+    },
+    {
+      "sampleId": "gutenberg_28054_027",
+      "authorClass": "historical_human_proxy",
+      "genre": "creative",
+      "wordCount": 99,
+      "sha256": "9d2774fed126449a963876d53acc83d6fce2b2d08661de881baa71527c09de53",
+      "normalizedSha256": "800f9df79e5cf5e66b6d46138e59462ec111d087896e5160e34a3ab013aad36b"
+    },
+    {
+      "sampleId": "gutenberg_59_037",
+      "authorClass": "historical_human_proxy",
+      "genre": "academic",
+      "wordCount": 98,
+      "sha256": "843506975308c3828231d926c79314adfaa026d6130d700f7a9fc0168f9d7a22",
+      "normalizedSha256": "d7c1e88215d62731a260421136fe8d79102fd5c9af5b876c0f01936542294abb"
+    },
+    {
+      "sampleId": "gutenberg_5827_045",
+      "authorClass": "historical_human_proxy",
+      "genre": "academic",
+      "wordCount": 99,
+      "sha256": "5ce5352155cba45e60842f11cc49b6f156182ef8a9fc07f9b3b45fec390e022e",
+      "normalizedSha256": "75311d5f5ecb838efe42dfb9fa6f2a404e35fe360c744da9ca63d784a0e23702"
+    },
+    {
+      "sampleId": "gutenberg_2529_046",
+      "authorClass": "historical_human_proxy",
+      "genre": "academic",
+      "wordCount": 111,
+      "sha256": "ee636f834c3e1a7e6ee14bb6293cf3477ebe8f91f1870815a4fe55f8247a0bf2",
+      "normalizedSha256": "1cb3eeac318caf77e041ae27b7b5fd68fb0aeeb12d7cf4b6747d3df19b52ef2c"
+    },
+    {
+      "sampleId": "gutenberg_3800_053",
+      "authorClass": "historical_human_proxy",
+      "genre": "academic",
+      "wordCount": 92,
+      "sha256": "133df8e03a84393ccb8196a63f16e3019d1d3ae0c61226914dffa23453667aad",
+      "normalizedSha256": "a6b03124144987ddedc67cb1fba938efab812d5d7d8a4995165afc92c8be2d9b"
+    },
+    {
+      "sampleId": "gutenberg_205_057",
+      "authorClass": "historical_human_proxy",
+      "genre": "academic",
+      "wordCount": 99,
+      "sha256": "c90ca56f4f84fb4d9c548004651b1bba1cb44b89f8dfdf60a84650355efd9e09",
+      "normalizedSha256": "4444bfefa1b74a741288383f332330770c9885ff6954d2877322b57ab7ab6d72"
+    },
+    {
+      "sampleId": "gutenberg_4626_070",
+      "authorClass": "historical_human_proxy",
+      "genre": "technical",
+      "wordCount": 109,
+      "sha256": "7150f9712423a4c7900e1d8b27aa1a405ccb9e5648e01e606885884e022b9ac3",
+      "normalizedSha256": "d4ed7234d61b5b9bedc1efea8c65344413d471e6d914e080545ed27a8369bb2e"
+    },
+    {
+      "sampleId": "gutenberg_51155_074",
+      "authorClass": "historical_human_proxy",
+      "genre": "technical",
+      "wordCount": 84,
+      "sha256": "7a90f98effd10a4df880e678bc9555268931e1139eaacd1dbb3cc70e1afa66df",
+      "normalizedSha256": "9fcd309b5b1eaac9c520c98ee57e94f31c90be9bf2d7468723879258e1b00bde"
+    },
+    {
+      "sampleId": "gutenberg_37690_076",
+      "authorClass": "historical_human_proxy",
+      "genre": "technical",
+      "wordCount": 78,
+      "sha256": "312598110d5fac4687413a4a4bff8526b2b01fed9c2725b083f2496ccf430aee",
+      "normalizedSha256": "cfa421058ad5adbbe1d1299ee89f912c925a4dc0349ba754026731a1b4791ddc"
+    },
+    {
+      "sampleId": "gutenberg_43912_080",
+      "authorClass": "historical_human_proxy",
+      "genre": "technical",
+      "wordCount": 76,
+      "sha256": "92559b10b4ea91a1f9cb4fedb778d90bc7f37acaa5f67d41408839b2e6a44136",
+      "normalizedSha256": "cc6d9555d355f5d1823578f680cf71a146572dd066f3b216accf13a7a53c3772"
+    },
+    {
+      "sampleId": "gutenberg_47228_081",
+      "authorClass": "historical_human_proxy",
+      "genre": "technical",
+      "wordCount": 90,
+      "sha256": "b639d612001f5a2befd5cc8b34bf26a2ec8d2ce9932ffeebca78661e1b7f7ca5",
+      "normalizedSha256": "494c78dfd2a4e39706b8eb2c64d58a91f48ef588337cd478d83bfb8aa06c9535"
+    },
+    {
+      "sampleId": "gutenberg_2378_087",
+      "authorClass": "historical_human_proxy",
+      "genre": "professional",
+      "wordCount": 98,
+      "sha256": "de93aab8e52aa464b46f84e401ca6da287a049024207f166410238527f180232",
+      "normalizedSha256": "e8b3331a79a0199a70cd225172b723f7eb1837778ebe1ccea5c78c3456b85206"
+    },
+    {
+      "sampleId": "gutenberg_23_089",
+      "authorClass": "historical_human_proxy",
+      "genre": "professional",
+      "wordCount": 85,
+      "sha256": "2340e8feef4f89b96765da9ae430f1289637818514dad7152cb87b68a57b0ee7",
+      "normalizedSha256": "2647c7f23713f559d32faf4b9a1dd69bee929d8ad3bc116cadf8b9e04a79ce20"
+    },
+    {
+      "sampleId": "gutenberg_194_098",
+      "authorClass": "historical_human_proxy",
+      "genre": "creative",
+      "wordCount": 86,
+      "sha256": "388762eee3d7661ed8c33b9f86c7f2c9ac6d1403fac66fc9b3c59ee35e85b5aa",
+      "normalizedSha256": "28d33409953faaade76fea27d3e197d0614f7aeab902b1cd4031f15e1f5cf0c5"
+    },
+    {
+      "sampleId": "gutenberg_1998_102",
+      "authorClass": "historical_human_proxy",
+      "genre": "explanatory",
+      "wordCount": 96,
+      "sha256": "5d650efcad72bbcf7a0babc7e20c49a77c0a34526a5223d4ebe67b725ea31ce1",
+      "normalizedSha256": "56e31cd1e2542743e5a03b3f98ed03aebc21fbd4a15038a6562ea7ee4b3b18bc"
+    },
+    {
+      "sampleId": "gutenberg_521_104",
+      "authorClass": "historical_human_proxy",
+      "genre": "conversational",
+      "wordCount": 92,
+      "sha256": "5729f20fee0fea16d93a1524dc3f9aafb44ca3121d4d9fe94e0435b99e414c2a",
+      "normalizedSha256": "5215c5e3856b990d20d345d87b67ba66918b0011296ec42fa1cce1da939b458e"
+    },
+    {
+      "sampleId": "gutenberg_1399_107",
+      "authorClass": "historical_human_proxy",
+      "genre": "creative",
+      "wordCount": 97,
+      "sha256": "758e795dd35c5ba8e2e7dde5a66fc835fe6be20d5abebbf795a8a958a873bf4f",
+      "normalizedSha256": "4d44256b1aafaa46006df5585d5bf28598d784705534eb5502f8ecc962163947"
+    },
+    {
+      "sampleId": "sec_edgar_0000012927_2023",
+      "authorClass": "historical_human_proxy",
+      "genre": "technical",
+      "wordCount": 62,
+      "sha256": "1db574489cc0ace40e8c7a19908c7358d60561a376d9ca55061be047a4a3cdad",
+      "normalizedSha256": "e0e541a1ab23c8ea762371e31f4386225f9811eb8f3a2c640e0bab7c457d309a"
+    },
+    {
+      "sampleId": "sec_edgar_0000051143_2023",
+      "authorClass": "historical_human_proxy",
+      "genre": "technical",
+      "wordCount": 56,
+      "sha256": "0a0fc53059958de51c5f3f8059900cd8ab0295f8d0fa63e54940518015df7803",
+      "normalizedSha256": "c656a6275a36f70fa61198523ec72d7c6feadd3cedfaf6b7c49c47cde227d78b"
+    },
+    {
+      "sampleId": "sec_edgar_0000932784_2023",
+      "authorClass": "historical_human_proxy",
+      "genre": "professional",
+      "wordCount": 50,
+      "sha256": "6f39e17bd4afabd8ca7212a0b207da7894b1bb128b0a86bfedacce9e1549f67e",
+      "normalizedSha256": "c94190d3fedd15b50b064d5e1729407b9ffd4adf84b200a0a700eecd443a627a"
+    },
+    {
+      "sampleId": "ai_gen_acad_02",
+      "authorClass": "verified_ai",
+      "genre": "academic",
+      "wordCount": 119,
+      "sha256": "e128b2969fbf475cd897747f1b631a40d5b3d05a16ea3afab8fa77ec2082d5d6",
+      "normalizedSha256": "507c2bd151eb744f68488d3cd93515cae6b96f833ef7004e634e40faecc94f94"
+    },
+    {
+      "sampleId": "ai_gen_acad_04",
+      "authorClass": "verified_ai",
+      "genre": "academic",
+      "wordCount": 96,
+      "sha256": "5910bfaaab989f78dbd6cbaa6e6caebbe6598e0d8ddbab874b06c2a47700ca6f",
+      "normalizedSha256": "776719a8d7aa5eec2910891547f2b8fdf9e4ab243b85badaedcb57876faa4f97"
+    },
+    {
+      "sampleId": "ai_gen_acad_13",
+      "authorClass": "verified_ai",
+      "genre": "academic",
+      "wordCount": 46,
+      "sha256": "f0e0d0e851515fcd6f2d892906a3c934e554388e31f13c6804cae744234a3723",
+      "normalizedSha256": "ff9e2ccb10c1a2c398bc31ca267455496d6e8370d8a03abcc15a4d1db5184de1"
+    },
+    {
+      "sampleId": "ai_gen_acad_14",
+      "authorClass": "verified_ai",
+      "genre": "academic",
+      "wordCount": 41,
+      "sha256": "cd8af286391a0367c376f22869b18356f2b6315d06d0048636cd5264f64c0a5a",
+      "normalizedSha256": "a3db34499cde35057b6c50644c30e274b19079df1f166c6edb2fe4193eedb6e4"
+    },
+    {
+      "sampleId": "ai_gen_tech_19",
+      "authorClass": "verified_ai",
+      "genre": "technical",
+      "wordCount": 45,
+      "sha256": "6820cfc40ad4162050a4fc5325dacf2a82fab6ecb135505c7dd6e9834d68e5a8",
+      "normalizedSha256": "fe0e9038df2b9117d9ba25dd9a2fe21595e031e6ac41bb96e9c135c211544d40"
+    },
+    {
+      "sampleId": "ai_gen_tech_20",
+      "authorClass": "verified_ai",
+      "genre": "technical",
+      "wordCount": 42,
+      "sha256": "ae05586a7606817c3ea38edff5f02a6c3240bbd0da4c4b7212bcc9c5abb87e93",
+      "normalizedSha256": "d7cc12d1033f620acd54c4105387a3e13e27f690573e4d8e16f711a60637ab41"
+    },
+    {
+      "sampleId": "ai_gen_tech_25",
+      "authorClass": "verified_ai",
+      "genre": "technical",
+      "wordCount": 37,
+      "sha256": "b92893139024f69ec2579da1a3f0ab50b5362d9679b438b6a020ee1138d77a6a",
+      "normalizedSha256": "a58490ec4f085bd061fe84197f8cbd9402d31284468eb8a0773ac13e316aa572"
+    },
+    {
+      "sampleId": "ai_gen_prof_02",
+      "authorClass": "verified_ai",
+      "genre": "professional",
+      "wordCount": 94,
+      "sha256": "05d6b7e0ed94c91601a5e3e4197f6e15863b509a5e0e26d68df3e2508132adea",
+      "normalizedSha256": "1da53283e5541844e142f6416ae86b7f275c452719eb4f481af448faf9cf768b"
+    },
+    {
+      "sampleId": "ai_gen_prof_09",
+      "authorClass": "verified_ai",
+      "genre": "professional",
+      "wordCount": 41,
+      "sha256": "7fb3b82cf9b65aca51ad947e853e0c06df09683566367529a4c3975065e9666e",
+      "normalizedSha256": "ef24542d1c63508119b5ed56901b16cbdc523e95c683e2531065548238333eaa"
+    },
+    {
+      "sampleId": "ai_gen_prof_11",
+      "authorClass": "verified_ai",
+      "genre": "professional",
+      "wordCount": 33,
+      "sha256": "2027fead61f44e9cf54592d829bd40ca99c7833ad11dc8d608c4ed5a2a99a6db",
+      "normalizedSha256": "ee345cdaadef634cbffabceb7dbca95439a41f0d1add9dcd1cf5cc63f54da7a7"
+    },
+    {
+      "sampleId": "ai_gen_prof_20",
+      "authorClass": "verified_ai",
+      "genre": "professional",
+      "wordCount": 41,
+      "sha256": "7ac14464f3e368a79b3ed32cd0c84ca000b43ba5fd7597a1772793795589f2df",
+      "normalizedSha256": "73d3277fa4d91b4242082fddb0a42bd8fb020d27cc5879ac6368043531a64f02"
+    },
+    {
+      "sampleId": "ai_gen_conv_04",
+      "authorClass": "verified_ai",
+      "genre": "conversational",
+      "wordCount": 47,
+      "sha256": "1385941cbec19812f39b3dab57242134c36d58f0a2b25c9531ce7360f8cf2811",
+      "normalizedSha256": "a5b3ee6f386738e2353dc583ccbf9d9fa10d898b65b29ac1cf628bb6f1bbb3dd"
+    },
+    {
+      "sampleId": "ai_gen_conv_07",
+      "authorClass": "verified_ai",
+      "genre": "conversational",
+      "wordCount": 48,
+      "sha256": "2b86a39b54578b67e7e9dc7a225755deea2160dd29f4f94e8c21a0c02d4cdf02",
+      "normalizedSha256": "b60b9de86129320a915b18f86cf70661c19eee867f8bd2785e9027c284ac4d69"
+    },
+    {
+      "sampleId": "ai_gen_conv_09",
+      "authorClass": "verified_ai",
+      "genre": "conversational",
+      "wordCount": 52,
+      "sha256": "068a8c1f896baa721ffed6977af1ab8d8b9dc4899fead7f9775ad012517202c9",
+      "normalizedSha256": "93c84f351166700378955c480d14ae120971b39adf629a837a829f7da2c50997"
+    },
+    {
+      "sampleId": "ai_gen_conv_24",
+      "authorClass": "verified_ai",
+      "genre": "conversational",
+      "wordCount": 41,
+      "sha256": "4ba30c7b69262d1e57a478c2195ad59c7168125cde6b97ecab71c37151985955",
+      "normalizedSha256": "bfdd9662117499c1064110622fae3fe3fe9d49dfdeaf3b95278e13410d7ae29e"
+    },
+    {
+      "sampleId": "ai_gen_creat_02",
+      "authorClass": "verified_ai",
+      "genre": "creative",
+      "wordCount": 111,
+      "sha256": "f8d85b4d9db8b7d2a667a705927adfc072ca045f8988cd770d9e189dc90d6338",
+      "normalizedSha256": "6e7327262873fc8f0be952f235ddfa73b64b204a2d2874abc9ecaa0f21935f2b"
+    },
+    {
+      "sampleId": "ai_gen_creat_07",
+      "authorClass": "verified_ai",
+      "genre": "creative",
+      "wordCount": 50,
+      "sha256": "0364913ea10e76cfa4a48fdf11839e1db6ab5c913d803ceb7b4233502a6b83ae",
+      "normalizedSha256": "e43a8557c648f550422fb4cceaece08d3ac200fdc17c1fafe7a4b6136570a49b"
+    },
+    {
+      "sampleId": "ai_gen_creat_12",
+      "authorClass": "verified_ai",
+      "genre": "creative",
+      "wordCount": 42,
+      "sha256": "08e6433c6fb735b629e466551c65352c9ff4e43b438e65fbe4f2957849bbb692",
+      "normalizedSha256": "2f1df031d2a2ce21b2423889f9a35e16bf955c94f6072c10f09061949007a7eb"
+    },
+    {
+      "sampleId": "ai_gen_creat_16",
+      "authorClass": "verified_ai",
+      "genre": "creative",
+      "wordCount": 43,
+      "sha256": "8118ec4eb28ec0c124953020b13d35f1b2cdbdf3d27008ef6fe1c3dad1de0fda",
+      "normalizedSha256": "3bcb23c4c0f0ff0209be17052264e14300c1fbd6b5d0ea4f9619e94fa3951089"
+    },
+    {
+      "sampleId": "ai_gen_creat_17",
+      "authorClass": "verified_ai",
+      "genre": "creative",
+      "wordCount": 48,
+      "sha256": "f0a6f174c3b8dd6a517dc0ef27d22d066df388c5d85951801a4b8b7e5049c57e",
+      "normalizedSha256": "81d6d352d05fc308d00697bdd09c76405a34a918ec1d962d103f7605a9cd790f"
+    },
+    {
+      "sampleId": "ai_gen_creat_19",
+      "authorClass": "verified_ai",
+      "genre": "creative",
+      "wordCount": 48,
+      "sha256": "07c50f702be3af950e0e0bd0cabaa734005641fd27c5d16b343194cb6031f473",
+      "normalizedSha256": "d25d8af6fe9b939323022c5be7dc9471f9f798018b7ca888aeac25fb83241d92"
+    },
+    {
+      "sampleId": "ai_gen_expl_04",
+      "authorClass": "verified_ai",
+      "genre": "explanatory",
+      "wordCount": 49,
+      "sha256": "df00bb21f6f7a96f22f4d02b531c25c16da11f4458f467e295fc33f5c26df538",
+      "normalizedSha256": "fd39cd9c014a1261d6048cf15f944fe2e14f1e87000284029ccac9fc302adf4e"
+    },
+    {
+      "sampleId": "ai_gen_expl_05",
+      "authorClass": "verified_ai",
+      "genre": "explanatory",
+      "wordCount": 55,
+      "sha256": "7a729af488da65ec67b97107c5928819fb38e7ceaccc4e03eb39bea4c54bb25a",
+      "normalizedSha256": "e0aace4c6ea66e6563618d78500ee7c804e146d5650f920fa5500367360ce6d2"
+    },
+    {
+      "sampleId": "ai_gen_expl_06",
+      "authorClass": "verified_ai",
+      "genre": "explanatory",
+      "wordCount": 50,
+      "sha256": "0836720b8c02036ea0bb9efe427df55e892943197fd2d0616f098d4ccb785085",
+      "normalizedSha256": "0323ffabf6650b2f65406c3451634122bd6b2a58dc88bd926ba98df53156dc4c"
+    },
+    {
+      "sampleId": "ai_gen_expl_16",
+      "authorClass": "verified_ai",
+      "genre": "explanatory",
+      "wordCount": 51,
+      "sha256": "e0896ca17ce3437be8a93c3dea8ffed032e99c5dd1f9d5b740ea12d3005b6930",
+      "normalizedSha256": "59ba50da1263630f783eeb87420cfb2b0a6f3b4bf06cdb524650578d47e8b3fd"
+    }
+  ],
+  "embargoRules": [
+    "1. Absolutely zero model evaluation against this partition until V2.5 release readiness gate.",
+    "2. Prohibited from hyperparameter tuning, threshold selection, or feature ablation searches.",
+    "3. Prohibited from Platt calibration or probability mapping fitting.",
+    "4. Partition hash must remain invariant before and after final model audit."
+  ]
+}

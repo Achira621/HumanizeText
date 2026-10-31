@@ -1,0 +1,73 @@
+{
+  "manifestVersion": "2.4.4",
+  "generatedDate": "2026-10-31T15:31:56.015007+00:00",
+  "genres": [
+    "academic",
+    "technical",
+    "professional",
+    "conversational",
+    "creative",
+    "explanatory"
+  ],
+  "authorshipClasses": [
+    "verified_human",
+    "historical_human_proxy",
+    "verified_ai",
+    "collaborative"
+  ],
+  "matrix": {
+    "verified_human": {
+      "academic": 6,
+      "technical": 6,
+      "professional": 6,
+      "conversational": 6,
+      "creative": 6,
+      "explanatory": 20
+    },
+    "historical_human_proxy": {
+      "academic": 35,
+      "technical": 47,
+      "professional": 44,
+      "conversational": 8,
+      "creative": 48,
+      "explanatory": 8
+    },
+    "verified_ai": {
+      "academic": 38,
+      "technical": 40,
+      "professional": 35,
+      "conversational": 38,
+      "creative": 38,
+      "explanatory": 53
+    },
+    "collaborative": {
+      "academic": 8,
+      "technical": 6,
+      "professional": 8,
+      "conversational": 4,
+      "creative": 4,
+      "explanatory": 20
+    }
+  },
+  "marginalTotals": {
+    "byGenre": {
+      "academic": 87,
+      "technical": 99,
+      "professional": 93,
+      "conversational": 56,
+      "creative": 96,
+      "explanatory": 101
+    },
+    "byClass": {
+      "verified_human": 50,
+      "historical_human_proxy": 190,
+      "verified_ai": 242,
+      "collaborative": 50
+    }
+  },
+  "shortcutVulnerabilityAudit": {
+    "historicalGutenbergArchaism": "High risk of stylometric models exploiting archaic syntactic features (e.g. Victorian phrasing) rather than general machine-text patterns.",
+    "secCorporateFormality": "High risk of detector correlating corporate governance phrasing with human authorship.",
+    "mitigationMandate": "Model regularization and feature ablations required in V2.5 to penalize domain-specific lexicon over structural burstiness."
+  }
+}

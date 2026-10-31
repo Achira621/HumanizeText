@@ -1,0 +1,32 @@
+{
+  "manifestVersion": "2.4.4",
+  "generatedDate": "2026-10-31T15:31:56.015007+00:00",
+  "nodeCounts": {
+    "sourceDatasets": 5,
+    "independenceGroups": 467,
+    "baseDocuments": 485,
+    "samplePassages": 532
+  },
+  "groupToSampleCount": {
+    "family_ai_prof_18": 1,
+    "cluster_pilot_v2_7_pilot_ai_task_creat_02": 1,
+    "cluster_v22_held_h_tech_32": 1,
+    "family_ai_acad_15": 1,
+    "family_ai_tech_07": 1,
+    "corp_exxon_mobil_corporat": 1,
+    "family_ai_expl_24": 1,
+    "author_robert_louis_stevenson": 3,
+    "raid_group_ai_news_04": 1,
+    "family_ai_acad_06": 1,
+    "cluster_v22_fheld_ai_corp_38": 1,
+    "cluster_v22_fcalib_h_conv_19": 1,
+    "author_jack_london": 2,
+    "family_ai_tech_14": 1,
+    "cluster_v22_calib_h_tech_17": 1,
+    "cluster_v22_fdev_ai_conv_09": 1,
+    "raid_group_human_arxiv_20": 1,
+    "corp_texas_instruments_in": 1,
+    "author_benedict_de_spinoza": 1,
+    "raid_group_ai_news_01": 1
+  }
+}

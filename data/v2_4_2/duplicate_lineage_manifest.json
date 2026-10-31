@@ -1,0 +1,730 @@
+{
+  "manifestVersion": "2.4.2",
+  "generatedDate": "2026-10-31T14:05:00.802Z",
+  "totalSeedRecordsAnalyzed": 80,
+  "verbatimDuplicateCount": 18,
+  "uniqueEditedCount": 2,
+  "canonicalBaseCount": 60,
+  "lineageEntries": [
+    {
+      "sampleId": "seeds_remote_work_h",
+      "topic": "remote_work",
+      "textSha256": "afdb7f525a85280988a4f4cc2e3935439029d9e76e56bac40ffe1adef4edb5e2",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_remote_work_h",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_remote_work_a",
+      "topic": "remote_work",
+      "textSha256": "488575ad2c4189d89c5476429f678e31a20551ee4d4ab65cd9795a1db3d9f74b",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_remote_work_a",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_remote_work_a_edit",
+      "topic": "remote_work",
+      "textSha256": "488575ad2c4189d89c5476429f678e31a20551ee4d4ab65cd9795a1db3d9f74b",
+      "isDuplicate": true,
+      "duplicateType": "verbatim_duplicate_of_base",
+      "canonicalSampleId": "seeds_remote_work_a",
+      "reason": "build_dataset.py synonym_swap dictionary had 0 matches in target passage; generation was a no-op verbatim duplicate."
+    },
+    {
+      "sampleId": "seeds_remote_work_mixed",
+      "topic": "remote_work",
+      "textSha256": "9e5ccfb61693a1910e7536f515b3d65c8d7b22f737d1a90bf30601489f22edc9",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_remote_work_mixed",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_coffee_h",
+      "topic": "coffee",
+      "textSha256": "2adf4f1e4bc014bda8cfd345661391fddc57a82a816dea23c5f1c2cc7468af08",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_coffee_h",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_coffee_a",
+      "topic": "coffee",
+      "textSha256": "a72d6a11a8a223f0e1bf16df5abebcca74830e6bb7e9bef5124317d3623b3716",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_coffee_a",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_coffee_a_edit",
+      "topic": "coffee",
+      "textSha256": "a72d6a11a8a223f0e1bf16df5abebcca74830e6bb7e9bef5124317d3623b3716",
+      "isDuplicate": true,
+      "duplicateType": "verbatim_duplicate_of_base",
+      "canonicalSampleId": "seeds_coffee_a",
+      "reason": "build_dataset.py synonym_swap dictionary had 0 matches in target passage; generation was a no-op verbatim duplicate."
+    },
+    {
+      "sampleId": "seeds_coffee_mixed",
+      "topic": "coffee",
+      "textSha256": "07c613689be520bc87d664b8c0eb0a81da4c6c72fb6e63cfa543baa97850f1f4",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_coffee_mixed",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_climate_change_h",
+      "topic": "climate_change",
+      "textSha256": "ed4aa8dbe5950061fbfea17ac0fa222279384bd60202c22a624a5b8633f6676f",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_climate_change_h",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_climate_change_a",
+      "topic": "climate_change",
+      "textSha256": "6e72502577e2510a4cf65211d9ff519c285c3edfd1bbd60a19ed90e8329726cb",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_climate_change_a",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_climate_change_a_edit",
+      "topic": "climate_change",
+      "textSha256": "6e72502577e2510a4cf65211d9ff519c285c3edfd1bbd60a19ed90e8329726cb",
+      "isDuplicate": true,
+      "duplicateType": "verbatim_duplicate_of_base",
+      "canonicalSampleId": "seeds_climate_change_a",
+      "reason": "build_dataset.py synonym_swap dictionary had 0 matches in target passage; generation was a no-op verbatim duplicate."
+    },
+    {
+      "sampleId": "seeds_climate_change_mixed",
+      "topic": "climate_change",
+      "textSha256": "4d0b877a76b2e89af498d184fe55ce1f153ce0d5eb83282240a1acbf6959af0d",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_climate_change_mixed",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_social_media_h",
+      "topic": "social_media",
+      "textSha256": "22fd20b99156881d331d915f59027f2bebee440f0479f2913e868191ab966159",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_social_media_h",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_social_media_a",
+      "topic": "social_media",
+      "textSha256": "8ad949b35e9bec9c22ba7faef4021385f52206b6b2776e872dd02e8121a8cefa",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_social_media_a",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_social_media_a_edit",
+      "topic": "social_media",
+      "textSha256": "8ad949b35e9bec9c22ba7faef4021385f52206b6b2776e872dd02e8121a8cefa",
+      "isDuplicate": true,
+      "duplicateType": "verbatim_duplicate_of_base",
+      "canonicalSampleId": "seeds_social_media_a",
+      "reason": "build_dataset.py synonym_swap dictionary had 0 matches in target passage; generation was a no-op verbatim duplicate."
+    },
+    {
+      "sampleId": "seeds_social_media_mixed",
+      "topic": "social_media",
+      "textSha256": "e72321f2df9abd0f814e93f82146ceedb67531e051b1672d1d9a6e6ead0db3ab",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_social_media_mixed",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_exercise_h",
+      "topic": "exercise",
+      "textSha256": "380d5a871545a94cc3e26b0bf1ff69a06cdaa5a57d2176e11fd61d402711772f",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_exercise_h",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_exercise_a",
+      "topic": "exercise",
+      "textSha256": "00a23c2cece5e751d0b00a50bdd271a83a163f4170c1e014a036b2b57ae5e6ed",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_exercise_a",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_exercise_a_edit",
+      "topic": "exercise",
+      "textSha256": "0f4d29f498315d6410aafec5ddabc4ffce97da8d5f7e367be9e7b1c43649bf2c",
+      "isDuplicate": false,
+      "duplicateType": "unique_edited_passage",
+      "canonicalSampleId": "seeds_exercise_a_edit",
+      "reason": "synonym_swap modified at least one token; text is distinct from base."
+    },
+    {
+      "sampleId": "seeds_exercise_mixed",
+      "topic": "exercise",
+      "textSha256": "c41936a1d787f4ac321006dc5fbb519746ea085ff8d35da5529d72c41488b983",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_exercise_mixed",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_public_transport_h",
+      "topic": "public_transport",
+      "textSha256": "1379ac2110dc42021d588aac02a54657b367bf81d6a1dd83c3114cde184a0312",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_public_transport_h",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_public_transport_a",
+      "topic": "public_transport",
+      "textSha256": "3554e27d387ce84c9709520aae0a3be836daf4c00f776b2e1ab43313ad1ac18b",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_public_transport_a",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_public_transport_a_edit",
+      "topic": "public_transport",
+      "textSha256": "3554e27d387ce84c9709520aae0a3be836daf4c00f776b2e1ab43313ad1ac18b",
+      "isDuplicate": true,
+      "duplicateType": "verbatim_duplicate_of_base",
+      "canonicalSampleId": "seeds_public_transport_a",
+      "reason": "build_dataset.py synonym_swap dictionary had 0 matches in target passage; generation was a no-op verbatim duplicate."
+    },
+    {
+      "sampleId": "seeds_public_transport_mixed",
+      "topic": "public_transport",
+      "textSha256": "ce7bbee380ef6c2b8c27ab1c9d5d511467d7fab698e79c805e0a2daf7ccf03ca",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_public_transport_mixed",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_languages_h",
+      "topic": "languages",
+      "textSha256": "56e0c645b58ea72b2b34f54e98869f4d2c92e653f1dece7afe52c17181f74719",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_languages_h",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_languages_a",
+      "topic": "languages",
+      "textSha256": "66dc3b09b0538ed402ddeb9d4153b55dd1242a99fb645186a84f6fd3c7703762",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_languages_a",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_languages_a_edit",
+      "topic": "languages",
+      "textSha256": "66dc3b09b0538ed402ddeb9d4153b55dd1242a99fb645186a84f6fd3c7703762",
+      "isDuplicate": true,
+      "duplicateType": "verbatim_duplicate_of_base",
+      "canonicalSampleId": "seeds_languages_a",
+      "reason": "build_dataset.py synonym_swap dictionary had 0 matches in target passage; generation was a no-op verbatim duplicate."
+    },
+    {
+      "sampleId": "seeds_languages_mixed",
+      "topic": "languages",
+      "textSha256": "d7a3cf264faffa461ea0d766ce206b109ec8a20e8f642224f164d10ceecd93a5",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_languages_mixed",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_sleep_h",
+      "topic": "sleep",
+      "textSha256": "12c0fb6b7345c0967c7d21ad7f473e7781f36a0b1a159f11d51dfb5c68670a0d",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_sleep_h",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_sleep_a",
+      "topic": "sleep",
+      "textSha256": "ee861e4ed8e8437bda9182581f75b0ac98e057000ce6782b924f92be89c83255",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_sleep_a",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_sleep_a_edit",
+      "topic": "sleep",
+      "textSha256": "ee861e4ed8e8437bda9182581f75b0ac98e057000ce6782b924f92be89c83255",
+      "isDuplicate": true,
+      "duplicateType": "verbatim_duplicate_of_base",
+      "canonicalSampleId": "seeds_sleep_a",
+      "reason": "build_dataset.py synonym_swap dictionary had 0 matches in target passage; generation was a no-op verbatim duplicate."
+    },
+    {
+      "sampleId": "seeds_sleep_mixed",
+      "topic": "sleep",
+      "textSha256": "1774da7bf2d01e493f0e94724024b44e4b53357f80d67aee5003f9ff73ce5c25",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_sleep_mixed",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_electric_cars_h",
+      "topic": "electric_cars",
+      "textSha256": "cbcce96530c4f36f3656c7cfef5133242853f7fbd235eb6dedb0eed3794b5c21",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_electric_cars_h",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_electric_cars_a",
+      "topic": "electric_cars",
+      "textSha256": "248a824e124f5e7a0c15a9b3c1579cd7b5e1b546a546e7f97982b10b65d6d833",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_electric_cars_a",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_electric_cars_a_edit",
+      "topic": "electric_cars",
+      "textSha256": "248a824e124f5e7a0c15a9b3c1579cd7b5e1b546a546e7f97982b10b65d6d833",
+      "isDuplicate": true,
+      "duplicateType": "verbatim_duplicate_of_base",
+      "canonicalSampleId": "seeds_electric_cars_a",
+      "reason": "build_dataset.py synonym_swap dictionary had 0 matches in target passage; generation was a no-op verbatim duplicate."
+    },
+    {
+      "sampleId": "seeds_electric_cars_mixed",
+      "topic": "electric_cars",
+      "textSha256": "f33bb45f9adc2a0322ae46092b78b136791fe8e55cff71d4a6cbdb83bd6da6cd",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_electric_cars_mixed",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_online_shopping_h",
+      "topic": "online_shopping",
+      "textSha256": "f735e7a63713da222dccb12a70eb9508040830e8942ca868d8d0b91766061d98",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_online_shopping_h",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_online_shopping_a",
+      "topic": "online_shopping",
+      "textSha256": "dc67e4d37eb9b34d62f560a5f4371debff77133bcf696e626e32836e5549cca4",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_online_shopping_a",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_online_shopping_a_edit",
+      "topic": "online_shopping",
+      "textSha256": "dc67e4d37eb9b34d62f560a5f4371debff77133bcf696e626e32836e5549cca4",
+      "isDuplicate": true,
+      "duplicateType": "verbatim_duplicate_of_base",
+      "canonicalSampleId": "seeds_online_shopping_a",
+      "reason": "build_dataset.py synonym_swap dictionary had 0 matches in target passage; generation was a no-op verbatim duplicate."
+    },
+    {
+      "sampleId": "seeds_online_shopping_mixed",
+      "topic": "online_shopping",
+      "textSha256": "1d7ae2a57c55299ebe374477cd02e997a4692b64eb4c6d8fe8a57791815dec29",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_online_shopping_mixed",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_reading_h",
+      "topic": "reading",
+      "textSha256": "2ebd0cf32667ced63494bb1175a8a444a740eed688f2932dd113b550bdc24c1a",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_reading_h",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_reading_a",
+      "topic": "reading",
+      "textSha256": "f26567fab43d8bf4daae57fd8d2681e54bbb2e4909de5655ec02f9d9c2d1495c",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_reading_a",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_reading_a_edit",
+      "topic": "reading",
+      "textSha256": "81e467a08d3f256ceac8b4219c54fa7c7272d4bfade969f239f12028694f30a9",
+      "isDuplicate": false,
+      "duplicateType": "unique_edited_passage",
+      "canonicalSampleId": "seeds_reading_a_edit",
+      "reason": "synonym_swap modified at least one token; text is distinct from base."
+    },
+    {
+      "sampleId": "seeds_reading_mixed",
+      "topic": "reading",
+      "textSha256": "3bff2d607b5b9aed501dcade866b66c4b1b5c64ffde0ac9183eaa22a19d388e1",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_reading_mixed",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_meditation_h",
+      "topic": "meditation",
+      "textSha256": "8bd586e809c6b4a40bf3ceb4ea861f5baf0571a5cdd25be5a2f493f20c0a7b7c",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_meditation_h",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_meditation_a",
+      "topic": "meditation",
+      "textSha256": "acacadf6f1b3e62b596bd39c0953662cdcf72328d2e54b0943ff5c9252b2be3a",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_meditation_a",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_meditation_a_edit",
+      "topic": "meditation",
+      "textSha256": "acacadf6f1b3e62b596bd39c0953662cdcf72328d2e54b0943ff5c9252b2be3a",
+      "isDuplicate": true,
+      "duplicateType": "verbatim_duplicate_of_base",
+      "canonicalSampleId": "seeds_meditation_a",
+      "reason": "build_dataset.py synonym_swap dictionary had 0 matches in target passage; generation was a no-op verbatim duplicate."
+    },
+    {
+      "sampleId": "seeds_meditation_mixed",
+      "topic": "meditation",
+      "textSha256": "b6b66666dd901cf2df982b4f4c55a586c20ed7ffa2a29d36d45c384de4a442c7",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_meditation_mixed",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_recycling_h",
+      "topic": "recycling",
+      "textSha256": "d20113bc60f26287a774ec929511b3c000ed2f0949a0cfed83deffec5e4d00f6",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_recycling_h",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_recycling_a",
+      "topic": "recycling",
+      "textSha256": "38cdc98d47de636a0c964b29886adae22b0da5e2416a14ac5163b6eef0f9b253",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_recycling_a",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_recycling_a_edit",
+      "topic": "recycling",
+      "textSha256": "38cdc98d47de636a0c964b29886adae22b0da5e2416a14ac5163b6eef0f9b253",
+      "isDuplicate": true,
+      "duplicateType": "verbatim_duplicate_of_base",
+      "canonicalSampleId": "seeds_recycling_a",
+      "reason": "build_dataset.py synonym_swap dictionary had 0 matches in target passage; generation was a no-op verbatim duplicate."
+    },
+    {
+      "sampleId": "seeds_recycling_mixed",
+      "topic": "recycling",
+      "textSha256": "489cf4411773ebe70a5ee7e12e68712632e3f74861771c5e1289f59f4343edd9",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_recycling_mixed",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_video_games_h",
+      "topic": "video_games",
+      "textSha256": "b6a39b2bc18cef34647fc04527b2622aa0412990304e2ba47a62d78a80063af2",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_video_games_h",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_video_games_a",
+      "topic": "video_games",
+      "textSha256": "197dc7044f734dd546d6aba8d3d6d7beffe14c2e0d8da34fd1e2a575ca2c33bd",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_video_games_a",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_video_games_a_edit",
+      "topic": "video_games",
+      "textSha256": "197dc7044f734dd546d6aba8d3d6d7beffe14c2e0d8da34fd1e2a575ca2c33bd",
+      "isDuplicate": true,
+      "duplicateType": "verbatim_duplicate_of_base",
+      "canonicalSampleId": "seeds_video_games_a",
+      "reason": "build_dataset.py synonym_swap dictionary had 0 matches in target passage; generation was a no-op verbatim duplicate."
+    },
+    {
+      "sampleId": "seeds_video_games_mixed",
+      "topic": "video_games",
+      "textSha256": "ae1dfb28abba7dbe2eb9182fd5a6107e7b67f62ca28839fcf0a79d255a0aa276",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_video_games_mixed",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_home_cooking_h",
+      "topic": "home_cooking",
+      "textSha256": "852118a72e7745955860d980a13f1fc6273bff541c61134a5cdef11f33653a5d",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_home_cooking_h",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_home_cooking_a",
+      "topic": "home_cooking",
+      "textSha256": "a3d335d2c9da2bec75ba4e3cee9862dca444b278eec7e1e0c54a3a26d5695dbd",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_home_cooking_a",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_home_cooking_a_edit",
+      "topic": "home_cooking",
+      "textSha256": "a3d335d2c9da2bec75ba4e3cee9862dca444b278eec7e1e0c54a3a26d5695dbd",
+      "isDuplicate": true,
+      "duplicateType": "verbatim_duplicate_of_base",
+      "canonicalSampleId": "seeds_home_cooking_a",
+      "reason": "build_dataset.py synonym_swap dictionary had 0 matches in target passage; generation was a no-op verbatim duplicate."
+    },
+    {
+      "sampleId": "seeds_home_cooking_mixed",
+      "topic": "home_cooking",
+      "textSha256": "66c87eb845db984bcb0c0e916d6c75f94e47575cc98fe10495d07768929c4200",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_home_cooking_mixed",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_city_vs_country_h",
+      "topic": "city_vs_country",
+      "textSha256": "298f2fefe0cbdfa4f487e32a8006931c677b7b0fa6a8ebeec738fd3378206fec",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_city_vs_country_h",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_city_vs_country_a",
+      "topic": "city_vs_country",
+      "textSha256": "03ae80fe813fc8934e5fc7939b90739cd3151330f34864c0097ee8f9fcd8b235",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_city_vs_country_a",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_city_vs_country_a_edit",
+      "topic": "city_vs_country",
+      "textSha256": "03ae80fe813fc8934e5fc7939b90739cd3151330f34864c0097ee8f9fcd8b235",
+      "isDuplicate": true,
+      "duplicateType": "verbatim_duplicate_of_base",
+      "canonicalSampleId": "seeds_city_vs_country_a",
+      "reason": "build_dataset.py synonym_swap dictionary had 0 matches in target passage; generation was a no-op verbatim duplicate."
+    },
+    {
+      "sampleId": "seeds_city_vs_country_mixed",
+      "topic": "city_vs_country",
+      "textSha256": "55a79ea5e1dfdd2f168792b57c92cfad1044e027ca488565e7c5dc9402a6c2a7",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_city_vs_country_mixed",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_phones_in_school_h",
+      "topic": "phones_in_school",
+      "textSha256": "9d69212bdb0faee4134f46f14f39660d5220a0a15fde17880e8da3b51883e898",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_phones_in_school_h",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_phones_in_school_a",
+      "topic": "phones_in_school",
+      "textSha256": "fe2fff2d5362931771607c5ae6b91a0578741788deb135a9b12005963a414a3f",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_phones_in_school_a",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_phones_in_school_a_edit",
+      "topic": "phones_in_school",
+      "textSha256": "fe2fff2d5362931771607c5ae6b91a0578741788deb135a9b12005963a414a3f",
+      "isDuplicate": true,
+      "duplicateType": "verbatim_duplicate_of_base",
+      "canonicalSampleId": "seeds_phones_in_school_a",
+      "reason": "build_dataset.py synonym_swap dictionary had 0 matches in target passage; generation was a no-op verbatim duplicate."
+    },
+    {
+      "sampleId": "seeds_phones_in_school_mixed",
+      "topic": "phones_in_school",
+      "textSha256": "89a30d9eef306183e4ddba1756b785a571210b6f344e41f4f486174d47cb0a46",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_phones_in_school_mixed",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_volunteering_h",
+      "topic": "volunteering",
+      "textSha256": "22a71cbf154d2ea186472f4281c48bcd077606f2c69dec6e9f0ad8d7c9719852",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_volunteering_h",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_volunteering_a",
+      "topic": "volunteering",
+      "textSha256": "23a2ca0f0593b7417d4a0a2a088ec9977208033e551c2f989b3e076d36a62e5b",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_volunteering_a",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_volunteering_a_edit",
+      "topic": "volunteering",
+      "textSha256": "23a2ca0f0593b7417d4a0a2a088ec9977208033e551c2f989b3e076d36a62e5b",
+      "isDuplicate": true,
+      "duplicateType": "verbatim_duplicate_of_base",
+      "canonicalSampleId": "seeds_volunteering_a",
+      "reason": "build_dataset.py synonym_swap dictionary had 0 matches in target passage; generation was a no-op verbatim duplicate."
+    },
+    {
+      "sampleId": "seeds_volunteering_mixed",
+      "topic": "volunteering",
+      "textSha256": "cf4734196f25fa837f156e04a02f3af3c093081165437569253dd538c51a4a7d",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_volunteering_mixed",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_minimalism_h",
+      "topic": "minimalism",
+      "textSha256": "2c473358948722467d51a0b36bc2dfaf87a067b705c9af31e4dbd89dc8ba4399",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_minimalism_h",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_minimalism_a",
+      "topic": "minimalism",
+      "textSha256": "1070a643e9f28204ea3a7f708bde89e0bf1cf6ce970fc9caed57b9a0684d1b5f",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_minimalism_a",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_minimalism_a_edit",
+      "topic": "minimalism",
+      "textSha256": "1070a643e9f28204ea3a7f708bde89e0bf1cf6ce970fc9caed57b9a0684d1b5f",
+      "isDuplicate": true,
+      "duplicateType": "verbatim_duplicate_of_base",
+      "canonicalSampleId": "seeds_minimalism_a",
+      "reason": "build_dataset.py synonym_swap dictionary had 0 matches in target passage; generation was a no-op verbatim duplicate."
+    },
+    {
+      "sampleId": "seeds_minimalism_mixed",
+      "topic": "minimalism",
+      "textSha256": "cbfb6c74c9f27f98585cb89b5d31bd6876be42ccfac9d1cec269996cf7308f32",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_minimalism_mixed",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_space_exploration_h",
+      "topic": "space_exploration",
+      "textSha256": "2fa50d9ed03420b13729cc880929b5b0a66c930528b6c34a946a32d1541df399",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_space_exploration_h",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_space_exploration_a",
+      "topic": "space_exploration",
+      "textSha256": "6e6495635f0baf43113d3f69ea6c6c4ae989bcf17ae4a70694cbda812e39642e",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_space_exploration_a",
+      "reason": "Canonical unedited passage."
+    },
+    {
+      "sampleId": "seeds_space_exploration_a_edit",
+      "topic": "space_exploration",
+      "textSha256": "6e6495635f0baf43113d3f69ea6c6c4ae989bcf17ae4a70694cbda812e39642e",
+      "isDuplicate": true,
+      "duplicateType": "verbatim_duplicate_of_base",
+      "canonicalSampleId": "seeds_space_exploration_a",
+      "reason": "build_dataset.py synonym_swap dictionary had 0 matches in target passage; generation was a no-op verbatim duplicate."
+    },
+    {
+      "sampleId": "seeds_space_exploration_mixed",
+      "topic": "space_exploration",
+      "textSha256": "90e98f1e055e0228e0bad1bee134411d09efb07e4a6cdff2bcf38e2c5428dd5c",
+      "isDuplicate": false,
+      "duplicateType": "canonical_base",
+      "canonicalSampleId": "seeds_space_exploration_mixed",
+      "reason": "Canonical unedited passage."
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "reportVersion": "2.4.3",
+  "generatedDate": "2026-10-31T15:06:36.298831+00:00",
+  "totalRecords": 532,
+  "overallGenreBreakdown": {
+    "academic": 87,
+    "technical": 99,
+    "professional": 93,
+    "conversational": 56,
+    "creative": 96,
+    "explanatory": 101
+  },
+  "genreByAuthorClass": {
+    "verified_ai": {
+      "academic": 38,
+      "technical": 40,
+      "professional": 35,
+      "conversational": 38,
+      "creative": 38,
+      "explanatory": 53
+    },
+    "verified_human": {
+      "explanatory": 20,
+      "academic": 6,
+      "technical": 6,
+      "professional": 6,
+      "conversational": 6,
+      "creative": 6
+    },
+    "collaborative": {
+      "explanatory": 20,
+      "academic": 8,
+      "technical": 6,
+      "professional": 8,
+      "conversational": 4,
+      "creative": 4
+    },
+    "historical_human_proxy": {
+      "creative": 48,
+      "academic": 35,
+      "technical": 47,
+      "professional": 44,
+      "conversational": 8,
+      "explanatory": 8
+    }
+  },
+  "crossTabulationSummary": {
+    "humanProxyAndVerified": {
+      "academic": 41,
+      "technical": 53,
+      "professional": 50,
+      "conversational": 14,
+      "creative": 54,
+      "explanatory": 28
+    },
+    "verifiedAi": {
+      "academic": 38,
+      "technical": 40,
+      "professional": 35,
+      "conversational": 38,
+      "creative": 38,
+      "explanatory": 53
+    }
+  },
+  "balanceAssessment": "Robust multi-genre coverage achieved across both human and AI classes without class-genre collapse."
+}

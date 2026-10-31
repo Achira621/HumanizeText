@@ -57,6 +57,12 @@ export interface IntelligenceFeatureFlags {
   enableDeveloperModelAudit: boolean;
 }
 
+export type ProvenanceCategory =
+  | 'human_original'
+  | 'ai_generated'
+  | 'ai_assisted'
+  | 'undisclosed';
+
 export interface ConsentedFeedbackItem {
   id: string;
   timestamp: number;
@@ -64,10 +70,13 @@ export interface ConsentedFeedbackItem {
   predictedAiScore: number;
   predictedClassification: string;
   userPerceivedLabel: 'human' | 'ai' | 'mixed';
+  provenanceCategory?: ProvenanceCategory;
+  disagreementReason?: string;
   userNotes?: string;
   modelId: string;
   modelVersion: string;
   consentedToAnonymousResearch: boolean;
+  reviewedForEvaluation?: boolean;
 }
 
 export interface AdaptiveAnalysisResult extends DetectionResult {

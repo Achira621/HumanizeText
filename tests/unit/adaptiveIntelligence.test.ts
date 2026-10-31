@@ -156,10 +156,33 @@ describe('Adaptive Intelligence Layer', () => {
       expect(item.textSnippetHash).toBeTruthy();
       expect(item.userPerceivedLabel).toBe('human');
       expect(item.predictedClassification).toBe('likely-human');
+      expect(item.reviewedForEvaluation).toBe(false);
 
       const history = pipeline.getFeedbackHistory();
       expect(history.length).toBeGreaterThanOrEqual(1);
       expect(history[0].id).toBe(item.id);
+
+      // Verify export JSON
+      const jsonExport = pipeline.exportFeedbackAsJson();
+      expect(jsonExport).toContain('"recordCount": 1');
+      expect(jsonExport).toContain(item.id);
+      expect(jsonExport).toContain('humanizetext-linguistic-core-v2');
+
+      // Test with provenance category
+      const itemWithProvenance = await pipeline.submitFeedback(
+        'Some AI generated corporate memo text here.',
+        0.85,
+        'likely-ai',
+        'ai',
+        {
+          provenanceCategory: 'ai_generated',
+          disagreementReason: 'User confirmed AI origin',
+          userNotes: 'Claude 3.5 generated',
+        }
+      );
+      expect(itemWithProvenance.provenanceCategory).toBe('ai_generated');
+      expect(itemWithProvenance.disagreementReason).toBe('User confirmed AI origin');
+      expect(itemWithProvenance.reviewedForEvaluation).toBe(false);
 
       pipeline.clearFeedbackHistory();
       expect(pipeline.getFeedbackHistory().length).toBe(0);

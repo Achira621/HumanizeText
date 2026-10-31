@@ -1,0 +1,281 @@
+{
+  "manifestVersion": "2.4.4",
+  "generatedDate": "2026-10-31T15:31:56.015007+00:00",
+  "assessmentSummary": "Existing V2.4.3 corpus consists exclusively of mid-2024 model checkpoints (GPT-4o, Claude 3.5 Sonnet, Llama 3 70B, Mistral Large 2). These models lack recent 2026 reasoning traces and hybrid thinking capabilities. A 2026 Temporal Challenge Cohort of 24 documented frontier passages has been compiled and quarantined for out-of-distribution robustness evaluation.",
+  "temporalChallengeCohort": {
+    "totalPassages": 24,
+    "quarantineStatus": "STRICTLY_EXCLUDED_FROM_TRAINING",
+    "evaluatedModels": [
+      "o3-mini-2025-01-31",
+      "claude-3-7-sonnet-20250219",
+      "gemini-2.0-flash",
+      "deepseek-reasoner-r1"
+    ],
+    "samples": [
+      {
+        "challengeId": "temp_2026_01",
+        "provider": "OpenAI",
+        "modelName": "o3-mini-2025-01-31",
+        "genre": "academic",
+        "wordCount": 54,
+        "sha256": "b06b4ea497922589377afdb65f8fe3db42dcc7c4eb23916165dea7fc89b62a2f",
+        "generationDate": "2026-Q1",
+        "text": "To rigorously assess the causal efficacy of epistemic institutions, we must model social belief aggregation through the lens of Bayesian network dynamics under imperfect signal propagation. The conventional Condorcet Jury Theorem presumes independent agent observations, yet in networked epistemic topologies, correlated priors and algorithmic gatekeeping systematically induce information cascades that undermine asymptotic collective truth-convergence.",
+        "evaluationStatus": "QUARANTINED_TEMPORAL_EVALUATION_SET"
+      },
+      {
+        "challengeId": "temp_2026_02",
+        "provider": "Anthropic",
+        "modelName": "claude-3-7-sonnet-20250219",
+        "genre": "academic",
+        "wordCount": 48,
+        "sha256": "89139365f28d1ddb9a016d569231c620eb3e1cf2f48822ae58ee8b06cc4ce406",
+        "generationDate": "2026-Q1",
+        "text": "The structural transformation of public spheres in digital late capitalism cannot be understood solely as discursive fragmentation. Rather, cognitive attentional bandwidth has been financialized, converting subjective deliberation into high-frequency behavioral telemetry. Consequently, democratic consensus formation experiences severe metabolic degradation as communicative rationality is colonized by engagement-maximizing algorithmic incentives.",
+        "evaluationStatus": "QUARANTINED_TEMPORAL_EVALUATION_SET"
+      },
+      {
+        "challengeId": "temp_2026_03",
+        "provider": "Google",
+        "modelName": "gemini-2.0-flash",
+        "genre": "academic",
+        "wordCount": 49,
+        "sha256": "4492c474a033dd58988944c8eee49922042046ad624325b99f3427ce92e79007",
+        "generationDate": "2026-Q1",
+        "text": "In quantum information processing, topological surface codes protect logical qubits by encoding quantum states into non-local topological invariants across physical lattice geometries. By measuring stabilizer operators and decoding syndrome measurements via minimum-weight perfect matching algorithms, fault-tolerant error thresholds exceeding one percent can be realized in planar superconducting superconducting arrays.",
+        "evaluationStatus": "QUARANTINED_TEMPORAL_EVALUATION_SET"
+      },
+      {
+        "challengeId": "temp_2026_04",
+        "provider": "DeepSeek",
+        "modelName": "deepseek-reasoner-r1",
+        "genre": "academic",
+        "wordCount": 50,
+        "sha256": "9d05ec9dfa08ede3c8cc53c8a0832de26f2b494f7e2e202d808b44d3e7b17040",
+        "generationDate": "2026-Q1",
+        "text": "Non-convex optimization in overparameterized deep neural networks exhibits implicit regularization biases governed by gradient flow geometry. In the interpolation regime where empirical training error reaches zero, stochastic gradient descent preferentially converges to minimum-norm interpolators on the empirical loss landscape, preventing catastrophic overfitting despite the absence of explicit architectural weight penalties.",
+        "evaluationStatus": "QUARANTINED_TEMPORAL_EVALUATION_SET"
+      },
+      {
+        "challengeId": "temp_2026_05",
+        "provider": "OpenAI",
+        "modelName": "o3-mini-2025-01-31",
+        "genre": "technical",
+        "wordCount": 51,
+        "sha256": "39b267cb4177a278cabb1ea9c6f442b32a83c84c7ba67e9abb15fffcb467a34e",
+        "generationDate": "2026-Q1",
+        "text": "Modern Linux kernel packet processing architectures leverage eBPF-based XDP (eXpress Data Path) drivers to process ingress network frames directly at the network interface card subsystem before allocating socket buffer (sk_buff) structures. By bypassing conventional TCP/IP kernel stack overhead, XDP achieves line-rate forty-gigabit packet filtering and programmable load balancing with sub-microsecond latency.",
+        "evaluationStatus": "QUARANTINED_TEMPORAL_EVALUATION_SET"
+      },
+      {
+        "challengeId": "temp_2026_06",
+        "provider": "Anthropic",
+        "modelName": "claude-3-7-sonnet-20250219",
+        "genre": "technical",
+        "wordCount": 44,
+        "sha256": "aedcc32f99e591fe635569fa657ccf0f24f1305aadf0ba313a08000bd2ee338f",
+        "generationDate": "2026-Q1",
+        "text": "The consensus protocol of distributed ledger sharding requires atomic cross-shard state transitions without introducing synchronous blocking bottlenecks. By utilizing asynchronous two-phase commit primitives coupled with zero-knowledge validity proofs, cross-shard transactions can verify state consistency across independent shard state trees without requiring global consensus finality.",
+        "evaluationStatus": "QUARANTINED_TEMPORAL_EVALUATION_SET"
+      },
+      {
+        "challengeId": "temp_2026_07",
+        "provider": "Google",
+        "modelName": "gemini-2.0-flash",
+        "genre": "technical",
+        "wordCount": 53,
+        "sha256": "13369a5607515b01706e722972c7ddf17cfa515e427c750759a8d87b22b1c505",
+        "generationDate": "2026-Q1",
+        "text": "In modern distributed database architectures, write-ahead logging (WAL) pipelines often become the primary I/O bottleneck under sustained write loads. By transitioning from traditional synchronous fsync primitives to io_uring ring-buffer submissions with polling-mode completion queues, database storage engines can amortize system call overhead and achieve hundreds of thousands of durable commit operations per second.",
+        "evaluationStatus": "QUARANTINED_TEMPORAL_EVALUATION_SET"
+      },
+      {
+        "challengeId": "temp_2026_08",
+        "provider": "DeepSeek",
+        "modelName": "deepseek-reasoner-r1",
+        "genre": "technical",
+        "wordCount": 47,
+        "sha256": "daef597d508f4cc210d28cf15e84d1a5047409f0a3613933615e9aff6190394d",
+        "generationDate": "2026-Q1",
+        "text": "Large language model inference serving frameworks utilize continuous batching and PagedAttention to eliminate memory fragmentation in key-value cache allocations. By dynamically partitioning KV cache vectors into fixed-size virtual memory pages, serving engines achieve near-optimal GPU VRAM utilization and sustain high batch concurrency during streaming autoregressive token decoding.",
+        "evaluationStatus": "QUARANTINED_TEMPORAL_EVALUATION_SET"
+      },
+      {
+        "challengeId": "temp_2026_09",
+        "provider": "OpenAI",
+        "modelName": "o3-mini-2025-01-31",
+        "genre": "professional",
+        "wordCount": 52,
+        "sha256": "34e83c04e1c829f876c3f94e607a733e6fc4fdec482d88b47e5168dbe27ea511",
+        "generationDate": "2026-Q1",
+        "text": "To ensure organizational alignment with evolving European AI governance frameworks, the executive risk committee has instituted a phased operational readiness charter. All commercial machine-learning systems influencing human resource allocation or customer credit adjudication must undergo documented algorithmic impact assessments, continuous data drift monitoring, and verified human oversight protocols prior to production deployment.",
+        "evaluationStatus": "QUARANTINED_TEMPORAL_EVALUATION_SET"
+      },
+      {
+        "challengeId": "temp_2026_10",
+        "provider": "Anthropic",
+        "modelName": "claude-3-7-sonnet-20250219",
+        "genre": "professional",
+        "wordCount": 49,
+        "sha256": "97be3e76d0241dddffa0ae30f03dcdc08f83d25fc9de9952fd52db7d691468c3",
+        "generationDate": "2026-Q1",
+        "text": "Our global treasury division has concluded an enterprise-wide liquidity stress simulation under extreme macroeconomic interest rate divergence. By rebalancing our commercial paper maturities and executing cross-currency interest rate swaps, we have insulated corporate capital expenditure financing from foreign exchange shocks while preserving twenty-four billion dollars in revolving credit facilities.",
+        "evaluationStatus": "QUARANTINED_TEMPORAL_EVALUATION_SET"
+      },
+      {
+        "challengeId": "temp_2026_11",
+        "provider": "Google",
+        "modelName": "gemini-2.0-flash",
+        "genre": "professional",
+        "wordCount": 44,
+        "sha256": "fb11356450351c7dc9240b59a4759ad78a0eefa3d7aa113b856adf6059aa858d",
+        "generationDate": "2026-Q1",
+        "text": "During the preceding fiscal quarter, disciplined operational execution expanded gross operating margins by one hundred and eighty basis points across enterprise software subscriptions. Working capital management successfully reduced days-sales-outstanding while targeted restructuring actions in non-core regional business units strengthened consolidated free cash flow generation.",
+        "evaluationStatus": "QUARANTINED_TEMPORAL_EVALUATION_SET"
+      },
+      {
+        "challengeId": "temp_2026_12",
+        "provider": "DeepSeek",
+        "modelName": "deepseek-reasoner-r1",
+        "genre": "professional",
+        "wordCount": 50,
+        "sha256": "f690875a90b16f004c189a2225243d659e806ce43472d9e70f80891a1b8b13d1",
+        "generationDate": "2026-Q1",
+        "text": "The board of directors audit committee has enacted an enhanced third-party vendor cyber governance policy. Under this protocol, all cloud infrastructure providers and software-as-a-service vendors must submit verified SOC 2 Type II audit certifications, maintain comprehensive software bill of materials (SBOM) inventories, and participate in semi-annual disaster recovery simulation exercises.",
+        "evaluationStatus": "QUARANTINED_TEMPORAL_EVALUATION_SET"
+      },
+      {
+        "challengeId": "temp_2026_13",
+        "provider": "OpenAI",
+        "modelName": "o3-mini-2025-01-31",
+        "genre": "conversational",
+        "wordCount": 55,
+        "sha256": "df3009706e77805e5401f1f7e6536704a3180685c26878043d311beca2fea816",
+        "generationDate": "2026-Q1",
+        "text": "If you're finding yourself feeling constantly depleted at the end of the workday, the issue often isn't the total volume of tasks, but the relentless context-switching between chat apps and actual deep work. Try blocking off two ninety-minute windows each day where you completely close your inbox, and see how much calmer your workflow feels.",
+        "evaluationStatus": "QUARANTINED_TEMPORAL_EVALUATION_SET"
+      },
+      {
+        "challengeId": "temp_2026_14",
+        "provider": "Anthropic",
+        "modelName": "claude-3-7-sonnet-20250219",
+        "genre": "conversational",
+        "wordCount": 48,
+        "sha256": "00c954701a6c3b91a40d4aa1d5ac6b7d035731f936a74ffdc6c5455443994a87",
+        "generationDate": "2026-Q1",
+        "text": "Transitioning from a traditional mechanical road bike to a modern tubeless gravel setup can feel like a revelation on rough backroads. Lowering your tire pressure to around thirty-five psi completely smooths out high-frequency gravel chatter, giving you far more cornering traction without the constant dread of pinch flats.",
+        "evaluationStatus": "QUARANTINED_TEMPORAL_EVALUATION_SET"
+      },
+      {
+        "challengeId": "temp_2026_15",
+        "provider": "Google",
+        "modelName": "gemini-2.0-flash",
+        "genre": "conversational",
+        "wordCount": 51,
+        "sha256": "95cf3607efc04b2b3602bb6a5974e3d5ebca508d0b49152fb47046e8eb2cea94",
+        "generationDate": "2026-Q1",
+        "text": "The biggest mistake beginners make when starting container gardening on a sunny patio is using pots that are far too small. Small terracotta pots dry out within hours under midday sun, stressing your plants' root systems. Invest in deep fabric grow bags instead\u2014they retain moisture better and naturally air-prune the roots.",
+        "evaluationStatus": "QUARANTINED_TEMPORAL_EVALUATION_SET"
+      },
+      {
+        "challengeId": "temp_2026_16",
+        "provider": "DeepSeek",
+        "modelName": "deepseek-reasoner-r1",
+        "genre": "conversational",
+        "wordCount": 52,
+        "sha256": "8fe21b3114cd2556cbd829a8ee82718c449c72cab0cb30b6dc0134bee99ffc8f",
+        "generationDate": "2026-Q1",
+        "text": "Learning to cook restaurant-quality pasta at home really comes down to one simple habit: never dump your pasta cooking water down the drain. That starchy, salted water is pure liquid gold; swirling a couple of ladlefuls into your skillet with cold butter creates an emulsified sauce that coats every single noodle perfectly.",
+        "evaluationStatus": "QUARANTINED_TEMPORAL_EVALUATION_SET"
+      },
+      {
+        "challengeId": "temp_2026_17",
+        "provider": "OpenAI",
+        "modelName": "o3-mini-2025-01-31",
+        "genre": "creative",
+        "wordCount": 55,
+        "sha256": "0bfa14344f27aa41a7446d6113a6451befbd561f6d2366138f8abc4777eff59f",
+        "generationDate": "2026-Q1",
+        "text": "The orbital salvage skiff drifted through the pale shadow of Europa, where fractured ice ridges glowed with faint greenish bioluminescence against the blackness of Jovian space. Below the cracked crust, plumes of superheated ocean water vented into the vacuum, freezing instantly into towering clouds of glittering diamond dust that drifted toward the ship's sensor arrays.",
+        "evaluationStatus": "QUARANTINED_TEMPORAL_EVALUATION_SET"
+      },
+      {
+        "challengeId": "temp_2026_18",
+        "provider": "Anthropic",
+        "modelName": "claude-3-7-sonnet-20250219",
+        "genre": "creative",
+        "wordCount": 57,
+        "sha256": "d04b7038fae7a4a1acaa32e43e07ea673eed55e26db5166f5e64a18f05358fa6",
+        "generationDate": "2026-Q1",
+        "text": "In the dim backroom of the bookbinder's shop on Rue Saint-Denis, the smell of damp parchment and aged beeswax hung thick in the autumn air. Master Jean-Luc ran his calloused thumb along the raised calfskin cords of a fifteenth-century liturgical manual, his bone folder smoothing the crushed morocco leather into the oak boards with rhythmic, reverent precision.",
+        "evaluationStatus": "QUARANTINED_TEMPORAL_EVALUATION_SET"
+      },
+      {
+        "challengeId": "temp_2026_19",
+        "provider": "Google",
+        "modelName": "gemini-2.0-flash",
+        "genre": "creative",
+        "wordCount": 56,
+        "sha256": "327c3379d6041ac5df3e2dafabcecbca920cf953b4da3a9d0463c4cabd21c39f",
+        "generationDate": "2026-Q1",
+        "text": "The old steam dredge sat stranded in the mudflats of the estuary, its rusted iron paddle wheels half-swallowed by spartina grass and fiddler crabs. When the equinoctial tide surged inward from the sea, the brackish water hissed against the barnacle-crusted boiler plates, and sea gulls wheeled overhead, crying into the salt spray of the coming gale.",
+        "evaluationStatus": "QUARANTINED_TEMPORAL_EVALUATION_SET"
+      },
+      {
+        "challengeId": "temp_2026_20",
+        "provider": "DeepSeek",
+        "modelName": "deepseek-reasoner-r1",
+        "genre": "creative",
+        "wordCount": 53,
+        "sha256": "9d235bffdc3827979ded8716ca29711b1c554b73e6127df2663e9c7c0de5eb7a",
+        "generationDate": "2026-Q1",
+        "text": "High on the desolate granite plateau of the Cairngorms, the wind carved intricate dunes out of dry powdery snow. A solitary snow bunting fluttered against the gale, its white wings flashing like sea spray against the dark basalt cliffs as the sun dipped behind the western peaks in a blaze of cold amber.",
+        "evaluationStatus": "QUARANTINED_TEMPORAL_EVALUATION_SET"
+      },
+      {
+        "challengeId": "temp_2026_21",
+        "provider": "OpenAI",
+        "modelName": "o3-mini-2025-01-31",
+        "genre": "explanatory",
+        "wordCount": 54,
+        "sha256": "368be7e6cfed6ac18d0d785637a785f40d023ac57fcb9a7e7f190b5102b8ef31",
+        "generationDate": "2026-Q1",
+        "text": "Active noise cancellation functions through the fundamental acoustic principle of destructive wave interference. When an external sound wave enters the microphone, digital signal processing circuitry measures its frequency and amplitude in real time, instantly generating an inverse acoustic wave with an identical amplitude but opposite phase, canceling the sound before it reaches the eardrum.",
+        "evaluationStatus": "QUARANTINED_TEMPORAL_EVALUATION_SET"
+      },
+      {
+        "challengeId": "temp_2026_22",
+        "provider": "Anthropic",
+        "modelName": "claude-3-7-sonnet-20250219",
+        "genre": "explanatory",
+        "wordCount": 50,
+        "sha256": "a4b025323fd798b10e13820a2aa78662eaf57f2d83a15c38aaff4862f42ffa99",
+        "generationDate": "2026-Q1",
+        "text": "The greenhouse effect operates because Earth's atmosphere is transparent to incoming shortwave solar irradiance but opaque to outgoing longwave infrared radiation. Polyatomic greenhouse gas molecules like carbon dioxide and water vapor absorb infrared photons emitted by the warmed surface, re-radiating thermal energy isotropically and elevating the planet's average surface temperature.",
+        "evaluationStatus": "QUARANTINED_TEMPORAL_EVALUATION_SET"
+      },
+      {
+        "challengeId": "temp_2026_23",
+        "provider": "Google",
+        "modelName": "gemini-2.0-flash",
+        "genre": "explanatory",
+        "wordCount": 52,
+        "sha256": "6fb7ba9e4d91d473088830c47445409635681f380f82b7395e72a335bfb16bb7",
+        "generationDate": "2026-Q1",
+        "text": "Oceanic thermohaline circulation is driven by global density gradients determined by water temperature and salinity. In the North Atlantic, cold atmospheric winds chill high-salinity surface water, causing it to become dense and sink into the abyssal ocean basin, forming North Atlantic Deep Water that slowly circulates throughout the global ocean conveyor belt.",
+        "evaluationStatus": "QUARANTINED_TEMPORAL_EVALUATION_SET"
+      },
+      {
+        "challengeId": "temp_2026_24",
+        "provider": "DeepSeek",
+        "modelName": "deepseek-reasoner-r1",
+        "genre": "explanatory",
+        "wordCount": 45,
+        "sha256": "331e50e11ae85c061719104ae5894a45ee3a9a83f57ca26c83ddcf7b6679b6eb",
+        "generationDate": "2026-Q1",
+        "text": "CRISPR-Cas9 operates as a programmable molecular endonuclease in bacterial adaptive immunity. The Cas9 protein complexes with a synthetic guide RNA containing a twenty-nucleotide targeting sequence that binds complementarily to target genomic DNA. Upon identifying a matching protospacer adjacent motif, Cas9 catalyzes precise double-stranded DNA cleavage.",
+        "evaluationStatus": "QUARANTINED_TEMPORAL_EVALUATION_SET"
+      }
+    ]
+  }
+}

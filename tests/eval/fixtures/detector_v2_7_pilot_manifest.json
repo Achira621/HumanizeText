@@ -1,0 +1,913 @@
+{
+  "protocolVersion": "2.2.7",
+  "registeredDate": "2026-10-29",
+  "purpose": "practical_zero_cost_matched_task_pilot",
+  "totalPilotSlots": 30,
+  "breakdown": {
+    "pureHuman": 10,
+    "pureAi": 10,
+    "collaborative": 10
+  },
+  "slots": [
+    {
+      "id": "v2_7_pilot_h_01",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_ACAD_01",
+      "targetClass": "human_verified",
+      "genre": "academic",
+      "intendedAudience": "undergraduate_biology",
+      "targetWordCount": 160,
+      "collectionRoute": "matched_human_independent_drafting",
+      "passType": "human_original",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "requiresParticipantConsent": true,
+        "requiresPseudonymousId": true,
+        "requiresIndependentDrafting": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_h_02",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_ACAD_02",
+      "targetClass": "human_verified",
+      "genre": "academic",
+      "intendedAudience": "intro_economics_seminar",
+      "targetWordCount": 160,
+      "collectionRoute": "matched_human_independent_drafting",
+      "passType": "human_original",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "requiresParticipantConsent": true,
+        "requiresPseudonymousId": true,
+        "requiresIndependentDrafting": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_h_03",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_TECH_01",
+      "targetClass": "human_verified",
+      "genre": "technical",
+      "intendedAudience": "backend_engineers",
+      "targetWordCount": 150,
+      "collectionRoute": "matched_human_independent_drafting",
+      "passType": "human_original",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "requiresParticipantConsent": true,
+        "requiresPseudonymousId": true,
+        "requiresIndependentDrafting": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_h_04",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_TECH_02",
+      "targetClass": "human_verified",
+      "genre": "technical",
+      "intendedAudience": "database_devops_engineers",
+      "targetWordCount": 150,
+      "collectionRoute": "matched_human_independent_drafting",
+      "passType": "human_original",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "requiresParticipantConsent": true,
+        "requiresPseudonymousId": true,
+        "requiresIndependentDrafting": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_h_05",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_CORP_01",
+      "targetClass": "human_verified",
+      "genre": "corporate",
+      "intendedAudience": "cto_executive_committee",
+      "targetWordCount": 150,
+      "collectionRoute": "matched_human_independent_drafting",
+      "passType": "human_original",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "requiresParticipantConsent": true,
+        "requiresPseudonymousId": true,
+        "requiresIndependentDrafting": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_h_06",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_CORP_02",
+      "targetClass": "human_verified",
+      "genre": "corporate",
+      "intendedAudience": "enterprise_b2b_customers",
+      "targetWordCount": 150,
+      "collectionRoute": "matched_human_independent_drafting",
+      "passType": "human_original",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "requiresParticipantConsent": true,
+        "requiresPseudonymousId": true,
+        "requiresIndependentDrafting": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_h_07",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_CONV_01",
+      "targetClass": "human_verified",
+      "genre": "conversational",
+      "intendedAudience": "general_adult_non_technical",
+      "targetWordCount": 140,
+      "collectionRoute": "matched_human_independent_drafting",
+      "passType": "human_original",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "requiresParticipantConsent": true,
+        "requiresPseudonymousId": true,
+        "requiresIndependentDrafting": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_h_08",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_CONV_02",
+      "targetClass": "human_verified",
+      "genre": "conversational",
+      "intendedAudience": "homeowner_networking",
+      "targetWordCount": 140,
+      "collectionRoute": "matched_human_independent_drafting",
+      "passType": "human_original",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "requiresParticipantConsent": true,
+        "requiresPseudonymousId": true,
+        "requiresIndependentDrafting": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_h_09",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_CREAT_01",
+      "targetClass": "human_verified",
+      "genre": "creative",
+      "intendedAudience": "literary_fiction_readers",
+      "targetWordCount": 150,
+      "collectionRoute": "matched_human_independent_drafting",
+      "passType": "human_original",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "requiresParticipantConsent": true,
+        "requiresPseudonymousId": true,
+        "requiresIndependentDrafting": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_h_10",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_CREAT_02",
+      "targetClass": "human_verified",
+      "genre": "creative",
+      "intendedAudience": "literary_fiction_readers",
+      "targetWordCount": 150,
+      "collectionRoute": "matched_human_independent_drafting",
+      "passType": "human_original",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "requiresParticipantConsent": true,
+        "requiresPseudonymousId": true,
+        "requiresIndependentDrafting": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_ai_01",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_ACAD_01",
+      "targetClass": "ai_generated",
+      "genre": "academic",
+      "intendedAudience": "undergraduate_biology",
+      "targetWordCount": 160,
+      "targetModelFamily": "openai_gpt6",
+      "targetModelId": "gpt-6-astra",
+      "collectionRoute": "consumer_web_or_api",
+      "passType": "first_pass_raw",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "targetModel": "gpt-6-astra",
+        "requiresExactPrompt": true,
+        "requiresGenerationTimestamp": true,
+        "requiresRawOutputSha256": true,
+        "requiresPreservedVersionUncertainty": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_ai_02",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_ACAD_02",
+      "targetClass": "ai_generated",
+      "genre": "academic",
+      "intendedAudience": "intro_economics_seminar",
+      "targetWordCount": 160,
+      "targetModelFamily": "anthropic_claude5",
+      "targetModelId": "claude-sonnet-5.5",
+      "collectionRoute": "consumer_web_or_api",
+      "passType": "first_pass_raw",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "targetModel": "claude-sonnet-5.5",
+        "requiresExactPrompt": true,
+        "requiresGenerationTimestamp": true,
+        "requiresRawOutputSha256": true,
+        "requiresPreservedVersionUncertainty": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_ai_03",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_TECH_01",
+      "targetClass": "ai_generated",
+      "genre": "technical",
+      "intendedAudience": "backend_engineers",
+      "targetWordCount": 150,
+      "targetModelFamily": "google_gemini4",
+      "targetModelId": "gemini-4-argon",
+      "collectionRoute": "consumer_web_or_api",
+      "passType": "first_pass_raw",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "targetModel": "gemini-4-argon",
+        "requiresExactPrompt": true,
+        "requiresGenerationTimestamp": true,
+        "requiresRawOutputSha256": true,
+        "requiresPreservedVersionUncertainty": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_ai_04",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_TECH_02",
+      "targetClass": "ai_generated",
+      "genre": "technical",
+      "intendedAudience": "database_devops_engineers",
+      "targetWordCount": 150,
+      "targetModelFamily": "openai_gpt6",
+      "targetModelId": "gpt-6.1-sol",
+      "collectionRoute": "consumer_web_or_api",
+      "passType": "first_pass_raw",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "targetModel": "gpt-6.1-sol",
+        "requiresExactPrompt": true,
+        "requiresGenerationTimestamp": true,
+        "requiresRawOutputSha256": true,
+        "requiresPreservedVersionUncertainty": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_ai_05",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_CORP_01",
+      "targetClass": "ai_generated",
+      "genre": "corporate",
+      "intendedAudience": "cto_executive_committee",
+      "targetWordCount": 150,
+      "targetModelFamily": "anthropic_claude5",
+      "targetModelId": "claude-opus-5.5",
+      "collectionRoute": "consumer_web_or_api",
+      "passType": "first_pass_raw",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "targetModel": "claude-opus-5.5",
+        "requiresExactPrompt": true,
+        "requiresGenerationTimestamp": true,
+        "requiresRawOutputSha256": true,
+        "requiresPreservedVersionUncertainty": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_ai_06",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_CORP_02",
+      "targetClass": "ai_generated",
+      "genre": "corporate",
+      "intendedAudience": "enterprise_b2b_customers",
+      "targetWordCount": 150,
+      "targetModelFamily": "google_gemini4",
+      "targetModelId": "gemini-3.8-flash",
+      "collectionRoute": "consumer_web_or_api",
+      "passType": "first_pass_raw",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "targetModel": "gemini-3.8-flash",
+        "requiresExactPrompt": true,
+        "requiresGenerationTimestamp": true,
+        "requiresRawOutputSha256": true,
+        "requiresPreservedVersionUncertainty": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_ai_07",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_CONV_01",
+      "targetClass": "ai_generated",
+      "genre": "conversational",
+      "intendedAudience": "general_adult_non_technical",
+      "targetWordCount": 140,
+      "targetModelFamily": "openai_gpt6",
+      "targetModelId": "gpt-6.1-terra",
+      "collectionRoute": "consumer_web_or_api",
+      "passType": "first_pass_raw",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "targetModel": "gpt-6.1-terra",
+        "requiresExactPrompt": true,
+        "requiresGenerationTimestamp": true,
+        "requiresRawOutputSha256": true,
+        "requiresPreservedVersionUncertainty": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_ai_08",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_CONV_02",
+      "targetClass": "ai_generated",
+      "genre": "conversational",
+      "intendedAudience": "homeowner_networking",
+      "targetWordCount": 140,
+      "targetModelFamily": "anthropic_claude5",
+      "targetModelId": "claude-fable-5.1",
+      "collectionRoute": "consumer_web_or_api",
+      "passType": "first_pass_raw",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "targetModel": "claude-fable-5.1",
+        "requiresExactPrompt": true,
+        "requiresGenerationTimestamp": true,
+        "requiresRawOutputSha256": true,
+        "requiresPreservedVersionUncertainty": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_ai_09",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_CREAT_01",
+      "targetClass": "ai_generated",
+      "genre": "creative",
+      "intendedAudience": "literary_fiction_readers",
+      "targetWordCount": 150,
+      "targetModelFamily": "openai_gpt6",
+      "targetModelId": "gpt-6-luna",
+      "collectionRoute": "consumer_web_or_api",
+      "passType": "first_pass_raw",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "targetModel": "gpt-6-luna",
+        "requiresExactPrompt": true,
+        "requiresGenerationTimestamp": true,
+        "requiresRawOutputSha256": true,
+        "requiresPreservedVersionUncertainty": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_ai_10",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_CREAT_02",
+      "targetClass": "ai_generated",
+      "genre": "creative",
+      "intendedAudience": "literary_fiction_readers",
+      "targetWordCount": 150,
+      "targetModelFamily": "open_weight_ood",
+      "targetModelId": "Qwen/Qwen2.5-7B-Instruct",
+      "collectionRoute": "local_small_open_weight",
+      "passType": "first_pass_raw",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "targetModel": "Qwen/Qwen2.5-7B-Instruct",
+        "requiresExactPrompt": true,
+        "requiresGenerationTimestamp": true,
+        "requiresRawOutputSha256": true,
+        "requiresPreservedVersionUncertainty": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_collab_01",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_ACAD_01",
+      "targetClass": "ai_human_edited",
+      "genre": "academic",
+      "intendedAudience": "undergraduate_biology",
+      "targetWordCount": 160,
+      "passType": "human_edited_polish",
+      "sourceDraftReference": "pilot_ai_01_draft",
+      "collectionRoute": "traceable_collaborative_workflow",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "requiresInitialDraftSha256": true,
+        "requiresPostEditSha256": true,
+        "requiresEditingPromptOrNotes": true,
+        "requiresConsentIfHumanDerived": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_collab_02",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_TECH_01",
+      "targetClass": "ai_human_edited",
+      "genre": "technical",
+      "intendedAudience": "backend_engineers",
+      "targetWordCount": 150,
+      "passType": "human_edited_polish",
+      "sourceDraftReference": "pilot_ai_03_draft",
+      "collectionRoute": "traceable_collaborative_workflow",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "requiresInitialDraftSha256": true,
+        "requiresPostEditSha256": true,
+        "requiresEditingPromptOrNotes": true,
+        "requiresConsentIfHumanDerived": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_collab_03",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_CORP_01",
+      "targetClass": "ai_human_edited",
+      "genre": "corporate",
+      "intendedAudience": "cto_executive_committee",
+      "targetWordCount": 150,
+      "passType": "human_edited_polish",
+      "sourceDraftReference": "pilot_ai_05_draft",
+      "collectionRoute": "traceable_collaborative_workflow",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "requiresInitialDraftSha256": true,
+        "requiresPostEditSha256": true,
+        "requiresEditingPromptOrNotes": true,
+        "requiresConsentIfHumanDerived": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_collab_04",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_CONV_01",
+      "targetClass": "ai_human_edited",
+      "genre": "conversational",
+      "intendedAudience": "general_adult_non_technical",
+      "targetWordCount": 140,
+      "passType": "human_edited_polish",
+      "sourceDraftReference": "pilot_ai_07_draft",
+      "collectionRoute": "traceable_collaborative_workflow",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "requiresInitialDraftSha256": true,
+        "requiresPostEditSha256": true,
+        "requiresEditingPromptOrNotes": true,
+        "requiresConsentIfHumanDerived": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_collab_05",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_CREAT_01",
+      "targetClass": "ai_human_edited",
+      "genre": "creative",
+      "intendedAudience": "literary_fiction_readers",
+      "targetWordCount": 150,
+      "passType": "human_edited_polish",
+      "sourceDraftReference": "pilot_ai_09_draft",
+      "collectionRoute": "traceable_collaborative_workflow",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "requiresInitialDraftSha256": true,
+        "requiresPostEditSha256": true,
+        "requiresEditingPromptOrNotes": true,
+        "requiresConsentIfHumanDerived": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_collab_06",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_ACAD_02",
+      "targetClass": "human_ai_edited",
+      "genre": "academic",
+      "intendedAudience": "intro_economics_seminar",
+      "targetWordCount": 160,
+      "passType": "ai_assisted_polish",
+      "sourceDraftReference": "pilot_h_02_draft",
+      "collectionRoute": "traceable_collaborative_workflow",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "requiresInitialDraftSha256": true,
+        "requiresPostEditSha256": true,
+        "requiresEditingPromptOrNotes": true,
+        "requiresConsentIfHumanDerived": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_collab_07",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_TECH_02",
+      "targetClass": "human_ai_edited",
+      "genre": "technical",
+      "intendedAudience": "database_devops_engineers",
+      "targetWordCount": 150,
+      "passType": "ai_assisted_polish",
+      "sourceDraftReference": "pilot_h_04_draft",
+      "collectionRoute": "traceable_collaborative_workflow",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "requiresInitialDraftSha256": true,
+        "requiresPostEditSha256": true,
+        "requiresEditingPromptOrNotes": true,
+        "requiresConsentIfHumanDerived": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_collab_08",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_CORP_02",
+      "targetClass": "human_ai_edited",
+      "genre": "corporate",
+      "intendedAudience": "enterprise_b2b_customers",
+      "targetWordCount": 150,
+      "passType": "ai_assisted_polish",
+      "sourceDraftReference": "pilot_h_06_draft",
+      "collectionRoute": "traceable_collaborative_workflow",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "requiresInitialDraftSha256": true,
+        "requiresPostEditSha256": true,
+        "requiresEditingPromptOrNotes": true,
+        "requiresConsentIfHumanDerived": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_collab_09",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_CONV_02",
+      "targetClass": "human_ai_edited",
+      "genre": "conversational",
+      "intendedAudience": "homeowner_networking",
+      "targetWordCount": 140,
+      "passType": "ai_assisted_polish",
+      "sourceDraftReference": "pilot_h_08_draft",
+      "collectionRoute": "traceable_collaborative_workflow",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "requiresInitialDraftSha256": true,
+        "requiresPostEditSha256": true,
+        "requiresEditingPromptOrNotes": true,
+        "requiresConsentIfHumanDerived": true
+      }
+    },
+    {
+      "id": "v2_7_pilot_collab_10",
+      "partition": "workflow_validation_pilot",
+      "promptId": "TASK_CREAT_02",
+      "targetClass": "human_ai_edited",
+      "genre": "creative",
+      "intendedAudience": "literary_fiction_readers",
+      "targetWordCount": 150,
+      "passType": "ai_assisted_polish",
+      "sourceDraftReference": "pilot_h_10_draft",
+      "collectionRoute": "traceable_collaborative_workflow",
+      "collectionStatus": "pending_collection",
+      "qualityAssessment": {
+        "status": "unassessed",
+        "dimensionFlags": {
+          "d7_task_fulfillment_assessable": true,
+          "d7_not_assessable_reason": null
+        },
+        "raters": [],
+        "scores": null,
+        "overallMeanScore": null,
+        "assignedQualityBand": null
+      },
+      "provenanceRequirements": {
+        "requiresInitialDraftSha256": true,
+        "requiresPostEditSha256": true,
+        "requiresEditingPromptOrNotes": true,
+        "requiresConsentIfHumanDerived": true
+      }
+    }
+  ]
+}

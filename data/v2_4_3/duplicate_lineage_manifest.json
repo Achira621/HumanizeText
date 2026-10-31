@@ -1,0 +1,10 @@
+{
+  "manifestVersion": "2.4.3",
+  "generatedDate": "2026-10-31T15:06:36.298831+00:00",
+  "totalRecordsAnalyzed": 532,
+  "exactDuplicateCount": 0,
+  "normalizedDuplicateCount": 0,
+  "nearDuplicateJaccardCount": 0,
+  "duplicatePairs": [],
+  "lineageGroups": {}
+}

@@ -1,0 +1,43 @@
+{
+  "inventoryVersion": "2.4.2",
+  "generatedDate": "2026-10-31T14:05:00.814Z",
+  "totalRawRecords": 180,
+  "excludedHistoricalHoldoutRecords": 120,
+  "duplicateRecordsCount": 18,
+  "uniqueExactTextCount": 162,
+  "uniqueNormalizedTextCount": 162,
+  "uniqueBaseDocumentCount": 115,
+  "uniqueIndependenceGroupCount": 115,
+  "classBreakdown": {
+    "human": {
+      "rawRecords": 50,
+      "uniqueTexts": 50,
+      "verifiedProvenanceCount": 50
+    },
+    "ai": {
+      "rawRecords": 80,
+      "uniqueTexts": 62,
+      "verbatimDuplicatesCount": 18,
+      "verifiedProvenanceCount": 80
+    },
+    "collaborative": {
+      "rawRecords": 50,
+      "uniqueTexts": 50,
+      "verifiedProvenanceCount": 50
+    }
+  },
+  "mathematicalReconciliation": {
+    "aiRawCount": 80,
+    "aiVerbatimDuplicates": 18,
+    "aiUniquePermittedCount": 62,
+    "note": "80 raw AI records - 18 verbatim duplicate synonym-swap records = 62 unique permitted AI passages."
+  },
+  "preregistrationDeficit": {
+    "targetPerBinaryClass": 200,
+    "humanAvailable": 50,
+    "humanDeficit": 150,
+    "aiAvailable": 62,
+    "aiDeficit": 138,
+    "status": "INSUFFICIENT_DATA_FOR_FRESH_TRAINING"
+  }
+}

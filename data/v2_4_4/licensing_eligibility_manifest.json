@@ -1,0 +1,36 @@
+{
+  "manifestVersion": "2.4.4",
+  "generatedDate": "2026-10-31T15:31:56.015007+00:00",
+  "licensingDecisions": {
+    "project_gutenberg": {
+      "decision": "APPROVED_PRODUCT_TRAINING",
+      "jurisdiction": "United States (Pre-1929, author death > 70 years)",
+      "statutoryBasis": "17 U.S.C. \u00a7 304 / Public Domain"
+    },
+    "sec_edgar": {
+      "decision": "APPROVED_PRODUCT_TRAINING",
+      "jurisdiction": "United States SEC Public Corporate Narrative",
+      "statutoryBasis": "17 U.S.C. \u00a7 105 principles / SEC Website Reuse Terms"
+    },
+    "verified_synthetic_ai": {
+      "decision": "APPROVED_PRODUCT_TRAINING",
+      "jurisdiction": "US Copyright Office guidance (machine generations not human copyrighted; CC0-1.0 dedication by generator)",
+      "statutoryBasis": "Compendium of U.S. Copyright Office Practices \u00a7 313.2"
+    },
+    "remediated_remnant_v2_4_2": {
+      "decision": "APPROVED_PRODUCT_TRAINING",
+      "jurisdiction": "Internal benchmark asset / CC-BY-4.0",
+      "statutoryBasis": "Internal creation / embargo purged"
+    },
+    "raid_benchmark": {
+      "decision": "RESEARCH_ONLY_PENDING_REVIEW",
+      "jurisdiction": "Web crawled texts (News, Reddit, Wiki, Books) lacking commercial training releases",
+      "statutoryBasis": "Research fair use / evaluation slice only; quarantined from product model training"
+    },
+    "aitdna_dataset": {
+      "decision": "REJECTED_QUARANTINED",
+      "jurisdiction": "GPL-2.0 / CC-BY-SA-4.0 copyleft contamination",
+      "statutoryBasis": "Strict institutional exclusion"
+    }
+  }
+}
