@@ -782,8 +782,8 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
           <HumanizeLogo variant="stacked" size="xl" showTagline={true} />
         </div>
 
-        <div className="mx-auto mb-3 inline-flex items-center space-x-2 rounded-full border border-[var(--accent-border)] bg-[var(--accent-light)] px-3.5 py-1 text-xs font-bold text-[var(--text-primary)] dark:text-[#34D399]">
-          <ShieldCheck className="h-4 w-4 text-[#34D399]" />
+        <div className="mx-auto mb-3 inline-flex max-w-full flex-wrap items-center justify-center gap-1.5 rounded-full border border-[var(--accent-border)] bg-[var(--accent-light)] px-3 py-1 text-[11px] sm:text-xs font-bold text-[var(--text-primary)] dark:text-[#34D399] text-center">
+          <ShieldCheck className="h-4 w-4 text-[#34D399] shrink-0" />
           <span>Privacy Architecture • Zero Persistent Storage • Invariant Preservation</span>
         </div>
 
@@ -795,18 +795,18 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
         </p>
 
         {/* Public Beta Announcement CTA Banner */}
-        <div className="mx-auto mt-5 max-w-2xl rounded-xl border border-[var(--accent-border)] bg-[var(--accent-light)] p-3 text-xs flex flex-col sm:flex-row items-center justify-between gap-2 shadow-xs">
-          <div className="flex items-center space-x-2 text-left">
-            <span className="rounded-full bg-[var(--accent)] px-2.5 py-0.5 text-[10px] font-bold text-[var(--accent-contrast)] uppercase tracking-wide">
+        <div className="mx-auto mt-5 max-w-2xl rounded-xl border border-[var(--accent-border)] bg-[var(--accent-light)] p-3 text-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
+          <div className="flex flex-wrap items-center gap-2 text-left">
+            <span className="rounded-full bg-[var(--accent)] px-2.5 py-0.5 text-[10px] font-bold text-[var(--accent-contrast)] uppercase tracking-wide shrink-0">
               Public Beta
             </span>
-            <span className="font-semibold text-[var(--text-primary)]">
+            <span className="font-semibold text-[var(--text-primary)] break-words">
               Try our new V2.5 Stylometric AI Detector with selective confidence gating.
             </span>
           </div>
           <button
             onClick={() => setActiveTab('ai-detector')}
-            className="shrink-0 flex items-center space-x-1 font-bold text-[var(--accent)] hover:underline"
+            className="shrink-0 flex items-center space-x-1 font-bold text-[var(--accent)] hover:underline self-end sm:self-auto"
           >
             <span>Launch Detector</span>
             <ArrowRight className="h-3.5 w-3.5" />

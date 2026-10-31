@@ -126,7 +126,8 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
     setStorageUsageMb(Math.round(q.usageBytes / (1024 * 1024)));
   };
 
-  const handleRunAnalysis = async (forceServerConsent = false) => {
+  const handleRunAnalysis = async (forceServerConsent = false, engineOverride?: 'v2_5_public_beta' | 'production_default') => {
+    const engineToUse = engineOverride ?? selectedEngine;
     setErrorMessage(null);
     const hasConsent = userConsented || forceServerConsent;
 
@@ -144,7 +145,7 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
           preferMode: isLocalReady ? 'local-only' : 'auto',
           userConsentedToServer: hasConsent,
           allowServerFallback: true,
-          engineId: selectedEngine,
+          engineId: engineToUse,
         });
 
         setTextResult(res);
@@ -233,8 +234,8 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
           <Sparkles className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
           <span>Public Beta • V2.5 Stylometric ML Detector</span>
         </div>
-        <h1 className="text-3xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-4xl">
-          AI Text &amp; Image <span className="text-[var(--accent)]">Detection Platform</span>
+        <h1 className="text-2xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-4xl break-words px-2">
+          AI Text &amp; Image <span className="block sm:inline text-[var(--accent)]">Detection Platform</span>
         </h1>
         <p className="mx-auto mt-2 max-w-2xl text-sm text-[var(--text-secondary)]">
           Analyze writing style patterns for synthetic generator signatures using our calibrated V2.5 stylometric
@@ -242,7 +243,7 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
         </p>
 
         {/* Text / Image Switcher */}
-        <div className="mt-6 inline-flex w-full sm:w-auto rounded-xl border border-[var(--border-strong)] bg-[var(--bg-surface)] p-1 shadow-xs">
+        <div className="mt-6 flex flex-col sm:flex-row w-full sm:w-auto rounded-xl border border-[var(--border-strong)] bg-[var(--bg-surface)] p-1 shadow-xs gap-1">
           <button
             onClick={() => {
               setActiveTab('text');
@@ -276,29 +277,39 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
         {/* Engine Switcher (When Text Detector Active) */}
         {activeTab === 'text' && (
           <div className="mt-4 flex flex-col items-center justify-center space-y-1.5">
-            <div className="inline-flex rounded-lg border border-[var(--border-strong)] bg-[var(--bg-surface)] p-1 shadow-2xs">
+            <div className="flex w-full sm:w-auto flex-col sm:flex-row rounded-lg border border-[var(--border-strong)] bg-[var(--bg-surface)] p-1 shadow-2xs">
               <button
                 type="button"
-                onClick={() => setSelectedEngine('v2_5_public_beta')}
-                className={`flex items-center space-x-1.5 rounded-md px-3 py-1.5 text-xs font-bold transition-all ${
+                onClick={() => {
+                  setSelectedEngine('v2_5_public_beta');
+                  if (inputText.trim() && textResult) {
+                    handleRunAnalysis(false, 'v2_5_public_beta');
+                  }
+                }}
+                className={`flex items-center justify-center space-x-1.5 rounded-md px-3 py-1.5 text-xs font-bold transition-all w-full sm:w-auto ${
                   selectedEngine === 'v2_5_public_beta'
                     ? 'bg-[var(--accent)] text-[var(--accent-contrast)] shadow-xs'
                     : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
               >
-                <Sparkles className="h-3.5 w-3.5" />
+                <Sparkles className="h-3.5 w-3.5 shrink-0" />
                 <span>V2.5 Public Beta (Trained ML)</span>
               </button>
               <button
                 type="button"
-                onClick={() => setSelectedEngine('production_default')}
-                className={`flex items-center space-x-1.5 rounded-md px-3 py-1.5 text-xs font-bold transition-all ${
+                onClick={() => {
+                  setSelectedEngine('production_default');
+                  if (inputText.trim() && textResult) {
+                    handleRunAnalysis(false, 'production_default');
+                  }
+                }}
+                className={`flex items-center justify-center space-x-1.5 rounded-md px-3 py-1.5 text-xs font-bold transition-all w-full sm:w-auto ${
                   selectedEngine === 'production_default'
                     ? 'bg-[var(--accent)] text-[var(--accent-contrast)] shadow-xs'
                     : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
               >
-                <Cpu className="h-3.5 w-3.5" />
+                <Cpu className="h-3.5 w-3.5 shrink-0" />
                 <span>Production Baseline (Heuristic)</span>
               </button>
             </div>
@@ -313,17 +324,47 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
 
       {/* Model Lifecycle Banner & Storage Manager */}
       <div className="mb-6 rounded-xl border border-[var(--border-strong)] bg-[var(--bg-surface)] p-4 shadow-sm">
-        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-          <div className="flex items-start space-x-3">
-            <div className="rounded-lg bg-[var(--bg-subtle)] p-2">
-              <HardDrive className="h-5 w-5 text-[var(--accent)]" />
+        {selectedEngine === 'v2_5_public_beta' && activeTab === 'text' ? (
+          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+            <div className="flex items-start space-x-3">
+              <div className="rounded-lg bg-[var(--bg-subtle)] p-2">
+                <Sparkles className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+              </div>
+              <div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-xs font-bold text-[var(--text-primary)]">V2.5 Stylometric ML Classifier</span>
+                  <span className="rounded bg-[var(--bg-subtle)] px-2 py-0.5 text-[10px] font-mono font-medium text-[var(--text-secondary)]">
+                    v2.5.0-beta
+                  </span>
+                  <span className="flex items-center space-x-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-bold text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
+                    <CheckCircle2 className="h-3 w-3" />
+                    <span>Pure On-Device Inference • Zero Download Required</span>
+                  </span>
+                </div>
+                <p className="mt-1 text-xs text-[var(--text-muted)]">
+                  21-feature regularized logistic regression • Platt calibration on CAL • Selective confidence gating (min 40 words)
+                </p>
+              </div>
             </div>
-            <div>
-              <div className="flex items-center space-x-2">
-                <span className="text-xs font-bold text-[var(--text-primary)]">{currentManifest.displayName}</span>
-                <span className="rounded bg-[var(--bg-subtle)] px-2 py-0.5 text-[10px] font-mono font-medium text-[var(--text-secondary)]">
-                  v{currentManifest.version}
-                </span>
+            <div className="flex items-center space-x-2">
+              <span className="rounded-lg bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-300">
+                Ready &amp; Active
+              </span>
+            </div>
+          </div>
+        ) : (
+          <>
+          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+            <div className="flex items-start space-x-3">
+              <div className="rounded-lg bg-[var(--bg-subtle)] p-2">
+                <HardDrive className="h-5 w-5 text-[var(--accent)]" />
+              </div>
+              <div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-xs font-bold text-[var(--text-primary)]">{currentManifest.displayName}</span>
+                  <span className="rounded bg-[var(--bg-subtle)] px-2 py-0.5 text-[10px] font-mono font-medium text-[var(--text-secondary)]">
+                    v{currentManifest.version}
+                  </span>
                 {/* Status Indicator */}
                 {currentModelProgress.state === 'READY' && (
                   <span className="flex items-center space-x-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-bold text-emerald-700 dark:text-emerald-400">
@@ -393,6 +434,8 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
               />
             </div>
           </div>
+        )}
+          </>
         )}
       </div>
 
@@ -1017,6 +1060,59 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
               <strong>No High-Stakes Reliance:</strong> Results from this tool must never be used as sole or definitive evidence in academic honor code proceedings, employment terminations, or punitive disciplinary evaluations.
             </p>
           </div>
+
+          {/* Development / Testing Diagnostic Telemetry Indicator (Hidden from production users unless ?debug=1) */}
+          {(import.meta.env.DEV || (typeof window !== 'undefined' && window.location.search.includes('debug=1'))) && textResult && activeTab === 'text' && (
+            <div className="mt-4 rounded-xl border border-dashed border-indigo-400/60 bg-indigo-50/60 p-4 dark:border-indigo-800/60 dark:bg-indigo-950/20 text-xs">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-indigo-200/60 dark:border-indigo-800/40 pb-2">
+                <span className="font-mono font-bold text-indigo-900 dark:text-indigo-200 flex items-center space-x-1.5">
+                  <Cpu className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+                  <span>Diagnostic Engine Telemetry (Dev / Debug Only)</span>
+                </span>
+                <span className="rounded bg-indigo-500/15 px-2 py-0.5 text-[10px] font-mono font-bold text-indigo-700 dark:text-indigo-300">
+                  Active Model: {textResult.modelId}
+                </span>
+              </div>
+              <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono text-[11px]">
+                <div>
+                  <span className="text-[var(--text-muted)] block text-[10px]">Engine Mode:</span>
+                  <span className="font-bold text-[var(--text-primary)]">{selectedEngine}</span>
+                </div>
+                <div>
+                  <span className="text-[var(--text-muted)] block text-[10px]">Execution Route:</span>
+                  <span className="font-bold text-[var(--text-primary)]">{textResult.mode}</span>
+                </div>
+                <div>
+                  <span className="text-[var(--text-muted)] block text-[10px]">P(AI) Raw Score:</span>
+                  <span className="font-bold text-[var(--text-primary)]">{textResult.score.aiProbability}</span>
+                </div>
+                <div>
+                  <span className="text-[var(--text-muted)] block text-[10px]">Classification:</span>
+                  <span className="font-bold text-[var(--text-primary)]">{textResult.score.classification}</span>
+                </div>
+                <div>
+                  <span className="text-[var(--text-muted)] block text-[10px]">Word Count:</span>
+                  <span className="font-bold text-[var(--text-primary)]">
+                    {textResult.inputWordCount} {textResult.inputWordCount >= 40 ? '(≥40 min met)' : '(<40 min unmet)'}
+                  </span>
+                </div>
+                <div>
+                  <span className="text-[var(--text-muted)] block text-[10px]">Selective Policy:</span>
+                  <span className="font-bold text-[var(--text-primary)]">
+                    {textResult.score.classification === 'inconclusive' ? 'Abstained (0.35 < P < 0.65)' : 'Confident'}
+                  </span>
+                </div>
+                <div>
+                  <span className="text-[var(--text-muted)] block text-[10px]">Confidence Level:</span>
+                  <span className="font-bold text-[var(--text-primary)]">{textResult.score.confidence}</span>
+                </div>
+                <div>
+                  <span className="text-[var(--text-muted)] block text-[10px]">Latency:</span>
+                  <span className="font-bold text-[var(--text-primary)]">{textResult.latencyMs} ms</span>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
 

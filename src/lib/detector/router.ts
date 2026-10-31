@@ -58,6 +58,13 @@ export class HybridInferenceRouter {
     this.isRequestActive = true;
 
     try {
+      // Direct execution for V2.5 Public Beta: pure on-device TypeScript model
+      if (options.engineId === 'v2_5_public_beta') {
+        return await this.serverApi.detectText(trimmed, {
+          engineId: 'v2_5_public_beta',
+        });
+      }
+
       // 1. Check local model readiness
       const localReady = this.textModel.getState() === 'READY';
 
