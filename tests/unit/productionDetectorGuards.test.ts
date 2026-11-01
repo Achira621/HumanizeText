@@ -2,6 +2,8 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { AiDetectorPage } from '../../src/components/detector/AiDetectorPage';
+import { FreeAiHumanizerPage } from '../../src/components/humanizer/FreeAiHumanizerPage';
+import { PAGE_METADATA } from '../../src/lib/seo/metaManager';
 import { isInternalDevMode, sanitizeEngineId } from '../../src/lib/detector/environment';
 import { executeDetectorEngine } from '../../src/lib/detector/candidateIntegrationBoundary';
 import { defaultAdaptiveCoordinator } from '../../src/lib/intelligence/coordinator';
@@ -37,6 +39,7 @@ describe('Production Detector UI and Routing Guards Regression Suite', () => {
       expect(html).not.toContain('Linguistic Stylometry Engine');
       expect(html).not.toContain('v2.4.0');
       expect(html).not.toContain('privacy guaranteed');
+      expect(html).not.toContain('Public Beta');
 
       // 3. Must contain clean authentic branding and unified entry point
       expect(html).toContain('Local-First Intelligent AI Detector');
@@ -45,6 +48,29 @@ describe('Production Detector UI and Routing Guards Regression Suite', () => {
       expect(html).toContain('AI Text Detector');
       expect(html).toContain('AI Image Detector');
       expect(html).toContain('zero raw text logging');
+    });
+  });
+
+  describe('1b. Marketing and Metadata Presentation Guard', () => {
+    it('ensures FreeAiHumanizerPage and SEO metadata contain zero candidate or beta claims', () => {
+      const homeHtml = renderToString(React.createElement(FreeAiHumanizerPage, {
+        currentText: '',
+        setCurrentText: () => {},
+        setActiveTab: () => {},
+      } as any));
+
+      expect(homeHtml).not.toContain('Public Beta');
+      expect(homeHtml).not.toContain('V2.5');
+      expect(homeHtml).not.toContain('V2.6');
+      expect(homeHtml).not.toContain('Stylometric AI Detector');
+
+      // SEO Metadata Check
+      const detectorMeta = PAGE_METADATA['ai-detector'];
+      expect(detectorMeta.title).not.toContain('Public Beta');
+      expect(detectorMeta.title).not.toContain('V2.5');
+      expect(detectorMeta.description).not.toContain('Public Beta');
+      expect(detectorMeta.description).not.toContain('stylometric classifier');
+      expect(JSON.stringify(detectorMeta.schema)).not.toContain('Public Beta');
     });
   });
 

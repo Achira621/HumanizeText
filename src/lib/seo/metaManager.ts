@@ -168,9 +168,9 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
     },
   },
   'ai-detector': {
-    title: 'AI Detector (Public Beta) — Free Stylometric Text & Image Analysis | HumanizeText',
+    title: 'AI Detector — Free Local-First Text & Image Analysis | HumanizeText',
     description:
-      'Analyze text for synthetic AI writing patterns using our calibrated stylometric classifier with selective confidence gating and local-first privacy. Zero text logging.',
+      'Analyze text for synthetic AI writing patterns using our calibrated detector with selective confidence gating and local-first privacy. Zero raw text logging.',
     canonicalPath: '/ai-detector',
     ogType: 'website',
     schema: {
@@ -178,7 +178,7 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
       '@graph': [
         {
           '@type': 'SoftwareApplication',
-          name: 'HumanizeText AI Detector (Public Beta)',
+          name: 'HumanizeText AI Detector',
           applicationCategory: 'UtilityApplication',
           operatingSystem: 'Any (Web Browser)',
           offers: {
@@ -187,7 +187,7 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
             priceCurrency: 'USD',
           },
           description:
-            'Calibrated 21-feature stylometric machine-learning detector with selective confidence gating, local privacy guarantees, and heuristic fallback.',
+            'Calibrated intelligent AI text and image detector with selective confidence gating, local-first privacy, and zero raw text logging.',
         },
         {
           '@type': 'BreadcrumbList',

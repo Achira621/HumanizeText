@@ -986,11 +986,11 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
             </div>
           </div>
 
-          {/* Public Beta Limitations & Ethics Guidance */}
+          {/* Limitations & Ethics Guidance */}
           <div className="mt-5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-4 text-xs space-y-2">
             <div className="flex items-center space-x-2 font-bold text-[var(--text-primary)]">
               <Info className="h-4 w-4 text-[var(--accent)] shrink-0" />
-              <span>Public Beta Notice &amp; Responsible Use Guidelines</span>
+              <span>Responsible Use Guidelines &amp; Limitations</span>
             </div>
             <p className="text-[var(--text-secondary)] leading-relaxed">
               <strong>Probabilistic Style Estimate, Not Authorship Proof:</strong> AI detection models evaluate statistical writing patterns (vocabulary perplexity, sentence burstiness, and formulaic transitions). They do not measure factual authorship and produce both false positives and false negatives.
