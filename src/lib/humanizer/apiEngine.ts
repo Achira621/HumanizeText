@@ -1,5 +1,6 @@
 import type { HumanizerMode, HumanizerOptions, HumanizerResult } from '../../types';
 import { computeDiffTokens } from './ruleEngine';
+import { executeDocumentHumanizer } from '../pipeline/tokenBudgetRouter';
 
 export type ApiProvider = 'gemini' | 'groq' | 'openrouter';
 
@@ -110,6 +111,8 @@ function buildSystemPrompt(mode: HumanizerMode, options?: HumanizerOptions): str
         `Ensure cohesive discourse flow, correct pronoun antecedents, and domain terminology alignment with this surrounding context.`
       : '';
 
+  const contextNoticeGuidance = options?.contextNotice ? `\n\n${options.contextNotice}` : '';
+
   return `You are a professional editor and human writing specialist.
 Your task is to rewrite the provided text so that it reads with authentic human cadence, natural rhythm, and clarity while preserving all facts, terminology, and citations.
 
@@ -120,7 +123,7 @@ CRITICAL INSTRUCTIONS:
    - NO stiff transitional clutter: "furthermore", "moreover", "consequently", "in conclusion"
 2. Maximize burstiness: Dramatically vary sentence length. Pair short 4-8 word punchy sentences with longer 20+ word complex thoughts.
 3. Natural phrasing: Use natural English idioms, conversational contractions (it's, don't, can't, we're) unless in strict formal mode.
-4. Factual and Citation Preservation: Retain all names, facts, statistics, citations (e.g. [1], (Author, 2024)), and core meaning with 100% accuracy.${frozenSection}${freezeQuotesGuidance}${activeVoiceGuidance}${strengthGuidance}${slidingContextGuidance}
+4. Factual and Citation Preservation: Retain all names, facts, statistics, citations (e.g. [1], (Author, 2024)), and core meaning with 100% accuracy.${frozenSection}${freezeQuotesGuidance}${activeVoiceGuidance}${strengthGuidance}${slidingContextGuidance}${contextNoticeGuidance}
 5. Specific style mode: ${modeGuidance}
 6. Output format: Return ONLY the rewritten text. Do NOT include introductory phrases, conversational remarks, or markdown code fences.`;
 }
@@ -158,23 +161,23 @@ async function callGemini(apiKey: string, prompt: string, text: string, model = 
   const data = await response.json();
   const candidate = data.candidates?.[0]?.content?.parts?.[0]?.text;
   if (!candidate) throw new Error('No response returned from Gemini API');
-  return candidate.trim();
+  return candidate;
 }
 
 /**
- * Call Groq API directly from browser (ultra-fast Llama 3.3).
+ * Call Groq API directly from browser.
  */
-async function callGroq(apiKey: string, systemPrompt: string, text: string, model = 'llama-3.3-70b-versatile'): Promise<string> {
+async function callGroq(apiKey: string, prompt: string, text: string, model = 'llama-3.3-70b-versatile'): Promise<string> {
   const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
+      Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
       model,
       messages: [
-        { role: 'system', content: systemPrompt },
+        { role: 'system', content: prompt },
         { role: 'user', content: text },
       ],
       temperature: 0.85,
@@ -188,27 +191,27 @@ async function callGroq(apiKey: string, systemPrompt: string, text: string, mode
   }
 
   const data = await response.json();
-  const content = data.choices?.[0]?.message?.content;
-  if (!content) throw new Error('No text returned from Groq API');
-  return content.trim();
+  const candidate = data.choices?.[0]?.message?.content;
+  if (!candidate) throw new Error('No response returned from Groq API');
+  return candidate;
 }
 
 /**
  * Call OpenRouter API directly from browser.
  */
-async function callOpenRouter(apiKey: string, systemPrompt: string, text: string, model = 'meta-llama/llama-3.3-70b-instruct'): Promise<string> {
+async function callOpenRouter(apiKey: string, prompt: string, text: string, model = 'meta-llama/llama-3.3-70b-instruct'): Promise<string> {
   const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
-      'HTTP-Referer': 'https://humanizetext.org',
-      'X-Title': 'HumanizeText',
+      Authorization: `Bearer ${apiKey}`,
+      'HTTP-Referer': typeof window !== 'undefined' ? window.location.origin : 'https://humanizetext.app',
+      'X-Title': 'HumanizeText App',
     },
     body: JSON.stringify({
       model,
       messages: [
-        { role: 'system', content: systemPrompt },
+        { role: 'system', content: prompt },
         { role: 'user', content: text },
       ],
       temperature: 0.85,
@@ -218,15 +221,18 @@ async function callOpenRouter(apiKey: string, systemPrompt: string, text: string
 
   if (!response.ok) {
     const err = await response.json().catch(() => ({}));
-    throw new Error(err.error?.message || `OpenRouter returned status ${response.status}`);
+    throw new Error(err.error?.message || `OpenRouter API returned status ${response.status}`);
   }
 
   const data = await response.json();
-  const content = data.choices?.[0]?.message?.content;
-  if (!content) throw new Error('No text returned from OpenRouter');
-  return content.trim();
+  const candidate = data.choices?.[0]?.message?.content;
+  if (!candidate) throw new Error('No response returned from OpenRouter API');
+  return candidate;
 }
 
+/**
+ * Main AI API humanization entry point with automatic document chunking for long texts.
+ */
 export async function humanizeWithApi(
   text: string,
   mode: HumanizerMode,
@@ -235,6 +241,23 @@ export async function humanizeWithApi(
 ): Promise<HumanizerResult> {
   if (!config.apiKey || !config.apiKey.trim()) {
     throw new Error(`API key required for ${config.provider.toUpperCase()} mode. Please enter an API key or use the Local Engine.`);
+  }
+
+  const words = text.split(/\s+/).filter(Boolean);
+
+  // If long multi-paragraph document and not already inside a chunk sub-call, execute chunked strategy
+  if (!options?.isChunkPass && (words.length >= 350 || text.split(/\n\s*\n/).length >= 3)) {
+    return await executeDocumentHumanizer(
+      text,
+      options || { mode },
+      async (chunkText: string, chunkOpts: HumanizerOptions, contextNotice?: string) => {
+        return await humanizeWithApi(chunkText, mode, config, {
+          ...chunkOpts,
+          isChunkPass: true,
+          contextNotice,
+        });
+      }
+    );
   }
 
   const systemPrompt = buildSystemPrompt(mode, options);

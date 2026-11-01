@@ -13,6 +13,8 @@ import { MODEL_REGISTRY, TEXT_DETECTOR_MANIFEST, IMAGE_DETECTOR_MANIFEST } from 
 import { analyzeImageForensics } from './imageAnalysis';
 import { computeAiScore, GPT_SIGNATURES } from './detectorCore';
 import { executeDetectorEngine } from './candidateIntegrationBoundary';
+import type { HierarchicalDetectionResult } from './v2_6/types';
+import { sanitizeEngineId } from './environment';
 
 export interface ServerApiConfig {
   baseUrl?: string;
@@ -79,7 +81,11 @@ export class ServerInferenceApi {
    */
   public async detectText(
     text: string,
-    options: { modelId?: string; engineId?: 'v2_5_public_beta' | 'production_default'; signal?: AbortSignal } = {}
+    options: {
+      modelId?: string;
+      engineId?: 'v2_6_hierarchical' | 'v2_5_public_beta' | 'production_default';
+      signal?: AbortSignal;
+    } = {}
   ): Promise<DetectionResult> {
     const trimmed = text.trim();
     if (!trimmed) {
@@ -89,7 +95,14 @@ export class ServerInferenceApi {
       throw new Error('Input exceeds maximum server payload length limit of 50,000 characters.');
     }
 
-    const modelId = options.modelId || (options.engineId === 'v2_5_public_beta' ? 'humanizetext-detector-v2-5-0' : TEXT_DETECTOR_MANIFEST.modelId);
+    const engineMode = sanitizeEngineId(options.engineId);
+    const modelId =
+      options.modelId ||
+      (engineMode === 'v2_6_hierarchical'
+        ? 'humanizetext-detector-v2-6-hierarchical'
+        : engineMode === 'v2_5_public_beta'
+        ? 'humanizetext-detector-v2-5-0'
+        : TEXT_DETECTOR_MANIFEST.modelId);
     const requestId = `srv_req_${Date.now()}_${++this.requestCounter}`;
     const startTime = performance.now();
 
@@ -98,7 +111,7 @@ export class ServerInferenceApi {
       const res = await fetch(`${this.baseUrl}/v1/detect/text`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'X-Request-ID': requestId },
-        body: JSON.stringify({ text: trimmed, modelId, engineId: options.engineId }),
+        body: JSON.stringify({ text: trimmed, modelId, engineId: engineMode }),
         signal: options.signal,
       });
 
@@ -117,31 +130,47 @@ export class ServerInferenceApi {
     this.lastRequestTime = Date.now();
 
     // Simulated inference computation time (350ms - 550ms)
-    await new Promise((r) => setTimeout(r, 450));
+    await new Promise((r) => setTimeout(r, 350));
 
     const words = trimmed.split(/\s+/).filter(Boolean);
     const wordCount = words.length;
 
-    // Route through engine dispatcher
-    const engineMode = options.engineId ?? 'production_default';
+    // Route through candidate execution engine
     const engineRes = executeDetectorEngine(trimmed, { engineId: engineMode });
-
     const coreResult = computeAiScore(trimmed);
     const aiProb = Number(engineRes.score.toFixed(3));
     const humanProb = Math.max(0, Math.min(1, Number((1 - aiProb).toFixed(3))));
 
     let classification: TextDetectionScore['classification'] = 'likely-human';
     let confidence: TextDetectionScore['confidence'] = 'high';
+    let humanStyleScore: number | undefined = undefined;
+    let aiSignatureScore: number | undefined = undefined;
+    let genre: string | undefined = undefined;
+    let isDomainProtected: boolean | undefined = undefined;
+    let hierarchicalResult: HierarchicalDetectionResult | undefined = undefined;
 
-    if (engineRes.isAbstained || engineRes.verdict === 'inconclusive' || engineRes.verdict === 'abstained') {
-      classification = 'inconclusive';
-      confidence = 'low';
-    } else if (engineRes.verdict === 'ai' || aiProb >= 0.65) {
-      classification = 'likely-ai';
-      confidence = aiProb > 0.80 ? 'high' : 'moderate';
+    if (engineMode === 'v2_6_hierarchical' && engineRes.rawCandidateResult && 'originClassification' in engineRes.rawCandidateResult) {
+      const v26 = engineRes.rawCandidateResult as HierarchicalDetectionResult;
+      hierarchicalResult = v26;
+      classification = v26.originClassification;
+      confidence = v26.confidence === 'high' ? 'high' : v26.confidence === 'medium' ? 'moderate' : 'low';
+      humanStyleScore = v26.humanStyleScore;
+      aiSignatureScore = v26.aiSignatureScore;
+      genre = v26.genre;
+      isDomainProtected = (v26.genre === 'technical' || v26.genre === 'professional') && v26.styleMetrics.clicheMarkerCount === 0;
     } else {
-      classification = 'likely-human';
-      confidence = aiProb < 0.20 ? 'high' : 'moderate';
+      if (engineRes.isAbstained || engineRes.verdict === 'inconclusive' || engineRes.verdict === 'abstained') {
+        classification = 'inconclusive';
+        confidence = 'low';
+      } else if (engineRes.verdict === 'ai' || aiProb >= 0.65) {
+        classification = 'likely-ai';
+        confidence = aiProb > 0.80 ? 'high' : 'moderate';
+      } else {
+        classification = 'likely-human';
+        confidence = aiProb < 0.20 ? 'high' : 'moderate';
+      }
+      humanStyleScore = Math.round(humanProb * 100);
+      aiSignatureScore = Math.round(aiProb * 100);
     }
 
     // Sentence-by-sentence analysis for heatmap visualization
@@ -187,21 +216,27 @@ export class ServerInferenceApi {
       timestamp: Date.now(),
       mode: 'server',
       modelId,
-      modelVersion: TEXT_DETECTOR_MANIFEST.version,
+      modelVersion: engineMode === 'v2_6_hierarchical' ? '2.6.0' : TEXT_DETECTOR_MANIFEST.version,
       latencyMs: latency,
       score: {
         aiProbability: aiProb,
         humanProbability: humanProb,
         confidence,
         classification,
+        humanStyleScore,
+        aiSignatureScore,
+        genre,
+        isDomainProtected,
         perplexityScore: coreResult.perplexityScore,
         burstinessScore: coreResult.burstinessScore,
         sampleSufficiency: coreResult.sampleSufficiency,
         uncertaintyMargin: coreResult.uncertaintyMargin,
       },
-      sentenceBreakdown: sentenceScores.length > 0 ? sentenceScores : undefined,
+      chunkBreakdown: [],
+      sentenceBreakdown: sentenceScores,
       inputWordCount: wordCount,
       limitationsNotice: TEXT_DETECTOR_MANIFEST.calibrationNotice,
+      hierarchicalResult,
     };
   }
 
@@ -209,24 +244,17 @@ export class ServerInferenceApi {
    * Server image detection endpoint.
    */
   public async detectImage(
-    file: File | Blob,
-    options: { signal?: AbortSignal } = {}
+    file: File,
+    options: { modelId?: string; signal?: AbortSignal } = {}
   ): Promise<ImageDetectionResult> {
-    if (!file || file.size === 0) {
-      throw new Error('Image file is empty or missing.');
-    }
-    if (file.size > 20 * 1024 * 1024) {
-      throw new Error('Image exceeds 20MB maximum file size limit.');
-    }
-
-    const requestId = `srv_img_${Date.now()}_${++this.requestCounter}`;
     const startTime = performance.now();
+    const modelId = options.modelId || IMAGE_DETECTOR_MANIFEST.modelId;
+    const requestId = `srv_img_${Date.now()}_${++this.requestCounter}`;
 
-    // 1. If remote server is configured, upload FormData
     if (this.baseUrl) {
       const formData = new FormData();
       formData.append('image', file);
-      formData.append('modelId', IMAGE_DETECTOR_MANIFEST.modelId);
+      formData.append('modelId', modelId);
 
       const res = await fetch(`${this.baseUrl}/v1/detect/image`, {
         method: 'POST',
@@ -237,23 +265,22 @@ export class ServerInferenceApi {
 
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        throw new Error(err.message || `Server image inference failed (${res.status})`);
+        throw new Error(err.message || `Server image inference failed with status ${res.status}`);
       }
       return await res.json();
     }
 
-    // 2. High-precision forensic image analysis (metadata, EXIF, aspect ratio & pixel noise)
-    await new Promise((r) => setTimeout(r, 450));
-
+    // Local client-side forensic heuristic
     const analysis = await analyzeImageForensics(file);
+    const latency = Math.round(performance.now() - startTime);
 
     return {
       id: requestId,
       timestamp: Date.now(),
       mode: 'server',
-      modelId: IMAGE_DETECTOR_MANIFEST.modelId,
+      modelId,
       modelVersion: IMAGE_DETECTOR_MANIFEST.version,
-      latencyMs: Math.round(performance.now() - startTime),
+      latencyMs: latency,
       score: {
         aiProbability: analysis.aiProbability,
         humanProbability: analysis.humanProbability,
@@ -263,7 +290,7 @@ export class ServerInferenceApi {
       },
       imageDimensions: analysis.dimensions,
       fileSizeBytes: file.size,
-      mimeType: file.type || 'image/jpeg',
+      mimeType: file.type,
       limitationsNotice: IMAGE_DETECTOR_MANIFEST.calibrationNotice,
     };
   }

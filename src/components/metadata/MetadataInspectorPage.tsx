@@ -224,7 +224,7 @@ export const MetadataInspectorPage: React.FC<MetadataInspectorPageProps> = ({
                     </td>
                   </tr>
                 ) : (
-                  report.tags.map((tag, idx) => (
+                  report.tags.map((tag: any, idx: number) => (
                     <tr key={idx} className="hover:bg-[var(--bg-subtle)]/50">
                       <td className="px-4 py-2.5 font-medium text-[var(--text-primary)]">{tag.label}</td>
                       <td className="px-4 py-2.5">

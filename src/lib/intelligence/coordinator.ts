@@ -9,6 +9,7 @@ import { defaultInferenceRouter, HybridInferenceRouter } from '../detector/route
 import { defaultModelRegistry, ModelRegistry } from './modelRegistry';
 import { defaultFeatureFlags, FeatureFlagsManager } from './featureFlags';
 import { computeAiScore } from '../detector/detectorCore';
+import { sanitizeEngineId } from '../detector/environment';
 
 export class AdaptiveIntelligenceCoordinator {
   private router: HybridInferenceRouter;
@@ -110,11 +111,22 @@ export class AdaptiveIntelligenceCoordinator {
   ): Promise<AdaptiveAnalysisResult> {
     const prodModel = this.registry.getProductionDefault('text-detection');
 
-    // 1. Run the trusted, existing production baseline
+    // 1. Run inference router
     const baseResult: DetectionResult = await this.router.detectText(text, options);
 
-    const activeEngine = options.engineId === 'v2_5_public_beta' ? 'humanizetext-detector-v2-5-0' : prodModel.modelId;
-    const activeVersion = options.engineId === 'v2_5_public_beta' ? '2.5.0-beta' : prodModel.version;
+    const effectiveEngine = sanitizeEngineId(options.engineId);
+    const activeEngine =
+      effectiveEngine === 'v2_6_hierarchical'
+        ? 'humanizetext-detector-v2-6-hierarchical'
+        : effectiveEngine === 'v2_5_public_beta'
+        ? 'humanizetext-detector-v2-5-0'
+        : prodModel.modelId;
+    const activeVersion =
+      effectiveEngine === 'v2_6_hierarchical'
+        ? '2.6.0'
+        : effectiveEngine === 'v2_5_public_beta'
+        ? '2.5.0-beta'
+        : prodModel.version;
 
     // 2. Prepare adaptive result object
     const result: AdaptiveAnalysisResult = {

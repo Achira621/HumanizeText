@@ -63,18 +63,22 @@ export interface DetectionOptions {
   allowServerFallback?: boolean;
   userConsentedToServer?: boolean;
   timeoutMs?: number;
-  engineId?: 'v2_5_public_beta' | 'production_default';
+  engineId?: 'v2_6_hierarchical' | 'v2_5_public_beta' | 'production_default';
 }
 
 export interface TextDetectionScore {
   aiProbability: number; // 0 to 1
   humanProbability: number; // 0 to 1
   confidence: 'low' | 'moderate' | 'high';
-  classification: 'likely-human' | 'inconclusive' | 'likely-ai';
+  classification: 'likely-human' | 'inconclusive' | 'likely-ai' | 'mixed';
+  humanStyleScore?: number; // 0 to 100: measured similarity to human baseline
+  aiSignatureScore?: number; // 0 to 100: generative marker index
   perplexityScore?: number;
   burstinessScore?: number;
   sampleSufficiency?: 'insufficient' | 'limited' | 'sufficient';
   uncertaintyMargin?: number;
+  genre?: string;
+  isDomainProtected?: boolean;
 }
 
 export interface TextChunkScore {
@@ -88,7 +92,7 @@ export interface SentenceScore {
   text: string;
   aiProbability: number;
   humanProbability: number;
-  classification: 'likely-human' | 'inconclusive' | 'likely-ai';
+  classification: 'likely-human' | 'inconclusive' | 'likely-ai' | 'mixed';
   detectedSignals: string[];
 }
 
@@ -104,6 +108,7 @@ export interface DetectionResult {
   sentenceBreakdown?: SentenceScore[];
   inputWordCount: number;
   limitationsNotice: string;
+  hierarchicalResult?: any;
 }
 
 export interface ImageDetectionScore {
@@ -158,4 +163,10 @@ export interface CleanedMetadataResult {
   cleanedBlob: Blob;
   removedTagsCount: number;
   cleanedAt: number;
+}
+
+export interface StorageQuotaInfo {
+  usageBytes: number;
+  quotaBytes: number;
+  percentageUsed: number;
 }

@@ -48,6 +48,7 @@ import { InteractiveOutputEditor } from './InteractiveOutputEditor';
 import { AlternativeSelector } from './AlternativeSelector';
 import { AiSignalsInspector } from './AiSignalsInspector';
 import { FileDropzone } from '../common/FileDropzone';
+import { exportToPdf, exportToDocx, exportToMarkdown, exportToTxt, triggerFileDownload, type ExportFormat } from '../../lib/documents/documentExporter';
 import { HumanizeLogo } from '../common/HumanizeLogo';
 import type { ActiveTab } from '../common/Header';
 
@@ -81,6 +82,8 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
     return [];
   });
   const [showFreezeModal, setShowFreezeModal] = useState(false);
+  const [showExportMenu, setShowExportMenu] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
   const [freezeQuotes, setFreezeQuotes] = useState<boolean>(() => {
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem('humanizetext_freeze_quotes');
@@ -686,17 +689,31 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleDownload = () => {
+  const handleExportFormat = async (format: ExportFormat) => {
     const text = improvedText || currentText;
     if (!text) return;
-    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `humanized-document-${selectedMode}.txt`;
-    a.click();
-    URL.revokeObjectURL(url);
+    setIsExporting(true);
+    setShowExportMenu(false);
+    try {
+      let blob: Blob;
+      if (format === 'pdf') {
+        blob = await exportToPdf(text, `HumanizeText - ${selectedMode}`);
+      } else if (format === 'docx') {
+        blob = await exportToDocx(text, `HumanizeText - ${selectedMode}`);
+      } else if (format === 'md') {
+        blob = exportToMarkdown(text);
+      } else {
+        blob = exportToTxt(text);
+      }
+      triggerFileDownload(blob, `humanized-document-${selectedMode}.${format}`);
+    } catch (err) {
+      console.error('Export failed:', err);
+    } finally {
+      setIsExporting(false);
+    }
   };
+
+
 
   const handleSample = (type: 'chatgpt' | 'academic') => {
     setHasCheckedPlagiarism(false);
@@ -1051,13 +1068,50 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
                     )}
                     <span>{copied ? 'Copied' : 'Copy'}</span>
                   </button>
-                  <button
-                    onClick={handleDownload}
-                    className="flex items-center space-x-1 rounded px-2 py-1 text-[11px] font-medium text-[var(--text-secondary)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-primary)]"
-                  >
-                    <Download className="h-3 w-3" />
-                    <span>Save</span>
-                  </button>
+                  <div className="relative">
+                    <button
+                      onClick={() => setShowExportMenu(!showExportMenu)}
+                      disabled={isExporting}
+                      className="flex items-center space-x-1 rounded px-2 py-1 text-[11px] font-medium text-[var(--text-secondary)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-primary)]"
+                      title="Export formatted document (PDF, Word DOCX, Markdown, Text)"
+                    >
+                      <Download className="h-3 w-3" />
+                      <span>{isExporting ? 'Exporting...' : 'Export'}</span>
+                      <ChevronDown className="h-2.5 w-2.5" />
+                    </button>
+                    {showExportMenu && (
+                      <div className="absolute right-0 top-full mt-1 z-30 w-44 rounded-lg border border-[var(--border-strong)] bg-[var(--bg-surface)] p-1 shadow-lg">
+                        <button
+                          onClick={() => handleExportFormat('pdf')}
+                          className="flex w-full items-center justify-between rounded px-2.5 py-1.5 text-left text-xs font-medium text-[var(--text-primary)] hover:bg-[var(--bg-subtle)]"
+                        >
+                          <span>PDF Document</span>
+                          <span className="text-[10px] text-[var(--text-muted)]">.pdf</span>
+                        </button>
+                        <button
+                          onClick={() => handleExportFormat('docx')}
+                          className="flex w-full items-center justify-between rounded px-2.5 py-1.5 text-left text-xs font-medium text-[var(--text-primary)] hover:bg-[var(--bg-subtle)]"
+                        >
+                          <span>Word Document</span>
+                          <span className="text-[10px] text-[var(--text-muted)]">.docx</span>
+                        </button>
+                        <button
+                          onClick={() => handleExportFormat('md')}
+                          className="flex w-full items-center justify-between rounded px-2.5 py-1.5 text-left text-xs font-medium text-[var(--text-primary)] hover:bg-[var(--bg-subtle)]"
+                        >
+                          <span>Markdown</span>
+                          <span className="text-[10px] text-[var(--text-muted)]">.md</span>
+                        </button>
+                        <button
+                          onClick={() => handleExportFormat('txt')}
+                          className="flex w-full items-center justify-between rounded px-2.5 py-1.5 text-left text-xs font-medium text-[var(--text-primary)] hover:bg-[var(--bg-subtle)]"
+                        >
+                          <span>Plain Text</span>
+                          <span className="text-[10px] text-[var(--text-muted)]">.txt</span>
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               )}
             </div>

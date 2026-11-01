@@ -11,6 +11,7 @@ import type {
 import { ModelLifecycleManager, textModelManager, imageModelManager } from './modelManager';
 import { defaultDetectorWorker, DetectorWorkerClient } from './workerClient';
 import { ServerInferenceApi, defaultServerApi } from './serverApi';
+import { sanitizeEngineId } from './environment';
 
 export interface RouterStatus {
   activeMode: 'local' | 'server' | 'preparing';
@@ -58,14 +59,23 @@ export class HybridInferenceRouter {
     this.isRequestActive = true;
 
     try {
-      // Direct execution for V2.5 Public Beta: pure on-device TypeScript model
+      options.engineId = sanitizeEngineId(options.engineId);
+
+      // 1. Direct execution for V2.6 Hierarchical Detector (Internal / Dev only)
+      if (options.engineId === 'v2_6_hierarchical') {
+        return await this.serverApi.detectText(trimmed, {
+          engineId: 'v2_6_hierarchical',
+        });
+      }
+
+      // 2. Direct execution for V2.5 Public Beta (Internal / Dev only)
       if (options.engineId === 'v2_5_public_beta') {
         return await this.serverApi.detectText(trimmed, {
           engineId: 'v2_5_public_beta',
         });
       }
 
-      // 1. Check local model readiness
+      // 3. Check local model readiness for baseline/default
       const localReady = this.textModel.getState() === 'READY';
 
       // CASE A: Local model ready & preferred
@@ -77,7 +87,7 @@ export class HybridInferenceRouter {
           // CASE E: Local inference failure -> fallback to server if permitted & consented
           if (options.allowServerFallback && options.userConsentedToServer) {
             console.warn('Local inference failed, attempting server fallback:', localErr);
-            return await this.serverApi.detectText(trimmed);
+            return await this.serverApi.detectText(trimmed, { engineId: options.engineId ?? 'production_default' });
           }
           throw new Error(
             `Local on-device inference failed: ${localErr?.message || 'Execution error'}. You can try server analysis or reinstall the local model.`
@@ -121,7 +131,7 @@ export class HybridInferenceRouter {
    * Primary Image Detection router.
    */
   public async detectImage(
-    file: File | Blob,
+    file: File,
     options: DetectionOptions = {}
   ): Promise<ImageDetectionResult> {
     if (this.isRequestActive) {

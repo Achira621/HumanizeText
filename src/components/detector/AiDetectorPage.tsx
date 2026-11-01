@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {
   Sparkles,
   ShieldCheck,
-  Cpu,
   Server,
   Download,
   Trash2,
@@ -33,7 +32,6 @@ import { defaultModelStorage } from '../../lib/detector/storage';
 import { humanizeWithRules } from '../../lib/humanizer/ruleEngine';
 import { defaultAdaptiveCoordinator } from '../../lib/intelligence/coordinator';
 import { defaultFeedbackPipeline } from '../../lib/intelligence/feedbackPipeline';
-import { defaultModelRegistry } from '../../lib/intelligence/modelRegistry';
 import type { ActiveTab } from '../common/Header';
 
 interface AiDetectorPageProps {
@@ -43,7 +41,6 @@ interface AiDetectorPageProps {
 
 export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanizer, setActiveTab: onNavigateTab }) => {
   const [activeTab, setActiveTab] = useState<'text' | 'image'>('text');
-  const [selectedEngine, setSelectedEngine] = useState<'v2_5_public_beta' | 'production_default'>('v2_5_public_beta');
   const [inputText, setInputText] = useState('');
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -126,8 +123,7 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
     setStorageUsageMb(Math.round(q.usageBytes / (1024 * 1024)));
   };
 
-  const handleRunAnalysis = async (forceServerConsent = false, engineOverride?: 'v2_5_public_beta' | 'production_default') => {
-    const engineToUse = engineOverride ?? selectedEngine;
+  const handleRunAnalysis = async (forceServerConsent = false) => {
     setErrorMessage(null);
     const hasConsent = userConsented || forceServerConsent;
 
@@ -145,7 +141,7 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
           preferMode: isLocalReady ? 'local-only' : 'auto',
           userConsentedToServer: hasConsent,
           allowServerFallback: true,
-          engineId: engineToUse,
+          engineId: 'production_default',
         });
 
         setTextResult(res);
@@ -230,16 +226,16 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
 
       {/* Hero Header */}
       <div className="mb-8 text-center">
-        <div className="mx-auto mb-3 inline-flex items-center space-x-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1 text-xs font-bold text-emerald-700 dark:text-emerald-300">
-          <Sparkles className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
-          <span>Public Beta • V2.5 Stylometric ML Detector</span>
+        <div className="mx-auto mb-3 inline-flex items-center space-x-2 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-subtle)] px-3.5 py-1 text-xs font-semibold text-[var(--text-secondary)]">
+          <Sparkles className="h-4 w-4 text-[var(--accent)]" />
+          <span>Local-First Intelligent AI Detector</span>
         </div>
         <h1 className="text-2xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-4xl break-words px-2">
           AI Text &amp; Image <span className="block sm:inline text-[var(--accent)]">Detection Platform</span>
         </h1>
         <p className="mx-auto mt-2 max-w-2xl text-sm text-[var(--text-secondary)]">
-          Analyze writing style patterns for synthetic generator signatures using our calibrated V2.5 stylometric
-          classifier or local heuristics. Built with selective confidence gating, local privacy, and zero raw text logging.
+          Analyze writing style patterns for synthetic generator signatures using our calibrated on-device model or
+          local heuristics. Built with selective confidence gating, local privacy, and zero raw text logging.
         </p>
 
         {/* Text / Image Switcher */}
@@ -273,98 +269,21 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
             <span>AI Image Detector</span>
           </button>
         </div>
-
-        {/* Engine Switcher (When Text Detector Active) */}
-        {activeTab === 'text' && (
-          <div className="mt-4 flex flex-col items-center justify-center space-y-1.5">
-            <div className="flex w-full sm:w-auto flex-col sm:flex-row rounded-lg border border-[var(--border-strong)] bg-[var(--bg-surface)] p-1 shadow-2xs">
-              <button
-                type="button"
-                onClick={() => {
-                  setSelectedEngine('v2_5_public_beta');
-                  if (inputText.trim() && textResult) {
-                    handleRunAnalysis(false, 'v2_5_public_beta');
-                  }
-                }}
-                className={`flex items-center justify-center space-x-1.5 rounded-md px-3 py-1.5 text-xs font-bold transition-all w-full sm:w-auto ${
-                  selectedEngine === 'v2_5_public_beta'
-                    ? 'bg-[var(--accent)] text-[var(--accent-contrast)] shadow-xs'
-                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
-                }`}
-              >
-                <Sparkles className="h-3.5 w-3.5 shrink-0" />
-                <span>V2.5 Public Beta (Trained ML)</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setSelectedEngine('production_default');
-                  if (inputText.trim() && textResult) {
-                    handleRunAnalysis(false, 'production_default');
-                  }
-                }}
-                className={`flex items-center justify-center space-x-1.5 rounded-md px-3 py-1.5 text-xs font-bold transition-all w-full sm:w-auto ${
-                  selectedEngine === 'production_default'
-                    ? 'bg-[var(--accent)] text-[var(--accent-contrast)] shadow-xs'
-                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
-                }`}
-              >
-                <Cpu className="h-3.5 w-3.5 shrink-0" />
-                <span>Production Baseline (Heuristic)</span>
-              </button>
-            </div>
-            <p className="text-center text-[11px] text-[var(--text-muted)]">
-              {selectedEngine === 'v2_5_public_beta'
-                ? 'V2.5: 21-feature regularized logistic regression, Platt scaling, and selective decision policy (min 40 words).'
-                : 'Baseline: Multi-signal perplexity, burstiness, and heuristic pattern scanner.'}
-            </p>
-          </div>
-        )}
       </div>
 
       {/* Model Lifecycle Banner & Storage Manager */}
       <div className="mb-6 rounded-xl border border-[var(--border-strong)] bg-[var(--bg-surface)] p-4 shadow-sm">
-        {selectedEngine === 'v2_5_public_beta' && activeTab === 'text' ? (
-          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-            <div className="flex items-start space-x-3">
-              <div className="rounded-lg bg-[var(--bg-subtle)] p-2">
-                <Sparkles className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
-              </div>
-              <div>
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-xs font-bold text-[var(--text-primary)]">V2.5 Stylometric ML Classifier</span>
-                  <span className="rounded bg-[var(--bg-subtle)] px-2 py-0.5 text-[10px] font-mono font-medium text-[var(--text-secondary)]">
-                    v2.5.0-beta
-                  </span>
-                  <span className="flex items-center space-x-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-bold text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
-                    <CheckCircle2 className="h-3 w-3" />
-                    <span>Pure On-Device Inference • Zero Download Required</span>
-                  </span>
-                </div>
-                <p className="mt-1 text-xs text-[var(--text-muted)]">
-                  21-feature regularized logistic regression • Platt calibration on CAL • Selective confidence gating (min 40 words)
-                </p>
-              </div>
+        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+          <div className="flex items-start space-x-3">
+            <div className="rounded-lg bg-[var(--bg-subtle)] p-2">
+              <HardDrive className="h-5 w-5 text-[var(--accent)]" />
             </div>
-            <div className="flex items-center space-x-2">
-              <span className="rounded-lg bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-300">
-                Ready &amp; Active
-              </span>
-            </div>
-          </div>
-        ) : (
-          <>
-          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-            <div className="flex items-start space-x-3">
-              <div className="rounded-lg bg-[var(--bg-subtle)] p-2">
-                <HardDrive className="h-5 w-5 text-[var(--accent)]" />
-              </div>
-              <div>
-                <div className="flex items-center space-x-2">
-                  <span className="text-xs font-bold text-[var(--text-primary)]">{currentManifest.displayName}</span>
-                  <span className="rounded bg-[var(--bg-subtle)] px-2 py-0.5 text-[10px] font-mono font-medium text-[var(--text-secondary)]">
-                    v{currentManifest.version}
-                  </span>
+            <div>
+              <div className="flex items-center space-x-2">
+                <span className="text-xs font-bold text-[var(--text-primary)]">{currentManifest.displayName}</span>
+                <span className="rounded bg-[var(--bg-subtle)] px-2 py-0.5 text-[10px] font-mono font-medium text-[var(--text-secondary)]">
+                  v{currentManifest.version}
+                </span>
                 {/* Status Indicator */}
                 {currentModelProgress.state === 'READY' && (
                   <span className="flex items-center space-x-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-bold text-emerald-700 dark:text-emerald-400">
@@ -434,8 +353,6 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
               />
             </div>
           </div>
-        )}
-          </>
         )}
       </div>
 
@@ -555,8 +472,10 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
             const classification = textResult.score.classification;
             const isHuman = classification === 'likely-human';
             const isAi = classification === 'likely-ai';
-            const isInconclusive = classification === 'inconclusive' || (!isHuman && !isAi);
-            const isMixed = isInconclusive;
+            const isMixed = classification === 'mixed';
+            const isInconclusive = classification === 'inconclusive' || (!isHuman && !isAi && !isMixed);
+            const humanStyle = textResult.score.humanStyleScore ?? humanPct;
+            const aiStyle = textResult.score.aiSignatureScore ?? aiPct;
             const isShortText = textResult.inputWordCount < 40;
             const perpScore = textResult.score.perplexityScore ?? 85;
             const burstScore = textResult.score.burstinessScore ?? 85;
@@ -569,7 +488,9 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
                     ? 'border-emerald-300 bg-emerald-50/80 text-emerald-950 dark:border-emerald-800/60 dark:bg-emerald-950/25 dark:text-emerald-200' 
                     : isAi
                       ? 'border-amber-300/80 bg-amber-50/70 text-amber-950 dark:border-amber-800/60 dark:bg-amber-950/25 dark:text-amber-200'
-                      : 'border-slate-300 bg-slate-50/80 text-slate-900 dark:border-slate-700/60 dark:bg-slate-900/30 dark:text-slate-200'
+                      : isMixed
+                        ? 'border-purple-300/80 bg-purple-50/70 text-purple-950 dark:border-purple-800/60 dark:bg-purple-950/25 dark:text-purple-200'
+                        : 'border-slate-300 bg-slate-50/80 text-slate-900 dark:border-slate-700/60 dark:bg-slate-900/30 dark:text-slate-200'
                 }`}>
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <div className="flex items-center space-x-3">
@@ -578,19 +499,23 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
                           <CheckCircle2 className="h-6 w-6 text-emerald-600 dark:text-emerald-400" aria-hidden="true" />
                         ) : isAi ? (
                           <AlertCircle className="h-6 w-6 text-amber-600 dark:text-amber-400" aria-hidden="true" />
+                        ) : isMixed ? (
+                          <Sparkles className="h-6 w-6 text-purple-600 dark:text-purple-400" aria-hidden="true" />
                         ) : (
                           <Info className="h-6 w-6 text-slate-600 dark:text-slate-400" aria-hidden="true" />
                         )}
                       </div>
                       <div>
                         <h4 className="text-lg font-black tracking-tight">
-                          {isHuman && `Likely Human-Pattern Match (~${humanPct}% Human Style)`}
-                          {isAi && `Likely AI-Pattern Match (~${aiPct}% Stylistic AI Index)`}
-                          {isInconclusive && `Inconclusive / Mixed Style (~${aiPct}% AI Index)`}
+                          {isHuman && `Likely Human-Pattern Match (~${humanStyle}% Human Style)`}
+                          {isAi && `Likely AI-Pattern Match (~${aiStyle}% AI Pattern Index)`}
+                          {isMixed && 'Mixed Authorship Detected'}
+                          {isInconclusive && `Inconclusive / Neutral Band (${isShortText ? 'Under Minimum Length' : 'Statistical Ambiguity'})`}
                         </h4>
                         <p className="mt-0.5 text-xs opacity-90">
                           {isHuman && 'Text exhibits natural sentence length variation, rich vocabulary, and organic syntax rhythm.'}
                           {isAi && 'Text exhibits formulaic transitions, low perplexity, or uniform sentence rhythms typical of generative AI.'}
+                          {isMixed && 'Document analysis detected distinct human-authored passages alongside generative AI passages.'}
                           {isInconclusive && 'Detector abstains: passage shows mixed stylistic cadence or falls within the selective confidence abstain margin (35%–65%).'}
                         </p>
                       </div>
@@ -601,14 +526,29 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
                           ? 'Short text sample (<40 words)'
                           : 'Selective Confidence Gated'}
                       </span>
+                      {textResult.score.genre && (
+                        <span className="rounded-md border border-current/20 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider">
+                          Genre: {textResult.score.genre}
+                        </span>
+                      )}
+                      {textResult.score.isDomainProtected && (
+                        <span className="rounded-md border border-blue-400 bg-blue-100/60 dark:bg-blue-900/40 px-2.5 py-0.5 text-[11px] font-bold text-blue-800 dark:text-blue-200">
+                          Domain Protected
+                        </span>
+                      )}
+                      <span className="rounded-md border border-current/20 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider">
+                        Confidence: {textResult.score.confidence}
+                      </span>
                       <span className={`rounded-full px-3 py-1 text-xs font-black uppercase tracking-wider ${
                         isHuman
                           ? 'bg-emerald-600 text-white dark:bg-emerald-500'
                           : isAi
                             ? 'bg-amber-600 text-white dark:bg-amber-500'
-                            : 'bg-slate-600 text-white dark:bg-slate-500'
+                            : isMixed
+                              ? 'bg-purple-600 text-white dark:bg-purple-500'
+                              : 'bg-slate-600 text-white dark:bg-slate-500'
                       }`}>
-                        {classification === 'likely-ai' ? 'Likely AI' : classification === 'likely-human' ? 'Likely Human' : 'Inconclusive'}
+                        {classification === 'likely-ai' ? 'Likely AI' : classification === 'likely-human' ? 'Likely Human' : classification === 'mixed' ? 'Mixed' : 'Inconclusive'}
                       </span>
                     </div>
                   </div>
@@ -626,41 +566,46 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
 
                 {/* DUAL METER CARDS */}
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  {/* Human Authenticity Card (Green when high) */}
+                  {/* Human Style Index Card (Green when high) */}
                   <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-4">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-semibold text-[var(--text-muted)]">Human Authenticity & Rhythm</span>
+                      <div className="flex items-center space-x-1.5">
+                        <span className="text-xs font-semibold text-[var(--text-muted)]">Human Style Index</span>
+                        <span className="text-[10px] text-[var(--text-muted)]" title="Measured natural sentence length variation, lexical diversity, and organic cadence">
+                          (Cadence & Entropy)
+                        </span>
+                      </div>
                       <span className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
                         Higher is better
                       </span>
                     </div>
                     <div className="mt-2 flex items-baseline space-x-2">
                       <span className={`text-3xl font-black ${
-                        humanPct >= 75 ? 'text-emerald-600 dark:text-emerald-400' : humanPct >= 40 ? 'text-amber-600 dark:text-amber-400' : 'text-red-600 dark:text-red-400'
+                        humanStyle >= 65 ? 'text-emerald-600 dark:text-emerald-400' : humanStyle >= 40 ? 'text-amber-600 dark:text-amber-400' : 'text-red-600 dark:text-red-400'
                       }`}>
-                        {humanPct}%
+                        {humanStyle}%
                       </span>
                       <span className="text-xs font-bold text-[var(--text-secondary)]">
-                        {humanPct >= 75 ? 'Natural Human Phrasing' : humanPct >= 40 ? 'Moderate Variance' : 'Low Human Variance'}
+                        {humanStyle >= 65 ? 'Authentic Human Cadence' : humanStyle >= 40 ? 'Moderate Cadence Variance' : 'Low Human Variance'}
                       </span>
                     </div>
                     <div className="mt-2 h-2.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
                       <div
                         className={`h-full rounded-full transition-all duration-500 ${
-                          humanPct >= 75 ? 'bg-emerald-500' : humanPct >= 40 ? 'bg-amber-500' : 'bg-red-500'
+                          humanStyle >= 65 ? 'bg-emerald-500' : humanStyle >= 40 ? 'bg-amber-500' : 'bg-red-500'
                         }`}
-                        style={{ width: `${humanPct}%` }}
+                        style={{ width: `${humanStyle}%` }}
                       />
                     </div>
                   </div>
 
-                  {/* AI Match Card (Green when low, Red when high) */}
+                  {/* AI Pattern Index Card (Green when low, Red when high) */}
                   <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-1.5">
-                        <span className="text-xs font-semibold text-[var(--text-muted)]">Stylistic AI Match Indicator</span>
-                        <span className="text-[10px] text-[var(--text-muted)]" title="Deterministic stylometric heuristic index (not a statistical posterior probability)">
-                          (Heuristic)
+                        <span className="text-xs font-semibold text-[var(--text-muted)]">AI Pattern Index</span>
+                        <span className="text-[10px] text-[var(--text-muted)]" title="Frequency of generative transition markers, clichés, and formulaic uniformity">
+                          (Synthetic Signal)
                         </span>
                       </div>
                       <span className="text-[11px] font-bold text-[var(--text-muted)]">
@@ -669,20 +614,20 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
                     </div>
                     <div className="mt-2 flex items-baseline space-x-2">
                       <span className={`text-3xl font-black ${
-                        isHuman ? 'text-emerald-600 dark:text-emerald-400' : isMixed ? 'text-amber-600 dark:text-amber-400' : 'text-red-600 dark:text-red-400'
+                        aiStyle <= 35 ? 'text-emerald-600 dark:text-emerald-400' : aiStyle <= 65 ? 'text-amber-600 dark:text-amber-400' : 'text-red-600 dark:text-red-400'
                       }`}>
-                        {aiPct}%
+                        {aiStyle}%
                       </span>
                       <span className="text-xs font-bold text-[var(--text-secondary)]">
-                        {isHuman ? 'Virtually No AI Signatures' : isMixed ? 'Moderate AI Likelihood' : 'Strong AI Signatures'}
+                        {aiStyle <= 35 ? 'Virtually No AI Signatures' : aiStyle <= 65 ? 'Moderate AI Likelihood' : 'Strong AI Signatures'}
                       </span>
                     </div>
                     <div className="mt-2 h-2.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
                       <div
                         className={`h-full rounded-full transition-all duration-500 ${
-                          isHuman ? 'bg-emerald-500' : isMixed ? 'bg-amber-500' : 'bg-red-500'
+                          aiStyle <= 35 ? 'bg-emerald-500' : aiStyle <= 65 ? 'bg-amber-500' : 'bg-red-500'
                         }`}
-                        style={{ width: `${aiPct}%` }}
+                        style={{ width: `${aiStyle}%` }}
                       />
                     </div>
                   </div>
@@ -985,15 +930,9 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
             <div className="flex items-center space-x-2 text-[var(--text-secondary)]">
               <ShieldCheck className="h-4 w-4 text-[var(--accent)]" />
               <span>
-                Active Engine:{' '}
-                <strong className="text-[var(--text-primary)]">
-                  {activeTab === 'text'
-                    ? textResult?.modelId === 'humanizetext-detector-v2-5-0' ||
-                      textResult?.adaptiveMetadata?.activeProviderId === 'humanizetext-detector-v2-5-0'
-                      ? 'V2.5 Public Beta (21-Feature Stylometric Logistic Regression)'
-                      : 'Production Baseline (Perplexity & Burstiness Heuristic)'
-                    : `${defaultModelRegistry.getProductionDefault('image-detection')?.displayName || 'Image Forensics'} (v${defaultModelRegistry.getProductionDefault('image-detection')?.version || '1.0.0'})`}
-                </strong>
+                {activeTab === 'text' && textResult?.mode === 'server'
+                  ? 'Consented server analysis • Ephemeral in-memory execution'
+                  : 'On-device analysis • Zero persistent text storage'}
               </span>
             </div>
 
@@ -1060,59 +999,6 @@ export const AiDetectorPage: React.FC<AiDetectorPageProps> = ({ onSendToHumanize
               <strong>No High-Stakes Reliance:</strong> Results from this tool must never be used as sole or definitive evidence in academic honor code proceedings, employment terminations, or punitive disciplinary evaluations.
             </p>
           </div>
-
-          {/* Development / Testing Diagnostic Telemetry Indicator (Hidden from production users unless ?debug=1) */}
-          {(import.meta.env.DEV || (typeof window !== 'undefined' && window.location.search.includes('debug=1'))) && textResult && activeTab === 'text' && (
-            <div className="mt-4 rounded-xl border border-dashed border-indigo-400/60 bg-indigo-50/60 p-4 dark:border-indigo-800/60 dark:bg-indigo-950/20 text-xs">
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-indigo-200/60 dark:border-indigo-800/40 pb-2">
-                <span className="font-mono font-bold text-indigo-900 dark:text-indigo-200 flex items-center space-x-1.5">
-                  <Cpu className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
-                  <span>Diagnostic Engine Telemetry (Dev / Debug Only)</span>
-                </span>
-                <span className="rounded bg-indigo-500/15 px-2 py-0.5 text-[10px] font-mono font-bold text-indigo-700 dark:text-indigo-300">
-                  Active Model: {textResult.modelId}
-                </span>
-              </div>
-              <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono text-[11px]">
-                <div>
-                  <span className="text-[var(--text-muted)] block text-[10px]">Engine Mode:</span>
-                  <span className="font-bold text-[var(--text-primary)]">{selectedEngine}</span>
-                </div>
-                <div>
-                  <span className="text-[var(--text-muted)] block text-[10px]">Execution Route:</span>
-                  <span className="font-bold text-[var(--text-primary)]">{textResult.mode}</span>
-                </div>
-                <div>
-                  <span className="text-[var(--text-muted)] block text-[10px]">P(AI) Raw Score:</span>
-                  <span className="font-bold text-[var(--text-primary)]">{textResult.score.aiProbability}</span>
-                </div>
-                <div>
-                  <span className="text-[var(--text-muted)] block text-[10px]">Classification:</span>
-                  <span className="font-bold text-[var(--text-primary)]">{textResult.score.classification}</span>
-                </div>
-                <div>
-                  <span className="text-[var(--text-muted)] block text-[10px]">Word Count:</span>
-                  <span className="font-bold text-[var(--text-primary)]">
-                    {textResult.inputWordCount} {textResult.inputWordCount >= 40 ? '(≥40 min met)' : '(<40 min unmet)'}
-                  </span>
-                </div>
-                <div>
-                  <span className="text-[var(--text-muted)] block text-[10px]">Selective Policy:</span>
-                  <span className="font-bold text-[var(--text-primary)]">
-                    {textResult.score.classification === 'inconclusive' ? 'Abstained (0.35 < P < 0.65)' : 'Confident'}
-                  </span>
-                </div>
-                <div>
-                  <span className="text-[var(--text-muted)] block text-[10px]">Confidence Level:</span>
-                  <span className="font-bold text-[var(--text-primary)]">{textResult.score.confidence}</span>
-                </div>
-                <div>
-                  <span className="text-[var(--text-muted)] block text-[10px]">Latency:</span>
-                  <span className="font-bold text-[var(--text-primary)]">{textResult.latencyMs} ms</span>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       )}
 

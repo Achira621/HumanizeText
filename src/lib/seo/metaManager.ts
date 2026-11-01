@@ -170,7 +170,7 @@ export const PAGE_METADATA: Record<string, PageMeta> = {
   'ai-detector': {
     title: 'AI Detector (Public Beta) — Free Stylometric Text & Image Analysis | HumanizeText',
     description:
-      'Analyze text for synthetic AI writing patterns using our calibrated V2.5 regularized stylometric classifier with selective confidence gating and local-first privacy. Zero text logging.',
+      'Analyze text for synthetic AI writing patterns using our calibrated stylometric classifier with selective confidence gating and local-first privacy. Zero text logging.',
     canonicalPath: '/ai-detector',
     ogType: 'website',
     schema: {
