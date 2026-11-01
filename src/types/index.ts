@@ -220,6 +220,8 @@ export interface HumanizerOptions {
   context?: Partial<WritingContext>;
   plan?: Partial<RewritePlan>;
   explicitInstructions?: string;
+  isChunkPass?: boolean;
+  contextNotice?: string;
 }
 
 export type WritingIssueCategory =

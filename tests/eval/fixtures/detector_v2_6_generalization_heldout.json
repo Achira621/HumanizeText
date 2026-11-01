@@ -1,0 +1,219 @@
+[
+  {
+    "id": "v2_6_eval_01_human_instruction_72w",
+    "genre": "conversational",
+    "lengthCategory": "medium",
+    "label": "human",
+    "origin": "verified_human",
+    "provenance": "Known-human 72-word conversational garage instruction (permanent regression test)",
+    "text": "When you clean up the garage this weekend, make sure you don't throw away that old wooden crate near the workbench. It might look like scrap lumber, but my grandfather built it by hand sixty years ago, and I'm planning to restore it. Just stack the cardboard boxes next to it for recycling, sweep the floor, and leave the tools where they are until I sort through them next week."
+  },
+  {
+    "id": "v2_6_eval_02_human_instruction_cooking",
+    "genre": "conversational",
+    "lengthCategory": "medium",
+    "label": "human",
+    "origin": "verified_human",
+    "provenance": "Authentic home recipe notes written by home cook",
+    "text": "Before you start browning the onions, make sure you pat the beef shanks completely dry with a paper towel. If they are wet, they will steam in the pot instead of getting that deep caramelized crust you want. Toss a couple pinches of coarse salt over them right before they hit the hot oil, and do not crowd the Dutch oven."
+  },
+  {
+    "id": "v2_6_eval_03_human_academic_darwin",
+    "genre": "academic",
+    "lengthCategory": "medium",
+    "label": "human",
+    "origin": "verified_human",
+    "provenance": "Charles Darwin, On the Origin of Species (1859), historical human benchmark",
+    "text": "When on board H.M.S. Beagle, as naturalist, I was much struck with certain facts in the distribution of the organic beings inhabiting South America, and in the geological relations of the present to the past inhabitants of that continent. These facts, as will be seen in the latter chapters of this volume, seemed to throw some light on the origin of species—that mystery of mysteries, as it has been called by one of our greatest philosophers. On my return home, it occurred to me, in 1837, that something might perhaps be made out on this question by patiently accumulating and reflecting on all sorts of facts which could possibly have any bearing on it."
+  },
+  {
+    "id": "v2_6_eval_04_human_academic_history",
+    "genre": "academic",
+    "lengthCategory": "medium",
+    "label": "human",
+    "origin": "verified_human",
+    "provenance": "Peer-reviewed economic history paper on maritime trade charters",
+    "text": "The establishment of municipal maritime charters in seventeenth-century Amsterdam did not emerge as a sudden legislative invention, but rather crystallized decades of informal dispute-settlement customs among merchant guilds. By standardizing marine insurance liability and demurrage compensation, the Admiralty College reduced counterparty friction across Baltic grain corridors, providing capital liquidity that lowered freight tariffs."
+  },
+  {
+    "id": "v2_6_eval_05_human_technical_rfc2616",
+    "genre": "technical",
+    "lengthCategory": "medium",
+    "label": "human",
+    "origin": "verified_human",
+    "provenance": "RFC 2616 Hypertext Transfer Protocol specification (Section 3.6)",
+    "text": "The chunked transfer-coding modifies the body of a message in order to transfer it as a series of chunks, each with its own size indicator, followed by an OPTIONAL trailer containing entity-header fields. This allows dynamically produced content to be transferred along with the information necessary for the recipient to verify that it has received the full message."
+  },
+  {
+    "id": "v2_6_eval_06_human_technical_linux",
+    "genre": "technical",
+    "lengthCategory": "medium",
+    "label": "human",
+    "origin": "verified_human",
+    "provenance": "Linux Kernel Memory Management documentation (Documentation/mm/page_alloc.rst)",
+    "text": "The buddy allocator operates on power-of-two blocks of physical page frames. When a request for an order-k allocation cannot be satisfied by the corresponding free list, the kernel splits a block from order k+1, placing the unallocated companion buddy onto the lower order list. Coalescing occurs symmetrically during free operations when the neighboring buddy is marked inactive."
+  },
+  {
+    "id": "v2_6_eval_07_human_corporate_shareholder",
+    "genre": "corporate",
+    "lengthCategory": "medium",
+    "label": "human",
+    "origin": "verified_human",
+    "provenance": "SEC Form 10-K Management Discussion and Analysis, industrial manufacturer",
+    "text": "Our operating margin contracted by seventy basis points during the third quarter, principally reflecting raw material inflation in cold-rolled steel and elevated maritime drayage surcharges. In response, we renegotiated indexed commercial agreements with tier-one suppliers and implemented a freight consolidation schedule across our Midwestern distribution hubs."
+  },
+  {
+    "id": "v2_6_eval_08_human_corporate_policy",
+    "genre": "corporate",
+    "lengthCategory": "medium",
+    "label": "human",
+    "origin": "verified_human",
+    "provenance": "Enterprise Information Security Incident Response SOP",
+    "text": "Upon identification of an unauthorized credential exchange or privilege escalation event, the on-duty security operations engineer must immediately revoke active Kerberos tickets for affected user principles and isolate the ingress bastion host from the core subnet before initiating forensic snapshot capture."
+  },
+  {
+    "id": "v2_6_eval_09_human_esl_graduate_summary",
+    "genre": "esl",
+    "lengthCategory": "medium",
+    "label": "human",
+    "origin": "verified_human",
+    "provenance": "Non-native English (ESL) university graduate student research summary",
+    "text": "In this thesis experiment, we are testing the water quality from seven rural wells during the monsoon season. Although the mechanical filters was maintained according to the manufacturer guide, high concentration of dissolved nitrates was discovered in the peripheral agricultural zones. We propose that local farmers must use controlled fertilization timing to prevent subterranean water contamination."
+  },
+  {
+    "id": "v2_6_eval_10_human_esl_business_memo",
+    "genre": "esl",
+    "lengthCategory": "medium",
+    "label": "human",
+    "origin": "verified_human",
+    "provenance": "Non-native European logistics coordinator internal email memo",
+    "text": "Dear colleagues, please be informed that our truck dispatch for the Hamburg terminal will be delayed by three hours tomorrow morning because of highway maintenance near Bremen. The drivers already received the updated toll tickets. If customer inquiries are coming about the shipment arrival, please tell them that unloading will start at 14:00 sharp."
+  },
+  {
+    "id": "v2_6_eval_11_human_short_email",
+    "genre": "conversational",
+    "lengthCategory": "short",
+    "label": "human",
+    "origin": "verified_human",
+    "provenance": "Brief human workplace coordination email",
+    "text": "Hey Sarah, I left the revised budget spreadsheet on your desk. Can you take a look before our 2 PM call? Thanks!"
+  },
+  {
+    "id": "v2_6_eval_12_human_short_note",
+    "genre": "conversational",
+    "lengthCategory": "short",
+    "label": "human",
+    "origin": "verified_human",
+    "provenance": "Handwritten human reminder note",
+    "text": "Don't forget to lock the back gate when you leave, the latch has been sticking again lately."
+  },
+  {
+    "id": "v2_6_eval_13_human_long_linguistics",
+    "genre": "academic",
+    "lengthCategory": "long",
+    "label": "human",
+    "origin": "verified_human",
+    "provenance": "Human scholarly paper on dialectal phonology and sociolinguistic variation",
+    "text": "The sociolinguistic stratification of postvocalic rhoticity across urban vernaculars provides an illustrative case study of prestige-driven phonetic variation. Early dialect surveys in the northeastern Atlantic corridor documented an almost categorical elision of coda liquids among working-class speakers, contrasting with the prescriptive norms maintained by broadcast media. However, longitudinal acoustic analyses conducted across generational cohorts reveal a non-linear reversal: younger speakers across socioeconomic strata are systematically reintroducing constriction during retroflex transitions. This phonological shift cannot be accounted for by geographic migration alone. Rather, it reflects an ideological realignment wherein localized stigmatization is overwritten by supra-regional corporate communicative standards. In conversational interviews, informants demonstrated heightened stylistic shifts, suppressing r-dropping entirely during formal reading tasks while retaining lexicalized tokens in unmonitored peer-group exchanges."
+  },
+  {
+    "id": "v2_6_eval_14_human_long_technical_architecture",
+    "genre": "technical",
+    "lengthCategory": "long",
+    "label": "human",
+    "origin": "verified_human",
+    "provenance": "Senior systems architect technical design doc on consensus replication",
+    "text": "Distributed consensus engines rely on replicated state machines to provide linearizable read and write semantics across partitioned server topologies. When designing high-throughput transaction pipelines, the primary latency overhead stems not from cryptographic signing or state serialization, but rather from network round-trip hops during multi-phase commit quorum negotiations. In our benchmark evaluations of Raft clusters across geographically separated availability zones, write throughput degraded precipitously whenever leader heartbeats competed with batch log replication streams for socket buffers. To mitigate this head-of-line blocking, we bifurcated the RPC channel into dedicated priority queues: consensus voting metadata is dispatched over unbuffered low-latency channels, whereas transaction payloads are chunked and streamed asynchronously through pipelined zero-copy ring buffers. This architecture reduces tail latency under saturated network conditions."
+  },
+  {
+    "id": "v2_6_eval_15_ai_cliche_corporate_01",
+    "genre": "corporate",
+    "lengthCategory": "medium",
+    "label": "ai",
+    "origin": "ai_generated",
+    "provenance": "Frontier LLM default corporate strategy output",
+    "text": "In today's fast-paced digital landscape, organizations must navigate a multifaceted tapestry of emerging challenges. Furthermore, embracing artificial intelligence plays a pivotal role in unlocking sustainable growth and fostering operational synergy. Needless to say, it is important to remember that true innovation serves as a testament to the dedication of forward-thinking leadership. Ultimately, by leveraging dynamic paradigms, enterprises can achieve seamless alignment."
+  },
+  {
+    "id": "v2_6_eval_16_ai_academic_philosophy",
+    "genre": "academic",
+    "lengthCategory": "medium",
+    "label": "ai",
+    "origin": "ai_generated",
+    "provenance": "LLM generation: undergraduate philosophy of mind prompt",
+    "text": "The nature of consciousness has long captivated thinkers across disciplines, serving as a profound exploration into the human condition. When examining the mind-body problem, it becomes increasingly clear that reductionist perspectives often overlook the subjective tapestry of lived experience. Moreover, dualism offers an intriguing lens through which to contemplate intentionality. In conclusion, delving into these philosophical inquiries fosters a deeper appreciation for existential truth."
+  },
+  {
+    "id": "v2_6_eval_17_ai_technical_microservice",
+    "genre": "technical",
+    "lengthCategory": "medium",
+    "label": "ai",
+    "origin": "ai_generated",
+    "provenance": "LLM generation: microservices caching architecture",
+    "text": "Modern cloud-native architectures utilize distributed caching solutions to ensure optimal throughput and minimize database latency. In this comprehensive overview, we will delve into the multifaceted mechanisms that underpin cache invalidation. Furthermore, by implementing resilient retry patterns and circuit breakers, software engineers can seamlessly safeguard system reliability while driving transformative technological efficiency."
+  },
+  {
+    "id": "v2_6_eval_18_ai_conversational_advice",
+    "genre": "conversational",
+    "lengthCategory": "medium",
+    "label": "ai",
+    "origin": "ai_generated",
+    "provenance": "LLM generation: conversational wellness and productivity advice",
+    "text": "Balancing personal well-being and professional responsibilities can certainly feel overwhelming in today's fast-paced world. However, by establishing mindful daily routines and embracing holistic habits, you can cultivate inner peace. Remember that taking small, intentional steps serves as a testament to your personal growth. In summary, prioritizing self-care is a journey worth cherishing."
+  },
+  {
+    "id": "v2_6_eval_19_ai_creative_storytelling",
+    "genre": "creative",
+    "lengthCategory": "medium",
+    "label": "ai",
+    "origin": "ai_generated",
+    "provenance": "LLM generation: creative fantasy writing sample",
+    "text": "The ancient forest stood shrouded in mystical twilight, its whispering leaves weaving an enchanting tapestry of forgotten lore. Elowen stepped forward, her heart echoing with quiet anticipation as the glowing crystals illuminated the sacred altar. Indeed, the artifacts served as a silent testament to the ancient guardians who once walked these shadowed glades."
+  },
+  {
+    "id": "v2_6_eval_20_ai_short_chat",
+    "genre": "conversational",
+    "lengthCategory": "short",
+    "label": "ai",
+    "origin": "ai_generated",
+    "provenance": "Brief assistant generation",
+    "text": "I would be delighted to assist you with crafting a compelling cover letter that showcases your unique qualifications and dedication."
+  },
+  {
+    "id": "v2_6_eval_21_ai_long_quantum_computing",
+    "genre": "academic",
+    "lengthCategory": "long",
+    "label": "ai",
+    "origin": "ai_generated",
+    "provenance": "LLM generation: comprehensive research paper on quantum error correction",
+    "text": "Quantum computing represents a revolutionary paradigm in modern computational physics, promising to tackle intractable problems that baffle classical supercomputers. At the heart of this transformative discipline lies the delicate interplay of quantum superposition and entanglement. However, maintaining quantum coherence remains a monumental hurdle due to environmental decoherence. Surface codes and topological error correction frameworks offer a pivotal path forward, weaving together intricate lattices of physical qubits to preserve logical state information. Delving into the mathematical formalisms of stabilizer codes reveals how syndrome measurements can detect bit-flip and phase-flip anomalies without collapsing the underlying superposition. Furthermore, as cryogenic engineering continues to evolve, researchers are making strides toward fault-tolerant architectures. Ultimately, quantum supremacy serves as an undeniable testament to human ingenuity, illuminating a future rich with scientific discovery."
+  },
+  {
+    "id": "v2_6_eval_22_ai_long_corporate_governance",
+    "genre": "corporate",
+    "lengthCategory": "long",
+    "label": "ai",
+    "origin": "ai_generated",
+    "provenance": "LLM generation: enterprise risk management annual report",
+    "text": "In the modern corporate ecosystem, robust governance frameworks play a pivotal role in ensuring regulatory compliance and safeguarding shareholder value. Throughout the past fiscal year, our organization has navigated a complex tapestry of geopolitical headwinds and supply chain disruptions. By fostering an inclusive culture of accountability, we have unlocked operational efficiencies across all business verticals. Furthermore, our strategic roadmap emphasizes sustainable ESG initiatives designed to catalyze long-term value creation. Needless to say, our steadfast commitment to operational excellence serves as a testament to the resilience of our workforce. Looking ahead, we will continue to leverage synergistic partnerships and cutting-edge digital solutions to foster sustainable prosperity."
+  },
+  {
+    "id": "v2_6_eval_23_mixed_instruction_corporate",
+    "genre": "mixed",
+    "lengthCategory": "medium",
+    "label": "mixed",
+    "origin": "mixed_authorship",
+    "provenance": "50% human instruction, 50% AI corporate clichés",
+    "text": "When you clean up the garage this weekend, make sure you don't throw away that old wooden crate near the workbench. It might look like scrap lumber, but my grandfather built it by hand sixty years ago, and I'm planning to restore it.\n\nIn today's fast-paced corporate environment, navigating this multifaceted tapestry of organizational challenges serves as a testament to our steadfast commitment to operational excellence."
+  },
+  {
+    "id": "v2_6_eval_24_hybrid_human_edited_ai",
+    "genre": "collaborative",
+    "lengthCategory": "medium",
+    "label": "human_edited_ai",
+    "origin": "human_edited",
+    "provenance": "AI generated initial draft rewritten by human journalist to remove boilerplate",
+    "text": "The city council voted 5-2 on Tuesday night to approve the downtown zoning amendment. While real estate developers celebrated the decision as a boost for local housing inventory, preservation advocates raised concerns about demolishing historic brick warehouses along Water Street. Construction on the first mixed-use tower is scheduled to begin in September."
+  }
+]
+

@@ -1,16 +1,18 @@
 /**
  * ============================================================================
- * HUMANIZETEXT DETECTOR: CANDIDATE INTEGRATION BOUNDARY (V2.5.0)
+ * HUMANIZETEXT DETECTOR: CANDIDATE INTEGRATION BOUNDARY (V2.6.0)
  * 
  * Provides a clean, isolated bridge between detector engines and the client/server
  * inference pipelines.
  * 
  * ENGINES:
  * 1. 'production_default': Stable baseline heuristic (detectorCore.ts).
- * 2. 'v2_5_public_beta': Frozen V2.5.0 trained stylometric model (L2 regularized
+ * 2. 'v2_6_hierarchical': Premier length-aware multi-section detector with
+ *    domain false-alarm mitigation, independent style scores, and mixed detection.
+ * 3. 'v2_5_public_beta': Frozen V2.5.0 trained stylometric model (L2 regularized
  *    logistic regression with Platt scaling and 3-tier selective policy).
- * 3. 'experimental_stylometric': Hand-weighted V2.3 stylometric discriminator.
- * 4. 'experimental_fusion': Hand-tuned V2.3 hybrid heuristic fusion.
+ * 4. 'experimental_stylometric': Hand-weighted V2.3 stylometric discriminator.
+ * 5. 'experimental_fusion': Hand-tuned V2.3 hybrid heuristic fusion.
  * ============================================================================
  */
 
@@ -20,9 +22,13 @@ import { runHybridDetector, type HybridDetectorConfig } from './v2_3/hybridDetec
 import type { V23DetectionResult } from './v2_3/types';
 import { predictV25Text } from './v2_5/detectorV2_5';
 import type { V25InferenceResult } from './v2_5/types';
+import { analyzeHierarchicalContent } from './v2_6/hierarchicalDetector';
+import type { HierarchicalDetectionResult } from './v2_6/types';
+import { sanitizeEngineId } from './environment';
 
 export type CandidateEngineId =
-  | 'production_default'          // Option A: Stable baseline heuristic
+  | 'production_default'          // Option A: Stable baseline heuristic (Default)
+  | 'v2_6_hierarchical'           // V2.6: Length-aware, multi-section hierarchical detector with domain protection
   | 'v2_5_public_beta'           // V2.5: Trained ML stylometric classifier (PUBLIC BETA)
   | 'experimental_stylometric'    // V2.3: Hand-weighted stylometric discriminator
   | 'experimental_fusion';        // V2.3: Heuristic score fusion with selective abstention
@@ -38,11 +44,11 @@ export interface CandidateExecutionResponse {
   isProductionDefault: boolean;
   score: number;
   scoreLabel: string;
-  verdict: 'ai' | 'human' | 'abstained' | 'inconclusive';
+  verdict: 'ai' | 'human' | 'mixed' | 'abstained' | 'inconclusive';
   isAbstained: boolean;
   abstentionReason: string | null;
   disclaimer: string;
-  rawCandidateResult?: V23DetectionResult | V25InferenceResult;
+  rawCandidateResult?: V23DetectionResult | V25InferenceResult | HierarchicalDetectionResult;
 }
 
 /**
@@ -53,25 +59,9 @@ export function executeDetectorEngine(
   text: string,
   options: CandidateIntegrationOptions = {}
 ): CandidateExecutionResponse {
-  const engineId: CandidateEngineId = options.engineId ?? 'production_default';
+  const engineId: CandidateEngineId = sanitizeEngineId(options.engineId) as CandidateEngineId;
 
-  // 1. V2.5 Trained Stylometric Candidate (Public Beta)
-  if (engineId === 'v2_5_public_beta') {
-    const v25Res = predictV25Text(text, { minWordCount: options.minWordCount });
-    return {
-      engineId: 'v2_5_public_beta',
-      isProductionDefault: false,
-      score: v25Res.calibratedProbability,
-      scoreLabel: 'calibrated_ai_probability',
-      verdict: v25Res.verdict,
-      isAbstained: v25Res.isAbstained,
-      abstentionReason: v25Res.abstentionReason,
-      disclaimer: 'PUBLIC BETA (V2.5.0): Trained statistical stylometric classifier. Results are probabilistic estimations and not proof of authorship.',
-      rawCandidateResult: v25Res,
-    };
-  }
-
-  // 2. Production default (Option A - stable baseline)
+  // 1. Production default (Option A - stable baseline)
   if (engineId === 'production_default') {
     const baseline = computeAiScore(text);
     const score = Number(baseline.aiProbability.toFixed(3));
@@ -87,7 +77,45 @@ export function executeDetectorEngine(
     };
   }
 
-  // 3. Experimental Option B (Stylometric Discriminator)
+  // 2. V2.6 Hierarchical Detector (Premier Engine)
+  if (engineId === 'v2_6_hierarchical') {
+    const v26Res = analyzeHierarchicalContent(text, { minWordCount: options.minWordCount });
+    let mappedVerdict: 'ai' | 'human' | 'mixed' | 'inconclusive' = 'inconclusive';
+    if (v26Res.originClassification === 'likely-ai') mappedVerdict = 'ai';
+    else if (v26Res.originClassification === 'likely-human') mappedVerdict = 'human';
+    else if (v26Res.originClassification === 'mixed') mappedVerdict = 'mixed';
+    else mappedVerdict = 'inconclusive';
+
+    return {
+      engineId: 'v2_6_hierarchical',
+      isProductionDefault: false,
+      score: v26Res.calibratedAiProbability,
+      scoreLabel: 'calibrated_ai_probability',
+      verdict: mappedVerdict,
+      isAbstained: v26Res.originClassification === 'inconclusive',
+      abstentionReason: v26Res.abstentionReason ?? null,
+      disclaimer: 'V2.6 Hierarchical Detector: Multi-section stylometric assessment with domain protection.',
+      rawCandidateResult: v26Res,
+    };
+  }
+
+  // 3. V2.5 Trained Stylometric Candidate (Public Beta)
+  if (engineId === 'v2_5_public_beta') {
+    const v25Res = predictV25Text(text, { minWordCount: options.minWordCount });
+    return {
+      engineId: 'v2_5_public_beta',
+      isProductionDefault: false,
+      score: v25Res.calibratedProbability,
+      scoreLabel: 'calibrated_ai_probability',
+      verdict: v25Res.verdict,
+      isAbstained: v25Res.isAbstained,
+      abstentionReason: v25Res.abstentionReason,
+      disclaimer: 'PUBLIC BETA (V2.5.0): Trained statistical stylometric classifier. Results are probabilistic estimations and not proof of authorship.',
+      rawCandidateResult: v25Res,
+    };
+  }
+
+  // 4. Experimental Option B (Stylometric Discriminator)
   if (engineId === 'experimental_stylometric') {
     const candidate = runStylometricDiscriminator(text);
     return {
@@ -103,7 +131,7 @@ export function executeDetectorEngine(
     };
   }
 
-  // 4. Experimental Option C (Heuristic Score Fusion)
+  // 5. Experimental Option C (Heuristic Score Fusion)
   if (engineId === 'experimental_fusion') {
     const candidate = runHybridDetector(text, options.fusionConfig);
     return {

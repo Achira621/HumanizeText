@@ -5,6 +5,7 @@ import type {
 import { OptionalBrowserAIEngine } from './browserAiEngine';
 import { RuleBasedHumanizerEngine } from './ruleEngine';
 import { defaultWorkerApiClient, WorkerApiClient } from '../workerApi/client';
+import { executeDocumentHumanizer } from '../pipeline/tokenBudgetRouter';
 
 export type HumanizerEngineId = 'deterministic-rules' | 'browser-ai-local' | 'cloudflare-workers-ai';
 
@@ -46,6 +47,18 @@ export class HumanizerManager {
     overrideEngineId?: HumanizerEngineId
   ): Promise<HumanizerResult> {
     const targetEngine = overrideEngineId || this.activeEngineId;
+    const words = text.split(/\s+/).filter(Boolean);
+
+    // If long multi-paragraph document and not already inside a chunk sub-call, execute chunked strategy
+    if (!options?.isChunkPass && (words.length >= 350 || text.split(/\n\s*\n/).length >= 3)) {
+      return await executeDocumentHumanizer(
+        text,
+        options,
+        async (chunkText: string, chunkOpts: HumanizerOptions) => {
+          return await this.humanize(chunkText, { ...chunkOpts, isChunkPass: true }, targetEngine);
+        }
+      );
+    }
 
     if (targetEngine === 'cloudflare-workers-ai') {
       return await this.workerApiClient.humanize(text, options);
