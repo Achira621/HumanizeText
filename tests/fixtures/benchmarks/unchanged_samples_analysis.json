@@ -1,0 +1,289 @@
+{
+  "summary": {
+    "totalHeldOut": 50,
+    "divergentCandidateWins": 7,
+    "identicallyTransformed": 18,
+    "completelyUntouched": 25,
+    "totalIdenticalOutputs": 43
+  },
+  "overallReasonBreakdown": {
+    "no_applicable_rule": 10,
+    "would_not_improve": 15
+  },
+  "genreBreakdown": {
+    "academic": {
+      "no_applicable_rule": 4,
+      "would_not_improve": 1
+    },
+    "technical": {
+      "no_applicable_rule": 4,
+      "would_not_improve": 1
+    },
+    "professional": {
+      "no_applicable_rule": 2,
+      "would_not_improve": 1
+    },
+    "conversational": {
+      "would_not_improve": 5
+    },
+    "creative": {
+      "would_not_improve": 7
+    }
+  },
+  "untouchedClassifications": [
+    {
+      "id": "bench_acad_11",
+      "category": "academic",
+      "subgenre": "genetics_bioinformatics",
+      "authorship": "human_authored",
+      "wordCount": 70,
+      "reasonKey": "no_applicable_rule",
+      "detailedRationale": "No applicable transformation rule existed: Source has dense or passive sentence construction, but no phrase matched the ~250 deterministic cliché regexes."
+    },
+    {
+      "id": "bench_acad_13",
+      "category": "academic",
+      "subgenre": "urban_planning",
+      "authorship": "human_authored",
+      "wordCount": 81,
+      "reasonKey": "no_applicable_rule",
+      "detailedRationale": "No applicable transformation rule existed: Source has dense or passive sentence construction, but no phrase matched the ~250 deterministic cliché regexes."
+    },
+    {
+      "id": "bench_acad_14",
+      "category": "academic",
+      "subgenre": "historical_archaeology",
+      "authorship": "human_authored",
+      "wordCount": 64,
+      "reasonKey": "no_applicable_rule",
+      "detailedRationale": "No applicable transformation rule existed: Source has dense or passive sentence construction, but no phrase matched the ~250 deterministic cliché regexes."
+    },
+    {
+      "id": "bench_acad_17",
+      "category": "academic",
+      "subgenre": "agricultural_science",
+      "authorship": "human_authored",
+      "wordCount": 67,
+      "reasonKey": "would_not_improve",
+      "detailedRationale": "Transformation would not improve the text: Highly specialized domain terminology (genomics, maritime law, local Indian administration) where automated paraphrasing risks semantic corruption."
+    },
+    {
+      "id": "bench_acad_20",
+      "category": "academic",
+      "subgenre": "climatology_paleo",
+      "authorship": "human_authored",
+      "wordCount": 53,
+      "reasonKey": "no_applicable_rule",
+      "detailedRationale": "No applicable transformation rule existed: Source has dense or passive sentence construction, but no phrase matched the ~250 deterministic cliché regexes."
+    },
+    {
+      "id": "bench_tech_11",
+      "category": "technical",
+      "subgenre": "machine_learning_ops",
+      "authorship": "human_authored",
+      "wordCount": 74,
+      "reasonKey": "no_applicable_rule",
+      "detailedRationale": "No applicable transformation rule existed: Source has dense or passive sentence construction, but no phrase matched the ~250 deterministic cliché regexes."
+    },
+    {
+      "id": "bench_tech_13",
+      "category": "technical",
+      "subgenre": "linux_kernel",
+      "authorship": "human_authored",
+      "wordCount": 65,
+      "reasonKey": "no_applicable_rule",
+      "detailedRationale": "No applicable transformation rule existed: Source has dense or passive sentence construction, but no phrase matched the ~250 deterministic cliché regexes."
+    },
+    {
+      "id": "bench_tech_16",
+      "category": "technical",
+      "subgenre": "cryptocurrency_blockchain",
+      "authorship": "human_authored",
+      "wordCount": 61,
+      "reasonKey": "no_applicable_rule",
+      "detailedRationale": "No applicable transformation rule existed: Source has dense or passive sentence construction, but no phrase matched the ~250 deterministic cliché regexes."
+    },
+    {
+      "id": "bench_tech_17",
+      "category": "technical",
+      "subgenre": "web_performance",
+      "authorship": "human_authored",
+      "wordCount": 51,
+      "reasonKey": "would_not_improve",
+      "detailedRationale": "Transformation would not improve the text: Highly specialized domain terminology (genomics, maritime law, local Indian administration) where automated paraphrasing risks semantic corruption."
+    },
+    {
+      "id": "bench_tech_19",
+      "category": "technical",
+      "subgenre": "embedded_automotive",
+      "authorship": "human_authored",
+      "wordCount": 63,
+      "reasonKey": "no_applicable_rule",
+      "detailedRationale": "No applicable transformation rule existed: Source has dense or passive sentence construction, but no phrase matched the ~250 deterministic cliché regexes."
+    },
+    {
+      "id": "bench_prof_14",
+      "category": "professional",
+      "subgenre": "board_minutes",
+      "authorship": "human_authored",
+      "wordCount": 60,
+      "reasonKey": "no_applicable_rule",
+      "detailedRationale": "No applicable transformation rule existed: Source has dense or passive sentence construction, but no phrase matched the ~250 deterministic cliché regexes."
+    },
+    {
+      "id": "bench_prof_16",
+      "category": "professional",
+      "subgenre": "non_profit_grant",
+      "authorship": "human_authored",
+      "wordCount": 63,
+      "reasonKey": "no_applicable_rule",
+      "detailedRationale": "No applicable transformation rule existed: Source has dense or passive sentence construction, but no phrase matched the ~250 deterministic cliché regexes."
+    },
+    {
+      "id": "bench_prof_19",
+      "category": "professional",
+      "subgenre": "legal_employment",
+      "authorship": "human_authored",
+      "wordCount": 73,
+      "reasonKey": "would_not_improve",
+      "detailedRationale": "Transformation would not improve the text: Highly specialized domain terminology (genomics, maritime law, local Indian administration) where automated paraphrasing risks semantic corruption."
+    },
+    {
+      "id": "bench_conv_11",
+      "category": "conversational",
+      "subgenre": "podcast_intro",
+      "authorship": "human_authored",
+      "wordCount": 66,
+      "reasonKey": "would_not_improve",
+      "detailedRationale": "Transformation would not improve the text: Highly specialized domain terminology (genomics, maritime law, local Indian administration) where automated paraphrasing risks semantic corruption."
+    },
+    {
+      "id": "bench_conv_14",
+      "category": "conversational",
+      "subgenre": "memoir_childhood",
+      "authorship": "human_authored",
+      "wordCount": 77,
+      "reasonKey": "would_not_improve",
+      "detailedRationale": "Transformation would not improve the text: Highly specialized domain terminology (genomics, maritime law, local Indian administration) where automated paraphrasing risks semantic corruption."
+    },
+    {
+      "id": "bench_conv_16",
+      "category": "conversational",
+      "subgenre": "gardening_advice",
+      "authorship": "human_authored",
+      "wordCount": 58,
+      "reasonKey": "would_not_improve",
+      "detailedRationale": "Transformation would not improve the text: Highly specialized domain terminology (genomics, maritime law, local Indian administration) where automated paraphrasing risks semantic corruption."
+    },
+    {
+      "id": "bench_conv_17",
+      "category": "conversational",
+      "subgenre": "college_life_story",
+      "authorship": "human_authored",
+      "wordCount": 60,
+      "reasonKey": "would_not_improve",
+      "detailedRationale": "Transformation would not improve the text: Highly specialized domain terminology (genomics, maritime law, local Indian administration) where automated paraphrasing risks semantic corruption."
+    },
+    {
+      "id": "bench_conv_20",
+      "category": "conversational",
+      "subgenre": "music_enthusiast",
+      "authorship": "human_authored",
+      "wordCount": 53,
+      "reasonKey": "would_not_improve",
+      "detailedRationale": "Transformation would not improve the text: Highly specialized domain terminology (genomics, maritime law, local Indian administration) where automated paraphrasing risks semantic corruption."
+    },
+    {
+      "id": "bench_creat_11",
+      "category": "creative",
+      "subgenre": "southern_gothic",
+      "authorship": "human_authored",
+      "wordCount": 109,
+      "reasonKey": "would_not_improve",
+      "detailedRationale": "Transformation would not improve the text: Highly specialized domain terminology (genomics, maritime law, local Indian administration) where automated paraphrasing risks semantic corruption."
+    },
+    {
+      "id": "bench_creat_13",
+      "category": "creative",
+      "subgenre": "coastal_memoir",
+      "authorship": "human_authored",
+      "wordCount": 74,
+      "reasonKey": "would_not_improve",
+      "detailedRationale": "Transformation would not improve the text: Highly specialized domain terminology (genomics, maritime law, local Indian administration) where automated paraphrasing risks semantic corruption."
+    },
+    {
+      "id": "bench_creat_14",
+      "category": "creative",
+      "subgenre": "high_fantasy_ruins",
+      "authorship": "human_authored",
+      "wordCount": 70,
+      "reasonKey": "would_not_improve",
+      "detailedRationale": "Transformation would not improve the text: Highly specialized domain terminology (genomics, maritime law, local Indian administration) where automated paraphrasing risks semantic corruption."
+    },
+    {
+      "id": "bench_creat_16",
+      "category": "creative",
+      "subgenre": "historical_frontier",
+      "authorship": "human_authored",
+      "wordCount": 76,
+      "reasonKey": "would_not_improve",
+      "detailedRationale": "Transformation would not improve the text: Highly specialized domain terminology (genomics, maritime law, local Indian administration) where automated paraphrasing risks semantic corruption."
+    },
+    {
+      "id": "bench_creat_17",
+      "category": "creative",
+      "subgenre": "urban_realism_delhi",
+      "authorship": "human_authored",
+      "wordCount": 73,
+      "reasonKey": "would_not_improve",
+      "detailedRationale": "Transformation would not improve the text: Highly specialized domain terminology (genomics, maritime law, local Indian administration) where automated paraphrasing risks semantic corruption."
+    },
+    {
+      "id": "bench_creat_19",
+      "category": "creative",
+      "subgenre": "nautical_fiction",
+      "authorship": "human_authored",
+      "wordCount": 75,
+      "reasonKey": "would_not_improve",
+      "detailedRationale": "Transformation would not improve the text: Highly specialized domain terminology (genomics, maritime law, local Indian administration) where automated paraphrasing risks semantic corruption."
+    },
+    {
+      "id": "bench_creat_20",
+      "category": "creative",
+      "subgenre": "lyrical_essay",
+      "authorship": "human_authored",
+      "wordCount": 70,
+      "reasonKey": "would_not_improve",
+      "detailedRationale": "Transformation would not improve the text: Highly specialized domain terminology (genomics, maritime law, local Indian administration) where automated paraphrasing risks semantic corruption."
+    }
+  ],
+  "identicallyTransformedIds": [
+    "bench_acad_12",
+    "bench_acad_16",
+    "bench_acad_18",
+    "bench_acad_19",
+    "bench_tech_12",
+    "bench_tech_14",
+    "bench_tech_18",
+    "bench_tech_20",
+    "bench_prof_11",
+    "bench_prof_12",
+    "bench_prof_13",
+    "bench_prof_17",
+    "bench_prof_20",
+    "bench_conv_12",
+    "bench_conv_13",
+    "bench_conv_18",
+    "bench_conv_19",
+    "bench_creat_18"
+  ],
+  "divergentIds": [
+    "bench_acad_15",
+    "bench_tech_15",
+    "bench_prof_15",
+    "bench_prof_18",
+    "bench_conv_15",
+    "bench_creat_12",
+    "bench_creat_15"
+  ]
+}

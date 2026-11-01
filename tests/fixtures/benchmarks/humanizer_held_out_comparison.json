@@ -1,0 +1,2053 @@
+{
+  "timestamp": "2026-11-01T11:46:05.649Z",
+  "totalHeldOutSamples": 50,
+  "candidatePreferredCount": 3,
+  "baselinePreferredCount": 0,
+  "equalCount": 47,
+  "records": [
+    {
+      "id": "bench_acad_11",
+      "category": "academic",
+      "subgenre": "genetics_bioinformatics",
+      "authorship": "human_authored",
+      "originalText": "Genome-wide off-target cleavage was profiled using GUIDE-seq across eight validated therapeutic loci in primary human CD34+ hematopoietic stem and progenitor cells. Cas9 ribonucleoprotein complexes targeting the BCL11A enhancer displayed exceptional on-target specificity, with on-target indel frequencies averaging 87.3% across three biological replicates. Only two bona fide off-target sites were detected with variant frequencies greater than 0.1%, both situated in non-coding intergenic regions exhibiting no transcriptional activity in RNA-seq validation assays.",
+      "baselineOutput": "Genome-wide off-target cleavage was profiled using GUIDE-seq across eight validated therapeutic loci in primary human CD34+ hematopoietic stem and progenitor cells. Cas9 ribonucleoprotein complexes targeting the BCL11A enhancer displayed exceptional on-target specificity, with on-target indel frequencies averaging 87.3% across three biological replicates. Only two bona fide off-target sites were detected with variant frequencies greater than 0.1%, both situated in non-coding intergenic regions exhibiting no transcriptional activity in RNA-seq validation assays.",
+      "candidateOutput": "Genome-wide off-target cleavage was profiled using GUIDE-seq across eight validated therapeutic loci in primary human CD34+ hematopoietic stem and progenitor cells. Cas9 ribonucleoprotein complexes targeting the BCL11A enhancer displayed exceptional on-target specificity, with on-target indel frequencies averaging 87.3% across three biological replicates. Only two bona fide off-target sites were detected with variant frequencies greater than 0.1%, both situated in non-coding intergenic regions exhibiting no transcriptional activity in RNA-seq validation assays.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "Genome-wide off-target cleavage was profiled using GUIDE-seq across eight validated therapeutic loci in primary human CD34+ hematopoietic stem and progenitor cells. Cas9 ribonucleoprotein complexes targeting the BCL11A enhancer displayed exceptional on-target specificity, with on-target indel frequencies averaging 87.3% across three biological replicates. Only two bona fide off-target sites were detected with variant frequencies greater than 0.1%, both situated in non-coding intergenic regions exhibiting no transcriptional activity in RNA-seq validation assays.",
+        "engineB": "candidate",
+        "outputB": "Genome-wide off-target cleavage was profiled using GUIDE-seq across eight validated therapeutic loci in primary human CD34+ hematopoietic stem and progenitor cells. Cas9 ribonucleoprotein complexes targeting the BCL11A enhancer displayed exceptional on-target specificity, with on-target indel frequencies averaging 87.3% across three biological replicates. Only two bona fide off-target sites were detected with variant frequencies greater than 0.1%, both situated in non-coding intergenic regions exhibiting no transcriptional activity in RNA-seq validation assays."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_acad_12",
+      "category": "academic",
+      "subgenre": "psychology_behavioral",
+      "authorship": "ai_generated",
+      "originalText": "In the realm of social psychology, the concept of ego depletion has sparked vigorous debate. In today's academic landscape, researchers delve into whether willpower is an exhaustible physical resource. Furthermore, a preregistered multi-lab replication across 23 laboratories involving 2,141 participants failed to replicate the original glucose replenishment effect (d = 0.04, 95% CI [-0.07, 0.15]). This pivotal study serves as a testament to the importance of open science practices.",
+      "baselineOutput": "In social psychology, the concept of ego depletion has sparked vigorous debate. In today's academic landscape, researchers examine whether willpower is an exhaustible physical resource. Furthermore, a preregistered multi-lab replication across 23 laboratories involving 2,141 participants failed to replicate the original glucose replenishment effect (d = 0.04, 95% CI [-0.07, 0.15]). This pivotal study demonstrates the importance of open science practices.",
+      "candidateOutput": "In social psychology, the concept of ego depletion has sparked vigorous debate. In today's academic landscape, researchers examine whether willpower is an exhaustible physical resource. Furthermore, a preregistered multi-lab replication across 23 laboratories involving 2,141 participants failed to replicate the original glucose replenishment effect (d = 0.04, 95% CI [-0.07, 0.15]). This pivotal study demonstrates the importance of open science practices.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "In social psychology, the concept of ego depletion has sparked vigorous debate. In today's academic landscape, researchers examine whether willpower is an exhaustible physical resource. Furthermore, a preregistered multi-lab replication across 23 laboratories involving 2,141 participants failed to replicate the original glucose replenishment effect (d = 0.04, 95% CI [-0.07, 0.15]). This pivotal study demonstrates the importance of open science practices.",
+        "engineB": "candidate",
+        "outputB": "In social psychology, the concept of ego depletion has sparked vigorous debate. In today's academic landscape, researchers examine whether willpower is an exhaustible physical resource. Furthermore, a preregistered multi-lab replication across 23 laboratories involving 2,141 participants failed to replicate the original glucose replenishment effect (d = 0.04, 95% CI [-0.07, 0.15]). This pivotal study demonstrates the importance of open science practices."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.75,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.8840579710144928
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.75,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.8840579710144928
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_acad_13",
+      "category": "academic",
+      "subgenre": "urban_planning",
+      "authorship": "human_authored",
+      "originalText": "The implementation of Transit-Oriented Development (TOD) along the Namma Metro Phase-2 corridor has faced major hurdles on the ground level. While floor area ratio (FAR) relaxations up to 4.0 were officially sanctioned by the state urban development department, the absence of last-mile feeder bus routes and pedestrian walkways has led to severe traffic congestion around major interchange stations like Silk Board and Majestic. Commuters are forced to rely on private autos and two-wheelers, defeating the very objective of mass rapid transit.",
+      "baselineOutput": "The implementation of Transit-Oriented Development (TOD) along the Namma Metro Phase-2 corridor has faced major hurdles on the ground level. While floor area ratio (FAR) relaxations up to 4.0 were officially sanctioned by the state urban development department, the absence of last-mile feeder bus routes and pedestrian walkways has led to severe traffic congestion around major interchange stations like Silk Board and Majestic. Commuters are forced to rely on private autos and two-wheelers, defeating the very objective of mass rapid transit.",
+      "candidateOutput": "The implementation of Transit-Oriented Development (TOD) along the Namma Metro Phase-2 corridor has faced major hurdles on the ground level. While floor area ratio (FAR) relaxations up to 4.0 were officially sanctioned by the state urban development department, the absence of last-mile feeder bus routes and pedestrian walkways has led to severe traffic congestion around major interchange stations like Silk Board and Majestic. Commuters are forced to rely on private autos and two-wheelers, defeating the very objective of mass rapid transit.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "The implementation of Transit-Oriented Development (TOD) along the Namma Metro Phase-2 corridor has faced major hurdles on the ground level. While floor area ratio (FAR) relaxations up to 4.0 were officially sanctioned by the state urban development department, the absence of last-mile feeder bus routes and pedestrian walkways has led to severe traffic congestion around major interchange stations like Silk Board and Majestic. Commuters are forced to rely on private autos and two-wheelers, defeating the very objective of mass rapid transit.",
+        "engineB": "candidate",
+        "outputB": "The implementation of Transit-Oriented Development (TOD) along the Namma Metro Phase-2 corridor has faced major hurdles on the ground level. While floor area ratio (FAR) relaxations up to 4.0 were officially sanctioned by the state urban development department, the absence of last-mile feeder bus routes and pedestrian walkways has led to severe traffic congestion around major interchange stations like Silk Board and Majestic. Commuters are forced to rely on private autos and two-wheelers, defeating the very objective of mass rapid transit."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_acad_14",
+      "category": "academic",
+      "subgenre": "historical_archaeology",
+      "authorship": "human_authored",
+      "originalText": "Lead isotope analysis of 48 oxhide ingots recovered from the Uluburun shipwreck demonstrated that copper was mined predominantly from the Apliki deposit in northwestern Cyprus. Tin isotope compositions, however, pointed toward alluvial cassiterite deposits located in Central Asia, over 2,500 kilometers eastward. This divergence confirms that Late Bronze Age maritime elites sustained interconnected supply chains extending from the Aegean Sea to the Hindu Kush.",
+      "baselineOutput": "Lead isotope analysis of 48 oxhide ingots recovered from the Uluburun shipwreck demonstrated that copper was mined predominantly from the Apliki deposit in northwestern Cyprus. Tin isotope compositions, however, pointed toward alluvial cassiterite deposits located in Central Asia, over 2,500 kilometers eastward. This divergence confirms that Late Bronze Age maritime elites sustained interconnected supply chains extending from the Aegean Sea to the Hindu Kush.",
+      "candidateOutput": "Lead isotope analysis of 48 oxhide ingots recovered from the Uluburun shipwreck demonstrated that copper was mined predominantly from the Apliki deposit in northwestern Cyprus. Tin isotope compositions, however, pointed toward alluvial cassiterite deposits located in Central Asia, over 2,500 kilometers eastward. This divergence confirms that Late Bronze Age maritime elites sustained interconnected supply chains extending from the Aegean Sea to the Hindu Kush.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "Lead isotope analysis of 48 oxhide ingots recovered from the Uluburun shipwreck demonstrated that copper was mined predominantly from the Apliki deposit in northwestern Cyprus. Tin isotope compositions, however, pointed toward alluvial cassiterite deposits located in Central Asia, over 2,500 kilometers eastward. This divergence confirms that Late Bronze Age maritime elites sustained interconnected supply chains extending from the Aegean Sea to the Hindu Kush.",
+        "engineB": "candidate",
+        "outputB": "Lead isotope analysis of 48 oxhide ingots recovered from the Uluburun shipwreck demonstrated that copper was mined predominantly from the Apliki deposit in northwestern Cyprus. Tin isotope compositions, however, pointed toward alluvial cassiterite deposits located in Central Asia, over 2,500 kilometers eastward. This divergence confirms that Late Bronze Age maritime elites sustained interconnected supply chains extending from the Aegean Sea to the Hindu Kush."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_acad_15",
+      "category": "academic",
+      "subgenre": "quantum_physics",
+      "authorship": "ai_generated",
+      "originalText": "Topological quantum computing serves as a testament to human ingenuity. In today's digital era, scientists delve into Majorana zero modes within semiconductor-superconductor nanowires. Furthermore, non-Abelian braiding statistics play a pivotal role in fault-tolerant quantum gate implementation, shielding qubits from local thermal perturbations.",
+      "baselineOutput": "Topological quantum computing demonstrates human ingenuity. In today's digital era, scientists examine Majorana zero modes within semiconductor-superconductor nanowires. Furthermore, non-Abelian braiding statistics makes a big difference in fault-tolerant quantum gate implementation, shielding qubits from local thermal perturbations.",
+      "candidateOutput": "Topological quantum computing demonstrates human ingenuity. In today's digital era, scientists examine Majorana zero modes within semiconductor-superconductor nanowires. Furthermore, non-Abelian braiding statistics are central to fault-tolerant quantum gate implementation, shielding qubits from local thermal perturbations.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "Topological quantum computing demonstrates human ingenuity. In today's digital era, scientists examine Majorana zero modes within semiconductor-superconductor nanowires. Furthermore, non-Abelian braiding statistics makes a big difference in fault-tolerant quantum gate implementation, shielding qubits from local thermal perturbations.",
+        "engineB": "candidate",
+        "outputB": "Topological quantum computing demonstrates human ingenuity. In today's digital era, scientists examine Majorana zero modes within semiconductor-superconductor nanowires. Furthermore, non-Abelian braiding statistics are central to fault-tolerant quantum gate implementation, shielding qubits from local thermal perturbations."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.54,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 3.5,
+        "wordCountExpansion": 0.8809523809523809
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.5306122448979592,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.8333333333333334
+      },
+      "candidateWinsCategory": true,
+      "notes": [
+        "Candidate better preserved formal/scholarly voice without colloquial degradation."
+      ]
+    },
+    {
+      "id": "bench_acad_16",
+      "category": "academic",
+      "subgenre": "sociolinguistics",
+      "authorship": "human_authored",
+      "originalText": "In the observed secondary school in Singapore, teachers utilized code-switching between Standard Singapore English and Colloquial Singapore English (Singlish) in order to negotiate classroom disciplinary episodes. When explaining abstract mathematical concepts, standard registers were rigorously maintained. However, during informal group exercises, teachers spontaneously switched to colloquial discourse markers like 'lah' and 'leh' to establish pedagogical rapport and decrease affective filters.",
+      "baselineOutput": "In the observed secondary school in Singapore, teachers used code-switching between Standard Singapore English and Colloquial Singapore English (Singlish) to negotiate classroom disciplinary episodes. When explaining abstract mathematical concepts, standard registers were rigorously maintained. Still, during informal group exercises, teachers spontaneously switched to colloquial discourse markers like'lah'and'leh'to establish pedagogical rapport and decrease affective filters.",
+      "candidateOutput": "In the observed secondary school in Singapore, teachers used code-switching between Standard Singapore English and Colloquial Singapore English (Singlish) to negotiate classroom disciplinary episodes. When explaining abstract mathematical concepts, standard registers were rigorously maintained. Still, during informal group exercises, teachers spontaneously switched to colloquial discourse markers like'lah'and'leh'to establish pedagogical rapport and decrease affective filters.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "In the observed secondary school in Singapore, teachers used code-switching between Standard Singapore English and Colloquial Singapore English (Singlish) to negotiate classroom disciplinary episodes. When explaining abstract mathematical concepts, standard registers were rigorously maintained. Still, during informal group exercises, teachers spontaneously switched to colloquial discourse markers like'lah'and'leh'to establish pedagogical rapport and decrease affective filters.",
+        "engineB": "candidate",
+        "outputB": "In the observed secondary school in Singapore, teachers used code-switching between Standard Singapore English and Colloquial Singapore English (Singlish) to negotiate classroom disciplinary episodes. When explaining abstract mathematical concepts, standard registers were rigorously maintained. Still, during informal group exercises, teachers spontaneously switched to colloquial discourse markers like'lah'and'leh'to establish pedagogical rapport and decrease affective filters."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.6923076923076923,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.9
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.6923076923076923,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.9
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_acad_17",
+      "category": "academic",
+      "subgenre": "agricultural_science",
+      "authorship": "human_authored",
+      "originalText": "Direct Seeded Rice (DSR) technology was introduced with a view to curtail excessive groundwater depletion in the paddy bowl of north-western India. Field trials over three consecutive kharif seasons (2021–2023) demonstrated irrigation water savings of 18–22% alongside an average yield reduction of merely 3.4 quintals per hectare compared to conventional puddle transplantation. Weed infestation, however, emerged as a serious bottleneck for smallholder farmers lacking specialized pre-emergence herbicides.",
+      "baselineOutput": "Direct Seeded Rice (DSR) technology was introduced with a view to curtail excessive groundwater depletion in the paddy bowl of north-western India. Field trials over three consecutive kharif seasons (2021–2023) demonstrated irrigation water savings of 18–22% alongside an average yield reduction of merely 3.4 quintals per hectare compared to conventional puddle transplantation. Weed infestation, however, emerged as a serious bottleneck for smallholder farmers lacking specialized pre-emergence herbicides.",
+      "candidateOutput": "Direct Seeded Rice (DSR) technology was introduced with a view to curtail excessive groundwater depletion in the paddy bowl of north-western India. Field trials over three consecutive kharif seasons (2021–2023) demonstrated irrigation water savings of 18–22% alongside an average yield reduction of merely 3.4 quintals per hectare compared to conventional puddle transplantation. Weed infestation, however, emerged as a serious bottleneck for smallholder farmers lacking specialized pre-emergence herbicides.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "Direct Seeded Rice (DSR) technology was introduced with a view to curtail excessive groundwater depletion in the paddy bowl of north-western India. Field trials over three consecutive kharif seasons (2021–2023) demonstrated irrigation water savings of 18–22% alongside an average yield reduction of merely 3.4 quintals per hectare compared to conventional puddle transplantation. Weed infestation, however, emerged as a serious bottleneck for smallholder farmers lacking specialized pre-emergence herbicides.",
+        "engineB": "candidate",
+        "outputB": "Direct Seeded Rice (DSR) technology was introduced with a view to curtail excessive groundwater depletion in the paddy bowl of north-western India. Field trials over three consecutive kharif seasons (2021–2023) demonstrated irrigation water savings of 18–22% alongside an average yield reduction of merely 3.4 quintals per hectare compared to conventional puddle transplantation. Weed infestation, however, emerged as a serious bottleneck for smallholder farmers lacking specialized pre-emergence herbicides."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 0.8,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 0.8,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_acad_18",
+      "category": "academic",
+      "subgenre": "neuroscience",
+      "authorship": "ai_generated",
+      "originalText": "The intricate tapestry of memory consolidation unfolds during slow-wave NREM sleep. In the realm of neural oscillations, sharp-wave ripples delve into hippocampal-cortical replay. It is important to note that synchronous replay transfers episodic memories to neocortical storage sites. Furthermore, optogenetic silencing of hippocampal CA1 pyramidal neurons during ripples impairs 24-hour contextual fear retention by 64%.",
+      "baselineOutput": "The intricate blend of memory consolidation unfolds during slow-wave NREM sleep. In neural oscillations, sharp-wave ripples examine hippocampal-cortical replay. Notably, synchronous replay transfers episodic memories to neocortical storage sites. Furthermore, optogenetic silencing of hippocampal CA1 pyramidal neurons during ripples impairs 24-hour contextual fear retention by 64%.",
+      "candidateOutput": "The intricate blend of memory consolidation unfolds during slow-wave NREM sleep. In neural oscillations, sharp-wave ripples examine hippocampal-cortical replay. Notably, synchronous replay transfers episodic memories to neocortical storage sites. Furthermore, optogenetic silencing of hippocampal CA1 pyramidal neurons during ripples impairs 24-hour contextual fear retention by 64%.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "The intricate blend of memory consolidation unfolds during slow-wave NREM sleep. In neural oscillations, sharp-wave ripples examine hippocampal-cortical replay. Notably, synchronous replay transfers episodic memories to neocortical storage sites. Furthermore, optogenetic silencing of hippocampal CA1 pyramidal neurons during ripples impairs 24-hour contextual fear retention by 64%.",
+        "engineB": "candidate",
+        "outputB": "The intricate blend of memory consolidation unfolds during slow-wave NREM sleep. In neural oscillations, sharp-wave ripples examine hippocampal-cortical replay. Notably, synchronous replay transfers episodic memories to neocortical storage sites. Furthermore, optogenetic silencing of hippocampal CA1 pyramidal neurons during ripples impairs 24-hour contextual fear retention by 64%."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.6229508196721312,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.8363636363636363
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.6229508196721312,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.8363636363636363
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_acad_19",
+      "category": "academic",
+      "subgenre": "legal_scholarship",
+      "authorship": "human_authored",
+      "originalText": "Traditional Sherman Act Section 2 jurisprudence relies on single-market price-cost tests that fail when applied to zero-nominal-price digital platforms. In two-sided transaction platforms such as payment card networks and app marketplaces, cross-side network effects necessitate evaluating competitive harm across both platform sides simultaneously, as articulated in Ohio v. American Express Co. (2018). Imposing predatory pricing liability based solely on single-side losses risks penalizing pro-competitive cross-subsidization that maximizes joint consumer surplus.",
+      "baselineOutput": "Traditional Sherman Act Section 2 jurisprudence relies on single-market price-cost tests that fail when applied to zero-nominal-price digital platforms. In two-sided transaction platforms such as payment card networks and app marketplaces, cross-side network effects necessitate evaluating competitive harm across both platform sides simultaneously, as articulated in Ohio v. American Express Co, while (2018). Imposing predatory pricing liability based solely on single-side losses risks penalizing pro-competitive cross-subsidization that maximizes joint consumer surplus.",
+      "candidateOutput": "Traditional Sherman Act Section 2 jurisprudence relies on single-market price-cost tests that fail when applied to zero-nominal-price digital platforms. In two-sided transaction platforms such as payment card networks and app marketplaces, cross-side network effects necessitate evaluating competitive harm across both platform sides simultaneously, as articulated in Ohio v. American Express Co, while (2018). Imposing predatory pricing liability based solely on single-side losses risks penalizing pro-competitive cross-subsidization that maximizes joint consumer surplus.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "Traditional Sherman Act Section 2 jurisprudence relies on single-market price-cost tests that fail when applied to zero-nominal-price digital platforms. In two-sided transaction platforms such as payment card networks and app marketplaces, cross-side network effects necessitate evaluating competitive harm across both platform sides simultaneously, as articulated in Ohio v. American Express Co, while (2018). Imposing predatory pricing liability based solely on single-side losses risks penalizing pro-competitive cross-subsidization that maximizes joint consumer surplus.",
+        "engineB": "candidate",
+        "outputB": "Traditional Sherman Act Section 2 jurisprudence relies on single-market price-cost tests that fail when applied to zero-nominal-price digital platforms. In two-sided transaction platforms such as payment card networks and app marketplaces, cross-side network effects necessitate evaluating competitive harm across both platform sides simultaneously, as articulated in Ohio v. American Express Co, while (2018). Imposing predatory pricing liability based solely on single-side losses risks penalizing pro-competitive cross-subsidization that maximizes joint consumer surplus."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 0.6666666666666666,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.9577464788732394,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1.0142857142857142
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 0.6666666666666666,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.9577464788732394,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1.0142857142857142
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_acad_20",
+      "category": "academic",
+      "subgenre": "climatology_paleo",
+      "authorship": "human_authored",
+      "originalText": "High-resolution continuous flow methane measurements from the EPICA Dome C ice core established that atmospheric CH4 fluctuated between 350 and 800 ppb over eight glacial-interglacial cycles spanning 800,000 years. Abrupt Dansgaard-Oeschger warming events in Greenland coincided within ±40 years with rapid tropical wetland methane emissions, corroborating rapid atmospheric teleconnections across hemispheric weather patterns.",
+      "baselineOutput": "High-resolution continuous flow methane measurements from the EPICA Dome C ice core established that atmospheric CH4 fluctuated between 350 and 800 ppb over eight glacial-interglacial cycles spanning 800,000 years. Abrupt Dansgaard-Oeschger warming events in Greenland coincided within ±40 years with rapid tropical wetland methane emissions, corroborating rapid atmospheric teleconnections across hemispheric weather patterns.",
+      "candidateOutput": "High-resolution continuous flow methane measurements from the EPICA Dome C ice core established that atmospheric CH4 fluctuated between 350 and 800 ppb over eight glacial-interglacial cycles spanning 800,000 years. Abrupt Dansgaard-Oeschger warming events in Greenland coincided within ±40 years with rapid tropical wetland methane emissions, corroborating rapid atmospheric teleconnections across hemispheric weather patterns.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "High-resolution continuous flow methane measurements from the EPICA Dome C ice core established that atmospheric CH4 fluctuated between 350 and 800 ppb over eight glacial-interglacial cycles spanning 800,000 years. Abrupt Dansgaard-Oeschger warming events in Greenland coincided within ±40 years with rapid tropical wetland methane emissions, corroborating rapid atmospheric teleconnections across hemispheric weather patterns.",
+        "engineB": "candidate",
+        "outputB": "High-resolution continuous flow methane measurements from the EPICA Dome C ice core established that atmospheric CH4 fluctuated between 350 and 800 ppb over eight glacial-interglacial cycles spanning 800,000 years. Abrupt Dansgaard-Oeschger warming events in Greenland coincided within ±40 years with rapid tropical wetland methane emissions, corroborating rapid atmospheric teleconnections across hemispheric weather patterns."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_tech_11",
+      "category": "technical",
+      "subgenre": "machine_learning_ops",
+      "authorship": "human_authored",
+      "originalText": "Traditional transformer inference engines allocate contiguous GPU physical memory for the key-value (KV) cache based on maximum sequence length, leading to memory fragmentation between 60% and 80%. PagedAttention divides each sequence’s KV cache into fixed-size virtual blocks of 16 tokens and allocates non-contiguous physical DRAM blocks on demand through an OS-style page table. This reduces memory waste to under 4%, enabling a 2.5-fold to 4-fold increase in concurrent serving batch size without sacrificing latency.",
+      "baselineOutput": "Traditional transformer inference engines allocate contiguous GPU physical memory for the key-value (KV) cache based on maximum sequence length, leading to memory fragmentation between 60% and 80%. PagedAttention divides each sequence’s KV cache into fixed-size virtual blocks of 16 tokens and allocates non-contiguous physical DRAM blocks on demand through an OS-style page table. This reduces memory waste to under 4%, enabling a 2.5-fold to 4-fold increase in concurrent serving batch size without sacrificing latency.",
+      "candidateOutput": "Traditional transformer inference engines allocate contiguous GPU physical memory for the key-value (KV) cache based on maximum sequence length, leading to memory fragmentation between 60% and 80%. PagedAttention divides each sequence’s KV cache into fixed-size virtual blocks of 16 tokens and allocates non-contiguous physical DRAM blocks on demand through an OS-style page table. This reduces memory waste to under 4%, enabling a 2.5-fold to 4-fold increase in concurrent serving batch size without sacrificing latency.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "Traditional transformer inference engines allocate contiguous GPU physical memory for the key-value (KV) cache based on maximum sequence length, leading to memory fragmentation between 60% and 80%. PagedAttention divides each sequence’s KV cache into fixed-size virtual blocks of 16 tokens and allocates non-contiguous physical DRAM blocks on demand through an OS-style page table. This reduces memory waste to under 4%, enabling a 2.5-fold to 4-fold increase in concurrent serving batch size without sacrificing latency.",
+        "engineB": "candidate",
+        "outputB": "Traditional transformer inference engines allocate contiguous GPU physical memory for the key-value (KV) cache based on maximum sequence length, leading to memory fragmentation between 60% and 80%. PagedAttention divides each sequence’s KV cache into fixed-size virtual blocks of 16 tokens and allocates non-contiguous physical DRAM blocks on demand through an OS-style page table. This reduces memory waste to under 4%, enabling a 2.5-fold to 4-fold increase in concurrent serving batch size without sacrificing latency."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_tech_12",
+      "category": "technical",
+      "subgenre": "compiler_engineering",
+      "authorship": "ai_generated",
+      "originalText": "In the realm of compiler optimization, Static Single Assignment (SSA) form plays a pivotal role in intermediate representation design. Compilers delve into phi nodes in order to resolve variable versions at control-flow join points. Furthermore, dominance frontiers are essential for placing phi functions efficiently through Cytron’s algorithm. It is important to note that SSA simplifications yield cleaner dead-code elimination.",
+      "baselineOutput": "In compiler optimization, Static Single Assignment (SSA) form is central to intermediate representation design. Compilers examine phi nodes to resolve variable versions at control-flow join points. Furthermore, dominance frontiers are essential for placing phi functions efficiently through Cytron’s algorithm. Notably, SSA simplifications yield cleaner dead-code elimination.",
+      "candidateOutput": "In compiler optimization, Static Single Assignment (SSA) form is central to intermediate representation design. Compilers examine phi nodes to resolve variable versions at control-flow join points. Furthermore, dominance frontiers are essential for placing phi functions efficiently through Cytron’s algorithm. Notably, SSA simplifications yield cleaner dead-code elimination.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "In compiler optimization, Static Single Assignment (SSA) form is central to intermediate representation design. Compilers examine phi nodes to resolve variable versions at control-flow join points. Furthermore, dominance frontiers are essential for placing phi functions efficiently through Cytron’s algorithm. Notably, SSA simplifications yield cleaner dead-code elimination.",
+        "engineB": "candidate",
+        "outputB": "In compiler optimization, Static Single Assignment (SSA) form is central to intermediate representation design. Compilers examine phi nodes to resolve variable versions at control-flow join points. Furthermore, dominance frontiers are essential for placing phi functions efficiently through Cytron’s algorithm. Notably, SSA simplifications yield cleaner dead-code elimination."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 0.6666666666666666,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.5147058823529411,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.7796610169491526
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 0.6666666666666666,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.5147058823529411,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.7796610169491526
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_tech_13",
+      "category": "technical",
+      "subgenre": "linux_kernel",
+      "authorship": "human_authored",
+      "originalText": "eBPF programs attached to the eXpress Data Path (XDP) driver hook intercept incoming Ethernet frames directly in the network interface card (NIC) receive ring buffer before socket buffer (sk_buff) allocation occurs in the kernel. By inspecting IP and TCP headers at line rate (100 Gbps), the program can emit an XDP_DROP action to defeat volumetric SYN flood DDoS attacks with zero CPU context switching overhead.",
+      "baselineOutput": "eBPF programs attached to the eXpress Data Path (XDP) driver hook intercept incoming Ethernet frames directly in the network interface card (NIC) receive ring buffer before socket buffer (sk_buff) allocation occurs in the kernel. By inspecting IP and TCP headers at line rate (100 Gbps), the program can emit an XDP_DROP action to defeat volumetric SYN flood DDoS attacks with zero CPU context switching overhead.",
+      "candidateOutput": "eBPF programs attached to the eXpress Data Path (XDP) driver hook intercept incoming Ethernet frames directly in the network interface card (NIC) receive ring buffer before socket buffer (sk_buff) allocation occurs in the kernel. By inspecting IP and TCP headers at line rate (100 Gbps), the program can emit an XDP_DROP action to defeat volumetric SYN flood DDoS attacks with zero CPU context switching overhead.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "eBPF programs attached to the eXpress Data Path (XDP) driver hook intercept incoming Ethernet frames directly in the network interface card (NIC) receive ring buffer before socket buffer (sk_buff) allocation occurs in the kernel. By inspecting IP and TCP headers at line rate (100 Gbps), the program can emit an XDP_DROP action to defeat volumetric SYN flood DDoS attacks with zero CPU context switching overhead.",
+        "engineB": "candidate",
+        "outputB": "eBPF programs attached to the eXpress Data Path (XDP) driver hook intercept incoming Ethernet frames directly in the network interface card (NIC) receive ring buffer before socket buffer (sk_buff) allocation occurs in the kernel. By inspecting IP and TCP headers at line rate (100 Gbps), the program can emit an XDP_DROP action to defeat volumetric SYN flood DDoS attacks with zero CPU context switching overhead."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_tech_14",
+      "category": "technical",
+      "subgenre": "backend_scalability",
+      "authorship": "human_authored",
+      "originalText": "During the Big Billion Day flash sale, our hot SKU cache key expired simultaneously for 25,000 concurrent shopping cart requests. All requests hit the downstream MySQL replica directly, causing connection pool exhaustion and 504 gateway timeouts. We have addressed the issue by adding a random TTL jitter of 30 to 120 seconds to all cache keys and implementing a mutex lock using Redlock to ensure only single worker re-populates stale keys.",
+      "baselineOutput": "During the Big Billion Day flash sale, our hot SKU cache key expired simultaneously for 25,000 concurrent shopping cart requests. All requests hit the downstream MySQL replica directly, causing connection pool exhaustion and 504 gateway timeouts. We have addressed the issue by adding a random TTL jitter of 30 to 120 seconds to all cache keys and implementing a mutex lock using Redlock to guarantee that only single worker re-populates stale keys.",
+      "candidateOutput": "During the Big Billion Day flash sale, our hot SKU cache key expired simultaneously for 25,000 concurrent shopping cart requests. All requests hit the downstream MySQL replica directly, causing connection pool exhaustion and 504 gateway timeouts. We have addressed the issue by adding a random TTL jitter of 30 to 120 seconds to all cache keys and implementing a mutex lock using Redlock to guarantee that only single worker re-populates stale keys.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "During the Big Billion Day flash sale, our hot SKU cache key expired simultaneously for 25,000 concurrent shopping cart requests. All requests hit the downstream MySQL replica directly, causing connection pool exhaustion and 504 gateway timeouts. We have addressed the issue by adding a random TTL jitter of 30 to 120 seconds to all cache keys and implementing a mutex lock using Redlock to guarantee that only single worker re-populates stale keys.",
+        "engineB": "candidate",
+        "outputB": "During the Big Billion Day flash sale, our hot SKU cache key expired simultaneously for 25,000 concurrent shopping cart requests. All requests hit the downstream MySQL replica directly, causing connection pool exhaustion and 504 gateway timeouts. We have addressed the issue by adding a random TTL jitter of 30 to 120 seconds to all cache keys and implementing a mutex lock using Redlock to guarantee that only single worker re-populates stale keys."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.9315068493150684,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1.0140845070422535
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.9315068493150684,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1.0140845070422535
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_tech_15",
+      "category": "technical",
+      "subgenre": "container_orchestration",
+      "authorship": "ai_generated",
+      "originalText": "Docker layer caching stands as a beacon of efficiency in today's fast-paced DevOps landscape. In order to delve into build speed optimization, developers copy package.json files before copying source directories. Furthermore, multi-stage builds play a pivotal role in minimizing final image sizes down to under 50MB.",
+      "baselineOutput": "Docker layer caching exemplifies efficiency in today's fast-paced DevOps landscape. To examine build speed refinement, developers copy package.json files before copying source directories. Also, multi-stage builds makes a big difference in minimizing final image sizes down to under 50MB.",
+      "candidateOutput": "Docker layer caching exemplifies efficiency in today's fast-paced DevOps landscape. To examine build speed refinement, developers copy package.json files before copying source directories. In addition, multi-stage builds are central to minimizing final image sizes down to under 50MB.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "Docker layer caching exemplifies efficiency in today's fast-paced DevOps landscape. To examine build speed refinement, developers copy package.json files before copying source directories. Also, multi-stage builds makes a big difference in minimizing final image sizes down to under 50MB.",
+        "engineB": "candidate",
+        "outputB": "Docker layer caching exemplifies efficiency in today's fast-paced DevOps landscape. To examine build speed refinement, developers copy package.json files before copying source directories. In addition, multi-stage builds are central to minimizing final image sizes down to under 50MB."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.4067796610169492,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 3.5,
+        "voicePreservation": 2.7,
+        "wordCountExpansion": 0.8478260869565217
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.3898305084745763,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 4,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.8260869565217391
+      },
+      "candidateWinsCategory": true,
+      "notes": [
+        "Candidate better preserved formal/scholarly voice without colloquial degradation.",
+        "Candidate eliminated AI cliché patterns while baseline retained them."
+      ]
+    },
+    {
+      "id": "bench_tech_16",
+      "category": "technical",
+      "subgenre": "cryptocurrency_blockchain",
+      "authorship": "human_authored",
+      "originalText": "EIP-1559 replaced first-price gas auctions with a dynamic protocol-determined baseFeePerGas that adjusts automatically based on previous block size relative to the 15-million-gas target. If the parent block gas exceeds target capacity, baseFeePerGas increases by up to 12.5%, and the base fee component is burned rather than paid to block validators, curbing ETH token supply inflation while mitigating miner extractable value (MEV).",
+      "baselineOutput": "EIP-1559 replaced first-price gas auctions with a dynamic protocol-determined baseFeePerGas that adjusts automatically based on previous block size relative to the 15-million-gas target. If the parent block gas exceeds target capacity, baseFeePerGas increases by up to 12.5%, and the base fee component is burned rather than paid to block validators, curbing ETH token supply inflation while mitigating miner extractable value (MEV).",
+      "candidateOutput": "EIP-1559 replaced first-price gas auctions with a dynamic protocol-determined baseFeePerGas that adjusts automatically based on previous block size relative to the 15-million-gas target. If the parent block gas exceeds target capacity, baseFeePerGas increases by up to 12.5%, and the base fee component is burned rather than paid to block validators, curbing ETH token supply inflation while mitigating miner extractable value (MEV).",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "EIP-1559 replaced first-price gas auctions with a dynamic protocol-determined baseFeePerGas that adjusts automatically based on previous block size relative to the 15-million-gas target. If the parent block gas exceeds target capacity, baseFeePerGas increases by up to 12.5%, and the base fee component is burned rather than paid to block validators, curbing ETH token supply inflation while mitigating miner extractable value (MEV).",
+        "engineB": "candidate",
+        "outputB": "EIP-1559 replaced first-price gas auctions with a dynamic protocol-determined baseFeePerGas that adjusts automatically based on previous block size relative to the 15-million-gas target. If the parent block gas exceeds target capacity, baseFeePerGas increases by up to 12.5%, and the base fee component is burned rather than paid to block validators, curbing ETH token supply inflation while mitigating miner extractable value (MEV)."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_tech_17",
+      "category": "technical",
+      "subgenre": "web_performance",
+      "authorship": "human_authored",
+      "originalText": "Image elements lacking explicit width and height attributes cause severe layout shifts when browser receives image bytes and changes document flow. The Cumulative Layout Shift (CLS) score jumped to 0.42, which fails Google Core Web Vitals threshold of 0.10. Always declare aspect-ratio CSS rule or inline attributes to reserve space upfront.",
+      "baselineOutput": "Image elements lacking explicit width and height attributes cause severe layout shifts when browser receives image bytes and changes document flow. The Cumulative Layout Shift (CLS) score jumped to 0.42, which fails Google Core Web Vitals threshold of 0.10. Always declare aspect-ratio CSS rule or inline attributes to reserve space upfront.",
+      "candidateOutput": "Image elements lacking explicit width and height attributes cause severe layout shifts when browser receives image bytes and changes document flow. The Cumulative Layout Shift (CLS) score jumped to 0.42, which fails Google Core Web Vitals threshold of 0.10. Always declare aspect-ratio CSS rule or inline attributes to reserve space upfront.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "Image elements lacking explicit width and height attributes cause severe layout shifts when browser receives image bytes and changes document flow. The Cumulative Layout Shift (CLS) score jumped to 0.42, which fails Google Core Web Vitals threshold of 0.10. Always declare aspect-ratio CSS rule or inline attributes to reserve space upfront.",
+        "engineB": "candidate",
+        "outputB": "Image elements lacking explicit width and height attributes cause severe layout shifts when browser receives image bytes and changes document flow. The Cumulative Layout Shift (CLS) score jumped to 0.42, which fails Google Core Web Vitals threshold of 0.10. Always declare aspect-ratio CSS rule or inline attributes to reserve space upfront."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_tech_18",
+      "category": "technical",
+      "subgenre": "telecommunications",
+      "authorship": "ai_generated",
+      "originalText": "In the realm of telecommunications, Massive MIMO serves as a testament to spectral efficiency gains. Base stations delve into digital beamforming across 64T64R antenna arrays in order to concentrate radio energy toward specific user equipment (UE). Furthermore, spatial multiplexing plays a pivotal role in achieving downlink throughput exceeding 1.2 Gbps in sub-6 GHz spectrum.",
+      "baselineOutput": "In telecommunications, Massive MIMO demonstrates spectral efficiency gains. Base stations examine digital beamforming across 64T64R antenna arrays to concentrate radio energy toward specific user equipment (UE). Furthermore, spatial multiplexing is central to achieving downlink throughput exceeding 1.2 Gbps in sub-6 GHz spectrum.",
+      "candidateOutput": "In telecommunications, Massive MIMO demonstrates spectral efficiency gains. Base stations examine digital beamforming across 64T64R antenna arrays to concentrate radio energy toward specific user equipment (UE). Furthermore, spatial multiplexing is central to achieving downlink throughput exceeding 1.2 Gbps in sub-6 GHz spectrum.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "In telecommunications, Massive MIMO demonstrates spectral efficiency gains. Base stations examine digital beamforming across 64T64R antenna arrays to concentrate radio energy toward specific user equipment (UE). Furthermore, spatial multiplexing is central to achieving downlink throughput exceeding 1.2 Gbps in sub-6 GHz spectrum.",
+        "engineB": "candidate",
+        "outputB": "In telecommunications, Massive MIMO demonstrates spectral efficiency gains. Base stations examine digital beamforming across 64T64R antenna arrays to concentrate radio energy toward specific user equipment (UE). Furthermore, spatial multiplexing is central to achieving downlink throughput exceeding 1.2 Gbps in sub-6 GHz spectrum."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.49206349206349204,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.7777777777777778
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.49206349206349204,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.7777777777777778
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_tech_19",
+      "category": "technical",
+      "subgenre": "embedded_automotive",
+      "authorship": "human_authored",
+      "originalText": "In CAN 2.0B protocol frames, transmitter nodes inject a complementary stuffed bit whenever five consecutive bits of identical polarity are detected within the start-of-frame to CRC sequence. If any receiving node detects six consecutive bits of identical polarity, it immediately overrides transmission by broadcasting an active error frame consisting of six consecutive dominant bits, forcing all network nodes to discard the corrupted packet.",
+      "baselineOutput": "In CAN 2.0B protocol frames, transmitter nodes inject a complementary stuffed bit whenever five consecutive bits of identical polarity are detected within the start-of-frame to CRC sequence. If any receiving node detects six consecutive bits of identical polarity, it immediately overrides transmission by broadcasting an active error frame consisting of six consecutive dominant bits, forcing all network nodes to discard the corrupted packet.",
+      "candidateOutput": "In CAN 2.0B protocol frames, transmitter nodes inject a complementary stuffed bit whenever five consecutive bits of identical polarity are detected within the start-of-frame to CRC sequence. If any receiving node detects six consecutive bits of identical polarity, it immediately overrides transmission by broadcasting an active error frame consisting of six consecutive dominant bits, forcing all network nodes to discard the corrupted packet.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "In CAN 2.0B protocol frames, transmitter nodes inject a complementary stuffed bit whenever five consecutive bits of identical polarity are detected within the start-of-frame to CRC sequence. If any receiving node detects six consecutive bits of identical polarity, it immediately overrides transmission by broadcasting an active error frame consisting of six consecutive dominant bits, forcing all network nodes to discard the corrupted packet.",
+        "engineB": "candidate",
+        "outputB": "In CAN 2.0B protocol frames, transmitter nodes inject a complementary stuffed bit whenever five consecutive bits of identical polarity are detected within the start-of-frame to CRC sequence. If any receiving node detects six consecutive bits of identical polarity, it immediately overrides transmission by broadcasting an active error frame consisting of six consecutive dominant bits, forcing all network nodes to discard the corrupted packet."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_tech_20",
+      "category": "technical",
+      "subgenre": "cloud_security",
+      "authorship": "human_authored",
+      "originalText": "The audit revealed that staging bucket 'acme-data-exports' had public read access enabled due to an overly permissive wildcard Principal in bucket policy. Anyone with internet access could do the listing of sensitive customer export CSVs. We have enabled S3 Block Public Access at account level and updated IAM role permissions as per principle of least privilege.",
+      "baselineOutput": "The audit revealed that staging bucket'acme-data-exports'had public read access enabled due to an overly permissive wildcard Principal in bucket policy. Anyone with internet access could do the listing of sensitive customer export CSVs. We have enabled S3 Block Public Access at account level and updated IAM role permissions as per principle of least privilege.",
+      "candidateOutput": "The audit revealed that staging bucket'acme-data-exports'had public read access enabled due to an overly permissive wildcard Principal in bucket policy. Anyone with internet access could do the listing of sensitive customer export CSVs. We have enabled S3 Block Public Access at account level and updated IAM role permissions as per principle of least privilege.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "The audit revealed that staging bucket'acme-data-exports'had public read access enabled due to an overly permissive wildcard Principal in bucket policy. Anyone with internet access could do the listing of sensitive customer export CSVs. We have enabled S3 Block Public Access at account level and updated IAM role permissions as per principle of least privilege.",
+        "engineB": "candidate",
+        "outputB": "The audit revealed that staging bucket'acme-data-exports'had public read access enabled due to an overly permissive wildcard Principal in bucket policy. Anyone with internet access could do the listing of sensitive customer export CSVs. We have enabled S3 Block Public Access at account level and updated IAM role permissions as per principle of least privilege."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.8947368421052632,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.9642857142857143
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.8947368421052632,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.9642857142857143
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_prof_11",
+      "category": "professional",
+      "subgenre": "sales_proposal",
+      "authorship": "human_authored",
+      "originalText": "Apex Freight Logistics proposes to assume end-to-end management of Acme Retail’s cold-chain distribution network across 14 midwestern distribution centers. By deploying our proprietary temperature-monitored fleet and dynamic route optimization software, we guarantee a 99.2% on-time delivery rate while reducing per-mile diesel consumption by 11.4%. The proposed fixed-rate contract structure establishes price certainty over a 24-month engagement term starting January 1, 2026.",
+      "baselineOutput": "Apex Freight Logistics proposes to assume end-to-end management of Acme Retail’s cold-chain distribution network across 14 midwestern distribution centers. By deploying our proprietary temperature-monitored fleet and dynamic route refinement software, we guarantee a 99.2% on-time delivery rate while reducing per-mile diesel consumption by 11.4%. The proposed fixed-rate contract structure establishes price certainty over a 24-month engagement term starting January 1, 2026.",
+      "candidateOutput": "Apex Freight Logistics proposes to assume end-to-end management of Acme Retail’s cold-chain distribution network across 14 midwestern distribution centers. By deploying our proprietary temperature-monitored fleet and dynamic route refinement software, we guarantee a 99.2% on-time delivery rate while reducing per-mile diesel consumption by 11.4%. The proposed fixed-rate contract structure establishes price certainty over a 24-month engagement term starting January 1, 2026.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "Apex Freight Logistics proposes to assume end-to-end management of Acme Retail’s cold-chain distribution network across 14 midwestern distribution centers. By deploying our proprietary temperature-monitored fleet and dynamic route refinement software, we guarantee a 99.2% on-time delivery rate while reducing per-mile diesel consumption by 11.4%. The proposed fixed-rate contract structure establishes price certainty over a 24-month engagement term starting January 1, 2026.",
+        "engineB": "candidate",
+        "outputB": "Apex Freight Logistics proposes to assume end-to-end management of Acme Retail’s cold-chain distribution network across 14 midwestern distribution centers. By deploying our proprietary temperature-monitored fleet and dynamic route refinement software, we guarantee a 99.2% on-time delivery rate while reducing per-mile diesel consumption by 11.4%. The proposed fixed-rate contract structure establishes price certainty over a 24-month engagement term starting January 1, 2026."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.9354838709677419,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.9354838709677419,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_prof_12",
+      "category": "professional",
+      "subgenre": "change_management",
+      "authorship": "ai_generated",
+      "originalText": "In today's fast-paced enterprise landscape, operational efficiency plays a pivotal role in maintaining market leadership. Our organization is embarking on a comprehensive SAP S/4HANA migration in order to streamline procurement and finance workflows. Furthermore, this transition serves as a testament to our commitment to modernization. We will delve into regional training sessions starting next month.",
+      "baselineOutput": "In today's fast-paced enterprise landscape, daily productivity is central to maintaining market leadership. Our organization is embarking on a thorough SAP S/4HANA migration to simplify procurement and finance workflows. Also, this transition shows our commitment to modernization. We will examine regional training sessions starting next month.",
+      "candidateOutput": "In today's fast-paced enterprise landscape, daily productivity is central to maintaining market leadership. Our organization is embarking on a thorough SAP S/4HANA migration to simplify procurement and finance workflows. Also, this transition shows our commitment to modernization. We will examine regional training sessions starting next month.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "In today's fast-paced enterprise landscape, daily productivity is central to maintaining market leadership. Our organization is embarking on a thorough SAP S/4HANA migration to simplify procurement and finance workflows. Also, this transition shows our commitment to modernization. We will examine regional training sessions starting next month.",
+        "engineB": "candidate",
+        "outputB": "In today's fast-paced enterprise landscape, daily productivity is central to maintaining market leadership. Our organization is embarking on a thorough SAP S/4HANA migration to simplify procurement and finance workflows. Also, this transition shows our commitment to modernization. We will examine regional training sessions starting next month."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.39436619718309857,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 3.5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.8363636363636363
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.39436619718309857,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 3.5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.8363636363636363
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_prof_13",
+      "category": "professional",
+      "subgenre": "cross_cultural_management",
+      "authorship": "human_authored",
+      "originalText": "All employees are hereby informed that the office will remain closed on Friday, 1st November on account of Diwali festival. However, critical production support team members who are having shift duty must attend without fail. Comp-off will be provided for working on public holiday as per company norms. Kindly coordinate with respective team leads.",
+      "baselineOutput": "All employees are hereby informed that the office will remain closed on Friday, 1st November on account of Diwali festival. Still, critical production support team members who are having shift duty must attend without fail. Comp-off will be provided for working on public holiday as per company norms. Kindly coordinate with respective team leads.",
+      "candidateOutput": "All employees are hereby informed that the office will remain closed on Friday, 1st November on account of Diwali festival. Still, critical production support team members who are having shift duty must attend without fail. Comp-off will be provided for working on public holiday as per company norms. Kindly coordinate with respective team leads.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "All employees are hereby informed that the office will remain closed on Friday, 1st November on account of Diwali festival. Still, critical production support team members who are having shift duty must attend without fail. Comp-off will be provided for working on public holiday as per company norms. Kindly coordinate with respective team leads.",
+        "engineB": "candidate",
+        "outputB": "All employees are hereby informed that the office will remain closed on Friday, 1st November on account of Diwali festival. Still, critical production support team members who are having shift duty must attend without fail. Comp-off will be provided for working on public holiday as per company norms. Kindly coordinate with respective team leads."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.9272727272727272,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.9272727272727272,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_prof_14",
+      "category": "professional",
+      "subgenre": "board_minutes",
+      "authorship": "human_authored",
+      "originalText": "Upon motion duly made and seconded, the Audit Committee unanimously resolved to reappoint Ernst & Young LLP as the independent registered public accounting firm for the fiscal year ending December 31, 2026. The Committee reviewed proposed audit fees totaling $2,850,000 and confirmed that non-audit tax compliance services representing $340,000 did not impair auditor independence under Sarbanes-Oxley Act Section 201 guidelines.",
+      "baselineOutput": "Upon motion duly made and seconded, the Audit Committee unanimously resolved to reappoint Ernst & Young LLP as the independent registered public accounting firm for the fiscal year ending December 31, 2026. The Committee reviewed proposed audit fees totaling $2,850,000 and confirmed that non-audit tax compliance services representing $340,000 did not impair auditor independence under Sarbanes-Oxley Act Section 201 guidelines.",
+      "candidateOutput": "Upon motion duly made and seconded, the Audit Committee unanimously resolved to reappoint Ernst & Young LLP as the independent registered public accounting firm for the fiscal year ending December 31, 2026. The Committee reviewed proposed audit fees totaling $2,850,000 and confirmed that non-audit tax compliance services representing $340,000 did not impair auditor independence under Sarbanes-Oxley Act Section 201 guidelines.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "Upon motion duly made and seconded, the Audit Committee unanimously resolved to reappoint Ernst & Young LLP as the independent registered public accounting firm for the fiscal year ending December 31, 2026. The Committee reviewed proposed audit fees totaling $2,850,000 and confirmed that non-audit tax compliance services representing $340,000 did not impair auditor independence under Sarbanes-Oxley Act Section 201 guidelines.",
+        "engineB": "candidate",
+        "outputB": "Upon motion duly made and seconded, the Audit Committee unanimously resolved to reappoint Ernst & Young LLP as the independent registered public accounting firm for the fiscal year ending December 31, 2026. The Committee reviewed proposed audit fees totaling $2,850,000 and confirmed that non-audit tax compliance services representing $340,000 did not impair auditor independence under Sarbanes-Oxley Act Section 201 guidelines."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_prof_15",
+      "category": "professional",
+      "subgenre": "pr_crisis_communication",
+      "authorship": "ai_generated",
+      "originalText": "At CloudCore, customer trust serves as a testament to our core values. In the realm of cloud infrastructure, unexpected downtime disrupts vital business operations. We sincerely apologize for yesterday's 42-minute outage affecting our US-East region. Our engineering leadership delves into root cause telemetry in order to prevent recurrence.",
+      "baselineOutput": "At CloudCore, customer trust shows our core values. In cloud infrastructure, unexpected downtime disrupts vital business operations. We sincerely apologize for yesterday's 42-minute outage affecting our US-East region. Our engineering leadership examine root cause telemetry to prevent recurrence.",
+      "candidateOutput": "At CloudCore, customer trust shows our core values. In cloud infrastructure, unexpected downtime disrupts vital business operations. We sincerely apologize for yesterday's 42-minute outage affecting our US-East region. Our engineering leadership examines root cause telemetry to prevent recurrence.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "At CloudCore, customer trust shows our core values. In cloud infrastructure, unexpected downtime disrupts vital business operations. We sincerely apologize for yesterday's 42-minute outage affecting our US-East region. Our engineering leadership examine root cause telemetry to prevent recurrence.",
+        "engineB": "candidate",
+        "outputB": "At CloudCore, customer trust shows our core values. In cloud infrastructure, unexpected downtime disrupts vital business operations. We sincerely apologize for yesterday's 42-minute outage affecting our US-East region. Our engineering leadership examines root cause telemetry to prevent recurrence."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.5849056603773585,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.7916666666666666
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.5849056603773585,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.7916666666666666
+      },
+      "candidateWinsCategory": true,
+      "notes": []
+    },
+    {
+      "id": "bench_prof_16",
+      "category": "professional",
+      "subgenre": "non_profit_grant",
+      "authorship": "human_authored",
+      "originalText": "The Westside Community Pantry requests $75,000 to expand our mobile food distribution initiative across three underserved census tracts in eastern Wayne County. Over the past twelve months, client visits rose by 41% due to elevated grocery inflation and reductions in federal SNAP emergency allotments. Awarded funds will be allocated toward purchasing a refrigerated cargo van ($52,000) and subsidizing fresh local produce procurement ($23,000).",
+      "baselineOutput": "The Westside Community Pantry requests $75,000 to expand our mobile food distribution initiative across three underserved census tracts in eastern Wayne County. Over the past twelve months, client visits rose by 41% due to elevated grocery inflation and reductions in federal SNAP emergency allotments. Awarded funds will be allocated toward purchasing a refrigerated cargo van ($52,000) and subsidizing fresh local produce procurement ($23,000).",
+      "candidateOutput": "The Westside Community Pantry requests $75,000 to expand our mobile food distribution initiative across three underserved census tracts in eastern Wayne County. Over the past twelve months, client visits rose by 41% due to elevated grocery inflation and reductions in federal SNAP emergency allotments. Awarded funds will be allocated toward purchasing a refrigerated cargo van ($52,000) and subsidizing fresh local produce procurement ($23,000).",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "The Westside Community Pantry requests $75,000 to expand our mobile food distribution initiative across three underserved census tracts in eastern Wayne County. Over the past twelve months, client visits rose by 41% due to elevated grocery inflation and reductions in federal SNAP emergency allotments. Awarded funds will be allocated toward purchasing a refrigerated cargo van ($52,000) and subsidizing fresh local produce procurement ($23,000).",
+        "engineB": "candidate",
+        "outputB": "The Westside Community Pantry requests $75,000 to expand our mobile food distribution initiative across three underserved census tracts in eastern Wayne County. Over the past twelve months, client visits rose by 41% due to elevated grocery inflation and reductions in federal SNAP emergency allotments. Awarded funds will be allocated toward purchasing a refrigerated cargo van ($52,000) and subsidizing fresh local produce procurement ($23,000)."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_prof_17",
+      "category": "professional",
+      "subgenre": "management_consulting",
+      "authorship": "human_authored",
+      "originalText": "During our warehouse walk-through at Manaus distribution center, we verified excessive safety stock holding of SKU categories A and B. Because of inadequate demand forecasting, inventory turnover ratio dropped from 6.2 to 3.8 turns per annum. Implementing kanban replenishment pulls will eliminate approximately $180,000 in tied-up working capital.",
+      "baselineOutput": "During our warehouse walk-through at Manaus distribution center, we verified excessive safety stock holding of SKU categories An and B. Because of inadequate demand forecasting, inventory turnover ratio dropped from 6.2 to 3.8 turns per annum. Implementing kanban replenishment pulls will eliminate approximately $180,000 in tied-up working capital.",
+      "candidateOutput": "During our warehouse walk-through at Manaus distribution center, we verified excessive safety stock holding of SKU categories An and B. Because of inadequate demand forecasting, inventory turnover ratio dropped from 6.2 to 3.8 turns per annum. Implementing kanban replenishment pulls will eliminate approximately $180,000 in tied-up working capital.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "During our warehouse walk-through at Manaus distribution center, we verified excessive safety stock holding of SKU categories An and B. Because of inadequate demand forecasting, inventory turnover ratio dropped from 6.2 to 3.8 turns per annum. Implementing kanban replenishment pulls will eliminate approximately $180,000 in tied-up working capital.",
+        "engineB": "candidate",
+        "outputB": "During our warehouse walk-through at Manaus distribution center, we verified excessive safety stock holding of SKU categories An and B. Because of inadequate demand forecasting, inventory turnover ratio dropped from 6.2 to 3.8 turns per annum. Implementing kanban replenishment pulls will eliminate approximately $180,000 in tied-up working capital."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.9183673469387755,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.9183673469387755,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_prof_18",
+      "category": "professional",
+      "subgenre": "real_estate_commercial",
+      "authorship": "ai_generated",
+      "originalText": "In the realm of commercial real estate, 200 Market Plaza stands as a beacon of modern architectural elegance. This prime property delves into sustainable luxury with LEED Platinum certification. Furthermore, flexible floor plates ranging from 5,000 to 25,000 square feet play a pivotal role in accommodating dynamic tech workforces.",
+      "baselineOutput": "In commercial real estate, 200 Market Plaza exemplifies modern architectural elegance. This prime property examine steady luxury with LEED Platinum certification. Also, flexible floor plates ranging from 5,000 to 25,000 square feet makes a big difference in accommodating dynamic tech workforces.",
+      "candidateOutput": "In commercial real estate, 200 Market Plaza exemplifies modern architectural elegance. This prime property examines steady luxury with LEED Platinum certification. Also, flexible floor plates ranging from 5,000 to 25,000 square feet are central to accommodating dynamic tech workforces.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "In commercial real estate, 200 Market Plaza exemplifies modern architectural elegance. This prime property examine steady luxury with LEED Platinum certification. Also, flexible floor plates ranging from 5,000 to 25,000 square feet makes a big difference in accommodating dynamic tech workforces.",
+        "engineB": "candidate",
+        "outputB": "In commercial real estate, 200 Market Plaza exemplifies modern architectural elegance. This prime property examines steady luxury with LEED Platinum certification. Also, flexible floor plates ranging from 5,000 to 25,000 square feet are central to accommodating dynamic tech workforces."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.4426229508196721,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 4.5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.8367346938775511
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.43333333333333335,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 4.5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.7959183673469388
+      },
+      "candidateWinsCategory": true,
+      "notes": []
+    },
+    {
+      "id": "bench_prof_19",
+      "category": "professional",
+      "subgenre": "legal_employment",
+      "authorship": "human_authored",
+      "originalText": "In exchange for the separation payment specified in Section 2, Employee hereby fully, unconditionally, and irrevocably releases and forever discharges Employer, its parent entities, subsidiaries, officers, and agents from any and all claims, demands, liabilities, and causes of action arising out of or related to Employee’s employment or termination, including but not limited to claims under Title VII of the Civil Rights Act of 1964 and the Age Discrimination in Employment Act (ADEA).",
+      "baselineOutput": "In exchange for the separation payment specified in Section 2, Employee hereby fully, unconditionally, and irrevocably releases and forever discharges Employer, its parent entities, subsidiaries, officers, and agents from any and all claims, demands, liabilities, and causes of action arising out of or related to Employee’s employment or termination, including but not limited to claims under Title VII of the Civil Rights Act of 1964 and the Age Discrimination in Employment Act (ADEA).",
+      "candidateOutput": "In exchange for the separation payment specified in Section 2, Employee hereby fully, unconditionally, and irrevocably releases and forever discharges Employer, its parent entities, subsidiaries, officers, and agents from any and all claims, demands, liabilities, and causes of action arising out of or related to Employee’s employment or termination, including but not limited to claims under Title VII of the Civil Rights Act of 1964 and the Age Discrimination in Employment Act (ADEA).",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "In exchange for the separation payment specified in Section 2, Employee hereby fully, unconditionally, and irrevocably releases and forever discharges Employer, its parent entities, subsidiaries, officers, and agents from any and all claims, demands, liabilities, and causes of action arising out of or related to Employee’s employment or termination, including but not limited to claims under Title VII of the Civil Rights Act of 1964 and the Age Discrimination in Employment Act (ADEA).",
+        "engineB": "candidate",
+        "outputB": "In exchange for the separation payment specified in Section 2, Employee hereby fully, unconditionally, and irrevocably releases and forever discharges Employer, its parent entities, subsidiaries, officers, and agents from any and all claims, demands, liabilities, and causes of action arising out of or related to Employee’s employment or termination, including but not limited to claims under Title VII of the Civil Rights Act of 1964 and the Age Discrimination in Employment Act (ADEA)."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_prof_20",
+      "category": "professional",
+      "subgenre": "compliance_banking",
+      "authorship": "human_authored",
+      "originalText": "Dear Customer, this is to inform you that your savings bank account ending in 8902 has been put under debit freeze due to non-submission of updated periodic KYC documents. You are requested to kindly visit your home branch along with self-attested copies of Aadhaar card and PAN card at the earliest. Inconvenience caused is deeply regretted.",
+      "baselineOutput": "Dear Customer, this is to inform you that your savings bank account ending in 8902 has been put under debit freeze due to non-submission of updated periodic KYC documents. You're requested to kindly visit your home branch along with self-attested copies of Aadhaar card and PAN card at the earliest. Inconvenience caused is deeply regretted.",
+      "candidateOutput": "Dear Customer, this is to inform you that your savings bank account ending in 8902 has been put under debit freeze due to non-submission of updated periodic KYC documents. You're requested to kindly visit your home branch along with self-attested copies of Aadhaar card and PAN card at the earliest. Inconvenience caused is deeply regretted.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "Dear Customer, this is to inform you that your savings bank account ending in 8902 has been put under debit freeze due to non-submission of updated periodic KYC documents. You're requested to kindly visit your home branch along with self-attested copies of Aadhaar card and PAN card at the earliest. Inconvenience caused is deeply regretted.",
+        "engineB": "candidate",
+        "outputB": "Dear Customer, this is to inform you that your savings bank account ending in 8902 has been put under debit freeze due to non-submission of updated periodic KYC documents. You're requested to kindly visit your home branch along with self-attested copies of Aadhaar card and PAN card at the earliest. Inconvenience caused is deeply regretted."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.9122807017543859,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.9821428571428571
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.9122807017543859,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.9821428571428571
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_conv_11",
+      "category": "conversational",
+      "subgenre": "podcast_intro",
+      "authorship": "human_authored",
+      "originalText": "Welcome back to episode 47 of the show! It has been an absolutely wild week in the tech world. OpenAI dropped another major model update, Google announced massive restructuring across its hardware teams, and somehow Elon Musk found time to start three different arguments on X before breakfast. We've got a ton of ground to cover today, so grab your headphones and let's dive right in.",
+      "baselineOutput": "Welcome back to episode 47 of the show! It has been an absolutely wild week in the tech world. OpenAI dropped another major model update, Google announced massive restructuring across its hardware teams, and somehow Elon Musk found time to start three different arguments on X before breakfast. We've got a ton of ground to cover today, so grab your headphones and let's dive right in.",
+      "candidateOutput": "Welcome back to episode 47 of the show! It has been an absolutely wild week in the tech world. OpenAI dropped another major model update, Google announced massive restructuring across its hardware teams, and somehow Elon Musk found time to start three different arguments on X before breakfast. We've got a ton of ground to cover today, so grab your headphones and let's dive right in.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "Welcome back to episode 47 of the show! It has been an absolutely wild week in the tech world. OpenAI dropped another major model update, Google announced massive restructuring across its hardware teams, and somehow Elon Musk found time to start three different arguments on X before breakfast. We've got a ton of ground to cover today, so grab your headphones and let's dive right in.",
+        "engineB": "candidate",
+        "outputB": "Welcome back to episode 47 of the show! It has been an absolutely wild week in the tech world. OpenAI dropped another major model update, Google announced massive restructuring across its hardware teams, and somehow Elon Musk found time to start three different arguments on X before breakfast. We've got a ton of ground to cover today, so grab your headphones and let's dive right in."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_conv_12",
+      "category": "conversational",
+      "subgenre": "culinary_blog",
+      "authorship": "ai_generated",
+      "originalText": "In the realm of artisanal baking, maintaining a sourdough starter serves as a testament to patience. Bakers delve into daily flour feedings in order to nurture wild yeast cultures. Furthermore, ambient temperature plays a pivotal role in achieving that perfect bubbly rise.",
+      "baselineOutput": "In artisanal baking, maintaining a sourdough starter shows patience. Bakers examine daily flour feedings to nurture wild yeast cultures. Also, ambient temperature is central to achieving that perfect bubbly rise.",
+      "candidateOutput": "In artisanal baking, maintaining a sourdough starter shows patience. Bakers examine daily flour feedings to nurture wild yeast cultures. Also, ambient temperature is central to achieving that perfect bubbly rise.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "In artisanal baking, maintaining a sourdough starter shows patience. Bakers examine daily flour feedings to nurture wild yeast cultures. Also, ambient temperature is central to achieving that perfect bubbly rise.",
+        "engineB": "candidate",
+        "outputB": "In artisanal baking, maintaining a sourdough starter shows patience. Bakers examine daily flour feedings to nurture wild yeast cultures. Also, ambient temperature is central to achieving that perfect bubbly rise."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.32075471698113206,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 4.5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.7142857142857143
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.32075471698113206,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 4.5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.7142857142857143
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_conv_13",
+      "category": "conversational",
+      "subgenre": "neighborhood_complaint",
+      "authorship": "human_authored",
+      "originalText": "Dear residents of B-block, please note that someone is repeatedly dumping household garbage bags near the basement elevator lobby instead of dropping them in the main chute. The housekeeping staff is not your personal servant to clean your mess daily. Strict penalty of Rs 1,000 will be charged on maintenance bill if caught on CCTV camera. Kindly cooperate.",
+      "baselineOutput": "Dear residents of B-block, please note that someone is repeatedly dumping household garbage bags near the basement elevator lobby instead of dropping them in the main chute. The housekeeping staff isn't your personal servant to clean your mess daily. Strict penalty of Rs 1,000 will be charged on maintenance bill if caught on CCTV camera. Kindly cooperate.",
+      "candidateOutput": "Dear residents of B-block, please note that someone is repeatedly dumping household garbage bags near the basement elevator lobby instead of dropping them in the main chute. The housekeeping staff isn't your personal servant to clean your mess daily. Strict penalty of Rs 1,000 will be charged on maintenance bill if caught on CCTV camera. Kindly cooperate.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "Dear residents of B-block, please note that someone is repeatedly dumping household garbage bags near the basement elevator lobby instead of dropping them in the main chute. The housekeeping staff isn't your personal servant to clean your mess daily. Strict penalty of Rs 1,000 will be charged on maintenance bill if caught on CCTV camera. Kindly cooperate.",
+        "engineB": "candidate",
+        "outputB": "Dear residents of B-block, please note that someone is repeatedly dumping household garbage bags near the basement elevator lobby instead of dropping them in the main chute. The housekeeping staff isn't your personal servant to clean your mess daily. Strict penalty of Rs 1,000 will be charged on maintenance bill if caught on CCTV camera. Kindly cooperate."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.9152542372881356,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.9827586206896551
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.9152542372881356,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.9827586206896551
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_conv_14",
+      "category": "conversational",
+      "subgenre": "memoir_childhood",
+      "authorship": "human_authored",
+      "originalText": "When we were kids growing up outside Akron in the late nineties, July evenings were measured in glass mayonnaise jars with holes punched through the tin lids. We would sprint barefoot through the wet crabgrass until our shins were covered in mosquito bites, chasing fireflies as they flashed green against the cornfields. We always promised ourselves we’d let them go before bedtime, but half the time we’d fall asleep watching the faint yellow pulses from the nightstand.",
+      "baselineOutput": "When we were kids growing up outside Akron in the late nineties, July evenings were measured in glass mayonnaise jars with holes punched through the tin lids. We would sprint barefoot through the wet crabgrass until our shins were covered in mosquito bites, chasing fireflies as they flashed green against the cornfields. We always promised ourselves we’d let them go before bedtime, but half the time we’d fall asleep watching the faint yellow pulses from the nightstand.",
+      "candidateOutput": "When we were kids growing up outside Akron in the late nineties, July evenings were measured in glass mayonnaise jars with holes punched through the tin lids. We would sprint barefoot through the wet crabgrass until our shins were covered in mosquito bites, chasing fireflies as they flashed green against the cornfields. We always promised ourselves we’d let them go before bedtime, but half the time we’d fall asleep watching the faint yellow pulses from the nightstand.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "When we were kids growing up outside Akron in the late nineties, July evenings were measured in glass mayonnaise jars with holes punched through the tin lids. We would sprint barefoot through the wet crabgrass until our shins were covered in mosquito bites, chasing fireflies as they flashed green against the cornfields. We always promised ourselves we’d let them go before bedtime, but half the time we’d fall asleep watching the faint yellow pulses from the nightstand.",
+        "engineB": "candidate",
+        "outputB": "When we were kids growing up outside Akron in the late nineties, July evenings were measured in glass mayonnaise jars with holes punched through the tin lids. We would sprint barefoot through the wet crabgrass until our shins were covered in mosquito bites, chasing fireflies as they flashed green against the cornfields. We always promised ourselves we’d let them go before bedtime, but half the time we’d fall asleep watching the faint yellow pulses from the nightstand."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_conv_15",
+      "category": "conversational",
+      "subgenre": "gaming_discussion",
+      "authorship": "ai_generated",
+      "originalText": "Conquering Malenia in Elden Ring serves as a testament to gamer persistence. Players delve into waterfowl dance dodge timings in order to survive phase two. Furthermore, spirit ashes like the Mimic Tear play a crucial role in distracting her aggressive onslaught.",
+      "baselineOutput": "Conquering Malenia in Elden Ring shows gamer persistence. Players examine waterfowl dance dodge timings to survive phase two. Also, spirit ashes like the Mimic Tear makes a big difference in distracting her aggressive onslaught.",
+      "candidateOutput": "Conquering Malenia in Elden Ring shows gamer persistence. Players examine waterfowl dance dodge timings to survive phase two. Also, spirit ashes like the Mimic Tear are central to distracting her aggressive onslaught.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "Conquering Malenia in Elden Ring shows gamer persistence. Players examine waterfowl dance dodge timings to survive phase two. Also, spirit ashes like the Mimic Tear makes a big difference in distracting her aggressive onslaught.",
+        "engineB": "candidate",
+        "outputB": "Conquering Malenia in Elden Ring shows gamer persistence. Players examine waterfowl dance dodge timings to survive phase two. Also, spirit ashes like the Mimic Tear are central to distracting her aggressive onslaught."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.40384615384615385,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 4.5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.8292682926829268
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.39215686274509803,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 4.5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.7804878048780488
+      },
+      "candidateWinsCategory": true,
+      "notes": []
+    },
+    {
+      "id": "bench_conv_16",
+      "category": "conversational",
+      "subgenre": "gardening_advice",
+      "authorship": "human_authored",
+      "originalText": "Don't be afraid to snap off those tiny suckers growing between the main stem and the leaf branches. If you leave every single one alone, your plant turns into a tangled jungle of green foliage and you get barely any decent tomatoes. Just pinch them clean with your fingernails early in the morning when the stems are crisp.",
+      "baselineOutput": "Don't be afraid to snap off those tiny suckers growing between the main stem and the leaf branches. If you leave every single one alone, your plant turns into a tangled jungle of green foliage and you get barely any decent tomatoes. Just pinch them clean with your fingernails early in the morning when the stems are crisp.",
+      "candidateOutput": "Don't be afraid to snap off those tiny suckers growing between the main stem and the leaf branches. If you leave every single one alone, your plant turns into a tangled jungle of green foliage and you get barely any decent tomatoes. Just pinch them clean with your fingernails early in the morning when the stems are crisp.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "Don't be afraid to snap off those tiny suckers growing between the main stem and the leaf branches. If you leave every single one alone, your plant turns into a tangled jungle of green foliage and you get barely any decent tomatoes. Just pinch them clean with your fingernails early in the morning when the stems are crisp.",
+        "engineB": "candidate",
+        "outputB": "Don't be afraid to snap off those tiny suckers growing between the main stem and the leaf branches. If you leave every single one alone, your plant turns into a tangled jungle of green foliage and you get barely any decent tomatoes. Just pinch them clean with your fingernails early in the morning when the stems are crisp."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_conv_17",
+      "category": "conversational",
+      "subgenre": "college_life_story",
+      "authorship": "human_authored",
+      "originalText": "Around 2:30 AM before semester exams, the entire hostel wing smells like Maggi noodles and black coffee. We were using illegal electric immersion rods in water buckets because heating appliances were strictly banned by the warden. If the flying squad raided, we would hide the steaming kettle under the mattress and pretend we were doing group study for engineering physics.",
+      "baselineOutput": "Around 2:30 AM before semester exams, the entire hostel wing smells like Maggi noodles and black coffee. We were using illegal electric immersion rods in water buckets because heating appliances were strictly banned by the warden. If the flying squad raided, we would hide the steaming kettle under the mattress and pretend we were doing group study for engineering physics.",
+      "candidateOutput": "Around 2:30 AM before semester exams, the entire hostel wing smells like Maggi noodles and black coffee. We were using illegal electric immersion rods in water buckets because heating appliances were strictly banned by the warden. If the flying squad raided, we would hide the steaming kettle under the mattress and pretend we were doing group study for engineering physics.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "Around 2:30 AM before semester exams, the entire hostel wing smells like Maggi noodles and black coffee. We were using illegal electric immersion rods in water buckets because heating appliances were strictly banned by the warden. If the flying squad raided, we would hide the steaming kettle under the mattress and pretend we were doing group study for engineering physics.",
+        "engineB": "candidate",
+        "outputB": "Around 2:30 AM before semester exams, the entire hostel wing smells like Maggi noodles and black coffee. We were using illegal electric immersion rods in water buckets because heating appliances were strictly banned by the warden. If the flying squad raided, we would hide the steaming kettle under the mattress and pretend we were doing group study for engineering physics."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_conv_18",
+      "category": "conversational",
+      "subgenre": "pet_adoption",
+      "authorship": "ai_generated",
+      "originalText": "Adopting a rescue dog stands as a beacon of compassion. In today's busy world, families delve into pet parenthood in order to experience unconditional love. Furthermore, adopting an older dog plays a pivotal role in easing shelter overpopulation.",
+      "baselineOutput": "Adopting a rescue dog exemplifies compassion. In today's busy world, families examine pet parenthood to experience unconditional love. Also, adopting an older dog is central to easing shelter overpopulation.",
+      "candidateOutput": "Adopting a rescue dog exemplifies compassion. In today's busy world, families examine pet parenthood to experience unconditional love. Also, adopting an older dog is central to easing shelter overpopulation.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "Adopting a rescue dog exemplifies compassion. In today's busy world, families examine pet parenthood to experience unconditional love. Also, adopting an older dog is central to easing shelter overpopulation.",
+        "engineB": "candidate",
+        "outputB": "Adopting a rescue dog exemplifies compassion. In today's busy world, families examine pet parenthood to experience unconditional love. Also, adopting an older dog is central to easing shelter overpopulation."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.3541666666666667,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 4.5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.7631578947368421
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.3541666666666667,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 4.5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.7631578947368421
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_conv_19",
+      "category": "conversational",
+      "subgenre": "budget_shopping",
+      "authorship": "human_authored",
+      "originalText": "The real trick to finding good clothes at Goodwill is knowing which days they roll out the new color tags for 50% off. Head over to the thrift stores located in the wealthier suburbs on Tuesday mornings right after the weekend donation bins get sorted. I found a genuine Harris Tweed jacket last week for just $12 that fits like it was tailored for me.",
+      "baselineOutput": "The real trick to finding good clothes at Goodwill is knowing which days they roll out the new color tags for 50% off. Head over to the thrift stores located in the wealthier suburbs on Tuesday mornings right after the weekend donation bins get sorted. I found a genuine Harris Tweed jacket last week for just $12 that fits like it was custom for me.",
+      "candidateOutput": "The real trick to finding good clothes at Goodwill is knowing which days they roll out the new color tags for 50% off. Head over to the thrift stores located in the wealthier suburbs on Tuesday mornings right after the weekend donation bins get sorted. I found a genuine Harris Tweed jacket last week for just $12 that fits like it was custom for me.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "The real trick to finding good clothes at Goodwill is knowing which days they roll out the new color tags for 50% off. Head over to the thrift stores located in the wealthier suburbs on Tuesday mornings right after the weekend donation bins get sorted. I found a genuine Harris Tweed jacket last week for just $12 that fits like it was custom for me.",
+        "engineB": "candidate",
+        "outputB": "The real trick to finding good clothes at Goodwill is knowing which days they roll out the new color tags for 50% off. Head over to the thrift stores located in the wealthier suburbs on Tuesday mornings right after the weekend donation bins get sorted. I found a genuine Harris Tweed jacket last week for just $12 that fits like it was custom for me."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.9393939393939394,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.9393939393939394,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_conv_20",
+      "category": "conversational",
+      "subgenre": "music_enthusiast",
+      "authorship": "human_authored",
+      "originalText": "Shimokitazawa neighborhood in Tokyo has the best used vinyl shops in whole world. You can spend entire afternoon digging through dusty jazz crates and finding pristine Blue Note original pressings from 1960s. Prices are very honest compared to online Discogs sellers, and store owners will gladly let you listen on headphones before purchasing.",
+      "baselineOutput": "Shimokitazawa neighborhood in Tokyo has the best used vinyl shops in whole world. You can spend entire afternoon digging through dusty jazz crates and finding pristine Blue Note original pressings from 1960s. Prices are very honest compared to online Discogs sellers, and store owners will gladly let you listen on headphones before purchasing.",
+      "candidateOutput": "Shimokitazawa neighborhood in Tokyo has the best used vinyl shops in whole world. You can spend entire afternoon digging through dusty jazz crates and finding pristine Blue Note original pressings from 1960s. Prices are very honest compared to online Discogs sellers, and store owners will gladly let you listen on headphones before purchasing.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "Shimokitazawa neighborhood in Tokyo has the best used vinyl shops in whole world. You can spend entire afternoon digging through dusty jazz crates and finding pristine Blue Note original pressings from 1960s. Prices are very honest compared to online Discogs sellers, and store owners will gladly let you listen on headphones before purchasing.",
+        "engineB": "candidate",
+        "outputB": "Shimokitazawa neighborhood in Tokyo has the best used vinyl shops in whole world. You can spend entire afternoon digging through dusty jazz crates and finding pristine Blue Note original pressings from 1960s. Prices are very honest compared to online Discogs sellers, and store owners will gladly let you listen on headphones before purchasing."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_creat_11",
+      "category": "creative",
+      "subgenre": "southern_gothic",
+      "authorship": "human_authored",
+      "originalText": "The Spanish moss hung from the cypress limbs like gray laundry forgotten in the rain. Old man Calhoun sat on the sagging wicker chair on the screened porch, cleaning a twelve-gauge shotgun with an oily rag that had turned the color of dried liver. Out on the blackwater slough, an alligator rolled silently under the duckweed, leaving only a widening V of brown foam that lapped against the rotted cypress pilings of the boat dock. Nobody had driven down the gravel road since Sheriff Tucker’s cruiser kicked up dust three Thursdays back, and Calhoun aimed to keep it that way until the swamp water receded past the county line.",
+      "baselineOutput": "The Spanish moss hung from the cypress limbs like gray laundry forgotten in the rain. Old man Calhoun sat on the sagging wicker chair on the screened porch, cleaning a twelve-gauge shotgun with an oily rag that had turned the color of dried liver. Out on the blackwater slough, an alligator rolled silently under the duckweed, leaving only a widening V of brown foam that lapped against the rotted cypress pilings of the boat dock. Nobody had driven down the gravel road since Sheriff Tucker’s cruiser kicked up dust three Thursdays back, and Calhoun aimed to keep it that way until the swamp water receded past the county line.",
+      "candidateOutput": "The Spanish moss hung from the cypress limbs like gray laundry forgotten in the rain. Old man Calhoun sat on the sagging wicker chair on the screened porch, cleaning a twelve-gauge shotgun with an oily rag that had turned the color of dried liver. Out on the blackwater slough, an alligator rolled silently under the duckweed, leaving only a widening V of brown foam that lapped against the rotted cypress pilings of the boat dock. Nobody had driven down the gravel road since Sheriff Tucker’s cruiser kicked up dust three Thursdays back, and Calhoun aimed to keep it that way until the swamp water receded past the county line.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "The Spanish moss hung from the cypress limbs like gray laundry forgotten in the rain. Old man Calhoun sat on the sagging wicker chair on the screened porch, cleaning a twelve-gauge shotgun with an oily rag that had turned the color of dried liver. Out on the blackwater slough, an alligator rolled silently under the duckweed, leaving only a widening V of brown foam that lapped against the rotted cypress pilings of the boat dock. Nobody had driven down the gravel road since Sheriff Tucker’s cruiser kicked up dust three Thursdays back, and Calhoun aimed to keep it that way until the swamp water receded past the county line.",
+        "engineB": "candidate",
+        "outputB": "The Spanish moss hung from the cypress limbs like gray laundry forgotten in the rain. Old man Calhoun sat on the sagging wicker chair on the screened porch, cleaning a twelve-gauge shotgun with an oily rag that had turned the color of dried liver. Out on the blackwater slough, an alligator rolled silently under the duckweed, leaving only a widening V of brown foam that lapped against the rotted cypress pilings of the boat dock. Nobody had driven down the gravel road since Sheriff Tucker’s cruiser kicked up dust three Thursdays back, and Calhoun aimed to keep it that way until the swamp water receded past the county line."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 0.8,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 0.8,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_creat_12",
+      "category": "creative",
+      "subgenre": "cyberpunk_market",
+      "authorship": "ai_generated",
+      "originalText": "In the bustling realm of Neo-Kowloon, holographic billboards served as a testament to corporate dominion. Street vendors delved into synthetic noodle synthesis in order to feed midnight hackers beneath neon rain. Furthermore, cybernetic augmentations played a pivotal role in gang hierarchy. At the end of the day, shadows danced gracefully across the fiber-optic tapestry.",
+      "baselineOutput": "In the bustling realm of Neo-Kowloon, holographic billboards served as a proof of corporate dominion. Street vendors delved into synthetic noodle synthesis to feed midnight hackers beneath neon rain. Also, cybernetic augmentations played a pivotal role in gang hierarchy. In the end, shadows reflected across the fiber-optic tapestry.",
+      "candidateOutput": "In the bustling realm of Neo-Kowloon, holographic billboards showed corporate dominion. Street vendors examined synthetic noodle synthesis to feed midnight hackers beneath neon rain. Also, cybernetic augmentations proved central to gang hierarchy. In the end, shadows reflected across the fiber-optic tapestry.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "In the bustling realm of Neo-Kowloon, holographic billboards served as a proof of corporate dominion. Street vendors delved into synthetic noodle synthesis to feed midnight hackers beneath neon rain. Also, cybernetic augmentations played a pivotal role in gang hierarchy. In the end, shadows reflected across the fiber-optic tapestry.",
+        "engineB": "candidate",
+        "outputB": "In the bustling realm of Neo-Kowloon, holographic billboards showed corporate dominion. Street vendors examined synthetic noodle synthesis to feed midnight hackers beneath neon rain. Also, cybernetic augmentations proved central to gang hierarchy. In the end, shadows reflected across the fiber-optic tapestry."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.5714285714285714,
+        "grammaticalErrorCount": 1,
+        "naturalnessRating": 3.5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.8888888888888888
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.35294117647058826,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 4.5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.7592592592592593
+      },
+      "candidateWinsCategory": true,
+      "notes": [
+        "Candidate eliminated 1 grammatical defects present in baseline.",
+        "Candidate eliminated AI cliché patterns while baseline retained them."
+      ]
+    },
+    {
+      "id": "bench_creat_13",
+      "category": "creative",
+      "subgenre": "coastal_memoir",
+      "authorship": "human_authored",
+      "originalText": "At Fort Kochi beach, giant Chinese fishing nets hung suspended against the lilac sunset like sprawling mechanical spider webs. The fishermen were hauling in the counterweight stones with rhythmic chants, their bare backs glistening with ocean salt and sweat. A cargo ship flying the Panamanian flag glided silently through the channel toward the container port at Vallarpadam, churning the oily harbor water into green phosphor swirls as twilight settled over the old Dutch cemetery.",
+      "baselineOutput": "At Fort Kochi beach, giant Chinese fishing nets hung suspended against the lilac sunset like sprawling mechanical spider webs. The fishermen were hauling in the counterweight stones with rhythmic chants, their bare backs glistening with ocean salt and sweat. A cargo ship flying the Panamanian flag glided silently through the channel toward the container port at Vallarpadam, churning the oily harbor water into green phosphor swirls as twilight settled over the old Dutch cemetery.",
+      "candidateOutput": "At Fort Kochi beach, giant Chinese fishing nets hung suspended against the lilac sunset like sprawling mechanical spider webs. The fishermen were hauling in the counterweight stones with rhythmic chants, their bare backs glistening with ocean salt and sweat. A cargo ship flying the Panamanian flag glided silently through the channel toward the container port at Vallarpadam, churning the oily harbor water into green phosphor swirls as twilight settled over the old Dutch cemetery.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "At Fort Kochi beach, giant Chinese fishing nets hung suspended against the lilac sunset like sprawling mechanical spider webs. The fishermen were hauling in the counterweight stones with rhythmic chants, their bare backs glistening with ocean salt and sweat. A cargo ship flying the Panamanian flag glided silently through the channel toward the container port at Vallarpadam, churning the oily harbor water into green phosphor swirls as twilight settled over the old Dutch cemetery.",
+        "engineB": "candidate",
+        "outputB": "At Fort Kochi beach, giant Chinese fishing nets hung suspended against the lilac sunset like sprawling mechanical spider webs. The fishermen were hauling in the counterweight stones with rhythmic chants, their bare backs glistening with ocean salt and sweat. A cargo ship flying the Panamanian flag glided silently through the channel toward the container port at Vallarpadam, churning the oily harbor water into green phosphor swirls as twilight settled over the old Dutch cemetery."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_creat_14",
+      "category": "creative",
+      "subgenre": "high_fantasy_ruins",
+      "authorship": "human_authored",
+      "originalText": "A thousand marble columns rose from the turquoise shallows of the sunken bay, their fluted edges smothered in barnacles and purple sea anemones. Kaelen anchored his skiff to the shoulder of a submerged titan statue and strapped his bronze diving helm over his leather cowl. Beneath forty fathoms of glass-clear brine, the great library dome still glinted with celestial gold foil, untarnished by six centuries of tides and predatory mantas.",
+      "baselineOutput": "A thousand marble columns rose from the turquoise shallows of the sunken bay, their fluted edges smothered in barnacles and purple sea anemones. Kaelen anchored his skiff to the shoulder of a submerged titan statue and strapped his bronze diving helm over his leather cowl. Beneath forty fathoms of glass-clear brine, the great library dome still glinted with celestial gold foil, untarnished by six centuries of tides and predatory mantas.",
+      "candidateOutput": "A thousand marble columns rose from the turquoise shallows of the sunken bay, their fluted edges smothered in barnacles and purple sea anemones. Kaelen anchored his skiff to the shoulder of a submerged titan statue and strapped his bronze diving helm over his leather cowl. Beneath forty fathoms of glass-clear brine, the great library dome still glinted with celestial gold foil, untarnished by six centuries of tides and predatory mantas.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "A thousand marble columns rose from the turquoise shallows of the sunken bay, their fluted edges smothered in barnacles and purple sea anemones. Kaelen anchored his skiff to the shoulder of a submerged titan statue and strapped his bronze diving helm over his leather cowl. Beneath forty fathoms of glass-clear brine, the great library dome still glinted with celestial gold foil, untarnished by six centuries of tides and predatory mantas.",
+        "engineB": "candidate",
+        "outputB": "A thousand marble columns rose from the turquoise shallows of the sunken bay, their fluted edges smothered in barnacles and purple sea anemones. Kaelen anchored his skiff to the shoulder of a submerged titan statue and strapped his bronze diving helm over his leather cowl. Beneath forty fathoms of glass-clear brine, the great library dome still glinted with celestial gold foil, untarnished by six centuries of tides and predatory mantas."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 0.75,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 0.75,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_creat_15",
+      "category": "creative",
+      "subgenre": "magical_realism",
+      "authorship": "ai_generated",
+      "originalText": "The enchanted pocket watch stood as a beacon of forgotten magic. Master Tobias delved into silver balance wheels in order to arrest the flow of temporal seconds. Furthermore, the ticking mechanisms played a pivotal role as memories danced gracefully across the brass tapestry of time.",
+      "baselineOutput": "The enchanted pocket watch stood as an emblem of forgotten magic. Master Tobias delved into silver balance wheels to arrest the flow of temporal seconds. Also, the ticking mechanisms played a pivotal role as memories reflected across the brass blend of time.",
+      "candidateOutput": "The enchanted pocket watch stood as an emblem of forgotten magic. Master Tobias examined silver balance wheels to arrest the flow of temporal seconds. Also, the ticking mechanisms played a pivotal role as memories reflected across the brass blend of time.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "The enchanted pocket watch stood as an emblem of forgotten magic. Master Tobias delved into silver balance wheels to arrest the flow of temporal seconds. Also, the ticking mechanisms played a pivotal role as memories reflected across the brass blend of time.",
+        "engineB": "candidate",
+        "outputB": "The enchanted pocket watch stood as an emblem of forgotten magic. Master Tobias examined silver balance wheels to arrest the flow of temporal seconds. Also, the ticking mechanisms played a pivotal role as memories reflected across the brass blend of time."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.5740740740740741,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 3.5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.9333333333333333
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.5,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 3.5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.9111111111111111
+      },
+      "candidateWinsCategory": true,
+      "notes": []
+    },
+    {
+      "id": "bench_creat_16",
+      "category": "creative",
+      "subgenre": "historical_frontier",
+      "authorship": "human_authored",
+      "originalText": "The oxen died three miles west of Independence Rock where the Sweetwater river froze solid under eight inches of black ice. Thomas chopped through the dead cottonwood roots with a notched hand-axe to build a fire for his shivering sister while the wind whipped snow granules off the granite bluffs like thrown salt. By daybreak, two more supply wagons had been abandoned in the drifts, their canvas bonnets shredded by the gale into flapping gray rags.",
+      "baselineOutput": "The oxen died three miles west of Independence Rock where the Sweetwater river froze solid under eight inches of black ice. Thomas chopped through the dead cottonwood roots with a notched hand-axe to build a fire for his shivering sister while the wind whipped snow granules off the granite bluffs like thrown salt. By daybreak, two more supply wagons had been abandoned in the drifts, their canvas bonnets shredded by the gale into flapping gray rags.",
+      "candidateOutput": "The oxen died three miles west of Independence Rock where the Sweetwater river froze solid under eight inches of black ice. Thomas chopped through the dead cottonwood roots with a notched hand-axe to build a fire for his shivering sister while the wind whipped snow granules off the granite bluffs like thrown salt. By daybreak, two more supply wagons had been abandoned in the drifts, their canvas bonnets shredded by the gale into flapping gray rags.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "The oxen died three miles west of Independence Rock where the Sweetwater river froze solid under eight inches of black ice. Thomas chopped through the dead cottonwood roots with a notched hand-axe to build a fire for his shivering sister while the wind whipped snow granules off the granite bluffs like thrown salt. By daybreak, two more supply wagons had been abandoned in the drifts, their canvas bonnets shredded by the gale into flapping gray rags.",
+        "engineB": "candidate",
+        "outputB": "The oxen died three miles west of Independence Rock where the Sweetwater river froze solid under eight inches of black ice. Thomas chopped through the dead cottonwood roots with a notched hand-axe to build a fire for his shivering sister while the wind whipped snow granules off the granite bluffs like thrown salt. By daybreak, two more supply wagons had been abandoned in the drifts, their canvas bonnets shredded by the gale into flapping gray rags."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_creat_17",
+      "category": "creative",
+      "subgenre": "urban_realism_delhi",
+      "authorship": "human_authored",
+      "originalText": "November smog draped over Connaught Place like a greasy woolen blanket that had been soaked in diesel fumes and burning crop stubble. Street lamps at the inner circle glowed like jaundiced eyes through the chalky haze, barely illuminating the green signboard of the underground Palika Bazaar. Rahul tightened his muffler around his nose, coughing as three overcrowded DTC red buses roared past the traffic signal, spitting black clouds into the stinging evening air.",
+      "baselineOutput": "November smog draped over Connaught Place like a greasy woolen blanket that had been soaked in diesel fumes and burning crop stubble. Street lamps at the inner circle glowed like jaundiced eyes through the chalky haze, barely illuminating the green signboard of the underground Palika Bazaar. Rahul tightened his muffler around his nose, coughing as three overcrowded DTC red buses roared past the traffic signal, spitting black clouds into the stinging evening air.",
+      "candidateOutput": "November smog draped over Connaught Place like a greasy woolen blanket that had been soaked in diesel fumes and burning crop stubble. Street lamps at the inner circle glowed like jaundiced eyes through the chalky haze, barely illuminating the green signboard of the underground Palika Bazaar. Rahul tightened his muffler around his nose, coughing as three overcrowded DTC red buses roared past the traffic signal, spitting black clouds into the stinging evening air.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "November smog draped over Connaught Place like a greasy woolen blanket that had been soaked in diesel fumes and burning crop stubble. Street lamps at the inner circle glowed like jaundiced eyes through the chalky haze, barely illuminating the green signboard of the underground Palika Bazaar. Rahul tightened his muffler around his nose, coughing as three overcrowded DTC red buses roared past the traffic signal, spitting black clouds into the stinging evening air.",
+        "engineB": "candidate",
+        "outputB": "November smog draped over Connaught Place like a greasy woolen blanket that had been soaked in diesel fumes and burning crop stubble. Street lamps at the inner circle glowed like jaundiced eyes through the chalky haze, barely illuminating the green signboard of the underground Palika Bazaar. Rahul tightened his muffler around his nose, coughing as three overcrowded DTC red buses roared past the traffic signal, spitting black clouds into the stinging evening air."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_creat_18",
+      "category": "creative",
+      "subgenre": "gothic_horror",
+      "authorship": "ai_generated",
+      "originalText": "The rotting oak manor stood as a beacon of dark sorrow upon the cliff. In the realm of terror, shadows delve into ancient corridors in order to claim the innocent. Furthermore, the ancestral portrait played a pivotal role as moonlight danced gracefully across the bloodstained tapestry.",
+      "baselineOutput": "The rotting oak manor stood as an emblem of dark sorrow upon the cliff. In terror, shadows examine ancient corridors to claim the innocent. Also, the ancestral portrait played a pivotal role as moonlight reflected across the bloodstained tapestry.",
+      "candidateOutput": "The rotting oak manor stood as an emblem of dark sorrow upon the cliff. In terror, shadows examine ancient corridors to claim the innocent. Also, the ancestral portrait played a pivotal role as moonlight reflected across the bloodstained tapestry.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "The rotting oak manor stood as an emblem of dark sorrow upon the cliff. In terror, shadows examine ancient corridors to claim the innocent. Also, the ancestral portrait played a pivotal role as moonlight reflected across the bloodstained tapestry.",
+        "engineB": "candidate",
+        "outputB": "The rotting oak manor stood as an emblem of dark sorrow upon the cliff. In terror, shadows examine ancient corridors to claim the innocent. Also, the ancestral portrait played a pivotal role as moonlight reflected across the bloodstained tapestry."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.48214285714285715,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 3.5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.8478260869565217
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 0.48214285714285715,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 3.5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 0.8478260869565217
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_creat_19",
+      "category": "creative",
+      "subgenre": "nautical_fiction",
+      "authorship": "human_authored",
+      "originalText": "The schooner Sea Gull rolled heavily in the gray troughs fifty miles south-southeast of Cape Race. Captain MacIntyre stood wedged between the binnacle and the starboard rail, clutching his brass sextant in frostbitten fingers as foaming crests broke over the bulwarks, washing six barrels of whale oil loose across the slippery deck. The second mate and three green hands scrambled through freezing seawater to secure the thrashing hogsheads before they stove in the companionway hatch.",
+      "baselineOutput": "The schooner Sea Gull rolled heavily in the gray troughs fifty miles south-southeast of Cape Race. Captain MacIntyre stood wedged between the binnacle and the starboard rail, clutching his brass sextant in frostbitten fingers as foaming crests broke over the bulwarks, washing six barrels of whale oil loose across the slippery deck. The second mate and three green hands scrambled through freezing seawater to secure the thrashing hogsheads before they stove in the companionway hatch.",
+      "candidateOutput": "The schooner Sea Gull rolled heavily in the gray troughs fifty miles south-southeast of Cape Race. Captain MacIntyre stood wedged between the binnacle and the starboard rail, clutching his brass sextant in frostbitten fingers as foaming crests broke over the bulwarks, washing six barrels of whale oil loose across the slippery deck. The second mate and three green hands scrambled through freezing seawater to secure the thrashing hogsheads before they stove in the companionway hatch.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "The schooner Sea Gull rolled heavily in the gray troughs fifty miles south-southeast of Cape Race. Captain MacIntyre stood wedged between the binnacle and the starboard rail, clutching his brass sextant in frostbitten fingers as foaming crests broke over the bulwarks, washing six barrels of whale oil loose across the slippery deck. The second mate and three green hands scrambled through freezing seawater to secure the thrashing hogsheads before they stove in the companionway hatch.",
+        "engineB": "candidate",
+        "outputB": "The schooner Sea Gull rolled heavily in the gray troughs fifty miles south-southeast of Cape Race. Captain MacIntyre stood wedged between the binnacle and the starboard rail, clutching his brass sextant in frostbitten fingers as foaming crests broke over the bulwarks, washing six barrels of whale oil loose across the slippery deck. The second mate and three green hands scrambled through freezing seawater to secure the thrashing hogsheads before they stove in the companionway hatch."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    },
+    {
+      "id": "bench_creat_20",
+      "category": "creative",
+      "subgenre": "lyrical_essay",
+      "authorship": "human_authored",
+      "originalText": "By the final week of August, the heat in the river bottoms becomes a physical weight, thick as warm syrup and buzzing with the electric crescendo of periodical cicadas. From high in the canopy of the shagbark hickories, their collective chorus rises and crests like ocean surf breaking against invisible shoals, filling the humid twilight with an urgent, droning hymn that marks the inevitable dying down of another Midwestern summer.",
+      "baselineOutput": "By the final week of August, the heat in the river bottoms becomes a physical weight, thick as warm syrup and buzzing with the electric crescendo of periodical cicadas. From high in the canopy of the shagbark hickories, their collective chorus rises and crests like ocean surf breaking against invisible shoals, filling the humid twilight with an urgent, droning hymn that marks the inevitable dying down of another Midwestern summer.",
+      "candidateOutput": "By the final week of August, the heat in the river bottoms becomes a physical weight, thick as warm syrup and buzzing with the electric crescendo of periodical cicadas. From high in the canopy of the shagbark hickories, their collective chorus rises and crests like ocean surf breaking against invisible shoals, filling the humid twilight with an urgent, droning hymn that marks the inevitable dying down of another Midwestern summer.",
+      "blindAssignment": {
+        "engineA": "baseline",
+        "outputA": "By the final week of August, the heat in the river bottoms becomes a physical weight, thick as warm syrup and buzzing with the electric crescendo of periodical cicadas. From high in the canopy of the shagbark hickories, their collective chorus rises and crests like ocean surf breaking against invisible shoals, filling the humid twilight with an urgent, droning hymn that marks the inevitable dying down of another Midwestern summer.",
+        "engineB": "candidate",
+        "outputB": "By the final week of August, the heat in the river bottoms becomes a physical weight, thick as warm syrup and buzzing with the electric crescendo of periodical cicadas. From high in the canopy of the shagbark hickories, their collective chorus rises and crests like ocean surf breaking against invisible shoals, filling the humid twilight with an urgent, droning hymn that marks the inevitable dying down of another Midwestern summer."
+      },
+      "metricsBaseline": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "metricsCandidate": {
+        "structuralPreservation": 1,
+        "entityPreservation": 1,
+        "numericalPreservation": 1,
+        "citationPreservation": 1,
+        "semanticSimilarity": 1,
+        "grammaticalErrorCount": 0,
+        "naturalnessRating": 5,
+        "voicePreservation": 5,
+        "wordCountExpansion": 1
+      },
+      "candidateWinsCategory": false,
+      "notes": [
+        "Candidate and baseline produced identical output."
+      ]
+    }
+  ]
+}

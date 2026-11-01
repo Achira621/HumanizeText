@@ -1,0 +1,3240 @@
+import type {
+  HumanizerChange,
+  HumanizerMode,
+  HumanizerOptions,
+  HumanizerResult,
+  LocalHumanizerEngine,
+  DiffToken,
+  AiSignalPhrase,
+  RewriteStrength,
+  AlternativesMetadata,
+} from '../../../src/types';
+import type { ToneRegister } from '../../../src/types/context';
+import {
+  parseDocumentToBlocks,
+  projectBlocksToPlainText,
+  validateDocumentStructure,
+} from '../../../src/lib/pipeline/documentModel';
+import {
+  VOWEL_LETTERS_WITH_CONSONANT_SOUND,
+  SILENT_H_VOWEL_SOUNDS,
+} from '../../../src/lib/pipeline/qualityValidator';
+import { ProtectedSpanManager } from '../../../src/lib/pipeline/protectedSpans';
+import { DocumentConsistencyTracker } from '../../../src/lib/pipeline/documentConsistency';
+import { rankCandidates } from '../../../src/lib/pipeline/candidateRanker';
+import { validateInvariants } from '../../../src/lib/pipeline/invariants';
+
+const IRREGULAR_PLURALS = new Set([
+  'people', 'children', 'men', 'women', 'mice', 'feet', 'teeth', 'geese',
+  'data', 'criteria', 'phenomena', 'analyses', 'hypotheses', 'indices',
+  'matrices', 'media', 'alumni', 'researchers', 'scientists', 'engineers',
+  'doctors', 'users', 'participants', 'patients', 'students', 'authors'
+]);
+
+const MASS_UNCOUNTABLE_NOUNS = new Set([
+  'water', 'information', 'evidence', 'research', 'equipment', 'advice',
+  'software', 'hardware', 'traffic', 'money', 'baggage', 'luggage',
+  'knowledge', 'work', 'progress', 'data', 'luck', 'furniture', 'time',
+  'space', 'effort', 'energy', 'support', 'funding'
+]);
+
+export function isPluralNoun(word: string): boolean {
+  const lw = word.toLowerCase().replace(/[^a-z]/g, '');
+  if (!lw) return false;
+  if (IRREGULAR_PLURALS.has(lw)) return true;
+  if (lw.endsWith('ies') && lw.length > 3) return true;
+  if (lw.endsWith('s') && !lw.endsWith('ss') && !lw.endsWith('us') && !lw.endsWith('is')) return true;
+  return false;
+}
+
+interface ReplacementPattern {
+  pattern: RegExp;
+  replacement: string | ((match: string, ...args: any[]) => string);
+  reason: string;
+  category: HumanizerChange['category'];
+  modes: HumanizerMode[];
+}
+
+// ---------------------------------------------------------------------------
+// UTILITY: pick a random item from an array (seeded by position for stability)
+// ---------------------------------------------------------------------------
+function pick<T>(arr: T[], seed?: number): T {
+  if (arr.length === 1) return arr[0];
+  const idx = seed !== undefined ? Math.abs(seed) % arr.length : Math.floor(Math.random() * arr.length);
+  return arr[idx];
+}
+
+// ---------------------------------------------------------------------------
+// SECTION 1: MASSIVE AI CLICHÉ / OVERUSED PHRASE DICTIONARY
+// Each entry maps a pattern to a pool of human alternatives.
+// The engine picks one at random so each humanization run feels fresh.
+// ---------------------------------------------------------------------------
+const CLICHE_POOLS: Array<{
+  pattern: RegExp;
+  pool: string[];
+  reason: string;
+  category: HumanizerChange['category'];
+  modes: HumanizerMode[];
+}> = [
+  {
+    pattern: /\bhowever,?\s*/gi,
+    pool: ['Still, ', 'Yet, ', 'Even so, ', 'That said, '],
+    reason: 'Replaced formal AI transition "however"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\btherefore,?\s*/gi,
+    pool: ['So, ', 'As a result, ', 'Because of that, ', 'This means '],
+    reason: 'Replaced formal AI transition "therefore"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bin essence,?\s*/gi,
+    pool: ['Simply put, ', 'At its core, ', 'Essentially, ', 'In short, '],
+    reason: 'Replaced AI philosophical transition "in essence"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bmoreover,?\s*/gi,
+    pool: ['Also, ', 'Beyond that, ', 'What is more, ', 'On top of that, '],
+    reason: 'Replaced repetitive AI transition "moreover"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bfurthermore,?\s*/gi,
+    pool: ['Also, ', 'Plus, ', 'Beyond that, ', 'Along with this, '],
+    reason: 'Replaced formal AI transition "furthermore"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bnevertheless,?\s*/gi,
+    pool: ['Still, ', 'Even so, ', 'Nonetheless, ', 'Regardless, '],
+    reason: 'Replaced AI transition "nevertheless"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bconsequently,?\s*/gi,
+    pool: ['As a result, ', 'Because of this, ', 'So, '],
+    reason: 'Replaced AI transition "consequently"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bultimately,?\s*/gi,
+    pool: ['In the end, ', 'At the end of the day, ', 'When all is said and done, '],
+    reason: 'Replaced AI wrap-up word "ultimately"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\b(?:stands as a beacon of|serves as a beacon of|is a beacon of)\s*/gi,
+    pool: ['exemplifies ', 'embodies ', 'represents ', 'fosters '],
+    reason: 'Replaced AI metaphor "beacon of"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\b(?:serves as a testament to|stands as a testament to|is a testament to)\s*/gi,
+    pool: ['demonstrates ', 'highlights ', 'proves ', 'attests to '],
+    reason: 'Replaced AI cliché "testament to"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bin today'?s (?:fast-paced|rapidly evolving|competitive) (?:world|marketplace|clinical world),?\s*/gi,
+    pool: ['Today, ', 'Currently, ', 'In modern practice, ', 'Across current workflows, '],
+    reason: 'Replaced overused AI intro "in today\'s world"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bdelving into\s*/gi,
+    pool: ['Examining ', 'Analyzing ', 'Investigating '],
+    reason: 'Replaced AI cliché "delving into"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bdelve into\s*/gi,
+    pool: ['examine ', 'analyze ', 'investigate ', 'explore '],
+    reason: 'Replaced AI cliché "delve into"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bin the realm of\s+/gi,
+    pool: ['in ', 'within ', 'across '],
+    reason: 'Replaced pompous AI intro "in the realm of"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bplays a (?:pivotal|vital|crucial) role in\s*/gi,
+    pool: ['is central to ', 'has a major effect on ', 'plays a key part in ', 'strongly impacts '],
+    reason: 'Replaced formulaic "plays a pivotal role"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\b(?:it is important to note that|it should be noted that|it is crucial to note that|it is worth noting that)\s*/gi,
+    pool: ['Notably, ', 'Importantly, ', 'In practice, ', 'Specifically, '],
+    reason: 'Replaced robotic preface "it is important to note"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bfirst and foremost,?\s*/gi,
+    pool: ['First, ', 'To begin with, ', 'Primarily, ', 'At the outset, '],
+    reason: 'Replaced AI transition "first and foremost"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bit goes without saying that\s*/gi,
+    pool: ['Naturally, ', 'Clearly, ', 'Of course, '],
+    reason: 'Replaced filler "it goes without saying that"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\btreasure trove of\s*/gi,
+    pool: ['wealth of ', 'rich collection of ', 'storehouse of '],
+    reason: 'Replaced AI cliché "treasure trove of"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bblanket of fog\s*/gi,
+    pool: ['dense fog ', 'heavy sea mist ', 'deep fog '],
+    reason: 'Replaced creative cliché "blanket of fog"',
+    category: 'phrasing',
+    modes: ['natural', 'flow'],
+  },
+  {
+    pattern: /\bdanced gracefully across\s*/gi,
+    pool: ['reflected across ', 'shimmered across ', 'glinted off '],
+    reason: 'Replaced purple prose "danced gracefully across"',
+    category: 'phrasing',
+    modes: ['natural', 'flow'],
+  },
+  {
+    pattern: /\bvital asset\s*/gi,
+    pool: ['key contributor ', 'valuable team member ', 'major contributor '],
+    reason: 'Replaced corporate cliché "vital asset"',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'flow'],
+  },
+  {
+    pattern: /\btakes a toll on\s*/gi,
+    pool: ['adversely affects ', 'strains ', 'burdens '],
+    reason: 'Replaced idiom "takes a toll on"',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'concise'],
+  },
+  {
+    pattern: /\bas a matter of fact,?\s*/gi,
+    pool: ['In fact, ', 'Specifically, ', 'Indeed, '],
+    reason: 'Replaced filler "as a matter of fact"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bneedless to say,?\s*/gi,
+    pool: ['Naturally, ', 'Evidently, ', 'Of course, '],
+    reason: 'Replaced filler "needless to say"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bmore specifically,?\s*/gi,
+    pool: ['Specifically, ', 'In particular, ', 'Namely, '],
+    reason: 'Replaced verbose transition "more specifically"',
+    category: 'filler',
+    modes: ['natural', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bat this present point in time,?\s*/gi,
+    pool: ['Currently, ', 'Now, ', 'At present, '],
+    reason: 'Replaced pleonasm "at this present point in time"',
+    category: 'redundancy',
+    modes: ['natural', 'concise', 'conversational', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bcombine together\s*/gi,
+    pool: ['combine '],
+    reason: 'Removed redundant modifier in "combine together"',
+    category: 'redundancy',
+    modes: ['natural', 'concise', 'conversational', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bpast historical\s*/gi,
+    pool: ['historical '],
+    reason: 'Removed redundant modifier in "past historical"',
+    category: 'redundancy',
+    modes: ['natural', 'concise', 'conversational', 'flow', 'formal'],
+  },
+  {
+    pattern: /\badvance preview\s*/gi,
+    pool: ['preview '],
+    reason: 'Removed redundant modifier in "advance preview"',
+    category: 'redundancy',
+    modes: ['natural', 'concise', 'conversational', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bfinal end decision\s*/gi,
+    pool: ['final decision '],
+    reason: 'Removed redundant modifier in "final end decision"',
+    category: 'redundancy',
+    modes: ['natural', 'concise', 'conversational', 'flow', 'formal'],
+  },
+  // ── High-Impact Email, Pitch & Status Update AI Clichés ────────────────────
+  {
+    pattern: /\bI hope (?:everyone|all of you|you all) (?:is|are) having a (?:productive|great|good) week\.?\b/gi,
+    pool: [
+      "Hope everyone's week is going well.",
+      "Hope you all are having a productive week.",
+      "Hope everyone is having a solid week.",
+    ],
+    reason: 'Replaced AI team opener',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bthroughout my career,?\s*/gi,
+    pool: ['Over the years, ', 'In my past roles, ', 'Across my work, ', 'In my experience, '],
+    reason: 'Replaced formulaic cover letter transition "throughout my career"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bpride myself on\b/gi,
+    pool: ['focus heavily on', 'always aim to', 'make it a point to', 'prioritize'],
+    reason: 'Replaced clichéd resume phrase "pride myself on"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bwelcome the opportunity to\b/gi,
+    pool: ['would love the chance to', 'would be excited to', 'look forward to the chance to'],
+    reason: 'Replaced formal AI closing "welcome the opportunity to"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\balign(?:s)? with the (?:goals|mission|values|objectives) of\b/gi,
+    pool: ['support the goals of', 'fit with what your team is building', 'match the direction of'],
+    reason: 'Replaced corporate alignment cliché',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bdrive sustainable (?:revenue |growth)?/gi,
+    pool: ['bring in steady revenue ', 'deliver consistent growth ', 'support steady growth '],
+    reason: 'Replaced business buzzphrase "drive sustainable growth"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bdata-driven (?:analytics|insights|decisions|approach)\b/gi,
+    pool: ['performance metrics', 'concrete testing and data', 'real data', 'actionable metrics'],
+    reason: 'Replaced buzzphrase "data-driven analytics"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bcontent strategy\b/gi,
+    pool: ['content rollout', 'content roadmap', 'editorial approach', 'content plan'],
+    reason: 'Replaced formal "content strategy"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\baudienc(?:e) engagement\b/gi,
+    pool: ['user engagement', 'community interaction', 'reader interest'],
+    reason: 'Replaced buzzphrase "audience engagement"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bdiscuss how my (?:background|skills|experience)\b/gi,
+    pool: ['talk through how my experience', 'share how my background', 'discuss how my skills'],
+    reason: 'Replaced boilerplate interview request phrasing',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\boptimizing\b/gi,
+    pool: ['improving', 'refining', 'fine-tuning', 'boosting'],
+    reason: 'Replaced buzzword "optimizing"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\boptimizes\b/gi,
+    pool: ['improves', 'refines', 'fine-tunes', 'boosts'],
+    reason: 'Replaced buzzword "optimizes"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\boptimization\b/gi,
+    pool: ['refinement', 'fine-tuning', 'tuning', 'improvement'],
+    reason: 'Replaced buzzword "optimization"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\boptimize\b/gi,
+    pool: ['improve', 'refine', 'fine-tune', 'boost'],
+    reason: 'Replaced buzzword "optimize"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bdynamic team\b/gi,
+    pool: ['talented team', 'collaborative team', 'growing team', 'fast-moving team'],
+    reason: 'Replaced empty resume buzzword "dynamic team"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\binnovative solutions\b/gi,
+    pool: ['fresh solutions', 'practical approaches', 'new ideas', 'creative answers'],
+    reason: 'Replaced business buzzword "innovative solutions"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\binnovative\b/gi,
+    pool: ['fresh', 'creative', 'novel', 'practical', 'modern'],
+    reason: 'Replaced cliché "innovative"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bsustainability\b/gi,
+    pool: ['long-term viability', 'durability', 'lasting resilience'],
+    reason: 'Replaced overused noun "sustainability"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bsustainable\b/gi,
+    pool: ['steady', 'long-term', 'lasting', 'durable'],
+    reason: 'Replaced overused adjective "sustainable"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bhope (?:everyone|all of you|you all) (?:is|are) having\b/gi,
+    pool: ["hope everyone's having", "hope you all are having"],
+    reason: 'Replaced formulaic team greeting',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\benhance operational efficiency\b/gi,
+    pool: [
+      'boost daily productivity',
+      'speed up operations',
+      'make workflows smoother',
+      'cut down daily delays',
+    ],
+    reason: 'Replaced corporate cliché "enhance operational efficiency"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\boperational efficiency\b/gi,
+    pool: ['daily productivity', 'smooth operations', 'workflow speed', 'day-to-day efficiency'],
+    reason: 'Replaced corporate jargon "operational efficiency"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\btailored specifically to\b/gi,
+    pool: ['designed specifically to', 'built to', 'crafted to', 'aimed at', 'set up to'],
+    reason: 'Replaced AI marketing phrase "tailored specifically to"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\btailored to\b/gi,
+    pool: ['built for', 'designed for', 'suited for', 'crafted for'],
+    reason: 'Replaced cliché "tailored to"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\btailored\b/gi,
+    pool: ['custom', 'focused', 'specific', 'designed', 'personalized'],
+    reason: 'Replaced buzzword "tailored"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\badditionally\b/gi,
+    pool: ['Also,', 'Plus,', 'On top of that,', 'What is more,', 'Along with that,'],
+    reason: 'Replaced formulaic transition "additionally"',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bplease let me know if\b/gi,
+    pool: ['Let me know if', 'Drop me a line if', 'Reach out if', 'Tell me if'],
+    reason: 'Replaced boilerplate email prompt',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\blooking forward to your thoughts\b/gi,
+    pool: ['Excited to hear what you think', 'Talk soon', 'Hope to hear your thoughts soon'],
+    reason: 'Varied email closing expectation',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\blooking forward to\b/gi,
+    pool: ['excited for', 'eager to discuss', 'hopeful about', 'anticipating'],
+    reason: 'Replaced cliché "looking forward to"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bif you have any (?:questions|concerns|feedback)\b/gi,
+    pool: [
+      'if anything comes up',
+      'if you have questions',
+      'if anything looks unclear',
+      'if any thoughts come to mind',
+    ],
+    reason: 'Replaced boilerplate conditional question offer',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bI hope this email finds you well(?: and that you(?:'re| are) having a (?:great|productive|wonderful) week)?\.?/gi,
+    pool: [
+      "Hope you're having a good week.",
+      "Hope all is well with you.",
+      "Hope your week is off to a great start.",
+      "Hope things are going smoothly on your end.",
+    ],
+    reason: 'Replaced ubiquitous AI email opener "hope this email finds you well"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bhope this (?:email|message) finds you well\b/gi,
+    pool: ["hope all is well", "hope you're doing well", "hope your week is going well"],
+    reason: 'Replaced clichéd email opening pleasantry',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bI am reaching out to follow up on\b/gi,
+    pool: [
+      "Following up on",
+      "Just wanted to check in on",
+      "Reaching out about",
+      "Circling back on",
+    ],
+    reason: 'Replaced formal robotic follow-up transition',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bI wanted to (?:provide|give|share) a quick update on\b/gi,
+    pool: [
+      "Here's a quick update on",
+      "Quick update on",
+      "Just wanted to share where things stand with",
+    ],
+    reason: 'Replaced formulaic update opener',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bIn today's fast-paced digital landscape\b/gi,
+    pool: [
+      "These days",
+      "In modern business",
+      "Right now",
+      "In today's market",
+      "With things moving so fast today",
+    ],
+    reason: 'Replaced top-ranking AI throat-clearer "in today\'s fast-paced digital landscape"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bin today's (?:world|age|era|society|landscape)\b/gi,
+    pool: ['nowadays', 'today', 'these days', 'currently', 'in the modern market'],
+    reason: 'Replaced clichéd temporal opening cliché',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bplays? a (?:pivotal|crucial|vital|key|significant) role in\b/gi,
+    pool: [
+      'makes a big difference in',
+      'is key to',
+      'really matters for',
+      'heavily impacts',
+      'is central to',
+    ],
+    reason: 'Replaced overused "plays a pivotal role"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bseamlessly (?:and agile|integrates?|integrated|workflows?)\b/gi,
+    pool: [
+      'smoothly integrates',
+      'fits smoothly into existing workflows',
+      'connects without friction',
+      'plugs right in',
+    ],
+    reason: 'Replaced AI buzzword "seamlessly"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bmaintaining a competitive advantage\b/gi,
+    pool: [
+      'staying ahead of the competition',
+      'keeping an edge in the market',
+      'standing out from competitors',
+      'staying competitive',
+    ],
+    reason: 'Replaced corporate buzzphrase "maintaining a competitive advantage"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bleverages cutting-edge technology\b/gi,
+    pool: ['uses modern software', 'relies on up-to-date tools', 'takes advantage of modern tech', 'runs on modern tools'],
+    reason: 'Replaced dual buzzwords "leverages cutting-edge technology"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bleveraging cutting-edge technology\b/gi,
+    pool: ['using modern software', 'relying on up-to-date tools', 'taking advantage of modern tech'],
+    reason: 'Replaced dual buzzwords "leveraging cutting-edge technology"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bleverage cutting-edge technology\b/gi,
+    pool: ['use modern software', 'rely on up-to-date tools', 'take advantage of modern tech'],
+    reason: 'Replaced dual buzzwords "leverage cutting-edge technology"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bcutting-edge\b/gi,
+    pool: ['modern', 'advanced', 'latest', 'state-of-the-art', 'top-tier'],
+    reason: 'Replaced cliché "cutting-edge"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bensuring optimal accuracy\b/gi,
+    pool: [
+      'keeping things precise',
+      'making sure data stays accurate',
+      'guaranteeing accuracy',
+      'maintaining high precision',
+    ],
+    reason: 'Replaced formulaic "ensuring optimal accuracy"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\b(?:fosters?|fostering) (?:greater )?cross-functional collaboration\b/gi,
+    pool: [
+      'helps different teams work together better',
+      'boosts cross-team communication',
+      'connects teams across departments',
+      'breaks down silos',
+    ],
+    reason: 'Replaced AI buzzphrase "foster cross-functional collaboration"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\blays? the groundwork for sustainable long-term growth\b/gi,
+    pool: [
+      'sets a strong foundation for steady growth',
+      'builds a solid base for the long haul',
+      'sets teams up for continued success',
+    ],
+    reason: 'Replaced dramatic AI metaphor "lays the groundwork for sustainable growth"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\blays? the groundwork for\b/gi,
+    pool: ['sets the stage for', 'builds the foundation for', 'prepares the way for', 'sets up'],
+    reason: 'Replaced metaphor "lays the groundwork"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bI would be happy to schedule a brief (?:15-minute )?call\b/gi,
+    pool: [
+      "I'd love to hop on a quick 15-minute call",
+      "Happy to set up a quick 15-minute chat",
+      "Let's schedule a short call",
+      "I'd be glad to jump on a quick call",
+    ],
+    reason: 'Replaced formal AI closing pitch',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bdelve into the details\b/gi,
+    pool: ['walk through the details', 'go over the specifics', 'talk through the details', 'discuss the specifics'],
+    reason: 'Replaced cliché "delve into the details"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bshowcase a live demonstration\b/gi,
+    pool: ['show you a quick demo', 'walk through a live demo', 'give you a quick look at how it works'],
+    reason: 'Replaced redundant "showcase a live demonstration"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bPlease let me know if (?:Thursday or Friday|any time this week) works for your schedule\b/gi,
+    pool: [
+      "Let me know if Thursday or Friday works on your end",
+      "Let me know if you're free Thursday or Friday",
+      "Let me know what time works best for you",
+    ],
+    reason: 'Replaced rigid AI calendar proposal',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bThank you very much for your time and consideration\b/gi,
+    pool: [
+      "Thanks so much for your time",
+      "Appreciate your time and consideration",
+      "Thanks for considering this",
+      "Really appreciate your time",
+    ],
+    reason: 'Replaced robotic sign-off pleasantry',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bI look forward to hearing from you soon\b/gi,
+    pool: [
+      "Talk soon",
+      "Hope to hear from you soon",
+      "Excited to hear what you think",
+      "Eager to hear your thoughts",
+      "Hope to connect soon",
+    ],
+    reason: 'Replaced generic AI closing sentence',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\b(?:Warm|Best|Kind) regards\b/gi,
+    pool: ["Best", "Cheers", "Thanks", "Warmly"],
+    reason: 'Replaced boilerplate corporate sign-off',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bworking diligently to ensure that all requirements are met on time\b/gi,
+    pool: [
+      "pushing hard to keep all deliverables right on track",
+      "working to make sure everything lands on schedule",
+      "making sure we hit our deadlines without issue",
+    ],
+    reason: 'Replaced corporate update cliché',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bcompleted successfully\b/gi,
+    pool: ['wrapped up smoothly', 'finished without issues', 'completed cleanly', 'went through successfully'],
+    reason: 'Replaced redundant AI status phrase',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bmoving into the final stages of verification\b/gi,
+    pool: [
+      "moving into final verification",
+      "wrapping up final testing",
+      "running the last checks before release",
+    ],
+    reason: 'Simplified status phrasing',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bensure a smooth rollout for our users\b/gi,
+    pool: [
+      "give our users a seamless launch",
+      "make the rollout as smooth as possible",
+      "avoid any hiccups for our users",
+    ],
+    reason: 'Replaced corporate rollout cliché',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bPlease let me know if you have any questions or feedback\.?\b/gi,
+    pool: [
+      "Let me know if you have any questions or thoughts.",
+      "Feel free to reach out if anything comes up.",
+      "Happy to answer any questions if anything looks unclear.",
+    ],
+    reason: 'Replaced generic AI feedback request',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bI will keep you posted as we make further progress\.?\b/gi,
+    pool: [
+      "I'll share more updates as we get closer.",
+      "I'll keep you in the loop as things progress.",
+      "More updates to follow soon.",
+    ],
+    reason: 'Replaced AI update closure',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bI am writing to express my enthusiastic interest in\b/gi,
+    pool: [
+      "I am excited to apply for",
+      "I would love to be considered for",
+      "I'm writing to put my name forward for",
+    ],
+    reason: 'Replaced boilerplate cover letter opener',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bconfident in my ability to make a meaningful contribution\b/gi,
+    pool: [
+      "excited about what I can bring to",
+      "eager to make a real impact on",
+      "confident I can deliver strong results for",
+    ],
+    reason: 'Replaced generic cover letter cliché',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bsuccessfully spearheaded\b/gi,
+    pool: ['led', 'directed', 'ran', 'oversaw', 'managed'],
+    reason: 'Replaced resume buzzword "spearheaded"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+
+  // ── Mega-clichés (GPT top-25 ──────────────────────────────────────────────
+  {
+    pattern: /\bdelve(?:s)? into\b/gi,
+    pool: ['examine', 'explore', 'look at', 'dig into', 'unpack', 'investigate', 'break down', 'analyze'],
+    reason: 'Replaced top-ranked AI cliché "delve into"',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\btapestry of\b/gi,
+    pool: ['blend of', 'mix of', 'range of', 'variety of', 'combination of', 'collection of'],
+    reason: 'Replaced melodramatic AI cliché "tapestry"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'formal', 'concise', 'flow'],
+  },
+  {
+    pattern: /\b(?:these|those|they)\s+systems?\s+serves?\s+as\s+a\s+testament\s+to\b/gi,
+    pool: ['these systems reflect', 'these systems prove', 'these systems show', 'these systems demonstrate'],
+    reason: 'Replaced formulaic "serve as a testament to"',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bserves?\s+as\s+a\s+testament\s+to\b/gi,
+    pool: ['reflects', 'proves', 'shows', 'demonstrates', 'speaks to'],
+    reason: 'Replaced formulaic "serves as a testament to"',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bmultifaceted\b/gi,
+    pool: ['varied', 'complex', 'diverse', 'broad', 'many-sided'],
+    reason: 'Replaced AI buzzword "multifaceted"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bit is crucial to\b/gi,
+    pool: ['we really need to', 'it helps to', 'it is vital to', 'you need to'],
+    reason: 'Replaced formulaic "it is crucial to"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\btestament to\b/gi,
+    pool: ['proof of', 'evidence of', 'sign of', 'reflection of', 'indicator of'],
+    reason: 'Replaced formulaic "testament to"',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bvital role\b/gi,
+    pool: ['key role', 'central role', 'important part', 'crucial function', 'significant role'],
+    reason: 'Replaced overused "vital role"',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bserves? as a beacon of modern inquiry\b/gi,
+    pool: ['stands as a model for modern research', 'leads the way in modern inquiry', 'exemplifies contemporary research'],
+    reason: 'Replaced melodramatic academic cliché',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bserves? as a beacon of\b/gi,
+    pool: ['stands as a model for', 'leads the way in', 'exemplifies', 'guides'],
+    reason: 'Replaced metaphor "serves as a beacon of"',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\ba beacon of\b/gi,
+    pool: ['an emblem of', 'a standard for', 'an example of', 'a guide for'],
+    reason: 'Replaced AI-overused metaphor "beacon of"',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bconduct(?:ed)? an investigation into\b/gi,
+    pool: ['investigate', 'examine', 'study', 'look into'],
+    reason: 'Simplified nominalization "conduct an investigation into"',
+    category: 'concise',
+    modes: ['natural', 'concise', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\b(?:the )?aforementioned\b/gi,
+    pool: ['these', 'those', 'the earlier', 'the specified'],
+    reason: 'Replaced archaic academic word "aforementioned"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bit should be noted that\b/gi,
+    pool: ['note that', 'we should note that', 'in fact,', 'importantly,'],
+    reason: 'Removed passive throat-clearer "it should be noted that"',
+    category: 'filler',
+    modes: ['natural', 'concise', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bprior literature demonstrates\b/gi,
+    pool: ['past studies show', 'earlier research shows', 'prior work indicates', 'earlier findings reveal'],
+    reason: 'Replaced formulaic academic citation phrase',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bempirical observations were collected\b/gi,
+    pool: ['data was collected', 'empirical data was gathered', 'observations were compiled'],
+    reason: 'Simplified passive academic phrase',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bover a long duration of time\b/gi,
+    pool: ['over a long period', 'over time', 'for years', 'over many years'],
+    reason: 'Condensed redundant phrase "long duration of time"',
+    category: 'redundancy',
+    modes: ['natural', 'concise', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bwe have the ability to conclude that\b/gi,
+    pool: ['we can conclude that', 'this shows that', 'we can see that', 'the results show that'],
+    reason: 'Streamlined wordy conclusion phrase',
+    category: 'concise',
+    modes: ['natural', 'concise', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bcomputational methodology\b/gi,
+    pool: ['computational methods', 'computational modeling', 'computer methods'],
+    reason: 'Simplified inflated term "computational methodology"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bautomate repetitive tasks\b/gi,
+    pool: ['handle repetitive tasks', 'take care of routine chores', 'automate mundane work'],
+    reason: 'Replaced corporate buzzphrase "automate repetitive tasks"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bsave valuable time\b/gi,
+    pool: ['free up valuable time', 'save hours of work', 'give teams time back'],
+    reason: 'Replaced corporate cliché "save valuable time"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bincrease overall efficiency\b/gi,
+    pool: ['boost efficiency', 'speed up work', 'streamline daily operations'],
+    reason: 'Replaced business buzzword "increase overall efficiency"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bdrive higher productivity\b/gi,
+    pool: ['lift productivity', 'get more done', 'increase team output'],
+    reason: 'Replaced business buzzword "drive higher productivity"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bin many different ways\b/gi,
+    pool: ['in countless ways', 'across the board', 'in all kinds of ways'],
+    reason: 'Replaced vague filler "in many different ways"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bchanging the world\b/gi,
+    pool: ['reshaping daily work', 'transforming modern life', 'altering how we work'],
+    reason: 'Replaced hyperbole "changing the world"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\blandscape(?:s)? of\b/gi,
+    pool: ['world of', 'field of', 'space of', 'domain of', 'realm of', 'area of'],
+    reason: 'Replaced overused spatial metaphor "landscape of"',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bevolving landscape\b/gi,
+    pool: ['changing field', 'shifting environment', 'dynamic space', 'fast-moving domain'],
+    reason: 'Replaced AI-favored compound cliché "evolving landscape"',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bin today's fast-paced (?:digital )?world\b/gi,
+    pool: [
+      'these days',
+      'nowadays',
+      'in our current moment',
+      'right now',
+      'in the modern era',
+      'at this point',
+    ],
+    reason: 'Replaced extremely common AI opener cliché',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bfast-paced world\b/gi,
+    pool: ['modern world', 'world we live in', 'current era', 'world today'],
+    reason: 'Replaced AI-favored filler phrase',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bit(?:'s| is) (?:important|crucial|essential|critical) to (?:note|remember|acknowledge|understand) that\b/gi,
+    pool: ['remember,', 'in fact,', 'keep in mind:', 'we should note:', 'crucially,', ''],
+    reason: 'Removed hollow "important to note" throat-clearer',
+    category: 'filler',
+    modes: ['natural', 'concise', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bit(?:'s| is) worth (?:noting|mentioning) that\b/gi,
+    pool: ['keep in mind:', 'interestingly,', 'to highlight:', ''],
+    reason: 'Removed hollow "worth noting" filler',
+    category: 'filler',
+    modes: ['natural', 'concise', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bdelve deeper into\b/gi,
+    pool: ['dig into', 'look closer at', 'explore', 'examine more closely'],
+    reason: 'Replaced AI cliché "delve deeper into"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bnavigating the complexities of\b/gi,
+    pool: ['handling', 'managing', 'dealing with', 'working through'],
+    reason: 'Replaced AI cliché "navigating the complexities of"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bunlock the true potential of\b/gi,
+    pool: ['make the most of', 'tap into', 'maximize', 'get the best from'],
+    reason: 'Replaced formulaic "unlock the true potential of"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bcornerstone of\b/gi,
+    pool: ['foundation of', 'core of', 'basis of', 'heart of'],
+    reason: 'Replaced AI cliché "cornerstone of"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\btransformative impact\b/gi,
+    pool: ['major change', 'deep impact', 'real difference', 'lasting change'],
+    reason: 'Replaced buzzphrase "transformative impact"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bindispensable tool\b/gi,
+    pool: ['essential tool', 'vital tool', 'key asset', 'must-have tool'],
+    reason: 'Replaced buzzphrase "indispensable tool"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bholistic approach\b/gi,
+    pool: ['complete approach', 'well-rounded strategy', 'broad approach'],
+    reason: 'Replaced buzzphrase "holistic approach"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bserves as a reminder that\b/gi,
+    pool: ['reminds us that', 'shows that', 'highlights that'],
+    reason: 'Replaced formulaic "serves as a reminder that"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\ba wide variety of\b/gi,
+    pool: ['many', 'all kinds of', 'a range of', 'plenty of'],
+    reason: 'Simplified wordy quantifier "a wide variety of"',
+    category: 'concise',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bon a daily basis\b/gi,
+    pool: ['every day', 'daily', 'each day'],
+    reason: 'Simplified phrase "on a daily basis"',
+    category: 'concise',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bin the near future\b/gi,
+    pool: ['soon', 'shortly', 'in coming months'],
+    reason: 'Simplified "in the near future"',
+    category: 'concise',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bembark(?:s|ed|ing)? (?:on|upon) a journey\b/gi,
+    pool: ['begin', 'start', 'set out on', 'take on', 'pursue'],
+    reason: 'Removed over-dramatic journey metaphor',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bplays? (?:a )?(?:pivotal|crucial|vital|key|important|significant) role\b/gi,
+    pool: ['matters greatly', 'is central', 'is key', 'drives', 'shapes', 'influences significantly'],
+    reason: 'Replaced formulaic "plays a X role" structure',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bfoster(?:s|ing|ed)?(?:\s+(?:a sense of|an environment of))\b/gi,
+    pool: ['build', 'create', 'develop', 'grow', 'encourage', 'promote'],
+    reason: 'Replaced AI-favored "foster a sense/environment of" phrase',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bfoster(?:s|ed)?\b/gi,
+    pool: ['build', 'create', 'develop', 'grow', 'encourage', 'promote'],
+    reason: 'Replaced AI-favored "foster" verb',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bfostering\b/gi,
+    pool: ['building', 'creating', 'developing', 'growing', 'encouraging'],
+    reason: 'Replaced AI-favored "fostering" verb',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\beveryone(?:'s| is)? unique(?:ly)?\b/gi,
+    pool: ['each person differs', 'people vary', 'individuals differ', 'no two people are alike'],
+    reason: 'Replaced clichéd universalism phrase',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bseamlessly\b/gi,
+    pool: ['smoothly', 'naturally', 'easily', 'without friction', 'effortlessly'],
+    reason: 'Replaced AI-overused adverb "seamlessly"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bunlock(?:s|ing|ed)? (?:the )?(?:full )?potential\b/gi,
+    pool: ['realize the value of', 'maximize', 'harness', 'tap into', 'get the most from'],
+    reason: 'Replaced AI cliché "unlock potential"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bleverage(?:s|d|ing)?\b/gi,
+    pool: ['use', 'apply', 'draw on', 'build on', 'take advantage of', 'employ'],
+    reason: 'Replaced corporate jargon "leverage"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\boptimal(?:ly)?\b/gi,
+    pool: ['best', 'ideal', 'most effective', 'peak', 'top'],
+    reason: 'Replaced formal "optimal" with natural alternative',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bensures\s+(?:that\s+)?\b/gi,
+    pool: ['guarantees that ', 'provides ', 'secures ', 'maintains '],
+    reason: 'Varied "ensures" with grammatically concordant alternatives',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bensure\s+(?:that\s+)?\b/gi,
+    pool: ['guarantee that ', 'provide ', 'secure ', 'maintain '],
+    reason: 'Varied "ensure" with grammatically concordant alternatives',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bensured\s+(?:that\s+)?\b/gi,
+    pool: ['guaranteed that ', 'provided ', 'secured ', 'maintained '],
+    reason: 'Varied "ensured" with grammatically concordant alternatives',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bensuring\s+(?:that\s+)?\b/gi,
+    pool: ['guaranteeing that ', 'providing ', 'securing ', 'maintaining '],
+    reason: 'Varied "ensuring" with grammatically concordant alternatives',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bin conclusion,?\s*/gi,
+    pool: [
+      'Ultimately, ',
+      'At the end of the day, ',
+      'To wrap up, ',
+      'All things considered, ',
+      'In short, ',
+      'So, ',
+      'Putting it all together, ',
+    ],
+    reason: 'Replaced robotic essay-closing "in conclusion"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bin summary,?\s*/gi,
+    pool: ['To sum up, ', 'Briefly, ', 'In short, ', 'The bottom line: ', 'Simply put, '],
+    reason: 'Replaced stiff "in summary" transition',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bto summarize,?\s*/gi,
+    pool: ['In a nutshell, ', 'To put it simply, ', 'In brief, ', 'Overall, '],
+    reason: 'Replaced "to summarize" with varied closer',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bin addition(?:,|\s)/gi,
+    pool: ['Also, ', 'On top of that, ', 'What\'s more, ', 'Beyond that, ', 'Plus, '],
+    reason: 'Replaced stiff additive transition',
+    category: 'flow',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bfurthermore,?\s*/gi,
+    pool: ['Also, ', 'On top of that, ', 'Beyond this, ', 'What\'s more, ', 'Plus, '],
+    reason: 'Softened heavy "furthermore" transition',
+    category: 'flow',
+    modes: ['natural', 'flow'],
+  },
+  {
+    pattern: /\bmoreover,?\s*/gi,
+    pool: ['Also, ', 'On top of that, ', 'Beyond that, ', 'Plus, ', 'What\'s more, '],
+    reason: 'Smoothed overly stiff "moreover" academic transition',
+    category: 'flow',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bconversely,?\s*/gi,
+    pool: ['On the other hand, ', 'That said, ', 'Then again, ', 'In contrast, ', 'Yet, '],
+    reason: 'Replaced stiff contrastive "conversely"',
+    category: 'flow',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bnevertheless,?\s*/gi,
+    pool: ['Still, ', 'Even so, ', 'That said, ', 'Regardless, ', 'Yet, '],
+    reason: 'Replaced formal "nevertheless" with natural alternatives',
+    category: 'flow',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bnotwithstanding\b/gi,
+    pool: ['despite', 'in spite of', 'even with', 'regardless of'],
+    reason: 'Replaced archaic "notwithstanding"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bsubsequently,?\s*/gi,
+    pool: ['Then, ', 'After that, ', 'Next, ', 'Following that, '],
+    reason: 'Replaced formal "subsequently"',
+    category: 'flow',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bconsequently,?\s*/gi,
+    pool: ['As a result, ', 'So, ', 'Because of this, ', 'This means ', 'That\'s why '],
+    reason: 'Replaced stiff "consequently" with natural causals',
+    category: 'flow',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bthus,?\s*/gi,
+    pool: ['So, ', 'As a result, ', 'This means ', 'For this reason, ', 'Therefore, '],
+    reason: 'Replaced terse academic "thus"',
+    category: 'flow',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bhence,?\s*/gi,
+    pool: ['So, ', 'This is why ', 'As a result, ', 'Therefore, ', 'That\'s why '],
+    reason: 'Replaced archaic "hence"',
+    category: 'flow',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bthereby\b/gi,
+    pool: ['and so', 'which means', 'in doing so', 'and as a result'],
+    reason: 'Replaced stiff "thereby"',
+    category: 'flow',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+
+  // ── Wordy/Bureaucratic phrases ────────────────────────────────────────────
+  {
+    pattern: /\bin order to\b/gi,
+    pool: ['to', 'so as to', 'with the aim of', 'to help'],
+    reason: 'Simplified wordy infinitive phrase',
+    category: 'filler',
+    modes: ['concise', 'natural', 'conversational', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bdue to the fact that\b/gi,
+    pool: ['because', 'since', 'given that', 'as'],
+    reason: 'Replaced bureaucratic "due to the fact that"',
+    category: 'filler',
+    modes: ['concise', 'natural', 'conversational', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bat this point in time\b/gi,
+    pool: ['now', 'currently', 'at this stage', 'today'],
+    reason: 'Replaced inflated temporal phrase',
+    category: 'filler',
+    modes: ['concise', 'natural', 'conversational'],
+  },
+  {
+    pattern: /\bfor the purpose of\b/gi,
+    pool: ['for', 'to', 'with the goal of', 'in order to'],
+    reason: 'Eliminated redundant prepositional phrase',
+    category: 'filler',
+    modes: ['concise', 'natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bin the event that\b/gi,
+    pool: ['if', 'should', 'in case', 'whenever'],
+    reason: 'Streamlined conditional phrasing',
+    category: 'filler',
+    modes: ['concise', 'natural', 'conversational', 'formal', 'flow'],
+  },
+  {
+    pattern: /\bhas the ability to\b/gi,
+    pool: ['can', 'is able to', 'is capable of', 'manages to'],
+    reason: 'Replaced circumlocution with direct modal',
+    category: 'phrasing',
+    modes: ['concise', 'natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bgives? (?:us|me|them|one) the ability to\b/gi,
+    pool: ['lets', 'allows', 'enables', 'helps'],
+    reason: 'Replaced inflated "gives the ability to"',
+    category: 'phrasing',
+    modes: ['concise', 'natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\butilized\b/gi,
+    pool: ['used', 'applied', 'employed', 'put to use', 'worked with'],
+    reason: 'Substituted formal jargon "utilized" with natural past-tense verb',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\butilizes\b/gi,
+    pool: ['uses', 'applies', 'employs', 'works with'],
+    reason: 'Substituted formal jargon "utilizes" with natural verb',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'conversational', 'flow', 'formal'],
+  },
+  {
+    pattern: /\butilize\b/gi,
+    pool: ['use', 'apply', 'employ', 'put to use', 'work with'],
+    reason: 'Substituted formal jargon "utilize" with natural verb',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'conversational', 'flow', 'formal'],
+  },
+  {
+    pattern: /\butilizing\b/gi,
+    pool: ['using', 'applying', 'employing', 'working with'],
+    reason: 'Substituted formal jargon "utilizing"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\ba large number of\b/gi,
+    pool: ['many', 'numerous', 'a lot of', 'plenty of', 'a great many'],
+    reason: 'Condensed wordy quantifier',
+    category: 'redundancy',
+    modes: ['concise', 'natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\ba significant number of\b/gi,
+    pool: ['many', 'quite a few', 'a good number of', 'a substantial number of'],
+    reason: 'Condensed "a significant number of"',
+    category: 'redundancy',
+    modes: ['concise', 'natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\ba significant portion of\b/gi,
+    pool: ['much of', 'a large part of', 'a good chunk of', 'a sizable share of'],
+    reason: 'Condensed inflated phrase',
+    category: 'redundancy',
+    modes: ['concise', 'natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bwith regard to\b/gi,
+    pool: ['regarding', 'about', 'on the subject of', 'when it comes to', 'concerning'],
+    reason: 'Replaced clunky prepositional phrase',
+    category: 'flow',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bin terms of\b/gi,
+    pool: ['concerning', 'regarding', 'as for', 'when it comes to', 'with respect to'],
+    reason: 'Eliminated vague transitional phrase',
+    category: 'flow',
+    modes: ['formal', 'flow', 'natural', 'concise'],
+  },
+  {
+    pattern: /\bneedless to say,?\s*/gi,
+    pool: ['', 'Clearly, ', 'Naturally, ', 'Of course, '],
+    reason: 'Removed deadweight expression "needless to say"',
+    category: 'filler',
+    modes: ['concise', 'natural', 'conversational'],
+  },
+  {
+    pattern: /\bfirst and foremost,?\s*/gi,
+    pool: ['First, ', 'To start, ', 'Above all, ', 'Most importantly, ', 'Primarily, '],
+    reason: 'Replaced cliché idiom "first and foremost"',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bat the end of the day,?\s*/gi,
+    pool: ['Ultimately, ', 'In the end, ', 'When all is said and done, ', 'Fundamentally, '],
+    reason: 'Rotated overused closing phrase "at the end of the day"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bwithout further ado,?\s*/gi,
+    pool: ['', 'So, ', 'Let\'s get into it. ', 'Here\'s the thing: '],
+    reason: 'Removed stiff "without further ado" opener',
+    category: 'filler',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bnot only .{0,60}? but also\b/gi,
+    pool: [], // handled below in structural transforms
+    reason: '',
+    category: 'phrasing',
+    modes: [],
+  },
+  {
+    pattern: /\bof utmost importance\b/gi,
+    pool: ['critical', 'very important', 'essential', 'paramount', 'a top priority'],
+    reason: 'Replaced inflated "of utmost importance"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bplethora of\b/gi,
+    pool: ['many', 'lots of', 'a wealth of', 'a wide range of', 'an abundance of'],
+    reason: 'Replaced pompous "plethora of"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bmyriad of?\b/gi,
+    pool: ['many', 'countless', 'a wide variety of', 'numerous', 'lots of'],
+    reason: 'Replaced academic "myriad"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bin (?:today's|the modern) digital age\b/gi,
+    pool: ['today', 'these days', 'in our connected world', 'now', 'in the modern era'],
+    reason: 'Replaced AI-favored opener "digital age"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bthe realm of\b/gi,
+    pool: ['the world of', 'the field of', 'the domain of', 'the area of'],
+    reason: 'Replaced formal "realm of"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\ba (?:wide|broad|vast|diverse) range of\b/gi,
+    pool: ['many types of', 'a variety of', 'all kinds of', 'various', 'many different'],
+    reason: 'Condensed "a broad/wide range of"',
+    category: 'redundancy',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bstate-of-the-art\b/gi,
+    pool: ['cutting-edge', 'advanced', 'modern', 'leading', 'latest'],
+    reason: 'Replaced overused superlative "state-of-the-art"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bcutting-edge\b/gi,
+    pool: ['advanced', 'modern', 'leading', 'innovative', 'the latest'],
+    reason: 'Replaced overused "cutting-edge"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bgroundbreaking\b/gi,
+    pool: ['innovative', 'novel', 'original', 'pioneering', 'remarkable'],
+    reason: 'Replaced AI-favored hyperbole "groundbreaking"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\brevolutionary\b/gi,
+    pool: ['transformative', 'major', 'significant', 'major new', 'far-reaching'],
+    reason: 'Replaced dramatic "revolutionary" with measured alternative',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bparadigm shift\b/gi,
+    pool: ['major change', 'fundamental shift', 'turning point', 'big change', 'transformation'],
+    reason: 'Replaced academic jargon "paradigm shift"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational', 'formal'],
+  },
+  {
+    pattern: /\bsynergy\b/gi,
+    pool: ['collaboration', 'teamwork', 'combined effort', 'partnership', 'joint effort'],
+    reason: 'Replaced corporate jargon "synergy"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bproactive(?:ly)?\b/gi,
+    pool: ['ahead of time', 'early on', 'in advance', 'before it happens', 'deliberately'],
+    reason: 'Replaced corporate buzzword "proactive"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bstrategically\b/gi,
+    pool: ['deliberately', 'intentionally', 'thoughtfully', 'carefully', 'purposefully'],
+    reason: 'Replaced corporate adverb "strategically" with natural alternatives',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bstrategic\b/gi,
+    pool: ['key', 'focused', 'planned', 'long-term', 'deliberate'],
+    reason: 'Replaced corporate buzzword "strategic" with natural adjectives',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bcomprehensive(?:ly)?\b/gi,
+    pool: ['thorough', 'complete', 'detailed', 'full', 'in-depth'],
+    reason: 'Replaced formal "comprehensive" with direct alternatives',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\brobust\b/gi,
+    pool: ['strong', 'solid', 'reliable', 'well-built', 'sturdy', 'dependable'],
+    reason: 'Replaced overused tech/formal "robust"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bstreamline(?:s|d|ing)?\b/gi,
+    pool: ['simplify', 'improve', 'speed up', 'make easier', 'clean up', 'optimize'],
+    reason: 'Replaced business jargon "streamline"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bimpactful\b/gi,
+    pool: ['effective', 'powerful', 'meaningful', 'significant', 'valuable'],
+    reason: 'Replaced buzzword "impactful" with concrete alternatives',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bemphasized\b/gi,
+    pool: ['stressed', 'highlighted', 'underscored', 'pointed out', 'focused on'],
+    reason: 'Varied formal past tense "emphasized"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bemphasizes\b/gi,
+    pool: ['stresses', 'highlights', 'underscores', 'points out', 'focuses on'],
+    reason: 'Varied formal 3rd-person "emphasizes"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bemphasize\b/gi,
+    pool: ['stress', 'highlight', 'underscore', 'point out', 'focus on'],
+    reason: 'Varied formal base verb "emphasize"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bdemonstrated\b/gi,
+    pool: ['showed', 'proved', 'illustrated', 'revealed', 'confirmed'],
+    reason: 'Varied formal past tense "demonstrated"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bdemonstrates\b/gi,
+    pool: ['shows', 'proves', 'illustrates', 'reveals', 'confirms'],
+    reason: 'Varied formal 3rd-person "demonstrates"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bdemonstrate\b/gi,
+    pool: ['show', 'prove', 'illustrate', 'reveal', 'confirm'],
+    reason: 'Varied formal base verb "demonstrate"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bultimately,?\s*/gi,
+    pool: ['In the end, ', 'At its core, ', 'When it comes down to it, ', 'In the final analysis, ', 'Ultimately, '],
+    reason: 'Rotated closing transition "ultimately"',
+    category: 'flow',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\ba(?:s well as)\b/gi,
+    pool: ['and', 'along with', 'together with', 'in addition to', 'plus'],
+    reason: 'Simplified "as well as" connector',
+    category: 'concise' as any,
+    modes: ['concise', 'natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\btaking (?:everything )?into consideration\b/gi,
+    pool: ['considering this', 'all things considered', 'overall', 'given all this'],
+    reason: 'Replaced wordy synthesis phrase',
+    category: 'filler',
+    modes: ['concise', 'natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bit is (?:clear|evident|obvious) that\b/gi,
+    pool: ['clearly,', 'obviously,', 'evidently,', ''],
+    reason: 'Replaced hollow "it is clear that" construction',
+    category: 'filler',
+    modes: ['concise', 'natural', 'flow'],
+  },
+  {
+    pattern: /\bone (?:must|should|can|may)\b/gi,
+    pool: ['you', 'we', 'anyone'],
+    reason: 'Replaced impersonal "one must/should" with direct address',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bprofound(?:ly)?\b/gi,
+    pool: ['deep', 'significant', 'great', 'strong', 'meaningful'],
+    reason: 'Replaced inflated "profound" with grounded alternatives',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\ba significant variance\b/gi,
+    pool: ['a clear difference', 'a notable difference', 'a real contrast', 'a major divergence'],
+    reason: 'Replaced inflated academic phrase "a significant variance"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow'],
+  },
+  {
+    pattern: /\bsignificant\b/gi,
+    pool: ['notable', 'meaningful', 'major', 'substantial', 'clear'],
+    reason: 'Varied overused adjective "significant"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+  {
+    pattern: /\bsignificantly\b/gi,
+    pool: ['considerably', 'substantially', 'markedly', 'greatly', 'quite a bit'],
+    reason: 'Varied overused adverb "significantly"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'flow'],
+  },
+
+  // ── Passive-voice common structures ───────────────────────────────────────
+  {
+    pattern: /\bit (?:has been|was) (?:shown|demonstrated|found|proven|established) that\b/gi,
+    pool: ['research shows', 'studies show', 'evidence suggests', 'data confirms', 'findings indicate'],
+    reason: 'Converted impersonal passive "it has been shown that"',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bcan be (?:seen|observed|noted) (?:in|from|through)\b/gi,
+    pool: ['appears in', 'shows up in', 'is visible in', 'is evident in'],
+    reason: 'Converted weak passive observation phrase',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bwas (?:able to|found to|seen to)\b/gi,
+    pool: ['could', 'managed to', 'did', 'proved to'],
+    reason: 'Simplified passive compound modal',
+    category: 'phrasing',
+    modes: ['natural', 'concise', 'flow', 'conversational'],
+  },
+];
+
+// ---------------------------------------------------------------------------
+// SECTION 2: DETERMINISTIC RULES (mode-specific, always-apply)
+// ---------------------------------------------------------------------------
+const DETERMINISTIC_RULES: ReplacementPattern[] = [
+  // Correlative conjunction replacement (removes classic AI hallmark)
+  {
+    pattern: /\bnot only\s+([\w\s,]+?)\s+but also\s+/gi,
+    replacement: (_match: string, p1: string) => `both ${p1.trim()} and `,
+    reason: 'Simplified correlative conjunction "not only... but also" to natural "both... and"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  // Prepositional chain & nominalization simplification (remedies awkward bureaucratic phrasing)
+  {
+    pattern: /\bthe implementation of the monitoring of (?:the status of )?([\w\s-]+?) by ([\w\s-]+?) occurred on\b/gi,
+    replacement: (_match: string, p1: string, p2: string) => `${p2.trim()} started monitoring ${p1.trim()} on`,
+    reason: 'Eliminated heavy prepositional chain nominalization',
+    category: 'flow',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  // Bureaucratic passive elimination
+  {
+    pattern: /\bit was determined by ([\w\s]+?) that an investigation should be conducted by outside legal counsel into\b/gi,
+    replacement: (_match: string, p1: string) => `${p1.trim()} directed outside legal counsel to investigate`,
+    reason: 'Restructured nested bureaucratic passive clauses into active voice',
+    category: 'passive',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bit was determined by ([\w\s]+?) that\b/gi,
+    replacement: (_match: string, p1: string) => `${p1.trim()} determined that`,
+    reason: 'Converted passive "it was determined by" to active voice',
+    category: 'passive',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  // Wordy pleonasms and tautologies
+  { pattern: /\bat this present point in time,?\s*/gi, replacement: 'Currently, ', reason: 'Replaced wordy pleonasm "at this present point in time"', category: 'filler', modes: ['natural', 'concise', 'conversational', 'formal', 'flow'] },
+  { pattern: /\bcombine together\b/gi, replacement: 'combine', reason: 'Eliminated redundant tautology "combine together"', category: 'redundancy', modes: ['natural', 'concise', 'conversational', 'formal', 'flow'] },
+  { pattern: /\bpast historical records\b/gi, replacement: 'historical records', reason: 'Eliminated redundant modifier "past historical"', category: 'redundancy', modes: ['natural', 'concise', 'conversational', 'formal', 'flow'] },
+  { pattern: /\badvance preview\b/gi, replacement: 'preview', reason: 'Eliminated redundant modifier "advance preview"', category: 'redundancy', modes: ['natural', 'concise', 'conversational', 'formal', 'flow'] },
+  { pattern: /\bfinal end decision\b/gi, replacement: 'final decision', reason: 'Eliminated redundant modifier "final end"', category: 'redundancy', modes: ['natural', 'concise', 'conversational', 'formal', 'flow'] },
+
+  // Natural & Conversational contractions (breaks robotic AI stiffness)
+  { pattern: /\bdo not\b/gi, replacement: "don't", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
+  { pattern: /\bcannot\b/gi, replacement: "can't", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
+  { pattern: /\bwill not\b/gi, replacement: "won't", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
+  { pattern: /\bshould not\b/gi, replacement: "shouldn't", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
+  { pattern: /\bwould not\b/gi, replacement: "wouldn't", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
+  { pattern: /\bcould not\b/gi, replacement: "couldn't", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
+  { pattern: /\bI am\b/g, replacement: "I'm", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow'] },
+  { pattern: /\bI have\b/g, replacement: "I've", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow'] },
+  { pattern: /\bI will\b/g, replacement: "I'll", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow'] },
+  { pattern: /\bit is\b/gi, replacement: "it's", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
+  { pattern: /\bthat is\b/gi, replacement: "that's", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
+  { pattern: /\bthere is\b/gi, replacement: "there's", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
+  { pattern: /\bthey are\b/gi, replacement: "they're", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
+  { pattern: /\bwe are\b/gi, replacement: "we're", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
+  { pattern: /\byou are\b/gi, replacement: "you're", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow', 'concise'] },
+  { pattern: /\bhe is\b/gi, replacement: "he's", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow'] },
+  { pattern: /\bshe is\b/gi, replacement: "she's", reason: 'Applied natural contraction', category: 'formality', modes: ['natural', 'conversational', 'flow'] },
+
+  // Formal expansions
+  { pattern: /\bdon't\b/gi, replacement: 'do not', reason: 'Expanded for formal register', category: 'formality', modes: ['formal'] },
+  { pattern: /\bcan't\b/gi, replacement: 'cannot', reason: 'Expanded for formal register', category: 'formality', modes: ['formal'] },
+  { pattern: /\bwon't\b/gi, replacement: 'will not', reason: 'Expanded for formal register', category: 'formality', modes: ['formal'] },
+  { pattern: /\bit's\b/gi, replacement: 'it is', reason: 'Expanded for formal register', category: 'formality', modes: ['formal'] },
+  { pattern: /\bkids\b/gi, replacement: 'children', reason: 'Elevated to formal register', category: 'formality', modes: ['formal'] },
+  {
+    pattern: /\ba lot of\s+(?:(specialized|purified|experimental|additional|new|heavy|raw|fresh|active|qualified|experienced)\s+)?([a-z]+)\b/gi,
+    replacement: (_m: string, adj: string | undefined, noun: string) => {
+      const targetNoun = (noun || '').toLowerCase();
+      const prefix = adj ? `${adj} ` : '';
+      if (MASS_UNCOUNTABLE_NOUNS.has(targetNoun)) return `substantial ${prefix}${noun}`;
+      if (isPluralNoun(targetNoun) || targetNoun === 'stuff' || targetNoun === 'materials') return `numerous ${prefix}${noun}`;
+      return `substantial ${prefix}${noun}`;
+    },
+    reason: 'Substituted colloquial quantifier with grammatically concordant term',
+    category: 'formality',
+    modes: ['formal'],
+  },
+  { pattern: /\bstuff\b/gi, replacement: 'materials', reason: 'Replaced vague slang', category: 'formality', modes: ['formal'] },
+  {
+    pattern: /\bget\b(?!\s+(?:rid|better|worse|by|together|up|down|in|out|through|around|away|along|off|on|over|back|used|into|across|ahead|at))\b/gi,
+    replacement: 'obtain',
+    reason: 'Elevated verb for formal register',
+    category: 'formality',
+    modes: ['formal'],
+  },
+  {
+    pattern: /\bgot\b(?!\s+(?:rid|better|worse|by|together|up|down|in|out|through|around|away|along|off|on|over|back|used|into|across|ahead|at))\b/gi,
+    replacement: 'obtained',
+    reason: 'Elevated verb for formal register',
+    category: 'formality',
+    modes: ['formal'],
+  },
+
+  // Cleanup
+  { pattern: / {2,}/g, replacement: ' ', reason: 'Removed double spaces', category: 'filler', modes: ['natural', 'concise', 'conversational', 'formal', 'flow'] },
+];
+
+// ---------------------------------------------------------------------------
+// SECTION 3: SENTENCE-LEVEL TRANSFORMATIONS
+// These operate on sentence arrays, not character patterns
+// ---------------------------------------------------------------------------
+
+/**
+ * Split a long sentence at a coordinating conjunction or relative clause
+ * to inject burstiness. Returns 1 or 2 sentences.
+ */
+function maybeSplitLongSentence(sentence: string, mode: HumanizerMode, minLength = 28): string {
+  if (mode === 'formal') return sentence;
+  const words = sentence.trim().split(/\s+/);
+  if (words.length < minLength) return sentence;
+
+  const minSide = minLength <= 20 ? 5 : minLength <= 24 ? 7 : 10;
+  // Split only at coordinating conjunctions followed by an independent clause with explicit subject
+  const conjRegex = /\b(, and |, but |, so |, yet )(?=(?:it|they|this|these|we|he|she|the|such)\s+[a-z]+)/gi;
+  let match: RegExpExecArray | null;
+  const re = new RegExp(conjRegex.source, conjRegex.flags);
+
+  while ((match = re.exec(sentence)) !== null) {
+    const idx = match.index;
+    const wordsBefore = sentence.slice(0, idx).split(/\s+/).length;
+    if (wordsBefore >= minSide && wordsBefore <= words.length - Math.max(4, minSide - 2)) {
+      const left = sentence.slice(0, idx).trim();
+      let right = sentence.slice(idx + match[0].length).trim();
+      right = right.charAt(0).toUpperCase() + right.slice(1);
+
+      const strategy = pick(['split', 'period', 'dash']);
+      if (strategy === 'dash') {
+        return `${left} — ${right}`;
+      }
+      return `${left}. ${right}`;
+    }
+  }
+
+  // Semicolon transitions: "; however, " or "; therefore, "
+  const semiRegex = /;\s*(however|therefore|consequently|furthermore),\s*/gi;
+  const semiMatch = semiRegex.exec(sentence);
+  if (semiMatch) {
+    const idx = semiMatch.index;
+    const wordsBefore = sentence.slice(0, idx).split(/\s+/).length;
+    if (wordsBefore >= minSide && wordsBefore <= words.length - Math.max(4, minSide - 2)) {
+      const left = sentence.slice(0, idx).trim();
+      const transitionWord = semiMatch[1].charAt(0).toUpperCase() + semiMatch[1].slice(1);
+      const right = sentence.slice(idx + semiMatch[0].length).trim();
+      return `${left}. ${transitionWord}, ${right}`;
+    }
+  }
+
+  return sentence;
+}
+
+/**
+ * Inject a light hedge or first-person aside into a sentence that starts with "AI" patterns.
+ * Increases perplexity by making word choices less predictable.
+ */
+const HEDGES = [
+  'In practice, ', 'To be fair, ', 'Generally speaking, ', 'That said, ',
+  'Admittedly, ', 'As a rule, ', 'For the most part, ', 'In most cases, ',
+  'Broadly speaking, ', 'By and large, ', 'As things stand, ',
+  'Here\'s the thing: ', 'Worth noting: ', 'The short answer: ',
+];
+
+const CONVERSATIONAL_HEDGES = [
+  'Honestly, ', 'Thing is, ', 'Clearly, ', 'Of course, ', 'Actually, ',
+];
+
+function maybeAddHedge(
+  sentence: string,
+  sentenceIndex: number,
+  totalSentences: number,
+  isConversational = false,
+  consistencyTracker?: DocumentConsistencyTracker
+): string {
+  const trimmed = sentence.trim();
+  // Never add a hedge to the first or last sentence
+  if (sentenceIndex === 0 || sentenceIndex === totalSentences - 1) return sentence;
+  // Skip short fragments or questions
+  if (trimmed.length < 25 || trimmed.endsWith('?')) return sentence;
+
+  // Dispersion constraint: do not inject hedge if one was injected within 2 sentences
+  if (consistencyTracker && !consistencyTracker.canInjectHedge(sentenceIndex)) {
+    return sentence;
+  }
+
+  // Never add a hedge to email salutations, closings, or politeness formulas
+  const isEmailFormula = /^(?:Dear|Hi|Hello|Hey|Thank you|Thanks|Please|I look forward|Looking forward|Warm|Best|Kind|Sincerely|Hope|If you|With that|In fact|However|Although|These days|Nowadays|Right now|Following up|Quick update|Let me know)\b/i.test(trimmed);
+  if (isEmailFormula) return sentence;
+
+  // Only add a hedge to ~20% of body sentences
+  if ((sentenceIndex * 7919) % 10 > 1) return sentence;
+
+  // Preserve uppercase "I", "I'm", "I'd", etc.
+  const startsWithPronounI = /^I(?:'|\s)/.test(trimmed);
+  const adjusted = startsWithPronounI
+    ? trimmed
+    : trimmed.charAt(0).toLowerCase() + trimmed.slice(1);
+
+  const pool = isConversational ? CONVERSATIONAL_HEDGES : HEDGES;
+  if (consistencyTracker) {
+    consistencyTracker.registerHedge(sentenceIndex);
+  }
+  return pick(pool, sentenceIndex) + adjusted;
+}
+
+/**
+ * Vary the starter of sentences that all begin with "The" to reduce monotony,
+ * strictly verifying singular vs. plural noun demonstrative agreement.
+ */
+function varyMonotonousStarters(sentences: string[], includeDemonstratives = false): string[] {
+  let theCount = 0;
+  return sentences.map((s, i) => {
+    if (/^The\s+[a-zA-Z]+/i.test(s)) {
+      theCount++;
+      // Every 3rd "The"-started sentence, replace with an agreement-checked alternative
+      if (theCount % 3 === 0) {
+        const words = s.split(/\s+/);
+        const secondWord = words[1] || '';
+        const plural = isPluralNoun(secondWord);
+
+        // Alternatives that keep grammatical number alignment
+        const demonstrative = plural ? 'These' : 'This';
+        const startersPool = [demonstrative, 'Meanwhile, the', 'In addition, the', 'At the same time, the'];
+        const chosen = pick(startersPool, i);
+
+        if (chosen.includes('the')) {
+          return `${chosen} ${words.slice(1).join(' ')}`;
+        }
+        return `${chosen} ${words.slice(1).join(' ')}`;
+      }
+    } else if (includeDemonstratives && /^(?:This|It)\s+[a-zA-Z]+/i.test(s) && i > 0) {
+      const prev = sentences[i - 1].trim();
+      if (/^(?:This|It)\s+/i.test(prev)) {
+        const words = s.split(/\s+/);
+        const transitions = ['Consequently,', 'Specifically,', 'In effect,'];
+        const chosen = pick(transitions, i);
+        return `${chosen} ${words[0].toLowerCase()} ${words.slice(1).join(' ')}`;
+      }
+    }
+    return s;
+  });
+}
+
+/**
+ * Streamline verbose sentence-initial infinitive constructs.
+ * E.g., "In order to remediate the breach..." -> "To remediate the breach..."
+ */
+function streamlineSentenceInitialInfinitive(sentence: string): string {
+  return sentence.replace(/^In order to\s+([a-z]+)/i, (_, verb) => `To ${verb}`);
+}
+
+/**
+ * Relocate introductory adverbs into the primary verb phrase for natural human cadence.
+ * E.g., "Now, the development team is sunsetting..." -> "The development team is now sunsetting..."
+ */
+function relocateIntroductoryAdverbs(sentence: string): string {
+  const m = sentence.match(/^(Currently|Now|Recently|Typically|Regularly),\s+(the\s+[^,;.]+?)\s+(is|are|was|were)\s+([a-z]+(?:ing|ed)\b.*)$/i);
+  if (m) {
+    const adv = m[1].toLowerCase();
+    const subj = m[2];
+    const aux = m[3];
+    const rest = m[4];
+    const formattedSubj = subj.charAt(0).toUpperCase() + subj.slice(1);
+    return `${formattedSubj} ${aux} ${adv} ${rest}`;
+  }
+  return sentence;
+}
+
+/**
+ * Safely converts clear, unambiguous passive voice patterns into active voice.
+ * E.g., "The data was analyzed by the research team." -> "The research team analyzed the data."
+ * E.g., "the Raft consensus algorithm is frequently deployed by infrastructure teams in order to..." ->
+ *       "infrastructure teams frequently deploy the Raft consensus algorithm in order to..."
+ */
+function maybeRestructurePassiveSentence(sentence: string): string {
+  const trimmed = sentence.trim();
+  if (trimmed.length < 15) return sentence;
+
+  // Match sentence with optional introductory phrase, patient, is/are/was/were, optional adverb, [verb]ed, by [Agent], [rest]
+  const passivePattern = /^(?:([^,;.]+?,\s+))?([^,;.]+?)\s+(is|are|was|were)\s+(?:(frequently|regularly|often|commonly)\s+)?([a-z]+ed)\s+by\s+((?:the\s+|our\s+|infrastructure\s+|development\s+|security\s+)?(?:teams?|engineers?|developers?|researchers?|scientists?|authors?|administrators?|users?|auditors?|reviewers?))\s*(in order to\s+.*|to\s+.*|[.,;].*)?$/i;
+  const m = passivePattern.exec(trimmed);
+  if (m) {
+    const prefix = m[1] || '';
+    const patient = m[2].trim();
+    const aux = m[3].toLowerCase();
+    const adv = m[4] ? `${m[4].toLowerCase()} ` : '';
+    const verbEd = m[5].toLowerCase();
+    const rawAgent = m[6].trim();
+    const rest = (m[7] || '').trim();
+
+    // Map regular ed verbs to active present/past form
+    let activeVerb = verbEd;
+    if (aux === 'is' || aux === 'are') {
+      if (verbEd === 'deployed') activeVerb = 'deploy';
+      else if (verbEd === 'utilized' || verbEd === 'used') activeVerb = 'use';
+      else if (verbEd === 'maintained') activeVerb = 'maintain';
+      else if (verbEd === 'configured') activeVerb = 'configure';
+      else if (verbEd === 'implemented') activeVerb = 'implement';
+      else if (verbEd === 'reviewed') activeVerb = 'review';
+      else if (verbEd === 'monitored') activeVerb = 'monitor';
+      else if (verbEd.endsWith('ed')) activeVerb = verbEd.slice(0, -2);
+    }
+
+    const formattedAgent = prefix
+      ? rawAgent.toLowerCase()
+      : rawAgent.charAt(0).toUpperCase() + rawAgent.slice(1);
+
+    const formattedPatient = /^[A-Z][a-z]+/.test(patient) && !/^(?:The|A|An|This)\b/.test(patient)
+      ? patient
+      : patient.replace(/^(?:The|A|An)\s+/i, (art) => art.toLowerCase());
+
+    const punct = rest.endsWith('.') || rest.endsWith(';') || rest.endsWith('!') ? '' : '.';
+    const restructured = `${prefix}${formattedAgent} ${adv}${activeVerb} ${formattedPatient} ${rest}${punct}`
+      .replace(/\s{2,}/g, ' ')
+      .trim();
+
+    // Verify invariants before returning restructured sentence
+    const inv = validateInvariants(sentence, restructured);
+    if (!inv.criticalViolation && inv.numbersPreserved && inv.citationsPreserved && inv.negationsPreserved) {
+      return restructured;
+    }
+  }
+
+  // Fallback to simpler subject-verb-agent pattern
+  const simplePassive = /^(The\s+[^,;.]+?)\s+(?:was|were)\s+([a-z]+ed)\s+by\s+([A-Za-z0-9\s]+?)([.!?;])$/i;
+  const mSimple = simplePassive.exec(trimmed);
+  if (mSimple) {
+    const patient = mSimple[1].toLowerCase();
+    const verb = mSimple[2].toLowerCase();
+    const rawAgent = mSimple[3].trim();
+    const punct = mSimple[4];
+
+    let formattedAgent = rawAgent;
+    if (/^(?:the|our|this|their)\s+/i.test(formattedAgent)) {
+      formattedAgent = formattedAgent.charAt(0).toUpperCase() + formattedAgent.slice(1);
+    } else {
+      formattedAgent = `The ${formattedAgent}`;
+    }
+
+    const restructured = `${formattedAgent} ${verb} ${patient}${punct}`;
+    const inv = validateInvariants(sentence, restructured);
+    if (!inv.criticalViolation && inv.numbersPreserved && inv.citationsPreserved && inv.negationsPreserved) {
+      return restructured;
+    }
+  }
+
+  return sentence;
+}
+
+/**
+ * Normalizes punctuation, collapses adjacent duplicate punctuation, strips rogue whitespace
+ * before punctuation, and preserves ellipses, abbreviations, URLs, quotes, and markdown spans.
+ */
+export function postProcessCleanup(content: string): string {
+  if (!content) return content;
+
+  let text = content;
+
+  // 1. Normalize horizontal whitespace (preserving newlines)
+  text = text.replace(/[^\S\r\n]{2,}/g, ' ');
+
+  // 2. Remove whitespace immediately preceding closing punctuation (comma, colon, semicolon, single period, exclamation, question)
+  text = text.replace(/[^\S\r\n]+([,;:!?])/g, '$1');
+  text = text.replace(/[^\S\r\n]+(\.)(?!\.)/g, '$1');
+
+  // 3. Deduplicate duplicate commas with optional whitespace between them (e.g., ",," or ", ," or ",  ,")
+  text = text.replace(/,(?:[^\S\r\n]*,)+/g, ',');
+
+  // 4. Clean stray duplicate periods (exactly two periods, e.g. "end.. start" -> "end. start")
+  // Strictly preserves 3-dot or 4-dot ellipses ("..." or "....")
+  text = text.replace(/(?<!\.)\.{2}(?!\.)/g, '.');
+
+  // 5. Deduplicate stray colons/semicolons (excluding URL protocol "://")
+  text = text.replace(/;(?:\s*;)+/g, ';');
+  text = text.replace(/(?<!https?|ftp):(?:\s*:)+/gi, ':');
+
+  // 6. Fix comma followed immediately by period (",." -> ".")
+  text = text.replace(/,\./g, '.');
+
+  // 7. Deduplicate consecutive identical transition adverbs
+  text = text.replace(
+    /\b(However|Moreover|Furthermore|Additionally|Consequently|Therefore|Still|Nevertheless|Nonetheless)\s*,\s*(however|moreover|furthermore|additionally|consequently|therefore|still|nevertheless|nonetheless|also)\b/gi,
+    '$1'
+  );
+
+  // 8. Capitalize letter after sentence terminal (. ! ?), excluding abbreviations, ellipses, and URLs
+  text = text.replace(/(?<!\.)([.!?])[^\S\r\n]+([a-z])/g, (match, punc, letter, offset, fullStr) => {
+    const prefix = fullStr.slice(Math.max(0, offset - 10), offset + 1);
+    if (/\b(?:e\.g|i\.e|et al|vs|Dr|Mr|Mrs|Ms|Prof)\.$/i.test(prefix)) {
+      return match;
+    }
+    return `${punc} ${letter.toUpperCase()}`;
+  });
+
+  // 9. Quotation spacing cleanup
+  text = text.replace(/\s+([,.:;!?])\s*"/g, '$1"');
+  text = text.replace(/"\s+([,.:;!?])/g, '"$1');
+
+  return text;
+}
+
+/**
+ * Merge pairs of very short sentences (< 6 words each) with a natural connector.
+ */
+const MERGE_CONNECTORS = [' and ', ', so ', ', while ', ' — and '];
+function mergeShortSentencePairs(sentences: string[]): string[] {
+  const result: string[] = [];
+  let i = 0;
+  while (i < sentences.length) {
+    const curr = sentences[i];
+    const next = sentences[i + 1];
+    const currWords = curr.split(/\s+/).length;
+    const nextWords = next ? next.split(/\s+/).length : 999;
+
+    if (
+      next &&
+      currWords < 6 &&
+      nextWords < 6 &&
+      currWords + nextWords < 14 &&
+      !/[?"']\s*$/.test(curr) &&
+      !/^[A-Z][a-z]+:/.test(next)
+    ) {
+      const connector = pick(MERGE_CONNECTORS, i);
+      const merged =
+        curr.replace(/[.!?]\s*$/, '') +
+        connector +
+        next.charAt(0).toLowerCase() +
+        next.slice(1);
+      result.push(merged);
+      i += 2;
+    } else {
+      result.push(curr);
+      i++;
+    }
+  }
+  return result;
+}
+
+/**
+ * Sliding Window Sentence Transforms (QuillBot prevSentence / nextSentence architecture).
+ * Guarantees cross-sentence and cross-paragraph coherence, eliminates redundant adversative transitions,
+ * breaks consecutive identical noun/pronoun starters, and shapes rhythm according to mode.
+ */
+function applySlidingWindowSentenceTransforms(
+  sentences: string[],
+  mode: HumanizerMode,
+  externalPrevSentence?: string,
+  consistencyTracker?: DocumentConsistencyTracker
+): string[] {
+  if (sentences.length === 0) return sentences;
+
+  const result: string[] = [];
+  const ADVERSATIVE_START = /^(?:Still|Yet|Even so|However|Nonetheless|Regardless|That said),?\s+/i;
+
+  for (let i = 0; i < sentences.length; i++) {
+    const prev = i > 0 ? result[i - 1] : (externalPrevSentence || '');
+    let curr = sentences[i].trim();
+
+    // 1. Cross-sentence adversative coherence:
+    // If previous sentence starts with an adversative, and current starts with one:
+    if (prev && ADVERSATIVE_START.test(prev) && ADVERSATIVE_START.test(curr)) {
+      curr = curr.replace(ADVERSATIVE_START, '');
+      curr = curr.charAt(0).toUpperCase() + curr.slice(1);
+    }
+
+    // 2. Cross-sentence starter de-duplication with proper plural/human pronoun resolution:
+    if (prev) {
+      const prevWords = prev.split(/\s+/);
+      const currWords = curr.split(/\s+/);
+      if (prevWords.length >= 2 && currWords.length >= 2) {
+        const prevStarter = `${prevWords[0]} ${prevWords[1]}`.toLowerCase();
+        const currStarter = `${currWords[0]} ${currWords[1]}`.toLowerCase();
+        // Avoid possessive nouns like "The researchers' findings"
+        const isPossessive = currWords[1].includes("'");
+        if (prevStarter === currStarter && /^the\s+[a-z]+/i.test(prevStarter) && !isPossessive) {
+          const noun = currWords[1];
+          const pluralOrHuman = isPluralNoun(noun);
+          const pronoun = pluralOrHuman ? 'they' : 'it';
+          const variations = [
+            `In turn, ${pronoun} `,
+            `Next, ${pronoun} `,
+            `Additionally, ${pronoun} `,
+            `${pronoun.charAt(0).toUpperCase() + pronoun.slice(1)} then `,
+          ];
+          const rep = pick(variations, i);
+          curr = rep + curr.slice(currWords[0].length + currWords[1].length + 1).trim();
+        }
+      }
+    }
+
+    // 3. Prevent transition clumping via consistency tracker
+    if (consistencyTracker) {
+      if (!consistencyTracker.canUseTransition(curr)) {
+        const transFam = consistencyTracker.getTransitionFamily(curr);
+        if (transFam) {
+          curr = curr.replace(/^(?:Moreover|Furthermore|Additionally|However|Still|Consequently|Therefore),?\s+/i, '');
+          curr = curr.charAt(0).toUpperCase() + curr.slice(1);
+        }
+      }
+      consistencyTracker.registerSentenceTransition(curr);
+    }
+
+    // 4. Flow mode pacing and compound cadence:
+    if (mode === 'flow' && prev) {
+      const prevLen = prev.split(/\s+/).length;
+      const currLen = curr.split(/\s+/).length;
+      if (prevLen > 22 && currLen > 22) {
+        curr = maybeSplitLongSentence(curr, mode);
+      }
+    }
+
+    result.push(curr);
+  }
+
+  return result;
+}
+
+// ---------------------------------------------------------------------------
+// SECTION 4: HUMANIZATION SCORE CALCULATOR
+// Estimates likelihood text is AI-generated vs human on 0-100 scale
+// ---------------------------------------------------------------------------
+const AI_SIGNALS = [
+  /\bdelve(?:s|d|ing)?\b/gi, /\btapestry\b/gi, /\btestament\b/gi, /\bvital role\b/gi,
+  /\bbeacon\b/gi, /\bembark(?:s|ed|ing)?\b/gi, /\bfoster(?:s|ed|ing)?\b/gi, /\bseamlessly\b/gi,
+  /\bunlock(?:s|ed)? (?:the )?potential\b/gi, /\blandscape of\b/gi, /\bevolving landscape\b/gi,
+  /\bplethora\b/gi, /\bmyriad\b/gi, /\bparadigm\b/gi, /\bsynergy\b/gi,
+  /\bproactive\b/gi, /\bcomprehensive\b/gi, /\brobust\b/gi, /\bimpactful\b/gi,
+  /\bin conclusion\b/gi, /\bfurthermore\b/gi, /\bmoreover\b/gi,
+  /\bconsequently\b/gi, /\bin addition\b/gi, /\bnotably\b/gi,
+  /\bit is important to\b/gi, /\bit is worth noting\b/gi, /\bit is crucial to\b/gi,
+  /\bit is essential to\b/gi, /\bit should be noted\b/gi,
+  /\bin today's (?:fast-paced|digital)?\b/gi, /\bstate-of-the-art\b/gi,
+  /\bgroundbreaking\b/gi, /\bleverage\b/gi, /\butilize[sd]?\b/gi, /\butilizing\b/gi,
+  /\bmultifaceted\b/gi, /\bintricacies\b/gi, /\bnuances\b/gi, /\bunderscores\b/gi,
+  /\bharness(?:ing)?\b/gi, /\brevolutionize\b/gi, /\bcornerstone\b/gi, /\bparamount\b/gi,
+  /\bcatalyst\b/gi, /\btransformative\b/gi, /\bindispensable\b/gi, /\bholistic\b/gi,
+  /\bfast-paced world\b/gi, /\bmodern era\b/gi, /\bdigital age\b/gi,
+  /\bpaves the way\b/gi, /\bsheds light on\b/gi, /\bdriving force\b/gi,
+  /\bplays a (?:pivotal|key|central|significant) role\b/gi,
+  /\bserves as a (?:testament|reminder|beacon)\b/gi,
+  /\baims to (?:provide|ensure|deliver)\b/gi,
+  /\bin order to\b/gi, /\bdue to the fact that\b/gi, /\bat this point in time\b/gi,
+  /\bfor the purpose of\b/gi, /\bhas the ability to\b/gi,
+  /\b(increase overall efficiency|drive higher productivity|automate repetitive tasks)\b/gi,
+  /\b(optimal outcomes|significant impact|valuable insights|seamless integration)\b/gi,
+  /\b(it goes without saying|first and foremost|at the end of the day|needless to say)\b/gi,
+  /\b(crucial aspect|key factor|essential component|integral part)\b/gi,
+  /\b(prior literature demonstrates|empirical observations|computational methodology)\b/gi,
+  /\b(aforementioned|conduct an investigation into|duration of time)\b/gi,
+];
+
+export function scoreHumanization(text: string): number {
+  const trimmed = text.trim();
+  if (trimmed.length === 0) return 0;
+  const words = trimmed.split(/\s+/).filter(Boolean);
+  const wordCount = words.length;
+  if (wordCount < 5) return 85;
+
+  // ── 1. AI Signal Matches ──────────────────────────────────────────────────
+  let aiSignalCount = 0;
+  for (const sig of AI_SIGNALS) {
+    const clone = new RegExp(sig.source, sig.flags);
+    const matches = text.match(clone);
+    if (matches) aiSignalCount += matches.length;
+  }
+
+  // ── 2. Uncontracted Auxiliaries vs Contractions ────────────────────────────
+  const uncontracted = (text.match(/\b(it is|there is|they are|we are|cannot|do not|does not|will not|should not|would not|could not|have not|has not|is not|are not)\b/gi) || []).length;
+  const contractions = (text.match(/\b(it's|there's|they're|we're|can't|don't|doesn't|won't|shouldn't|wouldn't|couldn't|haven't|hasn't|isn't|aren't|I'm|I've|I'll|you're|he's|she's)\b/gi) || []).length;
+
+  // ── 3. Sentence Length Variance (Burstiness) ──────────────────────────────
+  const sentences = text.split(/[.!?]+/).map(s => s.trim()).filter(Boolean);
+  let burstinessStdDev = 5;
+  if (sentences.length >= 2) {
+    const lengths = sentences.map(s => s.split(/\s+/).filter(Boolean).length);
+    const mean = lengths.reduce((a, b) => a + b, 0) / lengths.length;
+    const variance = lengths.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / lengths.length;
+    burstinessStdDev = Math.sqrt(variance);
+  }
+
+  let score = 92;
+
+  // AI signal penalties
+  if (aiSignalCount > 0) {
+    const signalDensity = (aiSignalCount / wordCount) * 100;
+    const penalty = Math.min(signalDensity * 7.5 + aiSignalCount * 7.5, 76);
+    score -= penalty;
+  }
+
+  // Formality penalty / contractions bonus
+  if (uncontracted >= 2 && contractions === 0) {
+    score -= Math.min(uncontracted * 5, 20);
+  } else if (contractions > 0) {
+    score += Math.min(contractions * 2, 4);
+  }
+
+  // Sentence burstiness impact
+  if (sentences.length >= 2) {
+    if (burstinessStdDev < 2.5) {
+      score -= 10;
+    } else if (burstinessStdDev >= 5.0) {
+      score += 2;
+    }
+  }
+
+  return Math.max(12, Math.min(97, Math.round(score)));
+}
+
+
+// ---------------------------------------------------------------------------
+// MAIN ENGINE CLASS
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// SECTION 5: DETAILED AI SIGNAL DETECTOR (QuillBot-style with explainers)
+// ---------------------------------------------------------------------------
+export interface DetailedAiSignal {
+  pattern: RegExp;
+  category: 'cliche' | 'transition' | 'cadence' | 'filler' | 'passive';
+  explainer: string;
+}
+
+export const DETAILED_AI_SIGNALS: DetailedAiSignal[] = [
+  { pattern: /\bdelve(?:s|d|ing)? into\b/gi, category: 'cliche', explainer: 'Overused AI exploration cliché ("delve into")' },
+  { pattern: /\btapestry of\b/gi, category: 'cliche', explainer: 'Melodramatic AI metaphor ("tapestry of")' },
+  { pattern: /\bserves? as a testament to\b/gi, category: 'cliche', explainer: 'Formulaic AI conclusion marker' },
+  { pattern: /\bmultifaceted\b/gi, category: 'cliche', explainer: 'Standard corporate AI filler adjective' },
+  { pattern: /\bvital role\b/gi, category: 'cliche', explainer: 'Predictable importance claim ("vital role")' },
+  { pattern: /\bpivotal role\b/gi, category: 'cliche', explainer: 'High-frequency AI importance cliché' },
+  { pattern: /\bbeacon of\b/gi, category: 'cliche', explainer: 'Melodramatic metaphor hallmark' },
+  { pattern: /\bembark(?:s|ed|ing)? on\b/gi, category: 'cliche', explainer: 'Clichéd journey metaphor' },
+  { pattern: /\bfoster(?:s|ed|ing)?\b/gi, category: 'cliche', explainer: 'Overused corporate growth term' },
+  { pattern: /\bseamless(?:ly)?\b/gi, category: 'cliche', explainer: 'Generic AI quality claim' },
+  { pattern: /\bunlock(?:s|ed)? (?:the )?potential\b/gi, category: 'cliche', explainer: 'Marketing cliché generated by LLMs' },
+  { pattern: /\bevolving landscape\b/gi, category: 'cliche', explainer: 'Overused macro-trend cliché' },
+  { pattern: /\bplethora of\b/gi, category: 'cliche', explainer: 'Artificial SAT-vocabulary insertion' },
+  { pattern: /\bmyriad of\b/gi, category: 'cliche', explainer: 'Artificial SAT-vocabulary insertion' },
+  { pattern: /\bparadigm shift\b/gi, category: 'cliche', explainer: 'Corporate buzzword' },
+  { pattern: /\bproactive(?:ly)?\b/gi, category: 'cliche', explainer: 'Robotic buzzword' },
+  { pattern: /\bcomprehensive\b/gi, category: 'cliche', explainer: 'Overused filler adjective' },
+  { pattern: /\brobust\b/gi, category: 'cliche', explainer: 'Predictable LLM quality descriptor' },
+  { pattern: /\bgroundbreaking\b/gi, category: 'cliche', explainer: 'Inflated promotional descriptor' },
+  { pattern: /\bleverage\b/gi, category: 'cliche', explainer: 'Frequent business verb hallucinated by AI' },
+  { pattern: /\butilize[sd]?\b/gi, category: 'filler', explainer: 'Pompous synonym for simple "use"' },
+  { pattern: /\bin today's (?:fast-paced|digital)? (?:world|age|society)\b/gi, category: 'cliche', explainer: 'Top-ranked GPT introductory cliché' },
+  { pattern: /\bin conclusion\b/gi, category: 'transition', explainer: 'Formulaic robotic transition' },
+  { pattern: /\bfurthermore\b/gi, category: 'transition', explainer: 'Stiff, predictable academic adverb' },
+  { pattern: /\bmoreover\b/gi, category: 'transition', explainer: 'Monotonous transition adverb' },
+  { pattern: /\bconsequently\b/gi, category: 'transition', explainer: 'Stiff causal transition' },
+  { pattern: /\bnotably\b/gi, category: 'transition', explainer: 'Generic emphasis adverb' },
+  { pattern: /\bit is important to (?:note|remember|understand)\b/gi, category: 'filler', explainer: 'Hollow declarative filler' },
+  { pattern: /\bit is crucial to\b/gi, category: 'filler', explainer: 'Artificial emphasis phrase' },
+  { pattern: /\bit is worth noting that\b/gi, category: 'filler', explainer: 'Padded AI transition' },
+  { pattern: /\bdue to the fact that\b/gi, category: 'filler', explainer: 'Bloated bureaucratic phrasing for "because"' },
+  { pattern: /\bin order to\b/gi, category: 'filler', explainer: 'Wordy infinitive inflation for "to"' },
+  { pattern: /\bhas the ability to\b/gi, category: 'filler', explainer: 'Wordy circumlocution for "can"' },
+  { pattern: /\bneedless to say\b/gi, category: 'cliche', explainer: 'Clichéd conversational transition' },
+  { pattern: /\boptimal outcomes\b/gi, category: 'cliche', explainer: 'Corporate robotic phrasing' },
+];
+
+/**
+ * Scans text and pinpoints all AI signals with exact spans and explainers
+ */
+export function detectAiSignals(text: string): AiSignalPhrase[] {
+  if (!text || text.trim().length === 0) return [];
+  const signals: AiSignalPhrase[] = [];
+  let count = 0;
+
+  for (const item of DETAILED_AI_SIGNALS) {
+    const rx = new RegExp(item.pattern.source, item.pattern.flags);
+    let m: RegExpExecArray | null;
+    while ((m = rx.exec(text)) !== null) {
+      signals.push({
+        id: `sig_${++count}`,
+        phrase: m[0],
+        start: m.index,
+        end: m.index + m[0].length,
+        explainer: item.explainer,
+        category: item.category,
+      });
+      if (count >= 25) break;
+    }
+  }
+
+  return signals.sort((a, b) => a.start - b.start);
+}
+
+/**
+ * Computes word-level QuillBot-style interactive DiffTokens
+ */
+export function computeDiffTokens(
+  originalText: string,
+  improvedText: string,
+  changes: HumanizerChange[] = [],
+  frozenWords: string[] = []
+): DiffToken[] {
+  const frozenSet = new Set((frozenWords || []).map((w) => w.trim().toLowerCase()).filter(Boolean));
+
+  // Sort multi-word replacements by length (longest first) so compound phrases match before single words
+  const multiWordChanges = (changes || [])
+    .filter((c) => c.replacement && c.replacement.trim().includes(' '))
+    .sort((a, b) => b.replacement.trim().length - a.replacement.trim().length);
+
+  const singleWordChangeMap = new Map<string, HumanizerChange>();
+  for (const c of changes || []) {
+    const trimmedRep = c.replacement.toLowerCase().trim();
+    if (!trimmedRep.includes(' ')) {
+      singleWordChangeMap.set(trimmedRep, c);
+    }
+  }
+
+  let tokenCounter = 0;
+  const result: DiffToken[] = [];
+  let currentOffset = 0;
+  const totalLength = improvedText.length;
+
+  while (currentOffset < totalLength) {
+    const sliceRemaining = improvedText.slice(currentOffset);
+
+    // 1. Leading whitespace run
+    const wsMatch = sliceRemaining.match(/^\s+/);
+    if (wsMatch) {
+      const wsText = wsMatch[0];
+      const start = currentOffset;
+      const end = start + wsText.length;
+      result.push({
+        id: `tok_${tokenCounter++}`,
+        text: wsText,
+        type: 'unchanged',
+        startIndex: start,
+        endIndex: end,
+      });
+      currentOffset = end;
+      continue;
+    }
+
+    // 2. Check for multi-word phrase replacements starting at currentOffset
+    let matchedMultiWord: { change: HumanizerChange; text: string } | null = null;
+    for (const mwc of multiWordChanges) {
+      const repTrim = mwc.replacement.trim();
+      const escaped = repTrim.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      // Must match at currentOffset with word boundary or punctuation at the end
+      const phraseRegex = new RegExp(`^${escaped}(?=[^\\w'-]|$)`, 'i');
+      const pMatch = sliceRemaining.match(phraseRegex);
+      if (pMatch) {
+        matchedMultiWord = { change: mwc, text: pMatch[0] };
+        break;
+      }
+    }
+
+    if (matchedMultiWord) {
+      const start = currentOffset;
+      const end = start + matchedMultiWord.text.length;
+      result.push({
+        id: `tok_${tokenCounter++}`,
+        text: matchedMultiWord.text,
+        type: 'changed',
+        original: matchedMultiWord.change.original,
+        alternatives: matchedMultiWord.change.alternatives || [],
+        reason: matchedMultiWord.change.reason,
+        category: matchedMultiWord.change.category,
+        startIndex: start,
+        endIndex: end,
+        scope: 'phrase',
+      });
+      currentOffset = end;
+      continue;
+    }
+
+    // 3. Match next single token: either a word ([\\w'-]+) or punctuation ([^\\w\\s]+)
+    const tokenMatch = sliceRemaining.match(/^([\w'-]+|[^\w\s]+)/);
+    if (!tokenMatch) {
+      const char = sliceRemaining[0];
+      const start = currentOffset;
+      const end = start + 1;
+      result.push({
+        id: `tok_${tokenCounter++}`,
+        text: char,
+        type: 'unchanged',
+        startIndex: start,
+        endIndex: end,
+      });
+      currentOffset = end;
+      continue;
+    }
+
+    const raw = tokenMatch[1];
+    const start = currentOffset;
+    const end = start + raw.length;
+    currentOffset = end;
+
+    // If it's punctuation, emit unchanged
+    if (/^[^\w\s]+$/.test(raw)) {
+      result.push({
+        id: `tok_${tokenCounter++}`,
+        text: raw,
+        type: 'unchanged',
+        startIndex: start,
+        endIndex: end,
+      });
+      continue;
+    }
+
+    const clean = raw.toLowerCase().trim();
+
+    // Check if word is frozen
+    if (frozenSet.has(clean)) {
+      result.push({
+        id: `tok_${tokenCounter++}`,
+        text: raw,
+        type: 'frozen',
+        category: 'frozen',
+        reason: 'Frozen term preserved verbatim',
+        startIndex: start,
+        endIndex: end,
+        scope: 'word',
+      });
+      continue;
+    }
+
+    // Check if word was changed by our engine
+    const matchedChange =
+      singleWordChangeMap.get(clean) ||
+      (changes || []).find((c) => {
+        const r = c.replacement.toLowerCase().trim();
+        return r === clean || r.split(/\s+/).includes(clean);
+      });
+
+    if (matchedChange) {
+      const isPhraseScope =
+        (matchedChange.original && matchedChange.original.includes(' ')) ||
+        (matchedChange.alternatives && matchedChange.alternatives.some((a) => a.includes(' ')));
+
+      result.push({
+        id: `tok_${tokenCounter++}`,
+        text: raw,
+        type: 'changed',
+        original: matchedChange.original,
+        alternatives: matchedChange.alternatives || [],
+        reason: matchedChange.reason,
+        category: matchedChange.category,
+        startIndex: start,
+        endIndex: end,
+        scope: isPhraseScope ? 'phrase' : 'word',
+      });
+    } else if (!originalText.toLowerCase().includes(clean)) {
+      result.push({
+        id: `tok_${tokenCounter++}`,
+        text: raw,
+        type: 'structural',
+        reason: 'Restructured sentence cadence or phrasing',
+        category: 'flow',
+        startIndex: start,
+        endIndex: end,
+        scope: 'word',
+      });
+    } else {
+      result.push({
+        id: `tok_${tokenCounter++}`,
+        text: raw,
+        type: 'unchanged',
+        startIndex: start,
+        endIndex: end,
+      });
+    }
+  }
+
+  return result;
+}
+
+// ---------------------------------------------------------------------------
+// MAIN ENGINE CLASS
+// ---------------------------------------------------------------------------
+export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
+  public readonly id = 'deterministic-rules';
+  public readonly name = 'Advanced Linguistic Engine v2 (On-Device, 100% Private)';
+  public readonly isAvailable = true;
+  public readonly requiresDownload = false;
+
+  public async process(text: string, options: HumanizerOptions): Promise<HumanizerResult> {
+    return this.processSync(text, options);
+  }
+
+  public processSync(text: string, options: HumanizerOptions): HumanizerResult {
+    const rawMode = options.mode;
+    const mode: HumanizerMode =
+      rawMode === 'conversational' || (rawMode as any) === 'casual'
+        ? 'conversational'
+        : rawMode === 'formal' || (rawMode as any) === 'academic'
+        ? 'formal'
+        : rawMode === 'concise'
+        ? 'concise'
+        : rawMode === 'flow'
+        ? 'flow'
+        : 'natural';
+
+    const {
+      frozenWords = [],
+      vocabularyIntensity = 'balanced',
+      rewriteStrength,
+      tone,
+      smartContractions = false,
+    } = options;
+    if (!text || text.trim().length === 0) {
+      return {
+        originalText: text,
+        improvedText: text,
+        mode,
+        changes: [],
+        diffTokens: [],
+        stats: { originalWords: 0, improvedWords: 0, reductionPercentage: 0, readingTimeSeconds: 0 },
+        engineName: this.name,
+        engineType: 'deterministic-rules',
+        processedLocally: true,
+      };
+    }
+
+    let modified = text;
+    const recordedChanges: HumanizerChange[] = [];
+
+    // ── STEP 0: FREEZE WORDS SETUP ──────────────────────────────────────────
+    const validFrozenWords = frozenWords.map((w) => w.trim()).filter((w) => w.length > 0);
+
+    // Determine rewrite strength: explicit rewriteStrength has precedence over legacy vocabularyIntensity
+    const effectiveStrength: RewriteStrength = rewriteStrength || (
+      vocabularyIntensity === 'conservative' ? 'minimal' :
+      vocabularyIntensity === 'dynamic' ? 'strong' :
+      vocabularyIntensity === 'maximum' ? 'extensive' : 'balanced'
+    );
+
+    // Determine intensity threshold based on rewrite strength
+    const intensityFactor =
+      effectiveStrength === 'minimal'
+        ? 0.20
+        : effectiveStrength === 'light'
+        ? 0.45
+        : effectiveStrength === 'balanced'
+        ? 0.75
+        : effectiveStrength === 'strong'
+        ? 0.90
+        : 1.0;
+
+    // ── STEP 0.2: FIRST-CLASS REVERSIBLE PROTECTED SPAN MASKING (ProtectedSpanManager) ───
+    const protectedSpanResult = ProtectedSpanManager.mask(modified, {
+      freezeQuotes: options.freezeQuotes !== false,
+      frozenWords: validFrozenWords,
+      preserveUrls: true,
+      preserveCitations: true,
+      preserveUnits: true,
+      preserveCode: true,
+    });
+    modified = protectedSpanResult.maskedText;
+
+    // ── STEP 0.5: CONTEXT-AWARE MASKING & PRESERVATION ───────────────────────
+    // Protect unchanged sections, quotes, citations, and RFC normative terms
+    const sectionMasks: Array<{ placeholder: string; original: string }> = [];
+    const sectionsToProtect = [
+      ...(options.plan?.sectionsToKeepUnchanged || []),
+      ...(options.context?.protectedTokens?.quotes || []),
+      ...(options.context?.protectedTokens?.citations || []),
+    ];
+
+    sectionsToProtect.forEach((sec, idx) => {
+      const s = sec.trim();
+      if (s.length > 3 && modified.includes(s)) {
+        const placeholder = `__HT_UNCHANGED_SEC_${idx}__`;
+        sectionMasks.push({ placeholder, original: s });
+        modified = modified.replace(s, placeholder);
+      }
+    });
+
+    // Clean authorial prose preservation: If plan identifies zero writing issues, preserve authorial voice
+    const isCleanProse = Boolean(options.plan && options.plan.issuesToFix && options.plan.issuesToFix.length === 0);
+
+    const isConversational = options.context?.genre === 'conversational' || tone === 'conversational' || mode === 'conversational';
+    const isAcademic = (options.context?.genre === 'academic' || tone === 'academic' || tone === 'formal' || mode === 'formal') && !isConversational;
+    const shouldContract = smartContractions || isConversational;
+    const shouldExpand = isAcademic;
+
+    // Consistency Tracker across blocks and paragraphs
+    const consistencyTracker = new DocumentConsistencyTracker();
+
+    // Parse into structured content blocks so paragraph breaks, headings, lists & code survive
+    const doc = parseDocumentToBlocks(modified);
+
+    let lastSentenceOfPrevBlock: string | undefined = options.prevSentence || options.context?.prevSentence;
+
+    for (const block of doc.blocks) {
+      if (block.isProtected) {
+        block.rewrittenText = block.rawText;
+        block.status = 'preserved';
+        continue;
+      }
+
+      if (block.type === 'heading') {
+        const match = block.rawText.match(/^(#{1,6}\s+)(.*)$/);
+        const prefix = match ? match[1] : '';
+        const hText = match ? match[2] : block.rawText;
+        const transformed = this.transformBlockText(
+          hText,
+          false,
+          mode,
+          effectiveStrength,
+          intensityFactor,
+          isCleanProse,
+          shouldContract,
+          shouldExpand,
+          recordedChanges,
+          lastSentenceOfPrevBlock,
+          consistencyTracker
+        );
+        block.rewrittenText = prefix + transformed.trim();
+        block.status = 'rewritten';
+      } else if (block.type === 'list_item') {
+        const marker = block.listMarker || '';
+        const itemText = block.rawText.slice(marker.length);
+        const transformed = this.transformBlockText(
+          itemText,
+          false,
+          mode,
+          effectiveStrength,
+          intensityFactor,
+          isCleanProse,
+          shouldContract,
+          shouldExpand,
+          recordedChanges,
+          lastSentenceOfPrevBlock,
+          consistencyTracker
+        );
+        block.rewrittenText = marker + transformed.trim();
+        block.status = 'rewritten';
+      } else if (block.type === 'quote') {
+        if (options.freezeQuotes !== false) {
+          block.rewrittenText = block.rawText;
+          block.status = 'preserved';
+        } else {
+          const quoteText = block.rawText.replace(/^>\s*/, '');
+          const transformed = this.transformBlockText(
+            quoteText,
+            true,
+            mode,
+            effectiveStrength,
+            intensityFactor,
+            isCleanProse,
+            shouldContract,
+            shouldExpand,
+            recordedChanges,
+            lastSentenceOfPrevBlock,
+            consistencyTracker
+          );
+          block.rewrittenText = '> ' + transformed.trim();
+          block.status = 'rewritten';
+        }
+      } else {
+        // Paragraph prose
+        const transformed = this.transformBlockText(
+          block.rawText,
+          true,
+          mode,
+          effectiveStrength,
+          intensityFactor,
+          isCleanProse,
+          shouldContract,
+          shouldExpand,
+          recordedChanges,
+          lastSentenceOfPrevBlock,
+          consistencyTracker
+        );
+        block.rewrittenText = transformed;
+        block.status = 'rewritten';
+      }
+
+      // Track last sentence for cross-paragraph continuity in multi-paragraph documents
+      const blockSentences = block.rewrittenText?.match(/[^.!?]+[.!?]+/g);
+      if (blockSentences && blockSentences.length > 0) {
+        lastSentenceOfPrevBlock = blockSentences[blockSentences.length - 1].trim();
+      }
+    }
+
+    // Deterministically reassemble output keeping paragraphs separated by \n\n and lists separated by \n
+    modified = projectBlocksToPlainText(doc, true);
+
+    // ── STEP 4: RESTORE UNCHANGED SECTIONS, QUOTES & FROZEN TOKENS ────────────
+    for (const mask of sectionMasks) {
+      modified = modified.replace(new RegExp(mask.placeholder, 'g'), mask.original);
+    }
+    const restoreRes = protectedSpanResult.restore(modified);
+    modified = restoreRes.restoredText;
+
+    // ── STRUCTURAL INVARIANT VALIDATION & REPAIR ─────────────────────────────
+    const structVal = validateDocumentStructure(doc, modified);
+    if (structVal.hasCollapseAnomaly && structVal.repairedText) {
+      modified = structVal.repairedText;
+    }
+
+    // ── POST-PROCESS PUNCTUATION & BOUNDARY NORMALIZATION ─────────────────────
+    modified = postProcessCleanup(modified);
+
+    // ── STEP 6: COMPUTE INTERACTIVE DIFF TOKENS ──────────────────────────────
+    const diffTokens = computeDiffTokens(text, modified, recordedChanges, validFrozenWords);
+
+    // ── STATS ─────────────────────────────────────────────────────────────────
+    const origWords = text.trim().split(/\s+/).filter(Boolean).length;
+    const impWords = modified.trim().split(/\s+/).filter(Boolean).length;
+    const wordDiff = origWords - impWords;
+    const reductionPercentage = origWords > 0 ? Math.round((wordDiff / origWords) * 100) : 0;
+    const readingTimeSeconds = Math.round((impWords / 200) * 60);
+
+    // ── STEP 7: ALTERNATIVES METADATA WITH VALIDATION & RANKING ───────────────
+    const alternativesSet = new Set<string>();
+    for (const ch of recordedChanges) {
+      if (ch.alternatives && ch.alternatives.length > 0) {
+        for (const alt of ch.alternatives) {
+          if (alt && alt.trim() && alt !== ch.original) {
+            alternativesSet.add(alt.trim());
+          }
+        }
+      }
+    }
+    const phraseAlternatives = Array.from(alternativesSet).slice(0, 5);
+
+    const mappedTone: ToneRegister | undefined =
+      options.tone === 'formal' || (options.tone as any) === 'academic' ? 'formal' :
+      options.tone === 'conversational' ? 'casual' :
+      (options.tone as any);
+
+    // Multi-candidate ranking and phrase candidate scoring
+    const candidateRanking = rankCandidates(text, phraseAlternatives, {
+      mode,
+      genre: options.context?.genre,
+      tone: mappedTone,
+      rewriteStrength: effectiveStrength,
+      targetReadingLevel: options.targetReadingLevel,
+      scope: 'phrase',
+    });
+
+    const alternativesMetadata: AlternativesMetadata = {
+      scope: 'phrase',
+      candidates: candidateRanking.rankedCandidates.length > 0
+        ? candidateRanking.rankedCandidates
+        : phraseAlternatives.map((alt, idx) => ({
+            id: `phrase_alt_${idx}`,
+            text: alt,
+            scope: 'phrase' as const,
+            label: `Phrase: "${alt}"`,
+            isValid: true,
+          })),
+      selectedIndex: 0,
+      originalTargetText: text,
+    };
+
+    return {
+      originalText: text,
+      improvedText: modified,
+      mode,
+      changes: recordedChanges,
+      diffTokens,
+      alternatives: phraseAlternatives,
+      alternativesMetadata,
+      stats: {
+        originalWords: origWords,
+        improvedWords: impWords,
+        reductionPercentage,
+        readingTimeSeconds,
+      },
+      engineName: this.name,
+      engineType: 'deterministic-rules',
+      processedLocally: true,
+      context: options.context as any,
+      plan: options.plan as any,
+      executionEnvironment: 'local-emulation-fallback',
+      fallbackTriggered: true,
+      mockEngine: true,
+      document: doc,
+    };
+  }
+
+  private transformBlockText(
+    blockText: string,
+    isProse: boolean,
+    mode: HumanizerMode,
+    strength: RewriteStrength,
+    intensityFactor: number,
+    isCleanProse: boolean,
+    shouldContract: boolean,
+    shouldExpand: boolean,
+    recordedChanges: HumanizerChange[],
+    externalPrevSentence?: string,
+    consistencyTracker?: DocumentConsistencyTracker
+  ): string {
+    let content = blockText;
+
+    // In minimal mode: if text has zero AI clichés or is clean prose, strictly preserve it
+    if (strength === 'minimal') {
+      const hasCriticalCliche = /delve into|tapestry of|serves as a testament|stands as a beacon|pivotal role|in the realm of|it is important to note|in today'?s (?:fast-paced|rapidly evolving)/i.test(blockText);
+      if (!hasCriticalCliche) {
+        return blockText;
+      }
+    }
+
+    // PASS 1: Pool-based cliché replacements with consistency tracking
+    let ruleIdx = 0;
+    if (!isCleanProse) {
+      for (const rule of CLICHE_POOLS) {
+        ruleIdx++;
+        if (rule.pool.length === 0 || !rule.modes.includes(mode)) continue;
+
+        // In minimal mode, only address critical AI formulaic markers
+        if (strength === 'minimal') {
+          const isCritical = /delve into|tapestry|testament|beacon|pivotal|crucial role|realm of|important to note|today['\\]*?s/i.test(rule.pattern.source);
+          if (!isCritical) continue;
+        }
+
+        let matchCount = 0;
+        content = content.replace(rule.pattern, (match) => {
+          // Check consistency tracker for established synonym mapping
+          const existingMapped = consistencyTracker?.getMappedReplacement(match);
+          let formatted: string;
+          let candidateAlts: string[];
+
+          if (existingMapped) {
+            formatted = existingMapped;
+            candidateAlts = rule.pool.filter((p) => p.toLowerCase() !== formatted.toLowerCase());
+          } else {
+            // Light mode intensity gating on first match
+            const ruleHash = (ruleIdx * 37 + matchCount * 17) % 100;
+            if (strength === 'light') {
+              const isCritical = /delve into|tapestry|testament|beacon|pivotal|crucial role|realm of|important to note|today['\\]*?s/i.test(rule.pattern.source);
+              if (!isCritical && ruleHash > 45) {
+                matchCount++;
+                return match;
+              }
+            } else if (matchCount > 0 && ruleHash > intensityFactor * 100) {
+              return match;
+            }
+
+            let pool = rule.pool;
+            // Conversational mode: avoid stiff/clinical corporate phrasing
+            if (mode === 'conversational' && /today'?s/i.test(match)) {
+              pool = ['These days, ', 'Nowadays, ', 'Right now, '];
+            }
+
+            const rep = pick(pool, matchCount++);
+            formatted =
+              match[0] === match[0].toUpperCase() && rep.length > 0
+                ? rep.charAt(0).toUpperCase() + rep.slice(1)
+                : rep;
+
+            candidateAlts = pool
+              .filter((p) => p.toLowerCase() !== rep.toLowerCase())
+              .map((p) =>
+                match[0] === match[0].toUpperCase() && p.length > 0
+                  ? p.charAt(0).toUpperCase() + p.slice(1)
+                  : p
+              );
+
+            consistencyTracker?.recordTermMapping(match, formatted);
+          }
+
+          recordedChanges.push({
+            original: match,
+            replacement: formatted,
+            reason: rule.reason,
+            category: rule.category,
+            index: 0,
+            alternatives: candidateAlts,
+          });
+          return formatted;
+        });
+      }
+
+      // PASS 2: Deterministic rules (skip in minimal mode to preserve original wording)
+      if (strength !== 'minimal') {
+        let detIdx = 0;
+        for (const rule of DETERMINISTIC_RULES) {
+          detIdx++;
+          if (!rule.modes.includes(mode)) continue;
+
+          // In light mode: only high-confidence redundancy reduction rules run unconditionally;
+          // stylistic/phrasing rules are gated (detHash <= 45)
+          if (strength === 'light' && rule.category !== 'redundancy') {
+            const detHash = (detIdx * 41) % 100;
+            if (detHash > 45) continue;
+          }
+
+          content = content.replace(rule.pattern, (m, ...args) => {
+            const rep = typeof rule.replacement === 'function' ? rule.replacement(m, ...args) : rule.replacement;
+            const formatted =
+              m[0] === m[0].toUpperCase() && rep.length > 0
+                ? rep.charAt(0).toUpperCase() + rep.slice(1)
+                : rep;
+            if (rep !== m) {
+              recordedChanges.push({
+                original: m,
+                replacement: formatted,
+                reason: rule.reason,
+                category: rule.category,
+                index: 0,
+                alternatives: [m],
+              });
+            }
+            return formatted;
+          });
+        }
+      }
+    }
+
+    // PASS 3: Sentence-level structural transforms (prose paragraphs only)
+    if (isProse) {
+      const sentenceRegex = /.*?(?:(?<!\b(?:et al|Dr|Mr|Mrs|Ms|Prof|vs|e\.g|i\.e))[.!?]+)(?=\s+[A-Z"'([0-9]|$)/gi;
+      const sentenceParts: string[] = [];
+      let lastIndex = 0;
+      let m: RegExpExecArray | null;
+
+      while ((m = sentenceRegex.exec(content)) !== null) {
+        sentenceParts.push(m[0]);
+        lastIndex = m.index + m[0].length;
+      }
+      const remainder = content.slice(lastIndex).trim();
+      if (remainder) sentenceParts.push(remainder);
+
+      let sentences = sentenceParts.map((s) => s.trim()).filter(Boolean);
+
+      // In minimal mode: do NOT split sentences or add synthetic hedges
+      if (strength !== 'minimal') {
+        // 3a. Split long sentences for burstiness:
+        // minimal: no split
+        // light: minSplitLen = 32
+        // balanced: minSplitLen = 28
+        // strong: minSplitLen = 22
+        // extensive: minSplitLen = 18
+        const minSplitLen =
+          strength === 'light' ? 32 :
+          strength === 'balanced' ? 28 :
+          strength === 'strong' ? 22 : 18;
+        sentences = sentences.map((s) => (s.split(/\s+/).length >= minSplitLen ? maybeSplitLongSentence(s, mode, minSplitLen) : s));
+
+        // 3b. Merge tiny sentence pairs (balanced, strong, extensive)
+        if (strength !== 'light') {
+          sentences = mergeShortSentencePairs(sentences);
+        }
+
+        // 3c. Vary monotonous starters (balanced: "The", strong/extensive: "The" + demonstratives)
+        if (strength !== 'light') {
+          sentences = varyMonotonousStarters(sentences, strength === 'strong' || strength === 'extensive');
+        }
+
+        // 3d. Add hedges for natural/conversational modes (balanced, strong, extensive only)
+        if ((mode === 'natural' || mode === 'conversational') && (strength === 'balanced' || strength === 'strong' || strength === 'extensive')) {
+          sentences = sentences.map((s, i) => maybeAddHedge(s, i, sentences.length, mode === 'conversational', consistencyTracker));
+        }
+
+        // 3d-2. In strong & extensive modes: relocate monotonous sentence-initial adverbs and streamline infinitives
+        if (strength === 'strong' || strength === 'extensive') {
+          sentences = sentences.map((s) => streamlineSentenceInitialInfinitive(relocateIntroductoryAdverbs(s)));
+        }
+
+        // 3e. In extensive mode: active voice restructuring on passive constructions
+        if (strength === 'extensive') {
+          sentences = sentences.map((s) => maybeRestructurePassiveSentence(s));
+        }
+      }
+
+      // 3f. Apply sliding-window cross-sentence context (with cross-paragraph external context!)
+      if (strength !== 'minimal') {
+        sentences = applySlidingWindowSentenceTransforms(sentences, mode, externalPrevSentence, consistencyTracker);
+      }
+
+      content = sentences.join(' ').replace(/ {2,}/g, ' ').trim();
+    }
+
+    // STEP 3.5: CONTRACTIONS NORMALIZATION
+    if (shouldContract) {
+      const contractMap: [RegExp, string][] = [
+        [/\bdo not\b/gi, "don't"],
+        [/\bdoes not\b/gi, "doesn't"],
+        [/\bdid not\b/gi, "didn't"],
+        [/\bcannot\b/gi, "can't"],
+        [/\bcould not\b/gi, "couldn't"],
+        [/\bwould not\b/gi, "wouldn't"],
+        [/\bshould not\b/gi, "shouldn't"],
+        [/\bis not\b/gi, "isn't"],
+        [/\bare not\b/gi, "aren't"],
+        [/\bwas not\b/gi, "wasn't"],
+        [/\bwere not\b/gi, "weren't"],
+        [/\bhave not\b/gi, "haven't"],
+        [/\bhas not\b/gi, "hasn't"],
+        [/\bwill not\b/gi, "won't"],
+        [/\bthey are\b/gi, "they're"],
+        [/\bwe are\b/gi, "we're"],
+        [/\byou are\b/gi, "you're"],
+        [/\bit is\b/gi, "it's"],
+        [/\bthat is\b/gi, "that's"],
+        [/\bthere is\b/gi, "there's"],
+      ];
+      for (const [re, rep] of contractMap) {
+        content = content.replace(re, (m) => {
+          recordedChanges.push({
+            original: m,
+            replacement: rep,
+            reason: 'Normalized to natural spoken contraction',
+            category: 'contraction',
+            index: 0,
+          });
+          return rep;
+        });
+      }
+    } else if (shouldExpand) {
+      const expandMap: [RegExp, string][] = [
+        [/\bdon't\b/gi, 'do not'],
+        [/\bdoesn't\b/gi, 'does not'],
+        [/\bdidn't\b/gi, 'did not'],
+        [/\bcan't\b/gi, 'cannot'],
+        [/\bcouldn't\b/gi, 'could not'],
+        [/\bwouldn't\b/gi, 'would not'],
+        [/\bshouldn't\b/gi, 'should not'],
+        [/\bisn't\b/gi, 'is not'],
+        [/\baren't\b/gi, 'are not'],
+        [/\bwasn't\b/gi, 'was not'],
+        [/\bweren't\b/gi, 'were not'],
+        [/\bhaven't\b/gi, 'have not'],
+        [/\bhasn't\b/gi, 'has not'],
+        [/\bwon't\b/gi, 'will not'],
+        [/\bthey're\b/gi, 'they are'],
+        [/\bwe're\b/gi, 'we are'],
+        [/\byou're\b/gi, 'you are'],
+        [/\bit's\b/gi, 'it is'],
+      ];
+      for (const [re, rep] of expandMap) {
+        content = content.replace(re, (m) => {
+          recordedChanges.push({
+            original: m,
+            replacement: rep,
+            reason: 'Expanded contraction for academic/formal register',
+            category: 'formality',
+            index: 0,
+          });
+          return rep;
+        });
+      }
+    }
+
+    // PASS 5: Final cleanup (horizontal whitespace, punctuation normalization, articles, quotes)
+    content = postProcessCleanup(content);
+
+    // Indefinite article agreement normalization
+    content = content.replace(/\b(an)\s+([bcdfghjklmnpqrstvwxyz][a-z]+)\b/gi, (match, art, word) => {
+      const lw = word.toLowerCase();
+      if (SILENT_H_VOWEL_SOUNDS.has(lw)) return match;
+      const correctArt = art[0] === 'A' ? 'A' : 'a';
+      return `${correctArt} ${word}`;
+    });
+    content = content.replace(/\b(a)\s+([aeiou][a-z]+)\b/gi, (match, art, word) => {
+      const lw = word.toLowerCase();
+      if (VOWEL_LETTERS_WITH_CONSONANT_SOUND.has(lw)) return match;
+      const correctArt = art[0] === 'A' ? 'An' : 'an';
+      return `${correctArt} ${word}`;
+    });
+
+    return content;
+  }
+}
+
+export const defaultRuleEngine = new RuleBasedHumanizerEngine();
+
+export function humanizeWithRules(
+  text: string,
+  options: HumanizerOptions = { mode: 'natural' }
+): HumanizerResult {
+  return defaultRuleEngine.processSync(text, options);
+}
+

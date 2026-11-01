@@ -106,7 +106,7 @@ const CLICHE_POOLS: Array<{
   },
   {
     pattern: /\bfurthermore,?\s*/gi,
-    pool: ['Also, ', 'Plus, ', 'Beyond that, ', 'Along with this, '],
+    pool: ['In addition, ', 'Additionally, ', 'Beyond this, ', 'Along with this, '],
     reason: 'Replaced formal AI transition "furthermore"',
     category: 'filler',
     modes: ['natural', 'conversational', 'concise', 'flow'],
@@ -127,7 +127,7 @@ const CLICHE_POOLS: Array<{
   },
   {
     pattern: /\bultimately,?\s*/gi,
-    pool: ['In the end, ', 'At the end of the day, ', 'When all is said and done, '],
+    pool: ['In the end, ', 'Eventually, ', 'Over time, '],
     reason: 'Replaced AI wrap-up word "ultimately"',
     category: 'phrasing',
     modes: ['natural', 'conversational', 'concise', 'flow'],
@@ -141,8 +141,15 @@ const CLICHE_POOLS: Array<{
   },
   {
     pattern: /\b(?:serves as a testament to|stands as a testament to|is a testament to)\s*/gi,
-    pool: ['demonstrates ', 'highlights ', 'proves ', 'attests to '],
+    pool: ['demonstrates ', 'highlights ', 'attests to ', 'provides evidence of '],
     reason: 'Replaced AI cliché "testament to"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\b(?:served as a testament to|stood as a testament to|was a testament to)\s*/gi,
+    pool: ['demonstrated ', 'highlighted ', 'attested to ', 'provided evidence of '],
+    reason: 'Replaced past AI cliché "served as a testament to"',
     category: 'phrasing',
     modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
   },
@@ -157,13 +164,6 @@ const CLICHE_POOLS: Array<{
     pattern: /\bdelving into\s*/gi,
     pool: ['Examining ', 'Analyzing ', 'Investigating '],
     reason: 'Replaced AI cliché "delving into"',
-    category: 'phrasing',
-    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
-  },
-  {
-    pattern: /\bdelve into\s*/gi,
-    pool: ['examine ', 'analyze ', 'investigate ', 'explore '],
-    reason: 'Replaced AI cliché "delve into"',
     category: 'phrasing',
     modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
   },
@@ -581,15 +581,41 @@ const CLICHE_POOLS: Array<{
     modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
   },
   {
-    pattern: /\bplays? a (?:pivotal|crucial|vital|key|significant) role in\b/gi,
+    pattern: /\bplay a (?:pivotal|crucial|vital|key|significant) role in\b/gi,
     pool: [
-      'makes a big difference in',
-      'is key to',
-      'really matters for',
-      'heavily impacts',
-      'is central to',
+      'are central to',
+      'heavily impact',
+      'play a key part in',
+      'are fundamental to',
+      'significantly influence',
     ],
-    reason: 'Replaced overused "plays a pivotal role"',
+    reason: 'Replaced plural overused "play a pivotal role"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bplays a (?:pivotal|crucial|vital|key|significant) role in\b/gi,
+    pool: [
+      'is central to',
+      'heavily impacts',
+      'plays a key part in',
+      'is fundamental to',
+      'significantly influences',
+    ],
+    reason: 'Replaced singular overused "plays a pivotal role"',
+    category: 'phrasing',
+    modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
+  },
+  {
+    pattern: /\bplayed a (?:pivotal|crucial|vital|key|significant) role in\b/gi,
+    pool: [
+      'proved central to',
+      'heavily impacted',
+      'played a key part in',
+      'proved fundamental to',
+      'significantly influenced',
+    ],
+    reason: 'Replaced past overused "played a pivotal role"',
     category: 'phrasing',
     modes: ['natural', 'conversational', 'concise', 'flow', 'formal'],
   },
@@ -850,9 +876,23 @@ const CLICHE_POOLS: Array<{
 
   // ── Mega-clichés (GPT top-25 ──────────────────────────────────────────────
   {
-    pattern: /\bdelve(?:s)? into\b/gi,
-    pool: ['examine', 'explore', 'look at', 'dig into', 'unpack', 'investigate', 'break down', 'analyze'],
-    reason: 'Replaced top-ranked AI cliché "delve into"',
+    pattern: /\bdelves into\b(?!\s+(?:(?:his|her|their|a|an|the|my|our|some)\s+)?(?:pockets?|bags?|backpacks?|purses?|drawers?|chests?|boxes?|hearty|bowls?|plates?|dishes|food|meals?|stew|soup|supper|dinner|lunch|caverns?|caves?)\b)/gi,
+    pool: ['examines', 'explores', 'investigates', 'analyzes', 'studies'],
+    reason: 'Replaced singular AI cliché "delves into"',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bdelve into\b(?!\s+(?:(?:his|her|their|a|an|the|my|our|some)\s+)?(?:pockets?|bags?|backpacks?|purses?|drawers?|chests?|boxes?|hearty|bowls?|plates?|dishes|food|meals?|stew|soup|supper|dinner|lunch|caverns?|caves?)\b)/gi,
+    pool: ['examine', 'explore', 'investigate', 'analyze', 'study'],
+    reason: 'Replaced base AI cliché "delve into"',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bdelved into\b(?!\s+(?:(?:his|her|their|a|an|the|my|our|some)\s+)?(?:pockets?|bags?|backpacks?|purses?|drawers?|chests?|boxes?|hearty|bowls?|plates?|dishes|food|meals?|stew|soup|supper|dinner|lunch|caverns?|caves?)\b)/gi,
+    pool: ['examined', 'explored', 'investigated', 'analyzed', 'studied'],
+    reason: 'Replaced past AI cliché "delved into"',
     category: 'phrasing',
     modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
   },
@@ -872,8 +912,15 @@ const CLICHE_POOLS: Array<{
   },
   {
     pattern: /\bserves?\s+as\s+a\s+testament\s+to\b/gi,
-    pool: ['reflects', 'proves', 'shows', 'demonstrates', 'speaks to'],
+    pool: ['reflects', 'shows', 'demonstrates', 'speaks to', 'attests to'],
     reason: 'Replaced formulaic "serves as a testament to"',
+    category: 'phrasing',
+    modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
+  },
+  {
+    pattern: /\bserv(?:ed|t)\s+as\s+a\s+testament\s+to\b/gi,
+    pool: ['demonstrated', 'reflected', 'attested to', 'showed', 'stood as evidence of'],
+    reason: 'Replaced past formulaic "served as a testament to"',
     category: 'phrasing',
     modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
   },
@@ -893,7 +940,7 @@ const CLICHE_POOLS: Array<{
   },
   {
     pattern: /\btestament to\b/gi,
-    pool: ['proof of', 'evidence of', 'sign of', 'reflection of', 'indicator of'],
+    pool: ['evidence of', 'reflection of', 'sign of', 'mark of', 'indicator of'],
     reason: 'Replaced formulaic "testament to"',
     category: 'phrasing',
     modes: ['natural', 'formal', 'concise', 'flow', 'conversational'],
@@ -1286,14 +1333,14 @@ const CLICHE_POOLS: Array<{
   },
   {
     pattern: /\bfurthermore,?\s*/gi,
-    pool: ['Also, ', 'On top of that, ', 'Beyond this, ', 'What\'s more, ', 'Plus, '],
+    pool: ['In addition, ', 'Additionally, ', 'Beyond this, ', 'Along with this, '],
     reason: 'Softened heavy "furthermore" transition',
     category: 'flow',
     modes: ['natural', 'flow'],
   },
   {
     pattern: /\bmoreover,?\s*/gi,
-    pool: ['Also, ', 'On top of that, ', 'Beyond that, ', 'Plus, ', 'What\'s more, '],
+    pool: ['In addition, ', 'Additionally, ', 'Beyond that, ', 'What\'s more, '],
     reason: 'Smoothed overly stiff "moreover" academic transition',
     category: 'flow',
     modes: ['natural', 'conversational', 'flow'],
@@ -1927,7 +1974,7 @@ const HEDGES = [
   'In practice, ', 'To be fair, ', 'Generally speaking, ', 'That said, ',
   'Admittedly, ', 'As a rule, ', 'For the most part, ', 'In most cases, ',
   'Broadly speaking, ', 'By and large, ', 'As things stand, ',
-  'Here\'s the thing: ', 'Worth noting: ', 'The short answer: ',
+  'Worth noting: ',
 ];
 
 const CONVERSATIONAL_HEDGES = [
@@ -1988,8 +2035,7 @@ function varyMonotonousStarters(sentences: string[], includeDemonstratives = fal
         const plural = isPluralNoun(secondWord);
 
         // Alternatives that keep grammatical number alignment
-        const demonstrative = plural ? 'These' : 'This';
-        const startersPool = [demonstrative, 'Meanwhile, the', 'In addition, the', 'At the same time, the'];
+        const startersPool = plural ? ['These', 'Such', 'The'] : ['This', 'Such a', 'The'];
         const chosen = pick(startersPool, i);
 
         if (chosen.includes('the')) {
@@ -2957,6 +3003,7 @@ export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
     consistencyTracker?: DocumentConsistencyTracker
   ): string {
     let content = blockText;
+    const isAcademic = shouldExpand || mode === 'formal';
 
     // In minimal mode: if text has zero AI clichés or is clean prose, strictly preserve it
     if (strength === 'minimal') {
@@ -3113,9 +3160,9 @@ export class RuleBasedHumanizerEngine implements LocalHumanizerEngine {
           sentences = varyMonotonousStarters(sentences, strength === 'strong' || strength === 'extensive');
         }
 
-        // 3d. Add hedges for natural/conversational modes (balanced, strong, extensive only)
-        if ((mode === 'natural' || mode === 'conversational') && (strength === 'balanced' || strength === 'strong' || strength === 'extensive')) {
-          sentences = sentences.map((s, i) => maybeAddHedge(s, i, sentences.length, mode === 'conversational', consistencyTracker));
+        // 3d. Add hedges strictly for conversational mode (balanced, strong, extensive only; never academic/formal)
+        if (!isAcademic && mode === 'conversational' && (strength === 'balanced' || strength === 'strong' || strength === 'extensive')) {
+          sentences = sentences.map((s, i) => maybeAddHedge(s, i, sentences.length, true, consistencyTracker));
         }
 
         // 3d-2. In strong & extensive modes: relocate monotonous sentence-initial adverbs and streamline infinitives

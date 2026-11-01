@@ -215,10 +215,10 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
     if (improvedText.trim().length <= 20) return null;
     let s = scoreHumanization(improvedText);
     if (resultData && resultData.changes.length > 0 && inputScore !== null) {
-      const boosted = Math.max(s, inputScore + Math.min(resultData.changes.length * 5, 45));
-      s = Math.max(s, Math.min(boosted, 96));
+      const improvement = Math.min(resultData.changes.length * 3, 25);
+      s = Math.max(s, Math.min(inputScore + improvement, 96));
     }
-    return Math.min(97, Math.max(s, 91));
+    return Math.min(98, Math.max(s, 10));
   }, [improvedText, resultData, inputScore]);
 
   const getScoreBadge = (score: number) => {
@@ -434,7 +434,7 @@ export const FreeAiHumanizerPage: React.FC<FreeAiHumanizerPageProps> = ({
 
       // Compute human score for iteration record
       const humanScoreVal = scoreHumanization(res.improvedText);
-      const computedScore = Math.min(98, Math.max(humanScoreVal, 92 + Math.min(nextPassNum * 2, 6)));
+      const computedScore = Math.min(98, Math.max(humanScoreVal, 10));
 
       setIterationHistory((prev) => [
         ...prev,
