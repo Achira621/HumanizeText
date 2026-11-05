@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import {
   Sparkles,
   Check,
@@ -13,10 +13,28 @@ import {
   ShieldCheck,
   Undo,
   Redo,
+  Cloud,
+  Cpu,
+  AlertCircle,
+  AlertTriangle,
+  Loader2,
+  CheckCircle2,
 } from 'lucide-react';
-import type { VaultRecord, WritingSuggestion, WritingIssueCategory, HumanizerMode, VocabularyIntensity } from '../../types';
-import { analyzeWriting, applySingleSuggestion, applyAllApplicableSuggestions } from '../../lib/assistant/writingAssistant';
+import type {
+  VaultRecord,
+  WritingSuggestion,
+  WritingIssueCategory,
+  HumanizerMode,
+  VocabularyIntensity,
+  HumanizerResult,
+} from '../../types';
+import {
+  analyzeWriting,
+  applySingleSuggestion,
+  applyAllApplicableSuggestions,
+} from '../../lib/assistant/writingAssistant';
 import { humanizeWithRules } from '../../lib/humanizer/ruleEngine';
+import { defaultWorkerApiClient } from '../../lib/workerApi/client';
 
 interface VaultWritingAssistantProps {
   initialRecord: VaultRecord;
@@ -26,6 +44,22 @@ interface VaultWritingAssistantProps {
   onLoadIntoEditor?: (text: string, title: string) => void;
   onLoadIntoHumanizer?: (text: string) => void;
   onLoadIntoPlagiarismChecker?: (text: string, title: string) => void;
+}
+
+export interface TextSelectionRange {
+  start: number;
+  end: number;
+  text: string;
+}
+
+export interface PendingSuggestionReview {
+  originalText: string;
+  improvedText: string;
+  engine: 'local' | 'cloud';
+  modelUsed?: string;
+  latencyMs?: number;
+  invariants?: HumanizerResult['invariants'];
+  selection: TextSelectionRange | null;
 }
 
 export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
@@ -42,19 +76,32 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [dismissedSuggestionIds, setDismissedSuggestionIds] = useState<Set<string>>(new Set());
 
-  // Assistant UI state
+  // Assistant Studio UI tabs
   const [activeTab, setActiveTab] = useState<'suggestions' | 'paraphraser' | 'aiRadar' | 'metrics'>('suggestions');
   const [categoryFilter, setCategoryFilter] = useState<WritingIssueCategory | 'all'>('all');
 
-  // Paraphraser panel state
+  // Paraphraser / Writing Assistance state
+  const [assistanceEngine, setAssistanceEngine] = useState<'local' | 'cloud'>('local');
   const [paraMode, setParaMode] = useState<HumanizerMode>('natural');
   const [paraIntensity, setParaIntensity] = useState<VocabularyIntensity>('balanced');
-  const [paraInputSelection, setParaInputSelection] = useState<string>('');
-  const [paraResult, setParaResult] = useState<string | null>(null);
-  const [isParaphrasing, setIsParaphrasing] = useState(false);
+  const [selectedRange, setSelectedRange] = useState<TextSelectionRange | null>(null);
+
+  // Cloud consent state: must be explicitly authorized per action
+  const [cloudConsentConfirmed, setCloudConsentConfirmed] = useState<boolean>(false);
+
+  // Processing, Cancellation & Review state
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [activeAbortController, setActiveAbortController] = useState<AbortController | null>(null);
+  const [pendingReview, setPendingReview] = useState<PendingSuggestionReview | null>(null);
+  const [apiError, setApiError] = useState<{ message: string; isRateLimit?: boolean; isTimeout?: boolean } | null>(null);
+  const [applyWarning, setApplyWarning] = useState<string | null>(null);
+  const [applySuccessNotice, setApplySuccessNotice] = useState<string | null>(null);
+
   const [copied, setCopied] = useState(false);
   const [history, setHistory] = useState<string[]>([initialRecord.content]);
   const [historyIndex, setHistoryIndex] = useState<number>(0);
+
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const updateContentWithHistory = (newText: string) => {
     setContent(newText);
@@ -111,7 +158,24 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
     }
   };
 
-  // Accept single suggestion
+  // Text selection tracker on the decrypted document editor
+  const handleCaptureSelection = (e: React.SyntheticEvent<HTMLTextAreaElement>) => {
+    const target = e.currentTarget;
+    const start = target.selectionStart;
+    const end = target.selectionEnd;
+    const selected = target.value.substring(start, end);
+
+    if (selected && selected.trim().length > 0) {
+      setSelectedRange({
+        start,
+        end,
+        text: selected,
+      });
+      setApplyWarning(null);
+    }
+  };
+
+  // Accept single grammar/style suggestion
   const handleAcceptSuggestion = (suggestion: WritingSuggestion) => {
     const updated = applySingleSuggestion(content, suggestion);
     updateContentWithHistory(updated);
@@ -132,32 +196,186 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
     setDismissedSuggestionIds(newDismissed);
   };
 
-  // Run in-vault Paraphraser / Humanizer
-  const handleRunParaphraser = () => {
-    const targetText = paraInputSelection.trim() || content;
-    if (!targetText) return;
+  // Execute Humanization / Paraphrasing (Local or Cloud)
+  const handleRunAssistance = async () => {
+    // Zero-knowledge security guard: Cloud mode requires explicit text selection
+    if (assistanceEngine === 'cloud') {
+      if (!selectedRange || !selectedRange.text.trim()) {
+        setApiError({
+          message: 'Zero-Knowledge Security Guard: Cloud humanization requires highlighting a specific passage in the decrypted document editor first. The full encrypted document cannot be submitted blindly.',
+        });
+        return;
+      }
+      if (!cloudConsentConfirmed) {
+        setApiError({
+          message: 'Explicit user authorization is required: Please review and check the cloud processing consent before submitting.',
+        });
+        return;
+      }
+    }
 
-    setIsParaphrasing(true);
-    try {
-      const res = humanizeWithRules(targetText, {
-        mode: paraMode,
-        vocabularyIntensity: paraIntensity,
-      });
-      setParaResult(res.improvedText);
-    } finally {
-      setIsParaphrasing(false);
+    const targetText = selectedRange && selectedRange.text.trim()
+      ? selectedRange.text
+      : content;
+
+    if (!targetText.trim()) {
+      setApiError({ message: 'Input text is empty. Type or select text to begin.' });
+      return;
+    }
+
+    setApiError(null);
+    setApplyWarning(null);
+    setApplySuccessNotice(null);
+    setIsProcessing(true);
+
+    if (assistanceEngine === 'local') {
+      try {
+        const res = humanizeWithRules(targetText, {
+          mode: paraMode,
+          vocabularyIntensity: paraIntensity,
+        });
+
+        setPendingReview({
+          originalText: targetText,
+          improvedText: res.improvedText,
+          engine: 'local',
+          modelUsed: 'Local Rule Engine (Deterministic)',
+          latencyMs: 5,
+          selection: selectedRange && selectedRange.text.trim() ? { ...selectedRange } : null,
+        });
+      } catch (err: any) {
+        setApiError({
+          message: `Local processing failed: ${err?.message || 'Unknown error'}`,
+        });
+      } finally {
+        setIsProcessing(false);
+      }
+    } else {
+      // Cloud Humanization via existing Cloudflare Worker API
+      const controller = new AbortController();
+      setActiveAbortController(controller);
+      const startMs = performance.now();
+
+      try {
+        // Strict boundary: Only selected text is transmitted over HTTPS
+        // Document encryption key, password, IV, ciphertext, and title are NEVER sent
+        const res = await defaultWorkerApiClient.humanize(targetText, {
+          mode: paraMode,
+          vocabularyIntensity: paraIntensity,
+          signal: controller.signal,
+          disallowLocalFallback: true,
+        });
+
+        // Verify that remote cloud was actually used (no silent local fallback)
+        if (res.processedLocally && res.executionEnvironment === 'local-emulation-fallback') {
+          throw new Error('Cloudflare Worker API returned a local emulation fallback. Remote cloud worker is unreachable.');
+        }
+
+        const elapsedMs = Math.round(performance.now() - startMs);
+
+        setPendingReview({
+          originalText: targetText,
+          improvedText: res.improvedText,
+          engine: 'cloud',
+          modelUsed: res.engineName || 'Cloudflare Workers AI (@cf/qwen/qwen3-30b-a3b-fp8)',
+          latencyMs: elapsedMs,
+          invariants: res.invariants,
+          selection: { ...selectedRange! },
+        });
+
+        // Reset per-action consent after execution
+        setCloudConsentConfirmed(false);
+      } catch (err: any) {
+        if (err.name === 'AbortError' || controller.signal.aborted) {
+          setApiError({ message: 'Cloud humanization was cancelled by user.' });
+        } else {
+          const isRate = err.message?.includes('rate limit') || err.message?.includes('429');
+          const isTime = err.message?.includes('timed out');
+          setApiError({
+            message: err.message || 'Cloudflare Worker humanization failed.',
+            isRateLimit: isRate,
+            isTimeout: isTime,
+          });
+        }
+      } finally {
+        setIsProcessing(false);
+        setActiveAbortController(null);
+      }
     }
   };
 
-  // Replace text from paraphraser
-  const handleApplyParaphraseResult = () => {
-    if (!paraResult) return;
-    const updated = paraInputSelection.trim() && content.includes(paraInputSelection.trim())
-      ? content.replace(paraInputSelection.trim(), paraResult)
-      : paraResult;
-    updateContentWithHistory(updated);
-    setParaResult(null);
-    setParaInputSelection('');
+  // Cancel in-flight cloud request
+  const handleCancelProcessing = () => {
+    if (activeAbortController) {
+      activeAbortController.abort();
+      setActiveAbortController(null);
+    }
+    setIsProcessing(false);
+    setApiError({ message: 'Processing cancelled by user.' });
+  };
+
+  // Apply suggestion after user review
+  const handleApplyReview = () => {
+    if (!pendingReview) return;
+
+    if (!pendingReview.selection) {
+      // Entire document was processed in local mode
+      updateContentWithHistory(pendingReview.improvedText);
+      setPendingReview(null);
+      setSelectedRange(null);
+      setApplyWarning(null);
+      setApplySuccessNotice('Document updated with suggestion.');
+      setTimeout(() => setApplySuccessNotice(null), 3500);
+      return;
+    }
+
+    const { start, end, text } = pendingReview.selection;
+
+    // Strict boundary validation: Ensure content at start..end still matches original text
+    if (content.substring(start, end) === text) {
+      const updated = content.substring(0, start) + pendingReview.improvedText + content.substring(end);
+      updateContentWithHistory(updated);
+      setPendingReview(null);
+      setSelectedRange(null);
+      setApplyWarning(null);
+      setApplySuccessNotice('Selected passage updated with suggestion.');
+      setTimeout(() => setApplySuccessNotice(null), 3500);
+      return;
+    }
+
+    // Offset shift detection: Check if original text still exists uniquely elsewhere in content
+    const occurrences: number[] = [];
+    let idx = content.indexOf(text);
+    while (idx !== -1) {
+      occurrences.push(idx);
+      idx = content.indexOf(text, idx + 1);
+    }
+
+    if (occurrences.length === 1) {
+      const shiftedStart = occurrences[0];
+      const updated =
+        content.substring(0, shiftedStart) +
+        pendingReview.improvedText +
+        content.substring(shiftedStart + text.length);
+      updateContentWithHistory(updated);
+      setPendingReview(null);
+      setSelectedRange(null);
+      setApplyWarning(null);
+      setApplySuccessNotice('Selected passage updated at shifted position.');
+      setTimeout(() => setApplySuccessNotice(null), 3500);
+      return;
+    }
+
+    // Stale or ambiguous selection: Prevent blind overwrite to protect document integrity
+    setApplyWarning(
+      'Stale selection detected: The original selected passage was modified or cannot be uniquely located in the document. Auto-apply is blocked to prevent accidental data corruption. You can copy the suggestion to clipboard or re-select the text.'
+    );
+  };
+
+  // Discard suggestion: Leaves document completely untouched
+  const handleDiscardReview = () => {
+    setPendingReview(null);
+    setApplyWarning(null);
   };
 
   const handleCopy = () => {
@@ -205,7 +423,7 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
               <span>•</span>
               <span className="flex items-center space-x-1 font-semibold text-emerald-600 dark:text-emerald-400">
                 <ShieldCheck className="h-3.5 w-3.5" />
-                <span>100% In-Memory Decrypted (Zero Plaintext Transmission)</span>
+                <span>Zero-Knowledge Decrypted in Browser Memory</span>
               </span>
             </div>
           </div>
@@ -245,9 +463,9 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
         </div>
       </div>
 
-      {/* Main Studio Grid: Editor (Left/Center) + Assistant Panel (Right) */}
+      {/* Main Studio Grid: Editor (Left 7 Cols) + Assistant Panel (Right 5 Cols) */}
       <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12">
-        {/* Left: Document Editor Area (7 Cols) */}
+        {/* Left: Document Editor Area */}
         <div className="flex flex-col lg:col-span-7">
           <div className="flex items-center justify-between border-b border-[var(--border-subtle)] pb-2 text-xs font-bold text-[var(--text-secondary)]">
             <div className="flex items-center space-x-2">
@@ -276,14 +494,32 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
             </div>
             <div className="flex items-center space-x-2 text-[11px] font-normal text-[var(--text-muted)]">
               <span>Flesch Score:</span>
-              <span className="font-bold text-[var(--text-primary)] font-mono">{analysis.readability.fleschKincaidScore} / 100</span>
+              <span className="font-bold text-[var(--text-primary)] font-mono">
+                {analysis.readability.fleschKincaidScore} / 100
+              </span>
               <span>•</span>
-              <span className="font-semibold text-purple-600 dark:text-purple-400">{analysis.readability.tone} Tone</span>
+              <span className="font-semibold text-purple-600 dark:text-purple-400">
+                {analysis.readability.tone} Tone
+              </span>
             </div>
           </div>
+
           <textarea
+            ref={textareaRef}
             value={content}
-            onChange={(e) => setContent(e.target.value)}
+            onChange={(e) => {
+              setContent(e.target.value);
+              if (pendingReview?.selection) {
+                const { start, end, text } = pendingReview.selection;
+                if (e.target.value.substring(start, end) !== text) {
+                  setApplyWarning(
+                    'Notice: The document content was edited while reviewing this suggestion. Safe range check will verify placement upon Apply.'
+                  );
+                } else {
+                  setApplyWarning(null);
+                }
+              }
+            }}
             onKeyDown={(e) => {
               if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
                 if (e.shiftKey) {
@@ -298,13 +534,9 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
                 handleRedo();
               }
             }}
-            onSelect={(e) => {
-              const target = e.target as HTMLTextAreaElement;
-              const sel = target.value.substring(target.selectionStart, target.selectionEnd);
-              if (sel && sel.length > 5) {
-                setParaInputSelection(sel);
-              }
-            }}
+            onSelect={handleCaptureSelection}
+            onMouseUp={handleCaptureSelection}
+            onKeyUp={handleCaptureSelection}
             rows={22}
             placeholder="Type or paste your text here to begin private editing and writing assistance..."
             className="mt-3 w-full flex-1 resize-y rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-4 font-sans text-sm leading-relaxed text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:border-[var(--accent)] focus:outline-hidden"
@@ -351,7 +583,7 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
           </div>
         </div>
 
-        {/* Right: QuillBot-Style Writing Assistant Panel (5 Cols) */}
+        {/* Right: Writing Assistant Panel */}
         <div className="flex flex-col rounded-xl border border-[var(--border-strong)] bg-[var(--bg-surface)] p-4 shadow-sm lg:col-span-5">
           {/* Assistant Tabs */}
           <div className="flex items-center border-b border-[var(--border-subtle)] pb-1 sm:pb-2 gap-1 text-xs font-bold overflow-x-auto scrollbar-none flex-nowrap sm:flex-wrap w-full">
@@ -366,9 +598,11 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
               <Wand2 className="h-3.5 w-3.5" />
               <span>Suggestions</span>
               {activeSuggestions.length > 0 && (
-                <span className={`ml-1 rounded-full px-1.5 py-0.2 text-[10px] ${
-                  activeTab === 'suggestions' ? 'bg-white/20 text-white' : 'bg-red-500/10 text-red-600'
-                }`}>
+                <span
+                  className={`ml-1 rounded-full px-1.5 py-0.2 text-[10px] ${
+                    activeTab === 'suggestions' ? 'bg-white/20 text-white' : 'bg-red-500/10 text-red-600'
+                  }`}
+                >
                   {activeSuggestions.length}
                 </span>
               )}
@@ -383,7 +617,7 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
               }`}
             >
               <Sparkles className="h-3.5 w-3.5" />
-              <span>Paraphrase</span>
+              <span>Writing Assistance</span>
             </button>
 
             <button
@@ -464,17 +698,19 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
                       className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-3 text-xs transition-all hover:border-[var(--accent-border)]"
                     >
                       <div className="flex items-center justify-between">
-                        <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
-                          sug.category === 'grammar'
-                            ? 'bg-red-500/10 text-red-600 border border-red-500/20'
-                            : sug.category === 'wordiness'
-                            ? 'bg-amber-500/10 text-amber-600 border border-amber-500/20'
-                            : sug.category === 'split_sentence'
-                            ? 'bg-blue-500/10 text-blue-600 border border-blue-500/20'
-                            : sug.category === 'ai_cliche'
-                            ? 'bg-purple-500/10 text-purple-600 border border-purple-500/20'
-                            : 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20'
-                        }`}>
+                        <span
+                          className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
+                            sug.category === 'grammar'
+                              ? 'bg-red-500/10 text-red-600 border border-red-500/20'
+                              : sug.category === 'wordiness'
+                              ? 'bg-amber-500/10 text-amber-600 border border-amber-500/20'
+                              : sug.category === 'split_sentence'
+                              ? 'bg-blue-500/10 text-blue-600 border border-blue-500/20'
+                              : sug.category === 'ai_cliche'
+                              ? 'bg-purple-500/10 text-purple-600 border border-purple-500/20'
+                              : 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20'
+                          }`}
+                        >
                           {sug.category.replace('_', ' ')}
                         </span>
                         <button
@@ -532,35 +768,130 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
             </div>
           )}
 
-          {/* TAB 2: IN-VAULT PARAPHRASER & HUMANIZER */}
+          {/* TAB 2: WRITING ASSISTANCE (LOCAL & CLOUDFLARE WORKER) */}
           {activeTab === 'paraphraser' && (
-            <div className="mt-3 flex flex-1 flex-col space-y-3">
+            <div className="mt-3 flex flex-1 flex-col space-y-3.5">
+              {/* Engine Selector: Local vs Cloud */}
               <div>
-                <label className="text-[11px] font-bold text-[var(--text-secondary)]">Target Text</label>
-                <div className="mt-1 flex items-center justify-between text-[11px] text-[var(--text-muted)]">
-                  <span>
-                    {paraInputSelection ? 'Selected passage in editor' : 'Entire document'}
+                <label className="text-[11px] font-bold text-[var(--text-secondary)] flex items-center justify-between">
+                  <span>Processing Engine</span>
+                  <span className="text-[10px] font-normal text-[var(--text-muted)]">
+                    {assistanceEngine === 'local' ? 'Default: 100% In-Browser' : 'Optional Cloud AI'}
                   </span>
-                  {paraInputSelection && (
-                    <button
-                      onClick={() => setParaInputSelection('')}
-                      className="text-[var(--accent)] hover:underline"
-                    >
-                      Clear selection (Use all)
-                    </button>
-                  )}
+                </label>
+                <div className="mt-1.5 grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setAssistanceEngine('local');
+                      setApiError(null);
+                    }}
+                    className={`flex items-start space-x-2 rounded-xl border p-2.5 text-left transition-all ${
+                      assistanceEngine === 'local'
+                        ? 'border-[var(--accent)] bg-[var(--accent-light)]/40 shadow-xs'
+                        : 'border-[var(--border-subtle)] bg-[var(--bg-subtle)] hover:border-[var(--border-strong)]'
+                    }`}
+                  >
+                    <div className="mt-0.5 rounded-lg bg-[var(--accent)]/10 p-1.5 text-[var(--accent)]">
+                      <Cpu className="h-4 w-4" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold text-[var(--text-primary)]">Local Engine</span>
+                        <span className="rounded bg-emerald-500/10 px-1.5 py-0.2 text-[9px] font-semibold text-emerald-600 dark:text-emerald-400">
+                          Private
+                        </span>
+                      </div>
+                      <p className="mt-0.5 text-[10px] text-[var(--text-muted)] leading-tight">
+                        Deterministic on-device rules. Zero network egress.
+                      </p>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setAssistanceEngine('cloud');
+                      setApiError(null);
+                    }}
+                    className={`flex items-start space-x-2 rounded-xl border p-2.5 text-left transition-all ${
+                      assistanceEngine === 'cloud'
+                        ? 'border-purple-500 bg-purple-500/10 shadow-xs'
+                        : 'border-[var(--border-subtle)] bg-[var(--bg-subtle)] hover:border-[var(--border-strong)]'
+                    }`}
+                  >
+                    <div className="mt-0.5 rounded-lg bg-purple-500/10 p-1.5 text-purple-600 dark:text-purple-400">
+                      <Cloud className="h-4 w-4" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold text-[var(--text-primary)]">Cloudflare AI</span>
+                        <span className="rounded bg-purple-500/10 px-1.5 py-0.2 text-[9px] font-semibold text-purple-600 dark:text-purple-400">
+                          Neural
+                        </span>
+                      </div>
+                      <p className="mt-0.5 text-[10px] text-[var(--text-muted)] leading-tight">
+                        Main production edge model (@cf/qwen/qwen3-30b).
+                      </p>
+                    </div>
+                  </button>
                 </div>
               </div>
 
-              {/* Modes */}
+              {/* Target Text Scope Indicator */}
+              <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] p-2.5 text-xs">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-[var(--text-secondary)] text-[11px]">Target Scope:</span>
+                  {selectedRange && selectedRange.text.trim() && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedRange(null);
+                        setApplyWarning(null);
+                      }}
+                      className="text-[10px] font-semibold text-[var(--accent)] hover:underline"
+                    >
+                      Clear Selection
+                    </button>
+                  )}
+                </div>
+
+                {selectedRange && selectedRange.text.trim() ? (
+                  <div className="mt-1.5 space-y-1">
+                    <div className="flex items-center space-x-1.5 text-[11px] font-semibold text-purple-600 dark:text-purple-400">
+                      <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-emerald-500" />
+                      <span>
+                        Selected passage ({selectedRange.text.split(/\s+/).filter(Boolean).length} words, chars{' '}
+                        {selectedRange.start}–{selectedRange.end})
+                      </span>
+                    </div>
+                    <p className="rounded border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-2 font-mono text-[10px] text-[var(--text-secondary)] line-clamp-2">
+                      "{selectedRange.text}"
+                    </p>
+                  </div>
+                ) : (
+                  <div className="mt-1 text-[11px] text-[var(--text-muted)]">
+                    {assistanceEngine === 'local' ? (
+                      <span>Entire document will be processed (or highlight text in the editor to target a passage).</span>
+                    ) : (
+                      <span className="text-amber-600 dark:text-amber-400 font-medium flex items-center space-x-1">
+                        <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
+                        <span>Highlight text in the editor to enable Cloud Humanization.</span>
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* Mode Selection */}
               <div>
-                <label className="text-[11px] font-bold text-[var(--text-secondary)]">Mode</label>
-                <div className="mt-1 grid grid-cols-3 gap-1">
+                <label className="text-[11px] font-bold text-[var(--text-secondary)]">Style Mode</label>
+                <div className="mt-1 grid grid-cols-5 gap-1">
                   {(['natural', 'conversational', 'formal', 'concise', 'flow'] as HumanizerMode[]).map((m) => (
                     <button
                       key={m}
                       onClick={() => setParaMode(m)}
-                      className={`rounded-lg py-1 text-[11px] font-bold capitalize transition-all ${
+                      className={`rounded-lg py-1 text-[10px] font-bold capitalize transition-all ${
                         paraMode === m
                           ? 'bg-[var(--accent)] text-[var(--accent-contrast)]'
                           : 'bg-[var(--bg-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
@@ -572,11 +903,11 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
                 </div>
               </div>
 
-              {/* Intensity */}
+              {/* Synonym Intensity */}
               <div>
                 <div className="flex items-center justify-between text-[11px] font-bold text-[var(--text-secondary)]">
-                  <span>Synonym Intensity</span>
-                  <span className="font-mono text-[var(--accent)] capitalize">{paraIntensity}</span>
+                  <span>Vocabulary Intensity</span>
+                  <span className="font-mono text-[var(--accent)] capitalize text-[10px]">{paraIntensity}</span>
                 </div>
                 <div className="mt-1 grid grid-cols-4 gap-1">
                   {(['conservative', 'balanced', 'dynamic', 'maximum'] as VocabularyIntensity[]).map((lvl) => (
@@ -595,31 +926,254 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
                 </div>
               </div>
 
-              <button
-                onClick={handleRunParaphraser}
-                disabled={isParaphrasing}
-                className="flex items-center justify-center space-x-1.5 rounded-xl bg-[var(--accent)] py-2 text-xs font-bold text-[var(--accent-contrast)] hover:bg-[var(--accent-hover)] shadow-xs disabled:opacity-50"
-              >
-                <Sparkles className="h-3.5 w-3.5" />
-                <span>{isParaphrasing ? 'Rewriting with Local Engine...' : 'Paraphrase & Humanize'}</span>
-              </button>
+              {/* Cloud Privacy Disclosure & Explicit Opt-In */}
+              {assistanceEngine === 'cloud' && (
+                <div className="rounded-xl border border-purple-500/30 bg-purple-500/5 p-3 text-xs">
+                  <div className="flex items-center space-x-2 text-purple-600 dark:text-purple-400 font-bold text-[11px]">
+                    <ShieldCheck className="h-4 w-4 shrink-0" />
+                    <span>Zero-Knowledge Cloud Security Guarantee</span>
+                  </div>
+                  <ul className="mt-1.5 space-y-1 text-[10px] text-[var(--text-secondary)] list-disc pl-4">
+                    <li>Your document encryption key, password, IV, and title NEVER leave your browser.</li>
+                    <li>
+                      Only the <strong>explicitly highlighted passage</strong> will be transmitted over TLS to Cloudflare
+                      Workers AI.
+                    </li>
+                    <li>Zero server retention: In-memory inference only; no logs, databases, or training storage.</li>
+                  </ul>
 
-              {/* Paraphrase Result */}
-              {paraResult && (
-                <div className="mt-2 rounded-xl border border-[var(--accent-border)] bg-[var(--accent-light)]/30 p-3 text-xs">
-                  <div className="flex items-center justify-between pb-1.5 border-b border-[var(--border-subtle)]">
-                    <span className="font-bold text-[var(--text-primary)]">Rewritten Result</span>
-                    <button
-                      onClick={handleApplyParaphraseResult}
-                      className="flex items-center space-x-1 rounded-md bg-emerald-600 px-2.5 py-1 text-[11px] font-bold text-white hover:bg-emerald-700"
+                  <label className="mt-2.5 flex items-start space-x-2 text-[11px] font-medium text-[var(--text-primary)] cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={cloudConsentConfirmed}
+                      onChange={(e) => {
+                        setCloudConsentConfirmed(e.target.checked);
+                        if (e.target.checked) setApiError(null);
+                      }}
+                      className="mt-0.5 rounded border-[var(--border-subtle)] text-[var(--accent)] focus:ring-[var(--accent)]"
+                    />
+                    <span>I authorize transmitting only this selected passage to Cloudflare Workers AI.</span>
+                  </label>
+                </div>
+              )}
+
+              {/* Error Alert Display with Recovery Options */}
+              {apiError && (
+                <div
+                  role="alert"
+                  className="rounded-xl border border-[var(--error-border)] bg-[var(--error-bg)] p-3 text-xs text-[var(--error-text)] space-y-2"
+                >
+                  <div className="flex items-start space-x-2">
+                    <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <span className="font-bold">
+                        {apiError.isRateLimit
+                          ? 'Rate Limit Exceeded'
+                          : apiError.isTimeout
+                          ? 'Request Timed Out'
+                          : 'Humanization Failed'}
+                      </span>
+                      <p className="mt-0.5 text-[11px] leading-relaxed">{apiError.message}</p>
+                    </div>
+                  </div>
+
+                  {assistanceEngine === 'cloud' && (
+                    <div className="flex flex-wrap items-center gap-2 pt-1 border-t border-[var(--error-border)]/40">
+                      <button
+                        type="button"
+                        onClick={handleRunAssistance}
+                        disabled={isProcessing}
+                        className="rounded-md bg-[var(--error-text)]/10 hover:bg-[var(--error-text)]/20 px-2 py-1 text-[10px] font-bold text-[var(--error-text)]"
+                      >
+                        Retry Cloud
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setAssistanceEngine('local');
+                          setApiError(null);
+                        }}
+                        className="rounded-md bg-[var(--bg-surface)] border border-[var(--border-subtle)] px-2 py-1 text-[10px] font-bold text-[var(--text-primary)] hover:border-[var(--accent)]"
+                      >
+                        Switch to Local Engine
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Apply Success Notice */}
+              {applySuccessNotice && (
+                <div
+                  role="status"
+                  className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-2.5 text-xs text-emerald-600 dark:text-emerald-400 flex items-center space-x-2 font-medium"
+                >
+                  <Check className="h-4 w-4 shrink-0" />
+                  <span>{applySuccessNotice}</span>
+                </div>
+              )}
+
+              {/* Main Submit & Cancel Controls */}
+              <div className="flex items-center space-x-2">
+                <button
+                  type="button"
+                  onClick={handleRunAssistance}
+                  disabled={
+                    isProcessing ||
+                    (assistanceEngine === 'cloud' && (!selectedRange || !selectedRange.text.trim() || !cloudConsentConfirmed))
+                  }
+                  className={`flex flex-1 items-center justify-center space-x-2 rounded-xl py-2.5 text-xs font-bold shadow-xs transition-all disabled:opacity-40 disabled:cursor-not-allowed ${
+                    assistanceEngine === 'cloud'
+                      ? 'bg-purple-600 text-white hover:bg-purple-700'
+                      : 'bg-[var(--accent)] text-[var(--accent-contrast)] hover:bg-[var(--accent-hover)]'
+                  }`}
+                >
+                  {isProcessing ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      <span>
+                        {assistanceEngine === 'cloud'
+                          ? 'Generating with Cloudflare Workers AI...'
+                          : 'Processing on-device...'}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      {assistanceEngine === 'cloud' ? <Cloud className="h-4 w-4" /> : <Sparkles className="h-4 w-4" />}
+                      <span>
+                        {assistanceEngine === 'cloud'
+                          ? 'Authorize & Humanize Selection'
+                          : selectedRange && selectedRange.text.trim()
+                          ? 'Paraphrase Selection'
+                          : 'Paraphrase Document'}
+                      </span>
+                    </>
+                  )}
+                </button>
+
+                {isProcessing && (
+                  <button
+                    type="button"
+                    onClick={handleCancelProcessing}
+                    className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] px-3 py-2.5 text-xs font-bold text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                  >
+                    Cancel
+                  </button>
+                )}
+              </div>
+
+              {/* REVIEW-BEFORE-APPLY PANEL */}
+              {pendingReview && (
+                <div
+                  role="region"
+                  aria-label="Suggestion Review Panel"
+                  className="mt-3 rounded-xl border border-[var(--accent-border)] bg-[var(--accent-light)]/20 p-3.5 text-xs space-y-3"
+                >
+                  {/* Top metadata badge */}
+                  <div className="flex flex-wrap items-center justify-between gap-1 pb-2 border-b border-[var(--border-subtle)] text-[11px]">
+                    <div className="flex items-center space-x-1.5 font-bold text-[var(--text-primary)]">
+                      {pendingReview.engine === 'cloud' ? (
+                        <span className="inline-flex items-center space-x-1 text-purple-600 dark:text-purple-400">
+                          <Cloud className="h-3.5 w-3.5" />
+                          <span>Cloudflare Workers AI ({pendingReview.latencyMs}ms)</span>
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center space-x-1 text-emerald-600 dark:text-emerald-400">
+                          <Cpu className="h-3.5 w-3.5" />
+                          <span>Local Engine ({pendingReview.latencyMs}ms)</span>
+                        </span>
+                      )}
+                    </div>
+                    {pendingReview.invariants && (
+                      <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold flex items-center space-x-1">
+                        <Check className="h-3 w-3" />
+                        <span>Facts & Invariants Preserved</span>
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Original vs Suggestion Comparison */}
+                  <div className="space-y-2">
+                    <div>
+                      <span className="text-[10px] font-bold text-red-500 uppercase tracking-wider">
+                        Original Text
+                      </span>
+                      <p className="mt-1 rounded-lg border border-red-500/20 bg-red-500/5 p-2 font-sans text-[11px] text-[var(--text-secondary)] leading-relaxed whitespace-pre-wrap">
+                        {pendingReview.originalText}
+                      </p>
+                    </div>
+
+                    <div>
+                      <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
+                        Suggested Rewrite
+                      </span>
+                      <p className="mt-1 rounded-lg border border-emerald-500/20 bg-emerald-500/5 p-2 font-sans text-[11px] text-[var(--text-primary)] leading-relaxed whitespace-pre-wrap font-medium">
+                        {pendingReview.improvedText}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Word count comparison delta */}
+                  <div className="flex items-center justify-between text-[10px] text-[var(--text-muted)] font-mono">
+                    <span>
+                      Words: {pendingReview.originalText.split(/\s+/).filter(Boolean).length} →{' '}
+                      {pendingReview.improvedText.split(/\s+/).filter(Boolean).length}
+                    </span>
+                    <span>
+                      Chars: {pendingReview.originalText.length} → {pendingReview.improvedText.length}
+                    </span>
+                  </div>
+
+                  {/* Stale Selection Safety Warning */}
+                  {applyWarning && (
+                    <div
+                      role="alert"
+                      className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-2 text-[11px] text-amber-700 dark:text-amber-300 space-y-1"
                     >
-                      <Check className="h-3 w-3" />
-                      <span>Replace in Document</span>
+                      <div className="flex items-center space-x-1 font-bold">
+                        <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
+                        <span>Safety Notice</span>
+                      </div>
+                      <p className="leading-relaxed">{applyWarning}</p>
+                    </div>
+                  )}
+
+                  {/* Review Action Buttons: Apply, Discard, Copy */}
+                  <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-[var(--border-subtle)]">
+                    <div className="flex items-center space-x-2">
+                      <button
+                        type="button"
+                        onClick={handleApplyReview}
+                        className="flex items-center space-x-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 px-3 py-1.5 text-xs font-bold text-white shadow-xs"
+                      >
+                        <Check className="h-3.5 w-3.5" />
+                        <span>
+                          {pendingReview.selection ? 'Apply to Selected Range' : 'Apply to Document'}
+                        </span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={handleDiscardReview}
+                        className="flex items-center space-x-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] hover:bg-[var(--bg-subtle)] px-3 py-1.5 text-xs font-semibold text-[var(--text-secondary)]"
+                      >
+                        <X className="h-3.5 w-3.5" />
+                        <span>Discard</span>
+                      </button>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        navigator.clipboard.writeText(pendingReview.improvedText);
+                      }}
+                      className="flex items-center space-x-1 rounded px-2 py-1 text-[11px] text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                      title="Copy suggestion text"
+                    >
+                      <Copy className="h-3 w-3" />
+                      <span>Copy</span>
                     </button>
                   </div>
-                  <p className="mt-2 text-[11px] text-[var(--text-primary)] leading-relaxed whitespace-pre-wrap font-sans">
-                    {paraResult}
-                  </p>
                 </div>
               )}
             </div>
@@ -629,13 +1183,15 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
           {activeTab === 'aiRadar' && (
             <div className="mt-3 flex flex-1 flex-col space-y-4">
               {/* Gauge Banner */}
-              <div className={`rounded-xl border p-4 ${
-                analysis.aiProbability < 0.30
-                  ? 'border-emerald-300 bg-emerald-50/70 text-emerald-950 dark:border-emerald-800/60 dark:bg-emerald-950/20 dark:text-emerald-300'
-                  : analysis.aiProbability > 0.60
-                  ? 'border-red-300 bg-red-50/70 text-red-950 dark:border-red-800/60 dark:bg-red-950/20 dark:text-red-300'
-                  : 'border-amber-300 bg-amber-50/70 text-amber-950 dark:border-amber-800/60 dark:bg-amber-950/20 dark:text-amber-300'
-              }`}>
+              <div
+                className={`rounded-xl border p-4 ${
+                  analysis.aiProbability < 0.3
+                    ? 'border-emerald-300 bg-emerald-50/70 text-emerald-950 dark:border-emerald-800/60 dark:bg-emerald-950/20 dark:text-emerald-300'
+                    : analysis.aiProbability > 0.6
+                    ? 'border-red-300 bg-red-50/70 text-red-950 dark:border-red-800/60 dark:bg-red-950/20 dark:text-red-300'
+                    : 'border-amber-300 bg-amber-50/70 text-amber-950 dark:border-amber-800/60 dark:bg-amber-950/20 dark:text-amber-300'
+                }`}
+              >
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold">Document AI Likelihood</span>
                   <span className="font-mono text-base font-black">
@@ -645,15 +1201,19 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
                 <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
                   <div
                     className={`h-full rounded-full transition-all duration-500 ${
-                      analysis.aiProbability < 0.30 ? 'bg-emerald-500' : analysis.aiProbability > 0.60 ? 'bg-red-500' : 'bg-amber-500'
+                      analysis.aiProbability < 0.3
+                        ? 'bg-emerald-500'
+                        : analysis.aiProbability > 0.6
+                        ? 'bg-red-500'
+                        : 'bg-amber-500'
                     }`}
                     style={{ width: `${Math.round(analysis.aiProbability * 100)}%` }}
                   />
                 </div>
                 <p className="mt-2 text-[11px] opacity-90 leading-relaxed">
-                  {analysis.aiProbability < 0.30
+                  {analysis.aiProbability < 0.3
                     ? 'Prose looks authentic and natural. Varied sentence lengths and zero heavy LLM markers.'
-                    : analysis.aiProbability > 0.60
+                    : analysis.aiProbability > 0.6
                     ? 'Substantial AI cliché signals and low sentence burstiness detected.'
                     : 'Mixed signals. Review detected clichés below.'}
                 </p>

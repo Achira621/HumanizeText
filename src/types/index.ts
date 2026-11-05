@@ -222,6 +222,8 @@ export interface HumanizerOptions {
   explicitInstructions?: string;
   isChunkPass?: boolean;
   contextNotice?: string;
+  signal?: AbortSignal;
+  disallowLocalFallback?: boolean;
 }
 
 export type WritingIssueCategory =

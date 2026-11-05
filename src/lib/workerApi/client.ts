@@ -16,6 +16,8 @@ import { validateInvariants } from '../pipeline/invariants';
 import { analyzeWritingContext, buildRewritePlan } from '../pipeline/contextEngine';
 import { parseDocumentToBlocks } from '../pipeline/documentModel';
 
+export const CANONICAL_WORKER_API_URL = 'https://humanizetext-api.humanizetext.workers.dev';
+
 export interface WorkerApiConfig {
   baseUrl?: string;
   timeoutMs?: number;
@@ -30,7 +32,7 @@ export class WorkerApiClient {
     this.baseUrl =
       config.baseUrl ??
       (import.meta as any).env?.VITE_WORKER_API_URL ??
-      (typeof window !== 'undefined' && window.location.hostname === 'localhost' ? '' : '');
+      (typeof window !== 'undefined' && window.location.hostname === 'localhost' ? '' : CANONICAL_WORKER_API_URL);
     this.timeoutMs = config.timeoutMs ?? 20000;
   }
 
@@ -76,10 +78,22 @@ export class WorkerApiClient {
       throw new Error('Input text cannot be empty.');
     }
 
+    if (!this.baseUrl && options.disallowLocalFallback) {
+      throw new Error('Cloudflare Worker API endpoint is not configured. Please set VITE_WORKER_API_URL or provide a valid endpoint.');
+    }
+
     if (this.baseUrl) {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), this.timeoutMs);
       const clientStart = performance.now();
+
+      if (options.signal) {
+        if (options.signal.aborted) {
+          controller.abort();
+        } else {
+          options.signal.addEventListener('abort', () => controller.abort(), { once: true });
+        }
+      }
 
       try {
         const res = await fetch(`${this.baseUrl}/api/humanize`, {
@@ -126,7 +140,12 @@ export class WorkerApiClient {
         return this.adaptWorkerResponse(data, trimmed, options.mode, clientRoundtripMs);
       } catch (err: any) {
         clearTimeout(timeoutId);
-        if (err.name === 'AbortError') {
+        if (err.name === 'AbortError' || controller.signal.aborted) {
+          if (options.signal?.aborted) {
+            const cancelErr = new Error('Cloud humanization was cancelled.');
+            cancelErr.name = 'AbortError';
+            throw cancelErr;
+          }
           throw new Error('Cloudflare Workers AI request timed out. Please try again or use the offline Local Engine.');
         }
         // If network failed to reach remote worker, alert user or gracefully fallback
