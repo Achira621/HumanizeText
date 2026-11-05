@@ -34,7 +34,7 @@ describe('HumanizeText Detector V2.2.7: Pilot Study & Intake Validation Test Sui
       expect(FROZEN_DETECTOR_CORE_SHA256).toBeDefined();
       expect(typeof computeAiScore).toBe('function');
       const sc = computeAiScore('Pilot study baseline validation text.');
-      expect(sc.aiProbability).toBe(0.26);
+      expect(sc.aiProbability).toBe(0.18);
       expect(sc.sampleSufficiency).toBe('insufficient');
       expect(sc.wordCount).toBe(5);
     });

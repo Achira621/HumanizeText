@@ -262,6 +262,10 @@ export interface AiAnalysisResult {
   sampleSufficiency: 'insufficient' | 'limited' | 'sufficient';
   uncertaintyMargin: number;
   wordCount: number;
+  evidenceStrength: 'strong' | 'moderate' | 'weak' | 'insufficient';
+  uncertaintyReason: string | null;
+  classification: 'likely-human' | 'inconclusive' | 'likely-ai';
+  featureCoverage: Record<string, boolean>;
 }
 
 export function computeAiScore(text: string): AiAnalysisResult {
@@ -386,20 +390,49 @@ export function computeAiScore(text: string): AiAnalysisResult {
     calibratedAi = Math.max(calibratedAi, 0.60);
   } else if (highConfidenceHits >= 1 && densityPer100 >= 1.2) {
     calibratedAi = Math.max(calibratedAi, 0.52);
-  } else if (keywordHits === 0) {
-    if (text.includes("I ") || text.includes("I'd") || text.includes("I'm") || text.includes("my ")) {
-      calibratedAi = Math.min(calibratedAi, 0.16);
-    } else if (vocab.typeTokenRatio > 0.60) {
-      calibratedAi = Math.min(calibratedAi, 0.16);
-    } else {
-      calibratedAi = Math.min(calibratedAi, 0.20);
+  }
+
+  // Contextual adjustment for keyword-clean text:
+  // First-person voice and high lexical diversity provide a smooth, continuous discount
+  // ONLY if supported by organic human sentence variation (coeffOfVariation >= 0.35).
+  // Under NO circumstances does it impose an overriding hard ceiling.
+  if (keywordHits === 0) {
+    const hasFirstPerson = /\b(?:I|I'd|I'm|I've|my|mine|myself|we|our|ours)\b/i.test(text);
+    if (burst.coeffOfVariation >= 0.35) {
+      let organicDiscount = 0;
+      if (hasFirstPerson) {
+        organicDiscount += Math.min(0.04, (burst.coeffOfVariation - 0.30) * 0.15);
+      }
+      if (vocab.typeTokenRatio > 0.60) {
+        organicDiscount += Math.min(0.04, (vocab.typeTokenRatio - 0.55) * 0.20);
+      }
+      calibratedAi = Math.max(0.05, calibratedAi - organicDiscount);
     }
   }
 
-  // If text exhibits strong human burstiness & diversity with zero high-confidence AI clichés,
-  // do not let secondary vocabulary penalize it
-  if (burst.coeffOfVariation >= 0.40 && highConfidenceHits === 0 && densityPer100 < 2.0) {
-    calibratedAi = Math.min(calibratedAi, 0.24);
+  // Smooth continuous burstiness calibration:
+  // High organic burstiness with zero high-confidence clichés applies a continuous discount rather than a hard cap
+  if (burst.coeffOfVariation >= 0.45 && highConfidenceHits === 0 && densityPer100 < 1.0) {
+    const burstinessBonus = Math.min(0.06, (burst.coeffOfVariation - 0.40) * 0.20);
+    calibratedAi = Math.max(0.05, calibratedAi - burstinessBonus);
+  }
+
+  // Structural AI signal preservation:
+  // When an AI passage avoids cliché keywords but exhibits multiple synthetic structural indicators
+  // (low burstiness, high length uniformity, repetitive consecutive transitions, low opening diversity),
+  // preserve and elevate that structural evidence instead of defaulting to human.
+  const structuralAiMarkers = [
+    burst.coeffOfVariation < 0.25,
+    consecutivePattern > 0.65,
+    openingDiv < 0.50,
+    burst.uniformityRatio > 0.65,
+    passiveDensity > 0.35,
+  ].filter(Boolean).length;
+
+  if (structuralAiMarkers >= 4 && highConfidenceHits === 0 && wordCount >= 50) {
+    calibratedAi = Math.max(calibratedAi, 0.55 + (structuralAiMarkers - 4) * 0.08);
+  } else if (structuralAiMarkers >= 3 && highConfidenceHits === 0 && wordCount >= 60) {
+    calibratedAi = Math.max(calibratedAi, 0.46);
   }
 
   // Technical normative specification discount: RFC normative words & protocol symbols
@@ -407,25 +440,64 @@ export function computeAiScore(text: string): AiAnalysisResult {
   const technicalTerms = text.match(/\b(?:TCP|UDP|IP|HTTP|HTTPS|DNS|RFC|SQL|API|SDK|p99|latency|socket|buffer|deadlock|half-duplex|mutex)\b/gi) || [];
   if (hasRfcNormative || technicalTerms.length >= 2) {
     if (highConfidenceHits === 0) {
-      calibratedAi = Math.max(0.04, calibratedAi - 0.20);
+      calibratedAi = Math.max(0.05, calibratedAi - 0.20);
     } else if (highConfidenceHits === 1 && densityPer100 < 1.0) {
-      calibratedAi = Math.max(0.04, calibratedAi - 0.10);
+      calibratedAi = Math.max(0.05, calibratedAi - 0.10);
     }
   }
 
+  // Clean separation of score, confidence, and sample sufficiency:
+  // Do NOT modify calibratedAi to represent uncertainty.
   let sampleSufficiency: 'insufficient' | 'limited' | 'sufficient' = 'sufficient';
-  let uncertaintyMargin = 0.08;
+  let uncertaintyMargin = 0.06;
+  let evidenceStrength: 'strong' | 'moderate' | 'weak' | 'insufficient' = 'strong';
+  let uncertaintyReason: string | null = null;
 
   if (wordCount < 35) {
     sampleSufficiency = 'insufficient';
     uncertaintyMargin = 0.28;
-    calibratedAi = calibratedAi * 0.70 + 0.15;
+    evidenceStrength = 'insufficient';
+    uncertaintyReason = 'Sample contains fewer than 35 words; insufficient text for reliable stylometric analysis';
   } else if (wordCount < 50) {
     sampleSufficiency = 'limited';
     uncertaintyMargin = 0.16;
+    evidenceStrength = 'weak';
+    uncertaintyReason = 'Sample contains 35-49 words; stylometric variance estimates have limited confidence';
+  } else if (wordCount < 100) {
+    sampleSufficiency = 'sufficient';
+    uncertaintyMargin = 0.10;
+    evidenceStrength = 'moderate';
+    uncertaintyReason = null;
+  } else {
+    sampleSufficiency = 'sufficient';
+    uncertaintyMargin = 0.06;
+    evidenceStrength = 'strong';
+    uncertaintyReason = null;
   }
 
-  const aiProbability = Math.max(0.02, Math.min(0.98, Math.round(calibratedAi * 100) / 100));
+  const aiProbability = Math.max(0.05, Math.min(0.98, Math.round(calibratedAi * 100) / 100));
+
+  let classification: 'likely-human' | 'inconclusive' | 'likely-ai';
+  if (sampleSufficiency === 'insufficient') {
+    classification = 'inconclusive';
+  } else if (aiProbability >= 0.65) {
+    classification = 'likely-ai';
+  } else if (aiProbability <= 0.35) {
+    classification = 'likely-human';
+  } else {
+    classification = 'inconclusive';
+  }
+
+  const featureCoverage: Record<string, boolean> = {
+    keyword: true,
+    burstiness: sentences.length >= 2,
+    vocabulary: words.length >= 15,
+    opening: sentences.length >= 3,
+    paragraph: text.includes('\n') && wordCount >= 60,
+    consecutive: sentences.length >= 4,
+    passive: sentences.length >= 2,
+    clause: sentences.length >= 2,
+  };
 
   const perplexityScore = Math.round(
     Math.max(5, Math.min(98, 
@@ -465,5 +537,9 @@ export function computeAiScore(text: string): AiAnalysisResult {
     sampleSufficiency,
     uncertaintyMargin,
     wordCount,
+    evidenceStrength,
+    uncertaintyReason,
+    classification,
+    featureCoverage,
   };
 }

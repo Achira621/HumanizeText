@@ -65,14 +65,17 @@ export function executeDetectorEngine(
   if (engineId === 'production_default') {
     const baseline = computeAiScore(text);
     const score = Number(baseline.aiProbability.toFixed(3));
+    const isAbstained = baseline.sampleSufficiency === 'insufficient';
+    const verdict: 'ai' | 'human' | 'mixed' | 'abstained' | 'inconclusive' =
+      isAbstained ? 'inconclusive' : score >= 0.50 ? 'ai' : 'human';
     return {
       engineId: 'production_default',
       isProductionDefault: true,
       score,
       scoreLabel: 'ai_probability',
-      verdict: score >= 0.50 ? 'ai' : 'human',
-      isAbstained: false,
-      abstentionReason: null,
+      verdict,
+      isAbstained,
+      abstentionReason: isAbstained ? baseline.uncertaintyReason : null,
       disclaimer: 'Stable production baseline heuristic.',
     };
   }

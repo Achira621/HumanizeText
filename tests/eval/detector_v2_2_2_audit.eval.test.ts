@@ -82,7 +82,7 @@ describe('Detector V2.2.2 Independent Metric Audit & Integrity Test Suite', () =
     expect(HISTORICAL_V2_2_CORE_SHA256).toBeDefined();
     expect(typeof computeAiScore).toBe('function');
     const smokeScore = computeAiScore('Deterministic holdout audit input.');
-    expect(smokeScore.aiProbability).toBe(0.26);
+    expect(smokeScore.aiProbability).toBe(0.18);
     expect(smokeScore.sampleSufficiency).toBe('insufficient');
     expect(smokeScore.wordCount).toBe(4);
 
@@ -129,18 +129,18 @@ describe('Detector V2.2.2 Independent Metric Audit & Integrity Test Suite', () =
     const metrics = computeAuditMetrics(scored, 0.5);
 
     expect(metrics.total).toBe(100);
-    expect(metrics.tp).toBe(12);
+    expect(metrics.tp).toBe(13);
     expect(metrics.fp).toBe(3);
     expect(metrics.tn).toBe(47);
-    expect(metrics.fn).toBe(38);
+    expect(metrics.fn).toBe(37);
 
-    expect(metrics.precision).toBe(0.8);
-    expect(metrics.recall).toBe(0.24);
+    expect(metrics.precision).toBe(0.813);
+    expect(metrics.recall).toBe(0.26);
     expect(metrics.specificity).toBe(0.94);
     expect(metrics.fpr).toBe(0.06);
-    expect(metrics.fnr).toBe(0.76);
-    expect(metrics.balancedAccuracy).toBe(0.59);
-    expect(metrics.meanSquaredDistance).toBe(0.2852);
+    expect(metrics.fnr).toBe(0.74);
+    expect(metrics.balancedAccuracy).toBe(0.60);
+    expect(metrics.meanSquaredDistance).toBe(0.2584);
   });
 
   it('confirms the 3 human false positives and their exact failure modes', () => {
