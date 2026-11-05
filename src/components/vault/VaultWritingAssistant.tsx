@@ -198,28 +198,21 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
 
   // Execute Humanization / Paraphrasing (Local or Cloud)
   const handleRunAssistance = async () => {
-    // Zero-knowledge security guard: Cloud mode requires explicit text selection
-    if (assistanceEngine === 'cloud') {
-      if (!selectedRange || !selectedRange.text.trim()) {
-        setApiError({
-          message: 'Zero-Knowledge Security Guard: Cloud humanization requires highlighting a specific passage in the decrypted document editor first. The full encrypted document cannot be submitted blindly.',
-        });
-        return;
-      }
-      if (!cloudConsentConfirmed) {
-        setApiError({
-          message: 'Explicit user authorization is required: Please review and check the cloud processing consent before submitting.',
-        });
-        return;
-      }
+    const hasSelection = Boolean(selectedRange && selectedRange.text.trim());
+    const targetText = hasSelection ? selectedRange!.text.trim() : content.trim();
+
+    if (!targetText) {
+      setApiError({
+        message: 'Editor is empty. Please enter or select text in the document editor to begin.',
+      });
+      return;
     }
 
-    const targetText = selectedRange && selectedRange.text.trim()
-      ? selectedRange.text
-      : content;
-
-    if (!targetText.trim()) {
-      setApiError({ message: 'Input text is empty. Type or select text to begin.' });
+    // Require explicit user confirmation for cloud processing
+    if (assistanceEngine === 'cloud' && !cloudConsentConfirmed) {
+      setApiError({
+        message: 'Authorization required: Please check the authorization box above to confirm cloud processing.',
+      });
       return;
     }
 
@@ -280,7 +273,7 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
           modelUsed: res.engineName || 'Cloudflare Workers AI (@cf/qwen/qwen3-30b-a3b-fp8)',
           latencyMs: elapsedMs,
           invariants: res.invariants,
-          selection: { ...selectedRange! },
+          selection: hasSelection ? { ...selectedRange! } : null,
         });
 
         // Reset per-action consent after execution
@@ -870,15 +863,25 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
                     </p>
                   </div>
                 ) : (
-                  <div className="mt-1 text-[11px] text-[var(--text-muted)]">
-                    {assistanceEngine === 'local' ? (
-                      <span>Entire document will be processed (or highlight text in the editor to target a passage).</span>
-                    ) : (
-                      <span className="text-amber-600 dark:text-amber-400 font-medium flex items-center space-x-1">
-                        <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
-                        <span>Highlight text in the editor to enable Cloud Humanization.</span>
-                      </span>
-                    )}
+                  <div className="mt-1 text-[11px] text-[var(--text-muted)] flex items-center justify-between">
+                    <span>Entire document will be processed ({wordsCount} words).</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (textareaRef.current) {
+                          textareaRef.current.focus();
+                          textareaRef.current.select();
+                          setSelectedRange({
+                            start: 0,
+                            end: content.length,
+                            text: content,
+                          });
+                        }
+                      }}
+                      className="text-[10px] font-semibold text-[var(--accent)] hover:underline"
+                    >
+                      Select All in Editor
+                    </button>
                   </div>
                 )}
               </div>
@@ -936,8 +939,9 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
                   <ul className="mt-1.5 space-y-1 text-[10px] text-[var(--text-secondary)] list-disc pl-4">
                     <li>Your document encryption key, password, IV, and title NEVER leave your browser.</li>
                     <li>
-                      Only the <strong>explicitly highlighted passage</strong> will be transmitted over TLS to Cloudflare
-                      Workers AI.
+                      {selectedRange && selectedRange.text.trim()
+                        ? `Only the explicitly highlighted passage (${selectedRange.text.split(/\s+/).filter(Boolean).length} words) will be transmitted over TLS to Cloudflare Workers AI.`
+                        : `The document text (${wordsCount} words) will be transmitted over TLS to Cloudflare Workers AI (or highlight text in the editor to send only a specific passage).`}
                     </li>
                     <li>Zero server retention: In-memory inference only; no logs, databases, or training storage.</li>
                   </ul>
@@ -952,7 +956,7 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
                       }}
                       className="mt-0.5 rounded border-[var(--border-subtle)] text-[var(--accent)] focus:ring-[var(--accent)]"
                     />
-                    <span>I authorize transmitting only this selected passage to Cloudflare Workers AI.</span>
+                    <span>{selectedRange && selectedRange.text.trim() ? 'I authorize transmitting only this selected passage to Cloudflare Workers AI.' : 'I authorize transmitting this document content to Cloudflare Workers AI.'}</span>
                   </label>
                 </div>
               )}
@@ -1018,14 +1022,11 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
                 <button
                   type="button"
                   onClick={handleRunAssistance}
-                  disabled={
-                    isProcessing ||
-                    (assistanceEngine === 'cloud' && (!selectedRange || !selectedRange.text.trim() || !cloudConsentConfirmed))
-                  }
-                  className={`flex flex-1 items-center justify-center space-x-2 rounded-xl py-2.5 text-xs font-bold shadow-xs transition-all disabled:opacity-40 disabled:cursor-not-allowed ${
+                  disabled={isProcessing}
+                  className={`flex flex-1 items-center justify-center space-x-2 rounded-xl py-2.5 text-xs font-bold shadow-xs transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${
                     assistanceEngine === 'cloud'
-                      ? 'bg-purple-600 text-white hover:bg-purple-700'
-                      : 'bg-[var(--accent)] text-[var(--accent-contrast)] hover:bg-[var(--accent-hover)]'
+                      ? 'bg-purple-600 text-white hover:bg-purple-700 active:scale-[0.99]'
+                      : 'bg-[var(--accent)] text-[var(--accent-contrast)] hover:bg-[var(--accent-hover)] active:scale-[0.99]'
                   }`}
                 >
                   {isProcessing ? (
@@ -1042,7 +1043,9 @@ export const VaultWritingAssistant: React.FC<VaultWritingAssistantProps> = ({
                       {assistanceEngine === 'cloud' ? <Cloud className="h-4 w-4" /> : <Sparkles className="h-4 w-4" />}
                       <span>
                         {assistanceEngine === 'cloud'
-                          ? 'Authorize & Humanize Selection'
+                          ? selectedRange && selectedRange.text.trim()
+                            ? 'Authorize & Humanize Selection'
+                            : 'Authorize & Humanize Document'
                           : selectedRange && selectedRange.text.trim()
                           ? 'Paraphrase Selection'
                           : 'Paraphrase Document'}
