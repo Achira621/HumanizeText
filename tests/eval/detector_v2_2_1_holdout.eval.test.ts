@@ -77,7 +77,7 @@ describe('HumanizeText Detector V2.2.1 Independent Fresh Holdout Validation', ()
     expect(HISTORICAL_V2_2_CORE_SHA256).toBeDefined();
     expect(typeof computeAiScore).toBe('function');
     const smokeScore = computeAiScore('Deterministic holdout baseline verification text.');
-    expect(smokeScore.aiProbability).toBe(0.26);
+    expect(smokeScore.aiProbability).toBe(0.18);
     expect(smokeScore.sampleSufficiency).toBe('insufficient');
     expect(smokeScore.uncertaintyMargin).toBe(0.28);
     expect(smokeScore.wordCount).toBe(5);
@@ -85,7 +85,7 @@ describe('HumanizeText Detector V2.2.1 Independent Fresh Holdout Validation', ()
     // Verify deterministic anchor predictions on key holdout samples
     const sampleHuman = dataset[0]; // Darwin
     const resHuman = computeAiScore(sampleHuman.text);
-    expect(resHuman.aiProbability).toBe(0.16);
+    expect(resHuman.aiProbability).toBe(0.20);
     expect(resHuman.sampleSufficiency).toBe('limited');
 
     const sampleAi = dataset.find(d => d.id === 'holdout_051_ai_academic_tapestry');
@@ -120,16 +120,16 @@ describe('HumanizeText Detector V2.2.1 Independent Fresh Holdout Validation', ()
 
     // Empirical counts on frozen candidate
     expect(metrics.total).toBe(100);
-    expect(metrics.tp).toBe(12); // 12 of 50 AI detected
+    expect(metrics.tp).toBe(13); // 13 of 50 AI detected (improved after removing 0.16 clamp)
     expect(metrics.fp).toBe(3);  // 3 false positives (Russell, Fed report, FTC statement)
     expect(metrics.tn).toBe(47); // 47 of 50 human identified
-    expect(metrics.fn).toBe(38); // 38 AI missed without clichés
-    expect(metrics.precision).toBe(0.8); // 12 / (12 + 3)
-    expect(metrics.recall).toBe(0.24);    // 12 / 50
+    expect(metrics.fn).toBe(37); // 37 AI missed without clichés
+    expect(metrics.precision).toBeCloseTo(0.813, 2); // 13 / (13 + 3)
+    expect(metrics.recall).toBe(0.26);    // 13 / 50
     expect(metrics.specificity).toBe(0.94); // 47 / 50
     expect(metrics.falsePositiveRate).toBe(0.06); // 3 / 50
-    expect(metrics.falseNegativeRate).toBe(0.76); // 38 / 50
-    expect(metrics.balancedAccuracy).toBe(0.59);
+    expect(metrics.falseNegativeRate).toBe(0.74); // 37 / 50
+    expect(metrics.balancedAccuracy).toBe(0.60);
   });
 
   it('stratifies holdout binary performance by passage length (short <50w, medium 50-100w, long >100w)', () => {
@@ -160,9 +160,9 @@ describe('HumanizeText Detector V2.2.1 Independent Fresh Holdout Validation', ()
     expect(lengthMetrics['medium'].tn).toBe(23);
 
     expect(lengthMetrics['long'].total).toBe(26);
-    expect(lengthMetrics['long'].tp).toBe(5);
+    expect(lengthMetrics['long'].tp).toBe(6);
     expect(lengthMetrics['long'].fp).toBe(0);
-    expect(lengthMetrics['long'].fn).toBe(10);
+    expect(lengthMetrics['long'].fn).toBe(9);
     expect(lengthMetrics['long'].tn).toBe(11);
   });
 
@@ -193,9 +193,9 @@ describe('HumanizeText Detector V2.2.1 Independent Fresh Holdout Validation', ()
     expect(genreMetrics['corporate'].fp).toBe(2);
     expect(genreMetrics['conversational'].tp).toBe(1);
     expect(genreMetrics['conversational'].fp).toBe(0);
-    expect(genreMetrics['creative'].tp).toBe(0);
+    expect(genreMetrics['creative'].tp).toBe(1);
     expect(genreMetrics['creative'].fp).toBe(0);
-    expect(genreMetrics['creative'].precision).toBeNull();
+    expect(genreMetrics['creative'].precision).toBe(1.0);
   });
 
   it('measures continuous score distributions for collaborative and mixed cohorts (N=20)', () => {

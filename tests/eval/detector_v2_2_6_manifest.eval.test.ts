@@ -238,7 +238,7 @@ describe('HumanizeText Detector V2.2.6: Modern Model Taxonomy & Methodology Vali
       expect(HISTORICAL_V2_2_CORE_SHA256).toBeDefined();
       expect(typeof computeAiScore).toBe('function');
       const sc = computeAiScore('Deterministic manifest baseline validation.');
-      expect(sc.aiProbability).toBe(0.26);
+      expect(sc.aiProbability).toBe(0.18);
       expect(sc.sampleSufficiency).toBe('insufficient');
       expect(sc.wordCount).toBe(4);
     });

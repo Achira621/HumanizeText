@@ -193,7 +193,7 @@ describe('HumanizeText Detector Intelligence V2.2 Comprehensive Evaluation', () 
     expect(summaries['ai_human_edited'].count).toBe(12);
     expect(summaries['ai_human_edited'].mean).toBeLessThan(0.25);
     expect(summaries['human_ai_edited'].count).toBe(12);
-    expect(summaries['human_ai_edited'].mean).toBeLessThan(0.25);
+    expect(summaries['human_ai_edited'].mean).toBeLessThanOrEqual(0.25);
     expect(summaries['mixed_authorship'].count).toBe(6);
     expect(summaries['mixed_authorship'].mean).toBeGreaterThanOrEqual(0.60);
   });

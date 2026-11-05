@@ -111,10 +111,15 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
       const roundedAi = Math.max(0.02, Math.min(0.98, Math.round(blendedAi * 100) / 100));
       const roundedHuman = Math.round((1 - roundedAi) * 100) / 100;
 
-      const classification =
+      let classification: 'likely-human' | 'inconclusive' | 'likely-ai' =
         roundedAi > 0.60 ? 'likely-ai' : roundedAi < 0.30 ? 'likely-human' : 'inconclusive';
-      const confidence =
+      let confidence: 'low' | 'moderate' | 'high' =
         roundedAi > 0.80 || roundedAi < 0.15 ? 'high' : roundedAi >= 0.35 && roundedAi <= 0.55 ? 'low' : 'moderate';
+
+      if (fullDocScore.sampleSufficiency === 'insufficient') {
+        classification = 'inconclusive';
+        confidence = 'low';
+      }
 
       const result: DetectionResult = {
         id: `loc_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
